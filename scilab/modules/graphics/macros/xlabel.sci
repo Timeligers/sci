@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function xlabel(varargin)
+function varargout = xlabel(varargin)
     // XLABEL function
     // Label x
 
@@ -17,6 +17,17 @@ function xlabel(varargin)
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "xlabel", 1));
     end
 
+    if argn(1) > 1 then
+        msg = gettext("%s: Wrong number of input argument(s): at most %d expected.\n")
+        error(msprintf(msg, "xlabel", 1));
+    end
+
     varargin = list("x_label",varargin(1:$));
-    TitleLabel(varargin(:));
+
+    h = TitleLabel(varargin(:));
+
+    if argn(1) == 1
+        varargout(1) = h
+    end
+
 endfunction

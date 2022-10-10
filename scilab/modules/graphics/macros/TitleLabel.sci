@@ -10,7 +10,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function TitleLabel(varargin)
+function current_titlelabel = TitleLabel(varargin)
     // TITLELABEL function
     // This internal is used by the functions title, xlabel, ylabel, zlabel
 

@@ -25,6 +25,7 @@
         <synopsis>
             fchamp(f, t, xr, yr, [arfact, rect, strf])
             fchamp(f, t, xr, yr, &lt;opt_args&gt;)
+            h = fchamp(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -103,6 +104,14 @@
                 <listitem>
                     <para>
                         Optional arguments, see <function>champ</function>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Champ entity. Use <literal>h</literal> to modify its properties
+                      For a list of properties, see <link linkend="champ_properties">champ_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

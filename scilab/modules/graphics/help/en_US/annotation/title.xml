@@ -29,6 +29,7 @@
             title(text, property_name, property_value,...)
             title(property_name, property_value,...)
             title(axes_handle,...)
+            h = title(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -211,7 +212,15 @@
                     </para>
                 </listitem>
             </varlistentry>
-        </variablelist>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Label entity. Use <literal>h</literal> to modify its properties.
+                     For a list of properties, see <link linkend="label_properties">label_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+      </variablelist>
     </refsection>
     <refsection>
         <title>Description</title>

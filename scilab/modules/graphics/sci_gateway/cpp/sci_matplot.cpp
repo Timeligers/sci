@@ -41,6 +41,8 @@ extern "C"
 #include "Scierror.h"
 #include "Matplot.h"
 #include "os_string.h"
+#include "CurrentObject.h"
+#include "HandleManagement.h"
 }
 
 /*--------------------------------------------------------------------------*/
@@ -74,6 +76,12 @@ types::Function::ReturnValue sci_matplot(types::typed_list &in, types::optional_
     if (in.size() > 5)
     {
         Scierror(999, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), "Matplot", 1, 5);
+        return types::Function::Error;
+    }
+
+    if (_iRetCount > 1)
+    {
+        Scierror(78, _("%s: Wrong number of output arguments: At most %d expected.\n"), "Matplot", 1);
         return types::Function::Error;
     }
 
@@ -419,6 +427,11 @@ types::Function::ReturnValue sci_matplot(types::typed_list &in, types::optional_
     if (axesflag)
     {
         delete[] axesflag;
+    }
+
+    if (_iRetCount == 1)
+    {
+        out.push_back(new types::GraphicHandle(getHandle(getCurrentObject())));
     }
 
     return types::Function::OK;

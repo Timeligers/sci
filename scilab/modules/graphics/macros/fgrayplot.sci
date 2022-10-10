@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function []=fgrayplot(x,y,f,strf,rect,nax,void)
+function varargout = fgrayplot(x,y,f,strf,rect,nax,void)
     //[]=fgrayplot(x,y,f)
     // Trace en niveau de gris une surface
     // z=f(x,y) d\'efinie par un external f ( ex macro [y]=f(x))
@@ -33,11 +33,13 @@ function []=fgrayplot(x,y,f,strf,rect,nax,void)
         return
     end
 
-
     if rhs<3,
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "fgrayplot", 3));
     end
 
+    if rhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "fgrayplot", 1));
+    end
 
     opts="";
     if exists("style","local")==1 then opts=[opts,"style=style"],end
@@ -50,5 +52,10 @@ function []=fgrayplot(x,y,f,strf,rect,nax,void)
         opts = ""
     end
 
-    execstr("grayplot(x,y,feval(x,y,f),"+strcat(opts,",")+")")
-endfunction
+    execstr("e = grayplot(x,y,feval(x,y,f),"+strcat(opts,",")+")")
+
+    if lhs == 1
+        varargout(1) = e;
+    end
+
+ endfunction

@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xarc(x,y,w,h,a1,a2)</synopsis>
+        <synopsis>
+          xarc(x,y,w,h,a1,a2)
+          hdl = xarc(...)
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -35,6 +38,14 @@
                 <term>a1,a2</term>
                 <listitem>
                     <para>real values defining a sector.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Arc entity. Use <literal>h</literal> to modify its properties.
+                     For a list of properties, see <link linkend="arc_properties">arc_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

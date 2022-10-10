@@ -24,6 +24,7 @@
         <title>Syntax</title>
         <synopsis>grayplot(x,y,z,[strf,rect,nax])
             grayplot(x,y,z,&lt;opt_args&gt;)
+            h = grayplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -62,6 +63,14 @@
                 <listitem>
                     <para>
                         see <literal>plot2d</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Grayplot entity. Use <literal>h</literal> to modify its properties
+                      For a list of properties, see <link linkend="grayplot_properties">grayplot_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

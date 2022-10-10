@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function []=errbar(x,y,em,ep)
+function varargout = errbar(x,y,em,ep)
 
     // Rajoute des barres d'erreur sur un graphique 2D
     // x et y decrivent les courbes (voir plot2d)
@@ -37,13 +37,20 @@ function []=errbar(x,y,em,ep)
         end
     end
 
-    show_window();
+    if rhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "errbar", 1));
+    end
+
     [n1,n2] = size(x);
     y1      = matrix(y-em,1,n1*n2);
     x1      = matrix(x,1,n1*n2);
     y2      = matrix(y+ep,1,n1*n2);
-    xsegs([x1;x1],[y1;y2]);
+    e = xsegs([x1;x1],[y1;y2]);
     my_axe  = gca();
     my_axe.clip_state = "clipgrf";
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 
 endfunction

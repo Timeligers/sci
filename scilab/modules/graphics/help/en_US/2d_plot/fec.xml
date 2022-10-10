@@ -20,8 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>fec(x,y,triangles,func,&lt;opt_args&gt;)
+        <synopsis>
+            fec(x,y,triangles,func,&lt;opt_args&gt;)
             fec(x,y,triangles,func,[strf,leg,rect,nax,zminmax,colminmax,colout,mesh])
+            h = fec(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -97,7 +99,16 @@
                     <para>boolean scalar, default value %f (must be true if you want also display the mesh)</para>
                 </listitem>
             </varlistentry>
-        </variablelist>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Fec entity. Use <literal>h</literal> to modify its properties
+                      For a list of properties, see <link linkend="fec_properties">fec_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+
+      </variablelist>
     </refsection>
     <refsection>
         <title>Description</title>

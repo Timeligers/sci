@@ -13,7 +13,7 @@
 // along with this program.
 
 
-function hist3d(f,theta,alpha,leg,flags,ebox)
+function varargout = hist3d(f,theta,alpha,leg,flags,ebox)
     //!
     nep = 8   // bars half widths = 1/nep
 
@@ -24,6 +24,11 @@ function hist3d(f,theta,alpha,leg,flags,ebox)
 
     def = list(theta,alpha,leg,flags);
     [lhs,rhs]=argn(0)
+
+    if lhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "hist3d", 1));
+    end
+
     if rhs<=0 then  //demo
         towns = ["Agen" "Bastia" "Chamonix" "Cognac" "Hyères" "Le Mans" "Le Puy" ..
         "Lille" "Lorient" "Mende" ]
@@ -45,7 +50,7 @@ function hist3d(f,theta,alpha,leg,flags,ebox)
         ];
         initDrawingMode = gcf().immediate_drawing;
         gcf().immediate_drawing = "off";
-        hist3d(T)
+        e = hist3d(T)
         ax = gca()
         ax.y_ticks = tlist(["ticks" "locations" "labels"], (0:12)+0.5, months)
         ax.x_ticks = tlist(["ticks" "locations" "labels"], (0:9)+0.5, towns)
@@ -56,6 +61,11 @@ function hist3d(f,theta,alpha,leg,flags,ebox)
         ax.children.color_mode = color("violet")
         // ax.children.color_flag = 1
         gcf().immediate_drawing = initDrawingMode;
+
+        if lhs == 1
+            varargout(1) = e;
+        end
+
         return
     end
 
@@ -107,7 +117,12 @@ function hist3d(f,theta,alpha,leg,flags,ebox)
     zz(b) = f(b) - zz(b)
 
     if ~isdef("ebox","local") then ebox = bnds; else "ebox = ebox"; end;
-    plot3d(xx,yy,zz,def(1),def(2),def(3),def(4),ebox)
+    e = plot3d(xx,yy,zz,def(1),def(2),def(3),def(4),ebox)
+
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 
 endfunction
 

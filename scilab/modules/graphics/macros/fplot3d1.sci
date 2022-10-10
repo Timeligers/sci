@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function []=fplot3d1(xr,yr,f,theta,alpha,leg,flag,ebox)
+function varargout = fplot3d1(xr,yr,f,theta,alpha,leg,flag,ebox)
     // Trace la surface d\'efinie par un external f ( ex macro [z]=f(x,y))
     // on calcule d'abord f sur la grille definie par xr.yr
     // xr et yr sont des vecteurs implicites donnant les
@@ -33,7 +33,11 @@ function []=fplot3d1(xr,yr,f,theta,alpha,leg,flag,ebox)
 
     if rhs<3 then
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "fplot3d1", 3));
-    end;
+    end
+
+    if rhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "fplot3d1", 1));
+    end
 
     opts=[]
     if exists("theta","local")==1 then opts=[opts,"theta=theta"],end
@@ -43,5 +47,9 @@ function []=fplot3d1(xr,yr,f,theta,alpha,leg,flag,ebox)
     if exists("ebox" ,"local")==1 then opts=[opts,"ebox=ebox"]  ,end
     if opts==[], opts = ""; end
 
-    execstr("plot3d1(xr,yr,feval(xr,yr,f),"+strcat(opts,",")+")")
+    execstr("e = plot3d1(xr,yr,feval(xr,yr,f),"+strcat(opts,",")+")")
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 endfunction

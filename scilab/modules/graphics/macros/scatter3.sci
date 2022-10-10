@@ -10,7 +10,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function polyLine = scatter3(varargin)
+function varargout = scatter3(varargin)
 
     warnobsolete("scatter3d()", "6.1.x")
 
@@ -24,6 +24,9 @@ function polyLine = scatter3(varargin)
         y = z.*sin(z);
         polyLine = scatter3d(x,y,z,z,z,"fill","markerEdgeColor","darkblue");
         set(gca(),"rotation_angles",[60,45])
+        if lhs
+            varargout(1) = polyLine;
+        end
         return;
     end
 
@@ -32,8 +35,7 @@ function polyLine = scatter3(varargin)
         hdle = varargin(1);
         if hdle.type == "Axes" then
             if size(varargin) < 4 then
-                warning("Not enough input arguments.")
-                return;
+                 error(msprintf(_("%s: Wrong number of input argument(s): at least %d expected.\n"),"scatter3",4));
             else
                 axesHandle = varargin(1);
                 X = varargin(2);
@@ -42,13 +44,11 @@ function polyLine = scatter3(varargin)
                 nextArgin = 5;
             end
         else
-            warning("Handle should be an Axes handle.")
-            return;
+            error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"scatter3",1,"Axis"))
         end
     else
         if size(varargin) < 3 then
-            warning("Not enough input arguments.")
-            return;
+            error(msprintf(_("%s: Wrong number of input argument(s): at least %d expected.\n"),"scatter3",3));
         else
             axesHandle = [];
             X = varargin(1);
@@ -64,22 +64,19 @@ function polyLine = scatter3(varargin)
     end
 
     if ( isempty(Z) ) then
-        if (~isvector(X) | ~isvector(Y) | size(X) ~= size(Y)) then
-            warning("X and Y must be vectors of the same length.")
-            return;
+        if (length(X) ~= length(Y)) then
+            i = type(varargin(1)) == 9;
+            error(msprintf(_("%s: Wrong value for input arguments #%d and #%d: Incompatible length.\n"),"scatter3",i+1,i+2));
         end
     else
-        if (~isvector(X) | ~isvector(Y) | ~isvector(Z) | or(size(X) ~= size(Y)) | or(size(X) ~= size(Z))) then
-            warning("X, Y and Z must be vectors of the same length.")
-            return;
+        if (or(length(X) ~= length(Y)) | or(length(X) ~= length(Z))) then
+            i = type(varargin(1)) == 9;
+            error(msprintf(_("%s: Wrong value for input arguments #%d, #%d and #%d: Incompatible length.\n"),"scatter3",i+1,i+2,i+3));
         end
     end
 
     n = length(X);
-    [S,C,thickness,markStyle,markFg,markBg,fill,scanFailed] = scatterScanVargin(varargin,nextArgin,n);
-    if (scanFailed) then
-        return;
-    end
+    [S,C,thickness,markStyle,markFg,markBg,fill] = scatterScanVargin(varargin,nextArgin,n);
 
     f = gcf();
     old_drawing_mode = f.immediate_drawing;
@@ -87,37 +84,36 @@ function polyLine = scatter3(varargin)
 
     if isempty(Z) then
         if isempty(axesHandle) then
-            plot(X,Y);
+            plot(X(:),Y(:));
         else
-            plot(axesHandle,X,Y);
+            plot(axesHandle,X(:),Y(:));
         end
         currentEntity = gce();
         polyLine = currentEntity.children;
     else
         if isempty(axesHandle) then
-            param3d(X,Y,Z);
+            polyLine = param3d(X(:),Y(:),Z(:));
         else
             set("current_axes",axesHandle)
-            param3d(X,Y,Z);
+            polyLine = param3d(X(:),Y(:),Z(:));
         end
-        polyLine = gce();
     end
 
-    if polyLine.Type <> "Polyline" then
-        warning("Handle should be a Polyline handle.");
-    else
-        scatterSetPolyline(polyLine,S,C,thickness,markStyle,markFg,markBg,fill);
+    scatterSetPolyline(polyLine,S,C,thickness,markStyle,markFg,markBg,fill);
 
-        if ~isempty(Z) then
-            set(gca(),"cube_scaling","on");
-            set(gca(),"grid",[1 1 1]);
-        end
+    if ~isempty(Z) then
+        set(gca(),"cube_scaling","on");
+        set(gca(),"grid",[1 1 1]);
     end
 
     f.immediate_drawing = old_drawing_mode;
+
+    if lhs
+        varargout(1) = polyLine;
+    end
 endfunction
 
-function [S,C,thickness,markStyle,markFg,markBg,fill,scanFailed] = scatterScanVargin(argins,nextArgin,n)
+function [S,C,thickness,markStyle,markFg,markBg,fill] = scatterScanVargin(argins,nextArgin,n)
 
     scanFailed = %F;
 
@@ -136,9 +132,8 @@ function [S,C,thickness,markStyle,markFg,markBg,fill,scanFailed] = scatterScanVa
                     end
                     nextArgin = nextArgin + 1;
                 else
-                    warning("S must be a scalar or a vector of the same length as X.");
-                    scanFailed = %T;
-                    return;
+                    msg = "%s: Wrong size for input argument #%d : A scalar or a vector of size %d ";
+                    error(msprintf(msg, "scatter3", nextArgin, n));
                 end
             end
         end
@@ -159,9 +154,11 @@ function [S,C,thickness,markStyle,markFg,markBg,fill,scanFailed] = scatterScanVa
                     C = addcolor(argins(nextArgin));
                     nextArgin = nextArgin + 1;
                 else
-                    warning("C must be a vector or a matrix of the same length as X.");
-                    scanFailed = %T;
-                    return;
+                    if isvector(argins(nextArgin))
+                        error(msprintf(_("%s: Wrong size for input argument #%d: A vector of size %d expected.\n"),"scatter3",nextArgin,n));
+                    else
+                        error(msprintf(_("%s: Wrong size for input argument #%d: A matrix of size %d x %d expected.\n"),"scatter3",nextArgin,n,3));
+                    end
                 end
                 if iscolumn(C) then
                     C = C.';
@@ -177,9 +174,7 @@ function [S,C,thickness,markStyle,markFg,markBg,fill,scanFailed] = scatterScanVa
                 elseif (n1 == n & n2 == 1) | (n1 == 1 & n2 == n) then
                     C = addcolor(name2rgb(argins(nextArgin))/255);
                     if isempty(C) then
-                        warning("Wrong color specified.");
-                        scanFailed = %T;
-                        return;
+                        error(msprintf(_("%s: Argument #%d: Wrong color specification.\n"),"scatter3",nextArgin));
                     else
                          nextArgin = nextArgin + 1;
                     end
@@ -218,23 +213,18 @@ function [S,C,thickness,markStyle,markFg,markBg,fill,scanFailed] = scatterScanVa
     while  size(argins) >= nextArgin do
         if size(argins) == nextArgin then
             warning("Incorrect number of inputs for property-value pairs.");
-            scanFailed = %T;
-            return;
+             error(msprintf(_("%s: Wrong number of input arguments: %d expected.\n"),"scatter3",nextArgin+1));
         else
             select argins(nextArgin)
             case "marker"
                 markStyle = getMarkStyle(argins(nextArgin+1));
                 if markStyle == -1 then
-                    warning(strcat([argins(nextArgin+1) " is not a valid value for property marker."]));
-                    scanFailed = %T;
-                    return;
+                     error(msprintf(_("%s: Wrong value for input argument #%d: A marker style expected.\n"),"scatter3",nextArgin+1));
                 end
             case "markerStyle"
                 markStyle = getMarkStyle(argin(nextArgin+1));
                 if markStyle == -1 then
-                    warning(strcat([argins(nextArgin+1) " is not a valid value for property markerStyle."]));
-                    scanFailed = %T;
-                    return;
+                     error(msprintf(_("%s: Wrong value for input argument #%d: A marker style expected.\n"),"scatter3",nextArgin+1));
                 end
             case "markerEdgeColor"
                 markFg = colorIndex(argins(nextArgin+1));

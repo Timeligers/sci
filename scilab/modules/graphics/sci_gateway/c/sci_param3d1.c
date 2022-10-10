@@ -73,6 +73,7 @@ int sci_param3d1(char *fname, void *pvApiCtx)
     }
 
     CheckInputArgument(pvApiCtx, 3, 8);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     if (getOptionals(pvApiCtx, fname, opts) == 0)
     {
@@ -289,7 +290,22 @@ int sci_param3d1(char *fname, void *pvApiCtx)
     {
         freeAllocatedSingleString(labels);
     }
-    AssignOutputVariable(pvApiCtx, 1) = 0;
+
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

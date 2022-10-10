@@ -25,6 +25,7 @@
         <synopsis>
             Matplot(a, [strf, rect, nax])
             Matplot(a, &lt;opt_args&gt;)
+            h = Matplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -308,6 +309,14 @@
                         is the number of subgraduations on the x (y) axis and
                         <literal>Nx</literal> (<literal>Ny</literal>) is the number of graduations on
                         the x (y) axis.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>This optional output contains a handle to a <literal>Matplot</literal> entity. For a list of
+                      properties, see <link linkend="Matplot_properties">Matplot_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

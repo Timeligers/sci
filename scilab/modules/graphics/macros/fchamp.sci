@@ -11,7 +11,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function [] = fchamp(macr_f,fch_t,fch_xr,fch_yr,arfact,rect,strf)
+function varargout = fchamp(macr_f,fch_t,fch_xr,fch_yr,arfact,rect,strf)
     //   Draw vector field in R^2,
     //   Vector field defined by:
     //   y=f(x,t,[u]), for compatibility with ode function
@@ -53,6 +53,10 @@ function [] = fchamp(macr_f,fch_t,fch_xr,fch_yr,arfact,rect,strf)
     if rhs <= 2,fch_xr=-1:0.1:1;end
     if rhs <= 3,fch_yr=-1:0.1:1;end
 
+    if lhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "fchamp", 1));
+    end
+
     opts=[]
     if exists("arfact","local")==1 then opts=[opts,"arfact=arfact"],end
     if exists("rect","local")==1 then opts=[opts,"rect=rect"],end
@@ -70,5 +74,9 @@ function [] = fchamp(macr_f,fch_t,fch_xr,fch_yr,arfact,rect,strf)
     if isempty(opts) then
         opts = "";
     end
-    execstr("champ(fch_xr,fch_yr,real(fch_v),imag(fch_v),"+strcat(opts,",")+")")
+    execstr(" e = champ(fch_xr,fch_yr,real(fch_v),imag(fch_v),"+strcat(opts,",")+")")
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 endfunction

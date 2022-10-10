@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xarcs(arcs,[style])</synopsis>
+        <synopsis>
+          xarcs(arcs,[style])
+          hdl = xarcs(...)
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -35,6 +38,16 @@
                 <term>style</term>
                 <listitem>
                     <para>row vector of size n giving the style to use.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Compound object whose children
+                      are the created Arc entities. Use <literal>h</literal> to modify properties
+                      of a specific or all Arc entities after they are created. For a list of
+                      properties, see <link linkend="arc_properties">arc_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

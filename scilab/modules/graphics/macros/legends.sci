@@ -11,7 +11,7 @@
 // along with this program.
 
 
-function legends(leg, style, opt, with_box, font_size )
+function varargout = legends(leg, style, opt, with_box, font_size )
     //
     // PURPOSE
     //    draw legends on a plot
@@ -19,11 +19,14 @@ function legends(leg, style, opt, with_box, font_size )
     //    F. Delebecque + slight modif from B. Pincon
     //  modified again by Eric Dubois and Jean-Baptiste Silvy 18/01/07
 
-    rhs = argn(2)
+    [lhs,rhs]=argn(0)
 
     if rhs < 2 then
         msg = _("%s: Wrong number of input arguments: At least %d expected.\n")
         error(msprintf(msg, "legends", 2));
+    end
+    if lhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output arguments: At most %d expected.\n"), "legends", 1));
     end
     if type(leg) ~= 10 then,
         msg = _("%s: Wrong type for input argument #%d: String array expected.\n")
@@ -210,13 +213,17 @@ function legends(leg, style, opt, with_box, font_size )
         R = [R, r]
         y = y - bbx(k,2) ;
     end
-    glue(R)
-    a = gca();
+    e = glue(R)
+    a=gca();
     a.data_bounds = [0,0;0.001,0.001];
 
     set("current_axes",old_ax),
 
     // if immediate_drawing was "on", then the figure will redraw itself.
     f.immediate_drawing = vis;
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 
 endfunction

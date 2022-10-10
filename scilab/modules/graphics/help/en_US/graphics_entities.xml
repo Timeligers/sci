@@ -357,8 +357,9 @@
 // Creates a figure in entity mode, gets its handle, displays its properties
 f = scf()
 a = f.children // the handle on the Axes child
-x = (1:10)';  plot2d(x,[x.^2 x.^1.5])
-e = a.children //Compound of 2 polylines
+x = (1:10)';
+e = plot2d(x,[x.^2 x.^1.5])
+// e is a Compound of 2 polylines
 
 p1 = e.children(1)  //the last drawn polyline properties
 p1.foreground = 5;  // change the polyline color

@@ -33,6 +33,7 @@
             surf(.., &lt;GlobalProperty&gt;)
             surf(.., colors, &lt;GlobalProperty&gt;)
             surf(axes_handle,...)
+            h = surf(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -112,6 +113,15 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Fac3d entity. Use <literal>h</literal> to modify its properties
+                      For a list of properties, see <link linkend="surface_properties">surface_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+
         </variablelist>
     </refsection>
     <refsection>

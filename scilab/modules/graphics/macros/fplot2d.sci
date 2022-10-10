@@ -1,4 +1,4 @@
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+	// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) INRIA
 // Copyright (C) 2012 - 2016 - Scilab Enterprises
 //
@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function []=fplot2d(xr,f,style,strf,leg,rect,nax,void)
+function varagout = fplot2d(xr,f,style,strf,leg,rect,nax,void)
     // 2D plot of function f : a Scilab function or the name (as a string)
     //  of a dynamically linked function.
     // Enter fplot2d() for an example.
@@ -25,6 +25,10 @@ function []=fplot2d(xr,f,style,strf,leg,rect,nax,void)
     end
 
     warnobsolete("plot()", "6.2.x")
+    if rhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "fplot2d", 1));
+    end
+
     if type(xr)=="10" then // logflag passed first
         error(msprintf(gettext("%s: Wrong size for input argument #%d: A vector expected.\n"), "fplot2d", 1));
     elseif rhs < 2 then
@@ -47,9 +51,13 @@ function []=fplot2d(xr,f,style,strf,leg,rect,nax,void)
     end
 
     if isempty(opts) then
-        plot2d(xr,feval(xr,f))
+        e = plot2d(xr,feval(xr,f))
     else
-        execstr("plot2d(xr,feval(xr,f),"+strcat(opts,",")+")")
+        execstr("e = plot2d(xr,feval(xr,f),"+strcat(opts,",")+")")
+    end
+
+    if lhs == 1
+        varargout(1) = e;
     end
 
 endfunction

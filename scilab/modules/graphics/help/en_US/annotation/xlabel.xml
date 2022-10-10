@@ -46,6 +46,10 @@
             zlabel(label, property_name, property_value,...)
             zlabel(property_name, property_value,...)
             zlabel(axes_handle,...)
+
+            h = xlabel(...)
+            h = ylabel(...)
+            h = zlabel(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -225,6 +229,14 @@
                                 This syntax can't be used in console-oriented mode.
                             </listitem>
                         </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Label entity. Use <literal>h</literal> to modify its properties.
+                     For a list of properties, see <link linkend="label_properties">label_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function ylabel(varargin)
+function varargout = ylabel(varargin)
     // YLABEL function
     // Label y
 
@@ -17,6 +17,17 @@ function ylabel(varargin)
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "ylabel", 1));
     end
 
+    if argn(1) > 1 then
+        msg = gettext("%s: Wrong number of input argument(s): at most %d expected.\n")
+        error(msprintf(msg, "ylabel", 1));
+    end
+
     varargin = list("y_label",varargin(1:$));
-    TitleLabel(varargin(:));
+
+    h = TitleLabel(varargin(:));
+
+    if argn(1) == 1
+        varargout(1) = h
+    end
 endfunction
+

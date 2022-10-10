@@ -20,8 +20,9 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>hl=legend([h,] string1,string2, ... [,pos] [,boxed])
-            hl=legend([h,] strings [,pos] [,boxed])
+        <synopsis>legend([h,] string1,string2, ... [,pos] [,boxed])
+            legend([h,] strings [,pos] [,boxed])
+            hdl = legend(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -136,10 +137,10 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>hl</term>
+                <term>hdl</term>
                 <listitem>
-                    <para>a handle, points to the Compound containing all the legend
-                        .
+                    <para>This optional output contains a handle to the created Legend entity. Use <literal>hdl</literal> to modify its properties
+                      For a list of properties, see <link linkend="legend_properties">legend_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -198,7 +199,7 @@ hl=legend(['cos(t)';'cos(2*t)';'cos(3*t)']);
             e3.line_mode='on';
             e3.mark_background=5;
 
-            hl=legend(['cos(t)';'cos(2*t)';'cos(3*t)']);
+            legend(['cos(t)';'cos(2*t)';'cos(3*t)'])
         </scilab:image>
 
     </refsection>
@@ -210,6 +211,9 @@ hl=legend(['cos(t)';'cos(2*t)';'cos(3*t)']);
             </member>
             <member>
                 <link linkend="captions">captions</link>
+            </member>
+            <member>
+                <link linkend="legend_properties">legend_properties</link>
             </member>
             <member>
                 <link linkend="polyline_properties">polyline_properties</link>

@@ -36,6 +36,7 @@
             plot2d(.., y, style, strf, leg, rect)
             plot2d(.., y, style, strf, leg, rect, nax)
             plot2d(.., y, key1=value1, key2=value2, ..)
+            h = plot2d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="arguments">

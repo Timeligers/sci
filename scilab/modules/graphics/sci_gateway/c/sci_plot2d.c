@@ -88,6 +88,7 @@ int sci_plot2d(char* fname, void *pvApiCtx)
     }
 
     CheckInputArgument(pvApiCtx, 1, 9);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     iskip = 0;
     if (getOptionals(pvApiCtx, fname, opts) == 0)
@@ -642,7 +643,21 @@ int sci_plot2d(char* fname, void *pvApiCtx)
         freeAllocatedSingleString(legend);
     }
 
-    AssignOutputVariable(pvApiCtx, 1) = 0;
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

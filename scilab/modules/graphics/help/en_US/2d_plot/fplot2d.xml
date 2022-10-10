@@ -28,6 +28,7 @@
         <synopsis>
             fplot2d(xr,f,[style,strf,leg,rect,nax])
             fplot2d(xr,f,&lt;opt_args&gt;)
+            h = fplot2d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -58,6 +59,14 @@
             </varlistentry>
             <varlistentry>
                 <term>&lt;opt_args&gt;</term>
+                <listitem>
+                    <para>
+                        see <literal>plot2d</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
                 <listitem>
                     <para>
                         see <literal>plot2d</literal>

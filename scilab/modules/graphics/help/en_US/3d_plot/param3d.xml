@@ -31,11 +31,13 @@
         <synopsis>
             param3d(x, y, z)
             param3d(x, y, z, [theta, alpha, leg, flag, ebox])
+            h = param3d(...)
             param3d   // demo
 
             param3d1(X, Y, Z)
             param3d1(X, Y, list(Z, styles))
             param3d1(.., [theta, alpha, leg, flag, ebox])
+            h = param3d1(...)
             param3d1  // demo
         </synopsis>
     </refsynopsisdiv>
@@ -231,6 +233,16 @@
                         used and assigned to <literal>gca().data_bounds</literal> when the
                         <varname>flag</varname> option is used with the <varname>type</varname>=1|3|5.
                         By default set to [0,1, 0,1, 0,1].
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Polyline entity or a Compound Entity whose children
+                      are the created Polyline objects. Use <literal>h</literal> to modify properties
+                      of a specific or all Polyline objects after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

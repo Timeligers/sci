@@ -22,7 +22,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>Matplot1(a, rect)</synopsis>
+        <synopsis>
+          Matplot1(a, rect)
+          h = Matplot1(...) 
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -40,6 +43,14 @@
                 <listitem>
                     <para>
                         <literal>[xmin, ymin, xmax, ymax]</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>This optional output contains a handle to a <literal>Matplot</literal> entity. For a list of
+                      properties, see <link linkend="Matplot_properties">Matplot_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

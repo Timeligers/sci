@@ -26,6 +26,7 @@
         <synopsis>
             xsegs(xv, yv, [style])
             xsegs(xv, yv, zv,[style])
+            h = xsegs(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -50,6 +51,14 @@
                         scalar, then current color is used. If <varname>style</varname>
                         is a vector, then <literal>style(i)</literal> gives the
                         color to use for segment <literal>i</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Segs entity. Use <literal>h</literal> to modify its properties.
+                     For a list of properties, see <link linkend="segs_properties">segs_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

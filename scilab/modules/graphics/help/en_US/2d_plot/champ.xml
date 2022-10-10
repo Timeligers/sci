@@ -30,6 +30,7 @@
             champ(x, y, fx, fy, arfact, rect)
             champ(x, y, fx, fy, arfact, rect, strf)
             champ(x, y, fx, fy, &lt;opt_args&gt;)
+            h = champ(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -105,6 +106,14 @@
                         <function>plot2d</function>. The first  character
                         <literal>x</literal> has no effect with
                         <function>champ</function>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Champ entity. Use <literal>h</literal> to modify its properties.
+                     For a list of properties, see <link linkend="champ_properties">champ_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function plot3d2(x,y,z,vect,theta,alpha,leg,flag,ebox)
+function varargout = plot3d2(x,y,z,vect,theta,alpha,leg,flag,ebox)
     // plot3d2(x,y,z,vect,T,A,leg,flags,ebox)
     // (x,y,z) description of a set of surfaces
     // to Scilab description + call to plot3d
@@ -26,6 +26,11 @@ function plot3d2(x,y,z,vect,theta,alpha,leg,flag,ebox)
     if rhs<3 then
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "plot3d2", 3))
     end
+
+    if rhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "fplot3d", 1));
+    end
+
     isvect=1
     if exists("vect","local")==0 then isvect=1 ;vect=-1,end
     if vect<>-1 then
@@ -42,6 +47,7 @@ function plot3d2(x,y,z,vect,theta,alpha,leg,flag,ebox)
     else
         [xx,yy,zz]=nf3d(x,y,z)
     end
+
 
     opts=[]
     if exists("theta","local")==1 then
@@ -65,8 +71,12 @@ function plot3d2(x,y,z,vect,theta,alpha,leg,flag,ebox)
     end
 
     if isempty(opts)
-        plot3d(xx, yy, zz);
+        e = plot3d(xx, yy, zz);
     else
-        execstr("plot3d(xx,yy,zz,"+strcat(opts,",")+")")
+        execstr("e = plot3d(xx,yy,zz,"+strcat(opts,",")+")")
+    end
+
+    if lhs == 1
+        varargout(1) = e;
     end
 endfunction

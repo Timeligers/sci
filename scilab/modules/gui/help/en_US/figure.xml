@@ -10,8 +10,9 @@
     <refsynopsisdiv>
         <title>Syntax</title>
         <synopsis>
-            f = figure(num);
-            f = figure("PropertyName1", Propertyvalue1, ..., ..., "PropertyNameN", PropertyvalueN);
+            figure(num)
+            figure("PropertyName1", Propertyvalue1, ..., ..., "PropertyNameN", PropertyvalueN)
+            h = figure(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -60,7 +61,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>f</term>
+                <term>h</term>
                 <listitem>
                     <para>handle of the newly created window.</para>
                 </listitem>

@@ -11,7 +11,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function c=legend(varargin)
+function varargout=legend(varargin)
 
     if size(varargin)<1 then
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "legend", 1));
@@ -155,6 +155,9 @@ function c=legend(varargin)
         end
     end
     if vis_on then drawnow(); end       // draw if figure status allows it (otherwise standbye)
+    if argn(1) > 0
+        varargout(1) = c;
+    end    
 endfunction
 
 function h=getvalidchildren(A)

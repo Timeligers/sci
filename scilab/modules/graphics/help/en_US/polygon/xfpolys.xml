@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xfpolys(xpols,ypols,[fill])</synopsis>
+        <synopsis>
+          xfpolys(xpols,ypols,[fill])
+          h = xfpolys(...)
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -94,6 +97,16 @@
                     <para>
                         <literal>fill(k,i)</literal> gives the color at the <literal>k</literal>th edge
                         of polygon <literal>i</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Compound object whose children
+                      are the created Polyline objects. Use <literal>h</literal> to modify properties
+                      of a specific or all Polyline objects after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

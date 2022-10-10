@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function mesh(varargin)
+function varargout = mesh(varargin)
     // Copyright INRIA
     //
     // Syntax:
@@ -30,10 +30,13 @@ function mesh(varargin)
     initDrawingMode = gcf().immediate_drawing;
     gcf().immediate_drawing = "off";
 
-    surf(ListArg(:));
-    e = gce();
+    e = surf(ListArg(:));
     e.color_mode = color("white");
     e.color_flag = 0;
 
     gcf().immediate_drawing = initDrawingMode;
+
+    if argn(1)
+        varargout(1) = e;
+    end
 endfunction

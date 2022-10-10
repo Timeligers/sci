@@ -62,6 +62,7 @@ int sci_xstring(char *fname, void *pvApiCtx)
     int iCurrentSubWin = 0;
 
     CheckInputArgument(pvApiCtx, 3, 5);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddrStr);
     if (sciErr.iErr)
@@ -257,13 +258,14 @@ int sci_xstring(char *fname, void *pvApiCtx)
                       && (angle == 0), TRUE, FALSE, ALIGN_LEFT);
         }
 
-        /*
+        /* Construct Compound and make it current object.
          * If one of the string creation calls fails,
          * the compound build call will crash.
          * To be modified
          */
         {
-            int o = createCompoundSeq(iCurrentSubWin, nbElement);
+            int iNewCompoundUID = createCompoundSeq(iCurrentSubWin, nbElement);
+            setCurrentObject(iNewCompoundUID);
         }
     }
 
@@ -271,7 +273,21 @@ int sci_xstring(char *fname, void *pvApiCtx)
 
     freeArrayOfString(Str, m3 * n3);
 
-    AssignOutputVariable(pvApiCtx, 1) = 0;
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

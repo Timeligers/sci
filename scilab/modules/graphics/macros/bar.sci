@@ -11,7 +11,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function  bar(varargin)
+function  varargout = bar(varargin)
     // bar(y)
     // bar(x, y)
     // bar(x, y, width, colors, style)
@@ -36,6 +36,11 @@ function  bar(varargin)
     if size(varargin)<1 | size(varargin)>6  then
         msg = gettext("%s: Wrong number of input argument(s): %d to %d expected.\n")
         error(msprintf(msg, fname, 1, 6));
+    end
+
+    if argn(1) > 1 then
+        msg = gettext("%s: Wrong number of input argument(s): at most %d expected.\n")
+        error(msprintf(msg, fname, 1));
     end
 
     // PARSING INPUT ARGUMENTS
@@ -191,9 +196,9 @@ function  bar(varargin)
     wmode = warning("query")
     warning("off")
     if COLOR~=[]
-        plot(X,Y, "color",COLOR)
+         e = plot(X,Y, "color",COLOR)
     else
-        plot(X,Y)
+        e = plot(X,Y)
     end
     warning(wmode)
     curFig.immediate_drawing = "off"
@@ -221,7 +226,6 @@ function  bar(varargin)
     y_shift=zeros(size(X,"*"),1)
     bar_number= bar_number
 
-    e = gce()
     a = gca()
 
     a.sub_ticks(1) = 0; // bar (barh => a.sub_ticks(2) = 0;)
@@ -276,5 +280,9 @@ function  bar(varargin)
 
     // drawnow
     curFig.immediate_drawing = immediate_drawing;
+
+    if argn(1) == 1 then
+        varargout(1) = e;
+    end
 
 endfunction

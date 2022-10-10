@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function fplot3d(xr,yr,f,theta,alpha,leg,flag,ebox)
+function varargout = fplot3d(xr,yr,f,theta,alpha,leg,flag,ebox)
     // fplot3d(xr,yr,f,teta,alpha,leg,[flag,ebox])
     // Trace la surface d\'efinie par un external f ( ex macro [z]=f(x,y))
     // on calcule d'abord f sur la grille definie par xr.yr
@@ -33,6 +33,10 @@ function fplot3d(xr,yr,f,theta,alpha,leg,flag,ebox)
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "fplot3d", 3));
     end;
 
+    if rhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "fplot3d", 1));
+    end
+
     opts="";
     if exists("theta","local")==1 then opts=[opts,"theta=theta"],end
     if exists("alpha","local")==1 then opts=[opts,"alpha=alpha"],end
@@ -40,5 +44,9 @@ function fplot3d(xr,yr,f,theta,alpha,leg,flag,ebox)
     if exists("flag" ,"local")==1 then opts=[opts,"flag=flag"]  ,end
     if exists("ebox" ,"local")==1 then opts=[opts,"ebox=ebox"]  ,end
 
-    execstr("plot3d(xr,yr,feval(xr,yr,f),"+strcat(opts,",")+")")
+    execstr("e = plot3d(xr,yr,feval(xr,yr,f),"+strcat(opts,",")+")")
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 endfunction

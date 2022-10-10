@@ -63,6 +63,8 @@ int sci_xpolys(char *fname, void *pvApiCtx)
     int *piVisible = &iVisible;
 
     CheckInputArgument(pvApiCtx, 2, 3);
+    CheckOutputArgument(pvApiCtx, 0, 1);
+
 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddrl1);
     if (sciErr.iErr)
@@ -176,7 +178,21 @@ int sci_xpolys(char *fname, void *pvApiCtx)
 
     setCurrentObject(iCompoundUID);
 
-    AssignOutputVariable(pvApiCtx, 1) = 0;
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

@@ -507,8 +507,7 @@ function varargout = plot(varargin)
     // P1 is the position of the first PropertyName field.
     Property = P1;
 
-    Curves = Agreg.children
-    //Curves(:,1) = Curves(:,$:-1:1);
+    Curves = Agreg.children($:-1:1);
 
     // set mark_size_unit to 'point' for all the curves
     Curves.mark_size_unit="point";

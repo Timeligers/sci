@@ -24,6 +24,7 @@
         <title>Syntax</title>
         <synopsis>Sgrayplot(x,y,z,&lt;opt_args&gt;)
             Sgrayplot(x,y,z [,strf, rect, nax, zminmax, colminmax, mesh, colout])
+            h = Sgrayplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -245,6 +246,14 @@
                 <listitem>
                     <para>
                         See <link linkend="fec">fec</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>This optional output contains a handle to a <literal>Fec</literal> entity. For a list of
+                      properties, see <link linkend="fec_properties">fec_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

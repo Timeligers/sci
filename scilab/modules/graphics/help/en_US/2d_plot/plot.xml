@@ -37,6 +37,7 @@
             plot(x1,func1,LineSpec1, x2,y2,LineSpec2,...xN,funcN,LineSpecN, GlobalProperty1, ..GlobalPropertyM)
             plot(logflag,...)
             plot(axes_handle,...)
+            h = plot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -155,6 +156,16 @@
                     <para>This optional argument forces the plot to appear inside the
                         selected axes given by <literal>axes_handle</literal> rather than the
                         current axes (see <link linkend="gca">gca</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output is a vector containing the handles of
+                      the created Polyline objects. Use <literal>h</literal> to modify properties
+                      of a specific or all Polyline objects after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -713,32 +724,32 @@ for i = 1:4, gcf().children(i).data_bounds([1 3]) = 0.5; end
             <emphasis role="bold">Post-tuning Axes and curves:</emphasis>
         </para>
         <programlisting role="example"><![CDATA[
-x=[0:0.1:2*%pi]';
-plot(x-4,sin(x), x+2,cos(x))
+x = [0:0.1:2*%pi]';
+// h is a vector of polyline entities
+h = plot(x-4, sin(x), x+2, cos(x))
+
 
 // axis centered at (0,0)
-a=gca(); // Handle on axes entity
+a = gca(); // Handle on axes entity
 a.x_location = "origin";
 a.y_location = "origin";
 
 // Some operations on entities created by plot ...
 isoview on
-a.children // list the children of the axes : here it is an Compound child composed of 2 entities
-poly1= a.children.children(2); //store polyline handle into poly1
-poly1.foreground = 4;  // another way to change the style...
-poly1.thickness = 3;   // ...and the thickness of a curve.
-poly1.clip_state='off' // clipping control
+poly1 = h(1);    // store polyline handle into poly1
+poly1.foreground = 4;     // another way to change the style...
+poly1.thickness = 3;      // ...and the thickness of a curve.
+poly1.clip_state = 'off'; // clipping control
 isoview off
  ]]></programlisting>
         <scilab:image>
             x = [0:0.1:2*%pi]';
-            plot(x-4,sin(x),x+2,cos(x))
+            h = plot(x-4,sin(x),x+2,cos(x))
             a = gca();
             a.x_location = "origin";
             a.y_location = "origin";
             isoview on
-            a.children
-            poly1 = a.children.children(2);
+            poly1 = h(1);
             poly1.foreground = 4;
             poly1.thickness = 3;
             poly1.clip_state='off'

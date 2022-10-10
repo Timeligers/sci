@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function plot3d3(x,y,z,vect,theta,alpha,leg,flags,ebox)
+function varargout = plot3d3(x,y,z,vect,theta,alpha,leg,flags,ebox)
     // mesh draw of a solid surface described
     // by a set of points
     // the mesh is drawn using the colums and rows of [x,y,z]
@@ -18,6 +18,11 @@ function plot3d3(x,y,z,vect,theta,alpha,leg,flags,ebox)
     if rhs<3 then
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "plot3d3", 3) );
     end;
+
+    if rhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "plot3d3", 1));
+    end
+
     if exists("vect","local")==0 then vect=-1,end
     if vect<>-1 then
         nobjs=prod(size(vect))+1;
@@ -47,9 +52,13 @@ function plot3d3(x,y,z,vect,theta,alpha,leg,flags,ebox)
     if exists("ebox" ,"local")==1 then opts=[opts,"ebox=ebox"]  ,end
 
 
-    execstr("param3d1(xx,yy,list(zz,flags(1)*ones(1,p)),"+..
+    execstr("e(1) = param3d1(xx,yy,list(zz,flags(1)*ones(1,p)),"+..
     strcat([opts "flag=flags(3:4)"],",")+")")
 
-    execstr("param3d1(xx'',yy'',list(zz'',flags(2)*ones(1,n)),"+..
+    execstr("e(2) = param3d1(xx'',yy'',list(zz'',flags(2)*ones(1,n)),"+..
     strcat([opts "flag=[0 flags(4)]"],",")+")")
+
+    if lhs == 1 then
+        varargout(1) = glue(e);
+    end
 endfunction
