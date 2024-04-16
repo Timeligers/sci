@@ -165,11 +165,12 @@ void setScilabMode(scilabMode newmode)
 const char* getScilabModeString(void)
 {
     scilabMode smMode = getScilabMode();
+    if (SCILAB_API & smMode)
+    {
+        return "API";
+    }
     switch (smMode)
     {
-        case SCILAB_API:
-            return "API";
-            break;
         case SCILAB_STD:
             return "STD";
             break;

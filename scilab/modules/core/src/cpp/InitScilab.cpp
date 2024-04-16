@@ -1076,23 +1076,24 @@ static void checkForLinkerErrors(void)
 #define LINKER_ERROR_1 "Scilab startup function detected that the function proposed to the engine is the wrong one. Usually, it comes from a linker problem in your distribution/OS.\n"
 #define LINKER_ERROR_2 "If you do not know what it means, please report a bug on https://gitlab.com/scilab/scilab/-/issues. If you do, you probably know that you should change the link order in SCI/modules/Makefile.am\n"
 
-    if (getScilabMode() != SCILAB_NWNI && getScilabMode() != SCILAB_API)
-    {
-        if (isItTheDisabledLib())
-        {
-            fprintf(stderr, LINKER_ERROR_1);
-            fprintf(stderr, "Here, Scilab should have 'libscijvm' defined but gets 'libscijvm-disable' instead.\n");
-            fprintf(stderr, LINKER_ERROR_2);
-            exit(1);
-        }
-    }
-    else
+    if (getScilabMode() & SCILAB_NWNI)
     {
         /* NWNI mode */
         if (!isItTheDisabledLib())
         {
             fprintf(stderr, LINKER_ERROR_1);
             fprintf(stderr, "Here, Scilab should have 'libscijvm-disable' defined but gets 'libscijvm' instead.\n");
+            fprintf(stderr, LINKER_ERROR_2);
+            exit(1);
+        }
+    }
+    else
+    {
+        /* NW or STD mode*/
+        if (isItTheDisabledLib())
+        {
+            fprintf(stderr, LINKER_ERROR_1);
+            fprintf(stderr, "Here, Scilab should have 'libscijvm' defined but gets 'libscijvm-disable' instead.\n");
             fprintf(stderr, LINKER_ERROR_2);
             exit(1);
         }

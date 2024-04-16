@@ -231,7 +231,8 @@ int ConfigVariable::getConsoleLines(void)
 ** \{
 */
 
-int ConfigVariable::m_iScilabMode = 1; //SCILAB_API = 1  Scilab is launch as an API
+// Scilab is launch as an API with the JVM but no GUI (as expected by javasci)
+int ConfigVariable::m_iScilabMode = SCILAB_API | SCILAB_NW;
 
 void ConfigVariable::setScilabMode(int _iScilabMode)
 {

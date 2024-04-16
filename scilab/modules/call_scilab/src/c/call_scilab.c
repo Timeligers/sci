@@ -34,6 +34,7 @@
 #include "scilabRead.h"
 #include "scilabWrite.hxx"
 #include "storeCommand.h"
+#include "fromjava.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -61,7 +62,14 @@ static CALL_SCILAB_ENGINE_STATE csEngineState = CALL_SCILAB_ENGINE_STOP;
 /*--------------------------------------------------------------------------*/
 void DisableInteractiveMode(void)
 {
-    setScilabMode(SCILAB_NWNI);
+    if (IsFromJava())
+    {
+        setScilabMode(SCILAB_API | SCILAB_NW);
+    }
+    else
+    {
+        setScilabMode(SCILAB_API | SCILAB_NWNI);
+    }
 }
 
 /*--------------------------------------------------------------------------*/
