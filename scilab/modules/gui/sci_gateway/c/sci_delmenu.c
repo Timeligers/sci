@@ -50,7 +50,7 @@ int sci_delmenu(char *fname, void* pvApiCtx)
     if (nbInputArgument(pvApiCtx) == 1)
     {
         // Error message in not in standard mode (we need figure index)
-        if (getScilabMode() != SCILAB_STD)
+        if (getScilabMode() & SCILAB_STD == 0)
         {
             Scierror(999, _("%s: Figure number must be given when not in '%s' mode.\n"), fname, "STD");
             return FALSE;

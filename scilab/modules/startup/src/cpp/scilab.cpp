@@ -492,9 +492,9 @@ int main(int argc, char *argv[])
     /* if file descriptor returned is -2 stdin is not associated with an input stream */
     /* example : echo plot3d | scilex -e */
 
-    if (!isatty(_fileno(stdin)) && (_fileno(stdin) != -2) && getScilabMode() != SCILAB_STD)
+    if (!isatty(_fileno(stdin)) && (_fileno(stdin) != -2) && (getScilabMode() & SCILAB_STD == 0))
 #else
-    if (!isatty(fileno(stdin)) && getScilabMode() != SCILAB_STD)
+    if (!isatty(fileno(stdin)) && (getScilabMode() & SCILAB_STD == 0))
 #endif
     {
         ConfigVariable::setisatty(true);

@@ -28,7 +28,7 @@ static BOOL alreadyLoadedJava = FALSE;
 /*------------------------------------------------------------------------*/
 void CommandHistoryAppendLine (char* _pstLine)
 {
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
         if (strlen(_pstLine) != 0)
         {
@@ -47,7 +47,7 @@ void CommandHistoryAppendLine (char* _pstLine)
 /*------------------------------------------------------------------------*/
 void CommandHistoryLoadFromFile (void)
 {
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
         CommandHistory::loadFromFile(getScilabJavaVM());
     }
@@ -55,13 +55,13 @@ void CommandHistoryLoadFromFile (void)
 /*------------------------------------------------------------------------*/
 void CommandHistoryInitialize (void)
 {
-    if (!alreadyLoadedJava && (getScilabMode() == SCILAB_STD))
+    if (!alreadyLoadedJava && (getScilabMode() & SCILAB_STD))
     {
         loadOnUseClassPath(const_cast<char*>("SciNotes"));
         alreadyLoadedJava = TRUE;
     }
 
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
         CommandHistory::initialize(getScilabJavaVM());
     }
@@ -69,7 +69,7 @@ void CommandHistoryInitialize (void)
 /*------------------------------------------------------------------------*/
 void CommandHistoryExpandAll (void)
 {
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
         CommandHistory::expandAll(getScilabJavaVM());
     }
@@ -78,7 +78,7 @@ void CommandHistoryExpandAll (void)
 /*------------------------------------------------------------------------*/
 void CommandHistoryReset(void)
 {
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
         CommandHistory::reset(getScilabJavaVM());
     }
@@ -86,7 +86,7 @@ void CommandHistoryReset(void)
 /*------------------------------------------------------------------------*/
 void CommandHistoryDeleteLine(int lineNumber)
 {
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
         CommandHistory::deleteLine(getScilabJavaVM(), lineNumber);
     }
@@ -94,7 +94,7 @@ void CommandHistoryDeleteLine(int lineNumber)
 /*------------------------------------------------------------------------*/
 void CommandHistoryLaunch(void)
 {
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
         CommandHistory::launchHistoryBrowser(getScilabJavaVM());
     }

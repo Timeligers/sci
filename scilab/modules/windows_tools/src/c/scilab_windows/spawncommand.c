@@ -367,7 +367,7 @@ char *convertLine(char *_string, BOOL DetachProcess)
     {
         convertedString = os_strdup(_string);
 
-        if (getScilabMode() == SCILAB_STD)
+        if (getScilabMode() & SCILAB_STD)
         {
             if ( (!DetachProcess) && (!IsValidUTF8(_string)) )
             {

@@ -31,7 +31,7 @@ types::Function::ReturnValue sci_iswaitingforinput(types::typed_list &in, int _i
 {
     BOOL res = FALSE;
 
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
         res = ConsoleIsWaitingForInput();
     }

@@ -181,7 +181,7 @@ int sci_toolbar(char *fname, void* pvApiCtx)
             if ((strcmp(param[0], "off") == 0) || (strcmp(param[0], "on") == 0))
             {
                 iIsVisible = strcmp(param[0], "on") == 0;
-                if (iParentUID != getConsoleIdentifier() || getScilabMode() == SCILAB_STD)
+                if (iParentUID != getConsoleIdentifier() || (getScilabMode() & SCILAB_STD))
                 {
                     setGraphicObjectProperty(iParentUID, __GO_TOOLBAR_VISIBLE__, &iIsVisible, jni_bool, 1);
                 }

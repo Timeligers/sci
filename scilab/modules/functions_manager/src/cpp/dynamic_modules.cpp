@@ -533,7 +533,7 @@ int ScicosModule::Load()
 {
     std::wstring wstModuleName = L"scicos";
     const wchar_t* wstLibName = wstModuleName.c_str();
-    if (getScilabMode() == SCILAB_NWNI)
+    if (getScilabMode() & SCILAB_NWNI)
     {
         wstLibName = L"scicos-cli";
     }

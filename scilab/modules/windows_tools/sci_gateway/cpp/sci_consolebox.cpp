@@ -35,7 +35,7 @@ types::Function::ReturnValue sci_consolebox(types::typed_list &in, int _iRetCoun
         return types::Function::Error;
     }
 
-    if (getScilabMode() != SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD == 0)
     {
         sciprint(_("Only on Windows Mode, not in Console Mode.\n"));
         out.push_back(new types::String(L"off"));

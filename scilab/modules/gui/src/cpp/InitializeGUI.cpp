@@ -27,7 +27,7 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 BOOL InitializeGUI()
 {
-    if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() & SCILAB_STD)
     {
 
 #ifdef _MSC_VER

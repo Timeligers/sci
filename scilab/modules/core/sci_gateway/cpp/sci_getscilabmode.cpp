@@ -37,9 +37,58 @@ types::Function::ReturnValue sci_getscilabmode(types::typed_list &in, int _iRetC
         return types::Function::Error;
     }
 
-    const char* pst = getScilabModeString();
-    types::String* pS = new types::String(pst);
-    out.push_back(pS);
+    switch(_iRetCount)
+    {
+        case 0:
+            break;
+        case 1:
+        {
+            const char* pst = getScilabModeString();
+            types::String* pS = new types::String(pst);
+            out.push_back(pS);
+            break;
+        }
+        case 2:
+        {
+            int mode = getScilabMode();
+
+            // first output argument
+            const char* pcMode;
+            if (mode & SCILAB_STD)
+            {
+                pcMode = "STD";
+            }
+            else if (mode & SCILAB_NW)
+            {
+                pcMode = "NW";
+            }
+            else if (mode & SCILAB_NWNI)
+            {
+                pcMode = "NWNI";
+            }
+            else
+            {
+                pcMode = "STD";
+            }
+            out.push_back(new types::String(pcMode));
+
+            // second output argument
+            if (mode & SCILAB_API)
+            {
+                out.push_back(new types::String("API"));
+            }
+            else
+            {
+                out.push_back(new types::String("STD"));
+            }
+
+            break;
+        }
+        default:
+            Scierror(999, _("%s: Wrong number of output argument(s): %d expected.\n"), "getscilabmode", 1);
+            return types::Function::Error;
+
+    }
 
     return types::Function::OK;
 }
