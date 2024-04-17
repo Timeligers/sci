@@ -65,7 +65,7 @@ types::Function::ReturnValue sci_exit(types::typed_list &in, int _iRetCount, typ
         }
     }
 
-    if (ConfigVariable::getScilabMode() & SCILAB_NWNI == 0)
+    if ((ConfigVariable::getScilabMode() & SCILAB_NWNI) == 0)
     {
         if (in.size() == 0)
         {

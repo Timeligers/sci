@@ -54,7 +54,7 @@
 /*--------------------------------------------------------------------------*/
 void disp_scilab_version(void)
 {
-    if (getScilabMode() & SCILAB_STD == 0)
+    if ((getScilabMode() & SCILAB_STD) == 0)
     {
         printf(_("Scilab version \"%d.%d.%d.%d\"\n"), SCI_VERSION_MAJOR, SCI_VERSION_MINOR, SCI_VERSION_MAINTENANCE, SCI_VERSION_TIMESTAMP);
         printf("%s\n\n", SCI_VERSION_STRING);
@@ -389,6 +389,6 @@ BOOL with_modelica_compiler(void)
 /*--------------------------------------------------------------------------*/
 BOOL with_tk(void)
 {
-    return with_module(TCLSCI_MODULE_NAME) && (getScilabMode() & SCILAB_NWNI == 0);
+    return with_module(TCLSCI_MODULE_NAME) && ((getScilabMode() & SCILAB_NWNI) == 0);
 }
 /*--------------------------------------------------------------------------*/

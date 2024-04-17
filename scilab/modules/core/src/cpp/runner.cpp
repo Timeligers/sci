@@ -58,7 +58,7 @@ void StaticRunner::sendExecDoneSignal()
 int StaticRunner::launch()
 {
     //set execution thread in java
-    if (!initialJavaHooks && (getScilabMode() & SCILAB_NWNI == 0))
+    if (!initialJavaHooks && ((getScilabMode() & SCILAB_NWNI) == 0))
     {
         initialJavaHooks = true;
         // Execute the initial hooks registered in Scilab.java

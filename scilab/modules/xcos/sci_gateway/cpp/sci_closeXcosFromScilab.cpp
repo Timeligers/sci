@@ -40,7 +40,7 @@ int sci_closeXcosFromScilab(char *fname, void* pvApiCtx)
     CheckLhs(0, 1);
 
     // only if xcos was already opened and with supported mode
-    if ((getScilabMode() & SCILAB_NWNI == 0) && get_loaded_status() == XCOS_CALLED)
+    if (((getScilabMode() & SCILAB_NWNI) == 0) && get_loaded_status() == XCOS_CALLED)
     {
         try
         {

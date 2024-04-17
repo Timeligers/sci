@@ -30,7 +30,7 @@
 BOOL clc(int nblines)
 {
     BOOL bOK = FALSE;
-    if ( getScilabMode() & SCILAB_STD == 0)
+    if ((getScilabMode() & SCILAB_STD) == 0)
     {
         /* console C */
         if (nblines != -1)

@@ -24,11 +24,11 @@
 
 typedef enum
 {
-    SCILAB_API  = 1 << 8, /* launched as an API, this is a mask on other modes */
+    SCILAB_API     = 1 << 8, /* launched as an API, this is a mask on other modes */
     
-    SCILAB_STD  = 2,      /* The standard Scilab (desktop, gui, plots ...) */
-    SCILAB_NW   = 4,      /* Scilab with the gui, plots but without desktop */
-    SCILAB_NWNI = 8       /* Scilab without JVM, plots, desktop */
+    SCILAB_STD     = 2,      /* The standard Scilab (desktop, gui, plots ...) */
+    SCILAB_NW      = 4,      /* Scilab with the gui, plots but without desktop */
+    SCILAB_NWNI    = 8       /* Scilab without JVM, plots, desktop */
 } scilabMode;
 
 EXTERN_AST int getSimpMode(void);

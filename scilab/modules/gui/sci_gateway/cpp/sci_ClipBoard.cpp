@@ -52,7 +52,7 @@ int sci_ClipBoard(char *fname, void* pvApiCtx)
     CheckInputArgument(pvApiCtx, 0, 2);
     CheckOutputArgument(pvApiCtx, 0, 1);
 
-    if (getScilabMode() & SCILAB_NWNI == 0)
+    if ((getScilabMode() & SCILAB_NWNI) == 0)
     {
         /*--------------------*/
         /* clipboard("paste") */

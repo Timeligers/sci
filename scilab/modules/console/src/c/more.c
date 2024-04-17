@@ -30,7 +30,7 @@
 int linesmore(void)
 {
     int retval = 0;
-    if (getScilabMode() & SCILAB_STD == 0)
+    if ((getScilabMode() & SCILAB_STD) == 0)
     {
         int ch = 0;
         /* Scilab has not his own window */
