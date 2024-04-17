@@ -78,7 +78,16 @@ public class Scilab {
     private static boolean success;
     private static boolean finish;
     private static boolean exitCalled;
+    
     private static int mode;
+    /** launched as an API, this is a mask on other modes */
+    public static final int SCILAB_API = 1 << 8;
+    /** The standard Scilab (desktop, gui, plots ...) */
+    public static final int SCILAB_STD = 2;
+    /** Scilab with the gui, plots but without desktop */
+    public static final int SCILAB_NW = 4;
+    /** Scilab without JVM, plots, desktop, this is for reference only */
+    public static final int SCILAB_NWNI = 8;
 
     private static List<Runnable> finalhooks = new ArrayList<Runnable>();
     private static List<Runnable> initialhooks = new ArrayList<Runnable>();
@@ -91,7 +100,7 @@ public class Scilab {
 
     /**
      * Constructor Scilab Class.
-     * @param mode Mode Scilab -NW -NWNI -STD -API
+     * @param mode Mode Scilab -NW -NWNI -STD masked with API
      */
     public Scilab(int mode) {
         Scilab.mode = mode;
@@ -108,7 +117,7 @@ public class Scilab {
             /*
              * Set Java directories to Scilab ones
              */
-            if (mode != 1) {
+            if ((mode & SCILAB_API) == 0) {
                 /* only modify these properties if Scilab is not called by another application */
                 /* In this case, we let the calling application to use its own properties */
                 System.setProperty("java.io.tmpdir", ScilabConstants.TMPDIR.getCanonicalPath());
@@ -134,7 +143,7 @@ public class Scilab {
          */
         setJOGLFlags();
         /* Mode GUI */
-        if (mode == 2) {
+        if ((mode & SCILAB_STD) == SCILAB_STD) {
             SwingView.registerSwingView();
         }
 
@@ -144,7 +153,7 @@ public class Scilab {
          * If SCI_JAVA_ENABLE_HEADLESS is set, do not set the look and feel.
          * (needed when building the documentation under *ux)
          */
-        if (mode != 1 && System.getenv("SCI_JAVA_ENABLE_HEADLESS") == null) {
+        if ((mode & SCILAB_API) == 0 && System.getenv("SCI_JAVA_ENABLE_HEADLESS") == null) {
 
             /* http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/plaf.html */
             try {
@@ -195,7 +204,7 @@ public class Scilab {
             }
         }
 
-        if (mode == 2) { /* Mode GUI */
+        if ((mode & SCILAB_STD) == SCILAB_STD) { /* Mode GUI */
             // Create a user config file if not already exists
             ConfigManager.createUserCopy();
 
@@ -209,7 +218,7 @@ public class Scilab {
 
             mainView = SwingScilabWindow.allScilabWindows.get(consoleTab.getParentWindowId());
         } else {
-            if (mode == 3) { //NW
+            if ((mode & SCILAB_NW) == SCILAB_NW) { //NW
                 ConfigManager.createUserCopy();
             }
             GraphicController.getController().askObject(Type.CONSOLE);

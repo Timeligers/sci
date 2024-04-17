@@ -59,7 +59,8 @@ public class ConsoleTab {
      * @return the corresponding tab
      */
     public static Tab getConsoleTab(String uuid) {
-        if (Scilab.getMode() != 2) {
+        if ((Scilab.getMode() & Scilab.SCILAB_STD) == 0) {
+            /* create a fake Tab on non desktop mode */
             Tab tab = ScilabTab.createTab(EMPTYTAB, uuid);
             JTextArea textarea = new JTextArea(NOCONSOLE);
             textarea.setEditable(false);
