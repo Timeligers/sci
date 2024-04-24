@@ -73,7 +73,7 @@ types::Function::ReturnValue sci_getscilabmode(types::typed_list &in, int _iRetC
             out.push_back(new types::String(pst));
 
             // second output argument
-            if (mode & SCILAB_API)
+            if (mode & SCILAB_API_MASK)
             {
                 out.push_back(new types::String("API"));
             }

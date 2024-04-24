@@ -64,11 +64,11 @@ void DisableInteractiveMode(void)
 {
     if (IsFromJava())
     {
-        setScilabMode(SCILAB_API | SCILAB_NW);
+        setScilabMode(SCILAB_API_MASK | SCILAB_WITH_JVM_MASK);
     }
     else
     {
-        setScilabMode(SCILAB_API | SCILAB_NWNI);
+        setScilabMode(SCILAB_API_MASK);
     }
 }
 
@@ -196,7 +196,7 @@ BOOL TerminateScilab(char* ScilabQuit)
         setCallScilabEngineState(CALL_SCILAB_ENGINE_STOP);
 
         /* restore default mode */
-        setScilabMode(SCILAB_API);
+        setScilabMode(SCILAB_API_MASK);
 
         FREE(pGlobalSEI);
         pGlobalSEI = NULL;

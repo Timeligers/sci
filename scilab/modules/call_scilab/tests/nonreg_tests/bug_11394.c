@@ -42,7 +42,7 @@ int main(void)
         return 1;
     }
 
-    if (getScilabMode() == (SCILAB_API | SCILAB_NW))
+    if (getScilabMode() == (SCILAB_API_MASK | SCILAB_WITH_JVM_MASK))
     {
         fprintf(stderr, "BUG 11394 NOT FIXED. (2)\n");
         return 1;

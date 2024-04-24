@@ -79,15 +79,18 @@ public class Scilab {
     private static boolean finish;
     private static boolean exitCalled;
     
+    /** Scilab mode, set to SCILAB_STD or SCILAB_NW  */
     private static int mode;
-    /** launched as an API, this is a mask on other modes */
-    public static final int SCILAB_API = 1 << 8;
-    /** The standard Scilab (desktop, gui, plots ...) */
-    public static final int SCILAB_STD = 2;
-    /** Scilab with the gui, plots but without desktop */
-    public static final int SCILAB_NW = 4;
-    /** Scilab without JVM, plots, desktop, this is for reference only */
-    public static final int SCILAB_NWNI = 8;
+
+    /* you can use these values as mask */
+    public static final int SCILAB_API_MASK         = 1 << 2; /* launched as an API */
+    public static final int SCILAB_WITH_JVM_MASK    = 1 << 1; /* launched with a JVM */
+    public static final int SCILAB_CLI_MASK         = 1 << 0; /* launched with a native console (non-Java) */
+    /* Pre-encoded mask values, do not use as mask */
+    public static final int SCILAB_STD              = 2;      /* The standard Scilab (desktop, gui, plots ...) */
+    public static final int SCILAB_NW               = 3;      /* Scilab with the gui, plots but without desktop */
+    public static final int SCILAB_NWNI             = 1;      /* Scilab without JVM, plots, desktop */
+    
 
     private static List<Runnable> finalhooks = new ArrayList<Runnable>();
     private static List<Runnable> initialhooks = new ArrayList<Runnable>();
@@ -117,7 +120,7 @@ public class Scilab {
             /*
              * Set Java directories to Scilab ones
              */
-            if ((mode & SCILAB_API) == 0) {
+            if ((mode & SCILAB_API_MASK) == 0) {
                 /* only modify these properties if Scilab is not called by another application */
                 /* In this case, we let the calling application to use its own properties */
                 System.setProperty("java.io.tmpdir", ScilabConstants.TMPDIR.getCanonicalPath());
@@ -153,7 +156,7 @@ public class Scilab {
          * If SCI_JAVA_ENABLE_HEADLESS is set, do not set the look and feel.
          * (needed when building the documentation under *ux)
          */
-        if ((mode & SCILAB_API) == 0 && System.getenv("SCI_JAVA_ENABLE_HEADLESS") == null) {
+        if ((mode & SCILAB_API_MASK) == 0 && System.getenv("SCI_JAVA_ENABLE_HEADLESS") == null) {
 
             /* http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/plaf.html */
             try {
