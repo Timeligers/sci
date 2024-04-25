@@ -214,12 +214,12 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     }
 #endif
 
-    if ((scilabMode & SCILAB_NWNI) == 0)
+    if ((scilabMode & SCILAB_WITH_JVM_MASK) == SCILAB_WITH_JVM_MASK)
     {
         CreateScilabHiddenWndThread();
     }
 
-    if (scilabMode & SCILAB_STD)
+    if (scilabMode == SCILAB_STD)
     {
         //show banner in console window
         CreateScilabConsole(_pSEI->iNoBanner);
@@ -235,12 +235,12 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     }
     else
     {
-        if ((scilabMode & SCILAB_STD) == 0)
+        if ((scilabMode & SCILAB_CLI_MASK) == SCILAB_CLI_MASK)
         {
             SaveConsoleColors();
             SaveConsoleFont();
             UpdateConsoleFont();
-            if (scilabMode & SCILAB_NW)
+            if ((scilabMode & SCILAB_WITH_JVM_MASK) == SCILAB_WITH_JVM_MASK)
             {
                 RenameConsole();
                 UpdateConsoleColors();
@@ -905,7 +905,7 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
 {
 #ifndef WITH_GUI
 #ifndef _MSC_VER
-    if ((getScilabMode() & SCILAB_NWNI) == 0)
+    if (getScilabMode() != SCILAB_NWNI)
     {
         fprintf(stderr, "Scilab was compiled without its GUI and advanced features. Run scilab-cli or use the -nwni option.\n");
         initConsoleMode(ATTR_RESET);
@@ -916,7 +916,7 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
 
     InitializeHistoryManager();
 
-    if (getScilabMode() & SCILAB_STD)
+    if (getScilabMode() == SCILAB_STD)
     {
 
         char *cwd = NULL;
@@ -1076,7 +1076,7 @@ static void checkForLinkerErrors(void)
 #define LINKER_ERROR_1 "Scilab startup function detected that the function proposed to the engine is the wrong one. Usually, it comes from a linker problem in your distribution/OS.\n"
 #define LINKER_ERROR_2 "If you do not know what it means, please report a bug on https://gitlab.com/scilab/scilab/-/issues. If you do, you probably know that you should change the link order in SCI/modules/Makefile.am\n"
 
-    if ((getScilabMode() & SCILAB_NWNI) == 0)
+    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == SCILAB_WITH_JVM_MASK)
     {
         /* NW or STD mode*/
         if (isItTheDisabledLib())
@@ -1470,8 +1470,7 @@ static void executeDebuggerCommand(std::string _command)
     else if(cmd.compare("h")     == 0 ||
             cmd.compare("help")  == 0)
     {
-        if(cmd.compare("help") == 0 &&
-          ((ConfigVariable::getScilabMode() & SCILAB_NWNI) == 0))
+        if((ConfigVariable::getScilabMode() & SCILAB_WITH_JVM_MASK) == SCILAB_WITH_JVM_MASK)
         {
             StorePrioritaryCommand("help debug");
             vCommand.clear();

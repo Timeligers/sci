@@ -101,7 +101,7 @@ std::wostream& operator<<(std::wostream& os, const TermColor& c)
         case RESET:
         {
             color = 0;
-            if (ConfigVariable::getScilabMode() & SCILAB_NW)
+            if (ConfigVariable::getScilabMode() == SCILAB_NW)
             {
                 color = BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY;
             }
@@ -115,7 +115,7 @@ std::wostream& operator<<(std::wostream& os, const TermColor& c)
         }
     }
 
-    if (ConfigVariable::getScilabMode() & SCILAB_NW)
+    if (ConfigVariable::getScilabMode() == SCILAB_NW)
     {
         color = OutputReverse(color);
         color |= BACKGROUND_INTENSITY;

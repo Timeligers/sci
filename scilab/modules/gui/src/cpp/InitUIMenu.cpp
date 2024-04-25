@@ -69,7 +69,7 @@ int setMenuParent(int iObjUID, void* pvData, int valueType, int nbRow, int nbCol
     }
 
     /* Check parent type */
-    if (getScilabMode() & SCILAB_STD)
+    if (getScilabMode() == SCILAB_STD)
     {
         /* Figure, uimenu or Console can be the parent */
         if ((valueType != sci_handles) && (valueType != sci_matrix))

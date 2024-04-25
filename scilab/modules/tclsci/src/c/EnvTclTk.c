@@ -72,7 +72,7 @@ BOOL SetTclTkEnvironment(char *DefaultPath)
         return FALSE;
     }
 
-    if (getScilabMode() & SCILAB_STD)
+    if (getScilabMode() == SCILAB_STD)
     {
         /* redirect stdout, stderr in console */
         freopen("CONOUT$", "wb", stdout); /* redirect stdout --> CONOUT$*/

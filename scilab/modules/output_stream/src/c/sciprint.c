@@ -118,7 +118,7 @@ static void printf_scilabW(const wchar_t* buffer)
         char* cBuffer = wide_string_to_UTF8(buffer);
         if (cBuffer)
         {
-            if (getScilabMode() & SCILAB_STD)
+            if (getScilabMode() == SCILAB_STD)
             {
                 ConsolePrintf(cBuffer);
             }
@@ -144,7 +144,7 @@ static void printf_scilab(const char *buffer)
     if (buffer)
     {
         wchar_t *wcBuffer = NULL;
-        if (getScilabMode() & SCILAB_STD)
+        if (getScilabMode() == SCILAB_STD)
         {
             ConsolePrintf(buffer);
         }

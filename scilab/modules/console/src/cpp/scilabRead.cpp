@@ -50,7 +50,7 @@ void C2F(scilabread)(char* strRead, int len)
 int scilabRead()
 {
     ThreadManagement::LockScilabRead();
-    if (getScilabMode() & SCILAB_STD)
+    if (getScilabMode() == SCILAB_STD)
     {
         /* Send new prompt to Java Console, do not display it */
         std::string tmp = GetTemporaryPrompt();

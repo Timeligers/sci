@@ -20,7 +20,7 @@
 /*--------------------------------------------------------------------------*/
 SCILAB_WINDOWS_IMPEXP void setFocusOnConsole(void)
 {
-    if ((getScilabMode() & SCILAB_STD) == 0)
+    if (getScilabMode() != SCILAB_STD)
     {
         HWND hWndConsole = GetConsoleWindow();
         if (hWndConsole)

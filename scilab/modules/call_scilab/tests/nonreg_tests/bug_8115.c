@@ -46,7 +46,7 @@ int main(void)
 #endif
 
     /* check that it is NWNI mode */
-    if (getScilabMode() & SCILAB_WITH_JVM_MASK == 0)
+    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == 0)
     {
         fprintf(stderr, "BUG 8115 NOT FIXED. (2)\n");
         iErr = 1;
@@ -68,7 +68,7 @@ int main(void)
 #endif
 
     /* check that it is API mode */
-    if (getScilabMode() & SCILAB_API_MASK == SCILAB_API_MASK)
+    if ((getScilabMode() & SCILAB_API_MASK) == SCILAB_API_MASK)
     {
         fprintf(stderr, "BUG 8115 NOT FIXED. (4)\n");
         iErr = 1;

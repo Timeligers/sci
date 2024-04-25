@@ -54,15 +54,15 @@ types::Function::ReturnValue sci_getscilabmode(types::typed_list &in, int _iRetC
 
             // first output argument
             const char* pst;
-            if (mode & SCILAB_STD)
+            if (mode == SCILAB_STD)
             {
                 pst = "STD";
             }
-            else if (mode & SCILAB_NW)
+            else if (mode == SCILAB_NW)
             {
                 pst = "NW";
             }
-            else if (mode & SCILAB_NWNI)
+            else if (mode == SCILAB_NWNI)
             {
                 pst = "NWNI";
             }
@@ -73,7 +73,7 @@ types::Function::ReturnValue sci_getscilabmode(types::typed_list &in, int _iRetC
             out.push_back(new types::String(pst));
 
             // second output argument
-            if (mode & SCILAB_API_MASK)
+            if ((mode & SCILAB_API_MASK) == SCILAB_API_MASK)
             {
                 out.push_back(new types::String("API"));
             }

@@ -25,7 +25,7 @@ BOOL tohome(void)
 {
     BOOL bOK = FALSE;
 
-    if ((getScilabMode() & SCILAB_STD) == 0)
+    if (getScilabMode() == SCILAB_STD)
     {
 #ifdef _MSC_VER
         /* not on Windows */

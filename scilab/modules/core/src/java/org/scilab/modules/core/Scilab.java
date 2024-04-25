@@ -146,7 +146,7 @@ public class Scilab {
          */
         setJOGLFlags();
         /* Mode GUI */
-        if ((mode & SCILAB_STD) == SCILAB_STD) {
+        if (mode == SCILAB_STD) {
             SwingView.registerSwingView();
         }
 
@@ -207,7 +207,7 @@ public class Scilab {
             }
         }
 
-        if ((mode & SCILAB_STD) == SCILAB_STD) { /* Mode GUI */
+        if (mode == SCILAB_STD) { /* Mode GUI */
             // Create a user config file if not already exists
             ConfigManager.createUserCopy();
 
@@ -221,7 +221,7 @@ public class Scilab {
 
             mainView = SwingScilabWindow.allScilabWindows.get(consoleTab.getParentWindowId());
         } else {
-            if ((mode & SCILAB_NW) == SCILAB_NW) { //NW
+            if (mode  == SCILAB_NW) { //NW
                 ConfigManager.createUserCopy();
             }
             GraphicController.getController().askObject(Type.CONSOLE);

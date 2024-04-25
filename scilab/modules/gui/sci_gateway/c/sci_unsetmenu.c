@@ -45,7 +45,7 @@ int sci_unsetmenu(char *fname, void* pvApiCtx)
     if (nbInputArgument(pvApiCtx) == 1)
     {
         // Error message in not in standard mode (we need figure number)
-        if ((getScilabMode() & SCILAB_STD) == 0)
+        if (getScilabMode() != SCILAB_STD)
         {
             Scierror(999, _("%s: Figure number must be given when not in '%s' mode.\n"), fname, "STD");
             return FALSE;
@@ -123,7 +123,7 @@ int sci_unsetmenu(char *fname, void* pvApiCtx)
         else if ((checkInputArgumentType(pvApiCtx, 1, sci_strings)) && (checkInputArgumentType(pvApiCtx, 2, sci_matrix))) // Unset a submenu in main window
         {
             // Error message in not in standard mode (we need figure number)
-            if ((getScilabMode() & SCILAB_STD) == 0)
+            if (getScilabMode() != SCILAB_STD)
             {
                 Scierror(999, _("%s: Figure number must be given when not in '%s' mode.\n"), fname, "STD");
                 return FALSE;

@@ -29,7 +29,7 @@
 int gw_graphic_objects(void)
 {
 #ifndef _MSC_VER
-    if (getScilabMode() & SCILAB_NWNI)
+    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == 0)
     {
         Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "graphic_objects");
     }

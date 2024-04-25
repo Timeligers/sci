@@ -64,7 +64,7 @@ ScilabJavaEnvironment::~ScilabJavaEnvironment()
 
 int ScilabJavaEnvironment::start()
 {
-    if (getScilabMode() & SCILAB_NWNI)
+    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == 0)
     {
         throw ScilabJavaException(__LINE__, __FILE__, "'Java from Scilab' module is disabled in -nwni mode");
     }
