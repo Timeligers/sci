@@ -17,13 +17,12 @@ function [a, b] = nanreglin(x, y, dflag)
     // dflag is optional if 1 a display of the result is done
     //!
 
-    [lhs, rhs] = argn(0);
-    if rhs < 2 then
-        error(msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"),"nanreglin",2,3))
+    arguments
+        x
+        y
+        dflag = 0
     end
-    if rhs <= 2 then
-        dflag = 0;
-    end
+
     [n1, n2] = size(x);
     [p1, p2] = size(y);
     if n2 <> p2 then

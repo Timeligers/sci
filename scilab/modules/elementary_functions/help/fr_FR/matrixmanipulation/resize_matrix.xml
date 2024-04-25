@@ -158,7 +158,7 @@
         <title>Exemples</title>
         <programlisting role="example"><![CDATA[
 // Exemples de démonstration, dont avec des polynômes :
-resize_matrix
+//resize_matrix
 
 // Retaillage d'une matrice numérique
 M = grand(4, 3, "uin", -9, 9)

@@ -97,6 +97,11 @@ function out = duration(varargin)
             end
 
             input1 = varargin(1);
+
+            if and(size(input1, "c") <> [0 3 4]) then
+                error(msprintf(gettext("%s: Wrong size for input argument #%d: 3 or 4 columns expected.\n"), fname, 1));
+            end
+
         else
             error(msprintf(gettext("%s: Wrong type for input argument #%d: real, string or duration expected.\n"), fname, 1));
         end

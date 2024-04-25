@@ -54,6 +54,11 @@ $SCILAB : scilab path (SCI in Scilab)
 
     <option value="-Dawt.useSystemAAFontSettings=on" os="linux"/>
     <option value="-Dapple.laf.useScreenMenuBar=true" os="macosx"/>
+
+    <!-- without this option TempFileCache leaves some files in TMPDIR, see https://gitlab.com/scilab/scilab/-/issues/17220 -->
+    <!-- you can log its behavior with <option value="-Djogamp.debug.TempFileCache=true" /> -->
+    <!-- workaround https://jogamp.org/bugzilla/show_bug.cgi?id=563 -->
+    <option value="-Djogamp.gluegen.UseTempJarCache=false"/>
     
     <!-- DISABLE Just In Time java compiler -->
     <!--

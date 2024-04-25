@@ -13,10 +13,8 @@
 // along with this program.
 
 function r = isnan(x)
-    rhs = argn(2);
-    if rhs <> 1 then
-        msg = gettext("%s: Wrong number of input argument(s): %d expected.\n")
-        error(msprintf(msg, "isnan", 1));
+    arguments
+        x
     end
     if x == [] then
         r = [];

@@ -156,7 +156,7 @@
         <title>例</title>
         <programlisting role="example"><![CDATA[
 // 組込の例, 多項式を含む
-resize_matrix
+//resize_matrix
 
 // 数値行列:
 M = grand(4, 3, "uin", -9, 9)

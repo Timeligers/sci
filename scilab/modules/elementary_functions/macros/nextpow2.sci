@@ -12,9 +12,8 @@
 // along with this program.
 
 function e = nextpow2(n)
-    [lhs, rhs] = argn(0);
-    if rhs <> 1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"nextpow2", 1));
+    arguments
+        n {mustBeA(n, "double")}
     end
 
     n = abs(n);

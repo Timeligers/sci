@@ -22,6 +22,9 @@
 #include "idas_impl.h"
 #include <sundials/sundials_math.h>
 
+/* SUNDIALS EXTENSION */
+#include "sundials/sundials_extension.h"
+
 /*
  * =================================================================
  * IDA Constants

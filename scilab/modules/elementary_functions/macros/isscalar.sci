@@ -13,9 +13,8 @@
 
 function bOK = isscalar(VarInput)
 
-    rhs = argn(2);
-    if rhs <> 1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"isscalar", 1));
+    arguments
+        VarInput
     end
 
     bOK = %F;

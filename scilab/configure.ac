@@ -545,6 +545,7 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
     fi
     COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-stack-protector " # bug 3131
     # allow to compile under macOS < Catalina with c++17 enabled clang
+    # or compile under macOS > Catalina with min_macosx_version < 11
     case "$host_os" in
          *Darwin* | *darwin*)
            macosx_version=`sw_vers -productVersion`
@@ -555,6 +556,14 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
                        COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -D_LIBCPP_DISABLE_AVAILABILITY"
                    fi
                ;;
+               *)
+                   if test -n "$with_min_macosx_version"; then
+                        min_macosx_version_major=`echo $with_min_macosx_version | awk -F\. {'print $1'}`
+                        if [[ $min_macosx_version_major -lt 11 ]]; then
+                            COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -D_LIBCPP_DISABLE_AVAILABILITY"
+                        fi
+                    fi
+                ;;
            esac
            ;;
     esac    
