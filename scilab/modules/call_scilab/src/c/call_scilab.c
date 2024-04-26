@@ -62,14 +62,7 @@ static CALL_SCILAB_ENGINE_STATE csEngineState = CALL_SCILAB_ENGINE_STOP;
 /*--------------------------------------------------------------------------*/
 void DisableInteractiveMode(void)
 {
-    if (IsFromJava())
-    {
-        setScilabMode(SCILAB_API_MASK | SCILAB_WITH_JVM_MASK);
-    }
-    else
-    {
-        setScilabMode(SCILAB_API_MASK);
-    }
+    setScilabMode(SCILAB_API_MASK);
 }
 
 /*--------------------------------------------------------------------------*/
@@ -208,7 +201,7 @@ BOOL TerminateScilab(char* ScilabQuit)
         setCallScilabEngineState(CALL_SCILAB_ENGINE_STOP);
 
         /* restore default mode */
-        setScilabMode(SCILAB_API_MASK);
+        setScilabMode(SCILAB_API_MASK | SCILAB_WITH_JVM_MASK);
 
         FREE(pGlobalSEI);
         pGlobalSEI = NULL;
@@ -226,7 +219,7 @@ void ScilabDoOneEvent(void)
 {
     if (getCallScilabEngineState() == CALL_SCILAB_ENGINE_STARTED)
     {
-        if (getScilabMode() == SCILAB_NWNI)
+        if (getScilabMode() & SCILAB_WITH_JVM_MASK == 0)
         {
 #if 0
             C2F(scirun) ("quit;", (int)strlen("quit;"));

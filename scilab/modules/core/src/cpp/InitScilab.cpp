@@ -312,31 +312,31 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     {
         if(bTCLStartupSucceeded == FALSE)
         {
-            std::wcerr << "TCL Initialization failed." << std::endl;
+            std::wcerr << L"TCL Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             // do not exit, this is an acceptable error on some systems
         }
         if(bJVMStartupSucceeded == FALSE)
         {
-            std::wcerr << "JVM Initialization failed." << std::endl;
+            std::wcerr << L"JVM Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             exit(-1);
         }
         if(bGUIStartupSucceeded == FALSE)
         {
-            std::wcerr << "GUI Initialization failed." << std::endl;
+            std::wcerr << L"GUI Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             exit(-1);
         }
         if(bClasspathStartupSucceeded == FALSE)
         {
-            std::wcerr << "Classpath Initialization failed." << std::endl;
+            std::wcerr << L"Classpath Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             exit(-1);
         }
         if(bConsoleStartupSucceeded == FALSE)
         {
-            std::wcerr << "Console Initialization failed." << std::endl;
+            std::wcerr << L"Console Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             exit(-1);
         }

@@ -19,7 +19,7 @@
 /*--------------------------------------------------------------------------*/
 BOOL InitializeTclTk(void)
 {
-    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == 0)
+    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == SCILAB_WITH_JVM_MASK)
     {
         setTkStarted(TRUE);
         OpenTCLsci();
