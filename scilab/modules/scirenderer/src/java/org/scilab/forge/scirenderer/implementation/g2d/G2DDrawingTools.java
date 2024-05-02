@@ -32,6 +32,7 @@ import org.scilab.forge.scirenderer.tranformations.Vector3d;
 import org.scilab.forge.scirenderer.implementation.g2d.G2DCanvas;
 import org.scilab.forge.scirenderer.implementation.g2d.clipping.G2DClippingManager;
 import org.scilab.forge.scirenderer.implementation.g2d.motor.Motor3D;
+import org.scilab.forge.scirenderer.implementation.jogl.drawer.JoGLShapeDrawer.AntiAliasing;
 import org.scilab.forge.scirenderer.implementation.g2d.lighting.G2DLightManager;
 
 /**
@@ -115,12 +116,22 @@ public class G2DDrawingTools implements DrawingTools {
 
     @Override
     public void draw(Geometry geometry) throws SciRendererException {
-        g2dCanvas.getMotor3D().draw(this, geometry, Appearance.getDefault());
+        g2dCanvas.getMotor3D().draw(this, geometry, Appearance.getDefault(), AntiAliasing.ON);
+    }
+
+    @Override
+    public void draw(Geometry geometry, AntiAliasing eAntiAliasing) throws SciRendererException {
+        g2dCanvas.getMotor3D().draw(this, geometry, Appearance.getDefault(), eAntiAliasing);
     }
 
     @Override
     public void draw(Geometry geometry, Appearance appearance) throws SciRendererException {
-        g2dCanvas.getMotor3D().draw(this, geometry, appearance);
+        g2dCanvas.getMotor3D().draw(this, geometry, appearance, AntiAliasing.ON);
+    }
+
+    @Override
+    public void draw(Geometry geometry, Appearance appearance, AntiAliasing eAntiAliasing) throws SciRendererException {
+        g2dCanvas.getMotor3D().draw(this, geometry, appearance, eAntiAliasing);
     }
 
     @Override
@@ -166,5 +177,10 @@ public class G2DDrawingTools implements DrawingTools {
     @Override
     public void draw(Texture texture, AnchorPosition anchor, Vector3d position, double rotationAngle) {
         g2dCanvas.getMotor3D().draw(this, texture, anchor, position, rotationAngle);
+    }
+
+    @Override
+    public void draw(Texture texture, AnchorPosition anchor, Vector3d position, double rotationAngle, AntiAliasing eAntiAliasing) {
+        g2dCanvas.getMotor3D().draw(this, texture, anchor, position, rotationAngle, eAntiAliasing);
     }
 }

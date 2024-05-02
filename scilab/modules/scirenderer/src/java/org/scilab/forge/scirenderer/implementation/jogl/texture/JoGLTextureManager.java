@@ -21,6 +21,7 @@ import org.scilab.forge.scirenderer.SciRendererException;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 import org.scilab.forge.scirenderer.implementation.jogl.JoGLCanvas;
 import org.scilab.forge.scirenderer.implementation.jogl.JoGLDrawingTools;
+import org.scilab.forge.scirenderer.implementation.jogl.drawer.JoGLShapeDrawer.AntiAliasing;
 import org.scilab.forge.scirenderer.shapes.appearance.Color;
 import org.scilab.forge.scirenderer.texture.AbstractTexture;
 import org.scilab.forge.scirenderer.texture.AnchorPosition;
@@ -170,6 +171,11 @@ public class JoGLTextureManager implements TextureManager {
     }
 
     public void draw(JoGLDrawingTools drawingTools, Texture texture, AnchorPosition anchor, Vector3d position, double rotationAngle) throws SciRendererException {
+        draw(drawingTools, texture, anchor, position, rotationAngle, AntiAliasing.ON);
+    }
+    
+    public void draw(JoGLDrawingTools drawingTools, Texture texture, AnchorPosition anchor, Vector3d position, double rotationAngle, AntiAliasing eAntiAliasing) throws SciRendererException {
+        // TODO manage eAntiAliasing
         if ((texture instanceof JoGLTexture) && (allTextures.contains((JoGLTexture) texture))) {
             final JoGLTexture jt = (JoGLTexture) texture;
             jt.preDraw(drawingTools, null);

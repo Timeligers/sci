@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.Semaphore;
 
 import com.jogamp.opengl.DebugGL2;
+import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.awt.GLJPanel;
@@ -89,7 +90,7 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
 
     /** The anti-aliasing level */
     private int antiAliasingLevel = 0;
-
+    
     /**
      * Default constructor.
      * @param autoDrawable the JoGL autoDrawable this canvas depend on.
@@ -314,7 +315,7 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
      */
     private static GLAutoDrawable getOffscreenDrawable(int width, int height) {
         GLDrawableFactory factory = GLDrawableFactory.getDesktopFactory();
-
+        System.out.println("getOffscreenDrawable");
         GLCapabilities capabilities = new GLCapabilities(GLProfile.getDefault());
         capabilities.setPBuffer(true);
 
@@ -332,7 +333,7 @@ public final class JoGLCanvas implements Canvas, GLEventListener {
             drawingTools.glSynchronize(gl);
 
             if (mainDrawer != null) {
-                gl.glEnable(GL2.GL_DEPTH_TEST);
+
                 gl.glDepthFunc(GL2.GL_LEQUAL); // Set to less equal to allow last drawn object to be on the top.
 
                 if ((antiAliasingLevel > 0) && (antiAliasingLevel < 5) && (drawingTools.getGLCapacity().isAccumulationBufferPresent())) {
