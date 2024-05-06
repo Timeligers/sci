@@ -66,8 +66,18 @@ function outStruct = loadmatfile(varargin)
         end
     end
 
+    // Test if there are remaining (wrong) options (See issue #16930)
+    for opt=varnames'
+        if part(opt, 1) == "-" then
+            error(msprintf(gettext("%s: Unknown option: ''%s''.\n"), "loadmatfile", opt));
+        end
+    end
+
     // Retrieve the filename
     // ----------------------
+    if varnames == [] then
+        error(msprintf(gettext("%s: No filename provided in input arguments.\n"), "loadmatfile"));
+    end
     fil = pathconvert(varnames(1), %F, %T)
     if ~isfile(fil) then
         if ~isfile(fil + ".mat") then
@@ -186,6 +196,12 @@ function outStruct = loadmatfile(varargin)
     //-- Error while reading?
     if isempty(Names) then
         error(msprintf(gettext("%s: No variable read in file ''%s''. Check if your file is not corrupted.\n"),"loadmatfile", fil));
+    end
+    //-- Variable not found
+    for vname=varnames'
+        if ~or(vname == Names) then
+            error(msprintf(gettext("%s: Variable ''%s'' was not found in file ''%s''.\n"), "loadmatfile", vname, fil));
+        end
     end
 
     //-- Return variables in the calling context
