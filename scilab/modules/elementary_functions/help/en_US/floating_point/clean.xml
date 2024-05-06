@@ -57,7 +57,7 @@
         <title>Description</title>
         <para>
             This function sets to 0 all the elements of <varname>A</varname>
-            with absolute value &lt; <varname>epsa</varname> or relative value &lt; <varname>epsr</varname>
+            with absolute value &lt;=<varname>epsa</varname> or relative value &lt;=<varname>epsr</varname>
             (relative w.r.t. to max(abs(A)), ignoring %inf and %nan values of <varname>A</varname>).
         </para>
         <para>
