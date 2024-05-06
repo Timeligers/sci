@@ -19,6 +19,7 @@
 #include "sci_malloc.h"
 #include "localization.h"
 #include "Sciwarning.h"
+#include "configvariable_interface.h"
 
 int CreateDoubleVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * parent, int item_position)
 {
