@@ -49,9 +49,9 @@ function varargout = unix_g(cmd)
     end
 
     // initialize variables
-    stdout = emptystr();
+    stdout = "";
     stat = 1;
-    stderr = emptystr();
+    stderr = "";
 
     if getos() == "Windows" then
         [stdout,stat] = dos(cmd);
@@ -74,7 +74,7 @@ function varargout = unix_g(cmd)
         cmd1 = "(" + cmd + ")>" + fout + " 2>" + ferr + ";";
         stat = host(cmd1);
 
-        if lhs >= 2 then
+        if lhs >= 1 then
             stdout = mgetl(fout);
         end
         if lhs >= 3 then
