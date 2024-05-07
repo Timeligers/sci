@@ -395,7 +395,11 @@ make_jar() {
     unzip "$DOWNLOADDIR/thirdparty-jar.zip"
     # remove .jar already managed
     rm xml* fontbox* commons* batik* avalon* fop.jar gluegen2-rt.jar jogl2.jar gluegen-rt.jar jogl-all.jar
+    # Copy all JARs from thirdparty-jar.zip
     cp -a ./* "$JAVATHIRDPARTYDIR"
+    # Copy flexdock to be sure prerequirements archive will be regenerated when flexdock version changes
+    # TODO: add all JARs below and remove global copy using ./*
+    cp -a flexdock-1.2.5.jar "$JAVATHIRDPARTYDIR/flexdock-1.2.5.jar"
 }
 
 make_archive() {
