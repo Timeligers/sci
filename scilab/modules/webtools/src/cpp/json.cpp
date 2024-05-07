@@ -639,7 +639,7 @@ struct JSONVar
             delete c;
         }
 
-        for (auto c : o1)
+        for (const auto& c : o1)
         {
             delete c.second;
         }
@@ -797,7 +797,7 @@ scilabVar createScilabVar(scilabEnv env, const JSONVar* v)
             size_t fsize = v->fields.size();
             std::vector<wchar_t*> fields;
             fields.reserve(fsize);
-            for (auto f : v->fields)
+            for (const auto& f : v->fields)
             {
                 fields.push_back(unescape(f.data()));
             }
@@ -1252,7 +1252,7 @@ JSONVar* import_data(const jsmntok_t* t)
                             }
 
                             //same fields
-                            for (auto c : v->a[i]->fields)
+                            for (const auto& c : v->a[i]->fields)
                             {
                                 if (std::find(fref.begin(), fref.end(), c) == fref.end())
                                 {
@@ -1271,7 +1271,7 @@ JSONVar* import_data(const jsmntok_t* t)
                         {
                             case 1: //row vector
                             {
-                                for (auto f : fref)
+                                for (const auto& f : fref)
                                 {
                                     for (auto d : v->a)
                                     {
@@ -1282,7 +1282,7 @@ JSONVar* import_data(const jsmntok_t* t)
                             }
                             case 2: //matrix
                             {
-                                for (auto f : fref)
+                                for (const auto& f : fref)
                                 {
                                     for (int j = 0; j < v->dims[1]; ++j)
                                     {
@@ -1304,7 +1304,7 @@ JSONVar* import_data(const jsmntok_t* t)
                             }
                             default: //hypermat
                             {
-                                for (auto f : fref)
+                                for (const auto& f : fref)
                                 {
                                     for (auto d : v->a)
                                     {

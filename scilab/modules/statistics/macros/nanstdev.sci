@@ -32,11 +32,13 @@ function [s]=nanstdev(x,orient)
     //Collewet Guylaine <guylaine.collewet@cemagref.fr>
     //
 
-    if argn(2)==0 then error(msprintf(gettext("%s: Wrong number of input argument: %d to %d expected.\n"),"nanstdev",1,2)), end
+    arguments
+        x
+        orient (1, 1) {mustBeA(orient, ["double", "string"]), mustBeMember(orient, {1, 2, "r", "c", "*"})} = "*"
+    end
 
     if x==[] then s=%nan, return, end
 
-    if argn(2)==1 then  orient="*",end
     if orient=="r" then orient=1,elseif orient=="c" then orient=2,end
 
     isn=isnan(x)

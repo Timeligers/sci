@@ -55,46 +55,46 @@ extern "C" {
 
 /* LAPACK */
 
-extern void dgbtrf_f77(const sunindextype *m, const sunindextype *n,
-                       const sunindextype *kl, const sunindextype *ku,
-                       double *ab, sunindextype *ldab, sunindextype *ipiv,
-                       sunindextype *info);
+extern void dgbtrf_f77(const int *m, const int *n,
+                       const int *kl, const int *ku,
+                       double *ab, int *ldab, int *ipiv,
+                       int *info);
 
-extern void dgbtrs_f77(const char *trans, const sunindextype *n,
-                       const sunindextype *kl, const sunindextype *ku,
-                       const sunindextype *nrhs, double *ab,
-                       const sunindextype *ldab, sunindextype *ipiv,
-                       double *b, const sunindextype *ldb, sunindextype *info);
+extern void dgbtrs_f77(const char *trans, const int *n,
+                       const int *kl, const int *ku,
+                       const int *nrhs, double *ab,
+                       const int *ldab, int *ipiv,
+                       double *b, const int *ldb, int *info);
 
 
-extern void dgetrf_f77(const sunindextype *m, const sunindextype *n, double *a,
-                       sunindextype *lda, sunindextype *ipiv,
-                       sunindextype *info);
+extern void dgetrf_f77(const int *m, const int *n, double *a,
+                       int *lda, int *ipiv,
+                       int *info);
 
-extern void dgetrs_f77(const char *trans, const sunindextype *n,
-                       const sunindextype *nrhs, double *a,
-                       const sunindextype *lda, sunindextype *ipiv, double *b,
-                       const sunindextype *ldb, sunindextype *info);
+extern void dgetrs_f77(const char *trans, const int *n,
+                       const int *nrhs, double *a,
+                       const int *lda, int *ipiv, double *b,
+                       const int *ldb, int *info);
 
-extern void sgbtrf_f77(const sunindextype *m, const sunindextype *n,
-                       const sunindextype *kl, const sunindextype *ku,
-                       float *ab, sunindextype *ldab, sunindextype *ipiv,
-                       sunindextype *info);
+extern void sgbtrf_f77(const int *m, const int *n,
+                       const int *kl, const int *ku,
+                       float *ab, int *ldab, int *ipiv,
+                       int *info);
 
-extern void sgbtrs_f77(const char *trans, const sunindextype *n,
-                       const sunindextype *kl, const sunindextype *ku,
-                       const sunindextype *nrhs, float *ab,
-                       const sunindextype *ldab, sunindextype *ipiv,
-                       float *b, const sunindextype *ldb, sunindextype *info);
+extern void sgbtrs_f77(const char *trans, const int *n,
+                       const int *kl, const int *ku,
+                       const int *nrhs, float *ab,
+                       const int *ldab, int *ipiv,
+                       float *b, const int *ldb, int *info);
 
-extern void sgetrf_f77(const sunindextype *m, const sunindextype *n, float *a,
-                       sunindextype *lda, sunindextype *ipiv,
-                       sunindextype *info);
+extern void sgetrf_f77(const int *m, const int *n, float *a,
+                       int *lda, int *ipiv,
+                       int *info);
 
-extern void sgetrs_f77(const char *trans, const sunindextype *n,
-                       const sunindextype *nrhs, float *a,
-                       const sunindextype *lda, sunindextype *ipiv,
-                       float *b, const sunindextype *ldb, sunindextype *info);
+extern void sgetrs_f77(const char *trans, const int *n,
+                       const int *nrhs, float *a,
+                       const int *lda, int *ipiv,
+                       float *b, const int *ldb, int *info);
 
 #ifdef __cplusplus
 }

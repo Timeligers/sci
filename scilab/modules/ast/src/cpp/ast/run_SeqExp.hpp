@@ -220,13 +220,9 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                     if ((*it)->isVerbose() && ConfigVariable::isPrintOutput())
                     {
                         //TODO manage multiple returns
-                        scilabWriteW(L" ans  =\n");
-                        if (ConfigVariable::isPrintCompact() == false)
-                        {
-                            scilabWriteW(L"\n");
-                        }
                         std::wostringstream ostrName;
                         ostrName << L"ans";
+                        scilabWriteW(printVarEqualTypeDimsInfo(pITAns, L"ans").c_str());
                         VariableToString(pITAns, ostrName.str().c_str());
                     }
                 }

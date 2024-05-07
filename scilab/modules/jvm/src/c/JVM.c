@@ -290,8 +290,11 @@ BOOL finishJVM(void)
         // Detach the shared thread, to let the JVM finish itself
         (*jvm_SCILAB)->DetachCurrentThread(jvm_SCILAB);
 
-        // force destroy the JVM (commented due to the javasci case)
-        // (*jvm_SCILAB)->DestroyJavaVM(jvm_SCILAB);
+        // force destroy the JVM if not on the javasci case
+        if (!IsFromJava())
+        {
+            (*jvm_SCILAB)->DestroyJavaVM(jvm_SCILAB);
+        }
     }
     if (FreeDynLibJVM())
     {

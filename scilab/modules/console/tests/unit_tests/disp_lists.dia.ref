@@ -65,7 +65,7 @@ L = list([%t %f %f]',                ..
   (6) = ["This","is","some","text"]
   (7) = (void)
   (8) : fptr
-  (9) : logspace(d1,d2,n) => [y] (42 lines)
+  (9) : logspace(d1,d2,n) => [y] (24 lines)
   (10) : iolib library with 5 functions @ SCI\modules\io\macros\
   (11) : [2x2 cell]
   (12) = {}

@@ -50,11 +50,18 @@ SCILAB_WINDOWS_IMPEXP int spawncommand(wchar_t *command, BOOL DetachProcess);
 SCILAB_WINDOWS_IMPEXP DWORD WINAPI ReadFromPipe (LPVOID args);
 
 /**
-* check if we have a '&' (detach process)
-* @param[in] command
-* @return TRUE or FALSE
-*/
-SCILAB_WINDOWS_IMPEXP BOOL DetectDetachProcessInCommandLine(wchar_t *command);
+ * check if we have a '&' (detach process)
+ * @param[in] command
+ * @return TRUE or FALSE
+ */
+SCILAB_WINDOWS_IMPEXP BOOL DetectDetachProcessInCommandLine(wchar_t* command);
+
+/**
+ * check if we have a '&' (detach process)
+ * @param[in] command
+ * @return TRUE or FALSE
+ */
+SCILAB_WINDOWS_IMPEXP BOOL DetectStartInCommandLine(wchar_t* command);
 
 /**
 * CreateOuput

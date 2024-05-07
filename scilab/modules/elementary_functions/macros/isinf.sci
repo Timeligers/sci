@@ -11,11 +11,8 @@
 // along with this program.
 
 function r = isinf(x)
-    rhs = argn(2);
-
-    if rhs <> 1 then
-        msg = _("%s: Wrong number of input argument(s): %d expected.\n")
-        error(msprintf(msg, "isinf", 1))
+    arguments
+        x
     end
 
     if x==[] then

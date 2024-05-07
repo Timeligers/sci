@@ -21,7 +21,7 @@ x=rand(1e6,n);
 for i = 1:n
     x(:,i) = x(:,i) - mean(x(:,i));
 end
-timer();
+tic
 c = zeros(n, n);
 for i = 1:n
     c(i,i) = x(:,i)'*x(:,i);
@@ -30,20 +30,20 @@ for i = 1:n
         c(j,i) = c(i,j);
     end
 end
-t0 = timer() // typically t0 = 5 seconds
+t0 = toc(); // typically t0 = 5 seconds
 
 // large memory bandwidth implementation
 x=rand(1e6,n);
-timer();
+tic;
 x = center(x,"r");
 c = x'*x;
-t1 = timer() // typically t0 = 1 seconds
+t1 = toc(); // typically t0 = 1 seconds
 
 // new implementation (c++ gateway)
 x=rand(1e6,n);
-timer();
+tic
 c = cov(x);
-t2=timer() // typically t2 = 0.06 seconds
+t2=toc(); // typically t2 = 0.06 seconds
 
 assert_checktrue(t1/t2 > 4);
 assert_checktrue(t0/t2 > 30);

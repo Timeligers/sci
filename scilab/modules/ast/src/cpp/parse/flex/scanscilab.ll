@@ -371,6 +371,7 @@ assign			"="
 }
 
 ^{spaces}*/({id}){spaces}([^ \t\v\f(=<>~@,;]|([~@]{spaces}*[^=]?)) {
+        DEBUG("BEGIN(BEGINID)");
         BEGIN(BEGINID);
 }
 
@@ -380,25 +381,30 @@ assign			"="
         wchar_t *pwText = to_wide_string(yytext);
         if (yytext != NULL && pwText == NULL)
         {
-	    std::string str = "Can\'t convert \'";
-	    str += yytext;
-	    str += "\' to UTF-8";
-	    BEGIN(INITIAL);
-	    yyerror(str);
-	    return scan_throw(FLEX_ERROR);
+	        std::string str = "Can\'t convert \'";
+	        str += yytext;
+	        str += "\' to UTF-8";
+	        BEGIN(INITIAL);
+	        yyerror(str);
+	        return scan_throw(FLEX_ERROR);
         }
         yylval.str = new std::wstring(pwText);
-	FREE(pwText);
-	types::InternalType * pIT = symbol::Context::getInstance()->get(symbol::Symbol(*yylval.str));
+	      FREE(pwText);
+	      types::InternalType * pIT = symbol::Context::getInstance()->get(symbol::Symbol(*yylval.str));
         if (pIT && pIT->isCallable() && ParserSingleInstance::getControlStatus() != Parser::WithinArguments)
         {
+            DEBUG("BEGIN(SHELLMODE)");
             BEGIN(SHELLMODE);
         }
         else
         {
+            DEBUG("BEGIN(INITIAL)");
             BEGIN(INITIAL);
         }
-	return scan_throw(ID);
+        #ifdef TOKENDEV
+          std::cout << "--> [DEBUG] ID : " << yytext << std::endl;
+        #endif
+	      return scan_throw(ID);
     }
 
 }
@@ -675,9 +681,24 @@ assign			"="
 <INITIAL,MATRIX,SHELLMODE>{dquote}		{
   pstBuffer.clear();
   str_opener_column = yylloc.first_column;
+  #ifdef TOKENDEV
+    std::cout << "--> Push State DOUBLESTRING" << std::endl;
+  #endif
   yy_push_state(DOUBLESTRING);
 }
 
+<INITIAL,MATRIX,SHELLMODE>{spaces}{quote}			{
+  /*
+  ** Can not be Matrix Transposition
+  ** Pushing SIMPLESTRING
+  */
+    pstBuffer.clear();
+    str_opener_column = yylloc.first_column;
+    #ifdef TOKENDEV
+      std::cout << "--> Push State SIMPLESTRING" << std::endl;
+    #endif
+    yy_push_state(SIMPLESTRING);
+}
 
 <INITIAL,MATRIX,SHELLMODE>{quote}			{
   /*
@@ -694,12 +715,18 @@ assign			"="
       || last_token == BOOLTRUE
       || last_token == BOOLFALSE)
   {
+      #ifdef TOKENDEV
+        std::cout << "--> QUOTE" << std::endl;
+      #endif
       return scan_throw(QUOTE);
   }
   else
   {
       pstBuffer.clear();
       str_opener_column = yylloc.first_column;
+      #ifdef TOKENDEV
+        std::cout << "--> Push State SIMPLESTRING" << std::endl;
+      #endif
       yy_push_state(SIMPLESTRING);
   }
 }
@@ -742,6 +769,7 @@ assign			"="
   }
   scan_throw(EOL);
 }
+
 .					{
     std::string str = "Unexpected token \'";
     str += yytext;

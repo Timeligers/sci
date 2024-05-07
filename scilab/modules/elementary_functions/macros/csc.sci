@@ -12,13 +12,8 @@
 // along with this program.
 function y = csc(x)
     //Cosecant
-    rhs = argn(2);
-    if rhs <> 1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"csc", 1));
-    end
-    
-    if and(typeof(x) <> ["constant", "sparse", "hypermatrix"]) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real or complex, sparse or full matrix or hypermatrix expected.\n"), "csc", 1));
+    arguments
+        x {mustBeA(x, ["double", "sparse"])}
     end
 
     y = ones(x)./sin(x);

@@ -61,6 +61,10 @@ types::Function::ReturnValue sci_mean(types::typed_list& in, int _iRetCount, typ
             wchar_t* o = in[1]->getAs<types::String>()->get()[0];
             switch (o[0])
             {
+                case L'*':
+                    orient = -1;
+                    rhs = 1;
+                    break;
                 case L'r':
                     orient = 1;
                     break;

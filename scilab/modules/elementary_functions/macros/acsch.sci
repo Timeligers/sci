@@ -15,13 +15,8 @@ function y = acsch(x)
     //Inverse hyperbolic cosecant
     //acsch(x)=  arcsinh(1 ./ x)
 
-    rhs = argn(2);
-    if rhs <> 1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"acsch", 1));
-    end
-    
-    if and(type(x) <> [1 5]) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real or complex, sparse or full matrix expected.\n"), "acsch", 1));
+    arguments
+        x {mustBeA(x, ["double", "sparse"])}
     end
 
     y = asinh(ones(x)./x);

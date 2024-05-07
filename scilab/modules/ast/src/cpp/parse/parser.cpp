@@ -26,6 +26,12 @@
 #include "sci_malloc.h"
 #endif
 
+#ifdef __APPLE__
+#ifndef HAVE_SYS_FMEMOPEN
+#include "fmemopen.h"
+#endif
+#endif
+
 extern "C"
 {
 #include "sci_tmpdir.h"

@@ -87,6 +87,19 @@ BOOL StartScilab(char* SCIpath, char* ScilabStartup, int Stacksize)
 
 #define FORMAT_SCRIPT_STARTUP "_errorCall_ScilabOpen = exec(\"%s\", \"errcatch\", -1);"
 
+static void* runScilabEngine(void* arg)
+{
+    int ret = RunScilabEngine((ScilabEngineInfo*) arg);
+    if (ret == 0)
+    {
+        return NULL;
+    }
+    else
+    {
+        return arg;
+    }
+}
+
 int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char* ScilabStartup, int Stacksize)
 {
     __threadKey threadKeyScilab;
@@ -157,13 +170,12 @@ int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char* ScilabStartup, int S
         return ierr;
     }
 
-    __CreateThreadWithParams(&threadIdScilab, &threadKeyScilab, &RunScilabEngine, pGlobalSEI);
+    __CreateThreadWithParams(&threadIdScilab, &threadKeyScilab, &runScilabEngine, pGlobalSEI);
 
     setCallScilabEngineState(CALL_SCILAB_ENGINE_STARTED);
 
     return 0;
 }
-
 /*--------------------------------------------------------------------------*/
 BOOL TerminateScilab(char* ScilabQuit)
 {

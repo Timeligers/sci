@@ -9,11 +9,5 @@
 // along with this program.
 
 function t = %st_string(s)
-    recursive = 0
-    tmp = xmlGetValues("//general/body/environment","container_disp_max_depth")
-    maxDisplayDepth = evstr(tmp)
-    consoleWidth = lines()(1)
-    //l_p_compacity = "";   // "" vspacing of blocks
-    l_p_compacity = [];      // for compact display
-    t = %l_string_inc(s, "st")
+    t = %l_string_inc(s)
 endfunction

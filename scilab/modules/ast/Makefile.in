@@ -119,7 +119,9 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 @ENABLE_DEBUG_TRUE@am__append_1 = src/cpp/types/inspector.cpp
-@NEED_JAVA_TRUE@am__append_2 = java
+@IS_MACOSX_TRUE@@IS_SYS_FMEMOPEN_FALSE@am__append_2 = src/cpp/parse/fmemopen.c
+@IS_MACOSX_TRUE@@IS_SYS_FMEMOPEN_TRUE@am__append_3 = -DHAVE_SYS_FMEMOPEN
+@NEED_JAVA_TRUE@am__append_4 = java
 subdir = modules/ast
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -248,10 +250,11 @@ am__libsciast_la_SOURCES_DIST = src/c/operations/doublecomplex.c \
 	src/cpp/types/threadId.cpp src/cpp/types/tlist.cpp \
 	src/cpp/types/tostring_common.cpp src/cpp/types/types.cpp \
 	src/cpp/types/types_tools.cpp src/cpp/types/void.cpp \
-	src/cpp/types/inspector.cpp
+	src/cpp/types/inspector.cpp src/cpp/parse/fmemopen.c
 am__dirstamp = $(am__leading_dot)dirstamp
 @ENABLE_DEBUG_TRUE@am__objects_1 =  \
 @ENABLE_DEBUG_TRUE@	src/cpp/types/libsciast_la-inspector.lo
+@IS_MACOSX_TRUE@@IS_SYS_FMEMOPEN_FALSE@am__objects_2 = src/cpp/parse/libsciast_la-fmemopen.lo
 am_libsciast_la_OBJECTS =  \
 	src/c/operations/libsciast_la-doublecomplex.lo \
 	src/c/operations/libsciast_la-invert_matrix.lo \
@@ -348,7 +351,8 @@ am_libsciast_la_OBJECTS =  \
 	src/cpp/types/libsciast_la-tostring_common.lo \
 	src/cpp/types/libsciast_la-types.lo \
 	src/cpp/types/libsciast_la-types_tools.lo \
-	src/cpp/types/libsciast_la-void.lo $(am__objects_1)
+	src/cpp/types/libsciast_la-void.lo $(am__objects_1) \
+	$(am__objects_2)
 libsciast_la_OBJECTS = $(am_libsciast_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -410,6 +414,7 @@ am__depfiles_remade =  \
 	src/cpp/operations/$(DEPDIR)/libsciast_la-types_or.Plo \
 	src/cpp/operations/$(DEPDIR)/libsciast_la-types_power.Plo \
 	src/cpp/operations/$(DEPDIR)/libsciast_la-types_subtraction.Plo \
+	src/cpp/parse/$(DEPDIR)/libsciast_la-fmemopen.Plo \
 	src/cpp/parse/$(DEPDIR)/libsciast_la-parser.Plo \
 	src/cpp/parse/$(DEPDIR)/libsciast_la-parsescilab.Plo \
 	src/cpp/parse/$(DEPDIR)/libsciast_la-printerror.Plo \
@@ -922,15 +927,11 @@ libsciast_la_SOURCES = src/c/operations/doublecomplex.c \
 	src/cpp/types/threadId.cpp src/cpp/types/tlist.cpp \
 	src/cpp/types/tostring_common.cpp src/cpp/types/types.cpp \
 	src/cpp/types/types_tools.cpp src/cpp/types/void.cpp \
-	$(am__append_1)
-libsciast_la_CPPFLAGS = \
-	-I$(srcdir)/includes/ast \
-	-I$(srcdir)/includes/exps \
-	-I$(srcdir)/includes/operations \
-	-I$(srcdir)/includes/parse \
-	-I$(srcdir)/includes/symbol \
-	-I$(srcdir)/includes/system_env \
-	-I$(srcdir)/includes/types \
+	$(am__append_1) $(am__append_2)
+libsciast_la_CPPFLAGS = -I$(srcdir)/includes/ast \
+	-I$(srcdir)/includes/exps -I$(srcdir)/includes/operations \
+	-I$(srcdir)/includes/parse -I$(srcdir)/includes/symbol \
+	-I$(srcdir)/includes/system_env -I$(srcdir)/includes/types \
 	-I$(srcdir)/src/cpp \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
 	-I$(top_srcdir)/modules/functions_manager/includes \
@@ -946,9 +947,7 @@ libsciast_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/fileio/src/c \
 	-I$(top_srcdir)/modules/coverage/includes \
 	-I$(top_srcdir)/modules/graphic_objects/includes \
-	$(EIGEN_CPPFLAGS) \
-	$(AM_CPPFLAGS)
-
+	$(EIGEN_CPPFLAGS) $(AM_CPPFLAGS) $(am__append_3)
 libsciast_la_includedir = $(pkgincludedir)
 libsciast_la_include_HEADERS = 
 
@@ -1172,7 +1171,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_2)
+TARGETS_ALL = $(am__append_4)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -1602,6 +1601,8 @@ src/cpp/types/libsciast_la-void.lo: src/cpp/types/$(am__dirstamp) \
 src/cpp/types/libsciast_la-inspector.lo:  \
 	src/cpp/types/$(am__dirstamp) \
 	src/cpp/types/$(DEPDIR)/$(am__dirstamp)
+src/cpp/parse/libsciast_la-fmemopen.lo: src/cpp/parse/$(am__dirstamp) \
+	src/cpp/parse/$(DEPDIR)/$(am__dirstamp)
 
 libsciast.la: $(libsciast_la_OBJECTS) $(libsciast_la_DEPENDENCIES) $(EXTRA_libsciast_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libsciast_la_OBJECTS) $(libsciast_la_LIBADD) $(LIBS)
@@ -1668,6 +1669,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/operations/$(DEPDIR)/libsciast_la-types_or.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/operations/$(DEPDIR)/libsciast_la-types_power.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/operations/$(DEPDIR)/libsciast_la-types_subtraction.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/parse/$(DEPDIR)/libsciast_la-fmemopen.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/parse/$(DEPDIR)/libsciast_la-parser.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/parse/$(DEPDIR)/libsciast_la-parsescilab.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/parse/$(DEPDIR)/libsciast_la-printerror.Plo@am__quote@ # am--include-marker
@@ -1832,6 +1834,13 @@ src/c/types/libsciast_la-dtoa.lo: src/c/types/dtoa.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/c/types/dtoa.c' object='src/c/types/libsciast_la-dtoa.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/c/types/libsciast_la-dtoa.lo `test -f 'src/c/types/dtoa.c' || echo '$(srcdir)/'`src/c/types/dtoa.c
+
+src/cpp/parse/libsciast_la-fmemopen.lo: src/cpp/parse/fmemopen.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/cpp/parse/libsciast_la-fmemopen.lo -MD -MP -MF src/cpp/parse/$(DEPDIR)/libsciast_la-fmemopen.Tpo -c -o src/cpp/parse/libsciast_la-fmemopen.lo `test -f 'src/cpp/parse/fmemopen.c' || echo '$(srcdir)/'`src/cpp/parse/fmemopen.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/cpp/parse/$(DEPDIR)/libsciast_la-fmemopen.Tpo src/cpp/parse/$(DEPDIR)/libsciast_la-fmemopen.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/cpp/parse/fmemopen.c' object='src/cpp/parse/libsciast_la-fmemopen.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciast_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/cpp/parse/libsciast_la-fmemopen.lo `test -f 'src/cpp/parse/fmemopen.c' || echo '$(srcdir)/'`src/cpp/parse/fmemopen.c
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -2724,6 +2733,7 @@ distclean: distclean-am
 	-rm -f src/cpp/operations/$(DEPDIR)/libsciast_la-types_or.Plo
 	-rm -f src/cpp/operations/$(DEPDIR)/libsciast_la-types_power.Plo
 	-rm -f src/cpp/operations/$(DEPDIR)/libsciast_la-types_subtraction.Plo
+	-rm -f src/cpp/parse/$(DEPDIR)/libsciast_la-fmemopen.Plo
 	-rm -f src/cpp/parse/$(DEPDIR)/libsciast_la-parser.Plo
 	-rm -f src/cpp/parse/$(DEPDIR)/libsciast_la-parsescilab.Plo
 	-rm -f src/cpp/parse/$(DEPDIR)/libsciast_la-printerror.Plo
@@ -2868,6 +2878,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f src/cpp/operations/$(DEPDIR)/libsciast_la-types_or.Plo
 	-rm -f src/cpp/operations/$(DEPDIR)/libsciast_la-types_power.Plo
 	-rm -f src/cpp/operations/$(DEPDIR)/libsciast_la-types_subtraction.Plo
+	-rm -f src/cpp/parse/$(DEPDIR)/libsciast_la-fmemopen.Plo
 	-rm -f src/cpp/parse/$(DEPDIR)/libsciast_la-parser.Plo
 	-rm -f src/cpp/parse/$(DEPDIR)/libsciast_la-parsescilab.Plo
 	-rm -f src/cpp/parse/$(DEPDIR)/libsciast_la-printerror.Plo

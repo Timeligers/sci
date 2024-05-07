@@ -54,8 +54,8 @@
         <para>
             この関数は,
             多項式(もしくは多項式行列または有理行列)において
-            絶対値&lt; <literal>epsa</literal>または
-            相対値&lt; <literal>epsr</literal>の係数を全て消去(すなわち,ゼロに設定)します.
+            絶対値&lt;=<literal>epsa</literal>または
+            相対値&lt;=<literal>epsr</literal>の係数を全て消去(すなわち,ゼロに設定)します.
             (相対とは係数の1次ノルムに関する相対値を意味します)
         </para>
         <para>

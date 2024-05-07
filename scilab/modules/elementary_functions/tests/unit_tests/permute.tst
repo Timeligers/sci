@@ -90,5 +90,8 @@ msg = _("%s: Wrong value for input argument #%d: Must be a valid permutation of 
 refMsg = msprintf(msg, "permute", 2, 2);
 assert_checkerror("permute(x, [1 2]);", refMsg);
 assert_checkerror("permute(x, [1 2 4]);", refMsg);
-assert_checkerror("permute(x, [1 3.1 2]);", refMsg);
 assert_checkerror("permute(x, [1 2 3 5]);", refMsg);
+
+msg = _("%s: Wrong value for input argument #%d: Integer numbers expected.\n");
+refMsg = msprintf(msg, "%r_permute", 2, 2);
+assert_checkerror("permute(x, [1 3.1 2]);", refMsg);

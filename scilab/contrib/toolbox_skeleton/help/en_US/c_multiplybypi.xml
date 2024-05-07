@@ -40,6 +40,10 @@
     <refsection>
         <title>Examples</title>
         <programlisting role="example">c_multiplybypi(3)</programlisting>
+        <scilab:image localized="true">
+            // Image using function from current toolbox
+            plot([1 2], [multiplybypi(1), multiplybypi(2)]);
+        </scilab:image>
     </refsection>
     <refsection role="see also">
         <title>See also</title>

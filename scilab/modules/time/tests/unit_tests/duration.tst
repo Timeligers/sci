@@ -369,6 +369,10 @@ assert_checkerror("duration(""01:00:00"", ""InputFormat"", ""dd:hh:mm:ss"")", ms
 msg = msprintf(_("%s: Wrong format for input argument #%d: Not use ""%s"".\n"), "duration", 1, "mm:ss");
 assert_checkerror("duration(""01:00:00:00"", ""InputFormat"", ""mm:ss"")", msg);
 
+msg = msprintf(_("%s: Wrong size for input argument #%d: 3 or 4 columns expected.\n"), "duration", 1);
+assert_checkerror("duration([0 5])", msg);
+assert_checkerror("duration([0; 5])", msg);
+
 // msg = msprintf(_("%s: Wrong format: Options {%s, %s, %s, %s, %s} expected.\n"), "%duration_string", "y", "d", "h", "m", "s");
 // d = duration("01:01:01");
 // assert_checkerror("d.format=""t""", msg);

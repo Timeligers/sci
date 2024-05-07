@@ -14,13 +14,6 @@
  */
 #ifndef __RESIZESIGNAL_H__
 #define __RESIZESIGNAL_H__
-#include <signal.h>
-
-/**
- * Set the console width read from the term size.
- */
-void resize_handler(int sig);
-
 
 /**
 * register the signal SIGWINCH.

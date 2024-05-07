@@ -38,8 +38,10 @@ int CreateMatlabVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * 
             CreateSparseVariable(pvApiCtx, iVar, matVariable, parent, item_position);
             break;
         case MAT_C_DOUBLE: /* 6 */
-        case MAT_C_SINGLE: /* 7 */
             CreateDoubleVariable(pvApiCtx, iVar, matVariable, parent, item_position);
+            break;
+        case MAT_C_SINGLE: /* 7 */
+            CreateFloatVariable(pvApiCtx, iVar, matVariable, parent, item_position);
             break;
         case MAT_C_INT8: /* 8 */
             CreateIntegerVariable(pvApiCtx, iVar, SCI_INT8, matVariable, parent, item_position);
