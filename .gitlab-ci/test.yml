@@ -16,7 +16,12 @@
     when: always
     paths:
       - "${SCI_VERSION_STRING}/${TEST}.xml"
-      - "${SCI_VERSION_STRING}"
+      - "${SCI_VERSION_STRING}/log_iss_install_${CI_COMMIT_SHORT_SHA}.txt"
+      - "${SCI_VERSION_STRING}/*.tst"
+      - "${SCI_VERSION_STRING}/*.res"
+      - "${SCI_VERSION_STRING}/*.err"
+      - "${SCI_VERSION_STRING}/*.dia.tmp"
+      - "${SCI_VERSION_STRING}/*.dia"
     reports:
       junit: "${SCI_VERSION_STRING}/${TEST}.xml"
 
@@ -157,7 +162,11 @@ windows_only:
     when: always
     paths:
       - "${SCI_VERSION_STRING}/${TEST}.xml"
-      - "${SCI_VERSION_STRING}"
+      - "${SCI_VERSION_STRING}/*.tst"
+      - "${SCI_VERSION_STRING}/*.res"
+      - "${SCI_VERSION_STRING}/*.err"
+      - "${SCI_VERSION_STRING}/*.dia.tmp"
+      - "${SCI_VERSION_STRING}/*.dia"
     reports:
       junit: "${SCI_VERSION_STRING}/${TEST}.xml"
 

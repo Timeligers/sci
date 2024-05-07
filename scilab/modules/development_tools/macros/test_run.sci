@@ -132,6 +132,9 @@ function test_run_result = test_run(varargin)
             // Doing the XML export, force the display of the error and diff
             params.show_diff = %t;
             params.show_error = %t;
+
+            // set test_run results file in the xml dir
+            params.output_dir = fileparts(params.exportFile);
         end
     end
 
@@ -574,12 +577,17 @@ function status = test_single(_module, _testPath, _testName)
     xcosNeeded    = %F;
 
     //some paths
-    tmp_tst     = pathconvert( TMPDIR + "/" + _testName + ".tst", %F);
-    tmp_dia     = pathconvert( TMPDIR + "/" + _testName + ".dia.tmp", %F);
-    tmp_res     = pathconvert( TMPDIR + "/" + _testName + ".res", %F);
-    tmp_err     = pathconvert( TMPDIR + "/" + _testName + ".err", %F);
-    path_dia    = pathconvert( TMPDIR + "/" + _testName + ".dia", %F);
-    tmp_prof    = pathconvert( TMPDIR + "/" + _testName + ".prof", %F);
+    result_path = TMPDIR + "/";
+    if isfield(params, "output_dir") then
+        result_path = params.output_dir;
+    end
+
+    tmp_tst     = pathconvert( result_path + _testName + ".tst", %F);
+    tmp_dia     = pathconvert( result_path + _testName + ".dia.tmp", %F);
+    tmp_res     = pathconvert( result_path + _testName + ".res", %F);
+    tmp_err     = pathconvert( result_path + _testName + ".err", %F);
+    path_dia    = pathconvert( result_path + _testName + ".dia", %F);
+    tmp_prof    = pathconvert( result_path + _testName + ".prof", %F);
 
     path_dia_ref  = _testPath + _testName + ".dia.ref";
     // Reference file management OS by OS
@@ -927,7 +935,7 @@ function status = test_single(_module, _testPath, _testName)
     end
 
     // cleanup previously generated files
-    deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err);
+    deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia);
 
     //create tmp test file
     mputl(sciFile, tmp_tst);
@@ -964,7 +972,6 @@ function status = test_single(_module, _testPath, _testName)
 
         if ~isempty(tmp_errfile_info) then
             txt = mgetl(tmp_err);
-
 
             if ~isempty(txt) then
                 // some Concurrent exception are reported on the console without stacktrace
@@ -1263,7 +1270,7 @@ function status = test_single(_module, _testPath, _testName)
             status.id = 20;
             status.message = "passed: ref created";
 
-            deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err);
+            deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia);
             return;
         else
             // write down the resulting dia file
@@ -1296,13 +1303,13 @@ function status = test_single(_module, _testPath, _testName)
                 end
 
             else
-                deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err);
+                deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia);
                 error(sprintf(gettext("The ref file (%s) doesn''t exist"), path_dia_ref));
             end
         end
     end
-
-    deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err);
+    
+    deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia);
 endfunction
 
 // checkthefile
@@ -1329,7 +1336,7 @@ function msg = checkthefile( filename )
 endfunction
 
 // deletetmpfiles: clean previous tmp files
-function deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err)
+function deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia)
     if isfile(tmp_tst) then
         deletefile(tmp_tst);
     end
@@ -1344,6 +1351,10 @@ function deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err)
 
     if isfile(tmp_err) then
         deletefile(tmp_err);
+    end
+
+    if isfile(path_dia) then
+        deletefile(path_dia);
     end
 endfunction
 
