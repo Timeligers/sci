@@ -25,8 +25,12 @@ assert_checkequal(out3, 3);
 st(3).f = [];
 [st.f] = deal(3);
 assert_checkequal(st(:).f, list(3, 3, 3));
+[a, b, c] = deal(st.f(:));
+assert_checktrue(and([a, b, c] == 3));
 
 // Cell contents
 ce{3} = [];
 [ce{:}] = deal("string");
 assert_checkequal(ce{:},  list("string", "string", "string"));
+[a, b, c] = deal(ce{:}(:));
+assert_checktrue(and([a, b, c] == "string"));
