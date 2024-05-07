@@ -166,6 +166,8 @@ types::InternalType* get_ports_property(const Adaptor& adaptor, const object_pro
         case STYLE:
             [[fallthrough]];
         case LABEL:
+            [[fallthrough]];
+        case NAME:
         {
             if (ids.empty())
             {
@@ -302,6 +304,8 @@ bool set_ports_property(const Adaptor& adaptor, const object_properties_t port_k
             case STYLE:
                 [[fallthrough]];
             case LABEL:
+                [[fallthrough]];
+            case NAME:
             {
                 for (std::vector<ScicosID>::iterator it = ids.begin(); it != ids.end(); ++it, ++i)
                 {
@@ -394,6 +398,8 @@ bool set_ports_property(const Adaptor& adaptor, const object_properties_t port_k
                 }
                 return true;
             case STYLE:
+                [[fallthrough]];
+            case NAME:
                 [[fallthrough]];
             case LABEL:
                 // Do nothing, because if the sizes match, then there are already zero concerned ports, so no ports to update

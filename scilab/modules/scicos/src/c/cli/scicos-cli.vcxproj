@@ -83,10 +83,11 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../;../../../src/cpp;../../../includes;../../../../../libs/intl;../../../../../libs/libxml2;../../../../core/includes;../../../../fileio/includes;../../../../time/includes;../../../../api_scilab/includes;../../../../output_stream/includes;../../../../scicos_blocks/includes;../../../../windows_tools/includes;../../../../localization/includes;../../../../string/includes;../../../../dynamic_link/includes;../../../../action_binding/includes;../../../../ast/includes/types;../../../../ast/includes/ast;../../../../ast/includes/exps;../../../../ast/includes/operations;../../../../ast/includes/symbol;../../../../ast/includes/system_env;../../../../ast/includes/parse;../../../../threads/includes;../../../../console/includes;../../../../differential_equations/includes ;../../../../differential_equations/src/patched_sundials/include;../../../../differential_equations/src/patched_sundials/include/sundials;../../../../differential_equations/src/patched_sundials/src;../../../../differential_equations/src/patched_sundials/src/cvode;../../../../differential_equations/src/patched_sundials/src/ida;../../../../differential_equations/src/patched_sundials/src/sundials</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../;../../../src/cpp;../../../includes;../../../../../libs/intl;../../../../../libs/libxml2;../../../../../libs/archive/include;../../../../core/includes;../../../../fileio/includes;../../../../time/includes;../../../../api_scilab/includes;../../../../output_stream/includes;../../../../scicos_blocks/includes;../../../../windows_tools/includes;../../../../localization/includes;../../../../string/includes;../../../../dynamic_link/includes;../../../../action_binding/includes;../../../../ast/includes/types;../../../../ast/includes/ast;../../../../ast/includes/exps;../../../../ast/includes/operations;../../../../ast/includes/symbol;../../../../ast/includes/system_env;../../../../ast/includes/parse;../../../../threads/includes;../../../../console/includes;../../../../differential_equations/includes ;../../../../differential_equations/src/patched_sundials/include;../../../../differential_equations/src/patched_sundials/include/sundials;../../../../differential_equations/src/patched_sundials/src;../../../../differential_equations/src/patched_sundials/src/cvode;../../../../differential_equations/src/patched_sundials/src/ida;../../../../differential_equations/src/patched_sundials/src/sundials</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;SCICOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>
@@ -97,7 +98,7 @@ lib /DEF:"$(ProjectDir)../core_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
 lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)differential_equations_f.lib" 1&gt;NUL 2&gt;NUL</Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>../../../../../bin/libintl.lib;../../../../../bin/lapack.lib;../../../../../bin/blasplus.lib;../../../../../bin/linpack_f.lib;scicos_blocks-cli_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../../../bin/libintl.lib;../../../../../bin/archive.lib;../../../../../bin/lapack.lib;../../../../../bin/blasplus.lib;../../../../../bin/linpack_f.lib;scicos_blocks-cli_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -120,10 +121,11 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../;../../../src/cpp;../../../includes;../../../../../libs/intl;../../../../../libs/libxml2;../../../../core/includes;../../../../fileio/includes;../../../../time/includes;../../../../api_scilab/includes;../../../../output_stream/includes;../../../../scicos_blocks/includes;../../../../windows_tools/includes;../../../../localization/includes;../../../../string/includes;../../../../dynamic_link/includes;../../../../action_binding/includes;../../../../ast/includes/types;../../../../ast/includes/ast;../../../../ast/includes/exps;../../../../ast/includes/operations;../../../../ast/includes/symbol;../../../../ast/includes/system_env;../../../../ast/includes/parse;../../../../threads/includes;../../../../console/includes;../../../../differential_equations/includes ;../../../../differential_equations/src/patched_sundials/include;../../../../differential_equations/src/patched_sundials/include/sundials;../../../../differential_equations/src/patched_sundials/src;../../../../differential_equations/src/patched_sundials/src/cvode;../../../../differential_equations/src/patched_sundials/src/ida;../../../../differential_equations/src/patched_sundials/src/sundials</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../;../../../src/cpp;../../../includes;../../../../../libs/intl;../../../../../libs/libxml2;../../../../../libs/archive/include;../../../../core/includes;../../../../fileio/includes;../../../../time/includes;../../../../api_scilab/includes;../../../../output_stream/includes;../../../../scicos_blocks/includes;../../../../windows_tools/includes;../../../../localization/includes;../../../../string/includes;../../../../dynamic_link/includes;../../../../action_binding/includes;../../../../ast/includes/types;../../../../ast/includes/ast;../../../../ast/includes/exps;../../../../ast/includes/operations;../../../../ast/includes/symbol;../../../../ast/includes/system_env;../../../../ast/includes/parse;../../../../threads/includes;../../../../console/includes;../../../../differential_equations/includes ;../../../../differential_equations/src/patched_sundials/include;../../../../differential_equations/src/patched_sundials/include/sundials;../../../../differential_equations/src/patched_sundials/src;../../../../differential_equations/src/patched_sundials/src/cvode;../../../../differential_equations/src/patched_sundials/src/ida;../../../../differential_equations/src/patched_sundials/src/sundials</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;SCICOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>
@@ -134,7 +136,7 @@ lib /DEF:"$(ProjectDir)../core_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
 lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)differential_equations_f.lib" 1&gt;NUL 2&gt;NUL</Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>../../../../../bin/libintl.lib;../../../../../bin/lapack.lib;../../../../../bin/blasplus.lib;../../../../../bin/linpack_f.lib;scicos_blocks-cli_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../../../bin/libintl.lib;../../../../../bin/archive.lib;../../../../../bin/lapack.lib;../../../../../bin/blasplus.lib;../../../../../bin/linpack_f.lib;scicos_blocks-cli_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -155,12 +157,13 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>../;../../../src/cpp;../../../includes;../../../../../libs/intl;../../../../../libs/libxml2;../../../../core/includes;../../../../fileio/includes;../../../../time/includes;../../../../api_scilab/includes;../../../../output_stream/includes;../../../../scicos_blocks/includes;../../../../windows_tools/includes;../../../../localization/includes;../../../../string/includes;../../../../dynamic_link/includes;../../../../action_binding/includes;../../../../ast/includes/types;../../../../ast/includes/ast;../../../../ast/includes/exps;../../../../ast/includes/operations;../../../../ast/includes/symbol;../../../../ast/includes/system_env;../../../../ast/includes/parse;../../../../threads/includes;../../../../console/includes;../../../../differential_equations/includes ;../../../../differential_equations/src/patched_sundials/include;../../../../differential_equations/src/patched_sundials/include/sundials;../../../../differential_equations/src/patched_sundials/src;../../../../differential_equations/src/patched_sundials/src/cvode;../../../../differential_equations/src/patched_sundials/src/ida;../../../../differential_equations/src/patched_sundials/src/sundials</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../;../../../src/cpp;../../../includes;../../../../../libs/intl;../../../../../libs/libxml2;../../../../../libs/archive/include;../../../../core/includes;../../../../fileio/includes;../../../../time/includes;../../../../api_scilab/includes;../../../../output_stream/includes;../../../../scicos_blocks/includes;../../../../windows_tools/includes;../../../../localization/includes;../../../../string/includes;../../../../dynamic_link/includes;../../../../action_binding/includes;../../../../ast/includes/types;../../../../ast/includes/ast;../../../../ast/includes/exps;../../../../ast/includes/operations;../../../../ast/includes/symbol;../../../../ast/includes/system_env;../../../../ast/includes/parse;../../../../threads/includes;../../../../console/includes;../../../../differential_equations/includes ;../../../../differential_equations/src/patched_sundials/include;../../../../differential_equations/src/patched_sundials/include/sundials;../../../../differential_equations/src/patched_sundials/src;../../../../differential_equations/src/patched_sundials/src/cvode;../../../../differential_equations/src/patched_sundials/src/ida;../../../../differential_equations/src/patched_sundials/src/sundials</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;SCICOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>
@@ -171,7 +174,7 @@ lib /DEF:"$(ProjectDir)../core_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
 lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)differential_equations_f.lib" 1&gt;NUL 2&gt;NUL</Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>../../../../../bin/libintl.lib;../../../../../bin/lapack.lib;../../../../../bin/blasplus.lib;../../../../../bin/linpack_f.lib;scicos_blocks-cli_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../../../bin/libintl.lib;../../../../../bin/archive.lib;../../../../../bin/lapack.lib;../../../../../bin/blasplus.lib;../../../../../bin/linpack_f.lib;scicos_blocks-cli_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -197,12 +200,13 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>../;../../../src/cpp;../../../includes;../../../../../libs/intl;../../../../../libs/libxml2;../../../../core/includes;../../../../fileio/includes;../../../../time/includes;../../../../api_scilab/includes;../../../../output_stream/includes;../../../../scicos_blocks/includes;../../../../windows_tools/includes;../../../../localization/includes;../../../../string/includes;../../../../dynamic_link/includes;../../../../action_binding/includes;../../../../ast/includes/types;../../../../ast/includes/ast;../../../../ast/includes/exps;../../../../ast/includes/operations;../../../../ast/includes/symbol;../../../../ast/includes/system_env;../../../../ast/includes/parse;../../../../threads/includes;../../../../console/includes;../../../../differential_equations/includes ;../../../../differential_equations/src/patched_sundials/include;../../../../differential_equations/src/patched_sundials/include/sundials;../../../../differential_equations/src/patched_sundials/src;../../../../differential_equations/src/patched_sundials/src/cvode;../../../../differential_equations/src/patched_sundials/src/ida;../../../../differential_equations/src/patched_sundials/src/sundials</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../;../../../src/cpp;../../../includes;../../../../../libs/intl;../../../../../libs/libxml2;../../../../../libs/archive/include;../../../../core/includes;../../../../fileio/includes;../../../../time/includes;../../../../api_scilab/includes;../../../../output_stream/includes;../../../../scicos_blocks/includes;../../../../windows_tools/includes;../../../../localization/includes;../../../../string/includes;../../../../dynamic_link/includes;../../../../action_binding/includes;../../../../ast/includes/types;../../../../ast/includes/ast;../../../../ast/includes/exps;../../../../ast/includes/operations;../../../../ast/includes/symbol;../../../../ast/includes/system_env;../../../../ast/includes/parse;../../../../threads/includes;../../../../console/includes;../../../../differential_equations/includes ;../../../../differential_equations/src/patched_sundials/include;../../../../differential_equations/src/patched_sundials/include/sundials;../../../../differential_equations/src/patched_sundials/src;../../../../differential_equations/src/patched_sundials/src/cvode;../../../../differential_equations/src/patched_sundials/src/ida;../../../../differential_equations/src/patched_sundials/src/sundials</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;SCICOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>
@@ -213,7 +217,7 @@ lib /DEF:"$(ProjectDir)../core_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
 lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform) /OUT:"$(ProjectDir)differential_equations_f.lib" 1&gt;NUL 2&gt;NUL</Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>../../../../../bin/libintl.lib;../../../../../bin/lapack.lib;../../../../../bin/blasplus.lib;../../../../../bin/linpack_f.lib;scicos_blocks-cli_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../../../bin/libintl.lib;../../../../../bin/archive.lib;../../../../../bin/lapack.lib;../../../../../bin/blasplus.lib;../../../../../bin/linpack_f.lib;scicos_blocks-cli_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -288,6 +292,9 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
     <ClCompile Include="..\..\cpp\view_scilab\ScsAdapter.cpp" />
     <ClCompile Include="..\..\cpp\view_scilab\StateAdapter.cpp" />
     <ClCompile Include="..\..\cpp\view_scilab\TextAdapter.cpp" />
+    <ClCompile Include="..\..\cpp\SSPResource.cpp" />
+    <ClCompile Include="..\..\cpp\SSPResource_load.cpp" />
+    <ClCompile Include="..\..\cpp\SSPResource_save.cpp" />
     <ClCompile Include="..\..\cpp\XMIResource.cpp" />
     <ClCompile Include="..\..\cpp\XMIResource_load.cpp" />
     <ClCompile Include="..\..\cpp\XMIResource_save.cpp" />
@@ -315,6 +322,7 @@ lib /DEF:"$(ProjectDir)../differential_equations_f_Import.def" /SUBSYSTEM:WINDOW
     <ClInclude Include="..\..\..\includes\View.hxx" />
     <ClInclude Include="..\..\..\includes\view_scilab\AdapterView.hxx" />
     <ClInclude Include="..\..\..\includes\XMIResource.hxx" />
+    <ClInclude Include="..\..\..\includes\SSPResource.hxx" />
     <ClInclude Include="..\..\..\includes\view_scilab\Adapters.hxx" />
     <ClInclude Include="..\..\cpp\controller_helpers.hxx" />
     <ClInclude Include="..\..\cpp\base64.hxx" />

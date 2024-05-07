@@ -6,13 +6,8 @@
  * the SWIG interface file instead.
  * ----------------------------------------------------------------------------- */
 
-package org.scilab.modules.xcos;
+#ifndef SWIG_JavaSSPResource_WRAP_H_
+#define SWIG_JavaSSPResource_WRAP_H_
 
-public enum Kind {
-  BLOCK,
-  DIAGRAM,
-  LINK,
-  ANNOTATION,
-  PORT;
-}
 
+#endif

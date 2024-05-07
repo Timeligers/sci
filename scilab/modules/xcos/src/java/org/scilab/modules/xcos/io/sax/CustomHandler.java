@@ -163,7 +163,7 @@ class CustomHandler implements ScilabHandler {
                 // TODO: implement a GUI to setup the title property (currently file name is used)
                 v = atts.getValue("title");
                 if (v != null) {
-                    saxHandler.controller.setObjectProperty(uid, kind, ObjectProperties.TITLE, v);
+                    saxHandler.controller.setObjectProperty(uid, kind, ObjectProperties.NAME, v);
                 }
 
                 /*

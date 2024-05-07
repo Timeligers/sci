@@ -1,7 +1,6 @@
 /*
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2016-2016 - Scilab Enterprises - Clement DAVID
- * Copyright (C) 2017 - ESI Group - Clement DAVID
+ * Copyright (C) 2023 - Dassault Systemes - Clement DAVID
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
  * pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -11,7 +10,7 @@
  * along with this program.
  */
 
-#include "XMIResource.hxx"
+#include "SSPResource.hxx"
 #include "base64.hxx"
 
 #include <string>
@@ -22,13 +21,16 @@
 extern "C" {
 #include "sci_types.h"
 
+#include <archive.h>
+#include <archive_entry.h>
+
 #include <libxml/xmlwriter.h>
 }
 
 namespace org_scilab_modules_scicos
 {
 
-int XMIResource::save(const char* uri)
+int SSPResource::save(const char* uri)
 {
     int status;
 
@@ -178,7 +180,7 @@ static int writeBase64(xmlTextWriterPtr writer, const char* name, const std::vec
     return status;
 }
 
-int XMIResource::writeDatatype(xmlTextWriterPtr writer, const std::vector<int>& datatype)
+int SSPResource::writeDatatype(xmlTextWriterPtr writer, const std::vector<int>& datatype)
 {
     int status;
 
@@ -215,7 +217,7 @@ int XMIResource::writeDatatype(xmlTextWriterPtr writer, const std::vector<int>& 
     return status;
 }
 
-int XMIResource::writePoint(xmlTextWriterPtr writer, double x, double y)
+int SSPResource::writePoint(xmlTextWriterPtr writer, double x, double y)
 {
     int status;
 
@@ -246,7 +248,7 @@ int XMIResource::writePoint(xmlTextWriterPtr writer, double x, double y)
     return status;
 }
 
-int XMIResource::writeGeometry(xmlTextWriterPtr writer, ScicosID id, kind_t kind)
+int SSPResource::writeGeometry(xmlTextWriterPtr writer, ScicosID id, kind_t kind)
 {
     int status;
 
@@ -307,7 +309,7 @@ int XMIResource::writeGeometry(xmlTextWriterPtr writer, ScicosID id, kind_t kind
     return status;
 }
 
-int XMIResource::writeAbstractLayer(xmlTextWriterPtr writer, ScicosID id, kind_t kind)
+int SSPResource::writeAbstractLayer(xmlTextWriterPtr writer, ScicosID id, kind_t kind)
 {
     int status = 1;
 
@@ -367,7 +369,7 @@ int XMIResource::writeAbstractLayer(xmlTextWriterPtr writer, ScicosID id, kind_t
     return status;
 }
 
-int XMIResource::writeAbstractBaseObject(xmlTextWriterPtr writer, ScicosID id, kind_t kind)
+int SSPResource::writeAbstractBaseObject(xmlTextWriterPtr writer, ScicosID id, kind_t kind)
 {
     int status;
 
@@ -389,7 +391,7 @@ int XMIResource::writeAbstractBaseObject(xmlTextWriterPtr writer, ScicosID id, k
     return status;
 }
 
-int XMIResource::writeDiagram(xmlTextWriterPtr writer)
+int SSPResource::writeDiagram(xmlTextWriterPtr writer)
 {
     int status;
 
@@ -402,7 +404,7 @@ int XMIResource::writeDiagram(xmlTextWriterPtr writer)
     /*
      * Write default xmlns
      */
-    status = xmlTextWriterWriteAttributeNS(writer, BAD_CAST("xmi"), BAD_CAST("version"), BAD_CAST("http://www.omg.org/XMI"), BAD_CAST("2.0"));
+    status = xmlTextWriterWriteAttributeNS(writer, BAD_CAST("SSP"), BAD_CAST("version"), BAD_CAST("http://www.omg.org/SSP"), BAD_CAST("2.0"));
     if (status == -1)
     {
         return status;
@@ -470,7 +472,7 @@ int XMIResource::writeDiagram(xmlTextWriterPtr writer)
     return status;
 }
 
-int XMIResource::writeSimulationConfig(xmlTextWriterPtr writer, ScicosID id)
+int SSPResource::writeSimulationConfig(xmlTextWriterPtr writer, ScicosID id)
 {
     int status;
 
@@ -575,7 +577,7 @@ int XMIResource::writeSimulationConfig(xmlTextWriterPtr writer, ScicosID id)
     return status;
 }
 
-int XMIResource::writeBlock(xmlTextWriterPtr writer, ScicosID id)
+int SSPResource::writeBlock(xmlTextWriterPtr writer, ScicosID id)
 {
     int status;
 
@@ -880,7 +882,7 @@ int XMIResource::writeBlock(xmlTextWriterPtr writer, ScicosID id)
     return status;
 }
 
-int XMIResource::writePort(xmlTextWriterPtr writer, enum object_properties_t container, ScicosID id)
+int SSPResource::writePort(xmlTextWriterPtr writer, enum object_properties_t container, ScicosID id)
 {
     int status;
 
@@ -993,7 +995,7 @@ int XMIResource::writePort(xmlTextWriterPtr writer, enum object_properties_t con
     return status;
 }
 
-int XMIResource::writeLink(xmlTextWriterPtr writer, ScicosID id)
+int SSPResource::writeLink(xmlTextWriterPtr writer, ScicosID id)
 {
     int status;
 
@@ -1124,7 +1126,7 @@ int XMIResource::writeLink(xmlTextWriterPtr writer, ScicosID id)
     return status;
 }
 
-int XMIResource::writeAnnotation(xmlTextWriterPtr writer, ScicosID id, bool asLabel)
+int SSPResource::writeAnnotation(xmlTextWriterPtr writer, ScicosID id, bool asLabel)
 {
     int status;
 

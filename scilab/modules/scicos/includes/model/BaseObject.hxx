@@ -132,6 +132,104 @@ struct Geometry
     }
 };
 
+struct Unit
+{
+    double kg;
+    double m;
+    double s;
+    double A;
+    double K;
+    double mol;
+    double cd;
+    double rad;
+    
+    double factor;
+    double offset;
+
+    std::string name;
+    std::string description;
+
+    Unit() : kg(0), m(0), s(0), A(0), K(0), mol(0), cd(0), rad(0), factor(1), offset(0), name("1"), description("") {};
+    
+
+    bool operator==(const Unit& u) const
+    {
+        return (kg == u.kg) && 
+            (m == u.m) &&
+            (s == u.s) &&
+            (A == u.A) &&
+            (K == u.K) &&
+            (mol == u.mol) &&
+            (cd == u.cd) &&
+            (rad == u.rad) &&
+            (factor == u.factor) &&
+            (offset == u.offset) &&
+            (name == u.name) &&
+            (description == u.description);
+    }
+    
+    bool operator<(const Unit& u) const
+    {
+        if (kg < u.kg)
+            return true;
+        if (kg > u.kg)
+            return false;
+
+        if (m < u.m)
+            return true;
+        if (m > u.m)
+            return false;
+
+        if (s < u.s)
+            return true;
+        if (s > u.s)
+            return false;
+
+        if (A < u.A)
+            return true;
+        if (A > u.A)
+            return false;
+
+        if (K < u.K)
+            return true;
+        if (K > u.K)
+            return false;
+
+        if (mol < u.mol)
+            return true;
+        if (mol > u.mol)
+            return false;
+
+        if (cd < u.cd)
+            return true;
+        if (cd > u.cd)
+            return false;
+
+        if (rad < u.rad)
+            return true;
+        if (rad > u.rad)
+            return false;
+
+        if (factor < u.factor)
+            return true;
+        if (factor > u.factor)
+            return false;
+
+        if (offset < u.offset)
+            return true;
+        if (offset > u.offset)
+            return false;
+
+        if (name < u.name)
+            return true;
+        if (name > u.name)
+            return false;
+
+        return description < u.description;
+    };
+};
+
+
 /**
  * Per port type descriptor
  *
@@ -140,29 +238,43 @@ struct Geometry
 struct Datatype
 {
 public:
+    Datatype() :
+        m_refCount(0), m_datatype_id(0), m_rows(0), m_columns(0), m_unit() {};
     Datatype(const Datatype& d) :
-        m_refCount(0), m_datatype_id(d.m_datatype_id), m_rows(d.m_rows), m_columns(d.m_columns) {};
+        m_refCount(0), m_datatype_id(d.m_datatype_id), m_rows(d.m_rows), m_columns(d.m_columns), m_unit(d.m_unit) {};
     Datatype(const std::vector<int>& v) :
-        m_refCount(0), m_datatype_id(v[2]), m_rows(v[0]), m_columns(v[1]) {};
+        m_refCount(0), m_datatype_id(v[2]), m_rows(v[0]), m_columns(v[1]), m_unit() {};
 
     // reference counter for the flyweight pattern
     int m_refCount;
 
-    const int m_datatype_id;
-    const int m_rows;
-    const int m_columns;
+    int m_datatype_id;
+    int m_rows;
+    int m_columns;
+
+    Unit m_unit;
 
     bool operator==(const Datatype& d) const
     {
-        return m_datatype_id == d.m_datatype_id && m_rows == d.m_rows && m_columns == d.m_columns;
+        return (m_datatype_id == d.m_datatype_id) && 
+            (m_rows == d.m_rows) &&
+            (m_columns == d.m_columns) &&
+            (m_unit == d.m_unit);
     }
 
     bool operator<(const Datatype& d) const
     {
-        // Lexicographical order
-        return m_datatype_id < d.m_datatype_id ||
-               (m_datatype_id == d.m_datatype_id && m_rows < d.m_rows) ||
-               (m_datatype_id == d.m_datatype_id && m_rows == d.m_rows && m_columns < d.m_columns);
+        if (m_datatype_id < d.m_datatype_id)
+            return true;
+        if (m_datatype_id > d.m_datatype_id)
+            return false;
+
+        if (m_rows < d.m_rows)
+            return true;
+        if (m_rows > d.m_rows)
+            return false;
+        
+        return m_columns < d.m_columns;
     }
 };
 

@@ -38,6 +38,7 @@ namespace org_scilab_modules_scicos
 /**
  * Display on the Scilab console
  */
+static
 void console_print(void *, const char *msg, ...) LIBXML_ATTR_FORMAT(2, 3);
 void console_print(void *, const char *msg, ...)
 {
@@ -253,6 +254,7 @@ int XMIResource::load(const char* uri)
 /*
  * Convert an XML UTF-8 string to a model string
  */
+static
 std::string to_string(const xmlChar* xmlStr)
 {
     if (xmlStr == nullptr)
@@ -267,6 +269,7 @@ std::string to_string(const xmlChar* xmlStr)
 /*
  * Convert an XML UTF-8 string to a model int
  */
+static
 int to_int(const xmlChar* xmlStr)
 {
     if (xmlStr == nullptr)
@@ -280,6 +283,7 @@ int to_int(const xmlChar* xmlStr)
 /*
  * Convert an XML UTF-8 string to a model boolean
  */
+static
 bool to_boolean(const xmlChar* xmlStr)
 {
     if (xmlStr == nullptr)
@@ -293,6 +297,7 @@ bool to_boolean(const xmlChar* xmlStr)
 /*
  * Convert an XML UTF-8 string to a model double
  */
+static
 double to_double(const xmlChar* xmlStr)
 {
     if (xmlStr == nullptr)
@@ -655,7 +660,7 @@ int XMIResource::loadDiagram(xmlTextReaderPtr reader, const model::BaseObject& o
         switch (current)
         {
             case e_title:
-                controller.setObjectProperty(o.id(), o.kind(), TITLE, to_string(xmlTextReaderConstValue(reader)));
+                controller.setObjectProperty(o.id(), o.kind(), NAME, to_string(xmlTextReaderConstValue(reader)));
                 break;
             case e_path:
                 controller.setObjectProperty(o.id(), o.kind(), PATH, to_string(xmlTextReaderConstValue(reader)));

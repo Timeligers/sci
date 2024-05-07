@@ -1966,7 +1966,7 @@ public class XcosDiagram extends ScilabGraph {
         String[] property = {""};
 
         if (getKind() == Kind.DIAGRAM) {
-            controller.getObjectProperty(getUID(), getKind(), ObjectProperties.TITLE, property);
+            controller.getObjectProperty(getUID(), getKind(), ObjectProperties.NAME, property);
         } else { // Kind.BLOCK
             // use the one-line description
             controller.getObjectProperty(getUID(), getKind(), ObjectProperties.DESCRIPTION, property);
@@ -1990,7 +1990,7 @@ public class XcosDiagram extends ScilabGraph {
         super.setTitle(title);
 
         JavaController controller = new JavaController();
-        controller.setObjectProperty(getUID(), getKind(), ObjectProperties.TITLE, title);
+        controller.setObjectProperty(getUID(), getKind(), ObjectProperties.NAME, title);
     }
 
     /**
@@ -2194,11 +2194,26 @@ public class XcosDiagram extends ScilabGraph {
     private String getToolTipForCell(final BasicBlock o) {
         JavaController controller = new JavaController();
         String[] strValue = {""};
+        VectorOfString vecString = new VectorOfString();
         VectorOfDouble vecValue = new VectorOfDouble();
         VectorOfInt vecInteger = new VectorOfInt();
 
         StringBuilder result = new StringBuilder();
         result.append(ScilabGraphConstants.HTML_BEGIN);
+
+        controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.NAME, strValue);
+        result.append(ScilabGraphConstants.HTML_BEGIN_CODE);
+        appendReduced(result, strValue[0])
+        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.DESCRIPTION, strValue);
+        if (!strValue[0].isEmpty())
+        {
+            result.append(ScilabGraphConstants.HTML_BEGIN_CODE);
+            appendReduced(result, strValue[0])
+            .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        }
+
+        result.append(ScilabGraphConstants.HTML_NEWLINE);
 
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.INTERFACE_FUNCTION, strValue);
         result.append(XcosMessages.TOOLTIP_BLOCK).append(ScilabGraphConstants.HTML_BEGIN_CODE)
@@ -2216,26 +2231,50 @@ public class XcosDiagram extends ScilabGraph {
         .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
 
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.STYLE, strValue);
-        result.append(XcosMessages.TOOLTIP_BLOCK_STYLE).append(ScilabGraphConstants.HTML_BEGIN_CODE);
+        result.append(XcosMessages.TOOLTIP_STYLE).append(ScilabGraphConstants.HTML_BEGIN_CODE);
         appendReduced(result, strValue[0])
         .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
 
         result.append(ScilabGraphConstants.HTML_NEWLINE);
 
+        controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.EXPRS, vecString);
+        if (!vecString.isEmpty())
+        {
+            result.append(XcosMessages.TOOLTIP_BLOCK_EXPRS).append(ScilabGraphConstants.HTML_BEGIN_CODE);
+            if (!vecString.isEmpty())
+            {
+                appendReduced(result, "\"" + vecString.get(0) + "\"");
+            }
+            for (int i = 1; i < vecString.size(); ++i)
+            {
+                appendReduced(result, " \"" + vecString.get(i) + "\"");
+            }
+            result.append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        }
+
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.RPAR, vecValue);
-        result.append(XcosMessages.TOOLTIP_BLOCK_RPAR).append(ScilabGraphConstants.HTML_BEGIN_CODE);
-        appendReduced(result, ScilabTypeCoder.toString(vecValue))
-        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        if (!vecValue.isEmpty())
+        {
+            result.append(XcosMessages.TOOLTIP_BLOCK_RPAR).append(ScilabGraphConstants.HTML_BEGIN_CODE);
+            appendReduced(result, ScilabTypeCoder.toString(vecValue))
+            .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        }
 
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.IPAR, vecInteger);
-        result.append(XcosMessages.TOOLTIP_BLOCK_IPAR).append(ScilabGraphConstants.HTML_BEGIN_CODE);
-        appendReduced(result, ScilabTypeCoder.toString(vecInteger))
-        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        if (!vecInteger.isEmpty())
+        {
+            result.append(XcosMessages.TOOLTIP_BLOCK_IPAR).append(ScilabGraphConstants.HTML_BEGIN_CODE);
+            appendReduced(result, ScilabTypeCoder.toString(vecInteger))
+            .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        }
 
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.OPAR, vecValue);
-        result.append(XcosMessages.TOOLTIP_BLOCK_OPAR).append(ScilabGraphConstants.HTML_BEGIN_CODE);
-        appendReduced(result, ScilabTypeCoder.toString(vecValue))
-        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        if (vecValue.size() > 3 && vecValue.get(2) > 0)
+        {
+            result.append(XcosMessages.TOOLTIP_BLOCK_OPAR).append(ScilabGraphConstants.HTML_BEGIN_CODE);
+            appendReduced(result, ScilabTypeCoder.toString(vecValue))
+            .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        }
 
         result.append(ScilabGraphConstants.HTML_END);
         return result.toString();
@@ -2250,6 +2289,15 @@ public class XcosDiagram extends ScilabGraph {
         StringBuilder result = new StringBuilder();
         result.append(ScilabGraphConstants.HTML_BEGIN);
 
+        controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.NAME, strValue);
+        result.append(ScilabGraphConstants.HTML_BEGIN_CODE);
+        appendReduced(result, strValue[0])
+        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.DESCRIPTION, strValue);
+        result.append(ScilabGraphConstants.HTML_BEGIN_CODE);
+        appendReduced(result, strValue[0])
+        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.DATATYPE, intVecValue);
         result.append(XcosMessages.TOOLTIP_PORT_DATATYPE).append(ScilabGraphConstants.HTML_BEGIN_CODE);
         formatDatatype(result, intVecValue)
@@ -2261,7 +2309,7 @@ public class XcosDiagram extends ScilabGraph {
         .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
 
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.STYLE, strValue);
-        result.append(XcosMessages.TOOLTIP_PORT_STYLE).append(ScilabGraphConstants.HTML_BEGIN_CODE);
+        result.append(XcosMessages.TOOLTIP_STYLE).append(ScilabGraphConstants.HTML_BEGIN_CODE);
         appendReduced(result, strValue[0])
         .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
 
@@ -2278,6 +2326,15 @@ public class XcosDiagram extends ScilabGraph {
         StringBuilder result = new StringBuilder();
         result.append(ScilabGraphConstants.HTML_BEGIN);
 
+        controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.NAME, strValue);
+        result.append(ScilabGraphConstants.HTML_BEGIN_CODE);
+        appendReduced(result, strValue[0])
+        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+        controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.DESCRIPTION, strValue);
+        result.append(ScilabGraphConstants.HTML_BEGIN_CODE);
+        appendReduced(result, strValue[0])
+        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
+
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.SOURCE_PORT, longValue);
         if (longValue[0] != 0l) {
             controller.getObjectProperty(longValue[0], Kind.PORT, ObjectProperties.DATATYPE, intVecValue);
@@ -2293,13 +2350,8 @@ public class XcosDiagram extends ScilabGraph {
             .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
         }
 
-        controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.LABEL, strValue);
-        result.append(XcosMessages.TOOLTIP_LINK_LABEL).append(ScilabGraphConstants.HTML_BEGIN_CODE)
-        .append(strValue[0])
-        .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
-
         controller.getObjectProperty(o.getUID(), o.getKind(), ObjectProperties.STYLE, strValue);
-        result.append(XcosMessages.TOOLTIP_LINK_STYLE).append(ScilabGraphConstants.HTML_BEGIN_CODE);
+        result.append(XcosMessages.TOOLTIP_STYLE).append(ScilabGraphConstants.HTML_BEGIN_CODE);
         appendReduced(result, strValue[0])
         .append(ScilabGraphConstants.HTML_END_CODE).append(ScilabGraphConstants.HTML_NEWLINE);
 

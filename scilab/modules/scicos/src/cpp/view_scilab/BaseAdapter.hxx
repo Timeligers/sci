@@ -323,6 +323,7 @@ public:
                 bool status = found->set(*static_cast<Adaptor*>(this), current->get(index), controller);
                 if (!status)
                 {
+                    get_or_allocate_logger()->log(LOG_ERROR, _("Wrong value for field \"%ls.%ls\".\n"), Adaptor::getSharedTypeStr().c_str(), found->name.c_str());
                     return false;
                 }
             }

@@ -71,7 +71,10 @@ types::InternalType * alloc_and_set(kind_t k, types::String* type_name, types::t
         std::wstring name (type_name->get(i));
         if (!adaptor->setProperty(name, in[i], controller))
         {
-            Scierror(999, _("%s: Wrong value for input argument #%d: unable to set \"%ls\".\n"), funame.data(), i, name.data());
+            if (wcslen(getLastErrorMessage()) == 0)
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: unable to set \"%ls\".\n"), funame.data(), i, name.data());
+            }
             adaptor->killMe();
             return 0;
         }

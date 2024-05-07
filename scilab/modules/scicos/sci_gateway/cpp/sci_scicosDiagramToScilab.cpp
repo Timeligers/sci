@@ -16,6 +16,7 @@
 #include "Controller.hxx"
 #include "view_scilab/Adapters.hxx"
 #include "XMIResource.hxx"
+#include "SSPResource.hxx"
 
 #include "types.hxx"
 #include "function.hxx"
@@ -133,10 +134,32 @@ static types::InternalType* importFile(char const* file)
     org_scilab_modules_scicos::Controller controller;
     ScicosID uid = controller.createObject(DIAGRAM);
 
-    // load it
-    if (XMIResource(uid).load(file) != 0)
+    size_t fLen = strlen(file);
+    int ret = -1;
+    if (fLen < 4)
     {
         Scierror(999, _("%s: Unable to load \"%s\" .\n"), funname, file);
+        controller.deleteObject(uid);
+        return nullptr;
+    }
+    if (strcmp(&file[fLen - 4], ".ssp") == 0)
+    {
+        ret = SSPResource(uid).load(file);
+    }
+    else if (strcmp(&file[fLen - 4], ".xmi") == 0)
+    {
+        ret = XMIResource(uid).load(file);
+    }
+    else
+    {
+        Scierror(999, _("%s: Unable to detect \"%s\" format.\n"), funname, file);
+        controller.deleteObject(uid);
+        return nullptr;
+    }
+
+    if (ret < 0)
+    {
+        Scierror(999, _("%s: Unable to load file \"%s\" .\n"), funname, file);
         controller.deleteObject(uid);
         return nullptr;
     }
@@ -155,7 +178,18 @@ static bool exportFile(int index, char const* file, types::InternalType* type)
         return false;
     }
 
-    if (XMIResource(o->id()).save(file) < 0)
+    size_t fLen = strlen(file);
+    if (fLen < 4)
+    {
+        Scierror(999, _("%s: Unable to save \"%s\" .\n"), funname, file);
+        return false;
+    }
+    if (strcmp(&file[fLen - 4], ".ssp") == 0 && SSPResource(o->id()).save(file) != 0)
+    {
+        Scierror(999, _("%s: Unable to save \"%s\" .\n"), funname, file);
+        return false;
+    }
+    else if (strcmp(&file[fLen - 4], ".xmi") == 0 && XMIResource(o->id()).save(file) < 0)
     {
         Scierror(999, _("%s: Unable to save \"%s\" .\n"), funname, file);
         return false;

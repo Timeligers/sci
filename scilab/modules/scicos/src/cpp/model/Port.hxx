@@ -32,12 +32,12 @@ class Port: public BaseObject
 {
 public:
     Port() : BaseObject(PORT), m_uid(), m_dataType(0), m_sourceBlock(ScicosID()), m_kind(PORT_UNDEF), m_implicit(false),
-        m_style(), m_label(), m_firing(0)
+        m_style(), m_name(), m_description(), m_unit(), m_firing(0)
     {
         m_connectedSignals = {ScicosID()};
     }
     Port(const Port& o) : BaseObject(PORT), m_uid(o.m_uid), m_dataType(o.m_dataType), m_sourceBlock(o.m_sourceBlock), m_kind(o.m_kind), m_implicit(o.m_implicit),
-        m_style(o.m_style), m_label(o.m_label), m_firing(0), m_connectedSignals(o.m_connectedSignals) {};
+        m_style(o.m_style), m_name(o.m_name), m_description(o.m_description), m_unit(o.m_unit), m_firing(0), m_connectedSignals(o.m_connectedSignals) {};
 
 private:
     friend class ::org_scilab_modules_scicos::Model;
@@ -112,6 +112,90 @@ private:
         return SUCCESS;
     }
 
+    void getDataTypeRows(int& v) const
+    {
+        if (m_dataType == 0)
+        {
+            // By default, size is set to [-1,1] and type to real (1)
+            v = -1;
+        }
+        else
+        {
+            v = m_dataType->m_rows;
+        }
+    }
+
+    update_status_t setDataTypeRows(Model* model, const int& v)
+    {
+        
+        if (this->m_dataType != 0 && this->m_dataType->m_datatype_id == v)
+        {
+            return NO_CHANGES;
+        }
+
+        std::vector<int> d;
+        getDataType(d);
+        d[0] = v;
+
+        return setDataType(model, d);
+    }
+
+    void getDataTypeCols(int& v) const
+    {
+        if (m_dataType == 0)
+        {
+            // By default, size is set to [-1,1] and type to real (1)
+            v = 1;
+        }
+        else
+        {
+            v = m_dataType->m_columns;
+        }
+    }
+
+    update_status_t setDataTypeCols(Model* model, const int& v)
+    {
+        
+        if (this->m_dataType != 0 && this->m_dataType->m_columns == v)
+        {
+            return NO_CHANGES;
+        }
+
+        std::vector<int> d;
+        getDataType(d);
+        d[1] = v;
+
+        return setDataType(model, d);
+    }
+
+    void getDataTypeType(int& v) const
+    {
+        if (m_dataType == 0)
+        {
+            // By default, size is set to [-1,1] and type to real (1)
+            v = 1;
+        }
+        else
+        {
+            v = m_dataType->m_datatype_id;
+        }
+    }
+
+    update_status_t setDataTypeType(Model* model, const int& v)
+    {
+        
+        if (this->m_dataType != 0 && this->m_dataType->m_datatype_id == v)
+        {
+            return NO_CHANGES;
+        }
+
+        std::vector<int> d;
+        getDataType(d);
+        d[2] = v;
+
+        return setDataType(model, d);
+    }
+
     void getKind(int& k) const
     {
         k = m_kind;
@@ -178,18 +262,48 @@ private:
         return SUCCESS;
     }
 
-    void getLabel(std::string& l) const
+    void getName(std::string& l) const
     {
-        l = m_label;
+        l = m_name;
     }
 
-    update_status_t setLabel(const std::string& label)
+    update_status_t setName(const std::string& name)
     {
-        if (label == this->m_label)
+        if (name == this->m_name)
         {
             return NO_CHANGES;
         }
-        this->m_label = label;
+        this->m_name = name;
+        return SUCCESS;
+    }
+
+    void getDescription(std::string& description) const
+    {
+        description = m_description;
+    }
+
+    update_status_t setDescription(const std::string& description)
+    {
+        if (description == this->m_description)
+        {
+            return NO_CHANGES;
+        }
+        this->m_description = description;
+        return SUCCESS;
+    }
+
+    void getUnit(std::string& unit) const
+    {
+        unit = m_unit;
+    }
+
+    update_status_t setUnit(const std::string& unit)
+    {
+        if (unit == this->m_unit)
+        {
+            return NO_CHANGES;
+        }
+        this->m_unit = unit;
         return SUCCESS;
     }
 
@@ -215,7 +329,9 @@ private:
     portKind m_kind;
     bool m_implicit;
     std::string m_style;
-    std::string m_label;
+    std::string m_name;
+    std::string m_description;
+    std::string m_unit;
     double m_firing;
 
     std::vector<ScicosID> m_connectedSignals;

@@ -47,6 +47,9 @@
             <block name="OUT_f">
                 <icon variable="SCI" path="/modules/xcos/images/palettes/OUT_f.png"/>
             </block>
+            <block name="SSPOutputConnector">
+                <icon variable="SCI" path="/modules/xcos/images/palettes/SSPOutputConnector.png"/>
+            </block>
             <block name="PRODUCT">
                 <icon variable="SCI" path="/modules/xcos/images/palettes/PRODUCT.png"/>
             </block>
@@ -759,6 +762,9 @@
             </block>
             <block name="IN_f">
                 <icon variable="SCI" path="/modules/xcos/images/palettes/IN_f.png"/>
+            </block>
+            <block name="SSPInputConnector">
+                <icon variable="SCI" path="/modules/xcos/images/palettes/SSPInputConnector.png"/>
             </block>
             <block name="Modulo_Count">
                 <icon variable="SCI" path="/modules/xcos/images/palettes/Modulo_Count.png"/>

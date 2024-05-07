@@ -530,12 +530,12 @@ struct in_label
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property<GraphicsAdapter, LABEL>(adaptor, INPUTS, controller);
+        return get_ports_property<GraphicsAdapter, NAME>(adaptor, INPUTS, controller);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        return set_ports_property<GraphicsAdapter, LABEL>(adaptor, INPUTS, controller, v);
+        return set_ports_property<GraphicsAdapter, NAME>(adaptor, INPUTS, controller, v);
     }
 };
 
@@ -544,12 +544,12 @@ struct out_label
 
     static types::InternalType* get(const GraphicsAdapter& adaptor, const Controller& controller)
     {
-        return get_ports_property<GraphicsAdapter, LABEL>(adaptor, OUTPUTS, controller);
+        return get_ports_property<GraphicsAdapter, NAME>(adaptor, OUTPUTS, controller);
     }
 
     static bool set(GraphicsAdapter& adaptor, types::InternalType* v, Controller& controller)
     {
-        return set_ports_property<GraphicsAdapter, LABEL>(adaptor, OUTPUTS, controller, v);
+        return set_ports_property<GraphicsAdapter, NAME>(adaptor, OUTPUTS, controller, v);
     }
 };
 

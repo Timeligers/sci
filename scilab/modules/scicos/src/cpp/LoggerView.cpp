@@ -387,8 +387,8 @@ std::ostream& operator<<(std::ostream& os, object_properties_t p)
         case CONNECTED_SIGNALS:
             os << "CONNECTED_SIGNALS";
             break;
-        case TITLE:
-            os << "TITLE";
+        case NAME:
+            os << "NAME";
             break;
         case PATH:
             os << "PATH";

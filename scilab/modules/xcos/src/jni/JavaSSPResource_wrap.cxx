@@ -798,17 +798,17 @@ template <typename T> T SwigValueInit() {
 
 
 #include "utilities.hxx"
-#include "XMIResource.hxx"
+#include "SSPResource.hxx"
 
 using namespace org_scilab_modules_scicos;
 
 
 inline int save(const char* uri, ScicosID id) {
-    return XMIResource(id).save(uri);
+    return SSPResource(id).save(uri);
 }
 
 inline int load(const char* uri, ScicosID id) {
-    return XMIResource(id).load(uri);
+    return SSPResource(id).load(uri);
 }
 
 
@@ -817,14 +817,14 @@ inline int load(const char* uri, ScicosID id) {
  * C++ director class methods
  * --------------------------------------------------- */
 
-#include "JavaXMIResource_wrap.h"
+#include "JavaSSPResource_wrap.h"
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaXMIResourceJNI_save(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2) {
+SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaSSPResourceJNI_save(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2) {
   jint jresult = 0 ;
   char *arg1 = (char *) 0 ;
   ScicosID arg2 ;
@@ -845,7 +845,7 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaXMIResourceJNI_save(JNI
 }
 
 
-SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaXMIResourceJNI_load(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2) {
+SWIGEXPORT jint JNICALL Java_org_scilab_modules_xcos_JavaSSPResourceJNI_load(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2) {
   jint jresult = 0 ;
   char *arg1 = (char *) 0 ;
   ScicosID arg2 ;

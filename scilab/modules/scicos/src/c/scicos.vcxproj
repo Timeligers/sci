@@ -83,10 +83,11 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../../../libs/intl;../../../../libs/libxml2;../../../action_binding/includes;../../../api_scilab/includes;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/types;../../../console/includes;../../../core/includes;../../../differential_equations/includes;../../../differential_equations/src/patched_sundials/include;../../../differential_equations/src/patched_sundials/include/sundials;../../../differential_equations/src/patched_sundials/src;../../../differential_equations/src/patched_sundials/src/cvodes;../../../differential_equations/src/patched_sundials/src/idas;../../../differential_equations/src/patched_sundials/src/sundials;../../../dynamic_link/includes;../../../fileio/includes;../../../graphics/includes;../../../localization/includes;../../../output_stream/includes;../../../scicos_blocks/includes;../../../string/includes;../../../threads/includes;../../../time/includes;../../../windows_tools/includes;../../includes;../cpp/;../cpp/model;../cpp/view_scilab</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/archive/include;../../../action_binding/includes;../../../api_scilab/includes;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/types;../../../console/includes;../../../core/includes;../../../differential_equations/includes;../../../differential_equations/src/patched_sundials/include;../../../differential_equations/src/patched_sundials/include/sundials;../../../differential_equations/src/patched_sundials/src;../../../differential_equations/src/patched_sundials/src/cvodes;../../../differential_equations/src/patched_sundials/src/idas;../../../differential_equations/src/patched_sundials/src/sundials;../../../dynamic_link/includes;../../../fileio/includes;../../../graphics/includes;../../../localization/includes;../../../output_stream/includes;../../../scicos_blocks/includes;../../../string/includes;../../../threads/includes;../../../time/includes;../../../windows_tools/includes;../../includes;../cpp/;../cpp/model;../cpp/view_scilab</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;SCICOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>
@@ -98,7 +99,7 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
 </Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>../../../../bin/libintl.lib;../../../../bin/blasplus.lib;../../../../bin/linpack_f.lib;scicos_blocks_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../../bin/libintl.lib;../../../../bin/archive.lib;../../../../bin/blasplus.lib;../../../../bin/linpack_f.lib;scicos_blocks_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -121,10 +122,11 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../../../libs/intl;../../../../libs/libxml2;../../../action_binding/includes;../../../api_scilab/includes;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/types;../../../console/includes;../../../core/includes;../../../differential_equations/includes;../../../differential_equations/src/patched_sundials/include;../../../differential_equations/src/patched_sundials/include/sundials;../../../differential_equations/src/patched_sundials/src;../../../differential_equations/src/patched_sundials/src/cvodes;../../../differential_equations/src/patched_sundials/src/idas;../../../differential_equations/src/patched_sundials/src/sundials;../../../dynamic_link/includes;../../../fileio/includes;../../../graphics/includes;../../../localization/includes;../../../output_stream/includes;../../../scicos_blocks/includes;../../../string/includes;../../../threads/includes;../../../time/includes;../../../windows_tools/includes;../../includes;../cpp/;../cpp/model;../cpp/view_scilab</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/archive/include;../../../action_binding/includes;../../../api_scilab/includes;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/types;../../../console/includes;../../../core/includes;../../../differential_equations/includes;../../../differential_equations/src/patched_sundials/include;../../../differential_equations/src/patched_sundials/include/sundials;../../../differential_equations/src/patched_sundials/src;../../../differential_equations/src/patched_sundials/src/cvodes;../../../differential_equations/src/patched_sundials/src/idas;../../../differential_equations/src/patched_sundials/src/sundials;../../../dynamic_link/includes;../../../fileio/includes;../../../graphics/includes;../../../localization/includes;../../../output_stream/includes;../../../scicos_blocks/includes;../../../string/includes;../../../threads/includes;../../../time/includes;../../../windows_tools/includes;../../includes;../cpp/;../cpp/model;../cpp/view_scilab</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;SCICOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>
@@ -136,7 +138,7 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
 </Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>../../../../bin/libintl.lib;../../../../bin/blasplus.lib;../../../../bin/linpack_f.lib;scicos_blocks_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../../bin/libintl.lib;../../../../bin/archive.lib;../../../../bin/blasplus.lib;../../../../bin/linpack_f.lib;scicos_blocks_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -157,12 +159,13 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../../../../libs/intl;../../../../libs/libxml2;../../../action_binding/includes;../../../api_scilab/includes;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/types;../../../console/includes;../../../core/includes;../../../differential_equations/includes;../../../differential_equations/src/patched_sundials/include;../../../differential_equations/src/patched_sundials/include/sundials;../../../differential_equations/src/patched_sundials/src;../../../differential_equations/src/patched_sundials/src/cvodes;../../../differential_equations/src/patched_sundials/src/idas;../../../differential_equations/src/patched_sundials/src/sundials;../../../dynamic_link/includes;../../../fileio/includes;../../../graphics/includes;../../../localization/includes;../../../output_stream/includes;../../../scicos_blocks/includes;../../../string/includes;../../../threads/includes;../../../time/includes;../../../windows_tools/includes;../../includes;../cpp/;../cpp/model;../cpp/view_scilab</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/archive/include;../../../action_binding/includes;../../../api_scilab/includes;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/types;../../../console/includes;../../../core/includes;../../../differential_equations/includes;../../../differential_equations/src/patched_sundials/include;../../../differential_equations/src/patched_sundials/include/sundials;../../../differential_equations/src/patched_sundials/src;../../../differential_equations/src/patched_sundials/src/cvodes;../../../differential_equations/src/patched_sundials/src/idas;../../../differential_equations/src/patched_sundials/src/sundials;../../../dynamic_link/includes;../../../fileio/includes;../../../graphics/includes;../../../localization/includes;../../../output_stream/includes;../../../scicos_blocks/includes;../../../string/includes;../../../threads/includes;../../../time/includes;../../../windows_tools/includes;../../includes;../cpp/;../cpp/model;../cpp/view_scilab</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;SCICOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>
@@ -174,7 +177,7 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
 </Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>../../../../bin/libintl.lib;../../../../bin/blasplus.lib;../../../../bin/linpack_f.lib;scicos_blocks_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../../bin/libintl.lib;../../../../bin/archive.lib;../../../../bin/blasplus.lib;../../../../bin/linpack_f.lib;scicos_blocks_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -200,12 +203,13 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../../../../libs/intl;../../../../libs/libxml2;../../../action_binding/includes;../../../api_scilab/includes;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/types;../../../console/includes;../../../core/includes;../../../differential_equations/includes;../../../differential_equations/src/patched_sundials/include;../../../differential_equations/src/patched_sundials/include/sundials;../../../differential_equations/src/patched_sundials/src;../../../differential_equations/src/patched_sundials/src/cvodes;../../../differential_equations/src/patched_sundials/src/idas;../../../differential_equations/src/patched_sundials/src/sundials;../../../dynamic_link/includes;../../../fileio/includes;../../../graphics/includes;../../../localization/includes;../../../output_stream/includes;../../../scicos_blocks/includes;../../../string/includes;../../../threads/includes;../../../time/includes;../../../windows_tools/includes;../../includes;../cpp/;../cpp/model;../cpp/view_scilab</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/archive/include;../../../action_binding/includes;../../../api_scilab/includes;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/types;../../../console/includes;../../../core/includes;../../../differential_equations/includes;../../../differential_equations/src/patched_sundials/include;../../../differential_equations/src/patched_sundials/include/sundials;../../../differential_equations/src/patched_sundials/src;../../../differential_equations/src/patched_sundials/src/cvodes;../../../differential_equations/src/patched_sundials/src/idas;../../../differential_equations/src/patched_sundials/src/sundials;../../../dynamic_link/includes;../../../fileio/includes;../../../graphics/includes;../../../localization/includes;../../../output_stream/includes;../../../scicos_blocks/includes;../../../string/includes;../../../threads/includes;../../../time/includes;../../../windows_tools/includes;../../includes;../cpp/;../cpp/model;../cpp/view_scilab</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;SCICOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PreLinkEvent>
       <Message>Make dependencies</Message>
@@ -217,7 +221,7 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
 </Command>
     </PreLinkEvent>
     <Link>
-      <AdditionalDependencies>../../../../bin/libintl.lib;../../../../bin/blasplus.lib;../../../../bin/linpack_f.lib;scicos_blocks_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../../../../bin/libintl.lib;../../../../bin/archive.lib;../../../../bin/blasplus.lib;../../../../bin/linpack_f.lib;scicos_blocks_f.lib;scicos_f.lib;elementary_functions_f.lib;differential_equations_f.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
@@ -291,6 +295,9 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
     <ClCompile Include="..\cpp\view_scilab\ScsAdapter.cpp" />
     <ClCompile Include="..\cpp\view_scilab\StateAdapter.cpp" />
     <ClCompile Include="..\cpp\view_scilab\TextAdapter.cpp" />
+    <ClCompile Include="..\cpp\SSPResource.cpp" />
+    <ClCompile Include="..\cpp\SSPResource_load.cpp" />
+    <ClCompile Include="..\cpp\SSPResource_save.cpp" />
     <ClCompile Include="..\cpp\XMIResource.cpp" />
     <ClCompile Include="..\cpp\XMIResource_load.cpp" />
     <ClCompile Include="..\cpp\XMIResource_save.cpp" />
@@ -319,6 +326,7 @@ lib /DEF:"$(ProjectDir)Scicos_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
     <ClInclude Include="..\..\includes\view_scilab\Adapters.hxx" />
     <ClInclude Include="..\..\includes\View.hxx" />
     <ClInclude Include="..\..\includes\view_scilab\AdapterView.hxx" />
+    <ClInclude Include="..\..\includes\SSPResource.hxx" />
     <ClInclude Include="..\..\includes\XMIResource.hxx" />
     <ClInclude Include="..\cpp\createblklist.hxx" />
     <ClInclude Include="..\cpp\extractblklist.hxx" />

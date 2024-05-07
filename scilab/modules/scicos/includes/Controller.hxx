@@ -128,6 +128,11 @@ public:
         updateChildrenRelatedPropertiesAfterClone(mapped);
         return cloned;
     };
+
+    inline Model& getInternalModel()
+    {
+        return m_instance.model;
+    }
 #endif /* !defined SWIG */
 
     /*

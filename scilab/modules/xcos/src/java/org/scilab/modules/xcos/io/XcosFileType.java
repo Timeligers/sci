@@ -38,6 +38,7 @@ import javax.xml.transform.TransformerException;
 import org.scilab.modules.commons.xml.ScilabXMLOutputFactory;
 import org.scilab.modules.xcos.JavaController;
 import org.scilab.modules.xcos.JavaXMIResource;
+import org.scilab.modules.xcos.JavaSSPResource;
 import org.scilab.modules.xcos.View;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.graph.XcosDiagram;
@@ -56,6 +57,34 @@ import org.xml.sax.helpers.XMLReaderFactory;
  * All the filetype recognized by Xcos.
  */
 public enum XcosFileType {
+    /**
+     * Represent the Xcos (a la SSD - SSP) format.
+     */
+    SSP("ssp", XcosMessages.FILE_SSP) {
+        @Override
+        public void load(String file, XcosDiagram into) {
+            LOG.entering("XcosFileType.SSP", "load");
+            View xcosView = JavaController.lookup_view(Xcos.class.getName());
+            try {
+                JavaController.unregister_view(xcosView);
+
+                JavaController controller = new JavaController();
+                if (JavaSSPResource.load(file, into.getUID()) == 0)
+                    XcosCellFactory.insertChildren(controller, into);
+            } finally {
+                JavaController.register_view(Xcos.class.getName(), xcosView);
+            }
+            LOG.exiting("XcosFileType.SSP", "load");
+        }
+
+        @Override
+        public void save(String file, XcosDiagram from) throws Exception {
+            LOG.entering("XcosFileType.SSP", "save");
+            JavaSSPResource.save(file, from.getUID());
+            LOG.exiting("XcosFileType.SSP", "save");
+        }
+    },
+        
     /**
      * Represent the Xcos (a la ODT) format.
      */

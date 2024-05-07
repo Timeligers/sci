@@ -135,7 +135,7 @@ public class BrowserTreeNodeData {
         String interf[] = { "" };
         controller.getObjectProperty(uid, kind, ObjectProperties.INTERFACE_FUNCTION, interf);
         String title[] = { "" };
-        controller.getObjectProperty(uid, kind, ObjectProperties.TITLE, title);
+        controller.getObjectProperty(uid, kind, ObjectProperties.NAME, title);
         String uuid[] = { "" };
         controller.getObjectProperty(uid, kind, ObjectProperties.UID, uuid);
 
@@ -166,7 +166,7 @@ public class BrowserTreeNodeData {
 
     private void htmlDiagram(final StringBuilder str, final Controller controller) {
         String title[] = { "" };
-        controller.getObjectProperty(uid, kind, ObjectProperties.TITLE, title);
+        controller.getObjectProperty(uid, kind, ObjectProperties.NAME, title);
         String version[] = { "" };
         controller.getObjectProperty(uid, kind, ObjectProperties.VERSION_NUMBER, version);
         String path[] = { "" };
@@ -286,7 +286,7 @@ public class BrowserTreeNodeData {
             }
             case DIAGRAM: {
                 String[] name = { "" };
-                boolean status = controller.getObjectProperty(uid, kind, ObjectProperties.TITLE, name);
+                boolean status = controller.getObjectProperty(uid, kind, ObjectProperties.NAME, name);
                 if (!status || name[0].isEmpty() || ALWAYS_DISPLAY_ID) {
                     return "Untitled" + " : " + uid;
                 }

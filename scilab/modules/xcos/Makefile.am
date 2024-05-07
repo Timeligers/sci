@@ -50,6 +50,7 @@ XCOS_CXX_SOURCES =	\
     src/jni/JavaController_wrap.cxx \
     src/cpp/xcosUtilities.cpp \
     src/cpp/loadStatus.cpp \
+    src/jni/JavaSSPResource_wrap.cxx \
     src/jni/JavaXMIResource_wrap.cxx
 
 GIWS_WRAPPERS = \
@@ -120,6 +121,7 @@ libscixcos_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/fileio/includes/ \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
     $(XML_FLAGS) \
+    $(LIBARCHIVE_CFLAGS) \
     $(JAVA_JNI_INCLUDE) \
     $(AM_CPPFLAGS)
 
@@ -136,6 +138,7 @@ libscixcos_disable_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/localization/includes/ \
     -I$(top_srcdir)/modules/output_stream/includes \
     $(XML_FLAGS) \
+    $(LIBARCHIVE_CFLAGS) \
     $(AM_CPPFLAGS)
 
 XCOS_DISABLE_C_SOURCES = src/noxcos/noxcos.c
@@ -165,7 +168,8 @@ libscixcos_la_LIBADD = libscixcos-algo.la \
 		$(top_builddir)/modules/scicos/libsciscicos.la \
 		$(top_builddir)/modules/commons/libscicommons.la \
 		$(top_builddir)/modules/jvm/libscijvm.la \
-		$(LIBXML_LIBS)
+		$(LIBXML_LIBS) \
+		$(LIBARCHIVE_LIBS)
 
 #### xcos : gateway declaration ####
 libscixcos_la_sci_gatewaydir = $(mydatadir)/sci_gateway

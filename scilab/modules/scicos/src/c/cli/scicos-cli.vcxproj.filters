@@ -233,6 +233,15 @@
     <ClCompile Include="..\..\cpp\Model_setObjectProperties.cpp">
       <Filter>Source Files\MVC</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\cpp\SSPResource.cpp">
+      <Filter>Source Files\MVC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\cpp\SSPResource_load.cpp">
+      <Filter>Source Files\MVC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\cpp\SSPResource_save.cpp">
+      <Filter>Source Files\MVC</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\cpp\XMIResource.cpp">
       <Filter>Source Files\MVC</Filter>
     </ClCompile>
@@ -414,6 +423,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\includes\view_scilab\Adapters.hxx">
       <Filter>Header Files\MVC\view_scilab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\includes\SSPResource.hxx">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\includes\XMIResource.hxx">
       <Filter>Header Files</Filter>

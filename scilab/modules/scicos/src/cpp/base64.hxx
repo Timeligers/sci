@@ -21,6 +21,9 @@
 #include <string>
 #include <limits>
 #include <cstdio> // for sprintf
+#ifdef max
+#undef max
+#endif // max
 
 namespace org_scilab_modules_scicos
 {
@@ -85,7 +88,7 @@ std::string base64::decode<std::string>(const std::string& content)
     const std::string Base64Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     // inverse table (might be const or constexpr)
-    std::array<char, 255> T;
+    std::array<char, 128> T;
     T.fill(255);
     for (size_t i = 0; i < Base64Alphabet.length(); i++)
     {

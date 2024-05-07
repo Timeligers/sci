@@ -109,7 +109,7 @@ public class CustomWriter extends ScilabWriter {
         shared.stream.writeAttribute("gridEnabled", Integer.toString(colors.get(1)));
 
         String[] str = new String[1];
-        shared.controller.getObjectProperty(uid, kind, ObjectProperties.TITLE, str);
+        shared.controller.getObjectProperty(uid, kind, ObjectProperties.NAME, str);
         shared.stream.writeAttribute("title", str[0]);
 
         /*

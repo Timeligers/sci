@@ -269,6 +269,7 @@ public final class XcosMessages {
     public static final String ALL_SUPPORTED_FORMATS = Messages.gettext("All supported formats");
     public static final String FILE_COSF = Messages.gettext("Scicos file");
     public static final String FILE_COS = FILE_COSF;
+    public static final String FILE_SSP = Messages.gettext("Xcos (ssp zip) file");
     public static final String FILE_XCOS = Messages.gettext("Xcos file");
     public static final String FILE_ZCOS = Messages.gettext("Xcos (zip) file");
     public static final String FILE_XMI = Messages.gettext("XMI (Eclipse EMF) file");
@@ -315,17 +316,17 @@ public final class XcosMessages {
     public static final String TOOLTIP_BLOCK = Messages.gettext("Block name: ");
     public static final String TOOLTIP_BLOCK_SIMULATION = Messages.gettext("Simulation: ");
     public static final String TOOLTIP_BLOCK_UID = Messages.gettext("UID: ");
-    public static final String TOOLTIP_BLOCK_STYLE = Messages.gettext("Style: ");
+    public static final String TOOLTIP_BLOCK_EXPRS = Messages.gettext("Exprs: ");
     public static final String TOOLTIP_BLOCK_RPAR = Messages.gettext("Rpar: ");
     public static final String TOOLTIP_BLOCK_IPAR = Messages.gettext("Ipar: ");
     public static final String TOOLTIP_BLOCK_OPAR = Messages.gettext("Opar: ");
     public static final String TOOLTIP_PORT_DATATYPE = Messages.gettext("Datatype: ");
     public static final String TOOLTIP_PORT_IMPLICIT = Messages.gettext("Implicit: ");
-    public static final String TOOLTIP_PORT_STYLE = Messages.gettext("Style: ");
     public static final String TOOLTIP_LINK_SRC_DATATYPE = Messages.gettext("Source datatype: ");
     public static final String TOOLTIP_LINK_TRG_DATATYPE = Messages.gettext("Target datatype: ");
-    public static final String TOOLTIP_LINK_LABEL = Messages.gettext("Label: ");
-    public static final String TOOLTIP_LINK_STYLE = Messages.gettext("Style: ");
+    public static final String TOOLTIP_LABEL = Messages.gettext("Label: ");
+    public static final String TOOLTIP_DESCRIPTION = Messages.gettext("Description: ");
+    public static final String TOOLTIP_STYLE = Messages.gettext("Style: ");
 
     /* Automatic Layout */
     public static final String LINK_STYLE_OPTIMAL = Messages.gettext("Optimal");

@@ -17,18 +17,54 @@
 #ifndef BLOCK_HXX_
 #define BLOCK_HXX_
 
+#include <any>
 #include <string>
 #include <vector>
 
-#include "utilities.hxx"
 #include "Model.hxx"
 #include "model/BaseObject.hxx"
+#include "utilities.hxx"
 
 namespace org_scilab_modules_scicos
 {
 namespace model
 {
 
+struct SimulationConfig
+{
+    double final_time;         //!< Final simulation time.
+    double absolute_tolerance; //!< Integrator absolute tolerance for the numerical solver.
+    double relative_tolerance; //!< Integrator relative tolerance for the numerical solver.
+    double time_tolerance;     //!< Tolerance on time.
+    double delta_t;            //!< Maximum integration time interval.
+    double realtime_scale;     //!< Real-time scaling; the value 0 corresponds to no real-time scaling.
+    double solver;             //!< Current numerical solver.
+    double delta_h;            //!< Maximum step interval.
+
+    SimulationConfig() : final_time(30), absolute_tolerance(1e-6), relative_tolerance(1e-6),
+                         time_tolerance(1e-10), delta_t(100001), realtime_scale(0), solver(1), delta_h(0){};
+    SimulationConfig(const std::vector<double>& p) : final_time(p[0]), absolute_tolerance(p[1]), relative_tolerance(p[2]),
+                                                     time_tolerance(p[3]), delta_t(p[4]), realtime_scale(p[5]), solver(p[6]), delta_h(p[7]){};
+
+    void fill(std::vector<double>& p) const
+    {
+        p.resize(8);
+        p[0] = final_time;
+        p[1] = absolute_tolerance;
+        p[2] = relative_tolerance;
+        p[3] = time_tolerance;
+        p[4] = delta_t;
+        p[5] = realtime_scale;
+        p[6] = solver;
+        p[7] = delta_h;
+    }
+    bool operator==(const SimulationConfig& p) const
+    {
+        return final_time == p.final_time && absolute_tolerance == p.absolute_tolerance &&
+               relative_tolerance == p.relative_tolerance && time_tolerance == p.time_tolerance &&
+               delta_t == p.delta_t && realtime_scale == p.realtime_scale && solver == p.solver && delta_h == p.delta_h;
+    }
+};
 struct Parameter
 {
     std::vector<double> rpar;
@@ -40,6 +76,17 @@ struct Parameter
     {
         opar = {15, 0};
     }
+};
+
+struct NamedParameter
+{
+    std::string name;
+    std::string description;
+    std::string unit;
+
+    std::string sspType;
+    std::string encoding;
+    std::string value;
 };
 
 struct State
@@ -66,8 +113,8 @@ struct State
  */
 enum dep_ut_t
 {
-    DEP_U       = 1 << 0, //!< y=f(u)
-    DEP_T       = 1 << 1, //!< y=f(x)
+    DEP_U = 1 << 0, //!< y=f(u)
+    DEP_T = 1 << 1, //!< y=f(x)
 };
 
 enum blocktype_t
@@ -86,19 +133,19 @@ struct Descriptor
     std::string functionName;
     int functionApi;
 
-    char dep_ut;            //!< dep_ut_t masked value
-    char blocktype;         //!< one of blocktype_t value
+    char dep_ut;    //!< dep_ut_t masked value
+    char blocktype; //!< one of blocktype_t value
 
     Descriptor() : functionName(), functionApi(0), dep_ut(0), blocktype(BLOCKTYPE_C) {}
 };
 
-class Block: public BaseObject
+class Block : public BaseObject
 {
-public:
+  public:
     Block() : BaseObject(BLOCK), m_parentDiagram(ScicosID()), m_interfaceFunction(), m_geometry(),
-        m_exprs(), m_description(), m_label(), m_style(), m_nzcross(), m_nmode(), m_equations(), m_uid(),
-        m_sim(), m_in(), m_out(), m_ein(), m_eout(), m_parameter(), m_state(), m_parentBlock(ScicosID()),
-        m_children(), m_childrenColor(), m_context(), m_portReference(ScicosID())
+              m_exprs(), m_name(), m_description(), m_label(), m_style(), m_nzcross(), m_nmode(), m_equations(), m_uid(),
+              m_sim(), m_in(), m_out(), m_ein(), m_eout(), m_parameters(), m_parameter(), m_state(), m_color(), m_properties(), m_debugLevel(), m_context(), m_parentBlock(ScicosID()),
+              m_children(), m_portReference(ScicosID())
     {
         // m_exprs default value is an empty matrix encoded by var2vec()
         m_exprs = {1, 2, 0, 0, 0};
@@ -106,14 +153,14 @@ public:
         m_equations = {15, 0};
         m_nmode = {0};
         m_nzcross = {0};
-        m_childrenColor = { -1, 1};
+        m_color = {-1, 1};
     }
     Block(const Block& o) : BaseObject(BLOCK), m_parentDiagram(o.m_parentDiagram), m_interfaceFunction(o.m_interfaceFunction), m_geometry(o.m_geometry),
-        m_exprs(o.m_exprs), m_description(o.m_description), m_label(o.m_label), m_style(o.m_style), m_nzcross(o.m_nzcross), m_nmode(o.m_nmode), m_equations(o.m_equations), m_uid(o.m_uid),
-        m_sim(o.m_sim), m_in(o.m_in), m_out(o.m_out), m_ein(o.m_ein), m_eout(o.m_eout), m_parameter(o.m_parameter), m_state(o.m_state), m_parentBlock(o.m_parentBlock),
-        m_children(o.m_children), m_childrenColor(o.m_childrenColor), m_context(o.m_context), m_portReference(o.m_portReference) {}
+                            m_exprs(o.m_exprs), m_name(o.m_name), m_description(o.m_description), m_label(o.m_label), m_style(o.m_style), m_nzcross(o.m_nzcross), m_nmode(o.m_nmode), m_equations(o.m_equations), m_uid(o.m_uid),
+                            m_sim(o.m_sim), m_in(o.m_in), m_out(o.m_out), m_ein(o.m_ein), m_eout(o.m_eout), m_parameters(o.m_parameters), m_parameter(o.m_parameter), m_state(o.m_state), m_color(o.m_color), m_properties(o.m_properties), m_debugLevel(o.m_debugLevel), m_context(o.m_context), m_parentBlock(o.m_parentBlock),
+                            m_children(o.m_children), m_portReference(o.m_portReference) {}
 
-private:
+  private:
     friend class ::org_scilab_modules_scicos::Model;
 
     void getChildren(std::vector<ScicosID>& v) const
@@ -134,17 +181,17 @@ private:
 
     void getChildrenColor(std::vector<int>& data) const
     {
-        data = this->m_childrenColor;
+        data = this->m_color;
     }
 
     update_status_t setChildrenColor(const std::vector<int>& data)
     {
-        if (data == this->m_childrenColor)
+        if (data == this->m_color)
         {
             return NO_CHANGES;
         }
 
-        this->m_childrenColor = data;
+        this->m_color = data;
         return SUCCESS;
     }
 
@@ -167,6 +214,7 @@ private:
         }
 
         m_geometry = g;
+
         return SUCCESS;
     }
 
@@ -183,6 +231,22 @@ private:
         }
 
         m_exprs = data;
+        return SUCCESS;
+    }
+
+    void getName(std::string& data) const
+    {
+        data = m_name;
+    }
+
+    update_status_t setName(const std::string& data)
+    {
+        if (data == m_name)
+        {
+            return NO_CHANGES;
+        }
+
+        m_name = data;
         return SUCCESS;
     }
 
@@ -446,6 +510,124 @@ private:
         return SUCCESS;
     }
 
+    // use the pointers-to-members idiom to generalize on any field and any vector of values
+    template<typename NamedParameters, typename T>
+    void getNP(std::vector<T>& data, T NamedParameters::*field) const
+    {
+        data.clear();
+        data.reserve(m_parameters.size());
+
+        for (auto& p : m_parameters)
+        {
+            data.push_back(p.*field);
+        }
+    }
+
+    // use the pointers-to-members idiom to generalize on any field and any vector of values
+    template<typename NamedParameters, typename T>
+    update_status_t setNP(const std::vector<T>& data, T NamedParameters::*field)
+    {
+        typename std::vector<T>::const_iterator data_it = data.begin();
+        typename std::vector<NamedParameters>::iterator param_it = m_parameters.begin();
+
+        if (data.size() == m_parameters.size())
+        {
+
+            while (data_it != data.end())
+            {
+                if (*data_it != (*param_it).*field)
+                    break;
+                data_it++;
+                param_it++;
+            }
+
+            if (data_it == data.end())
+                return NO_CHANGES;
+        }
+
+        // copy the data on existing indexes
+        while (data_it != data.end() && param_it != m_parameters.end())
+        {
+            (*param_it).*field = *data_it;
+
+            data_it++;
+            param_it++;
+        }
+
+        // append added data
+        while (data_it != data.end())
+        {
+            NamedParameter v{};
+            v.*field = *data_it++;
+            m_parameters.push_back(v);
+        }
+
+        // remove extra content
+        m_parameters.resize(data.size());
+
+        return SUCCESS;
+    }
+
+    void getNamedParameters(std::vector<std::string>& data) const
+    {
+        getNP(data, &NamedParameter::name);
+    }
+
+    update_status_t setNamedParameters(const std::vector<std::string>& data)
+    {
+        return setNP(data, &NamedParameter::name);
+    }
+
+    void getNamedParametersDescription(std::vector<std::string>& data) const
+    {
+        getNP(data, &NamedParameter::description);
+    }
+
+    update_status_t setNamedParametersDescription(const std::vector<std::string>& data)
+    {
+        return setNP(data, &NamedParameter::description);
+    }
+
+    void getNamedParametersUnit(std::vector<std::string>& data) const
+    {
+        getNP(data, &NamedParameter::unit);
+    }
+
+    update_status_t setNamedParametersUnit(const std::vector<std::string>& data)
+    {
+        return setNP(data, &NamedParameter::unit);
+    }
+
+    void getNamedParametersTypes(std::vector<std::string>& data) const
+    {
+        getNP(data, &NamedParameter::sspType);
+    }
+
+    update_status_t setNamedParametersTypes(const std::vector<std::string>& data)
+    {
+        return setNP(data, &NamedParameter::sspType);
+    }
+
+    void getNamedParametersEncodings(std::vector<std::string>& data) const
+    {
+        getNP(data, &NamedParameter::encoding);
+    }
+
+    update_status_t setNamedParametersEncodings(const std::vector<std::string>& data)
+    {
+        return setNP(data, &NamedParameter::encoding);
+    }
+
+    void getNamedParametersValues(std::vector<std::string>& data) const
+    {
+        getNP(data, &NamedParameter::value);
+    }
+
+    update_status_t setNamedParametersValues(const std::vector<std::string>& data)
+    {
+        return setNP(data, &NamedParameter::value);
+    }
+
     void getRpar(std::vector<double>& data) const
     {
         data = m_parameter.rpar;
@@ -566,7 +748,7 @@ private:
         data.resize(2, 0);
         switch (m_sim.dep_ut)
         {
-            case DEP_U & DEP_T:
+            case DEP_U& DEP_T:
                 // data is already set to [0 0] here.
                 break;
             case DEP_U:
@@ -664,6 +846,60 @@ private:
         m_state.odstate = data;
         return SUCCESS;
     }
+    
+    void getColor(std::vector<int>& data) const
+    {
+        data = m_color;
+    }
+
+    update_status_t setColor(const std::vector<int>& data)
+    {
+        if (data == m_color)
+        {
+            return NO_CHANGES;
+        }
+
+        m_color = data;
+        return SUCCESS;
+    }
+
+    void getProperties(std::vector<double>& v) const
+    {
+        m_properties.fill(v);
+    }
+
+    update_status_t setProperties(const std::vector<double>& v)
+    {
+        if (v.size() != 8)
+        {
+            return FAIL;
+        }
+
+        SimulationConfig p = SimulationConfig(v);
+        if (p == m_properties)
+        {
+            return NO_CHANGES;
+        }
+
+        m_properties = p;
+        return SUCCESS;
+    }
+
+    void getDebugLevel(int& data) const
+    {
+        data = m_debugLevel;
+    }
+
+    update_status_t setDebugLevel(const int& data)
+    {
+        if (data == m_debugLevel)
+        {
+            return NO_CHANGES;
+        }
+
+        m_debugLevel = data;
+        return SUCCESS;
+    }
 
     void getContext(std::vector<std::string>& data) const
     {
@@ -681,11 +917,23 @@ private:
         return SUCCESS;
     }
 
-private:
+  public:
+    const std::vector<Datatype*>& getDatatypes() const
+    {
+        return m_datatypes;
+    }
+
+    void setDatatypes(const std::vector<Datatype*>& datatypes)
+    {
+        this->m_datatypes = datatypes;
+    }
+
+  private:
     ScicosID m_parentDiagram;
     std::string m_interfaceFunction;
     Geometry m_geometry;
     std::vector<double> m_exprs;
+    std::string m_name;
     std::string m_description;
     ScicosID m_label;
     std::string m_style;
@@ -701,16 +949,21 @@ private:
     std::vector<ScicosID> m_ein;
     std::vector<ScicosID> m_eout;
 
+    std::vector<NamedParameter> m_parameters;
     Parameter m_parameter;
     State m_state;
 
     /**
-     * SuperBlock: the blocks, links and so on contained into this block
+     * SuperBlock: the inner diagram property, blocks, links and so on contained into this block
      */
+    std::vector<int> m_color;
+    SimulationConfig m_properties;
+    int m_debugLevel;
+    std::vector<std::string> m_context;
+
     ScicosID m_parentBlock;
     std::vector<ScicosID> m_children;
-    std::vector<int> m_childrenColor;
-    std::vector<std::string> m_context;
+    std::vector<Datatype*> m_datatypes;
 
     /**
      * I/O Blocks: the corresponding parent port

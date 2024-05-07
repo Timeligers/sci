@@ -8,11 +8,13 @@
 
 package org.scilab.modules.xcos;
 
-public enum Kind {
-  BLOCK,
-  DIAGRAM,
-  LINK,
-  ANNOTATION,
-  PORT;
-}
+public class JavaSSPResource {
+  public static int save(String uri, long id) {
+    return JavaSSPResourceJNI.save(uri, id);
+  }
 
+  public static int load(String uri, long id) {
+    return JavaSSPResourceJNI.load(uri, id);
+  }
+
+}

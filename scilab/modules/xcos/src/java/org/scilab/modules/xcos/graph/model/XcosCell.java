@@ -129,8 +129,8 @@ public class XcosCell extends mxCell {
                 }
                 String description = String.valueOf(value);
                 if (validCIdentifier.matcher(description).matches()) {
-                    // a block description should be a valid C / Scilab identifier to ease codegeneration
-                    controller.setObjectProperty(getUID(), getKind(), ObjectProperties.DESCRIPTION, description);
+                    // a block name should be a valid C / Scilab identifier to ease codegeneration
+                    controller.setObjectProperty(getUID(), getKind(), ObjectProperties.NAME, description);
                 }
                 break;
             case ANNOTATION:
@@ -140,7 +140,7 @@ public class XcosCell extends mxCell {
                 controller.setObjectProperty(getUID(), getKind(), ObjectProperties.DESCRIPTION, String.valueOf(value));
                 break;
             case PORT:
-                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.LABEL, String.valueOf(value));
+                controller.setObjectProperty(getUID(), getKind(), ObjectProperties.NAME, String.valueOf(value));
                 break;
             default:
                 break;

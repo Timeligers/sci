@@ -57,7 +57,8 @@ enum object_properties_t
     PARENT_DIAGRAM,     //!< model::*::parentDiagram value (used to locate the diagram layer)
     PARENT_BLOCK,       //!< model::*::parentBlock value (used to locate the upper layer in case of SuperBlocks hierarchy)
     GEOMETRY,           //!< model::Annotation::geometry or model::Block::geometry value
-    DESCRIPTION,        //!< model::Annotation::description text
+    NAME,               //!< model::Diagram::name, model::Block::name, model::Port::name
+    DESCRIPTION,        //!< model::Annotation::description, model::Diagram::description text
     FONT,               //!< model::Annotation::description font
     FONT_SIZE,          //!< model::Annotation::description font size
     RELATED_TO,         //!< model::Annotation::relatedTo
@@ -77,6 +78,12 @@ enum object_properties_t
     ODSTATE,            //!< model::Block::odstate value
     NZCROSS,            //!< model::Block::nzcross value
     NMODE,              //!< model::Block::nmode value
+    PARAMETER_NAME,
+    PARAMETER_DESCRIPTION,
+    PARAMETER_UNIT,
+    PARAMETER_TYPE,
+    PARAMETER_ENCODING,
+    PARAMETER_VALUE,
     RPAR,               //!< model::Block::rpar value
     IPAR,               //!< model::Block::ipar value
     OPAR,               //!< model::Block::opar value
@@ -102,8 +109,13 @@ enum object_properties_t
     IMPLICIT,           //!< model::Port::implicit value
     PORT_NUMBER,        //!< model::Port::portNumber value
     CONNECTED_SIGNALS,  //!< model::Port::connectedSignals value
-    TITLE,              //!< model::Diagram::title file name value
     PATH,               //!< model::Diagram::title file path value
+    AUTHOR,             //!< model::Diagram::author value
+    FILE_VERSION,       //!< model::Diagram::file_version value
+    COPYRIGHT,          //!< model::Diagram::copyright value
+    LICENSE,            //!< model::Diagram::license value
+    GENERATION_TOOL,    //!< model::Diagram::generation_tool value
+    GENERATION_DATE,    //!< model::Diagram::generation_date value
     PROPERTIES,         //!< model::Diagram::tol & tf values
     DEBUG_LEVEL,        //!< model::Diagram::debug_level value
     DIAGRAM_CONTEXT,    //!< model::Diagram::context value
@@ -147,7 +159,7 @@ inline int port_from_property(object_properties_t p)
 /**
  * Helper to convert a Port kind to a Property.
  */
-inline object_properties_t property_from_port(int p)
+inline object_properties_t property_from_port(enum portKind p)
 {
     switch (p)
     {

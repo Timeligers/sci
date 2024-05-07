@@ -209,6 +209,7 @@
         <add as="displayedLabel" value="From workspace&lt;BR&gt;&lt;font color=&quot;orange&quot;&gt;[&lt;b&gt; V &lt;/b&gt;]&lt;/font&gt;"/>
         <add as="align" value="center"/>
     </add>
+    <add as="SSPInputConnector" extend="block" />
     <!-- CONTINUOUS -->
     <add as="DERIV" extend="blockWithLabel">
         <add as="displayedLabel" value="du / dt"/>
@@ -586,6 +587,7 @@
     <add as="TRASH_f" extend="blockWithLabel">
         <add as="displayedLabel" value="Trash"/>
     </add>
+    <add as="SSPOutputConnector" extend="block" />
     <!-- PORT ACTION -->
     <add as="Extract_Activation" extend="blockWithLabel">
         <add as="displayedLabel" value="Extract&lt;BR&gt;         activation"/>

@@ -58,7 +58,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv,flag)
     if show_trace then mprintf("c_pass1:\t%f\n", timer()),end
 
     show_pause=%f;
-    show_comment=%f;
+    show_comment=%t;
 
     if bllst==list() then
         messagebox(_("No block can be activated"),"modal","error")
@@ -2079,6 +2079,7 @@ function ninnout=under_connection(path_out,prt_out,nout,path_in,prt_in,nin,flagg
     //!
 
     if path_in==-1 then
+        pause,
         msg = "<html><body>";
         msg = msg + gettext("One of this block output has negative size.<br />Please check.");
         msg = msg + "</body></html>";

@@ -2,6 +2,7 @@
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2014-2016 - Scilab Enterprises - Clement DAVID
  * Copyright (C) 2017 - ESI Group - Clement DAVID
+ * Copyright (C) 2023-2024 - Dassault Systèmes - Clement DAVID
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
  *
@@ -118,6 +119,8 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
         {
             case SIM_FUNCTION_API:
                 return o->setSimFunctionApi(v);
+            case DEBUG_LEVEL:
+                return o->setDebugLevel(v);
             default:
                 break;
         }
@@ -153,6 +156,12 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
         {
             case PORT_KIND:
                 return o->setKind(v);
+            case DATATYPE_COLS:
+                return o->setDataTypeCols(this, v);
+            case DATATYPE_ROWS:
+                return o->setDataTypeRows(this, v);
+            case DATATYPE_TYPE:
+                return o->setDataTypeType(this, v);
             default:
                 break;
         }
@@ -352,6 +361,32 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
         model::Block* o = static_cast<model::Block*>(baseObject);
         switch (p)
         {
+            case EXPRS:
+            {
+                std::vector<double> exprs;
+                // var2vec enconding for scalar string:
+                //  * type
+                //  * number of dims
+                //  * scalar 1x1
+                //  * string lengths
+                //  * utf8 content \0 terminated
+                exprs.push_back(sci_strings);
+                exprs.push_back(2);
+                exprs.push_back(1);
+                exprs.push_back(1);
+                // Adding the '\0' byte to the length
+                size_t len = v.length() + 1;
+                exprs.push_back(len);
+                int offset_cur = static_cast<int>((len * sizeof(char) + sizeof(double) - 1) / sizeof(double));
+                // resize
+                size_t size = exprs.size();
+                exprs.resize(size + offset_cur);
+                // assign utf8 content
+                double* data = exprs.data() + size;
+                memcpy(data, v.data(), len * sizeof(char));
+
+                return o->setExprs(exprs);
+            }
             case INTERFACE_FUNCTION:
                 return o->setInterfaceFunction(v);
             case SIM_FUNCTION_NAME:
@@ -360,6 +395,8 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
                 return o->setSimBlocktype(v);
             case STYLE:
                 return o->setStyle(v);
+            case NAME:
+                return o->setName(v);
             case DESCRIPTION:
                 return o->setDescription(v);
             case UID:
@@ -373,8 +410,22 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
         model::Diagram* o = static_cast<model::Diagram*>(baseObject);
         switch (p)
         {
-            case TITLE:
-                return o->setTitle(v);
+            case NAME:
+                return o->setName(v);
+            case DESCRIPTION:
+                return o->setDescription(v);
+            case AUTHOR:
+                return o->setAuthor(v);
+            case FILE_VERSION:
+                return o->setFileVersion(v);
+            case COPYRIGHT:
+                return o->setCopyright(v);
+            case LICENSE:
+                return o->setLicense(v);
+            case GENERATION_TOOL:
+                return o->setGenerationTool(v);
+            case GENERATION_DATE:
+                return o->setGenerationDate(v);
             case PATH:
                 return o->setPath(v);
             case VERSION_NUMBER:
@@ -405,10 +456,14 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
         {
             case STYLE:
                 return o->setStyle(v);
-            case LABEL:
-                return o->setLabel(v);
+            case NAME:
+                return o->setName(v);
+            case DESCRIPTION:
+                return o->setDescription(v);
             case UID:
                 return o->setUID(v);
+            case PARAMETER_UNIT:
+                return o->setUnit(v);
             default:
                 break;
         }
@@ -455,6 +510,8 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
                 return o->setRpar(v);
             case OPAR:
                 return o->setOpar(v);
+            case PROPERTIES:
+                return o->setProperties(v);
             case EQUATIONS:
                 return o->setEquations(v);
             default:
@@ -639,8 +696,59 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
         model::Block* o = static_cast<model::Block*>(baseObject);
         switch (p)
         {
+            case EXPRS:
+            {
+                if (v.empty())
+                    {return FAIL;}
+
+                std::vector<double> exprs;
+                // var2vec enconding for scalar string:
+                //  * type
+                //  * number of dims
+                //  * scalar 1x1
+                //  * string len as offset
+                //  * utf8 content \0 terminated
+                exprs.push_back(sci_strings);
+                exprs.push_back(2);
+                exprs.push_back((int) v.size());
+                exprs.push_back(1);
+
+                // Adding the '\0' byte to the lengths and compute the needed size
+                size_t content_offset_idx = exprs.size();
+                size_t len = v[0].length() + 1;
+                exprs.push_back(static_cast<int>((len * sizeof(char) + sizeof(double) - 1) / sizeof(double)));
+                for (size_t i = 1; i < v.size(); ++i)
+                {
+                    size_t len = v[i].length() + 1;
+                    exprs.push_back(exprs.back() + static_cast<int>((len * sizeof(char) + sizeof(double) - 1) / sizeof(double)));
+                }
+                // resize
+                size_t header_size = exprs.size();
+                exprs.resize(header_size + (size_t) exprs.back());
+                // assign utf8 content
+                double* data = exprs.data() + header_size;
+                memcpy(data, v[0].data(), v[0].size() * sizeof(char));
+                for (size_t i = 1; i < v.size(); ++i)
+                {
+                    data = exprs.data() + header_size + (size_t) exprs[content_offset_idx + i - 1];
+                    memcpy(data, v[i].data(), v[i].size() * sizeof(char));
+                }
+                return o->setExprs(exprs);
+            }
             case DIAGRAM_CONTEXT:
                 return o->setContext(v);
+            case PARAMETER_NAME:
+                return o->setNamedParameters(v);
+            case PARAMETER_DESCRIPTION:
+                return o->setNamedParametersDescription(v);
+            case PARAMETER_UNIT:
+                return o->setNamedParametersUnit(v);
+            case PARAMETER_TYPE:
+                return o->setNamedParametersTypes(v);
+            case PARAMETER_ENCODING:
+                return o->setNamedParametersEncodings(v);
+            case PARAMETER_VALUE:
+                return o->setNamedParametersValues(v);
             default:
                 break;
         }
@@ -652,6 +760,18 @@ update_status_t Model::setObjectProperty(model::BaseObject* object, object_prope
         {
             case DIAGRAM_CONTEXT:
                 return o->setContext(v);
+            case PARAMETER_NAME:
+                return o->setNamedParameters(v);
+            case PARAMETER_DESCRIPTION:
+                return o->setNamedParametersDescription(v);
+            case PARAMETER_UNIT:
+                return o->setNamedParametersUnit(v);
+            case PARAMETER_TYPE:
+                return o->setNamedParametersTypes(v);
+            case PARAMETER_ENCODING:
+                return o->setNamedParametersEncodings(v);
+            case PARAMETER_VALUE:
+                return o->setNamedParametersValues(v);
             default:
                 break;
         }

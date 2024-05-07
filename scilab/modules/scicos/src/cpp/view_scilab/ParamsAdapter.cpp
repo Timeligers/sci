@@ -100,12 +100,12 @@ struct title
         std::string path;
         if (adaptee->kind() == DIAGRAM)
         {
-            controller.getObjectProperty(adaptee, TITLE, title);
+            controller.getObjectProperty(adaptee, NAME, title);
             controller.getObjectProperty(adaptee, PATH, path);
         }
         else
         {
-            controller.getObjectProperty(adaptee, DESCRIPTION, title);
+            controller.getObjectProperty(adaptee, NAME, title);
         }
 
         types::String* o = new types::String(2, 1);
@@ -126,7 +126,7 @@ struct title
         model::BaseObject* adaptee = adaptor.getAdaptee();
 
         std::string path;
-        std::string title;
+        std::string name;
         types::String* current = v->getAs<types::String>();
         if (current->getSize() == 1)
         {
@@ -144,19 +144,19 @@ struct title
             return false;
         }
 
-        char* Title = wide_string_to_UTF8(current->get(0));
-        title = std::string(Title);
-        FREE(Title);
+        char* title = wide_string_to_UTF8(current->get(0));
+        name = std::string(title);
+        FREE(title);
 
 
         if (adaptee->kind() == DIAGRAM)
         {
-            controller.setObjectProperty(adaptee, TITLE, title);
+            controller.setObjectProperty(adaptee, NAME, title);
             controller.setObjectProperty(adaptee, PATH, path);
         }
         else
         {
-            controller.setObjectProperty(adaptee, DESCRIPTION, title);
+            controller.setObjectProperty(adaptee, NAME, title);
         }
         return true;
     }

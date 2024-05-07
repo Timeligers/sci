@@ -2,6 +2,7 @@
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2014-2016 - Scilab Enterprises - Clement DAVID
  * Copyright (C) 2017 - ESI Group - Clement DAVID
+ * Copyright (C) 2023-2024 - Dassault Systèmes - Clement DAVID
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
  *
@@ -20,21 +21,22 @@
 #include "Model.hxx"
 #include "utilities.hxx"
 
-#include "model/BaseObject.hxx"
 #include "model/Annotation.hxx"
-#include "model/Diagram.hxx"
+#include "model/BaseObject.hxx"
 #include "model/Block.hxx"
+#include "model/Diagram.hxx"
 #include "model/Link.hxx"
 #include "model/Port.hxx"
 
-extern "C" {
+extern "C"
+{
 #include "sci_types.h"
 }
 
 namespace org_scilab_modules_scicos
 {
 
-bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, double& v)  const
+bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, double& v) const
 {
     model::BaseObject* baseObject = object;
     if (baseObject == nullptr)
@@ -115,6 +117,9 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
             case SIM_FUNCTION_API:
                 o->getSimFunctionApi(v);
                 return true;
+            case DEBUG_LEVEL:
+                o->getDebugLevel(v);
+                return true;
             default:
                 break;
         }
@@ -153,6 +158,15 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
         {
             case PORT_KIND:
                 o->getKind(v);
+                return true;
+            case DATATYPE_TYPE:
+                o->getDataTypeType(v);
+                return true;
+            case DATATYPE_ROWS:
+                o->getDataTypeRows(v);
+                return true;
+            case DATATYPE_COLS:
+                o->getDataTypeCols(v);
                 return true;
             default:
                 break;
@@ -264,8 +278,32 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
             case SIM_BLOCKTYPE:
                 o->getSimBlocktype(v);
                 return true;
+            case EXPRS:
+                {
+                    std::vector<double> exprs;
+                    o->getExprs(exprs);
+                    
+                    //  * type
+                    //  * number of dims
+                    //  * scalar 1x1
+                    //  * string length
+                    //  * utf8 content \0 terminated
+                    if (exprs.size() < 6) return false;
+                    if (exprs[0] != sci_strings) return false;
+                    if (exprs[1] < 2) return false;
+                    if (exprs[2] < 1) return false;
+                    if (exprs[3] < 1) return false;
+                    size_t len = (size_t)exprs[4] * sizeof(double) / sizeof(char);
+                    
+                    char* data = (char*) &(exprs[5]);
+                    v.assign((char*) data, len);
+                    return true;
+                }
             case STYLE:
                 o->getStyle(v);
+                return true;
+            case NAME:
+                o->getName(v);
                 return true;
             case DESCRIPTION:
                 o->getDescription(v);
@@ -282,11 +320,32 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
         model::Diagram* o = static_cast<model::Diagram*>(baseObject);
         switch (p)
         {
-            case TITLE:
-                o->getTitle(v);
+            case NAME:
+                o->getName(v);
+                return true;
+            case DESCRIPTION:
+                o->getDescription(v);
                 return true;
             case PATH:
                 o->getPath(v);
+                return true;
+            case AUTHOR:
+                o->getAuthor(v);
+                return true;
+            case FILE_VERSION:
+                o->getFileVersion(v);
+                return true;
+            case COPYRIGHT:
+                o->getCopyright(v);
+                return true;
+            case LICENSE:
+                o->getLicense(v);
+                return true;
+            case GENERATION_TOOL:
+                o->getGenerationTool(v);
+                return true;
+            case GENERATION_DATE:
+                o->getGenerationDate(v);
                 return true;
             case VERSION_NUMBER:
                 o->getVersionNumber(v);
@@ -321,11 +380,17 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
             case STYLE:
                 o->getStyle(v);
                 return true;
-            case LABEL:
-                o->getLabel(v);
+            case NAME:
+                o->getName(v);
+                return true;
+            case DESCRIPTION:
+                o->getDescription(v);
                 return true;
             case UID:
                 o->getUID(v);
+                return true;
+            case PARAMETER_UNIT:
+                o->getUnit(v);
                 return true;
             default:
                 break;
@@ -384,7 +449,6 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
     }
     else if (k == DIAGRAM)
     {
-
     }
     else if (k == LINK)
     {
@@ -474,6 +538,9 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
                 return true;
             case OPAR:
                 o->getOpar(v);
+                return true;
+            case PROPERTIES:
+                o->getProperties(v);
                 return true;
             case EQUATIONS:
                 o->getEquations(v);
@@ -673,6 +740,54 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
             case DIAGRAM_CONTEXT:
                 o->getContext(v);
                 return true;
+            case EXPRS:
+                {
+                    std::vector<double> exprs;
+                    o->getExprs(exprs);
+                    
+                    //  * type
+                    //  * number of dims
+                    //  * scalar 1x1
+                    //  * strings offset in double
+                    //  * utf8 content \0 terminated
+                    if (exprs.size() < 6) return false;
+                    if (exprs[0] != sci_strings) return false;
+                    if (exprs[1] < 2) return false;
+                    if (exprs[2] < 1) return false;
+                    if (exprs[3] < 1) return false;
+                    
+                    size_t N = (size_t) (exprs[2] * exprs[3]);
+                    v.resize(N);
+                    size_t len = (size_t)exprs[4] * sizeof(double) / sizeof(char);
+                    char* data = (char*) &(exprs[4+N]);
+                    v[0].assign(data, len);
+                    for (size_t i = 1; i < N; ++i)
+                    {
+                        size_t offset = (size_t) exprs[4+i-1];
+                        len = ((size_t)exprs[4+i] - (size_t)exprs[4+i-1]) * sizeof(double) / sizeof(char);
+                        data = (char*) &(exprs[4 + N + offset]);
+                        v[i].assign(data, len);
+                    }
+                    return true;
+                }
+            case PARAMETER_NAME:
+                o->getNamedParameters(v);
+                return true;
+            case PARAMETER_DESCRIPTION:
+                o->getNamedParametersDescription(v);
+                return true;
+            case PARAMETER_UNIT:
+                o->getNamedParametersUnit(v);
+                return true;
+            case PARAMETER_TYPE:
+                o->getNamedParametersTypes(v);
+                return true;
+            case PARAMETER_ENCODING:
+                o->getNamedParametersEncodings(v);
+                return true;
+            case PARAMETER_VALUE:
+                o->getNamedParametersValues(v);
+                return true;
             default:
                 break;
         }
@@ -684,6 +799,24 @@ bool Model::getObjectProperty(model::BaseObject* object, object_properties_t p, 
         {
             case DIAGRAM_CONTEXT:
                 o->getContext(v);
+                return true;
+            case PARAMETER_NAME:
+                o->getNamedParameters(v);
+                return true;
+            case PARAMETER_DESCRIPTION:
+                o->getNamedParametersDescription(v);
+                return true;
+            case PARAMETER_UNIT:
+                o->getNamedParametersUnit(v);
+                return true;
+            case PARAMETER_TYPE:
+                o->getNamedParametersTypes(v);
+                return true;
+            case PARAMETER_ENCODING:
+                o->getNamedParametersEncodings(v);
+                return true;
+            case PARAMETER_VALUE:
+                o->getNamedParametersValues(v);
                 return true;
             default:
                 break;
