@@ -262,7 +262,7 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
         }
 
         // interrupt any mscanf call (input, halt and so on)
-        ((SciInputCommandView) this.getConfiguration().getInputCommandView()).interrupt();
+        ((SciInputCommandView) this.getConfiguration().getInputCommandView()).interruptAndDisable();
     }
 
     /**

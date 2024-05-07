@@ -991,7 +991,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
                 AC_SUBST(SCIRENDERER_CP)
 
                 # Docking system
-                AC_JAVA_CHECK_JAR([flexdock],[org.flexdock.util.Utilities],[Scilab Gui],[],[VERSION],[1.2.4])
+                AC_JAVA_CHECK_JAR([flexdock],[org.flexdock.util.Utilities],[Scilab Gui],[],[VERSION],[1.2.5])
                 FLEXDOCK=$PACKAGE_JAR_FILE
                 AC_SUBST(FLEXDOCK)
 
