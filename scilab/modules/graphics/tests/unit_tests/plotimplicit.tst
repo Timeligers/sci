@@ -9,6 +9,7 @@
 // <-- Unit test for function plotimplicit -->
 //
 // <-- TEST WITH GRAPHIC -->
+// <-- NO CHECK REF -->
 // <-- ENGLISH IMPOSED -->
 
 // Error checking
@@ -25,7 +26,7 @@ assert_checkerror("plotimplicit(list($))", msg);
 // Function in input argument #1 must cross a zero
 plotimplicit("10")  // Warning displayed
 
-// x_grid: 
+// x_grid:
 msg = msprintf("%s: Argument #%d: Real vector or colon : expected.\n", fname, 2);
 assert_checkerror("plotimplicit(""x^2+y^2=1"", ""not_a_real_vector"")", msg);
 msg = msprintf("%s: Argument #%d: Real value expected.\n", fname, 2);
@@ -74,7 +75,7 @@ end
 clf
 assert_checkequal(execstr("plotimplicit(""x^2+y^2=1"")", "errcatch"), 0);
 ax = gca();
-h = [ax.title ax.x_label ax.y_label]
+h = [ax.title ax.x_label ax.y_label];
 assert_checkequal(h.text, ["$x^2+y^2=1$", "$x$", "$y$"]);
 assert_checkequal(h.font_size, [4 4 4]);
 xlabel("x");
