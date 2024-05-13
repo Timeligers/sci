@@ -14,5 +14,5 @@
 // <-- Short Description -->
 // print of macrofile display a debug message instead of macro prototype.
 a = acot
- a  = 
+ a = function
 [y]=a(x)
