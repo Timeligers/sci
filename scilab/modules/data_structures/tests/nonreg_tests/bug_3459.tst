@@ -5,8 +5,9 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-
-
+//
+// <-- NO CHECK REF -->
+//
 // <-- Non-regression test for bug 3459 -->
 //
 // <-- GitLab URL -->
@@ -15,10 +16,10 @@
 // <-- Short Description -->
 // -->l(2).row1(2)=M.row1(1)
 // l  =
-//  
+//
 // list with entries:
 //   1: 1
-// !--error 246 
+// !--error 246
 // Function not defined for given argument type(s).
 
 
@@ -38,7 +39,7 @@ function M=%to_e(varargin)
 endfunction
 
 
-%to_6=%to_e
+%to_6=%to_e;
 
 function M=%to_i_to(varargin)
   M=varargin($);N=varargin($-1)
