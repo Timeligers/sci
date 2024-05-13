@@ -8,12 +8,12 @@
 // csvDefault returns %f when used twice
 // =============================================================================
 assert_checkequal(csvDefault('eol', 'linux'), %t)
- ans  =
+ ans = 
   T
 assert_checkequal(csvDefault('eol', 'linux'), %t)
- ans  =
+ ans = 
   T
 assert_checkequal(csvDefault('eol', 'freestyle'), %f)
- ans  =
+ ans = 
   T
 // =============================================================================
