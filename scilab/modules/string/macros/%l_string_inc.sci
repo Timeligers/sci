@@ -19,7 +19,7 @@ function t = %l_string_inc(x, level)
 
     fmt = "%s";
 
-    if type(x) == 15
+    if type(x) == 15 || (isempty(fieldnames(x)) && length(x)>0)
         fields = 1:length(x);
     else
         fields = fieldnames(x)(:)';        

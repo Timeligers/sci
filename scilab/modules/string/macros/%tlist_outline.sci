@@ -15,9 +15,7 @@ function s=%tlist_outline(x, verbose)
     end    
     s = %type_dims_outline(x,typeStr = typeof(x)+tStr, brack=["(",")"]);
     if verbose == 1
-        if isempty(fieldnames(x))
-            s = s + " with no field";
-        else
+        if ~isempty(fieldnames(x))
             s = s + " with fields:";        
         end
     end

@@ -121,7 +121,7 @@ end
   infobar_visible = "on"
   dockable = "on"
   layout = "none"
-  layout_options: (OptNoLayout tlist) with no field
+  layout_options: (OptNoLayout tlist)
   default_axes = "on"
   icon = ""
   tag = ""
