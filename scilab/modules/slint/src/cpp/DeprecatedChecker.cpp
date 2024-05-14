@@ -95,7 +95,10 @@ std::unordered_map<std::wstring, std::wstring> DeprecatedChecker::initDep()
     // TODO: get this list from a conf file
     std::unordered_map<std::wstring, std::wstring> map;
 
-    // Scilab 2024.0.0 => 2025.0.0
+    // Scilab 2024.1.0 => 2026.0.0
+    map.emplace(L"dassl", L"dae");
+    map.emplace(L"dasrt", L"dae");
+    map.emplace(L"daskr", L"dae");
 
     // Scilab 2023.1.0 => 2025.0.0
     map.emplace(L"getURL", L"http_get");
