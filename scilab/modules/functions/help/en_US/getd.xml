@@ -47,6 +47,12 @@
         </para>
     </refsection>
     <refsection>
+        <title>Remarks</title>
+        <warning>
+            <para>Functions are loaded in current scope, please use <link linkend="resume">resume</link> to make them available in calling scope.</para>
+        </warning>
+    </refsection>
+    <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
 getd('SCI/modules/cacsd/macros')
@@ -66,6 +72,9 @@ getd('SCI/modules/cacsd/macros')
             </member>
             <member>
                 <link linkend="chdir">chdir</link>
+            </member>
+            <member>
+                <link linkend="resume">resume</link>
             </member>
         </simplelist>
     </refsection>

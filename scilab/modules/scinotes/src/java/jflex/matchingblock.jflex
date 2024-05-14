@@ -150,8 +150,8 @@ spec = [a-zA-Z0-9_#!$?]
 id = [a-zA-Z%_#!?][a-zA-Z0-9_#!$?]*
 
 string = (([^\'\"\r\n]*)|([\'\"]{2}))*
-qstring = (\"|\'){string}(\"|\')
-gnirtsq = \"{string}(\"|\')
+qstring = (\"{string}\")|(\'{string}\')
+gnirtsq = {qstring}
 transp = ({spec} | ")" | "]" | "}") "'"
 
 openK = ("if" | "for" | "while" | "select" | "try" | "function" | "switch" | "arguments")

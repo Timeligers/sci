@@ -28,10 +28,10 @@ D=[1 -1 -2  0  0
    0  1  0  1 -1
    0  0  1  2  1];
 ncon=2
- ncon  = 
+ ncon = 
    2.
 nmeas=2
- nmeas  = 
+ nmeas = 
    2.
 gam=111.30;
 [AK,BK,CK,DK] = dhinf(A,B,C,D,ncon,nmeas,gam);

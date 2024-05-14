@@ -1294,6 +1294,12 @@ gcf().axes_size = [420 320];
                     Default .title.font_size=3, instead of 1.
                 </revremark>
             </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revremark>
+                    <literal>.auto_stretch</literal> property added.
+                </revremark>
+            </revision>
         </revhistory>
     </refsection>
 </refentry>

@@ -49,8 +49,13 @@ function tt = readtable(varargin)
         opts = detectImportOptions(f);
     end
 
-    variableNames = opts.variableNames; 
+    variableNames = opts.variableNames;
     variableTypes = opts.variableTypes;
+
+    if variableNames == [] then
+        variableNames = ["Var" + string(1:size(variableTypes, "*"))];
+    end
+    
     fmt = opts.inputFormat;
     emptyCol = opts.emptyCol;
 
@@ -71,7 +76,7 @@ function tt = readtable(varargin)
         variableNames(idx) = "Var" + string(idx);
     end
 
-    mat = csvTextScan(f(opts.datalines(1):opts.datalines(2), :), opts.delimiter, ".", "string");//(:,_kk);
+    mat = csvTextScan(f(opts.datalines, :), opts.delimiter, opts.decimal, "string");//(:,_kk);
     mat(:, emptyCol) = [];
     mat = mat(:, _kk);
 
@@ -102,7 +107,6 @@ function tt = readtable(varargin)
         end
     end
 
-    //variableNames = strsubst(variableNames, " ", "");
     tt = table(l(:), "VariableNames", variableNames);
     tt.props.variableDescriptions = variableNames;
 

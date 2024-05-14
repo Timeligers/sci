@@ -31,6 +31,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.server.UID;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -213,6 +214,19 @@ public abstract class SwingScilabWindow extends JFrame implements SimpleWindow {
             return new SwingScilabDockingWindow();
         }
         return new SwingScilabStaticWindow();
+    }
+
+    /** force closing all Scilab windows not using the ClosingOperationsManager */
+    public static void forceClose()
+    {
+        ArrayList<SwingScilabWindow> allWindows = new ArrayList<>(allScilabWindows.values());
+        for(SwingScilabWindow window : allWindows)
+        {
+            if (window.isVisible())
+            {
+                window.close();
+            }
+        }
     }
 
     /**

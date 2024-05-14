@@ -291,6 +291,13 @@ tbx_make("path/to/mytoolbox", ["macros", "help", "src"])
                 </revremark>
             </revision>
             <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revdescription>
+                    <literal>tbx_make(".", "localization")</literal> automatically updates existing .po
+                    files for every newly detected msgid.
+                </revdescription>
+            </revision>
+            <revision>
                 <revnumber>2023.1</revnumber>
                 <revremark>
                     <literal>languages</literal> input option added.

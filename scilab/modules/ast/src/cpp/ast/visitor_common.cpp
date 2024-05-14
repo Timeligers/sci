@@ -2574,4 +2574,58 @@ void printLine(const std::string& _stPrompt, const std::string& _stLine, bool _b
 
     scilabWrite(st.c_str());
 }
+
+std::wstring printVarEqualTypeDimsInfo(types::InternalType *pIT, std::wstring wcsVarName)
+{
+    // print outline (dims + type)
+    std::wostringstream ostr;
+    types::Double* pDblOne = new types::Double(1);
+
+    if (ConfigVariable::isPrintCompact() == false)
+    {
+        ostr << std::endl;
+    }
+    ostr << L" " << wcsVarName << L" = ";
+#ifndef NDEBUG
+    ostr << L"(" << pIT->getRef() << L")";
+#endif
+    types::typed_list in;
+    types::typed_list out;
+
+    pIT->IncreaseRef();
+    pDblOne->IncreaseRef();
+    in.push_back(pIT);
+    in.push_back(pDblOne);
+    types::Function::ReturnValue ret = Overload::generateNameAndCall(L"outline", in, 1, out, false, false);
+    if(ret == types::Callable::OK_NoResult)
+    {
+        // fallthrough: call generic %tlist_outline
+        if (pIT->isMList() || pIT->isTList())
+        {
+            std::wstring wstrFuncName = L"%tlist_outline";
+            ret = Overload::call(wstrFuncName, in, 1, out, false, false);
+        }
+    }
+
+    pIT->DecreaseRef();
+    pDblOne->DecreaseRef();
+    pDblOne->killMe();
+    if (ret != types::Function::OK_NoResult)
+    {
+        if (out[0]->isString())
+        {
+            types::String* pStr = out[0]->getAs<types::String>();
+            ostr << pStr->get(0);
+        }
+    }
+
+    ostr << std::endl;
+    if (ConfigVariable::isPrintCompact() == false)
+    {
+        ostr << std::endl;
+    }
+
+    return ostr.str();
+}
+
 /*--------------------------------------------------------------------------*/

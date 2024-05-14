@@ -299,6 +299,16 @@ char **CreateOuput(pipeinfo *pipe, BOOL DetachProcess)
     return OuputStrings;
 }
 /*--------------------------------------------------------------------------*/
+BOOL DetectStartInCommandLine(wchar_t* command)
+{
+    if (wcsncmp(command, L"start ", 6) == 0)
+    {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 BOOL DetectDetachProcessInCommandLine(wchar_t *command)
 {
     BOOL bOK = FALSE;

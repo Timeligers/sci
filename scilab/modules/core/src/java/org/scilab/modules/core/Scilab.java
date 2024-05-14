@@ -302,6 +302,8 @@ public class Scilab {
                 ClosingOperationsManager.forceClosingOperationOnRoot();
                 exitCalled = false;
 
+                SwingScilabWindow.forceClose();
+
                 finish = true;
                 synchronized (lock) {
                     lock.notify();

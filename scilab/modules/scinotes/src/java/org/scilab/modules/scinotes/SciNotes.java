@@ -16,19 +16,16 @@
 
 package org.scilab.modules.scinotes;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.lang.reflect.Constructor;
@@ -37,8 +34,6 @@ import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -48,7 +43,6 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -57,28 +51,23 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.EditorKit;
 import javax.swing.text.View;
 import javax.swing.undo.UndoManager;
 
-import org.w3c.dom.Document;
-
 import org.flexdock.docking.event.DockingEvent;
 import org.scilab.modules.commons.CommonFileUtils;
-import org.scilab.modules.commons.gui.ScilabKeyStroke;
 import org.scilab.modules.commons.gui.ScilabGUIUtilities;
+import org.scilab.modules.commons.gui.ScilabKeyStroke;
 import org.scilab.modules.commons.xml.ScilabXMLUtilities;
 import org.scilab.modules.commons.xml.XConfiguration;
-import static org.scilab.modules.commons.xml.XConfiguration.XConfAttribute;
 import org.scilab.modules.core.Scilab;
-import org.scilab.modules.gui.bridge.filechooser.JFXScilabFileChooser;
 import org.scilab.modules.gui.bridge.tab.SwingScilabDockablePanel;
 import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
+import org.scilab.modules.gui.filechooser.FileChooser;
 import org.scilab.modules.gui.filechooser.Juigetfile;
 import org.scilab.modules.gui.filechooser.ScilabFileChooser;
-import org.scilab.modules.gui.filechooser.FileChooser;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.messagebox.MessageBox;
 import org.scilab.modules.gui.messagebox.ScilabMessageBox;
@@ -92,24 +81,17 @@ import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ToolBar;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
 import org.scilab.modules.gui.utils.ConfigManager;
-import org.scilab.modules.gui.utils.Position;
-import org.scilab.modules.gui.utils.SciFileFilter;
-import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
-
-import org.scilab.modules.scinotes.actions.DoubleQuoteStringAction;
 import org.scilab.modules.scinotes.actions.EncodingAction;
 import org.scilab.modules.scinotes.actions.EndOfLineAction;
 import org.scilab.modules.scinotes.actions.ExitAction;
 import org.scilab.modules.scinotes.actions.FindAction;
 import org.scilab.modules.scinotes.actions.IncrementalSearchAction;
-import org.scilab.modules.scinotes.actions.IndentAction;
 import org.scilab.modules.scinotes.actions.InsertOverwriteAction;
 import org.scilab.modules.scinotes.actions.LineBeautifierAction;
 import org.scilab.modules.scinotes.actions.OpenSourceFileOnKeywordAction;
 import org.scilab.modules.scinotes.actions.RecentFileAction;
 import org.scilab.modules.scinotes.actions.RegisterFavoriteDirsAction;
-import org.scilab.modules.scinotes.actions.RemoveTrailingWhiteAction;
 import org.scilab.modules.scinotes.actions.RestoreOpenedFilesAction;
 import org.scilab.modules.scinotes.actions.SciNotesCompletionAction;
 import org.scilab.modules.scinotes.actions.SearchWordInFilesAction;
@@ -125,6 +107,7 @@ import org.scilab.modules.scinotes.utils.SciNotesContents;
 import org.scilab.modules.scinotes.utils.SciNotesMessages;
 import org.scilab.modules.scinotes.utils.ScilabTabbedPane;
 import org.scilab.modules.scinotes.utils.SearchFile;
+import org.w3c.dom.Document;
 
 /**
  * Main SciNotes class.
@@ -709,7 +692,9 @@ public class SciNotes extends SwingScilabDockablePanel {
             return;
         }
 
-        addRestoreTab();
+        // Restore files from previous version
+        RestoreOpenedFilesAction.forceRestore(this, getUUID().toString());
+
         WindowsConfigurationManager.restorationFinished(SciNotes.this);
         if  (System.getProperty("os.name").toLowerCase().contains("mac")) {
           RestoreOpenedFilesAction.restoreEnabledComponents(this);

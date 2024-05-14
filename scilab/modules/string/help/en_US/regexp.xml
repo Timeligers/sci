@@ -20,7 +20,7 @@
     <refnamediv>
         <refname>regexp</refname>
         <refpurpose>
-            find a substring that matches the regular expression string
+            in a string, locate (and extract) substrings matching a regular expression
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>

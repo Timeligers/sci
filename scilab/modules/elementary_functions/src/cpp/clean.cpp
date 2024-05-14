@@ -31,7 +31,7 @@ void clean(double* pdblReal, double* pdblImg, int iSize, double dEpsA, double dE
             double d = dabss(pdblReal[i])+dabss(pdblImg[i]);
             if (std::isfinite(d))
             {
-               dNorm += d;
+               dNorm = Max(dNorm, d);
             }
         }
 
@@ -58,7 +58,7 @@ void clean(double* pdblReal, double* pdblImg, int iSize, double dEpsA, double dE
             double d = dabss(pdblReal[i]);
             if (std::isfinite(d))
             {
-               dNorm += d;
+               dNorm = Max(dNorm, d);
             }
         }
         double dEps = Max(dEpsA, dEpsR * dNorm);

@@ -109,6 +109,13 @@ function tt = readtimeseries(varargin)
 
     variableNames = opts.variableNames; 
     variableTypes = opts.variableTypes;
+    hasvarnames = %t;
+
+    if variableNames == [] then
+        variableNames = ["Time", "Var" + string(1:size(variableTypes, "*")-1)];
+        hasvarnames = %f;
+    end
+    
     fmt = opts.inputFormat;
     emptyCol = opts.emptyCol;
 
@@ -135,7 +142,7 @@ function tt = readtimeseries(varargin)
         error(msprintf(_("%s: A variable time expected.\n"), "readtimeseries"));
     end
 
-    mat = csvTextScan(f(opts.datalines(1):opts.datalines(2), :), opts.delimiter, ".", "string");//(:,_kk);
+    mat = csvTextScan(f(opts.datalines, :), opts.delimiter, opts.decimal, "string");//(:,_kk);
 
     mat(:, emptyCol) = [];
     mat = mat(:, _kk);
@@ -143,9 +150,11 @@ function tt = readtimeseries(varargin)
 
     if idx <> [] && ~nodate then
         i = idx(1);
-        nametime = variableNames(i);
-        variableNames(i) = [];
-        variableNames = [nametime, variableNames];
+        if hasvarnames then
+            nametime = variableNames(i);
+            variableNames(i) = [];
+            variableNames = [nametime, variableNames];
+        end
 
         tmp = variableTypes(i);
         variableTypes(i) = [];
@@ -160,8 +169,7 @@ function tt = readtimeseries(varargin)
         mat = [tmp, mat]
 
         index = 2;
-    end    
-    //disp(mat(1:3, :))
+    end
 
     l = list();
     for j = index:size(mat, 2)
@@ -169,7 +177,7 @@ function tt = readtimeseries(varargin)
         select variableTypes(j)
         case "duration"
             d = duration(0) .* ones(m);
-            d(m <> "") = duration(mat(m <> "", j)); //, "InputFormat", fmt(j));
+            d(m <> "") = duration(mat(m <> "", j));
             d(m == "") = duration(%nan);
             l($+1) = d;
         case "datetime"
@@ -182,8 +190,6 @@ function tt = readtimeseries(varargin)
             l($+1) = m
         end
     end
-
-    //variableNames = strsubst(variableNames, " ", "");
 
     if nodate then
         idx = grep(variableNames, "/^Time$/", "r");
@@ -199,7 +205,7 @@ function tt = readtimeseries(varargin)
         select variableTypes(1)
         case "duration"
             d = duration(0) .* ones(m);
-            d(m <> "") = duration(mat(m <> "", 1)); //, "InputFormat", fmt(1));
+            d(m <> "") = duration(mat(m <> "", 1));
             d(m == "") = duration(%nan);
         case "datetime"
             d = NaT(m);
@@ -210,7 +216,6 @@ function tt = readtimeseries(varargin)
             error(msprintf(_("%s: Wrong type for the time column: ''duration'' or ''datetime'' expected.\n"), "readtimeseries"));
         end
 
-        //disp(d, l, variableNames, _kk, mat(1:3, :))
         tt = timeseries(d, l(:), "VariableNames", variableNames)
     end
     tt.props.variableDescriptions = variableNames;

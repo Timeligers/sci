@@ -285,6 +285,7 @@ function out = %_rowvarfun(fname, t, groupingVariables, opts, varargin)
             for i = 1:nb
                 execstr("res(" + string(i) + ") = tmp"+ string(i));
             end
+
             if size(method) > 1 then
                 if nameMethod(m) == "fun" then
                     nameMethod(m) = nameMethod(m) + string(m);

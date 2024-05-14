@@ -1,0 +1,134 @@
+// =============================================================================
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2024 - UTC - Stephane MOTTELET
+//
+data.d = 1;
+data.D = rand(5, 5);
+data.b = %t;
+data.B = [%t %f;%f %t];
+data.s = "outline";
+data.S = ["outline" "outline";"outline", "outline"];
+data.i8 = int8(1);
+data.I8 = int8([1 2 3 4]);
+data.i16 = int16(1);
+data.I16 = int16([1 2 3 4]);
+data.i32 = int32(1);
+data.I32 = int32([1 2 3 4]);
+data.i64 = int64(1);
+data.I64 = int64([1 2 3 4]);
+data.l = list();
+data.L = list(1, 2, 3);
+data.ce = {[1 2 3 4], ["outline"]};
+data.p = %s;
+data.P = [%s %s;%s %s];
+data.sp = sparse([1 2 3]);
+data.spb = sparse([1 2 3] > 1);
+data.st = struct("a", [1 2 3]);
+data.ST = [struct("a", [1 2 3]) struct("a", [1 2 3]) struct("a", [1 2 3])];
+data.h = gcf();
+data.H = [gcf() gcf()];
+jimport java.lang.String;
+data.j = String.new("Hello world");
+data.x = xmlReadStr("<root><a att=""foo"" rib=""bar""><b>Hello</b></a></root>");
+//mode cannot be check in test, test_run remove empty lines in dia.ref
+for i = fieldnames(data)'
+	data(i)
+end
+ ans = 
+   1.
+ ans = [5x5 double]
+   0.2113249   0.6283918   0.5608486   0.2320748   0.3076091
+   0.7560439   0.8497452   0.6623569   0.2312237   0.9329616
+   0.0002211   0.685731    0.7263507   0.2164633   0.2146008
+   0.3303271   0.8782165   0.1985144   0.8833888   0.312642 
+   0.6653811   0.068374    0.5442573   0.6525135   0.3616361
+ ans = 
+  T
+ ans = [2x2 boolean]
+  T F
+  F T
+ ans = 
+  "outline"
+ ans = [2x2 string]
+  "outline"  "outline"
+  "outline"  "outline"
+ ans = [int8]
+  1
+ ans = [1x4 int8]
+  1  2  3  4
+ ans = [int16]
+  1
+ ans = [1x4 int16]
+  1  2  3  4
+ ans = [int32]
+  1
+ ans = [1x4 int32]
+  1  2  3  4
+ ans = [int64]
+  1
+ ans = [1x4 int64]
+  1  2  3  4
+ ans = (empty list)
+ ans = (3-elements list)
+  (1) = 1
+  (2) = 2
+  (3) = 3
+ ans = {1x2 cell}
+  [1,2,3,4]    "outline"
+ ans = [polynomial] of s
+  s
+ ans = [2x2 polynomial] of s
+  s  s
+  s  s
+ ans = [1x3 sparse]
+(  1,  1)	  1.
+(  1,  2)	  2.
+(  1,  3)	  3.
+ ans = [1x3 boolean sparse]
+(  1,  2)	T
+(  1,  3)	T
+ ans = [struct] with fields:
+  a = [1,2,3]
+ ans = [1x3 struct] with fields:
+  a
+ ans = [Figure] with properties:
+  children: [Axes]
+  figure_position = [200,200]
+  figure_size = [626,588]
+  axes_size = [610,460]
+  auto_resize = "on"
+  viewport = [0,0]
+  figure_name = "Graphic window number %d"
+  figure_id = 0
+  info_message = ""
+  color_map: [32x3 double]
+  pixel_drawing_mode = "copy"
+  anti_aliasing = "off"
+  immediate_drawing = "on"
+  background = -2
+  visible = "on"
+  rotation_style = "unary"
+  event_handler = ""
+  event_handler_enable = "off"
+  user_data = []
+  resizefcn = ""
+  closerequestfcn = ""
+  resize = "on"
+  toolbar = "figure"
+  toolbar_visible = "on"
+  menubar = "figure"
+  menubar_visible = "on"
+  infobar_visible = "on"
+  dockable = "on"
+  layout = "none"
+  layout_options: (OptNoLayout tlist)
+  default_axes = "on"
+  icon = ""
+  tag = ""
+ ans = [1x2 handle]
+  Figure Figure 
+ ans = (Java Object)
+Hello world
+ ans = (XMLDoc) with fields:
+  url = "Undefined"
+  root: (XMLElem)
