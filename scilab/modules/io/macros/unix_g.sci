@@ -50,69 +50,53 @@ function varargout = unix_g(cmd)
 
     // initialize variables
     stdout = "";
-    stat = 1;
     stderr = "";
 
-    if getos() == "Windows" then
-        [stdout,stat] = dos(cmd);
-        if (stat == %t) then
-            stat = 0;
-        else
-            if lhs == 3 then
-                stderr = stdout;
-            else
-                for i=1:size(stdout,"*") do printf("   %s", stdout(i));end
-            end
+    fout = TMPDIR+"/unix_g.out";
+    ferr = TMPDIR+"/unix_g.err";
 
-            stat = 1;
-            stdout = emptystr();
-        end
-    else
-        fout = TMPDIR+"/unix.out";
-        ferr = TMPDIR+"/unix.err";
+    cmd1 = "(" + cmd + ")>" + fout + " 2>" + ferr + ";";
+    stat = host(cmd1);
 
-        cmd1 = "(" + cmd + ")>" + fout + " 2>" + ferr + ";";
-        stat = host(cmd1);
-
-        if lhs >= 1 then
-            stdout = mgetl(fout);
-        end
-        if lhs >= 3 then
-            stderr = mgetl(ferr);
-        end
-
-        select stat
-
-        case 0 then
-            // everything is ok
-
-        case 1 then
-            // on error, display some error messages
-            if lhs < 3 then
-                stderr = mgetl(ferr);
-            end
-            if stdout == "" then
-                stdout = stderr;
-            end
-
-        case -1 then
-            // host failed, append to the stderr stream
-            if lhs == 3 then
-                stderr = [ stderr ; msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g") ];
-            else
-                disp(msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g"));
-            end
-        else
-            if lhs < 3 then
-                // display something on error
-                disp(stderr(1));
-            end
-        end
-        
-        mdelete(fout);
-        mdelete(ferr);
+    if lhs >= 1 then
+        stdout = mgetl(fout);
+    end
+    if lhs >= 3 then
+        stderr = mgetl(ferr);
     end
 
+    select stat
+
+    case 0 then
+        // everything is ok
+
+    case 1 then
+        // on error, display some error messages
+        if lhs < 3 then
+            stderr = mgetl(ferr);
+        end
+        if stdout == "" then
+            stdout = stderr;
+        end
+
+    case -1 then
+        // host failed, append to the stderr stream
+        if lhs == 3 then
+            stderr = [ stderr ; msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g") ];
+        else
+            disp(msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g"));
+        end
+    else
+        if lhs < 3 then
+            // display something on error
+            disp(stderr(1));
+        end
+    end
+    
+    mdelete(fout);
+    mdelete(ferr);
+
+    
     // output arguments
 
     varargout(1) = stdout;
