@@ -85,7 +85,6 @@ static void usage(void)
     std::cerr << "      -l lang          : Change the language of scilab (default : en_US)." << std::endl;
     std::cerr << "      -nw              : Enable console mode." << std::endl;
     std::cerr << "      -nwni            : Enable terminal mode." << std::endl;
-    std::cerr << "      -nogui           : See -nwni." << std::endl;
     std::cerr << "      -ns              : Do not execute etc/scilab.start." << std::endl;
     std::cerr << "      -nouserstartup   : Do not execute user startup files (SCIHOME/scilab.ini|.scilab)." << std::endl;
     std::cerr << "      -noatomsautoload : Do not autoload eligible ATOMS modules." << std::endl;
@@ -259,19 +258,6 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
             MessageBoxA(NULL, "Argument \"-nwni\" is no longer supported.\nSee help page: https://help.scilab.org/scilab \n", "Error", MB_OK | MB_ICONERROR);
 #else
             printf("Argument \"-nwni\" is no longer supported.\nSee help page: https://help.scilab.org/scilab \n");
-#endif
-            exit(-1);
-#endif
-        }
-        else if (!strcmp("-nogui", argv[i]))
-        {
-            _pSEI->iConsoleMode = 1;
-            _pSEI->iNoJvm = 1;
-#ifdef _MSC_VER
-#if WITH_CONSOLE_JAVA
-            MessageBoxA(NULL, "Argument \"-nogui\" is no longer supported.\nSee help page: https://help.scilab.org/scilab \n", "Error", MB_OK | MB_ICONERROR);
-#else
-            printf("Argument \"-nogui\" is no longer supported.\nSee help page: https://help.scilab.org/scilab \n");
 #endif
             exit(-1);
 #endif

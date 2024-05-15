@@ -153,7 +153,7 @@ detect_type_of_scilab(){
         SCILABBIN="scilab-bin"
     fi
 
-    if (echo "$progname"|grep "scilab-cli$" 2>&1 > /dev/null;) || (echo "$@"|grep "\-nwni" 2>&1 > /dev/null;) || (echo "$@"|grep "\-nogui" 2>&1 > /dev/null;) then
+    if (echo "$progname"|grep "scilab-cli$" 2>&1 > /dev/null;) || (echo "$@"|grep "\-nwni" 2>&1 > /dev/null;) then
         SCILAB_MODE="nwni"
         SCILABBIN="scilab-cli-bin"
         DISABLE_JAVA_DETECTION=1
@@ -1083,7 +1083,7 @@ if test "$rest" = "yes"; then
         fi
 
         case $sciarg in
-            -version|-ns|-nb|-nouserstartup|-noatomsautoload|-nocolor|--texmacs)
+            -nogui|-version|-ns|-nb|-nouserstartup|-noatomsautoload|-nocolor|--texmacs)
                 ;;
             -nw)
                 if test "$SCILAB_MODE" = "nwni"; then
@@ -1091,9 +1091,9 @@ if test "$rest" = "yes"; then
                     exit 5
                 fi
                 ;;
-            -nwni|-nogui)
+            -nwni)
                 if test "$SCILAB_MODE" = "nw"; then
-                    echo "Cannot use scilab-adv-cli with option -nwni or -nogui"
+                    echo "Cannot use scilab-adv-cli with option -nwni"
                     exit 5
                 fi
                 ;;
