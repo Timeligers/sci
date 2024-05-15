@@ -27,7 +27,7 @@ function demo_bode()
     if is_handle_valid(my_handle) then
         clf(my_handle,"reset");
         bode(sl,.1,100)
-        halt(_("Press Return to continue ... \n"));
+        messagebox(_("Please click OK to go on..."), _("Bode demo"), "modal");
     end
 
     //Second plot using poly
@@ -37,14 +37,14 @@ function demo_bode()
     if is_handle_valid(my_handle) then
         clf(my_handle,"reset");
         bode(h1,10,1000,.01),
-        halt(_("Press Return to continue ... \n"));
+        messagebox(_("Please click OK to go on..."), _("Bode demo"), "modal");
     end
 
     //Third plot which combines the first two plots
     if is_handle_valid(my_handle) then
         clf(my_handle,"reset");
         bode([h1;sl],.1,1000,.01);
-        halt(_("Press Return to continue ... \n"));
+        messagebox(_("Please click OK to go on..."), _("Bode demo"), "modal");
     end
 
     // series connection
