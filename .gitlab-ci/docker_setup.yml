@@ -61,7 +61,7 @@ tester_linux:
   tags: [x86_64-linux-gnu, docker, scilab]
   script:
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
-    - .gitlab-ci/docker_setup.sh --registry "${CI_REGISTRY_IMAGE}" "${DOCKER_TAG}"
+    - .gitlab-ci/docker_setup.sh --testers --registry "${CI_REGISTRY_IMAGE}" "${DOCKER_TAG}"
     - docker logout "${CI_REGISTRY}"
   rules:
     # do not rebuild on scheduled
