@@ -320,15 +320,15 @@ void ThreadManagement::SendAwakeRunnerSignal(void)
 # ifdef __DEBUG_SIGNAL
     std::cout << "SendAwakeRunnerSignal" << std::endl;
 # endif // __DEBUG_SIGNAL
+    ThreadManagement::LockRunner();
     __LockSignal(&m_AwakeRunnerLock);
-    // ThreadManagement::LockRunner();
     m_AwakeRunnerWasSignalled = true;
 #ifdef DEBUG_THREAD
     PrintDebug("SendAwakeRunnerSignal");
 #endif // DEBUG_THREAD
     __Signal(&m_AwakeRunner);
-    // ThreadManagement::UnlockRunner();
     __UnLockSignal(&m_AwakeRunnerLock);
+    ThreadManagement::UnlockRunner();
 }
 
 void ThreadManagement::WaitForAwakeRunnerSignal(void)

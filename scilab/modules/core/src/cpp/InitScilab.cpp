@@ -642,7 +642,7 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
     // wait for the "command" thread end before leaving (and free _pSEI)
     // the "console" thread may be waiting for a command, so don't wait for it to die
     // ie: exit in a callback will not release the console
-    // __WaitThreadDie(threadIdCommand);
+    __WaitThreadDie(threadIdCommand);
 }
 
 static void processCommand(ScilabEngineInfo* _pSEI)
