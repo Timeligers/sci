@@ -23,3 +23,5 @@ FILENAME_DIARY2 = TMPDIR +'/foo2.log';
 fd2 = diary(FILENAME_DIARY2, 'new');
 a=1;
 diary([],"pause");
+a=3;
+diary([],"close");
