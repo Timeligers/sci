@@ -172,6 +172,7 @@ int GetCommand(char** cmd, int* piPrioritary, int* piInterruptible, command_orig
     int iCommandReturned = 0;
 
     ThreadManagement::LockStoreCommand();
+    std::cout << cmd << std::endl;
     if (commandQueuePrioritary.empty() == false)
     {
         *cmd = os_strdup(commandQueuePrioritary.front().m_command);
