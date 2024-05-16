@@ -97,7 +97,7 @@ void ThreadManagement::initialize()
 void ThreadManagement::LockParser(void)
 {
 #ifdef DEBUG_THREAD
-    PrintDebug("LockParser");
+    // PrintDebug("LockParser");
 #endif // DEBUG_THREAD
     __Lock(&m_ParseLock);
 }
@@ -105,7 +105,7 @@ void ThreadManagement::LockParser(void)
 void ThreadManagement::UnlockParser(void)
 {
 #ifdef DEBUG_THREAD
-    PrintDebug("UnlockParser");
+    // PrintDebug("UnlockParser");
 #endif // DEBUG_THREAD
     __UnLock(&m_ParseLock);
 }

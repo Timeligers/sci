@@ -56,7 +56,7 @@ void* sciReturnRowVector(const double values[], int nbValues)
 {
     double* pdbl = NULL;
     types::Double* pD = new types::Double(1, nbValues, &pdbl);
-    for (int i = 0 ; i < nbValues ; i++)
+    for (int i = 0; i < nbValues; i++)
     {
         pdbl[i] = values[i];
     }
