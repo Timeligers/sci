@@ -730,8 +730,8 @@ void* scilabReadAndExecCommand(void* param)
 
         processCommand(_pSEI);
         FREE(command);
-        std::cout << "command getForceQuit" << ConfigVariable::getForceQuit() << std::endl;
-        std::cout << "command isEmptyCommandQueue" << isEmptyCommandQueue() << std::endl;
+        std::cout << "command getForceQuit " << ConfigVariable::getForceQuit() << std::endl;
+        std::cout << "command isEmptyCommandQueue " << isEmptyCommandQueue() << std::endl;
     }
     while (ConfigVariable::getForceQuit() == false || isEmptyCommandQueue() == false);
     std::cout << "out of command loop !" << std::endl;
@@ -984,8 +984,8 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
         // Sometimes, the "command thread" can unqueue commands between the call of 'SendAwakeRunnerSignal' and the 'while'.
         // That makes this thread leaving before executing the last runner.
         bQuit = ConfigVariable::getForceQuit() == false || isEmptyCommandQueue() == false;
-        std::cout << "main getForceQuit" << ConfigVariable::getForceQuit() << std::endl;
-        std::cout << "main isEmptyCommandQueue" << isEmptyCommandQueue() << std::endl;
+        std::cout << "main getForceQuit " << ConfigVariable::getForceQuit() << std::endl;
+        std::cout << "main isEmptyCommandQueue " << isEmptyCommandQueue() << std::endl;
         ThreadManagement::SendAwakeRunnerSignal();
     }
     while (bQuit);
