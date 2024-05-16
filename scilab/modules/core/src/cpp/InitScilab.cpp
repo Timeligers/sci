@@ -989,6 +989,7 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
         ThreadManagement::SendAwakeRunnerSignal();
     }
     while (bQuit);
+    
     std::cout << "out of main loop !" << std::endl;
     return iRet;
 }
