@@ -164,14 +164,14 @@
         <title>Examples</title>
         <programlisting role="example">
             f4 = scf(4);  //creates figure with id==4 and makes it the current one
-            f4.color_map = jetcolormap(64);
+            f4.color_map = jet(64);
             f4.figure_size = [400, 200];
             plot2d()
             sleep(4000)   // wait and see for 4s
             clf(f4, "reset")
 
             f0 = scf(0); //creates figure with id==0 and make it the current one
-            f0.color_map = hotcolormap(128); // changes color map
+            f0.color_map = hot(128); // changes color map
             t = -%pi:0.3:%pi;
             plot3d1(t,t,sin(t)'*cos(t));
 

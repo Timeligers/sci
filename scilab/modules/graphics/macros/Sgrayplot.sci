@@ -35,7 +35,7 @@ function Sgrayplot(x,y,z, strf, rect, nax, zminmax, colminmax, mesh, colout)
         t=-%pi:0.1:%pi;
         m=sin(t)'*cos(t)
         f=gcf();
-        f.color_map = jetcolormap(64);
+        f.color_map = jet(64);
         f.immediate_drawing = "off";
         colorbar(-1,1);
         Sgrayplot(t,t,m,strf="041",zminmax=[-1,1]);

@@ -21,7 +21,7 @@ function sundials_lorenz()
             clf(my_handle,"reset");
             demo_viewCode("lorenz.dem.sce");
 
-            my_handle.color_map=parulacolormap(128)
+            my_handle.color_map=parula(128)
             drawlater
             scatter3d(X(1,:),X(2,:),X(3,:),1,X(3,:));
             hdl = gce();

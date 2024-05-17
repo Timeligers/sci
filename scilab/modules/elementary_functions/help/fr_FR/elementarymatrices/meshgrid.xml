@@ -132,7 +132,7 @@ Z = sinc(2*%pi * X.*Y);
 // Préparation de la fenêtre graphique
 clf
 drawlater
-gcf().color_map = parulacolormap(64);
+gcf().color_map = parula(64);
 gcf().axes_size = [650 530];
 
 // Affichage graphique
@@ -171,7 +171,7 @@ drawnow
             // Setting the graphic figure
             clf
             drawlater
-            gcf().color_map = parulacolormap(64);
+            gcf().color_map = parula(64);
             gcf().axes_size = [650 530];
 
             // Plotting

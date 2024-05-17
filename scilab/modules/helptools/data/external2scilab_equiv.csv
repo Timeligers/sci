@@ -20,7 +20,7 @@ cla;delete;
 class;typeof;
 clear global;clearglobal;
 closereq;close;
-colormap;jetcolormap;
+colormap;jet;
 columns;size;// Octave
 commandhistory;browsehistory;
 compan;companion;

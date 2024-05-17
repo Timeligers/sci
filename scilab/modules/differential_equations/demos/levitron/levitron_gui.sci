@@ -20,7 +20,7 @@ function [H]=build_levitron(h)
     f = get("levitron_main_figure")
 
     //Plot the levitron
-    f.color_map = graycolormap(N);
+    f.color_map = gray(N);
     f.immediate_drawing = "off"
 
     s=[((N/2)):(N-1), N:-1:((N/2)+1)];

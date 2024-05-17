@@ -12,7 +12,7 @@
 // used to crash Scilab
 f = gcf();
 // create a smaller colormap than the default one
-f.color_map = jetcolormap(7);
+f.color_map = jet(7);
 
 // use legends and badaboom
 t=0:0.1:2*%pi;

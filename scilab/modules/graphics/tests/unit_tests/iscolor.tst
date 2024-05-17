@@ -53,7 +53,7 @@ assert_checkequal(iscolor(1:2), (1:2)');
 assert_checkequal(iscolor(1:3), (1:3)');
 
 f = scf(123);
-f.color_map = jetcolormap(64);
+f.color_map = jet(64);
 assert_checkequal(iscolor([1 7 4 3]), [1 7 4 3]');
 assert_checkequal(iscolor(65), %nan);
 delete(f)
