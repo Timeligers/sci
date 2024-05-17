@@ -15,6 +15,6 @@
 
 assert_checkequal(string({}), "{}");
 assert_checkequal(string(list()), []);
-assert_checkequal(string(struct()), "0x0 struct with no field");
+assert_checkequal(string(struct()), []);
 plot();
-assert_checkequal(string({gce(),gce().children(1)}), ["[1x1 handle]","[1x1 handle]"]);
+assert_checkequal(string({gce(),gce().children(1)}), ["[Compound]","[Polyline]"]);

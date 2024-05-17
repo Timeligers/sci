@@ -19,7 +19,7 @@ function t = %l_string_inc(x, level)
 
     fmt = "%s";
 
-    if type(x) == 15 || (isempty(fieldnames(x)) && length(x)>0)
+    if type(x) == 15 || (isstruct(x) == %f && (isempty(fieldnames(x)) && length(x)>0))
         fields = 1:length(x);
     else
         fields = fieldnames(x)(:)';        
@@ -49,25 +49,32 @@ function [head,str]=%l_field_format(x,i,level,maxlevel)
     head = emptystr();
     char = ": ";
     verb =  0+(level>0);
-    if type(x(i)) == 15
-        head = %l_outline(x(i), verb);
-        if level > 0  & size(x(i))>0
-            str = blanks(4) + %l_string_inc(x(i), level-1);
+    try
+        value = x(i);
+    catch
+        value = getfield(i,x);
+    end
+    if ~exists("value","local")    
+        head = "void";
+    elseif type(value) == 15
+        head = %l_outline(value, verb);
+        if level > 0  & size(value)>0
+            str = blanks(4) + %l_string_inc(value, level-1);
         end
-    elseif isstruct(x(i))
-        head = %st_outline(x(i), verb);
-        if level > 0 & size(x(i),"*")>0
-            str = blanks(4) + %l_string_inc(x(i), level-1);
+    elseif isstruct(value)
+        head = %st_outline(value, verb);
+        if level > 0 & size(value,"*")>0
+            str = blanks(4) + %l_string_inc(value, level-1);
         end
-    elseif or(type(x(i)) == [16,17]) & ~isdef("%"+typeof(x(i))+"_outline")
-        head = %tlist_outline(x(i), verb);
-        if level > 0 & ~isempty(fieldnames(x(i)))
-            str = blanks(4) + %l_string_inc(x(i), level-1);
+    elseif or(type(value) == [16,17]) & ~isdef("%"+typeof(value)+"_outline")
+        head = %tlist_outline(value, verb);
+        if level > 0 & ~isempty(fieldnames(value))
+            str = blanks(4) + %l_string_inc(value, level-1);
         end        
-    elseif or(type(x(i)) == [1,2,4,5,6,8,10]) || iscell(x(i))
+    elseif or(type(value) == [1,2,4,5,6,8,10]) || iscell(value)
         // almost-native arrayOf types
-        temphead = sci2exp(x(i));
-        if (ismatrix(x(i)) & size(x(i),1) == 1) || (x(i) == []) || size(temphead,"*") == 1
+        temphead = sci2exp(value);
+        if (ismatrix(value) & size(value,1) == 1) || (value == []) || size(temphead,"*") == 1
             head = temphead;
             if size(head, "*") > 1 || length(head) > lines()/2 then
                 head = emptystr();
@@ -75,18 +82,16 @@ function [head,str]=%l_field_format(x,i,level,maxlevel)
                 char = " = ";
             end
         end
-    elseif type(x(i)) == 0
-        head = "void";
-    elseif or(type(x(i)) == [13 130])
+    elseif or(type(value) == [13 130])
         head = "function";
     end
     if isempty(head)
-        [head,err] = evstr("%"+typeof(x(i))+"_outline(x(i),0)")
+        [head,err] = evstr("%"+typeof(value)+"_outline(value,0)")
         if err <> 0
             [otype, onames] = typename();
-            [head,err] = evstr("%"+onames(otype==type(x(i)))+"_outline(x(i),0)");
+            [head,err] = evstr("%"+onames(otype==type(value))+"_outline(value,0)");
             if err <> 0
-                head = typeof(x(i));
+                head = typeof(value);
             end
         end        
     end
