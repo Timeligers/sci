@@ -360,7 +360,7 @@ function status = test_module(_params)
     directories = [];
     for i=1:size(my_types,"*")
         if (_params.testTypes == "all_tests") | (_params.testTypes == my_types(i)) then
-            directory_path = module.path + "/tests/" + my_types(i);
+            directory_path = module.path + filesep() + "tests" + filesep() + my_types(i);
             for j=2:size(name,"*")
                 directory_path = directory_path + filesep() + name(j);
             end
@@ -577,7 +577,7 @@ function status = test_single(_module, _testPath, _testName)
     xcosNeeded    = %F;
 
     //some paths
-    result_path = TMPDIR + "/";
+    result_path = TMPDIR + filesep();
     if isfield(params, "output_dir") then
         result_path = params.output_dir;
     end

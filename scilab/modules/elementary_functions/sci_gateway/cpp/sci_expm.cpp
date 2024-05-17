@@ -49,7 +49,7 @@ types::Function::ReturnValue sci_expm(types::typed_list &in, int _iRetCount, typ
         return Overload::call(wstFuncName, in, _iRetCount, out);
     }
 
-    pDblIn = in[0]->getAs<types::Double>();
+    pDblIn = in[0]->clone()->getAs<types::Double>();
 
     if (pDblIn->getDims() > 2)
     {

@@ -15,5 +15,5 @@
 // <-- Short Description -->
 // mlist('cblock') entered an infinite "operation +: Warning adding a empty.." loop
 mlist("cblock")
- ans = (cblock mlist) with no field
+ ans = (cblock mlist)
   (empty table)

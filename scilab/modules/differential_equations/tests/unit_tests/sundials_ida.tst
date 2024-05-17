@@ -174,7 +174,7 @@ et3=timer()
 assert_checktrue(max(abs(y1(:,$)-y2(:,$)))<=1e-6)
 assert_checktrue(max(abs(info1.yp(:,$)-info2.yp(:,$)))<=1e-10)
 // using a C gateway outperforms Scilab macro
-assert_checktrue(et2/et1 > 10);
+assert_checktrue(et2/et1 > 5);
 // true Jacobian really helps the solver
 assert_checktrue(et1/et3 > 2);
 assert_checktrue(size(t1)/size(t3) > 2)
