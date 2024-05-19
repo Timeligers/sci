@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ *
+ * Copyright (C) 2024 - Dassault Systemes - Vincent COUVERT
+ *
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+ <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="deal">
+    <refnamediv>
+        <refname>deal</refname>
+        <refpurpose>assign inputs to outputs (with duplication if needed).</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>[out1, ..., outN] = deal(in)</synopsis>
+        <synopsis>[out1, ..., outN] = deal(in1, ..., inN)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>in, in1, ..., inN</term>
+                <listitem>
+                    <para>Scilab variables or values (any type).</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>out1, ..., outN</term>
+                <listitem>
+                    <para>Scilab variables.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>When used with a single input argument, this input is duplicated to be set to all output arguments.</para>
+        <para>When used with multiple input arguments, the number of output arguments must be the same and in this case, each input value is set to the corresponding output value.</para>
+    </refsection>
+    <refsection>
+        <title>Remarks</title>
+        <para>In many cases the <literal>deal</literal> function can be replaced by the <literal>[out1, ... ountN] = (in1, ... inN)</literal> syntax (See <link linkend="brackets">brackets</link>).</para>
+        <para><literal>deal</literal> function is really useful when you need to assign a single value to multiple variables.</para>
+        <para><literal>deal</literal> function can also be used to initialize the contents of cells or structs (See examples below).</para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+    <![CDATA[
+// Simple variables
+[a, b, c] = deal(2)
+[d, e, f] = deal(%i, %s, {"Scilab"})
+
+// Multiple struct fields
+st(3).f = [];
+[st.f] = deal(3);
+st(:).f
+
+// Cell contents
+ce{3} = [];
+[ce{:}] = deal("string");
+ce
+]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="brackets">brackets</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revremark><literal>deal</literal> function introduced</revremark>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
