@@ -1,4 +1,3 @@
-//<-- CLI SHELL MODE -->
 // =============================================================================
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2012 - Charlotte Hecquet
@@ -7,6 +6,9 @@
 // =============================================================================
 //
 // <-- Non-regression test for bug 10606 -->
+//
+// <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 //
 // <-- GitLab URL -->
 // https://gitlab.com/scilab/scilab/-/issues/10606
@@ -22,7 +24,7 @@
 // rep  =
 
 if getos()=="Windows"
-    [rep,stat,stderr]=unix_g("fc "+SCI+"/CHANGES.md "+SCI+"/COPYING");
+    [rep,stat,stderr]=unix_g("fc.exe "+WSCI+"\CHANGES.md "+WSCI+"\COPYING");
 
 else
 

@@ -52,10 +52,12 @@ function varargout = unix_g(cmd)
     stdout = "";
     stderr = "";
 
-    fout = TMPDIR+"/unix_g.out";
-    ferr = TMPDIR+"/unix_g.err";
+    fout = TMPDIR+filesep()+"unix_g.out";
+    ferr = TMPDIR+filesep()+"unix_g.err";
 
-    cmd1 = "(" + cmd + ")>" + fout + " 2>" + ferr + ";";
+    // sh: spawns a subshell and redirect stdout and stderr
+    // cmd.exe: groups the commands and redirect stdout and stderr 
+    cmd1 = "( " + cmd + " ) >" + fout + " 2>" + ferr;
     stat = host(cmd1);
 
     if lhs >= 1 then
@@ -65,48 +67,25 @@ function varargout = unix_g(cmd)
         stderr = mgetl(ferr);
     end
 
-    select stat
-
-    case 0 then
-        // everything is ok
-
-    case 1 then
-        // on error, display some error messages
-        if lhs < 3 then
-            stderr = mgetl(ferr);
-        end
-        if stdout == "" then
-            stdout = stderr;
-        end
-
-    case -1 then
-        // host failed, append to the stderr stream
+    if stat == -1 then
+        // host failed, append a descriptive message to the stderr stream
         if lhs == 3 then
             stderr = [ stderr ; msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g") ];
         else
             disp(msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g"));
         end
-    else
-        if lhs < 3 then
-            // display something on error
-            disp(stderr(1));
-        end
+    elseif stat <> 0 && lhs < 3 then
+        // display something on error
+        disp(stderr(1));
     end
     
     mdelete(fout);
     mdelete(ferr);
 
-    
+
     // output arguments
 
     varargout(1) = stdout;
-
-    if lhs >= 2 then
-        varargout(2) = stat;
-    end
-
-    if lhs >= 3 then
-        varargout(3) = stderr;
-    end
-
+    varargout(2) = stat;
+    varargout(3) = stderr;
 endfunction

@@ -93,7 +93,7 @@ write(path_double,A);
 check_file(path_double, path_double_ref);
 write(path_double,rand(5,7));
 mdelete(path_double);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d : string expected.\n"), "write", 2);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"), "write", 2);
 assert_checkerror("write(path_logic,[%t, %f; %f, %f]);", refMsg);
 mdelete(path_logic);
 write(path_string,"aaa");

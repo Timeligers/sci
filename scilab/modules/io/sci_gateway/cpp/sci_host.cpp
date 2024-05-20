@@ -47,7 +47,7 @@ types::Function::ReturnValue sci_host(types::typed_list &in, int _iRetCount, typ
 
     int stat = 0;
     systemcW(pstCommand, &stat);
-
+    
     out.push_back(new types::Double(stat));
     return types::Function::OK;
 }
