@@ -7,3 +7,7 @@ EXPORTS
 ;
 CallWindowsShell
 CallWindowsShellW
+spawncommand
+pipeSpawnOut
+pipeSpawnErr
+CreateOuput

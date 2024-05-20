@@ -48,24 +48,7 @@ function varargout = unix_g(cmd)
         error(msprintf(gettext("%s: Wrong number of output argument(s).\n"),"unix_g"));
     end
 
-    // initialize variables
-    stdout = "";
-    stderr = "";
-
-    fout = TMPDIR+filesep()+"unix_g.out";
-    ferr = TMPDIR+filesep()+"unix_g.err";
-
-    // sh: spawns a subshell and redirect stdout and stderr
-    // cmd.exe: groups the commands and redirect stdout and stderr 
-    cmd1 = "( " + cmd + " ) >" + fout + " 2>" + ferr;
-    stat = host(cmd1);
-
-    if lhs >= 1 then
-        stdout = mgetl(fout);
-    end
-    if lhs >= 3 then
-        stderr = mgetl(ferr);
-    end
+    [stat, stdout, stderr] = host(cmd);
 
     if stat == -1 then
         // host failed, append a descriptive message to the stderr stream
@@ -78,9 +61,6 @@ function varargout = unix_g(cmd)
         // display something on error
         disp(stderr(1));
     end
-    
-    mdelete(fout);
-    mdelete(ferr);
 
 
     // output arguments

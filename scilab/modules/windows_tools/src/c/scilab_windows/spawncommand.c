@@ -170,7 +170,8 @@ int spawncommand(wchar_t *command, BOOL DetachProcess)
     /* block waiting for the process to end. */
     WaitForSingleObject(pi.hProcess, INFINITE);
 
-    if ( GetExitCodeProcess(pi.hProcess, &ExitCode) == STILL_ACTIVE )
+    GetExitCodeProcess(pi.hProcess, &ExitCode);
+    if (ExitCode == STILL_ACTIVE)
     {
         TerminateProcess(pi.hProcess, 0);
     }
@@ -503,6 +504,8 @@ int CallWindowsShellW(wchar_t* _pstCommand)
 
     PROCESS_INFORMATION piProcInfo;
     STARTUPINFOW siStartInfo;
+    SECURITY_ATTRIBUTES saAttr;
+
 
     DWORD ExitCode = 0;
 
@@ -523,6 +526,10 @@ int CallWindowsShellW(wchar_t* _pstCommand)
     siStartInfo.hStdOutput      = GetStdHandle(STD_OUTPUT_HANDLE);
     siStartInfo.hStdError       = GetStdHandle(STD_ERROR_HANDLE);
 
+    saAttr.nLength = sizeof(PROCESS_INFORMATION);
+    saAttr.bInheritHandle = TRUE;
+    saAttr.lpSecurityDescriptor = NULL;
+
     GetEnvironmentVariableW(L"ComSpec", shellCmd, PATH_MAX);
 
     iCmdSize    = (wcslen(shellCmd) + wcslen(_pstCommand) + wcslen(L"%ls /a /c \"%ls\"") + 1);
@@ -531,32 +538,36 @@ int CallWindowsShellW(wchar_t* _pstCommand)
 
     if (CreateProcessW(NULL, CmdLine, NULL, NULL, TRUE, 0, NULL, NULL, &siStartInfo, &piProcInfo))
     {
-        WaitForSingleObject(piProcInfo.hProcess, INFINITE);
+        if (WaitForSingleObject(piProcInfo.hProcess, INFINITE) != WAIT_OBJECT_0)
+        {
+            goto cleanup;
+        }
 
-        if (GetExitCodeProcess(piProcInfo.hProcess, &ExitCode) == STILL_ACTIVE)
+        if (!GetExitCodeProcess(piProcInfo.hProcess, &ExitCode))
+        {
+            goto cleanup;
+        }
+
+        if (ExitCode == STILL_ACTIVE)
         {
             TerminateProcess(piProcInfo.hProcess, 0);
+            goto cleanup;
         }
-
-        CloseHandle(piProcInfo.hProcess);
-
-        if (CmdLine)
-        {
-            FREE(CmdLine);
-            CmdLine = NULL;
-        }
+        
 
         returnedExitCode = (int)ExitCode;
     }
-    else
+
+cleanup:
+    CloseHandle(piProcInfo.hProcess);
+    CloseHandle(piProcInfo.hThread);
+
+    if (CmdLine)
     {
-        CloseHandle(piProcInfo.hProcess);
-        if (CmdLine)
-        {
-            FREE(CmdLine);
-            CmdLine = NULL;
-        }
+        FREE(CmdLine);
+        CmdLine = NULL;
     }
+
     return returnedExitCode;
 }
 /*--------------------------------------------------------------------------*/

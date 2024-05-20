@@ -49,5 +49,16 @@ types::Function::ReturnValue sci_host(types::typed_list &in, int _iRetCount, typ
     systemcW(pstCommand, &stat);
     
     out.push_back(new types::Double(stat));
+    if (_iRetCount > 1)
+    {
+        int stdoutLinesLen = 0;
+        char** stdoutLines = NULL;
+        int stderrLinesLen = 0;
+        char** stderrLines = NULL;
+        systemReadStdHandles(&stdoutLinesLen, &stdoutLines, &stderrLinesLen, &stderrLines);
+
+        out.push_back((new types::String(stdoutLinesLen, 1))->set(stdoutLines));
+        out.push_back((new types::String(stderrLinesLen, 1))->set(stderrLines));
+    }
     return types::Function::OK;
 }
