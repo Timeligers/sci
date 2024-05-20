@@ -49,7 +49,7 @@ types::Function::ReturnValue sci_expm(types::typed_list &in, int _iRetCount, typ
         return Overload::call(wstFuncName, in, _iRetCount, out);
     }
 
-    pDblIn = in[0]->clone()->getAs<types::Double>();
+    pDblIn = in[0]->getAs<types::Double>();
 
     if (pDblIn->getDims() > 2)
     {
@@ -70,6 +70,7 @@ types::Function::ReturnValue sci_expm(types::typed_list &in, int _iRetCount, typ
 
     pDblOut = new types::Double(pDblIn->getDims(), pDblIn->getDimsArray(), pDblIn->isComplex());
 
+    pDblIn = pDblIn->clone();
     if (pDblIn->isComplex())
     {
         zexpms2(pDblIn->get(), pDblIn->getImg(), pDblOut->get(), pDblOut->getImg(), pDblIn->getCols());
@@ -78,6 +79,7 @@ types::Function::ReturnValue sci_expm(types::typed_list &in, int _iRetCount, typ
     {
         dexpms2(pDblIn->get(), pDblOut->get(), pDblIn->getCols());
     }
+    pDblIn->killMe();
 
     out.push_back(pDblOut);
     return types::Function::OK;
