@@ -952,16 +952,23 @@ function status = test_single(_module, _testPath, _testName)
         if params.show_error == %T then
             res = mgetl(tmp_res)
             res(res=="") = []
+            if res <> [] then
+                res = [""
+                       "----- " + tmp_res + " -----"
+                       "    " + res];
+            else
+                res = ""
+            end
             err = mgetl(tmp_err)
             err(err=="") = []
-            status.details = [ status.details; strsubst(strsubst([""
-            "----- " + tmp_res + " -----"
-            "    " + res
-            ""
-            "----- " + tmp_err + " -----"
-            "    " + err
-            ""
-            ], SCI, "SCI"), TMPDIR, "TMPDIR") ];
+            if err <> [] then
+                err = [""
+                       "----- " + tmp_err + " -----"
+                       "    " + err];
+            else
+                err = ""
+            end
+            status.details = [ status.details; strsubst(strsubst([res ; err], SCI, "SCI"), TMPDIR, "TMPDIR") ];
         end
         return;
     end
