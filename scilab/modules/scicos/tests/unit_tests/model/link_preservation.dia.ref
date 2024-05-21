@@ -1545,30 +1545,6 @@ Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
   graphics: (graphics mlist) with fields:
       orig = [0,0]
       sz = [2,2]

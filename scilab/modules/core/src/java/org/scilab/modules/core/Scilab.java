@@ -260,6 +260,7 @@ public class Scilab {
      */
     public static boolean canClose() {
         final Object lock = new Object();
+        finish = false;
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -284,7 +285,6 @@ public class Scilab {
         } catch (InterruptedException e) {
             System.err.println(e);
         }
-        finish = false;
 
         return success;
     }
@@ -294,6 +294,7 @@ public class Scilab {
      */
     public static void forceClose() {
         final Object lock = new Object();
+        finish = false;
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -320,7 +321,6 @@ public class Scilab {
         } catch (InterruptedException e) {
             System.err.println(e);
         }
-        finish = false;
     }
 
     /**

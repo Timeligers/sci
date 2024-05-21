@@ -69,30 +69,6 @@ Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
   graphics: (graphics mlist) with fields:
       orig = [0,0]
       sz = [2,3]
@@ -143,30 +119,6 @@ clear Sum
 // Sum2's refCount must have been affected by "clear Sum"
 Sum2
  Sum2 = (Block) with fields:
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 1 , BLOCK ) : 1

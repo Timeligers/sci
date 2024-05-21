@@ -23,18 +23,6 @@ Xcos trace:   propertyUpdated( 1 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
  scs_m = (diagram) with fields:
 Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
 Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
   props: (params tlist) with fields:
       wpar = [600,450,0,0,600,450]
       title = ["Untitled";""]
@@ -526,48 +514,6 @@ Xcos trace:   propertyUpdated( 13 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
  scs_m = (diagram) with fields:
 Xcos trace:   objectReferenced( 13 , DIAGRAM ) : 1
 Xcos trace:   objectUnreferenced( 13 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 13 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 13 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 13 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 13 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 13 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 13 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 13 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 13 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 13 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 13 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 13 , DIAGRAM ) : 1
-Xcos trace:   objectUnreferenced( 13 , DIAGRAM ) : 0
-Xcos trace:   objectReferenced( 14 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 21 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 24 , LINK ) : 1
-Xcos trace:   objectReferenced( 25 , LINK ) : 1
-Xcos trace:   objectUnreferenced( 14 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 21 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 24 , LINK ) : 0
-Xcos trace:   objectUnreferenced( 25 , LINK ) : 0
-Xcos trace:   objectReferenced( 14 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 21 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 24 , LINK ) : 1
-Xcos trace:   objectReferenced( 25 , LINK ) : 1
-Xcos trace:   objectUnreferenced( 14 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 21 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 24 , LINK ) : 0
-Xcos trace:   objectUnreferenced( 25 , LINK ) : 0
-Xcos trace:   objectReferenced( 14 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 21 , BLOCK ) : 1
-Xcos trace:   objectReferenced( 24 , LINK ) : 1
-Xcos trace:   objectReferenced( 25 , LINK ) : 1
-Xcos trace:   objectUnreferenced( 14 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 21 , BLOCK ) : 0
-Xcos trace:   objectUnreferenced( 24 , LINK ) : 0
-Xcos trace:   objectUnreferenced( 25 , LINK ) : 0
 Xcos trace:   objectReferenced( 14 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 21 , BLOCK ) : 1

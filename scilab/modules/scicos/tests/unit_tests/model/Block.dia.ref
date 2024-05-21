@@ -66,30 +66,6 @@ Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 1 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 1 , BLOCK ) : 0
   graphics: (graphics mlist) with fields:
       orig = [0,0]
       sz = [2,3]
@@ -337,30 +313,6 @@ Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 5 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 5 , BLOCK ) : 0
   graphics: (graphics mlist) with fields:
       orig = [0,0]
       sz = [2,3]
@@ -598,30 +550,6 @@ Xcos trace:   propertyUpdated( 5 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 Xcos info:    objectDeleted( 8 , PORT )
 Xcos info:    objectDeleted( 5 , BLOCK )
  o = (Block) with fields:
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 9 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 9 , BLOCK ) : 1
@@ -866,30 +794,6 @@ Xcos trace:   propertyUpdated( 9 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 Xcos info:    objectDeleted( 12 , PORT )
 Xcos info:    objectDeleted( 9 , BLOCK )
  o = (Block) with fields:
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 13 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 13 , BLOCK ) : 1
@@ -1149,30 +1053,6 @@ Xcos trace:   propertyUpdated( 13 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 Xcos info:    objectDeleted( 16 , PORT )
 Xcos info:    objectDeleted( 13 , BLOCK )
  o = (Block) with fields:
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
@@ -1449,30 +1329,6 @@ Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 23 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 23 , BLOCK ) : 0
   graphics: (graphics mlist) with fields:
       orig = [0,0]
       sz = [2,2]
@@ -1701,30 +1557,6 @@ Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 26 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 26 , BLOCK ) : 0
   graphics: (graphics mlist) with fields:
       orig = [0,0]
       sz = [2,2]
@@ -1848,30 +1680,6 @@ Xcos trace:   propertyUpdated( 26 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 Xcos info:    objectDeleted( 28 , PORT )
 Xcos info:    objectDeleted( 26 , BLOCK )
  o = (Block) with fields:
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 29 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 29 , BLOCK ) : 1
@@ -2463,30 +2271,6 @@ Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 34 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 34 , BLOCK ) : 0
   graphics: (graphics mlist) with fields:
       orig = [0,0]
       sz = [2,2]
@@ -2686,30 +2470,6 @@ Xcos trace:   propertyUpdated( 34 , BLOCK , EVENT_OUTPUTS ) : NO_CHANGES
 Xcos info:    objectDeleted( 36 , PORT )
 Xcos info:    objectDeleted( 34 , BLOCK )
  o = (Block) with fields:
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
-Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
-Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 37 , BLOCK ) : 0
 Xcos trace:   objectReferenced( 37 , BLOCK ) : 1
