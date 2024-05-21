@@ -26,7 +26,8 @@ function tmp = lss_field(x)
     char = " = ";
     if size(tmp, "*") > 1 || length(tmp) > lines() / 2 then
         char = ": ";
-        [tmp, err] = evstr("%"+typeof(x)+"_outline(x,0)")
+        [otype, onames] = typename();
+        [tmp, err] = evstr("%"+onames(otype==type(x))+"_outline(x,0)");
     end
 
     tmp = char + tmp;

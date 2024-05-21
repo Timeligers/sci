@@ -52,39 +52,44 @@
     <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
---> sys = zpk([2;1], [0;-3-%i;-3+%i], 2.5, "c")
+            sys = zpk([2;1], [0;-3-%i;-3+%i], 2.5, "c")
+            typeof(sys)
 
- sys = [zpk]
+            S = zpk2tf(sys)
+            typeof(S)
 
-        (s-2) (s-1)  
-   2.5 ------------- 
-       s (s^2+6s+10) 
-
-
---> typeof(sys)
-
- ans = 
-
-  "zpk"
-
---> 
-
---> S = zpk2tf(sys)
-
- S = [rational] of s
-
-   5 -7.5s +2.5s^2  
-   ---------------  
-   10s +6s^2 +s^3   
-
---> typeof(S)
-
- ans = 
-
-  "rational"
  ]]></programlisting>
         <screen><![CDATA[
+        --> sys = zpk([2;1], [0;-3-%i;-3+%i], 2.5, "c")
 
+        sys = [zpk]
+       
+               (s-2) (s-1)  
+          2.5 ------------- 
+              s (s^2+6s+10) 
+       
+       
+       --> typeof(sys)
+       
+        ans = 
+       
+         "zpk"
+       
+       --> 
+       
+       --> S = zpk2tf(sys)
+       
+        S = [rational] of s
+       
+          5 -7.5s +2.5s^2  
+          ---------------  
+          10s +6s^2 +s^3   
+       
+       --> typeof(S)
+       
+        ans = 
+       
+         "rational"
 ]]></screen>
     </refsection>
     <refsection role="see also">
