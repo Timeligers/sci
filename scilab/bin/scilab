@@ -758,14 +758,14 @@ dialog_try_or_exit()
 
 fail_macosx_version()
 {
-    dialog_try_or_exit "This version of Scilab may fail on this system ($macosxVersion): Scilab is currently supported from 10.9 (Mavericks) to 14 (Sonoma)."
+    dialog_try_or_exit "This version of Scilab may fail on this system ($macosxVersion): Scilab is currently supported from macOS 10.13 (High Sierra) to macOS 14 (Sonoma)."
 }
 check_macosx_version()
 {
     case $macosxMajorVersion in
         10)
             case $macosxMinorVersion in
-                9|10|11|12|13|14|15)
+                13|14|15)
                    ;;
                 *)
                     fail_macosx_version
