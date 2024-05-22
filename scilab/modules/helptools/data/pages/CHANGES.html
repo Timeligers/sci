@@ -52,7 +52,7 @@ For changelogs of earlier releases, please see <a href="https://help.scilab.org/
 <ul>
 <li>New helpers have been added for <code>arguments</code> block: <code>mustBeSquare</code>, <code>mustBeEqualDimsOrScalar</code>.</li>
 </ul>
-<h3>Display</h3>
+<h4>Display</h4>
 <ul>
 <li>Type and Dimensions of variables are now displayed in command line output.</li>
 </ul>
@@ -213,7 +213,7 @@ Some Scilab functions (<code>modulo</code>, <code>pmodulo</code>, ...) and modul
 <h2>License</h2>
 <h3>Scilab 2024.1.0</h3>
 <ul>
-<li>Javasci module license has been changed to BSD to make integration in thridparty applications easier.</li>
+<li>Javasci module license has been changed to BSD to make integration in thirdparty applications easier.</li>
 </ul>
 <h2>Issue Fixes</h2>
 <h3>Scilab 2024.1.0</h3>
@@ -226,7 +226,7 @@ Some Scilab functions (<code>modulo</code>, <code>pmodulo</code>, ...) and modul
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/14905">#14905</a>: <code>x_choose_modeless()</code> made Scilab freeze.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/16070">#16070</a>: <code>feval(0:3,string)</code> displayed error messages with Chinese characters.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/16252">#16252</a>: Description in <code>wavread.sci</code> contained erroneous information.</li>
-<li><a href="https://gitlab.com/scilab/scilab/-/issues/16535">#16535</a>: <code>host()</code> and <code>unix()</code> functions no longer worked on Windows 10.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/16535">#16535</a>: <code>host()</code> and <code>unix()</code> functions did not update Scilab <code>consolebox()</code> on Windows 10.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/16694">#16694</a>: <code>dassl()</code>, <code>dasrt()</code> and <code>daskr()</code> should become internals. As designed for, <code>dae()</code> is now the unique gateway.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/16880">#16880</a>: <code>loadXcosLibs()</code> failed when Coselica toolbox was loaded.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/16930">#16930</a>: Error management in <code>loadmatfile()</code> needed to be improved.</li>
@@ -247,7 +247,7 @@ Some Scilab functions (<code>modulo</code>, <code>pmodulo</code>, ...) and modul
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17150">#17150</a>: <code>SCALE_CSCOPE</code> block icon was missing in Linux binary versions.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17152">#17152</a>: <code>clean()</code> function does not behave according its documentation.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17162">#17162</a>: Calling <code>subplot()</code> changed current figure to last figure modified.</li>
-<li><a href="https://gitlab.com/scilab/scilab/-/issues/17163">#17163</a>: Minor spelling mistakes in Scilab source codde fixed.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17163">#17163</a>: Minor spelling mistakes in Scilab source code fixed.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17164">#17164</a>: Patterns were missing in <code>.desktop</code> files under Linux.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17167">#17167</a>: <code>fullpath()</code> could miss trailing path separator.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17168">#17168</a>: <code>subplot()</code> was broken when <code>demo_gui()</code> was opened.</li>
@@ -270,7 +270,7 @@ Some Scilab functions (<code>modulo</code>, <code>pmodulo</code>, ...) and modul
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17207">#17207</a>: SciNotes syntax highlighting failed in some cases and froze Scilab.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17208">#17208</a>: Using <code>surf()</code> with &quot;LineStyle&quot; option set to &quot;none&quot; did not draw anything (surface was hidden).</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17211">#17211</a>: <code>int2d()</code> returned an error when called with 6 input arguments.</li>
-<li><a href="https://gitlab.com/scilab/scilab/-/issues/17212">#17212</a>: All <code>FMInterface</code> block from <code>fmu-wrapper</code> were invalid.</li>
+<li><a href="https://gitlab.com/scilab/scilab/-/issues/17212">#17212</a>: All <code>FMInterface</code> block from <code>fmu-wrapper</code> contained invalid <code>model.opar</code>.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17213">#17213</a>: Resume a <code>pause</code> in an overloading function crashed Scilab.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17215">#17215</a>: <code>h = findobj(searchHandles, ...)</code> did not work when <code>searchHandles</code> was a row vector.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17217">#17217</a>: Calling <code>impl()</code> with wrong input size crashed Scilab.</li>
@@ -287,7 +287,6 @@ Some Scilab functions (<code>modulo</code>, <code>pmodulo</code>, ...) and modul
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17236">#17236</a>: Build of Scilab with <code>-Werror=implicit-function-declaration</code> has been fixed.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17237">#17237</a>: Display of array ot rationals was broken.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17238">#17238</a>: <code>{ list() }</code> could not be displayed.</li>
-<li><a href="https://gitlab.com/scilab/scilab/-/issues/17240">#17240</a>: <code>unix_g()</code> did not read standard error when exit code was 0 or 1 and did not read standard output when exit code was 2 or more.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17244">#17244</a>: <code>expm()</code> function returned wrong results for many negative values.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17245">#17245</a>: <code>schur()</code> function returned incorrect results when transforming complex-valued matrix pencils.</li>
 <li><a href="https://gitlab.com/scilab/scilab/-/issues/17248">#17248</a>: Display of a <code>zpk</code> system failed when having more than a pair of complex zeros.</li>

@@ -43,7 +43,7 @@ In summary, the main new features and additions are:
 
 - New helpers have been added for `arguments` block: `mustBeSquare`, `mustBeEqualDimsOrScalar`.
 
-### Display
+#### Display
 
 - Type and Dimensions of variables are now displayed in command line output.
 
@@ -203,7 +203,7 @@ License
 
 ### Scilab 2024.1.0
 
-- Javasci module license has been changed to BSD to make integration in thridparty applications easier.
+- Javasci module license has been changed to BSD to make integration in thirdparty applications easier.
 
 Issue Fixes
 -----------
@@ -218,7 +218,7 @@ Issue Fixes
 - [#14905](https://gitlab.com/scilab/scilab/-/issues/14905): `x_choose_modeless()` made Scilab freeze.
 - [#16070](https://gitlab.com/scilab/scilab/-/issues/16070): `feval(0:3,string)` displayed error messages with Chinese characters.
 - [#16252](https://gitlab.com/scilab/scilab/-/issues/16252): Description in `wavread.sci` contained erroneous information.
-- [#16535](https://gitlab.com/scilab/scilab/-/issues/16535): `host()` and `unix()` functions no longer worked on Windows 10.
+- [#16535](https://gitlab.com/scilab/scilab/-/issues/16535): `host()` and `unix()` functions did not update Scilab `consolebox()` on Windows 10.
 - [#16694](https://gitlab.com/scilab/scilab/-/issues/16694): `dassl()`, `dasrt()` and `daskr()` should become internals. As designed for, `dae()` is now the unique gateway.
 - [#16880](https://gitlab.com/scilab/scilab/-/issues/16880): `loadXcosLibs()` failed when Coselica toolbox was loaded.
 - [#16930](https://gitlab.com/scilab/scilab/-/issues/16930): Error management in `loadmatfile()` needed to be improved.
@@ -239,7 +239,7 @@ Issue Fixes
 - [#17150](https://gitlab.com/scilab/scilab/-/issues/17150): `SCALE_CSCOPE` block icon was missing in Linux binary versions.
 - [#17152](https://gitlab.com/scilab/scilab/-/issues/17152): `clean()` function does not behave according its documentation.
 - [#17162](https://gitlab.com/scilab/scilab/-/issues/17162): Calling `subplot()` changed current figure to last figure modified.
-- [#17163](https://gitlab.com/scilab/scilab/-/issues/17163): Minor spelling mistakes in Scilab source codde fixed.
+- [#17163](https://gitlab.com/scilab/scilab/-/issues/17163): Minor spelling mistakes in Scilab source code fixed.
 - [#17164](https://gitlab.com/scilab/scilab/-/issues/17164): Patterns were missing in `.desktop` files under Linux.
 - [#17167](https://gitlab.com/scilab/scilab/-/issues/17167): `fullpath()` could miss trailing path separator.
 - [#17168](https://gitlab.com/scilab/scilab/-/issues/17168): `subplot()` was broken when `demo_gui()` was opened.
@@ -262,7 +262,7 @@ Issue Fixes
 - [#17207](https://gitlab.com/scilab/scilab/-/issues/17207): SciNotes syntax highlighting failed in some cases and froze Scilab.
 - [#17208](https://gitlab.com/scilab/scilab/-/issues/17208): Using `surf()` with "LineStyle" option set to "none" did not draw anything (surface was hidden).
 - [#17211](https://gitlab.com/scilab/scilab/-/issues/17211): `int2d()` returned an error when called with 6 input arguments.
-- [#17212](https://gitlab.com/scilab/scilab/-/issues/17212): All `FMInterface` block from `fmu-wrapper` were invalid.
+- [#17212](https://gitlab.com/scilab/scilab/-/issues/17212): All `FMInterface` block from `fmu-wrapper` contained invalid `model.opar`.
 - [#17213](https://gitlab.com/scilab/scilab/-/issues/17213): Resume a `pause` in an overloading function crashed Scilab.
 - [#17215](https://gitlab.com/scilab/scilab/-/issues/17215): `h = findobj(searchHandles, ...)` did not work when `searchHandles` was a row vector.
 - [#17217](https://gitlab.com/scilab/scilab/-/issues/17217): Calling `impl()` with wrong input size crashed Scilab.
@@ -279,7 +279,6 @@ Issue Fixes
 - [#17236](https://gitlab.com/scilab/scilab/-/issues/17236): Build of Scilab with `-Werror=implicit-function-declaration` has been fixed.
 - [#17237](https://gitlab.com/scilab/scilab/-/issues/17237): Display of array ot rationals was broken.
 - [#17238](https://gitlab.com/scilab/scilab/-/issues/17238): `{ list() }` could not be displayed.
-- [#17240](https://gitlab.com/scilab/scilab/-/issues/17240): `unix_g()` did not read standard error when exit code was 0 or 1 and did not read standard output when exit code was 2 or more.
 - [#17244](https://gitlab.com/scilab/scilab/-/issues/17244): `expm()` function returned wrong results for many negative values.
 - [#17245](https://gitlab.com/scilab/scilab/-/issues/17245): `schur()` function returned incorrect results when transforming complex-valued matrix pencils.
 - [#17248](https://gitlab.com/scilab/scilab/-/issues/17248): Display of a `zpk` system failed when having more than a pair of complex zeros.
