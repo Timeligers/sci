@@ -35,6 +35,12 @@ void clean(double* pdblReal, double* pdblImg, int iSize, double dEpsA, double dE
             }
         }
 
+        if(dNorm == 0)
+        {
+            // only no finite or zero values
+            return;
+        }
+
         double dEps = Max(dEpsA, dEpsR * dNorm);
         for (int i = 0 ; i < iSize ; i++)
         {
@@ -61,6 +67,13 @@ void clean(double* pdblReal, double* pdblImg, int iSize, double dEpsA, double dE
                dNorm = Max(dNorm, d);
             }
         }
+
+        if(dNorm == 0)
+        {
+            // only no finite or zero values
+            return;
+        }
+
         double dEps = Max(dEpsA, dEpsR * dNorm);
         for (int i = 0 ; i < iSize ; i++)
         {
