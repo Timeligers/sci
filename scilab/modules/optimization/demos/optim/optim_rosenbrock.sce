@@ -32,7 +32,8 @@ function demo_rosenbrock()
         end
     endfunction
 
-    f = scf(100001);
+    fig = scf(100001);
+    clf(fig, "reset");
     demo_viewCode("optim_rosenbrock.sce");
     xx= linspace(-1.5, 1.5, 50);
     yy= linspace(-1, 1.5, 50);
