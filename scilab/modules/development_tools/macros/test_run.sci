@@ -433,7 +433,9 @@ function status = test_module(_params)
     end
 
     // For the XML export
-    testsuite.name=moduleName
+    [branch info] = getversion();
+    OS = getos();
+    testsuite.name = strcat([moduleName OS info(2)], " ")
     testsuite.time=0
     testsuite.tests=0
     testsuite.errors=0 // unexpected errors / exception on execution
@@ -1501,7 +1503,16 @@ function exportToXUnitFormat(exportToFile, testsuites)
 
         appendIntoFile = %f;
     end
+
+    [branch info] = getversion();
+
     root = xmlElement(doc, "testsuites");
+
+    properties = xmlElement(doc,"properties");
+    branchProperty = xmlElement(doc, "property");
+    branchProperty.attributes.name = "branch";
+    branchProperty.attributes.value = branch;
+    properties.children(1) = branchProperty;
 
     for i=1:size(testsuites, "*") // Export module by module
         module = testsuites(i);
@@ -1514,14 +1525,13 @@ function exportToXUnitFormat(exportToFile, testsuites)
         testsuite.attributes.errors = string(module.errors);
         testsuite.attributes.failures = string(module.failures);
 
-
         if isfield(module, "testcase") then
             for j=1:size(module.testcase,"*") // Export test by test
                 testsuite.children(j) = xmlElement(doc,"testcase");
                 unitTest = module.testcase(j);
                 testsuite.children(j).attributes.name = unitTest.name;
                 testsuite.children(j).attributes.time = string(unitTest.time);
-                testsuite.children(j).attributes.classname = getversion()+"."+module.name;
+                testsuite.children(j).attributes.classname = module.name;
                 if isfield(unitTest,"error") & size(unitTest.error,"*") >= 1 then
                     testsuite.children(j).children(1) = xmlElement(doc,"error");
                     testsuite.children(j).children(1).attributes.type = unitTest.error.type;
@@ -1549,6 +1559,8 @@ function exportToXUnitFormat(exportToFile, testsuites)
                 end
             end
         end
+        
+        testsuite.children(j+1) = properties;
 
         if appendIntoFile then
             // We will add the new elements into 'testsuites'

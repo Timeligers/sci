@@ -15,15 +15,15 @@
   artifacts:
     when: always
     paths:
-      - "${SCI_VERSION_STRING}/${TEST}.xml"
-      - "${SCI_VERSION_STRING}/log_iss_install_${CI_COMMIT_SHORT_SHA}.txt"
-      - "${SCI_VERSION_STRING}/*.tst"
-      - "${SCI_VERSION_STRING}/*.res"
-      - "${SCI_VERSION_STRING}/*.err"
-      - "${SCI_VERSION_STRING}/*.dia.tmp"
-      - "${SCI_VERSION_STRING}/*.dia"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/log_iss_install_${CI_COMMIT_SHORT_SHA}.txt"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.tst"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.res"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.err"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.dia.tmp"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.dia"
     reports:
-      junit: "${SCI_VERSION_STRING}/${TEST}.xml"
+      junit: "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
 
 windows_basic:
   extends: .windows_test
@@ -161,14 +161,14 @@ windows_only:
   artifacts:
     when: always
     paths:
-      - "${SCI_VERSION_STRING}/${TEST}.xml"
-      - "${SCI_VERSION_STRING}/*.tst"
-      - "${SCI_VERSION_STRING}/*.res"
-      - "${SCI_VERSION_STRING}/*.err"
-      - "${SCI_VERSION_STRING}/*.dia.tmp"
-      - "${SCI_VERSION_STRING}/*.dia"
+      - "${SCI_VERSION_STRING}/${ARCH}/${TEST}.xml"
+      - "${SCI_VERSION_STRING}/${ARCH}/*.tst"
+      - "${SCI_VERSION_STRING}/${ARCH}/*.res"
+      - "${SCI_VERSION_STRING}/${ARCH}/*.err"
+      - "${SCI_VERSION_STRING}/${ARCH}/*.dia.tmp"
+      - "${SCI_VERSION_STRING}/${ARCH}/*.dia"
     reports:
-      junit: "${SCI_VERSION_STRING}/${TEST}.xml"
+      junit: "${SCI_VERSION_STRING}/${ARCH}/${TEST}.xml"
 
 linux_basic:
   extends: .linux_test
