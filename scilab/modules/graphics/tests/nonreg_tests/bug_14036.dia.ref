@@ -17,7 +17,6 @@ l.userdata = "Source 1";
 l.tag = "LS1";
 l
  l = [Light] with properties:
-  type = "Light"
   parent: [Axes]
   visible = "on"
   light_type = "point"
