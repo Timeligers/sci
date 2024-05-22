@@ -85,6 +85,8 @@ function varargout = scilab(code, file, mode, quit, args, background)
         else
             bin = "wscilex-cli"
         end
+
+        bin = fullfile(SCI, "bin", bin);
     else
         if background then
             args = args + " &";
@@ -95,14 +97,18 @@ function varargout = scilab(code, file, mode, quit, args, background)
         else
             bin = "scilab-adv-cli";
         end
+
+        // Scilab installed vs built
+        path = strsplit(SCI, "share/scilab")(1);
+        bin = fullfile(path, "bin", bin);
     end
 
     if code <> [] then
         code = strsubst(code, """", "\""");
         code = strsubst(code, "''", "\''");
-        cmd = sprintf("%s%s -nb %s -e ""%s"" %s", start, fullfile(SCI, "bin", bin), quit, code, args);
+        cmd = sprintf("%s%s -nb %s -e ""%s"" %s", start, bin, quit, code, args);
     else
-        cmd = sprintf("%s%s -nb %s -f %s %s", start, fullfile(SCI, "bin", bin), quit, file, args);
+        cmd = sprintf("%s%s -nb %s -f %s %s", start, bin, quit, file, args);
     end
 
     if background then

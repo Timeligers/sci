@@ -20,6 +20,7 @@ assert_checkerror("[a, b, c] = scilab(code=""1+1"", background=%T)", sprintf(_("
 // Test code execution
 [status, stdout, stderr] = scilab(code="1+1");
 assert_checkequal(status, 0);
+stdout(find(stdout == "")) = [];
 assert_checkequal(stdout, [" ans = ";"   2."]);
 assert_checkequal(stderr, "");
 
