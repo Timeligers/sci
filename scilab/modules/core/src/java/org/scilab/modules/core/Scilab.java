@@ -24,12 +24,14 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 import org.flexdock.docking.DockingConstants;
 import org.flexdock.docking.DockingManager;
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.commons.OS;
 import org.scilab.modules.commons.ScilabCommons;
 import org.scilab.modules.commons.ScilabCommonsUtils;
@@ -321,6 +323,24 @@ public class Scilab {
         } catch (InterruptedException e) {
             System.err.println(e);
         }
+        finish = false;
+
+        ScilabInterpreterManagement.forceClose();
+
+        /* This can be used to debug remaining Threads
+        Thread current = Thread.currentThread();
+        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+        for (var t : threadSet)
+        {
+            if (t != current && !t.isDaemon())
+            {
+                System.err.println("interrupting " + t.toString());
+                for (var e : t.getStackTrace())
+                    System.err.println("    " + e.toString());
+                t.stop();
+            }
+        }
+        */
     }
 
     /**
