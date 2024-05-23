@@ -503,13 +503,11 @@ function fields = %h_fieldnames(h)
         ]
     case "Waitbar"
         fields=[
-        "type"
         "Userdata"
         "Tag"
         ]
     case "Progressionbar"
         fields=[
-        "type"
         "Userdata"
         "Tag"
         ]
@@ -625,7 +623,6 @@ function fields = %h_fieldnames(h)
         ]
     case "Light"
         fields=[
-        "type"
         "parent"
         "visible"
         "light_type"

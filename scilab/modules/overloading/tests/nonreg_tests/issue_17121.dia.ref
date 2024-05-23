@@ -18,8 +18,8 @@ function str = %user_string(x)
 	str = sprintf("%d", argn(1));
 end
 t = tlist("user","x",1)
- t  = 
+ t = (user tlist)
    0.
 string(t)
- ans  =
+ ans = 
   "1"

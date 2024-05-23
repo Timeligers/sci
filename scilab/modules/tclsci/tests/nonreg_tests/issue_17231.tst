@@ -61,4 +61,4 @@ else
     expected(grep(all, '.so')) = "100755";
 end
 
-assert_checkequal(computed, expected)
+assert_checkequal(computed, expected);

@@ -16,7 +16,7 @@ function sundials_minimal()
     function out=cb(f,flag,stats)
         drawlater
         clf
-        gcf().color_map=parulacolormap(128)
+        gcf().color_map=parula(128)
         surf(x,y,matrix(f,n,n))
         gce().color_flag=3
         isoview

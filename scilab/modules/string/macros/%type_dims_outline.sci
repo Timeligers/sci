@@ -22,7 +22,8 @@ function s = %type_dims_outline(x,typeStr,forceDims,brack)
     //prevent error when x is tlist/mlist and has no size() overload
     try
         if forceDims || size(x,"*") > 1
-            s = sprintf("%s%s %s%s",brack(1),strcat(string(size(x)),'x'),typeStr,brack(2));
+            sizeStr = part(sprintf("%dx",size(x)'),1:$-1)
+            s = sprintf("%s%s %s%s",brack(1),sizeStr,typeStr,brack(2));
         end
     end
 endfunction

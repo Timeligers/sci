@@ -307,6 +307,7 @@ libscigui_la_iconsdir=$(mydatadir)/
 nobase_libscigui_la_icons_DATA = \
 images/icons/16x16/actions/code-navigator.png \
 images/icons/16x16/actions/color-fill.png \
+images/icons/16x16/actions/deselect_all.png \
 images/icons/16x16/actions/document-new.png \
 images/icons/16x16/actions/document-open.png \
 images/icons/16x16/actions/document-open-sci.png \
@@ -342,6 +343,7 @@ images/icons/16x16/actions/media-playback-stop.png \
 images/icons/16x16/actions/plot.png \
 images/icons/16x16/actions/save-and-execute.png \
 images/icons/16x16/actions/scilab_search.png \
+images/icons/16x16/actions/select_all.png \
 images/icons/16x16/actions/shorte.png \
 images/icons/16x16/actions/short.png \
 images/icons/16x16/actions/SizeColumnsToFit.png \

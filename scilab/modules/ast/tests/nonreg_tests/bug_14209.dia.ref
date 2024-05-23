@@ -14,7 +14,7 @@
 // <-- Short Description -->
 // 1:245 creates infinite loop
 1:245
- ans  =
+ ans = [1x245 double]
          column 1 to 13
    1.   2.   3.   4.   5.   6.   7.   8.   9.   10.   11.   12.   13.
          column 14 to 25

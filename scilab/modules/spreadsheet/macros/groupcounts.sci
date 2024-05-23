@@ -92,18 +92,30 @@ function g = groupcounts(varargin)
         // groupbins
         // groupcounts(t, groupvars, groupbins, opts)
         groupbins = varargin(3);
-        defaultGroupbins = ["none", "second", "minute", "hour", "day", "month", "year", "dayname", "monthname"];
-        previousname = emptystr(1, size(groupbins, "*"));
 
-        if typeof(groupbins) == "constant" then
+        select typeof(groupbins)
+        case "constant"
             for i = groupvars
                 if type(t.vars(i).data) <> 1 then
-                    error(msprintf(_("%s: Wrong data type for #%d: A double expected.\n"), fname, 3))
+                    error(msprintf(_("%s: groupbins and groupvars must be double.\n"), fname, 3))
                 end
             end
             previousname = "disc_";
 
+        case {"datetime", "duration", "calendarDuration"}
+            for i = groupvars
+                if and(typeof(t.vars(i).data) <> ["duration", "datetime"]) then
+                    error(msprintf(_("%s: groupvars must be a datetime or duration vector to apply groupbins.\n"), fname))
+                end
+            end
+            if typeof(groupbins) == "calendarDuration" & size(groupbins) <> 1 then
+                error(msprintf(_("%s: Wrong size for input argument #%d: a calendarDuration of size 1x1 expected.\n"), "groupcounts", 3));
+            end
+            previousname = "";
         else
+            defaultGroupbins = ["none","second", "minute", "hour", "day", "month", "year", "dayname", "monthname"];
+            previousname = emptystr(1, size(groupbins, "*"));
+
             if size(groupbins, "*") <> 1 && size(groupbins, "*") <> size(groupvars, "*") then
                 error(msprintf(_("%s: Wrong size for input argument #%d: Must be the same size as #%d.\n"), fname, 3, 2));
             end
@@ -171,16 +183,20 @@ function g = groupcounts(varargin)
         while tmp <> {}
             val = tmp{1};
             for k = 1:size(groupbins, "*")
-                if find(val == groupbins{k}) then
-                    ki1 = [ki1, k];
-                    break;
+                if typeof(val) == typeof(groupbins{k}) then
+                    if find(val == groupbins{k}) then
+                        ki1 = [ki1, k];
+                        break;
+                    end
                 end
             end
 
             jdx = 1;
             for j = 2:size(tmp, "*")
-                if find(val == tmp{j}) then
-                    jdx = [jdx j];
+                if typeof(val) == typeof(tmp{j}) then
+                    if find(val == tmp{j}) then
+                        jdx = [jdx j];
+                    end
                 end
             end
             tmp(jdx) = [];

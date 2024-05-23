@@ -118,7 +118,7 @@
                         clf
                         gcf().axes_size = [740 300];
                         gcf().figure_name = "2-species diurnal kinetics advection-diffusion 2D PDE"
-                        gcf().color_map = parulacolormap(128);
+                        gcf().color_map = parula(128);
                         subplot(1,2,1)
                         title("Species 1")
                         Sgrayplot(x,y,squeeze(C(1,:,:)),zminmax=[0 51146186])

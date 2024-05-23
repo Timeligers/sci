@@ -20,8 +20,8 @@
 stru.field = "value";
 
 // Add this struct in a tlist
-tl1 = tlist("X", stru);
-tl2 = tlist("X", tl1, tl1)
+tl1 = tlist(["X" "st"], stru);
+tl2 = tlist(["X" "l1" "l2"], tl1, tl1)
 
 // Same beahviour with a list
 l1 = list(stru);

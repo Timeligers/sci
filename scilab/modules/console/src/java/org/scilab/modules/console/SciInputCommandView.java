@@ -198,6 +198,7 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
              * If we have concurrent access let's interrupt the first one, then allow
              * the second to return the command.
              */
+            concurrentThread = null;
             return "";
         }
         concurrentThread = null;

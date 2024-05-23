@@ -2575,20 +2575,11 @@ void printLine(const std::string& _stPrompt, const std::string& _stLine, bool _b
     scilabWrite(st.c_str());
 }
 
-std::wstring printVarEqualTypeDimsInfo(types::InternalType *pIT, std::wstring wcsVarName)
+std::wstring printTypeDimsInfo(types::InternalType *pIT)
 {
     // print outline (dims + type)
     std::wostringstream ostr;
     types::Double* pDblOne = new types::Double(1);
-
-    if (ConfigVariable::isPrintCompact() == false)
-    {
-        ostr << std::endl;
-    }
-    ostr << L" " << wcsVarName << L" = ";
-#ifndef NDEBUG
-    ostr << L"(" << pIT->getRef() << L")";
-#endif
     types::typed_list in;
     types::typed_list out;
 
@@ -2612,12 +2603,30 @@ std::wstring printVarEqualTypeDimsInfo(types::InternalType *pIT, std::wstring wc
     pDblOne->killMe();
     if (ret != types::Function::OK_NoResult)
     {
-        if (out[0]->isString())
+        if (out.size() != 0 && out[0]->isString())
         {
             types::String* pStr = out[0]->getAs<types::String>();
             ostr << pStr->get(0);
         }
+    }    
+    return ostr.str();
+}
+
+std::wstring printVarEqualTypeDimsInfo(types::InternalType *pIT, std::wstring wcsVarName)
+{
+    // print var = outline (dims + type)
+    std::wostringstream ostr;
+
+    if (ConfigVariable::isPrintCompact() == false)
+    {
+        ostr << std::endl;
     }
+    ostr << L" " << wcsVarName << L" = ";
+#ifndef NDEBUG
+    ostr << L"(" << pIT->getRef() << L")";
+#endif
+
+    ostr << printTypeDimsInfo(pIT);
 
     ostr << std::endl;
     if (ConfigVariable::isPrintCompact() == false)

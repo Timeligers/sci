@@ -46,7 +46,7 @@ assert_checkequal(p.mark_background,0);
 //
 // Test #3 Vary marker size and color
 clf reset
-set(gcf(),"color_map",coolcolormap(64));
+set(gcf(),"color_map",cool(64));
 p = scatter3d(x,y,z,s,t);
 assert_checkequal(p.line_mode,"off");
 assert_checkequal(p.fill_mode,"off");

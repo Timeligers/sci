@@ -287,7 +287,7 @@ drawnow()
 ax = gda();
 ax.title.font_size = 2;
 f = scf();
-f.color_map = hotcolormap(100);
+f.color_map = hot(100);
 f.axes_size = [900 450];
 f.figure_position(2) = 0;
 f.figure_name = "unwrap()" + _(": 2-D examples");

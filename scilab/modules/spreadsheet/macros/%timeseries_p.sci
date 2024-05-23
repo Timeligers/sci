@@ -75,9 +75,9 @@ function %timeseries_p(ts)
 
     if col_s <> 1 then
         printf("         column %d to %d\n", col_s, c);
-    end
-    if mode() > 1
-        printf("\n");
+        if mode() > 1
+            printf("\n");
+        end
     end
 
     res = strcat(res, "", "c");

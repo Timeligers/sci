@@ -504,7 +504,7 @@ x = linspace(0, 2, 200);
 y = exp(-x).*cos(10*x) + 0.2*rand(1,length(x));
 
 s = linspace(1, 30, length(x));     // specify different sizes
-gcf().color_map = coolcolormap(64); // set color map
+gcf().color_map = cool(64); // set color map
 c = x;                  // colors according to x values
 subplot(1,2,1)
 scatter(x, y, s, c);    // create 2D scatter plot
@@ -518,7 +518,7 @@ scatter(x, y, s, c, "fill");
             y = exp(-x).*cos(10*x) + 0.2*rand(1,length(x));
 
             s = linspace(1, 30, length(x));     // specify different sizes
-            gcf().color_map = coolcolormap(64); // set color map
+            gcf().color_map = cool(64); // set color map
             c = x;                  // colors according to x values
             subplot(1,2,1)
             scatter(x, y, s, c);    // create 2D scatter plot

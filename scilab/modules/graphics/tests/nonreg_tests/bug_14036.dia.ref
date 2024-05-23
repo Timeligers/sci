@@ -16,16 +16,14 @@ l = light();
 l.userdata = "Source 1";
 l.tag = "LS1";
 l
- l  = 
-Handle of type "Light" with properties:
-=======================================
-parent: Axes
-visible = "on"
-light_type = "point"
-position = [0,0,1]
-direction = [0,0,1]
-ambient_color = [0.1,0.1,0.1]
-diffuse_color = [1,1,1]
-specular_color= [1,1,1]
-user_data = "Source 1"
-tag = "LS1"
+ l = [Light] with properties:
+  parent: [Axes]
+  visible = "on"
+  light_type = "point"
+  position = [0,0,1]
+  direction = [0,0,1]
+  ambient_color = [0.1,0.1,0.1]
+  diffuse_color = [1,1,1]
+  specular_color = [1,1,1]
+  user_data = "Source 1"
+  tag = "LS1"

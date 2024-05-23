@@ -20,7 +20,7 @@ b = 1;
 diary(dia0, 'close');
 diary(dia1, 'close');
 ret = mgetl(TMPDIR+'/my_log_1')
- ret  = 
+ ret = [8x1 string]
   ""                                     
   "a = 1;"                           
   ""                                     
@@ -30,7 +30,7 @@ ret = mgetl(TMPDIR+'/my_log_1')
   ""                                     
   "diary(dia0, 'close');"            
 ret = mgetl(TMPDIR+'/my_log_2')
- ret  = 
+ ret = [6x1 string]
   ""                         
   "b = 1;"               
   ""                         

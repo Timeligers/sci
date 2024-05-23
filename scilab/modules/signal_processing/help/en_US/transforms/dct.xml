@@ -417,7 +417,7 @@
   size(find(d<>0),'*')
   A1 = dct(d,1);
   clf
-  gcf().color_map = graycolormap(128);
+  gcf().color_map = gray(128);
   subplot(121), grayplot(x,x,A)
   subplot(122), grayplot(x,x,A1)
   ]]></programlisting>

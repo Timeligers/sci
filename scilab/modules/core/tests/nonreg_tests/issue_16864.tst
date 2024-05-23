@@ -23,5 +23,7 @@ c = cos(3);
 endfunction
 
 tree = macr2tree(issue_16964);
-assert_checkequal(tree(5)(4).expression(1)(3), "ext")
-assert_checkequal(tree(5)(6).expression(1)(1), "funcall")
+assert_checkequal(typeof(tree.statements(4).expression), "operation")
+assert_checkequal(tree.statements(4).expression.operator, "ext")
+assert_checkequal(typeof(tree.statements(6).expression), "funcall")
+assert_checkequal(tree.statements(6).expression.name, "cos")

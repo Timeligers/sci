@@ -221,3 +221,38 @@ m = ["January", "February", "March", "April", "May", "June", "July", "August", "
 values = [0 0 1 0 2 0 1 0 1 0 0 0]';
 expected = table(m, values, "VariableNames", ["monthname_dt", "GroupCount"]);
 assert_checkequal(G, expected);
+
+// groupbins contains datetime or duration
+rand("seed", 0)
+time = datetime(2024, 4, floor(30*rand(10,1)+1));
+x = ["a"; "b"; "a"; "a"; "b"; "c"; "b"; "c"; "c"; "a"];
+y = floor(15 * rand(10, 1));
+t = timeseries(time, x, y, "VariableNames", ["time", "x", "y"]);
+
+G = groupcounts(t, "time", datetime(2024, 4, 20:2:30));
+str = ["[ 2024-04-20, 2024-04-22 )"; "[ 2024-04-22, 2024-04-24 )"; "[ 2024-04-26, 2024-04-28 )"];
+expected = table(str, [2; 1; 2], "VariableNames", ["time", "GroupCount"]);
+assert_checkequal(G, expected);
+
+G = groupcounts(t, ["time", "y"], {datetime(2024, 4, 20:2:30), [5 7 10 13]});
+str = ["[ 2024-04-20, 2024-04-22 )"; "[ 2024-04-20, 2024-04-22 )"; "[ 2024-04-22, 2024-04-24 )"; "[ 2024-04-26, 2024-04-28 )"; "[ 2024-04-26, 2024-04-28 )"; "<undefined>"; "<undefined>"; "<undefined>"];
+str2 = ["[7, 10)"; "<undefined>";  "[7, 10)"; "[10, 13]"; "<undefined>"; "[7, 10)"; "[10, 13]"; "<undefined>"];
+expected = table(str, str2, [1;1;1;1;1;2;1;2], "VariableNames", ["time", "disc_y", "GroupCount"]);
+assert_checkequal(G, expected);
+
+G = groupcounts(t, ["time", "x"], {datetime(2024, 4, 1:10:30), "none"});
+str = ["[ 2024-04-01, 2024-04-11 )"; "[ 2024-04-11, 2024-04-21 ]"; "[ 2024-04-11, 2024-04-21 ]"; "<undefined>"; "<undefined>"];
+str2 = ["a"; "b"; "c"; "b"; "c"];
+expected = table(str, str2, [4; 1; 2; 2; 1], "VariableNames", ["time", "x", "GroupCount"]);
+assert_checkequal(G, expected);
+
+G = groupcounts(t, "time", caldays(10));
+str = ["[ 2024-04-01, 2024-04-11 )"; "[ 2024-04-11, 2024-04-21 ]"];
+expected = table(str, [4; 3], "VariableNames", ["time", "GroupCount"]);
+assert_checkequal(G, expected);
+
+G = groupcounts(t, "time", hours(72));
+str = ["[ 2024-04-01, 2024-04-04 )"; "[ 2024-04-07, 2024-04-10 )"; "[ 2024-04-10, 2024-04-13 )"; ...
+"[ 2024-04-19, 2024-04-22 )"; "[ 2024-04-22, 2024-04-25 )"; "[ 2024-04-25, 2024-04-28 ]"];
+expected = table(str, [2; 1; 1; 3; 1; 2], "VariableNames", ["time", "GroupCount"]);
+assert_checkequal(G, expected);

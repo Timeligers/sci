@@ -11,7 +11,7 @@ function demo_cplxroot()
 
     my_handle = scf(100001);
     clf(my_handle,"reset");
-    my_handle.color_map = jetcolormap(128);
+    my_handle.color_map = jet(128);
     cplxroot(2,20,130,45);
     demo_viewCode("cplxroot.sce");
 

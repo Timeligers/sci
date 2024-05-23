@@ -31,7 +31,7 @@ function demo_riemann()
 
     // Colormap
     // =========================================================================
-    my_handle.color_map = rainbowcolormap(128);
+    my_handle.color_map = rainbow(128);
 
     // Compute
     // =========================================================================

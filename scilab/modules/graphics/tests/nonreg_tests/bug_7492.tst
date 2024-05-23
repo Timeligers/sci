@@ -28,7 +28,7 @@ y = 1:7;
 // Grayplot with direct data mapping
 f = scf();
 grayplot(x,y,z);
-f.color_map = jetcolormap(3);
+f.color_map = jet(3);
 f.children(1).children(1).data_mapping = "direct";
 f.children.title.text = "Direct Mapping";
 

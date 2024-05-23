@@ -14,6 +14,5 @@
 //  a = list() crashed on Windows x64.
 //
 a = list()
- a  = 
-  empty list()
+ a = (empty list)
 assert_checkequal(isempty(a), %T);

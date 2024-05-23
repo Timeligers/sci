@@ -16,3 +16,4 @@ end
 
 genlib("graphicslib","SCI/modules/graphics/macros",%f,%t);
 genlib("datatipslib","SCI/modules/graphics/macros/datatips",%f,%t);
+genlib("colormapslib","SCI/modules/graphics/macros/colormaps",%f,%t);

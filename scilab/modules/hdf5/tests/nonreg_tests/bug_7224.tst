@@ -5,8 +5,8 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
-// <-- XCOS TEST -->
-
+// <-- CLI SHELL MODE -->
+//
 // <-- Non-regression test for bug 7224 -->
 //
 // <-- GitLab URL -->
