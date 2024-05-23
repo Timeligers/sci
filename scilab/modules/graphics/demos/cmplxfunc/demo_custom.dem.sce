@@ -88,7 +88,7 @@ function demo_custom()
 
     demo_viewCode("demo_custom.dem.sce");
 
-    fig_handle.color_map = jetcolormap(128);
+    fig_handle.color_map = jet(128);
 
     // Frames creation [Control Panel]
     // =========================================================================

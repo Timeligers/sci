@@ -27,8 +27,9 @@ libscigraphics_la_etc_DATA = \
     etc/graphics.quit \
     etc/graphics.start
 
-#### graphics : datatips sub-module ####
-MACROSDIRSEXT = macros/datatips
+#### graphics : datatips and colormaps sub-module ####
+MACROSDIRSEXT = macros/datatips \
+    macros/colormaps
 
 GRAPHICS_C_SOURCES = \
     src/c/GetCommandArg.c \

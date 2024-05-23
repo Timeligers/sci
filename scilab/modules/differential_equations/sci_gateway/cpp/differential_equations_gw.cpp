@@ -24,9 +24,9 @@ int DifferentialEquationsModule::Load()
 {
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"ode", &sci_ode, NULL, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"impl", &sci_impl, NULL, MODULE_NAME));
-    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"dassl", &sci_dassl, NULL, MODULE_NAME));
-    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"dasrt", &sci_dasrt, NULL, MODULE_NAME));
-    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"daskr", &sci_daskr, NULL, MODULE_NAME));
+    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"%_dassl", &sci_dassl, NULL, MODULE_NAME));
+    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"%_dasrt", &sci_dasrt, NULL, MODULE_NAME));
+    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"%_daskr", &sci_daskr, NULL, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"odedc", &sci_odedc, NULL, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"intg", &sci_intg, NULL, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"int2d", &sci_int2d, NULL, MODULE_NAME));

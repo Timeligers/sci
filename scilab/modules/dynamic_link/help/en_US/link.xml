@@ -86,7 +86,7 @@
             function <literal>call</literal>. Linked routines can also be used as
             "external" for e.g. non linear problem solvers (<literal>ode</literal>,
             <literal>optim</literal>, <literal>intg</literal>,
-            <literal>dassl</literal>...).
+            <literal>dae</literal>...).
         </para>
         <para>
             <literal>link()</literal> returns a string matrix with linked

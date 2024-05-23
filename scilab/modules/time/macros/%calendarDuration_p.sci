@@ -11,7 +11,6 @@
 
 function %calendarDuration_p(dura)
     if dura.y == [] then
-        printf("%dx%d calendarDuration\n", size(dura.y, 1), size(dura.y, 2));
         return;
     end
 
@@ -28,18 +27,21 @@ function %calendarDuration_p(dura)
         output = string(dura);
     end
 
-    printf("%dx%d calendarDuration\n", size(dura.y, 1), size(dura.y, 2));
     for c = 1:size(dura.y, 2)
         max_len = max(length(output(: , c)));
         current_len = current_len + max_len + 3;
         if current_len >= l(1) then
-            printf("\n         column %d to %d\n\n", col_s, c - 1);
+            printf("         column %d to %d\n\n", col_s, c - 1);
 
             res = strcat(res, "", "c");
             res = strcat(res, "\n");
-        
+
             printf(res);
             printf("\n\n");
+
+            if mode() > 1
+                printf("\n");
+            end
 
             res = [];
             col_s = c;

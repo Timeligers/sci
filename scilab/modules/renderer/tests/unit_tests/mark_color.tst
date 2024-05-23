@@ -26,7 +26,7 @@ plot(x, y_1, ".c");
 plot(x, y_2, ".c");
 
 fig = gcf();
-fig.color_map = rainbowcolormap(32);
+fig.color_map = rainbow(32);
 ax = gca();
 pl_2 = ax.children(1).children(1);
 pl_2.mark_mode = "on";

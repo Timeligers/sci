@@ -81,7 +81,7 @@ c( 9)= 35;
 c(10)= 65;
 
 hf = scf (1);
-hf.color_map = jetcolormap (100);
+hf.color_map = jet (100);
 ha = gca ();
 ha.view = "3d";
 ha.tight_limits = "on";

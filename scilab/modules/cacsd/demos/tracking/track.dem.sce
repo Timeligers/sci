@@ -34,7 +34,7 @@ my_handle             = scf(100001);
 clf(my_handle,"reset");
 plot2d(instants',totrack',axesflag=1);
 
-halt(_("Press Return to continue ... \n"));
+messagebox(_("Please click OK to go on..."), _("Tracking"), "modal");
 
 clf(my_handle,"reset");
 
@@ -66,3 +66,4 @@ plot2d([instants',instants'],..
 curves = gce();
 captions(curves.children,["Signal to track","Computed signal"],"upper_caption");
 xtitle("tracking");
+messagebox(_("The end"), _("Tracking"), "modal");

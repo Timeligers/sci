@@ -24,5 +24,5 @@ assert_checkalmostequal(cld, d0(1), [], %eps);
 [d0, v0] = spec(A);
 assert_checkalmostequal(d, v0(1), [], %eps);
 assert_checkalmostequal(abs(v), abs(d0(:,1)), [], %eps)
- ans  =
+ ans = 
   T

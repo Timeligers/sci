@@ -11,7 +11,6 @@
 
 function %datetime_p(dt)
     if dt.date == [] then
-        printf("%dx%d datetime\n", size(dt.date, 1), size(dt.date, 2));
         return;
     end
 
@@ -27,18 +26,22 @@ function %datetime_p(dt)
     else
         output = string(dt);
     end
-    printf("%dx%d datetime\n", size(dt.date, 1), size(dt.date, 2));
+
     for c = 1:size(dt.date, 2)
         max_len = max(length(output(: , c)));
         current_len = current_len + max_len + 3;
         if current_len >= l(1) then
-            printf("\n         column %d to %d\n\n", col_s, c - 1);
+            printf("         column %d to %d\n\n", col_s, c - 1);
 
             res = strcat(res, "", "c");
             res = strcat(res, "\n");
-        
+
             printf(res);
             printf("\n\n");
+
+            if mode() > 1
+                printf("\n");
+            end
 
             res = [];
             col_s = c;

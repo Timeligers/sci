@@ -8,16 +8,6 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function t = %l_string(s, parentType)
-    if ~isdef("parentType","l") then
-        parentType = "list"
-    end
-
-    recursive = 0
-    tmp = xmlGetValues("//general/body/environment","container_disp_max_depth")
-    maxDisplayDepth = evstr(tmp)
-    consoleWidth = lines()(1)
-    //l_p_compacity = "";   // "" vspacing of blocks
-    l_p_compacity = [];      // for compact display
-    t = %l_string_inc(s, parentType)
+function t = %l_string(s)
+    t = %l_string_inc(s)
 endfunction

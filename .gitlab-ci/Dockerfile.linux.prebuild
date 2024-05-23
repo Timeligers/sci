@@ -1,5 +1,5 @@
-ARG DOCKER_LINUX_BUILDER=registry.gitlab.com/scilab/scilab/linux-builder-main
-ARG DOCKER_TAG=latest
+ARG DOCKER_LINUX_BUILDER=
+ARG DOCKER_TAG=
 FROM ${DOCKER_LINUX_BUILDER}:${DOCKER_TAG}
 
 # the builder image use a scilab user, switch back to root

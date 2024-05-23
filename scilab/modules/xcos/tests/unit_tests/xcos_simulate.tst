@@ -18,8 +18,8 @@ assert_checkequal(type(scs_m), 17);
 [%cpr, ok] = xcos_simulate(scs_m, 4);
 
 assert_checktrue(ok);
-assert_checkequal(data.time, (0:0.1:29.9)');
-assert_checkequal(data.values, sin(data.time));
+assert_checkalmostequal(data.time, (0:0.1:29.9)');
+assert_checkalmostequal(data.values, sin(data.time));
 
 clear scs_m
 load(SCI+"/modules/xcos/tests/unit_tests/SimpleGENSINSCOPE.sod");
@@ -39,8 +39,8 @@ scs_m.props.tf = 30;
 [%cpr, ok] = xcos_simulate(scs_m, 4);
 
 assert_checktrue(ok);
-assert_checkequal(data.time, (0:0.1:29.9)');
-assert_checkequal(data.values, sin(data.time));
+assert_checkalmostequal(data.time, (0:0.1:29.9)');
+assert_checkalmostequal(data.values, sin(data.time));
 
 clear scs_m
 load(SCI+"/modules/xcos/tests/unit_tests/SimpleGENSINSCOPE2.sod");

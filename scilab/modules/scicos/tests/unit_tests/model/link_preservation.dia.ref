@@ -1540,53 +1540,56 @@ Xcos trace:   propertyUpdated( 48 , BLOCK , NMODE ) : NO_CHANGES
 Xcos trace:   propertyUpdated( 48 , BLOCK , EQUATIONS ) : NO_CHANGES
 Xcos trace:   propertyUpdated( 48 , BLOCK , UID ) : NO_CHANGES
 Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
- o  = 
-GUI     : CONST_m
-Graphics: 
+ o = (Block) with fields:
 Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-          orig = [0,0]
-          sz = [2,2]
-          exprs = "3"
-          pin = []
-          pout = 4
-          pein = []
-          peout = []
-          gr_i = []
-          id = ""
-          in_implicit = []
-          out_implicit = "E"
-          in_style = ""
-          out_style = ""
-          in_label = ""
-          out_label = ""
-          style = ""
-Model   : 
 Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
 Xcos trace:   objectUnreferenced( 48 , BLOCK ) : 0
-          cstblk4 type: 4
-          in = []
-          in2 = []
-          intyp = 1
-          out = 1
-          out2 = 1
-          outtyp = 1
-          evtin = []
-          evtout = []
-          state = []
-          dstate = []
-          odstate = list()
-          rpar = 3
-          ipar = []
-          opar = list()
-          blocktype = "d"
-          firing = []
-          dep_ut = [%f,%f]
-          label = ""
-          nzcross = 0
-          nmode = 0
-          equations = list()
-          uid = ""
+  graphics: (graphics mlist) with fields:
+      orig = [0,0]
+      sz = [2,2]
+      exprs = "3"
+      pin = []
+      pout = 4
+      pein = []
+      peout = []
+      gr_i = []
+      id = ""
+      in_implicit = []
+      out_implicit = "E"
+      in_style = ""
+      out_style = ""
+      in_label = ""
+      out_label = ""
+      style = ""
+  model: (model mlist) with fields:
+      sim: (2-elements list)
+          (1) = "cstblk4"
+          (2) = 4
+      in = []
+      in2 = []
+      intyp = 1
+      out = 1
+      out2 = 1
+      outtyp = 1
+      evtin = []
+      evtout = []
+      state = []
+      dstate = []
+      odstate: (empty list)
+      rpar = 3
+      ipar = []
+      opar: (empty list)
+      blocktype = "d"
+      firing = []
+      dep_ut = [%f,%f]
+      label = ""
+      nzcross = 0
+      nmode = 0
+      equations: (empty list)
+      uid = ""
+  gui = "CONST_m"
+  doc: (empty list)
 scicos_log("TRACE");
 d.objs(1) = o;
 Xcos trace:   objectReferenced( 1 , BLOCK ) : 1

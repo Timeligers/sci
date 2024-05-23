@@ -322,12 +322,19 @@ String* TList::getFieldNames() const
 bool TList::toString(std::wostringstream& ostr)
 {
     //call overload %type_p if exists
+    //fallthrough: call overload %l_p if exists
     types::typed_list in;
     types::typed_list out;
 
     IncreaseRef();
     in.push_back(this);
-    switch (Overload::generateNameAndCall(L"p", in, 1, out, false, false)) {
+    types::Function::ReturnValue ret = Overload::generateNameAndCall(L"p", in, 0, out, false, false);
+    if (ret == types::Callable::OK_NoResult)
+    {
+        std::wstring wstrFuncName = L"%l_p";
+        ret = Overload::call(wstrFuncName, in, 1, out, false, false);
+    }
+    switch (ret) {
         case Function::OK_NoResult:
             // unresolved function, fallback to a basic display
             break;
@@ -339,31 +346,8 @@ bool TList::toString(std::wostringstream& ostr)
             DecreaseRef();
             return true;
     };
-    DecreaseRef();
 
-    // special case for lss
-    if (getSize() != 0 &&
-            (*m_plData)[0]->isString() &&
-            (*m_plData)[0]->getAs<types::String>()->getSize() > 0 &&
-            wcscmp((*m_plData)[0]->getAs<types::String>()->get(0), L"lss") == 0)
-    {
-        wchar_t* wcsVarName = os_wcsdup(ostr.str().c_str());
-        int iPosition = 1;
-        const wchar_t * wcsDesc[7] = {L"  (state-space system:)", L"= A matrix =", L"= B matrix =", L"= C matrix =", L"= D matrix =", L"= X0 (initial state) =", L"= Time domain ="};
-        for (auto val : *m_plData)
-        {
-            std::wostringstream nextVarName;
-            ostr.str(L"");
-            nextVarName << " " << wcsVarName << L"(" << iPosition << L")";
-            ostr << std::endl << nextVarName.str() << wcsDesc[iPosition - 1] << std::endl << std::endl;
-            scilabWriteW(ostr.str().c_str());
-            VariableToString(val, nextVarName.str().c_str());
-            iPosition++;
-        }
-        ostr.str(L"");
-        free(wcsVarName);
-        return true;
-    }
+    DecreaseRef();
 
     // call normal toString
     return List::toString(ostr);

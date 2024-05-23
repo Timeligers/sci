@@ -8,6 +8,8 @@
 //for version after 3.0 the comments are no more handled by a preprocessor,
 //but by the parser itself
 
+// <-- CLI SHELL MODE -->
+
 a=1//test
 if a<>1 then pause,end
 a=2;//test

@@ -118,16 +118,16 @@ function out = %timeseries_e(varargin)
         ts = varargin($);
         index = varargin(1);
 
-        data = ts.vars(1).data;
-        if typeof(index) <> typeof(data) then
-            error(msprintf(_("Wrong extraction: index of type ""%s"" expected.\n"), typeof(data)));
+        dura = ts.vars(1).data;
+        if typeof(index) <> typeof(dura) then
+            error(msprintf(_("Wrong extraction: index of type ""%s"" expected.\n"), typeof(dura)));
         end
 
         if isdatetime(index) then 
-            d = ts.vars(1).data.date * 24*60*60 + ts.vars(1).data.time;
+            d = dura.date * 24*60*60 + dura.time;
             nt = index.date * 24*60*60 + index.time;
         else
-            d = ts.vars(1).data.duration;
+            d = dura.duration;
             nt = index.duration;
         end
 
@@ -147,7 +147,15 @@ function out = %timeseries_e(varargin)
             end
         end
 
-        out = ts(find(nb == 1), j);
+        vindex = zeros(1, sum(nb));
+        c = 1;
+        for i = 1:length(index)
+            idx = find(d == nt(i));
+            vindex(1, c:(c-1)+length(idx)) = idx;
+            c = c + length(idx)
+        end
+
+        out = ts(vindex, j);
     end
 
     if out == [] then

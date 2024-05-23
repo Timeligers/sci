@@ -22,7 +22,7 @@ function demo_single_pendulum()
         if flag=="init"
             clf
             demo_viewCode("demo_single_pendulum.sce")
-            gcf().color_map=parulacolormap(128);
+            gcf().color_map=parula(128);
             colorbar(-50,10)
             h=plot([0 y(1)],[0 y(2)],"-o","thickness",10);
             h.tag="pendulum";

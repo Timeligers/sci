@@ -30,7 +30,7 @@ function %_Matplot1()
     f = gcf();
     my_plot_desc  = _("Classical Matplot1");
     f.figure_name = my_plot_desc;
-    f.color_map = hsvcolormap(nc);
+    f.color_map = hsv(nc);
 
     a = gca()
     a.data_bounds=[xmin ymin ; xmax ymax];

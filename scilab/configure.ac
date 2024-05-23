@@ -43,8 +43,8 @@ else
 fi
 
 # Change version here, other files will be updated at the end of configure
-SCILAB_VERSION_MAJOR=2024
-SCILAB_VERSION_MINOR=1
+SCILAB_VERSION_MAJOR=2025
+SCILAB_VERSION_MINOR=0
 SCILAB_VERSION_MAINTENANCE=0
 AC_SUBST(SCILAB_VERSION_MAJOR)
 AC_SUBST(SCILAB_VERSION_MINOR)
@@ -991,7 +991,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
                 AC_SUBST(SCIRENDERER_CP)
 
                 # Docking system
-                AC_JAVA_CHECK_JAR([flexdock],[org.flexdock.util.Utilities],[Scilab Gui],[],[VERSION],[1.2.4])
+                AC_JAVA_CHECK_JAR([flexdock],[org.flexdock.util.Utilities],[Scilab Gui],[],[VERSION],[1.2.5])
                 FLEXDOCK=$PACKAGE_JAR_FILE
                 AC_SUBST(FLEXDOCK)
 

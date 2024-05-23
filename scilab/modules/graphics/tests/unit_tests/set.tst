@@ -47,13 +47,13 @@ f.axes_size = [650 550]; sleep(200)
 assert_checkequal(f.axes_size, [650 550]);
 
 // Matrix property value
-cm = jetcolormap(50);
+cm = jet(50);
 set(f, "color_map", cm);
 assert_checkequal(f.color_map, cm);
-cm = jetcolormap(51);
+cm = jet(51);
 f.color_map = cm;
 assert_checkequal(f.color_map, cm);
-cm = jetcolormap(52);
+cm = jet(52);
 f.color_map = cm;
 assert_checkequal(f.color_map, cm);
 

@@ -35,7 +35,7 @@ function minimalsurfacepattern()
     k = unique(col,"keepOrder");
     clf;
     gcf().axes_size = [755,377]
-    gcf().color_map = parulacolormap(max(k))
+    gcf().color_map = parula(max(k))
 
     subplot(1,2,1)
     spyCol(sp,col)

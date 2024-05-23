@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
 // <-- Non-regression test for bug 1526 -->
 //
@@ -30,6 +31,6 @@ mat_ref = [ ..
     30. 50. 28. 40. 38. ; ..
     93. 43. 12. 87. 92. ];
 
-mat = fscanfMat("SCI/modules/fileio/tests/nonreg_tests/bug_2555.mat")
+mat = fscanfMat("SCI/modules/fileio/tests/nonreg_tests/bug_2555.mat");
 
 if or( mat <> mat_ref ) then pause, end

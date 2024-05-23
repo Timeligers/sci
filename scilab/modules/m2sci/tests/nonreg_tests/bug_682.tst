@@ -29,10 +29,10 @@ SCIFILECONTENTS=mgetl(SCIFILE);
 
 SCIFILECONTENTSREF=[""
         "b = 1;"
-        "if b==0 | mtlb_logic(b(2),"">"",0) then"
+        "if b==0 | b(2)>0 then"
         "  a = 1;"
         "else"
         "  a = 0;"
-        "end;"];
+        "end"];
 
 assert_checkequal(SCIFILECONTENTSREF, SCIFILECONTENTS);

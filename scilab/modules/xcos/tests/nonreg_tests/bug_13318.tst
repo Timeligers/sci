@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- XCOS TEST -->
+// <-- NO CHECK REF -->
 //
 // <-- ENGLISH IMPOSED -->
 //
@@ -52,9 +53,9 @@ funcprot(prot);
 block = CONST("define");
 block.graphics.exprs = ["[1 1; 1 1]"];
 block = CONST("set", block);
-assert_checkequal(outmsg, "C matrix is not supported, use CONST_m instead");
+assert_checkequal(outmsg, "The input value must be scalar.<br>Please use CONST_m to set a<br>constant input vector or matrix.");
 
 block = CONST("define");
 block.graphics.exprs = ["[1 1 1; -1 -2 -3; 0 0 0]"];
 block = CONST("set", block);
-assert_checkequal(outmsg, "C matrix is not supported, use CONST_m instead");
+assert_checkequal(outmsg, "The input value must be scalar.<br>Please use CONST_m to set a<br>constant input vector or matrix.");

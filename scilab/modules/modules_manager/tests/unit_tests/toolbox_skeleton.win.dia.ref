@@ -93,11 +93,24 @@ Generating localization
 -- Building for "en_US" --
 -- Building for "fr_FR" --
 Building help...
+Start Toolbox Skeleton
+	Load macros
+	Load gateways
+	Load Java libraries
+	Load help
+	Load demos
 Building the master document:
 	TMPDIR\toolbox_skeleton\help\en_US
 Building the manual file [javaHelp] in TMPDIR\toolbox_skeleton\help\en_US.
+Generate image ./c_multiplybypi_en_US_1.png from Scilab code from file c_multiplybypi.xml
 Generate image ./c_sub_1.png from Scilab code from file c_sub.xml
 Generate image ./c_sub_en_US_2.png from Scilab code from file c_sub.xml
+Start Toolbox Skeleton
+	Load macros
+	Load gateways
+	Load Java libraries
+	Load help
+	Load demos
 Building the master document:
 	TMPDIR\toolbox_skeleton\help\fr_FR
 Building the manual file [javaHelp] in TMPDIR\toolbox_skeleton\help\fr_FR.

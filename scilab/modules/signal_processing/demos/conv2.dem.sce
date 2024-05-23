@@ -24,7 +24,7 @@ function demo_conv2()
     f.axes_size=[800 400];
     demo_viewCode("conv2.dem.sce");
 
-    f.color_map=graycolormap(128);
+    f.color_map=gray(128);
     drawlater()
     subplot(121)
     Matplot(I*128);

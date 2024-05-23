@@ -23,7 +23,7 @@ plot([t ;t],[sin(t) ;cos(t)],'xdat',[1:2])
 // set a smaller color map
 // should not generate errors
 f = gcf();
-status = execstr("f.color_map = jetcolormap(12);",'errcatch');
+status = execstr("f.color_map = jet(12);",'errcatch');
 if (status <> 0) then pause; end
 
 

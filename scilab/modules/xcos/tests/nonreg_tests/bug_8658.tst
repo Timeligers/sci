@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- XCOS TEST -->
+// <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 8658 -->
 //
@@ -20,7 +21,13 @@ diagram = TMPDIR + "/Schema-@-electrique.zcos";
 if ~status then pause, end
 
 if ~importXcosDiagram(diagram) then pause, end
-if ~isempty(strstr(scs_m.props.title, "@")) then pause, end
+diagram, scs_m.props.title
+if ~isempty(strstr(scs_m.props.title(1), "@")) then pause, end
+
+// try to set a model name with an invalid character
+scs_m.props.title(1) = "Schema-@-electrique";
+diagram, scs_m.props.title
+if ~isempty(strstr(scs_m.props.title(1), "@")) then pause, end
 
 deletefile(diagram);
 

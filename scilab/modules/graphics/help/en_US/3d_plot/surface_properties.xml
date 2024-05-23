@@ -575,7 +575,7 @@ a.axes_visible="off";
 //axes are hidden a.axes_bounds=[.2 0 1 1];
 f=get("current_figure");
 //get the handle of the parent figure
-f.color_map=hotcolormap(64);
+f.color_map=hot(64);
 //change the figure colormap
 h.color_flag=1;
 //color according to z

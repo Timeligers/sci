@@ -370,7 +370,6 @@ public class SwingScilabDockablePanel extends View implements SimpleTab, FocusLi
 
             }
         });
-        ClosingOperationsManager.addDependencyWithRoot(this);
     }
 
     /**

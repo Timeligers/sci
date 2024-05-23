@@ -695,7 +695,7 @@
             </varlistentry>
             <varlistentry>
                 <term>
-                    <link linkend="graycolormap">graycolormap</link>
+                    <link linkend="gray">gray</link>
                 </term>
                 <listitem>
                     <para>table de couleurs du noir au blanc</para>
@@ -703,7 +703,7 @@
             </varlistentry>
             <varlistentry>
                 <term>
-                    <link linkend="hotcolormap">hotcolormap</link>
+                    <link linkend="hot">hot</link>
                 </term>
                 <listitem>
                     <para>table de couleurs "chaude" du rouge au jaune</para>

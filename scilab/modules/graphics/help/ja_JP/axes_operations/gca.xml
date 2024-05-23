@@ -60,6 +60,9 @@ close(0) //カレントのウインドウを削除
         <title>参照</title>
         <simplelist type="inline">
             <member>
+                <link linkend="sca">sca</link>
+            </member>
+            <member>
                 <link linkend="gda">gda</link>
             </member>
             <member>

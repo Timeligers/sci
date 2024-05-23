@@ -25,7 +25,7 @@ xinit(fullfile(TMPDIR,"bug_1126.gif"));
 
 f = gcf();
 f.figure_size = [800,600];
-f.color_map = [jetcolormap(64);[0.9 0.9 0.9]];
+f.color_map = [jet(64);[0.9 0.9 0.9]];
 f.background = 65;
    
 colorbar(0,1,colminmax=[1,64]);

@@ -17,6 +17,8 @@
 // TESTS WITH A 'SIMPLE' FUNCTION
 //
 
+// <-- CLI SHELL MODE -->
+
 function bug_1304()
     disp("bug_1304")
 endfunction

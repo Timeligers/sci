@@ -25,7 +25,7 @@ function subdemolist = demo_gateway()
     _("Datatips")                    , "datatips/datatips.dem.gateway.sce"
     _("LaTeX/MathML")                , "textrendering/textrendering.dem.gateway.sce"
     _("Lighting")                    , "lighting/lighting.dem.gateway.sce"
-    _("Colormap")                    , "colormap/colormaps.dem.sce"
+    _("Colormap")                    , "colormap/colormap.dem.gateway.sce"
     _("Matplot")                     , "matplot/matplot.dem.gateway.sce"
     ];
     subdemolist(:,2) = demopath + subdemolist(:,2);

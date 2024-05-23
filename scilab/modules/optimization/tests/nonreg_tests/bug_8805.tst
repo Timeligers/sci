@@ -5,6 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 8805 -->
 //
@@ -46,8 +47,8 @@ function stop = myoutputcmd(state, data)
 endfunction
 
 
-xopt = [1;1]
-fopt = 0
+xopt = [1;1];
+fopt = 0;
 x0 = [-1.2 1.0];
 lower_bounds = [-2 -2];
 upper_bounds = [2. 2.];

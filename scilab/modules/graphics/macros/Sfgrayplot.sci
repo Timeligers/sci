@@ -29,7 +29,7 @@ function Sfgrayplot(x, y, f, strf, rect, nax, zminmax, colminmax, mesh, colout)
     if rhs == 0 then   // demo
         deff("[z]=Surf(x,y)","z=x.^3+y");
         f=gcf();
-        f.color_map = jetcolormap(64);
+        f.color_map = jet(64);
         f.immediate_drawing = "off";
         colorbar(-2,2);
         Sfgrayplot(-1:0.1:1,-1:0.1:1,Surf,strf="031",rect=[-1,-1,1,1]);

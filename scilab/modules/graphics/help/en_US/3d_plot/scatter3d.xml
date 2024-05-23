@@ -347,7 +347,7 @@ y = 1.1*sind(az+lat/3) .* r;
 z = sind(lat);
 
 clf
-gcf().color_map = parulacolormap(50);
+gcf().color_map = parula(50);
 
 subplot(1,2,1)    // Plot on the left
 // Markers size according to r
@@ -373,7 +373,7 @@ gcf().children.rotation_angles = [83 -20];
             z = sind(lat);
 
             clf
-            gcf().color_map = parulacolormap(50);
+            gcf().color_map = parula(50);
 
             subplot(1,2,1)    // Plot on the left
             // Markers size according to r

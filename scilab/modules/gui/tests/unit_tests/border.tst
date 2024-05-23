@@ -61,7 +61,7 @@ for i = 1:size(l)
 end
 
 //generate colors from parula color map
-colors = sprintf("#%02X%02X%02X\n", (parulacolormap(64) .* 255));
+colors = sprintf("#%02X%02X%02X\n", (parula(64) .* 255));
 
 f = figure( ...
     "dockable", "off", ...

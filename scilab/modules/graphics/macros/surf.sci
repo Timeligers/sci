@@ -28,7 +28,7 @@ function surf(varargin)
   0.0000   0.0012   0.0183   0.1099   0.2684   0.2683   0.1107   0.0190   0.0014   0.0000];
         f = gcf();
         if size(f.children)==1
-            f.color_map = jetcolormap(64);
+            f.color_map = jet(64);
          end
         s = gca().axes_bounds; delete(gca()); xsetech(s)  // clears the current axes
         surf(Z,"edgeco","b","marker","d","markersiz",9,"markeredg","red","markerfac","k");
