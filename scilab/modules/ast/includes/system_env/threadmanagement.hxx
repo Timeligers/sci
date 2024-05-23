@@ -23,7 +23,7 @@ extern "C"
 #include "dynlib_ast.h"
 }
 
-// #define DEBUG_THREAD
+#define DEBUG_THREAD
 
 class EXTERN_AST ThreadManagement
 {

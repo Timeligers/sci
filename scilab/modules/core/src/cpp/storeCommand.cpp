@@ -196,6 +196,9 @@ int GetCommand(char** cmd, int* piPrioritary, int* piInterruptible, command_orig
 
         iCommandReturned = 1;
     }
+    if(iCommandReturned)
+        std::cout << *cmd << std::endl;
+
     ThreadManagement::UnlockStoreCommand();
 
     return iCommandReturned;

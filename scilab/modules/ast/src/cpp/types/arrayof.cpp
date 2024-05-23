@@ -40,7 +40,7 @@ static int get_max_size(int* _piDims, int _iDims)
     }
 
     int iMax = 1;
-    for (int i = 0 ; i < _iDims ; i++)
+    for (int i = 0; i < _iDims; i++)
     {
         iMax *= _piDims[i];
     }
