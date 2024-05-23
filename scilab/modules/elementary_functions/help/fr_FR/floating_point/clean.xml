@@ -57,8 +57,8 @@
         <title>Description</title>
         <para>
             Cette fonction met à 0 les termes de <varname>A</varname>
-            de valeur absolue &lt; <literal>epsa</literal>, ou de valeur relative
-            &lt; <literal>epsr</literal> (par rapport à max(abs(A)), %inf et %nan exclus)
+            de valeur absolue &lt;=<literal>epsa</literal>, ou de valeur relative
+            &lt;=<literal>epsr</literal> (par rapport à max(abs(A)), %inf et %nan exclus)
         </para>
         <para>
             Pour des polynômes ou fractions rationnelles, clean() est appliquée de la même façon

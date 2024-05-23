@@ -33,7 +33,7 @@ function M=%to_e(varargin)
   end
 endfunction
 %to_6=%to_e
- %to_6  = 
+ %to_6 = function
 [M]=%to_6(varargin)
 function M=%to_i_to(varargin)
   M=varargin($);N=varargin($-1)

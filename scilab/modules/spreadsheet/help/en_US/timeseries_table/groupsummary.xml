@@ -49,7 +49,7 @@
                 <term>groupbins</term>
                 <listitem>
                     <para>indicates how the data is grouped, by data interval or time interval.</para>
-                    <para>data type expected: vector of doubles vector containing the data interval
+                    <para>data type expected: vector of doubles containing the data interval, datetime, duration, calendarDuration 
                         or available string among: "year", "month", "day", "hour", "minute", "second", "monthname" and "dayname".</para>
                     <para>Depending on the type of the variables contained in groupvars, groupbins will be a cell of the same size
                          as groupvars, where each element will be applied to each variable.</para>
@@ -294,5 +294,16 @@
                 <link linkend="pivot">pivot</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    Introduction in Scilab.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

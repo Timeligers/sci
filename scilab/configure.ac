@@ -43,8 +43,8 @@ else
 fi
 
 # Change version here, other files will be updated at the end of configure
-SCILAB_VERSION_MAJOR=2024
-SCILAB_VERSION_MINOR=1
+SCILAB_VERSION_MAJOR=2025
+SCILAB_VERSION_MINOR=0
 SCILAB_VERSION_MAINTENANCE=0
 AC_SUBST(SCILAB_VERSION_MAJOR)
 AC_SUBST(SCILAB_VERSION_MINOR)
@@ -516,7 +516,7 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
     fi
 
     if test "$enable_debug_CXX" = yes; then
-        DEBUG_CXXFLAGS="-Wall -Wextra -O0 -g3"
+        DEBUG_CXXFLAGS="-Wall -Wextra -Wno-unused-parameter -O0 -g3"
         case "$host" in
         *-linux-gnu )
             # Only doing that under Linux
@@ -539,7 +539,7 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
         CODECOVERAGE_CXXFLAGS="-fprofile-arcs -ftest-coverage"
     fi
     if test "$enable_debug_CXX" = yes; then
-        DEBUG_CXXFLAGS="-Wall -Wextra -O0 -g3"
+        DEBUG_CXXFLAGS="-Wall -Wextra -Wno-unused-parameter -O0 -g3"
     else
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
@@ -559,9 +559,15 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
                *)
                    if test -n "$with_min_macosx_version"; then
                         min_macosx_version_major=`echo $with_min_macosx_version | awk -F\. {'print $1'}`
-                        if [[ $min_macosx_version_major -lt 11 ]]; then
+                        min_macosx_version_minor=`echo $with_min_macosx_version | awk -F\. {'print $2'}`
+                        if [[ $min_macosx_version_major -eq 10 ]]; then
                             COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -D_LIBCPP_DISABLE_AVAILABILITY"
+                            if [[ $min_macosx_version_minor -ge 13 ]]; then
+                                # fmemopen() appeared in macos >= 10.13
+                                SYS_FMEMOPEN=1
+                            fi
                         fi
+                        
                     fi
                 ;;
            esac
@@ -569,6 +575,9 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
     esac    
     ;;
 esac
+
+AM_CONDITIONAL(IS_SYS_FMEMOPEN, test -n "$SYS_FMEMOPEN")
+
 
 #### 64 bits detection
 IS_64_BITS_CPU=false
@@ -590,7 +599,7 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
     fi
 
     if test "$enable_debug_C" = yes; then
-        DEBUG_CFLAGS="-Wall -Wextra -O0 -g3"
+        DEBUG_CFLAGS="-Wall -Wextra -Wno-unused-parameter -O0 -g3"
         # used to be -O0
         case "$host" in
         *-linux-gnu )
@@ -677,7 +686,7 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
         CODECOVERAGE_CFLAGS="-fprofile-arcs -ftest-coverage"
     fi
     if test "$enable_debug_C" = yes; then
-        DEBUG_CFLAGS="-Wall -Wextra -O0 -g3"
+        DEBUG_CFLAGS="-Wall -Wextra -Wno-unused-parameter -O0 -g3"
         # used to be -O0
     else
         DEBUG_CFLAGS="-DNDEBUG -g1 -O2"
@@ -982,7 +991,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
                 AC_SUBST(SCIRENDERER_CP)
 
                 # Docking system
-                AC_JAVA_CHECK_JAR([flexdock],[org.flexdock.util.Utilities],[Scilab Gui],[],[VERSION],[1.2.4])
+                AC_JAVA_CHECK_JAR([flexdock],[org.flexdock.util.Utilities],[Scilab Gui],[],[VERSION],[1.2.5])
                 FLEXDOCK=$PACKAGE_JAR_FILE
                 AC_SUBST(FLEXDOCK)
 
@@ -2065,6 +2074,7 @@ AC_DEFINE_UNQUOTED([SHARED_LIB_EXTW],[L"$shrext_cmds"],[Extension of a shared li
 #########
 AC_CHECK_STDCPP_STATIC()
 AC_CHECK_ADDRESS_SANTIZER()
+AC_CHECK_ANALYZER()
 
 #################
 ## stop on warning

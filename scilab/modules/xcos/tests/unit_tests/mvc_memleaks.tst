@@ -38,6 +38,7 @@ diary_id = diary(TMPDIR + "/mvc_leak.log");
 importXcosDiagram(SCI+"/modules/xcos/demos/Discrete-KalmanFilter.zcos");
 clear scs_m;
 System.gc();
+System.runFinalization();
 sleep(2, "s");
 check_memleaks(diary_id);
 
@@ -46,6 +47,7 @@ importXcosDiagram(SCI+"/modules/xcos/demos/Discrete-KalmanFilter.zcos");
 xcos_simulate(scs_m, 4);
 clear scs_m;
 System.gc();
+System.runFinalization();
 sleep(2, "s");
 check_memleaks(diary_id);
 

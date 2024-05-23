@@ -7,6 +7,8 @@
 
 // <-- Non-regression test for bug 1591 -->
 //
+// <-- NO CHECK REF -->
+//
 // <-- GitLab URL -->
 // https://gitlab.com/scilab/scilab/-/issues/1591
 //
@@ -29,9 +31,8 @@ TCL_EvalStr("set ta(deux,deux) four");
 if and(size(TCL_GetVar("ta")) == [4 1]) == %F then pause,end
 
 
-a = [1 2 3;4 5 6; 7 8 9]
-
-TCL_SetVar("tcl_a", a)
+a = [1 2 3;4 5 6; 7 8 9];
+TCL_SetVar("tcl_a", a);
 
 // a is a 3x3 matrix
 if and(size(TCL_GetVar("tcl_a")) == [3 3]) == %F then pause,end

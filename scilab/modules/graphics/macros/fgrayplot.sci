@@ -29,7 +29,7 @@ function []=fgrayplot(x,y,f,strf,rect,nax,void)
         deff("[z]=Surf(x,y)","z=cos(x).^2+sin(y).^2");
         fgrayplot(-%pi:0.1:%pi,-%pi:0.1:%pi, Surf);
         f = gcf();
-        f.color_map = coolcolormap(100);
+        f.color_map = cool(100);
         return
     end
 

@@ -12,7 +12,7 @@
 // <-- Short Description -->
 // Display of cell arrays with more than 2D
 m=[];m(1,1,2,3,2) = 2024
- m  = 
+ m = [1x1x2x3x2 double]
 (:,:,1,1,1)
    0.
 (:,:,2,1,1)

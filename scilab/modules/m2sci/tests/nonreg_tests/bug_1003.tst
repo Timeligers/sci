@@ -63,13 +63,13 @@ SCIFILECONTENTSREF=[
     "fp = mtlb_fopen(""testfile.txt"",""r"");";
     "tempstr = "" "";";
     "while tempstr<>-1";
-    "  tempstr = mgetl(fp,1);  if isempty(tempstr) then tempstr = -1;end;  // -1 if eof";
+    "  tempstr = mgetl(fp,1);  if isempty(tempstr) then,  tempstr = -1;end    // -1 if eof";
     "  disp(tempstr);";
-    "end;";
+    "end";
     "mclose(fp);";
     "// Test with fgets result not-stored in a variable";
     "fp = mtlb_fopen(""testfile.txt"",""r"");";
-    "%v0 = mgetl(fp,1);if isempty(%v0) then %v0 = -1;end;disp(%v0);// -1 if eof";
+    "%v0 = mgetl(fp,1);if isempty(%v0) then,  %v0 = -1;end, disp(%v0);  // -1 if eof";
     "mclose(fp);"];
 
 if or(SCIFILECONTENTSREF<>SCIFILECONTENTS) then pause,end

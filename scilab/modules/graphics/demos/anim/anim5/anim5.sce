@@ -24,7 +24,7 @@ function demo_anim5()
     // set a new colormap
     //-------------------
     cmap= curFig.color_map; //preserve old setting
-    curFig.color_map = jetcolormap(64);
+    curFig.color_map = jet(64);
 
     //The initial surface definition
     //----------------------

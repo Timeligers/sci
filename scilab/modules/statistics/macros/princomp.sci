@@ -11,7 +11,7 @@
 // along with this program.
 //
 
-function [facpr,comprinc,lambda,tsquare]=princomp(x,eco)
+function [facpr, comprinc, lambda, tsquare, explainedvar, mu]=princomp(x,eco)
     //
     //This  function performs  several  computations known  as
     //"principal component  analysis".
@@ -74,4 +74,13 @@ function [facpr,comprinc,lambda,tsquare]=princomp(x,eco)
     q=find(lambda<=max(rowx,colx)*%eps*lambda(1),1)
     if q==[] then q=size(lambda,"*"),end
     tsquare=(rowx-1)*sum(U(:,1:q).^2,2)
+
+    if nargout > 4 then
+        // percentage of variance explained by each principal component
+        explainedvar = 100 * lambda / sum(lambda);
+    end
+
+    if nargout > 5 then
+        mu = mean(x, 1);
+    end
 endfunction

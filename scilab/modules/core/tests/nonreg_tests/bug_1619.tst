@@ -14,7 +14,9 @@
 //    macr2tree doesn't like functions compiled for profiling. It hates them
 //    so much,
 //    that causes spectacular crashes of scilab.
-
+//
+// <-- CLI SHELL MODE -->
+//
 deff("x=foo(n)",["if n==0 then"
 "  x=[]"
 "else"

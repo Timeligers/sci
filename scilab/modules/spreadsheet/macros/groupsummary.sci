@@ -158,9 +158,9 @@ function out = groupsummary(varargin)
                     v = varnames;
                     v(jdx) = [];
                     outputVariable = strcat(v, "_");
-                    if size(method) == 1 then
-                        outputVariable = "fun_" + outputVariable;
-                    end
+                    // if size(method) == 1 then
+                    //     outputVariable = "fun_" + outputVariable;
+                    // end
                     opts = struct("includeEmpty", includeEmptyGroups, ...
                         "includedEdge", includedEdge, ...
                         "method", method, ...

@@ -32,6 +32,12 @@ function [a,b,sig]=reglin(x,y,dflag)
     if or(isnan(x)) | or(isnan(y)) then
         error(msprintf(_("%s: NaNs detected, please use %s() instead.\n"), "reglin", "nanreglin"))
     end
+    if or(isinf(x)) then
+        error(msprintf(_("%s: Wrong value for input argument #%d: Must not contain Inf.\n"), "reglin", 1));
+    end
+    if or(isinf(y)) then
+        error(msprintf(_("%s: Wrong value for input argument #%d: Must not contain Inf.\n"), "reglin", 2));
+    end
 
     xmoy=sum(x,2)/n2
     ymoy=sum(y,2)/n2

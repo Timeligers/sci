@@ -305,7 +305,7 @@ H^2_α(z) = J_α(z) - i \cdot Y_α(z)">
    [X,Y] = ndgrid(x,y);
    H = besselh(0,1,X+%i*Y);
    clf();f=gcf();
-   f.color_map=jetcolormap(16);
+   f.color_map=jet(16);
    contour2d(x,y,abs(H),0.2:0.2:3.2,strf="034",rect=[-4,-1.5,3,1.5],fpf=" ")
    legends(string(0.2:0.2:3.2),1:16,"ur")
    xtitle("Level curves of |H1(0,z)|")
@@ -315,7 +315,7 @@ H^2_α(z) = J_α(z) - i \cdot Y_α(z)">
             [X,Y] = ndgrid(x,y);
             H = besselh(0,1,X+%i*Y);
             clf();f=gcf();
-            f.color_map=jetcolormap(16);
+            f.color_map=jet(16);
             contour2d(x,y,abs(H),0.2:0.2:3.2,strf="034",rect=[-4,-1.5,3,1.5],fpf=" ")
             legends(string(0.2:0.2:3.2),1:16,"ur")
             xtitle("Level curves of |H1(0,z)|")

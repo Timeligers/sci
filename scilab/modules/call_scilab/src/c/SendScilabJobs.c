@@ -81,14 +81,12 @@ static int ExecuteJob(char* job, char** msg, char** stack, int mode)
         if (Err_Job)
         {
             wchar_t* tmp = NULL;
-            *msg = NULL;
             if (msg != NULL)
             {
                 scilab_getString(NULL, scilab_getVar(L"ErrMsg_Job"), &tmp);
                 *msg = wide_string_to_UTF8(tmp);
             }
 
-            *stack = NULL;
             if (stack)
             {
                 scilab_getString(NULL, scilab_getVar(L"ErrStack_Job"), &tmp);

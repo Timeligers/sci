@@ -957,6 +957,7 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
 #endif // DEBUG_THREAD
 
     int iRet = 0;
+    bool bQuit = false;
     do
     {
         // wait for available runner
@@ -977,9 +978,14 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
             iRet = 1;
         }
 
+        // Check if the queue is empty before unlocking the "command thread".
+        // Sometimes, the "command thread" can unqueue commands between the call of 'SendAwakeRunnerSignal' and the 'while'.
+        // That makes this thread leaving before executing the last runner.
+        bQuit = ConfigVariable::getForceQuit() == false || isEmptyCommandQueue() == false;
+
         ThreadManagement::SendAwakeRunnerSignal();
     }
-    while (ConfigVariable::getForceQuit() == false || isEmptyCommandQueue() == false);
+    while (bQuit);
 
     return iRet;
 }

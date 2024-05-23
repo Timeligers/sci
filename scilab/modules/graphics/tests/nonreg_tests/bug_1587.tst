@@ -25,12 +25,12 @@ f1 = gcf() ;
 plot3d ;
 
 f2 = scf() ;
-hc = jetcolormap(21) ;
+hc = jet(21) ;
 f2.color_map = hc ;
 plot3d ;
 
 // change the colormap of the first window
-jc = jetcolormap(45) ;
+jc = jet(45) ;
 f.color_map = jc ;
 
 // check that the colormaps are well copied

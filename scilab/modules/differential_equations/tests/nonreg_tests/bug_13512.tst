@@ -31,7 +31,7 @@ t  = 1;
 deff("ydot = f1(t, y, ydot)", "ydot = y.^2 - y*sin(t) + cos(t)")
 
 refMsg = [msprintf(_("%s: Wrong number of output argument(s): %d expected.\n"), "f1", 2);
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "dassl", "dassl")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_dassl", "dassl")];
 
 assert_checkerror("y = dae(y0, t0, t, f1);", refMsg);
 
@@ -39,7 +39,7 @@ assert_checkerror("y = dae(y0, t0, t, f1);", refMsg);
 deff("[ydot,ires] = f2(t, y)", "ydot = y.^2 - y*sin(t) + cos(t)");
 
 refMsg = [msprintf(_("Wrong number of input arguments.\n"));
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "dassl", "dassl")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_dassl", "dassl")];
 assert_checkerror("y = dae(y0, t0, t, f2);", refMsg);
 
 // ----------------------------------
@@ -47,12 +47,12 @@ assert_checkerror("y = dae(y0, t0, t, f2);", refMsg);
 
 // The evaluation function purposely lacks the output argument 'ires'
 refMsg = [msprintf(_("%s: Wrong number of output argument(s): %d expected.\n"), "f1", 2);
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "dassl", "dassl")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_dassl", "dassl")];
 assert_checkerror("y = dae([y0; 0], t0, t, f1);", refMsg);
 
 // The evaluation function purposely lacks the input argument 'ydot'
 refMsg = [msprintf(_("Wrong number of input arguments.\n"));
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "dassl", "dassl")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_dassl", "dassl")];
 assert_checkerror("y = dae([y0; 0], t0, t, f2);", refMsg);
 
 
@@ -66,12 +66,12 @@ deff("r = g(t, y)", "r = ones(y)");
 
 // The evaluation function purposely lacks the output argument 'ires'
 refMsg = [msprintf(_("%s: Wrong number of output argument(s): %d expected.\n"), "f1", 2);
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "dasrt", "ddasrt")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_dasrt", "ddasrt")];
 assert_checkerror("[y, r] = dae(""root"", y0, t0, t, f1, 1, g);", refMsg);
 
 // The evaluation function purposely lacks the input argument 'ydot'
 refMsg = [msprintf(_("Wrong number of input arguments.\n"));
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "dasrt", "ddasrt")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_dasrt", "ddasrt")];
 assert_checkerror("[y, r] = dae(""root"", y0, t0, t, f2, 1, g);", refMsg);
 
 // ----------------------------------
@@ -79,12 +79,12 @@ assert_checkerror("[y, r] = dae(""root"", y0, t0, t, f2, 1, g);", refMsg);
 
 // The evaluation function purposely lacks the output argument 'ires'
 refMsg = [msprintf(_("%s: Wrong number of output argument(s): %d expected.\n"), "f1", 2);
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "dasrt", "ddasrt")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_dasrt", "ddasrt")];
 assert_checkerror("[y, r] = dae(""root"", [y0; 0], t0, t, f1, 1, g);", refMsg);
 
 // The evaluation function purposely lacks the input argument 'ydot'
 refMsg = [msprintf(_("Wrong number of input arguments.\n"));
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "dasrt", "ddasrt")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_dasrt", "ddasrt")];
 assert_checkerror("[y, r] = dae(""root"", [y0; 0], t0, t, f2, 1, g);", refMsg);
 
 
@@ -96,12 +96,12 @@ assert_checkerror("[y, r] = dae(""root"", [y0; 0], t0, t, f2, 1, g);", refMsg);
 
 // The evaluation function purposely lacks the output argument 'ires'
 refMsg = [msprintf(_("%s: Wrong number of output argument(s): %d expected.\n"), "f1", 2);
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "daskr", "ddaskr")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_daskr", "ddaskr")];
 assert_checkerror("[y, r] = dae(""root2"", y0, t0, t, f1, 1, g);", refMsg);
 
 // The evaluation function purposely lacks the input argument 'ydot'
 refMsg = [msprintf(_("Wrong number of input arguments.\n"));
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "daskr", "ddaskr")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_daskr", "ddaskr")];
 assert_checkerror("[y, r] = dae(""root2"", y0, t0, t, f2, 1, g);", refMsg);
 
 // ----------------------------------
@@ -109,7 +109,7 @@ assert_checkerror("[y, r] = dae(""root2"", y0, t0, t, f2, 1, g);", refMsg);
 
 // The evaluation function purposely lacks the output argument 'ires'
 refMsg = [msprintf(_("%s: Wrong size for output argument #%d: A matrix of size %d expected.\n"), "g", 1, 1);
-msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "daskr", "ddaskr")];
+msprintf(_("%ls: An error occurred in ''%ls'' subroutine.\n"), "%_daskr", "ddaskr")];
 assert_checkerror("[y, r] = dae(""root2"", [y0; 0], t0, t, f1, 1, g);", refMsg);
 
 // The evaluation function purposely lacks the input argument 'ydot'

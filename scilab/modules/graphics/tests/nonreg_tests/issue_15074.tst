@@ -24,7 +24,7 @@ tolerance = 100; // Margin for memleak detection
 nbColors = 2^17;
 cmapSize = nbColors * 3 /* RBG */ * 8 /* sizeof(double) */ / 1024 /* Kb */;
 f = gcf();
-f.color_map = jetcolormap(nbColors);
+f.color_map = jet(nbColors);
 
 // get(f, "color_map") case
 freememBefore = getmemory();

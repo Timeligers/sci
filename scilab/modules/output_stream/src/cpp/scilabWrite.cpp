@@ -77,6 +77,11 @@ void scilabWriteW(const wchar_t* _pwsText)
 {
     if (isPrintOutput())
     {
+        if (_pwsText && _pwsText[0] == L'\0')
+        {
+            return;
+        }
+
         char* pstTemp = wide_string_to_UTF8(_pwsText);
         scilabWrite(pstTemp);
         FREE(pstTemp);
@@ -85,6 +90,11 @@ void scilabWriteW(const wchar_t* _pwsText)
 
 void scilabForcedWriteW(const wchar_t* _pwsText)
 {
+    if (_pwsText && _pwsText[0] == L'\0')
+    {
+        return;
+    }
+
     char* pstTemp = wide_string_to_UTF8(_pwsText);
     scilabForcedWrite(pstTemp);
     FREE(pstTemp);

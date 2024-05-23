@@ -43,7 +43,7 @@ Zm = mirror(X,Y,n);
 clf
 drawlater
 f = gcf();
-f.color_map = [ 0.8 0.8 0.8 ; jetcolormap(100)];
+f.color_map = [ 0.8 0.8 0.8 ; jet(100)];
 surf(Xe,Ye,Ze)
 surf(X,Y,Zm)
 surf(Xr,Yr,Zr)

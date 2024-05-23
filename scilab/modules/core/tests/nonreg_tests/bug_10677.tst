@@ -8,6 +8,7 @@
 // <-- Non-regression test for bug 10677 -->
 //
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 //
 // <-- GitLab URL -->
 // https://gitlab.com/scilab/scilab/-/issues/10677
@@ -30,4 +31,4 @@ function M=%to_e(varargin)
   end
 endfunction
 
-%to_6=%to_e
+%to_6=%to_e;

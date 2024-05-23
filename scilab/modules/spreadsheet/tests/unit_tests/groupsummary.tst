@@ -189,3 +189,17 @@ assert_checkequal(g(["fun1_string1", "fun2_string1", "fun3_string1"]), expected)
 g = groupsummary(ts, "Time", "month", {findA, findB, findC}, ["string1", "string2"]);
 expected = [3 5 3 1 0 0; 1 0 0 0 0 1; 0 0 0 2 3 1; 2 0 0 2 1 1; 0 2 6 4 0 0; 0 1 0 0 1 0];
 assert_checkequal(g(["fun1_string1", "fun1_string2","fun2_string1", "fun2_string2", "fun3_string1", "fun3_string2"]), expected);
+
+d = datetime(2024, 4, [1; 5; 8; 2; 3; 6; 4; 12; 9; 11; 10; 7])
+v1 = [1; 4; 3; 5; 3; 3; 3; 5; 2; 5; 2; 5];
+v2 = ["B"; "B"; "A"; "A"; "C"; "C"; "C"; "A"; "B"; "B"; "B"; "C"];
+v3 = ["B"; "A"; "A"; "C"; "C"; "B"; "C"; "B"; "B"; "A"; "B"; "A"];
+ts = timeseries(d, v1, v2, v3, "VariableNames", ["Time", "value", "string1", "string2"]);
+
+g = groupsummary(ts, "Time", datetime(2024, 4, 5:9), "sum", "value");
+dtime = ["[ 2024-04-05, 2024-04-06 )"; "[ 2024-04-06, 2024-04-07 )"; "[ 2024-04-07, 2024-04-08 )"; "[ 2024-04-08, 2024-04-09 ]"];
+expected = table(dtime, [1; 1; 1; 2], [4; 3; 5; 5], "VariableNames", ["Time", "GroupCount", "sum_value"]);
+assert_checkequal(g, expected);
+g = groupsummary(ts, "Time", datetime(2024, 4, 5:9), sum, "value");
+expected = table(dtime, [1; 1; 1; 2], [4; 3; 5; 5], "VariableNames", ["Time", "GroupCount", "fun_value"]);
+assert_checkequal(g, expected);

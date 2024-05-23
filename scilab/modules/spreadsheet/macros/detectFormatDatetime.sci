@@ -24,81 +24,65 @@ function [fmt, typ] = detectFormatDatetime(txt)
         "/([0-9]{1,2})([\s-])([a-zA-Z]{3})([\s-])([0-9]{2,4})/", ...//dd MMM yy dd-MMM-yy 
         "/([a-zA-Z]{3})\s([0-9]{1,2})([,\s]+)([0-9]{4})/"); // MMM d yyyy MMM d, yyyy 
 
-    
     fmt = "";
     typ = "";
+
+    // remove ""
+    txt(txt == "") = [];
+
+    len = length(txt);
+    idx = find(len == min(len), 1);
     
-    while txt(1) == "" 
-        txt(1) = [];
-    end
+    str = txt(idx);
 
     // date
     for i = 1:size(l)
-        [a,b,c,d] = regexp(txt(1), l(i));
-        if d <> "" & c == part(txt(1), 1:b) then
+        [a,b,c,d] = regexp(str, l(i));
+        if d <> "" && isscalar(b) && c == part(str, 1:b) then
             typ = "datetime"
             select i
             case 1
-                if length(d(1)) == 4 then
-                    fmt = "yyyy-M-d";
-                else
-                    fmt = "yy-M-d";
-                end
+                // yy-M-d, yyyy-M-d, yy-MM-dd, ...
+                fmt = strcat([emptystr(1, length(d(1))) + "y", "-", emptystr(1, length(d(2))) + "M", "-", emptystr(1, length(d(3))) + "d"]);
             case 2
-                if length(d(3)) == 4 then
-                    fmt = "yyyy"
-                else
-                    fmt = "yy"
-                end
-                t = part(txt, 4:5);
+                // M/d/yy, M/d/yyyy, MM/dd/yy, dd/MM/yyyy, ...
+                t = part(str, 4:5);
                 t = strtod(t);
                 if or(t> 12) then
-                    fmt = "M/d/" + fmt; 
+                    fmt = strcat([emptystr(1, length(d(1))) + "M", "/", emptystr(1, length(d(2))) + "d", "/", emptystr(1, length(d(3))) + "y"]);
                 else
-                    fmt = "d/M/" + fmt;
+                    fmt = strcat([emptystr(1, length(d(1))) + "d", "/", emptystr(1, length(d(2))) + "M", "/", emptystr(1, length(d(3))) + "y"]);
                 end
             case 3
-                if length(d(3)) == 4 then
-                    fmt = "d.M.yyyy";
-                else
-                    fmt = "d.M.yy";
-                end
+                // d.M.yy, d.M.yyyy, dd.MM.yy
+                fmt = strcat([emptystr(1, length(d(1))) + "d", ".", emptystr(1, length(d(2))) + "M", ".", emptystr(1, length(d(3))) + "y"]);
             case 4
                 fmt = "yyyyMMdd";
             case 5
-                if length(d(5)) == 4 then
-                    fmt = "yyyy"
-                else
-                    fmt = "yy"
-                end
+                // d-MMM-yy, d-MMM-yyyy, dd-MMM-yy, d MMM yy, ...
                 if d(2) == "-" then
-                    fmt = "d-MMM-" + fmt;
+                    fmt = strcat([emptystr(1, length(d(1))) + "d", "-MMM-", emptystr(1, length(d(5))) + "y"]);
                 else
-                    fmt = "d MMM " + fmt;
+                    fmt = strcat([emptystr(1, length(d(1))) + "d", " MMM ", emptystr(1, length(d(5))) + "y"]);
                 end
             case 6
-                if length(d(4)) == 4 then
-                    fmt = "yyyy"
-                else
-                    fmt = "yy"
-                end
+                // MMM d, yyyy, MMM d yyyy...
                 if d(3) == "," then
-                    fmt = "MMM d, " + fmt;
+                    fmt = strcat(["MMM ", emptystr(1, length(d(2)) + "d"), ", ", emptystr(1, length(d(4))) + "y"]);
                 else
-                    fmt = "MMM d " + fmt;
+                    fmt = strcat(["MMM ", emptystr(1, length(d(2)) + "d"), " ", emptystr(1, length(d(4))) + "y"]);
                 end
             end
             break;
         end
     end
-
     
     // time
-    [_,_,_,d] = regexp(txt(1), "/([0-9]{1,2}):([0-9]{2}):?([0-9]{2})? ?([aApP][mM])?/"); //?.?([0-9]{3})
+    [_,_,_,d] = regexp(str, "/([0-9]{1,2}):([0-9]{2}):?([0-9]{2})? ?([aApP][mM])?/"); //?.?([0-9]{3})
     t = "";
     if or(d <> "") then
         if fmt <> "" then
-            if grep(txt(1), "T") then
+            if grep(str, "T") then
                 fmt = fmt + "T";
             else
                 fmt = fmt + " ";
@@ -106,31 +90,35 @@ function [fmt, typ] = detectFormatDatetime(txt)
         end
         select size(d(d<>""), "*")
         case 2
-            fmt = fmt + "H:mm";
+            fmt = fmt + strcat(emptystr(1, length(d(1))) + "H") + ":mm";
+            // fmt = fmt + "H:mm";
             t = "duration";
         case 3
             if d(3) <> "" then
-                fmt = fmt + "H:mm:ss"; 
+                fmt = fmt + strcat(emptystr(1, length(d(1))) + "H") + ":mm:ss";
+                // fmt = fmt + "H:mm:ss"; 
                 t = "duration";
             elseif d(4) <> "" then
-                fmt = fmt + "h:mm a";
+                fmt = fmt + strcat(emptystr(1, length(d(1))) + "h") + ":mm a";
+                // fmt = fmt + "h:mm a";
             end
         case 4 
-            fmt = fmt + "h:mm:ss a";
+            fmt = fmt + strcat(emptystr(1, length(d(1))) + "h") + ":mm:ss a";
+            // fmt = fmt + "h:mm:ss a";
         end
     end
-
     
-    if grep(txt(1), "Z") then
+    if grep(str, "Z") then
         fmt = fmt + "Z";
     end
 
     if typ == "" && t == "duration" then
         typ = t;
-        fmt = "hh" + part(fmt, 2:length(fmt));
+        fmt = convstr(fmt)
+        //fmt = "hh" + part(fmt, 2:length(fmt));
     end
 
-    if fmt == "yyyyMMdd" && length(txt(1)) <> 8 then
+    if fmt == "yyyyMMdd" && length(str) <> 8 then
         typ = "";
         fmt = "";
     end
@@ -139,14 +127,14 @@ function [fmt, typ] = detectFormatDatetime(txt)
         select typ
         case "datetime"
             try
-                d = datetime(txt, "InputFormat", fmt)
+                d = datetime(str, "InputFormat", fmt)
             catch
                 fmt = "";
                 typ = "";
             end
         case "duration"
             try
-                d = duration(txt, "InputFormat", fmt)
+                d = duration(str, "InputFormat", fmt)
             catch
                 fmt = "";
                 typ = "";
@@ -155,7 +143,7 @@ function [fmt, typ] = detectFormatDatetime(txt)
     end
 
     if fmt == "" then
-        if and(isnum(txt)) then
+        if and(isnum(str)) then
             typ = "double";
         // elseif ...  %T %f ? true false ? 0 1 ?
         //     typ = "boolean";

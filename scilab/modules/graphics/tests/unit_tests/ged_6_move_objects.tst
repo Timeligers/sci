@@ -65,7 +65,7 @@ function move_test(ptitle)
     legends(['sin(t)';'sin(2*t)';'sin(3*t)'],[-1,2 3],opt="ll") // "Axes" type
     replot tight
     // colorbar
-    c = jetcolormap(50);
+    c = jet(50);
     gcf().color_map = [gcf().color_map ; c];
     colorbar(-5,10,[35 85]);
     //gce().parent.axes_bounds(3) = 0.06;
