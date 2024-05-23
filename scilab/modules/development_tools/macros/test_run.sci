@@ -1560,7 +1560,7 @@ function exportToXUnitFormat(exportToFile, testsuites)
             end
         end
         
-        testsuite.children(j+1) = properties;
+        testsuite.children(length(testsuite.children)+1) = properties;
 
         if appendIntoFile then
             // We will add the new elements into 'testsuites'
