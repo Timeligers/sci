@@ -50,7 +50,7 @@ In summary, the main new features and additions are:
 #### Performances
 
 - Some Scilab modules (`Statistics`, `Elementary functions`, ...) have been updated to use the `arguments` block hence enhancing their performances.
-- Sparse matrix concatenation and product operations have been speedup (See #17183).
+- Sparse matrix concatenation and product operations have been sped up (See #17183).
 
 #### Web tools
 
