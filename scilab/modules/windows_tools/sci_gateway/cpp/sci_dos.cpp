@@ -205,7 +205,7 @@ int sci_dos(char *fname, void* pvApiCtx)
 
         if (FileExist(FileTMPDir))
         {
-            DeleteFile(FileTMPDir);
+            DeleteFileA(FileTMPDir);
             /* StdOut will be "Output" */
             *StatusExit = TRUE;
             Output = CreateOuput(&pipeSpawnOut, DetachProcessOption);

@@ -41,7 +41,7 @@ int systemc(char *command, int *stat)
 int systemcW(wchar_t* _pstCommand, int *stat)
 {
 #ifdef _MSC_VER
-    *stat = CallWindowsShellW(_pstCommand);
+    *stat = spawncommand(_pstCommand, TRUE);
 #else
     char* pstTemp = wide_string_to_UTF8(_pstCommand);
     int status = system(pstTemp);
@@ -50,5 +50,19 @@ int systemcW(wchar_t* _pstCommand, int *stat)
     *stat = WEXITSTATUS(status);
 #endif
     return  0;
+}
+/*--------------------------------------------------------------------------*/
+void systemReadStdHandles(int* stdoutLinesLen, char*** stdoutLines, int* stderrLinesLen, char*** stderrLines)
+{
+    if (stdoutLines != NULL)
+    {
+        *stdoutLines = CreateOuput(&pipeSpawnOut, TRUE);
+        *stdoutLinesLen = pipeSpawnOut.NumberOfLines;
+    }
+    if (stderrLines != NULL)
+    {
+        *stderrLines = CreateOuput(&pipeSpawnErr, TRUE);
+        *stderrLinesLen = pipeSpawnErr.NumberOfLines;
+    }
 }
 /*--------------------------------------------------------------------------*/

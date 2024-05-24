@@ -1,6 +1,7 @@
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) XXXX-2008 - INRIA
 // Copyright (C) XXXX-2008 - INRIA - Allan CORNET
+// Copyright (C) 2024 - Dassault Systèmes - Clément DAVID
 
 //
 // Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -16,13 +17,13 @@
 function varargout = unix_g(cmd)
     //unix_g - shell command execution
     //%Syntax
-    //rep=unix_g(cmd)
+    //stdout=unix_g(cmd)
     //%Parameters
     // cmd - a character string
-    // rep - a column vector of character strings
+    // stdout - a column vector of character strings
     //%Description
     // cmd instruction (sh syntax) is passed to shell, the standard output
-    // is redirected  to scilab variable rep.
+    // is redirected  to scilab variable stdout.
     //%Examples
     // unix_g("ls")
     //%See also
@@ -47,72 +48,24 @@ function varargout = unix_g(cmd)
         error(msprintf(gettext("%s: Wrong number of output argument(s).\n"),"unix_g"));
     end
 
-    // initialize variables
-    stderr = emptystr();
-    stat = 1;
-    rep = emptystr();
+    [stat, stdout, stderr] = host(cmd);
 
-    if getos() == "Windows" then
-        [rep,stat] = dos(cmd);
-        if (stat == %t) then
-            stat = 0;
+    if stat == -1 then
+        // host failed, append a descriptive message to the stderr stream
+        if lhs == 3 then
+            stderr = [ stderr ; msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g") ];
         else
-            if lhs == 3 then
-                stderr = rep;
-            else
-                for i=1:size(rep,"*") do printf("   %s", rep(i));end
-            end
-
-            stat = 1;
-            rep = emptystr();
+            disp(msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g"));
         end
-    else
-        tmp = TMPDIR+"/unix.out";
-        cmd1 = "("+cmd+")>"+ tmp +" 2>"+TMPDIR+"/unix.err;";
-        stat = host(cmd1);
-
-        select stat
-
-        case 0 then
-            rep = mgetl(tmp);
-            if (size(rep,"*")==0) | (length(rep)==0) then
-                rep = [];
-            end;
-
-        case 1 then
-            rep = mgetl(tmp);
-
-        case -1 then
-            // host failed
-            if lhs == 3 then
-                stderr = msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g");
-            else
-                disp(msprintf(gettext("%s: The system interpreter does not answer..."),"unix_g"));
-            end
-            rep = emptystr();
-        else
-            msg = mgetl(TMPDIR+"/unix.err");
-            if lhs == 3 then
-                stderr = msg;
-            else
-                disp(msg(1));
-            end
-            rep = emptystr();
-        end
-
-        mdelete(tmp);
+    elseif stat <> 0 && lhs < 3 then
+        // display something on error
+        disp(stderr(1));
     end
+
 
     // output arguments
 
-    varargout(1) = rep;
-
-    if lhs >= 2 then
-        varargout(2) = stat;
-    end
-
-    if lhs >= 3 then
-        varargout(3) = stderr;
-    end
-
+    varargout(1) = stdout;
+    varargout(2) = stat;
+    varargout(3) = stderr;
 endfunction

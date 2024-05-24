@@ -30,4 +30,13 @@ IO_IMPEXP int systemc(char *command, int *stat);
  */
 IO_IMPEXP int systemcW(wchar_t* _pstCommand, int *stat);
 
+/**
+ * Read stdout and stderr of the previous command
+ * @param[out] stdoutLinesLen stdout number of lines
+ * @param[out] stdoutLines stdout lines
+ * @param[out] stderrLinesLen stderr number of lines
+ * @param[out] stderrLines stderr lines
+ */
+IO_IMPEXP void systemReadStdHandles(int* stdoutLinesLen, char*** stdoutLines, int* stderrLinesLen, char*** stderrLines);
+
 #endif
