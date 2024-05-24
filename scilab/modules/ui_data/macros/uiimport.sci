@@ -1097,6 +1097,17 @@ function uiimport_preview()
         return;
     end
 
+    if size(x, "c") <> size(varnames, "c") then
+        messagebox("Problem during the import. Choose another delimiter or decimal separator.", "Warning", "warning", "Ok", "modal");
+        data.opts = opts;
+        set("uiimport", "userdata", data),
+        fc = get("uiimport_import");
+        set("uiimport_frimport", "visible", "off");
+        delete(fc.children),
+        c.visible = "on";
+        return
+    end
+
     if opts.emptyCol <> [] then
         x(:, opts.emptyCol) = [];
     end
