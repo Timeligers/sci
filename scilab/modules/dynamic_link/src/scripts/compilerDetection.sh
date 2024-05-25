@@ -1,8 +1,6 @@
 #!/bin/sh
 
-PROGNAME="$0"
-PATHTOCONFIGURE=`dirname "$PROGNAME"`
-cd $PATHTOCONFIGURE
+PATHTOCONFIGURE="$(realpath "${0}" | xargs dirname)"
 if test -x "$(which gcc 2>/dev/null)"; then
     # Detect the actual path to the libstdc++ library. For the dynamic link
     # build, we want to use the same lib as the compiler installed.
@@ -18,10 +16,16 @@ if test -x "$(which gcc 2>/dev/null)"; then
 fi
 
 # Relaunch configure if files are missing
-if test ! -s Makefile.orig -o ! -s libtool; then 
+if test ! -s "$PATHTOCONFIGURE/Makefile.orig" -o ! -s "$PATHTOCONFIGURE/libtool"; then
     echo "Detection of C/C++/Fortran Compilers"
-    ./configure --disable-static --disable-dependency-tracking "$@"
-    mv Makefile Makefile.orig
-else 
+    "$PATHTOCONFIGURE/configure" --disable-static --disable-dependency-tracking "$@"
+    configure_exit_status=$?
+    if [ $configure_exit_status -ne 0 ]; then
+        cat "$PATHTOCONFIGURE/config.log"
+        exit $configure_exit_status
+    else
+        mv "$PATHTOCONFIGURE/Makefile" "$PATHTOCONFIGURE/Makefile.orig"
+    fi
+else
     echo "Detection of compilers already done"
 fi
