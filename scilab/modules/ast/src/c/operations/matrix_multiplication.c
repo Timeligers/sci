@@ -107,11 +107,14 @@ int iMultiRealScalarByComplexMatrix(
 {
     int iOne	= 1;
     int iSize2	= _iRows2 * _iCols2;
+    doublecomplex *pDataIn1 = oGetDoubleComplexFromPointer(&_dblReal1, NULL, 1);
+    doublecomplex *pDataIn2 = oGetDoubleComplexFromPointer(_pdblReal2, _pdblImg2, iSize2);
+    
+    C2F(zscal)(&iSize2, pDataIn1, pDataIn2, &iOne);
 
-    C2F(dcopy)(&iSize2, _pdblReal2, &iOne, _pdblRealOut, &iOne);
-    C2F(dcopy)(&iSize2, _pdblImg2, &iOne, _pdblImgOut, &iOne);
-    C2F(dscal)(&iSize2, &_dblReal1, _pdblRealOut, &iOne);
-    C2F(dscal)(&iSize2, &_dblReal1, _pdblImgOut, &iOne);
+    vGetPointerFromDoubleComplex(pDataIn2, iSize2, _pdblRealOut, _pdblImgOut);
+    vFreeDoubleComplexFromPointer(pDataIn2);
+    vFreeDoubleComplexFromPointer(pDataIn1);
     return 0;
 }
 
@@ -122,11 +125,14 @@ int iMultiComplexScalarByRealMatrix(
 {
     int iOne	= 1;
     int iSize2	= _iRows2 * _iCols2;
+    doublecomplex *pDataIn1 = oGetDoubleComplexFromPointer(&_dblReal1, &_dblImg1, 1);
+    doublecomplex *pDataIn2 = oGetDoubleComplexFromPointer(_pdblReal2, NULL, iSize2);
+    
+    C2F(zscal)(&iSize2, pDataIn1, pDataIn2, &iOne);
 
-    C2F(dcopy)(&iSize2, _pdblReal2, &iOne, _pdblRealOut, &iOne);
-    C2F(dcopy)(&iSize2, _pdblReal2, &iOne, _pdblImgOut, &iOne);
-    C2F(dscal)(&iSize2, &_dblReal1, _pdblRealOut, &iOne);
-    C2F(dscal)(&iSize2, &_dblImg1,	_pdblImgOut, &iOne);
+    vGetPointerFromDoubleComplex(pDataIn2, iSize2, _pdblRealOut, _pdblImgOut);
+    vFreeDoubleComplexFromPointer(pDataIn2);
+    vFreeDoubleComplexFromPointer(pDataIn1);
     return 0;
 }
 
