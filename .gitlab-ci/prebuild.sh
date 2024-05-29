@@ -59,7 +59,7 @@ JDK_VERSION=17.0.7+7
 JRE_VERSION=17.0.7_7
 ANT_VERSION=1.10.5
 OPENBLAS_VERSION=0.3.27
-ARPACK_VERSION=3.1.5
+ARPACK_VERSION=3.9.1
 CURL_VERSION=7.64.1
 EIGEN_VERSION=3.3.2
 FFTW_VERSION=3.3.3
@@ -206,8 +206,8 @@ make_binary_directory() {
         --exclude=demo \
         bwidget-$BWIDGET_VERSION/images bwidget-$BWIDGET_VERSION/lang --wildcards bwidget-$BWIDGET_VERSION/*.tcl
     # fix permissions to fix issue #17231
-    chmod 644 $(find "$TCL_DIR/BWidget" -type f)
-    chmod 755 $(find "$TCL_DIR/BWidget" -type d)
+    chmod 644 "$(find "$TCL_DIR/BWidget" -type f)"
+    chmod 755 "$(find "$TCL_DIR/BWidget" -type d)"
 
     #################
     ##### EIGEN #####
@@ -227,10 +227,11 @@ make_binary_directory() {
     rm -f "$LIBTHIRDPARTYDIR"/libatlas.*
     rm -f "$LIBTHIRDPARTYDIR"/lib*blas.*
     rm -f "$LIBTHIRDPARTYDIR"/liblapack.*
-    mv "$INSTALLUSRDIR"/lib/libopenblas.so* "$LIBTHIRDPARTYDIR/"
+    cp "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$LIBTHIRDPARTYDIR/"
+    ln -fs libopenblas.so.$OPENBLAS_VERSION "$LIBTHIRDPARTYDIR/libopenblas.so.0"
     ln -fs libopenblas.so.$OPENBLAS_VERSION "$LIBTHIRDPARTYDIR/libblas.so.3"
     ln -fs libopenblas.so.$OPENBLAS_VERSION "$LIBTHIRDPARTYDIR/liblapack.so.3"
-
+    
     rm -f "$LIBTHIRDPARTYDIR"/libarpack.*
     cp -d "$INSTALLUSRDIR"/lib/libarpack.* "$LIBTHIRDPARTYDIR/"
 
@@ -422,20 +423,20 @@ build_openblas() {
 
     tar -xzf "$DOWNLOADDIR/OpenBLAS-$OPENBLAS_VERSION.tar.gz"
     cd OpenBLAS-$OPENBLAS_VERSION || exit 1
-    make "-j$(nproc)" TARGET=NEHALEM
+    make "-j$(nproc)" DYNAMIC_ARCH=1 NO_LAPACKE=1 NO_CBLAS=1
 
     # install openblas for runtime usage
-    cp -a libopenblas_nehalemp-r$OPENBLAS_VERSION.so "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION"
-
-    # BLAS and LAPACK libs
-    # TODO: only export BLAS / LAPACK ABI
-    cp -a "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$INSTALLUSRDIR/lib/libblas.so.3"
+    cp libopenblas.so "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION"
+    
+    # Provides BLAS
+    cp "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$INSTALLUSRDIR/lib/libblas.so.3"
     patchelf --set-soname libblas.so.3 "$INSTALLUSRDIR/lib/libblas.so.3"
-    cp -a "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$INSTALLUSRDIR/lib/liblapack.so.3"
+    ln -fs libblas.so.3 "$INSTALLUSRDIR/lib/libblas.so"
+    
+    # Provides LAPACK
+    cp "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$INSTALLUSRDIR/lib/liblapack.so.3"
     patchelf --set-soname liblapack.so.3 "$INSTALLUSRDIR/lib/liblapack.so.3"
-    cd "$INSTALLUSRDIR/lib" || exit 1
-    ln -fs libblas.so.3 libblas.so
-    ln -fs liblapack.so.3 liblapack.so
+    ln -fs liblapack.so.3 "$INSTALLUSRDIR/lib/liblapack.so"
 }
 
 build_openjdk() {
@@ -472,16 +473,18 @@ build_arpack() {
 
     INSTALL_DIR=$BUILDDIR/arpack-ng-$ARPACK_VERSION/install_dir
 
+    rm -rf arpack-ng-$ARPACK_VERSION
     tar -xzf "$DOWNLOADDIR/arpack-ng-$ARPACK_VERSION.tar.gz"
     cd arpack-ng-$ARPACK_VERSION || exit 1
-    rm -rf "$INSTALL_DIR" && mkdir "$INSTALL_DIR"
-    ./configure --prefix=  F77=gfortran \
-        --with-blas="$INSTALLUSRDIR/lib/libblas.so" \
-        --with-lapack="$INSTALLUSRDIR/lib/liblapack.so"
-    make "-j$(nproc)"
-    make install DESTDIR="$INSTALL_DIR"
 
-    cp -a "$INSTALL_DIR"/lib/libarpack.so* "$INSTALLUSRDIR/lib/"
+    mkdir -p build || exit 1
+    cd build || exit 1
+    cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
+        -DBUILD_SHARED_LIBS=ON \
+        -DBLAS_LIBRARIES="$INSTALLUSRDIR/lib/libblas.so" \
+        -DLAPACK_LIBRARIES="$INSTALLUSRDIR/lib/liblapack.so"
+    cmake --build . --parallel --config Release
+    cp -a lib/libarpack.so* "$INSTALLUSRDIR/lib/"
 }
 
 build_eigen() {
@@ -509,7 +512,7 @@ build_hdf5() {
         -DBUILD_SHARED_LIBS=ON \
         -DHDF5_BUILD_CPP_LIB=ON \
         -DHDF5_BUILD_HL_LIB=ON
-    cmake --build . --parallel --target install
+    cmake --build . --parallel --target install --config Release
 
     cp -a "$INSTALL_DIR"/lib/*.so* "$INSTALLUSRDIR/lib/"
     cp -a "$INSTALL_DIR"/include/* "$INSTALLUSRDIR/include/"
@@ -953,7 +956,8 @@ build_openxlsx() {
 
     mkdir -p build
     cd build || exit 1
-    cmake ..
+    cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
+        -DBUILD_SHARED_LIBS=ON
     cmake --build . --parallel --target OpenXLSX --config Release
 
     cd ../
