@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2016 - Scilab Enterprises - Clement DAVID
+ *
+ * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ *
+ * This file is hereby licensed under the terms of the GNU GPL v2.0,
+ * pursuant to article 5.3.4 of the CeCILL v.2.1.
+ * This file was originally licensed under the terms of the CeCILL v2.1,
+ * and continues to be available under such terms.
+ * For more information, see the COPYING file which you should have received
+ * along with this program.
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="tbx_generate" xml:lang="en">
+    <refnamediv>
+        <refname>tbx_generate</refname>
+        <refpurpose>Generate a new toolbox based on the toolbox_skeleton</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Syntax</title>
+        <synopsis>
+            tbx_generate(NAME, TITLE)
+            tbx_generate(NAME, TITLE, entryPoints)
+        </synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>NAME</term>
+                <listitem>
+                    <para>name of the toolbox, should be simple and unique</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>TITLE</term>
+                <listitem>
+                    <para>title of the toolbox, a one line title that describe the functionnality.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>entryPoints</term>
+                <listitem>
+                    <para>string matrix that describe generated stub kind and stub name</para>
+                    <para>If the kind is not specified, a Scilab macro is generated. If the kind is specified, it should be a value in :</para>
+                    <variablelist>
+                        <varlistentry>
+                            <term>"macros"</term>
+                            <listitem>Scilab macro</listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"sci_gateway/c"</term>
+                            <listitem>C gateway</listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"sci_gateway/cpp"</term>
+                            <listitem>C++ gateway</listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"src/c"</term>
+                            <listitem>C source</listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"src/cpp"</term>
+                            <listitem>C++ source</listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"src/fortran"</term>
+                            <listitem>Fortran source</listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>"src/java"</term>
+                            <listitem>Java source</listitem>
+                        </varlistentry>
+                    </variablelist>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+cd TMPDIR
+tbx_generate("myNewEmptyToolbox", "This is an empty newly generated toolbox")
+
+ls("TMPDIR/myNewEmptyToolbox")
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+cd TMPDIR
+entryPoints = [..
+"foo" 
+"bar"
+];
+tbx_generate("myNewScilabToolbox", "This is a newly generated Scilab toolbox", entryPoints)
+ ]]></programlisting>
+        <programlisting role="example"><![CDATA[
+cd TMPDIR
+entryPoints = [
+"macros"               "foo"
+"sci_gateway/cpp"      "bar"
+"src/cpp"              "foobar"
+];
+tbx_generate("myNewNativeToolbox", "This is a newly generated Scilab native toolbox", entryPoints)
+ ]]></programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="tbx_build_localization">tbx_build_localization</link>
+            </member>
+        </simplelist>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.0.0</revnumber>
+                <revdescription>Function tbx_generate added.</revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
