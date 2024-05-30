@@ -31,8 +31,8 @@ if errorlevel 1 (
 type scilab\svn-info.txt
 if errorlevel 1 exit 1
 
-REM Define environment variables
-set SCILAB_JDK64=%JAVA_HOME%
+REM Define environment variables if not defined
+IF "%SCILAB_JDK64%"=="" set SCILAB_JDK64=%JAVA_HOME%
 
 cd scilab
 
