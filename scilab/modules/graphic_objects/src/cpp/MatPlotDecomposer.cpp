@@ -63,7 +63,14 @@ int MatPlotDecomposer::fillTextureData(int id, unsigned char* buffer, int buffer
     const int w = getTextureWidth(id);
 
     getGraphicObjectProperty(id, __GO_DATA_MODEL_Z__, jni_double_vector, &data);
-    getGraphicObjectProperty(id, __GO_DATA_MODEL_MATPLOT_DATA_TYPE__, jni_int, (void**) &pidataType);
+    if (data == NULL)
+    {
+        // Synchronisation issue: Scilab is updating the data while plot is refreshed
+        // See NgonGridMatplotData::setImageData where data pointer can be freed and then re-allocated
+        // This redraw will not do any update waiting for next refresh
+        return 0;
+    }
+    getGraphicObjectProperty(id, __GO_DATA_MODEL_MATPLOT_DATA_TYPE__, jni_int, (void**)&pidataType);
     getGraphicObjectProperty(id, __GO_PARENT_FIGURE__, jni_int, (void**) &piParentFigure);
     getGraphicObjectProperty(parentFigure, __GO_COLORMAP__, jni_double_vector, (void**) &colormap);
     getGraphicObjectProperty(parentFigure, __GO_COLORMAP_SIZE__, jni_int, (void**) &piColormapSize);
