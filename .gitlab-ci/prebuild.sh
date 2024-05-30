@@ -80,6 +80,13 @@ OPENXLSX_VERSION=0.3.2
 FOP_VERSION=2.0
 LIBARCHIVE_VERSION=3.7.1
 
+# CppServer and its deps
+CPPSERVER_VERSION=1.0.4.1
+ASIO_VERSION=1.29.0
+CPPCOMMON_VERSION=1.0.4.0
+CPPSERVER_FMT_VERSION=10.2.1
+CPPSERVER_CMAKE_VERSION=1.0.0.0
+
 # Variables used by ant to build Java deps in Java 8
 export JAVA_HOME="$BUILDDIR/java/jdk-$JDK_VERSION/"
 export ANT_HOME="$INSTALLROOTDIR/java/ant"
@@ -112,6 +119,10 @@ make_versions() {
     echo "OPENXLSX_VERSION      = $OPENXLSX_VERSION"
     echo "FOP_VERSION           = $FOP_VERSION"
     echo "LIBARCHIVE_VERSION    = $LIBARCHIVE_VERSION"
+    echo "CPPSERVER_VERSION     = $CPPSERVER_VERSION"
+    echo "ASIO_VERSION          = $ASIO_VERSION"
+    echo "CPPCOMMON_VERSION     = $CPPCOMMON_VERSION"
+    echo "CPPSERVER_FMT_VERSION = $CPPSERVER_FMT_VERSION"
 }
 
 ####################
@@ -120,10 +131,9 @@ make_versions() {
 download_dependencies() {
     cd "$DOWNLOADDIR" || exit 1
 
-
     [ ! -f jre-$JRE_VERSION.tar.gz ] && curl -L -o jre-$JRE_VERSION.tar.gz "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/OpenJDK17U-jre_x64_linux_hotspot_$(echo ${JRE_VERSION} |sed 's/-//g').tar.gz"
     [ ! -f jdk-$JDK_VERSION.tar.gz ] && curl -L -o jdk-$JDK_VERSION.tar.gz "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/ibm-semeru-open-jdk_x64_linux_$(echo ${JDK_VERSION} |sed 's/+/_/g')_openj9-0.38.0.tar.gz"
-    
+
     [ ! -f OpenBLAS-$OPENBLAS_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/OpenBLAS-$OPENBLAS_VERSION.tar.gz
     [ ! -f apache-ant-$ANT_VERSION-bin.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/apache-ant-$ANT_VERSION-bin.tar.gz
     [ ! -f arpack-ng-$ARPACK_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/arpack-ng-$ARPACK_VERSION.tar.gz
@@ -155,13 +165,20 @@ download_dependencies() {
 
     # This archive contains .jar and directories that have been copied from Scilab prerequirements
     # JavaFX/openjfx is only shipped as JARs, no rebuild is needed for now
-    curl -L --time-cond thirdparty-jar.zip -o thirdparty-jar.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar-${BRANCH}.zip
+    curl -L --time-cond thirdparty-jar.zip -o thirdparty-jar.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar-${BRANCH}.zip"
     if ! unzip -t "thirdparty-jar.zip"; then
         # fallback to the default branch
-        curl -L --time-cond thirdparty-jar.zip -o thirdparty-jar.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar-${CI_DEFAULT_BRANCH}.zip
+        curl -L --time-cond thirdparty-jar.zip -o thirdparty-jar.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar-${CI_DEFAULT_BRANCH}.zip"
     fi
 
     [ ! -f libarchive-$LIBARCHIVE_VERSION.tar.xz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/libarchive-$LIBARCHIVE_VERSION.tar.xz
+
+    # CppServer and its deps
+    [ ! -f cppserver-$CPPSERVER_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cppserver-$CPPSERVER_VERSION.zip
+    [ ! -f asio-$ASIO_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/asio-$ASIO_VERSION.zip
+    [ ! -f cppcommon-$CPPCOMMON_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cppcommon-$CPPCOMMON_VERSION.zip
+    [ ! -f cppserverfmt-$CPPSERVER_FMT_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cppserverfmt-$CPPSERVER_FMT_VERSION.zip
+    [ ! -f cppservercmake-$CPPSERVER_FMT_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cppservercmake-$CPPSERVER_CMAKE_VERSION.zip
 
     true;
 }
@@ -189,6 +206,7 @@ make_all() {
     build_ncurses
     build_openxlsx
     build_libarchive
+    build_cppserver
 }
 
 make_binary_directory() {
@@ -319,6 +337,16 @@ make_binary_directory() {
     rm -f "$LIBTHIRDPARTYDIR"/libncurses.* "$LIBTHIRDPARTYDIR"/libscincurses.*
     rm -f "$LIBTHIRDPARTYDIR"/redist/libncurses.* "$LIBTHIRDPARTYDIR"/redist/libscincurses.*
     cp -d "$INSTALLUSRDIR"/lib/libscincurses.so* "$LIBTHIRDPARTYDIR/redist/"
+
+    # cppserver lib and its deps
+    rm -f "$LIBTHIRDPARTYDIR"/libasio.so*
+    cp -d "$INSTALLUSRDIR"/lib/libasio.so "$LIBTHIRDPARTYDIR/"
+    rm -f "$LIBTHIRDPARTYDIR"/libfmt.so*
+    cp -d "$INSTALLUSRDIR"/lib/libfmt.so "$LIBTHIRDPARTYDIR/"
+    rm -f "$LIBTHIRDPARTYDIR"/libcppserver.so*
+    cp -d "$INSTALLUSRDIR"/lib/libcppserver.so "$LIBTHIRDPARTYDIR/"
+    rm -f "$LIBTHIRDPARTYDIR"/libcppcommon.so*
+    cp -d "$INSTALLUSRDIR"/lib/libcppcommon.so "$LIBTHIRDPARTYDIR/"
 
     # GCC libs could be there but are prefixed with "sci" to avoid clashing
     # system libraries static linked into scilab libraries instead.  This
@@ -482,7 +510,8 @@ build_arpack() {
     cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
         -DBUILD_SHARED_LIBS=ON \
         -DBLAS_LIBRARIES="$INSTALLUSRDIR/lib/libblas.so" \
-        -DLAPACK_LIBRARIES="$INSTALLUSRDIR/lib/liblapack.so"
+        -DLAPACK_LIBRARIES="$INSTALLUSRDIR/lib/liblapack.so" \
+        -G "Unix Makefiles"
     cmake --build . --parallel --config Release
     cp -a lib/libarpack.so* "$INSTALLUSRDIR/lib/"
 }
@@ -511,7 +540,8 @@ build_hdf5() {
     cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
         -DBUILD_SHARED_LIBS=ON \
         -DHDF5_BUILD_CPP_LIB=ON \
-        -DHDF5_BUILD_HL_LIB=ON
+        -DHDF5_BUILD_HL_LIB=ON \
+        -G "Unix Makefiles"
     cmake --build . --parallel --target install --config Release
 
     cp -a "$INSTALL_DIR"/lib/*.so* "$INSTALLUSRDIR/lib/"
@@ -791,7 +821,8 @@ build_libarchive() {
 build_suitesparse() {
     cd "$BUILDDIR" || exit 1
 
-    INSTALL_DIR=$BUILDDIR/SuiteSparse/install_dir
+    INSTALL_DIR=$BUILDDIR/SuiteSparse-$SUITESPARSE_VERSION/install_dir
+
     rm -rf "$INSTALL_DIR"
     mkdir -p "$INSTALL_DIR/lib"
     mkdir -p "$INSTALL_DIR/include"
@@ -951,13 +982,16 @@ build_jogl() {
 build_openxlsx() {
     cd "$BUILDDIR" || exit 1
 
+    INSTALL_DIR=$BUILDDIR/OpenXLSX-$OPENXLSX_VERSION/install_dir
+
     tar -xzf "$DOWNLOADDIR/OpenXLSX-$OPENXLSX_VERSION.tar.gz"
     cd OpenXLSX-$OPENXLSX_VERSION || exit 1
 
     mkdir -p build
     cd build || exit 1
     cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
-        -DBUILD_SHARED_LIBS=ON
+        -DBUILD_SHARED_LIBS=ON \
+        -G "Unix Makefiles"
     cmake --build . --parallel --target OpenXLSX --config Release
 
     cd ../
@@ -970,6 +1004,74 @@ build_openxlsx() {
         -Wl,--no-whole-archive
 
     cp -a libOpenXLSX.so "$INSTALLUSRDIR/lib/"
+}
+
+build_cppserver() {
+    cd "$BUILDDIR" || exit 1
+
+    INSTALL_DIR=$BUILDDIR/cppserver-$CPPSERVER_VERSION/install_dir
+
+    rm -rf cppserver
+    unzip -q "$DOWNLOADDIR/cppserver-$CPPSERVER_VERSION.zip"
+    mv CppServer-$CPPSERVER_VERSION cppserver
+    cd cppserver || exit 1
+    # add cmake files
+    unzip -q "$DOWNLOADDIR/cppservercmake-$CPPSERVER_CMAKE_VERSION.zip"
+    mv CppCMakeScripts-$CPPSERVER_CMAKE_VERSION cmake
+
+    # add cppserver needed modules
+    cd modules || exit 1
+    unzip -q "$DOWNLOADDIR/asio-$ASIO_VERSION.zip"
+    mv asio-asio-"$(echo $ASIO_VERSION | tr "." "-")" asio
+    unzip -q "$DOWNLOADDIR/cppcommon-$CPPCOMMON_VERSION.zip"
+    mv CppCommon-$CPPCOMMON_VERSION CppCommon
+    cd CppCommon/modules || exit 1
+    unzip -q "$DOWNLOADDIR/cppserverfmt-$CPPSERVER_FMT_VERSION.zip"
+    mv fmt-$CPPSERVER_FMT_VERSION fmt
+    cd ../../../
+
+    # link against our openssl
+    export OPENSSL_ROOT_DIR="$INSTALLUSRDIR"
+
+    ln -s "$BUILDDIR/cppserver/cmake" modules/CppCommon/cmake
+
+    # update cmake files to include only needed sources
+    sed -i '/Catch2/s/^/#/' modules/CMakeLists.txt
+    sed -i '/CppBenchmark/s/^/#/' modules/CMakeLists.txt
+    sed -i '/cpp-optparse/s/^/#/' modules/CMakeLists.txt
+    sed -i '/Catch2/s/^/#/' modules/CppCommon/modules/CMakeLists.txt
+    sed -i '/CppBenchmark/s/^/#/' modules/CppCommon/modules/CMakeLists.txt
+    sed -i '/vld/s/^/#/' modules/CppCommon/modules/CMakeLists.txt
+
+    # generate makefile
+    mkdir -p build
+    cd build || exit 1
+    # DCPPSERVER_MODULE: remove execution of benchmarks and tests from build
+    cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
+        -DBUILD_SHARED_LIBS=ON \
+        -DCPPSERVER_MODULE=true \
+        -G "Unix Makefiles"
+    # build cppserver
+    cmake --build . --parallel --config Release
+
+    # copy libs
+    cd ../
+    cp -- *.so "$INSTALLUSRDIR/lib/"
+
+    # copy includes
+    rm -rf "$INSTALLUSRDIR/include/cppserver/"
+    mkdir -p "$INSTALLUSRDIR/include/cppserver/cppserver"
+    mkdir -p "$INSTALLUSRDIR/include/cppserver/cppcommon"
+    mkdir -p "$INSTALLUSRDIR/include/cppserver/asio"
+    mkdir -p "$INSTALLUSRDIR/include/cppserver/fmt"
+
+    cp -r include/server "$INSTALLUSRDIR/include/cppserver/cppserver"
+
+    rm modules/asio/asio/include/Makefile.am
+    cp -r modules/asio/asio/include/* "$INSTALLUSRDIR/include/cppserver/asio/"
+
+    cp -r modules/CppCommon/include/* "$INSTALLUSRDIR/include/cppserver/cppcommon/"
+    cp -r modules/CppCommon/modules/fmt/include/* "$INSTALLUSRDIR/include/cppserver/fmt/"
 }
 
 #########################
