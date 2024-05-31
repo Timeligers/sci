@@ -97,7 +97,31 @@ CFLAGS="$CFLAGS $HDF5_CFLAGS"
 LIBS="$LIBS $HDF5_LIBS"
 AC_CHECK_HEADER([hdf5.h], [], [AC_MSG_ERROR([Check libhdf5 presence and version. See more details in config.log])])
 
-CFLAGS="$save_CFLAGS"
+dnl check HD5 version
+hdf5_version_ok=no
+AC_MSG_CHECKING([if hdf5 version is >= 1.10])
+AC_RUN_IFELSE([AC_LANG_PROGRAM([
+#include <H5public.h>
+],[
+#if H5_VERSION_GE(1,10,0) == 0
+exit(1);
+#endif
+])], [hdf5_version_ok=yes], [AC_MSG_ERROR(hdf5 must be >= 1.10)])
+AC_MSG_RESULT($hdf5_version_ok)
+
+dnl check if HDF5 is compiled with deprecated symbols
+hdf5_has_deprecated_symbols=no
+AC_MSG_CHECKING([if hdf5 has deprecated symbols])
+AC_RUN_IFELSE([AC_LANG_PROGRAM([
+#include <H5pubconf.h>
+],[
+#if defined(H5_NO_DEPRECATED_SYMBOLS)
+exit(1);
+#endif
+])], [hdf5_has_deprecated_symbols=yes], [AC_MSG_ERROR(hdf5 must be compiled with deprecated symbols)])
+AC_MSG_RESULT($hdf5_has_deprecated_symbols)
+
+CFLAGS="$saved_CFLAGS"
 LIBS="$save_LIBS"
 
 AC_SUBST(HDF5_LIBS)
