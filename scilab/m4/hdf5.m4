@@ -32,14 +32,15 @@ AC_ARG_WITH(hdf5_library,
         [with_hdf5_library='yes']
         )
 
+save_CFLAGS="$CFLAGS"
+save_LIBS="$LIBS"
+
 if test "x$with_hdf5_include" != "xyes"; then
-    save_CFLAGS="$CFLAGS"
     CFLAGS="-I$with_hdf5_include"
     AC_CHECK_HEADER([hdf5.h],
         [HDF5_CFLAGS="$CFLAGS"],
         [AC_MSG_ERROR([Cannot find headers (hdf5.h) of the library HDF5 in $with_hdf5_include. Please install the dev package])]
     )
-    CFLAGS="$save_CFLAGS"
 else
     HDF5_CFLAGS=""
     if $WITH_DEVTOOLS; then # Scilab thirdparties
@@ -57,7 +58,7 @@ else
     fi
 fi
 
-save_LIBS="$LIBS"
+HDF5_CFLAGS+=" -DH5_USE_110_API"
 
 # --with-hdf5-library set then check in this dir
 if test "x$with_hdf5_library" != "xyes"; then
@@ -92,6 +93,11 @@ else
     fi
 fi
 
+CFLAGS="$CFLAGS $HDF5_CFLAGS"
+LIBS="$LIBS $HDF5_LIBS"
+AC_CHECK_HEADER([hdf5.h], [], [AC_MSG_ERROR([Check libhdf5 presence and version. See more details in config.log])])
+
+CFLAGS="$save_CFLAGS"
 LIBS="$save_LIBS"
 
 AC_SUBST(HDF5_LIBS)
