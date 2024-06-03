@@ -127,7 +127,7 @@ exit(1);
 ])], [hdf5_has_deprecated_symbols=yes], [AC_MSG_ERROR(hdf5 must be compiled with deprecated symbols for hdf5 > 1.10)])
 AC_MSG_RESULT($hdf5_has_deprecated_symbols)
 
-CFLAGS="$saved_CFLAGS"
+CFLAGS="$save_CFLAGS"
 LIBS="$save_LIBS"
 
 AC_SUBST(HDF5_LIBS)

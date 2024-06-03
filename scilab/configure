@@ -12989,7 +12989,7 @@ fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $hdf5_has_deprecated_symbols" >&5
 printf "%s\n" "$hdf5_has_deprecated_symbols" >&6; }
 
-CFLAGS="$saved_CFLAGS"
+CFLAGS="$save_CFLAGS"
 LIBS="$save_LIBS"
 
 
