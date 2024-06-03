@@ -117,7 +117,7 @@ AC_RUN_IFELSE([AC_LANG_PROGRAM([
 #include <H5public.h>
 #include <stdlib.h>
 ],[
-#if H5_VERSION_LE(1,10,0) == 1
+#if H5_VERSION_GE(1,11,0) == 1
 #if defined(H5_NO_DEPRECATED_SYMBOLS)
 exit(1);
 #endif
