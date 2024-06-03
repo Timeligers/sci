@@ -102,23 +102,29 @@ hdf5_version_ok=no
 AC_MSG_CHECKING([if hdf5 version is >= 1.10])
 AC_RUN_IFELSE([AC_LANG_PROGRAM([
 #include <H5public.h>
+#include <stdlib.h>
+#include <stdio.h>
 ],[
 #if H5_VERSION_GE(1,10,0) == 0
 exit(1);
 #endif
+printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
 ])], [hdf5_version_ok=yes], [AC_MSG_ERROR(hdf5 must be >= 1.10)])
 AC_MSG_RESULT($hdf5_version_ok)
 
-dnl check if HDF5 is compiled with deprecated symbols
+dnl check if HDF5 is compiled with deprecated symbolsif a recent version is used
 hdf5_has_deprecated_symbols=no
 AC_MSG_CHECKING([if hdf5 has deprecated symbols])
 AC_RUN_IFELSE([AC_LANG_PROGRAM([
-#include <H5pubconf.h>
+#include <H5public.h>
+#include <stdlib.h>
 ],[
+#if H5_VERSION_LE(1,10,0) == 1
 #if defined(H5_NO_DEPRECATED_SYMBOLS)
 exit(1);
 #endif
-])], [hdf5_has_deprecated_symbols=yes], [AC_MSG_ERROR(hdf5 must be compiled with deprecated symbols)])
+#endif
+])], [hdf5_has_deprecated_symbols=yes], [AC_MSG_ERROR(hdf5 must be compiled with deprecated symbols for hdf5 > 1.10)])
 AC_MSG_RESULT($hdf5_has_deprecated_symbols)
 
 CFLAGS="$saved_CFLAGS"
