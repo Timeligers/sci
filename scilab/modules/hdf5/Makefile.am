@@ -96,21 +96,6 @@ endif
 
 #### hdf5 : include files ####
 
-# Enforce specific API version to 1.10.0
-FORCE_HDF5_API = \
-    -DH5Dopen_vers=2 \
-    -DH5Topen_vers=2 \
-    -DH5Dcreate_vers=2 \
-    -DH5Aiterate_vers=2 \
-    -DH5Gcreate_vers=2 \
-    -DH5Gopen_vers=2 \
-    -DH5Tget_array_dims_vers=2 \
-    -DH5Acreate_vers=2 \
-    -DH5Rdereference_vers=2 \
-    -DH5Eset_auto_vers=2 \
-    -DH5_USE_110_API
-
-
 libscihdf5_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c/ \
@@ -137,7 +122,6 @@ libscihdf5_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/io/includes/ \
     $(JAVA_JNI_INCLUDE) \
     $(HDF5_CFLAGS) \
-    $(FORCE_HDF5_API) \
     $(AM_CPPFLAGS)
 
 

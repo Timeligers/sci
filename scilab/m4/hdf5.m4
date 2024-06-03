@@ -58,8 +58,6 @@ else
     fi
 fi
 
-HDF5_CFLAGS+=" -DH5_USE_110_API"
-
 # --with-hdf5-library set then check in this dir
 if test "x$with_hdf5_library" != "xyes"; then
     HDF5_LIBS="-L$with_hdf5_library -lhdf5 -lhdf5_hl"
