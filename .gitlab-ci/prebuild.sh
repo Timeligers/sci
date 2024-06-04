@@ -1056,7 +1056,7 @@ build_cppserver() {
 
     # copy libs
     cd ../
-    cp -- *.so "$INSTALLUSRDIR/lib/"
+    cp -- $(find . -name *.so) "$INSTALLUSRDIR/lib/"
 
     # copy includes
     rm -rf "$INSTALLUSRDIR/include/cppserver/"

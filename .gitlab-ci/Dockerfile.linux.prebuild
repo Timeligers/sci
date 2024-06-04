@@ -10,9 +10,7 @@ ENV CMAKE_VERSION=3.28.3
 WORKDIR /cmake-${CMAKE_VERSION}
 RUN curl -o cmake.tar.gz https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cmake-${CMAKE_VERSION}.tar.gz && \
     tar -xzf cmake.tar.gz --strip-components=1 && \
-    ./bootstrap -- \
-        -DCMAKE_USE_OPENSSL=OFF \
-        && \
+    ./bootstrap -- -DCMAKE_USE_OPENSSL=OFF && \
     make -j$(nproc) && \
     make install && \
     rm -fr /cmake-${CMAKE_VERSION}
