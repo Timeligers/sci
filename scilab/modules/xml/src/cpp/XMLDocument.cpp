@@ -20,6 +20,7 @@
 #include "XMLValidation.hxx"
 #include "XMLValidationRelaxNG.hxx"
 #include "VariableScope.hxx"
+#include <libxml/xmlsave.h>
 
 extern "C"
 {
@@ -520,7 +521,11 @@ void XMLDocument::errorFunction(void *ctx, const char *msg, ...)
     errorBuffer.append(str);
 }
 
+#if LIBXML_VERSION > 20909
+void XMLDocument::errorXPathFunction(void *ctx, const xmlError * error)
+#else
 void XMLDocument::errorXPathFunction(void *ctx, xmlError * error)
+#endif
 {
     errorXPathBuffer.append(error->message);
 }

@@ -1025,7 +1025,7 @@ xtitle("Слой 10");
         </para>
         <programlisting role="example"><![CDATA[
 n = getdate("s");
-grand("setsd", n)
+grand("setsd", floor(n))
     ]]></programlisting>
     </refsection>
     <refsection>
