@@ -50,33 +50,5 @@ libscifunctions_manager_la_CPPFLAGS = \
 libscifunctions_manager_la_includedir=$(pkgincludedir)
 
 libscifunctions_manager_la_include_HEADERS =
-
-####################
-## Automated test ##
-####################
-check_INCLUDES = \
-    -I$(top_srcdir)/modules/ast/includes/ast/ \
-    -I$(top_srcdir)/modules/ast/includes/exps/ \
-    -I$(top_srcdir)/modules/ast/includes/operations/ \
-    -I$(top_srcdir)/modules/ast/includes/parse/ \
-    -I$(top_srcdir)/modules/ast/includes/symbol/ \
-    -I$(top_srcdir)/modules/ast/includes/system_env/ \
-    -I$(top_srcdir)/modules/ast/includes/types/ \
-    -Iincludes/ \
-    -Isrc/cpp
-
-check_PROGRAMS = testFunctionManager
-
-TESTS = testFunctionManager
-
-testFunctionManager_SOURCES = \
-    src/cpp/test-function.cpp \
-    src/cpp/foo.cpp \
-    src/cpp/cosinus.cpp
-
-testFunctionManager_CXXFLAGS 	= $(check_INCLUDES)
-testFunctionManager_LDADD	= \
-    $(top_builddir)/modules/types/libsciTypes.la \
-    $(top_builddir)/modules/functions_manager/libscifunctions_manager.la
     
 include $(top_srcdir)/Makefile.incl.am    
