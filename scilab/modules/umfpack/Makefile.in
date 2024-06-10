@@ -229,10 +229,6 @@ am__libsciumfpack_la_SOURCES_DIST = src/noumfpack/noumfpack.c \
 @UMFPACK_FALSE@am_libsciumfpack_la_OBJECTS = $(am__objects_2)
 @UMFPACK_TRUE@am_libsciumfpack_la_OBJECTS = $(am__objects_3)
 libsciumfpack_la_OBJECTS = $(am_libsciumfpack_la_OBJECTS)
-libsciumfpack_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(AM_CFLAGS) $(CFLAGS) $(libsciumfpack_la_LDFLAGS) $(LDFLAGS) \
-	-o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -639,7 +635,6 @@ yacc_present = @yacc_present@
 modulename = umfpack
 pkglib_LTLIBRARIES = libsciumfpack.la
 @UMFPACK_TRUE@noinst_LTLIBRARIES = libsciumfpack-algo.la
-libsciumfpack_la_LDFLAGS = $(AM_LDFLAGS)
 
 #### umfpack : Conf files ####
 libsciumfpack_la_rootdir = $(mydatadir)
@@ -949,7 +944,7 @@ sci_gateway/c/libsciumfpack_la-sci_umfpack.lo:  \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 
 libsciumfpack.la: $(libsciumfpack_la_OBJECTS) $(libsciumfpack_la_DEPENDENCIES) $(EXTRA_libsciumfpack_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libsciumfpack_la_LINK) -rpath $(pkglibdir) $(libsciumfpack_la_OBJECTS) $(libsciumfpack_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libsciumfpack_la_OBJECTS) $(libsciumfpack_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

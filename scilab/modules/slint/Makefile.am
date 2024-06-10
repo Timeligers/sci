@@ -138,7 +138,6 @@ libscislint_algo_la_SOURCES = $(SLINT_CXX_SOURCES)
 libscislint_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libscislint_algo_la_CPPFLAGS = $(libscislint_la_CPPFLAGS)
 
-libscislint_la_LDFLAGS = $(AM_LDFLAGS)
 libscislint_la_LIBADD = libscislint-algo.la $(XML_LIBS)
 
 # For the code check (splint)

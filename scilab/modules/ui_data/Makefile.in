@@ -216,10 +216,6 @@ am__objects_5 = sci_gateway/cpp/libsciui_data_la-sci_editvar.lo \
 	sci_gateway/cpp/libsciui_data_la-sci_updatebrowsevar.lo
 am_libsciui_data_la_OBJECTS = $(am__objects_5)
 libsciui_data_la_OBJECTS = $(am_libsciui_data_la_OBJECTS)
-libsciui_data_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libsciui_data_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @GUI_TRUE@am_libsciui_data_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -731,7 +727,6 @@ UI_DATA_DISABLE_C_SOURCES = src/noui_data/noui_data.c
 libsciui_data_disable_la_SOURCES = $(UI_DATA_DISABLE_C_SOURCES)
 pkglib_LTLIBRARIES = libsciui_data-disable.la $(am__append_3)
 @GUI_TRUE@noinst_LTLIBRARIES = libsciui_data-algo.la
-libsciui_data_la_LDFLAGS = $(AM_LDFLAGS)
 libsciui_data_algo_la_SOURCES = $(UI_DATA_C_SOURCES) $(UI_DATA_JNI_SOURCES) $(UI_DATA_CXX_SOURCES)
 libsciui_data_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libsciui_data_algo_la_CPPFLAGS = $(libsciui_data_la_CPPFLAGS)
@@ -993,7 +988,7 @@ sci_gateway/cpp/libsciui_data_la-sci_updatebrowsevar.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libsciui_data.la: $(libsciui_data_la_OBJECTS) $(libsciui_data_la_DEPENDENCIES) $(EXTRA_libsciui_data_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciui_data_la_LINK) $(am_libsciui_data_la_rpath) $(libsciui_data_la_OBJECTS) $(libsciui_data_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciui_data_la_rpath) $(libsciui_data_la_OBJECTS) $(libsciui_data_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

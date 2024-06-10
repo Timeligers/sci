@@ -118,8 +118,6 @@ pkglib_LTLIBRARIES += libsciui_data.la
 noinst_LTLIBRARIES = libsciui_data-algo.la
 endif
 
-libsciui_data_la_LDFLAGS = $(AM_LDFLAGS)
-
 libsciui_data_algo_la_SOURCES = $(UI_DATA_C_SOURCES) $(UI_DATA_JNI_SOURCES) $(UI_DATA_CXX_SOURCES)
 libsciui_data_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libsciui_data_algo_la_CPPFLAGS = $(libsciui_data_la_CPPFLAGS)

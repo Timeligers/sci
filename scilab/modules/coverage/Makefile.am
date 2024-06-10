@@ -77,7 +77,6 @@ libscicoverage_algo_la_SOURCES = $(COVERAGE_CXX_SOURCES)
 libscicoverage_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libscicoverage_algo_la_CPPFLAGS = $(libscicoverage_la_CPPFLAGS)
 
-libscicoverage_la_LDFLAGS = $(AM_LDFLAGS)
 libscicoverage_la_LIBADD = libscicoverage-algo.la $(XML_LIBS)
 
 # For the code check (splint)

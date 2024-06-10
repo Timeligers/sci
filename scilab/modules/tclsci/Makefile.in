@@ -246,10 +246,6 @@ am__libscitclsci_la_SOURCES_DIST = sci_gateway/c/sci_opentk.c \
 @TCLTK_TRUE@	sci_gateway/c/libscitclsci_la-sci_TCL_UpVar.lo
 am_libscitclsci_la_OBJECTS = $(am__objects_4)
 libscitclsci_la_OBJECTS = $(am_libscitclsci_la_OBJECTS)
-libscitclsci_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(AM_CFLAGS) $(CFLAGS) $(libscitclsci_la_LDFLAGS) $(LDFLAGS) \
-	-o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -721,7 +717,6 @@ yacc_present = @yacc_present@
 @TCLTK_TRUE@    sci_gateway/c/sci_TCL_ExistArray.c \
 @TCLTK_TRUE@    sci_gateway/c/sci_TCL_UpVar.c
 
-libscitclsci_la_LDFLAGS = $(AM_LDFLAGS)
 libscitclsci_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c \
@@ -1098,7 +1093,7 @@ sci_gateway/c/libscitclsci_la-sci_TCL_UpVar.lo:  \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 
 libscitclsci.la: $(libscitclsci_la_OBJECTS) $(libscitclsci_la_DEPENDENCIES) $(EXTRA_libscitclsci_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libscitclsci_la_LINK) -rpath $(pkglibdir) $(libscitclsci_la_OBJECTS) $(libscitclsci_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscitclsci_la_OBJECTS) $(libscitclsci_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

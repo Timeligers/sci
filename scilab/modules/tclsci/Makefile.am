@@ -47,8 +47,6 @@ GATEWAY_C_SOURCES =
 
 endif
 
-libscitclsci_la_LDFLAGS = $(AM_LDFLAGS)
-
 libscitclsci_la_CPPFLAGS= \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c \

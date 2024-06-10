@@ -257,10 +257,6 @@ am__objects_3 = sci_gateway/cpp/libscihdf5_la-hdf5_gw.lo \
 	sci_gateway/cpp/libscihdf5_la-sci_percent_H5Object_fieldnames.lo
 am_libscihdf5_la_OBJECTS = $(am__objects_3)
 libscihdf5_la_OBJECTS = $(am_libscihdf5_la_OBJECTS)
-libscihdf5_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscihdf5_la_LDFLAGS) $(LDFLAGS) \
-	-o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -839,9 +835,6 @@ libscihdf5_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscihdf5_la_sci_gateway_DATA = sci_gateway/hdf5_gateway.xml
 pkglib_LTLIBRARIES = libscihdf5.la
 noinst_LTLIBRARIES = libscihdf5-algo.la
-
-# When Scilab is built with HDF5, we need some libraries for a workaround
-libscihdf5_la_LDFLAGS = $(AM_LDFLAGS)
 libscihdf5_algo_la_SOURCES = $(HDF5_SOURCES) $(HDF5_CXX_SOURCES)
 libscihdf5_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libscihdf5_algo_la_CPPFLAGS = $(libscihdf5_la_CPPFLAGS)
@@ -1267,7 +1260,7 @@ sci_gateway/cpp/libscihdf5_la-sci_percent_H5Object_fieldnames.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscihdf5.la: $(libscihdf5_la_OBJECTS) $(libscihdf5_la_DEPENDENCIES) $(EXTRA_libscihdf5_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscihdf5_la_LINK) -rpath $(pkglibdir) $(libscihdf5_la_OBJECTS) $(libscihdf5_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscihdf5_la_OBJECTS) $(libscihdf5_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

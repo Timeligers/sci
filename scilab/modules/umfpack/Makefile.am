@@ -19,8 +19,6 @@ if UMFPACK
 noinst_LTLIBRARIES = libsciumfpack-algo.la
 endif
 
-libsciumfpack_la_LDFLAGS = $(AM_LDFLAGS)
-
 #### umfpack : Conf files ####
 libsciumfpack_la_rootdir = $(mydatadir)
 libsciumfpack_la_root_DATA =  \

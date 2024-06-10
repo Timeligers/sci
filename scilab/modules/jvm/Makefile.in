@@ -699,7 +699,7 @@ libscijvm_la_CPPFLAGS = \
 pkglib_LTLIBRARIES = libscijvm-disable.la $(am__append_1)
 @GUI_TRUE@USEANT = 1
 @GUI_TRUE@noinst_LTLIBRARIES = libscijvm-algo.la
-libscijvm_la_LDFLAGS = -pthread $(AM_LDFLAGS)
+libscijvm_la_LDFLAGS = -pthread
 libscijvm_la_LIBADD = libscijvm-algo.la $(XML_LIBS) $(JAVA_JNI_LIBS)
 
 #### jvm : gateway declaration ####

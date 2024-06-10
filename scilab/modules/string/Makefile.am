@@ -115,9 +115,6 @@ else
 noinst_LTLIBRARIES = libscistring-algo.la libscistring.la
 endif
 
-
-libscistring_la_LDFLAGS = $(AM_LDFLAGS)
-
 libscistring_algo_la_SOURCES = $(STRING_C_SOURCES) $(STRING_CPP_SOURCES)
 libscistring_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscistring_algo_la_CFLAGS = $(libscistring_la_CFLAGS)

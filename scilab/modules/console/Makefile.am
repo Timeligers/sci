@@ -170,15 +170,16 @@ libsciconsole_la_CPPFLAGS = \
 # Name of the library
 pkglib_LTLIBRARIES = libsciconsole-minimal.la
 
+libsciconsole_minimal_la_LIBADD = $(NCURSES_LIBS)
+
 if GUI
 pkglib_LTLIBRARIES += libsciconsole.la
-endif
 
-libsciconsole_minimal_la_LIBADD = $(NCURSES_LIBS)
-libsciconsole_la_LIBADD = libsciconsole-minimal.la
+libsciconsole_la_LIBADD = $(NCURSES_LIBS)
 
 # All the sources needed by libsciconsole.la
 libsciconsole_la_SOURCES = $(CONSOLE_C_JNI_SOURCES) $(CONSOLE_C_SOURCES) $(CONSOLE_CPP_JNI_SOURCES) $(CONSOLE_CPP_SOURCES) $(CONSOLE_GATEWAY_C_SOURCES) $(CONSOLE_GATEWAY_CPP_SOURCES)
+endif
 
 # For the code check (splint)
 CHECK_SRC= $(CONSOLE_C_JNI_SOURCES) $(CONSOLE_C_SOURCES)

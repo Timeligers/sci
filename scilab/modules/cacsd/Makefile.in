@@ -265,10 +265,6 @@ am__objects_5 = sci_gateway/cpp/libscicacsd_la-cacsd_gw.lo \
 	sci_gateway/cpp/libscicacsd_la-sci_fstair.lo
 am_libscicacsd_la_OBJECTS = $(am__objects_4) $(am__objects_5)
 libscicacsd_la_OBJECTS = $(am_libscicacsd_la_OBJECTS)
-libscicacsd_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscicacsd_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @MAINTAINER_MODE_FALSE@am_libscicacsd_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libscicacsd_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -916,7 +912,6 @@ libscicacsd_la_CPPFLAGS = \
 @MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscicacsd.la
 @MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscicacsd-algo.la libscicacsd.la
 @MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscicacsd-algo.la
-libscicacsd_la_LDFLAGS = $(AM_LDFLAGS)
 libscicacsd_algo_la_SOURCES = $(CACSD_FORTRAN_SOURCES) $(SLICOT_FORTRAN_SOURCES) $(CACSD_C_SOURCES)
 libscicacsd_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscicacsd_algo_la_CPPFLAGS = $(libscicacsd_la_CPPFLAGS)
@@ -1492,7 +1487,7 @@ sci_gateway/cpp/libscicacsd_la-sci_fstair.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscicacsd.la: $(libscicacsd_la_OBJECTS) $(libscicacsd_la_DEPENDENCIES) $(EXTRA_libscicacsd_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscicacsd_la_LINK) $(am_libscicacsd_la_rpath) $(libscicacsd_la_OBJECTS) $(libscicacsd_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscicacsd_la_rpath) $(libscicacsd_la_OBJECTS) $(libscicacsd_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

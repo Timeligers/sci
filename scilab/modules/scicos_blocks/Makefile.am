@@ -422,10 +422,6 @@ pkglib_LTLIBRARIES += libsciscicos_blocks.la
 endif
 endif
 
-libsciscicos_blocks_algo_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_blocks_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_blocks_cli_la_LDFLAGS = $(AM_LDFLAGS)
-
 libsciscicos_blocks_algo_la_CPPFLAGS= \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c/ \

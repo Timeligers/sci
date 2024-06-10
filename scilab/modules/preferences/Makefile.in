@@ -219,10 +219,6 @@ am__objects_3 = sci_gateway/cpp/libscipreferences_la-sci_addModulePreferences.lo
 am__objects_4 = src/jni/libscipreferences_la-ScilabPreferences.lo
 am_libscipreferences_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscipreferences_la_OBJECTS = $(am_libscipreferences_la_OBJECTS)
-libscipreferences_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscipreferences_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @GUI_TRUE@am_libscipreferences_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -730,7 +726,6 @@ PREFERENCES_CLI_CPP_SOURCES = src/nopreferences/nopreferences.cpp \
 							  sci_gateway/cpp/preferences_gw.cpp
 
 libscipreferences_cli_la_SOURCES = $(PREFERENCES_CLI_CPP_SOURCES)
-libscipreferences_la_LDFLAGS = $(AM_LDFLAGS)
 pkglib_LTLIBRARIES = libscipreferences-cli.la $(am__append_1)
 @GUI_TRUE@noinst_LTLIBRARIES = libscipreferences-algo.la
 libscipreferences_algo_la_SOURCES = $(PREFERENCES_C_SOURCES)
@@ -955,7 +950,7 @@ src/jni/libscipreferences_la-ScilabPreferences.lo:  \
 	src/jni/$(am__dirstamp) src/jni/$(DEPDIR)/$(am__dirstamp)
 
 libscipreferences.la: $(libscipreferences_la_OBJECTS) $(libscipreferences_la_DEPENDENCIES) $(EXTRA_libscipreferences_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscipreferences_la_LINK) $(am_libscipreferences_la_rpath) $(libscipreferences_la_OBJECTS) $(libscipreferences_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscipreferences_la_rpath) $(libscipreferences_la_OBJECTS) $(libscipreferences_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

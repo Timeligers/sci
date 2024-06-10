@@ -68,7 +68,6 @@ libscilocalization_la_CPPFLAGS = \
 pkglib_LTLIBRARIES = libscilocalization.la
 noinst_LTLIBRARIES = libscilocalization-algo.la
 
-libscilocalization_la_LDFLAGS = $(AM_LDFLAGS)
 libscilocalization_la_CFLAGS = $(AM_CFLAGS)
 
 libscilocalization_algo_la_SOURCES = $(LOCALIZATION_C_SOURCES) $(LOCALIZATION_CPP_SOURCES)
@@ -83,7 +82,7 @@ libscilocalization_la_LIBADD = libscilocalization-algo.la
 
 # FIXME: platform dependent things should be in configure.ac
 if IS_MACOSX
-libscilocalization_la_LDFLAGS += -framework Cocoa
+libscilocalization_la_LDFLAGS = $(SCI_LDFLAGS) -framework Cocoa
 libscilocalization_la_LIBADD += -lintl
 libscilocalization_la_CFLAGS += -framework Cocoa
 endif

@@ -124,10 +124,6 @@ pkglib_LTLIBRARIES += libsciscicos.la
 endif
 endif
 
-libsciscicos_algo_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_cli_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_la_LDFLAGS = $(AM_LDFLAGS)
-
 if XCOS
 libsciscicos_algo_la_CPPFLAGS= -I$(srcdir)/includes/ \
 			-I$(srcdir)/src/c/ \

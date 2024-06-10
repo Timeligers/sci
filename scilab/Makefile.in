@@ -898,9 +898,9 @@ AM_LDFLAGS = $(SCI_LDFLAGS)
 @GUI_FALSE@bin_SCRIPTS = bin/scilab-cli $(am__append_1)
 @GUI_TRUE@bin_SCRIPTS = bin/scilab bin/scilab-adv-cli bin/scilab-cli \
 @GUI_TRUE@	bin/scinotes bin/xcos $(am__append_1)
-scilab_bin_LDFLAGS = $(AM_LDFLAGS) $(OPENMPI_LIBS) $(am__append_2) \
-	$(am__append_4) $(am__append_6)
-scilab_cli_bin_LDFLAGS = $(AM_LDFLAGS) $(OPENMPI_LIBS) $(am__append_3) \
+scilab_bin_LDFLAGS = $(OPENMPI_LIBS) $(am__append_2) $(am__append_4) \
+	$(am__append_6)
+scilab_cli_bin_LDFLAGS = $(OPENMPI_LIBS) $(am__append_3) \
 	$(am__append_5)
 scilab_bin_CPPFLAGS = -I$(top_srcdir)/modules/ast/includes/ast/ \
 	-I$(top_srcdir)/modules/ast/includes/exps/ \

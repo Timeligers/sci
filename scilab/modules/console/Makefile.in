@@ -228,7 +228,7 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libsciconsole_la_DEPENDENCIES = libsciconsole-minimal.la
+@GUI_TRUE@libsciconsole_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am__libsciconsole_la_SOURCES_DIST = src/jni/GuiManagement_wrap.c \
 	src/jni/DropFiles_wrap.c src/jni/AdvCLIManagement_wrap.c \
 	src/c/GuiManagement.c src/c/dropFiles.c \
@@ -254,8 +254,8 @@ am__objects_5 = src/cpp/libsciconsole_la-ClearConsole.lo \
 	src/cpp/libsciconsole_la-PromptToHome.lo \
 	src/cpp/libsciconsole_la-ScilabLinesUpdate.lo \
 	src/cpp/libsciconsole_la-SetConsolePrompt.lo
-am_libsciconsole_la_OBJECTS = $(am__objects_1) $(am__objects_3) \
-	$(am__objects_4) $(am__objects_5)
+@GUI_TRUE@am_libsciconsole_la_OBJECTS = $(am__objects_1) \
+@GUI_TRUE@	$(am__objects_3) $(am__objects_4) $(am__objects_5)
 libsciconsole_la_OBJECTS = $(am_libsciconsole_la_OBJECTS)
 @GUI_TRUE@am_libsciconsole_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -840,10 +840,10 @@ libsciconsole_la_CPPFLAGS = \
 # Name of the library
 pkglib_LTLIBRARIES = libsciconsole-minimal.la $(am__append_4)
 libsciconsole_minimal_la_LIBADD = $(NCURSES_LIBS)
-libsciconsole_la_LIBADD = libsciconsole-minimal.la
+@GUI_TRUE@libsciconsole_la_LIBADD = $(NCURSES_LIBS)
 
 # All the sources needed by libsciconsole.la
-libsciconsole_la_SOURCES = $(CONSOLE_C_JNI_SOURCES) $(CONSOLE_C_SOURCES) $(CONSOLE_CPP_JNI_SOURCES) $(CONSOLE_CPP_SOURCES) $(CONSOLE_GATEWAY_C_SOURCES) $(CONSOLE_GATEWAY_CPP_SOURCES)
+@GUI_TRUE@libsciconsole_la_SOURCES = $(CONSOLE_C_JNI_SOURCES) $(CONSOLE_C_SOURCES) $(CONSOLE_CPP_JNI_SOURCES) $(CONSOLE_CPP_SOURCES) $(CONSOLE_GATEWAY_C_SOURCES) $(CONSOLE_GATEWAY_CPP_SOURCES)
 
 # For the code check (splint)
 CHECK_SRC = $(CONSOLE_C_JNI_SOURCES) $(CONSOLE_C_SOURCES)

@@ -232,8 +232,6 @@ endif
 
 # Core modules
 
-libscilab_la_LDFLAGS = $(AM_LDFLAGS)
-
 libscilab_la_LIBADD=
 if GUI
 # Force the libscijvm to be linked first. Under Debian, this avoid some reordering issues during the link
@@ -258,8 +256,6 @@ libscilab_la_LIBADD += $(FLIBS) $(LAPACK_LIBS) $(BLAS_LIBS)
 ################## libscilab-cli  ##################
 
 libscilab_cli_la_SOURCES =
-
-libscilab_cli_la_LDFLAGS = $(AM_LDFLAGS)
 
 # Core modules
 libscilab_cli_la_LIBADD = $(ENGINE_LIBS) $(NO_GUI_LIBS) $(OTHER_LIBS) $(EXTERNAL_LIBS) $(FLIBS) $(LAPACK_LIBS) $(BLAS_LIBS)

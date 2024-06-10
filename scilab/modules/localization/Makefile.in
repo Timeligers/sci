@@ -129,12 +129,9 @@ host_triplet = @host@
 @IS_MACOSX_TRUE@am__append_2 = \
 @IS_MACOSX_TRUE@    src/c/getLocaleInfo_Apple.c
 
-
-# FIXME: platform dependent things should be in configure.ac
-@IS_MACOSX_TRUE@am__append_3 = -framework Cocoa
-@IS_MACOSX_TRUE@am__append_4 = -lintl
-@IS_MACOSX_TRUE@am__append_5 = -framework Cocoa
-@NEED_JAVA_TRUE@am__append_6 = java
+@IS_MACOSX_TRUE@am__append_3 = -lintl
+@IS_MACOSX_TRUE@am__append_4 = -framework Cocoa
+@NEED_JAVA_TRUE@am__append_5 = java
 subdir = modules/localization
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -703,8 +700,7 @@ libscilocalization_la_CPPFLAGS = \
 
 pkglib_LTLIBRARIES = libscilocalization.la
 noinst_LTLIBRARIES = libscilocalization-algo.la
-libscilocalization_la_LDFLAGS = $(AM_LDFLAGS) $(am__append_3)
-libscilocalization_la_CFLAGS = $(AM_CFLAGS) $(am__append_5)
+libscilocalization_la_CFLAGS = $(AM_CFLAGS) $(am__append_4)
 libscilocalization_algo_la_SOURCES = $(LOCALIZATION_C_SOURCES) $(LOCALIZATION_CPP_SOURCES)
 libscilocalization_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscilocalization_algo_la_CPPFLAGS = $(libscilocalization_la_CPPFLAGS)
@@ -713,7 +709,10 @@ libscilocalization_algo_la_CPPFLAGS = $(libscilocalization_la_CPPFLAGS)
 CHECK_SRC = $(libscilocalization_la_SOURCES)
 INCLUDE_FLAGS = $(libscilocalization_la_CPPFLAGS)
 libscilocalization_la_LIBADD = libscilocalization-algo.la \
-	$(am__append_4)
+	$(am__append_3)
+
+# FIXME: platform dependent things should be in configure.ac
+@IS_MACOSX_TRUE@libscilocalization_la_LDFLAGS = $(SCI_LDFLAGS) -framework Cocoa
 
 # $(top_builddir)/modules/io/libsciio.la
 #### Target ######
@@ -765,7 +764,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_6)
+TARGETS_ALL = $(am__append_5)
 
 ################ MACROS ######################
 # Rule to build a macro

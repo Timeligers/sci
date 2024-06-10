@@ -93,8 +93,6 @@ if GUI
     noinst_LTLIBRARIES = libsciscinotes-algo.la
 endif
 
-libsciscinotes_la_LDFLAGS = $(AM_LDFLAGS)
-
 libsciscinotes_algo_la_SOURCES = $(SCINOTES_C_SOURCES) $(SCINOTES_JNI_SOURCES) $(SCINOTES_CXX_SOURCES)
 libsciscinotes_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libsciscinotes_algo_la_CPPFLAGS = $(libsciscinotes_la_CPPFLAGS)

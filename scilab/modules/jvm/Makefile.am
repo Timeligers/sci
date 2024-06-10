@@ -61,7 +61,7 @@ pkglib_LTLIBRARIES += libscijvm.la
 noinst_LTLIBRARIES = libscijvm-algo.la
 endif
 
-libscijvm_la_LDFLAGS = -pthread $(AM_LDFLAGS)
+libscijvm_la_LDFLAGS = -pthread
 
 libscijvm_la_LIBADD = libscijvm-algo.la $(XML_LIBS) $(JAVA_JNI_LIBS)
 

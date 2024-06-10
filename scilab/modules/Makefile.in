@@ -205,19 +205,12 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libscilab_cli_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(AM_CFLAGS) $(CFLAGS) $(libscilab_cli_la_LDFLAGS) $(LDFLAGS) \
-	-o $@
 @GUI_FALSE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
 libscilab_la_DEPENDENCIES = $(am__append_7) $(am__DEPENDENCIES_3) \
 	$(ENGINE_LIBS) $(am__append_9) $(am__DEPENDENCIES_2) \
 	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_2)
 am_libscilab_la_OBJECTS =
 libscilab_la_OBJECTS = $(am_libscilab_la_OBJECTS)
-libscilab_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(libscilab_la_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -773,7 +766,6 @@ ENGINE_LIBS_DYNAMIC_LOAD = \
 
 
 # Core modules
-libscilab_la_LDFLAGS = $(AM_LDFLAGS)
 
 # Core modules
 libscilab_la_LIBADD = $(am__append_7) $(am__append_8) $(ENGINE_LIBS) \
@@ -782,7 +774,6 @@ libscilab_la_LIBADD = $(am__append_7) $(am__append_8) $(ENGINE_LIBS) \
 
 ################## libscilab-cli  ##################
 libscilab_cli_la_SOURCES = 
-libscilab_cli_la_LDFLAGS = $(AM_LDFLAGS)
 
 # Core modules
 libscilab_cli_la_LIBADD = $(ENGINE_LIBS) $(NO_GUI_LIBS) $(OTHER_LIBS) $(EXTERNAL_LIBS) $(FLIBS) $(LAPACK_LIBS) $(BLAS_LIBS)
@@ -855,10 +846,10 @@ clean-pkglibLTLIBRARIES:
 	}
 
 libscilab-cli.la: $(libscilab_cli_la_OBJECTS) $(libscilab_cli_la_DEPENDENCIES) $(EXTRA_libscilab_cli_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libscilab_cli_la_LINK) -rpath $(pkglibdir) $(libscilab_cli_la_OBJECTS) $(libscilab_cli_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscilab_cli_la_OBJECTS) $(libscilab_cli_la_LIBADD) $(LIBS)
 
 libscilab.la: $(libscilab_la_OBJECTS) $(libscilab_la_DEPENDENCIES) $(EXTRA_libscilab_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libscilab_la_LINK) -rpath $(pkglibdir) $(libscilab_la_OBJECTS) $(libscilab_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscilab_la_OBJECTS) $(libscilab_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

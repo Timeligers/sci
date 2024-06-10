@@ -234,10 +234,6 @@ am__libscimatio_la_SOURCES_DIST = sci_gateway/c/sci_matfile_open.c \
 am__objects_4 =
 am_libscimatio_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscimatio_la_OBJECTS = $(am_libscimatio_la_OBJECTS)
-libscimatio_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(AM_CFLAGS) $(CFLAGS) $(libscimatio_la_LDFLAGS) $(LDFLAGS) -o \
-	$@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -778,7 +774,6 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 @MATIO_TRUE@    src/cpp/GetSparseVariable.cpp \
 @MATIO_TRUE@    src/cpp/GetMlistVariable.cpp
 
-@MATIO_TRUE@libscimatio_la_LDFLAGS = $(AM_LDFLAGS)
 @MATIO_FALSE@GATEWAY_CPP_SOURCES = 
 libscimatio_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
@@ -985,7 +980,7 @@ sci_gateway/c/libscimatio_la-sci_matfile_varwrite.lo:  \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 
 libscimatio.la: $(libscimatio_la_OBJECTS) $(libscimatio_la_DEPENDENCIES) $(EXTRA_libscimatio_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libscimatio_la_LINK) -rpath $(pkglibdir) $(libscimatio_la_OBJECTS) $(libscimatio_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscimatio_la_OBJECTS) $(libscimatio_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

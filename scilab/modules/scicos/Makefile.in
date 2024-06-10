@@ -302,10 +302,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libsciscicos_algo_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libsciscicos_algo_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 libsciscicos_cli_la_DEPENDENCIES = libsciscicos-algo.la \
 	$(am__DEPENDENCIES_1) $(am__append_2)
 am__libsciscicos_cli_la_SOURCES_DIST =  \
@@ -385,10 +381,6 @@ am__objects_7 = sci_gateway/fortran/sci_f_tree2.lo \
 @XCOS_TRUE@am_libsciscicos_cli_la_OBJECTS = $(am__objects_5) \
 @XCOS_TRUE@	$(am__objects_6) $(am__objects_7)
 libsciscicos_cli_la_OBJECTS = $(am_libsciscicos_cli_la_OBJECTS)
-libsciscicos_cli_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libsciscicos_cli_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @XCOS_TRUE@am_libsciscicos_cli_la_rpath = -rpath $(pkglibdir)
 libsciscicos_la_DEPENDENCIES = libsciscicos-algo.la \
 	$(am__DEPENDENCIES_1) $(am__append_3)
@@ -465,10 +457,6 @@ am__objects_9 = sci_gateway/c/libsciscicos_la-sci_ftree2.lo \
 @XCOS_TRUE@am_libsciscicos_la_OBJECTS = $(am__objects_8) \
 @XCOS_TRUE@	$(am__objects_9) $(am__objects_7)
 libsciscicos_la_OBJECTS = $(am_libsciscicos_la_OBJECTS)
-libsciscicos_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libsciscicos_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @GUI_TRUE@@XCOS_TRUE@am_libsciscicos_la_rpath = -rpath $(pkglibdir)
 am__XML2Modelica_SOURCES_DIST = $(srcdir)/src/xml2modelica/xMLTree.ml \
 	$(srcdir)/src/xml2modelica/linenum.mll \
@@ -1164,9 +1152,6 @@ sci_gateway/fortran/sci_f_tree4.f
 #### Multi-libraries handling ######
 noinst_LTLIBRARIES = libsciscicos-algo.la
 @XCOS_TRUE@pkglib_LTLIBRARIES = libsciscicos-cli.la $(am__append_1)
-libsciscicos_algo_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_cli_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_la_LDFLAGS = $(AM_LDFLAGS)
 @XCOS_FALSE@libsciscicos_algo_la_CPPFLAGS = -I$(top_srcdir)/modules/output_stream/includes/ \
 @XCOS_FALSE@			-I$(top_srcdir)/modules/api_scilab/includes/ \
 @XCOS_FALSE@			-I$(top_srcdir)/modules/scicos/includes/ \
@@ -1719,7 +1704,7 @@ src/fortran/scifunc.lo: src/fortran/$(am__dirstamp) \
 	src/fortran/$(DEPDIR)/$(am__dirstamp)
 
 libsciscicos-algo.la: $(libsciscicos_algo_la_OBJECTS) $(libsciscicos_algo_la_DEPENDENCIES) $(EXTRA_libsciscicos_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciscicos_algo_la_LINK)  $(libsciscicos_algo_la_OBJECTS) $(libsciscicos_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK)  $(libsciscicos_algo_la_OBJECTS) $(libsciscicos_algo_la_LIBADD) $(LIBS)
 sci_gateway/cpp/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp
 	@: > sci_gateway/cpp/$(am__dirstamp)
@@ -1854,7 +1839,7 @@ sci_gateway/fortran/sci_f_tree4.lo:  \
 	sci_gateway/fortran/$(DEPDIR)/$(am__dirstamp)
 
 libsciscicos-cli.la: $(libsciscicos_cli_la_OBJECTS) $(libsciscicos_cli_la_DEPENDENCIES) $(EXTRA_libsciscicos_cli_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciscicos_cli_la_LINK) $(am_libsciscicos_cli_la_rpath) $(libsciscicos_cli_la_OBJECTS) $(libsciscicos_cli_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciscicos_cli_la_rpath) $(libsciscicos_cli_la_OBJECTS) $(libsciscicos_cli_la_LIBADD) $(LIBS)
 sci_gateway/cpp/libsciscicos_la-sci_scicos_debug.lo:  \
 	sci_gateway/cpp/$(am__dirstamp) \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
@@ -1962,7 +1947,7 @@ sci_gateway/c/libsciscicos_la-sci_sctree.lo:  \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 
 libsciscicos.la: $(libsciscicos_la_OBJECTS) $(libsciscicos_la_DEPENDENCIES) $(EXTRA_libsciscicos_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciscicos_la_LINK) $(am_libsciscicos_la_rpath) $(libsciscicos_la_OBJECTS) $(libsciscicos_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciscicos_la_rpath) $(libsciscicos_la_OBJECTS) $(libsciscicos_la_LIBADD) $(LIBS)
 
 @OCAML_FALSE@XML2Modelica$(EXEEXT): $(XML2Modelica_OBJECTS) $(XML2Modelica_DEPENDENCIES) $(EXTRA_XML2Modelica_DEPENDENCIES) 
 @OCAML_FALSE@	@rm -f XML2Modelica$(EXEEXT)

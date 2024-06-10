@@ -43,8 +43,6 @@ MATIO_CPP_SOURCES = \
     src/cpp/GetSparseVariable.cpp \
     src/cpp/GetMlistVariable.cpp
 
-libscimatio_la_LDFLAGS = $(AM_LDFLAGS)
-
 else
 
 MATIO_C_SOURCES =

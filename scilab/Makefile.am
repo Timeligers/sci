@@ -41,8 +41,8 @@ if IS_MACOSX
 bin_SCRIPTS 		+= bin/checkmacosx.applescript
 endif
 
-scilab_bin_LDFLAGS      = $(AM_LDFLAGS) $(OPENMPI_LIBS)
-scilab_cli_bin_LDFLAGS  = $(AM_LDFLAGS) $(OPENMPI_LIBS)
+scilab_bin_LDFLAGS      = $(OPENMPI_LIBS)
+scilab_cli_bin_LDFLAGS  = $(OPENMPI_LIBS)
 
 #
 # using the static system libs might produce linkage issue (eg.

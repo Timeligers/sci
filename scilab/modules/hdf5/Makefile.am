@@ -136,9 +136,6 @@ noinst_LTLIBRARIES =
 
 noinst_LTLIBRARIES += libscihdf5-algo.la
 
-# When Scilab is built with HDF5, we need some libraries for a workaround
-
-libscihdf5_la_LDFLAGS = $(AM_LDFLAGS)
 
 libscihdf5_algo_la_SOURCES = $(HDF5_SOURCES) $(HDF5_CXX_SOURCES)
 libscihdf5_la_SOURCES = $(GATEWAY_CXX_SOURCES)

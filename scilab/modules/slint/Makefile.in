@@ -262,10 +262,6 @@ libscislint_la_DEPENDENCIES = libscislint-algo.la \
 am__objects_2 = sci_gateway/cpp/libscislint_la-sci_slint.lo
 am_libscislint_la_OBJECTS = $(am__objects_2)
 libscislint_la_OBJECTS = $(am_libscislint_la_OBJECTS)
-libscislint_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscislint_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -917,7 +913,6 @@ noinst_LTLIBRARIES = libscislint-algo.la
 libscislint_algo_la_SOURCES = $(SLINT_CXX_SOURCES)
 libscislint_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libscislint_algo_la_CPPFLAGS = $(libscislint_la_CPPFLAGS)
-libscislint_la_LDFLAGS = $(AM_LDFLAGS)
 libscislint_la_LIBADD = libscislint-algo.la $(XML_LIBS)
 
 # For the code check (splint)
@@ -1175,7 +1170,7 @@ sci_gateway/cpp/libscislint_la-sci_slint.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscislint.la: $(libscislint_la_OBJECTS) $(libscislint_la_DEPENDENCIES) $(EXTRA_libscislint_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscislint_la_LINK) -rpath $(pkglibdir) $(libscislint_la_OBJECTS) $(libscislint_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscislint_la_OBJECTS) $(libscislint_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

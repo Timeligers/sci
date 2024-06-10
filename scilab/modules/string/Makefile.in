@@ -248,10 +248,6 @@ am__objects_3 = sci_gateway/cpp/libscistring_la-sci_stripblanks.lo \
 	sci_gateway/cpp/libscistring_la-sci_emptystr.lo
 am_libscistring_la_OBJECTS = $(am__objects_3)
 libscistring_la_OBJECTS = $(am_libscistring_la_OBJECTS)
-libscistring_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscistring_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @MAINTAINER_MODE_FALSE@am_libscistring_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libscistring_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -822,7 +818,6 @@ libscistring_algo_la_CPPFLAGS = $(libscistring_la_CPPFLAGS)
 @MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscistring.la
 @MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscistring-algo.la libscistring.la
 @MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscistring-algo.la
-libscistring_la_LDFLAGS = $(AM_LDFLAGS)
 libscistring_algo_la_SOURCES = $(STRING_C_SOURCES) $(STRING_CPP_SOURCES)
 libscistring_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscistring_algo_la_CFLAGS = $(libscistring_la_CFLAGS)
@@ -1194,7 +1189,7 @@ sci_gateway/cpp/libscistring_la-sci_emptystr.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscistring.la: $(libscistring_la_OBJECTS) $(libscistring_la_DEPENDENCIES) $(EXTRA_libscistring_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscistring_la_LINK) $(am_libscistring_la_rpath) $(libscistring_la_OBJECTS) $(libscistring_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscistring_la_rpath) $(libscistring_la_OBJECTS) $(libscistring_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

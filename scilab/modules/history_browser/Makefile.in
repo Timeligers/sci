@@ -208,10 +208,6 @@ am_libscihistory_browser_la_OBJECTS = $(am__objects_2) \
 	$(am__objects_3) $(am__objects_4)
 libscihistory_browser_la_OBJECTS =  \
 	$(am_libscihistory_browser_la_OBJECTS)
-libscihistory_browser_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscihistory_browser_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @GUI_TRUE@am_libscihistory_browser_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -752,7 +748,6 @@ libscihistory_browser_disable_la_CPPFLAGS = \
 HISTORY_BROWSER_DISABLE_C_SOURCES = src/nohistory_browser/CommandHistory_Wrap_Fake.c
 libscihistory_browser_disable_la_SOURCES = $(HISTORY_BROWSER_DISABLE_C_SOURCES)
 pkglib_LTLIBRARIES = libscihistory_browser-disable.la $(am__append_2)
-libscihistory_browser_la_LDFLAGS = $(AM_LDFLAGS)
 libscihistory_browser_la_LIBADD = $(X_LIBS) $(X_EXTRA_LIBS)
 libscihistory_browser_la_SOURCES = $(HISTORY_BROWSER_C_SOURCES) $(HISTORY_BROWSER_JNI_SOURCES) $(HISTORY_BROWSER_CPP_SOURCES)
 
@@ -879,7 +874,7 @@ src/cpp/libscihistory_browser_la-CommandHistory_Wrap.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscihistory_browser.la: $(libscihistory_browser_la_OBJECTS) $(libscihistory_browser_la_DEPENDENCIES) $(EXTRA_libscihistory_browser_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscihistory_browser_la_LINK) $(am_libscihistory_browser_la_rpath) $(libscihistory_browser_la_OBJECTS) $(libscihistory_browser_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscihistory_browser_la_rpath) $(libscihistory_browser_la_OBJECTS) $(libscihistory_browser_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
