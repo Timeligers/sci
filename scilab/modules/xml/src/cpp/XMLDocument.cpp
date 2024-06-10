@@ -521,7 +521,7 @@ void XMLDocument::errorFunction(void *ctx, const char *msg, ...)
     errorBuffer.append(str);
 }
 
-#if LIBXML_VERSION > 20909
+#if LIBXML_VERSION >= 21200
 void XMLDocument::errorXPathFunction(void *ctx, const xmlError * error)
 #else
 void XMLDocument::errorXPathFunction(void *ctx, xmlError * error)
