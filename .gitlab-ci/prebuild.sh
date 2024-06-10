@@ -371,14 +371,23 @@ make_binary_directory() {
 
     # 1. Strip libraries (exporting the debuginfo to another file) to
     # reduce file size and thus startup time
-    # 2. remove rpath as LD_LIBRARY_PATH is set on the startup script
+    # 2. set rpath to the local directories
     find "$LIBTHIRDPARTYDIR" -name '*.so*' -type f -not -name '*.debug'| while read -r file ;
     do
         objcopy --only-keep-debug "$file" "$file.debug"
         [ -f  "$file.debug" ] && objcopy --strip-debug "$file"
         [ -f  "$file.debug" ] && (objcopy --add-gnu-debuglink="$file.debug" "$file" || true)
 
-        patchelf --remove-rpath "$file"
+        case "$file" in
+            *thirdparty/redist/*)
+                # shellcheck disable=SC2016
+                patchelf --set-rpath '$ORIGIN' "$file"
+                ;;
+            *)
+                # shellcheck disable=SC2016
+                patchelf --set-rpath '$ORIGIN:$ORIGIN/redist' "$file"
+                ;;
+        esac
     done
 }
 
