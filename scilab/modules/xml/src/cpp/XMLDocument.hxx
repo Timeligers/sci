@@ -176,7 +176,7 @@ private:
      * Error function used when the XPath query is compiled/
      * @see http://xmlsoft.org/html/libxml-xmlerror.html#xmlStructuredErrorFunc
      */
-    #if LIBXML_VERSION > 20909
+    #if LIBXML_VERSION > 21200
     static void errorXPathFunction(void *ctx, const xmlError * error);
     #else
     static void errorXPathFunction(void *ctx, xmlError * error);
