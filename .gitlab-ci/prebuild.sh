@@ -460,7 +460,7 @@ build_openblas() {
 
     tar -xzf "$DOWNLOADDIR/OpenBLAS-$OPENBLAS_VERSION.tar.gz"
     cd OpenBLAS-$OPENBLAS_VERSION || exit 1
-    make "-j$(nproc)" DYNAMIC_ARCH=1 NO_LAPACKE=1 NO_CBLAS=1
+    make -j"$(nproc)" DYNAMIC_ARCH=1 NO_AVX2=1 NO_STATIC=1 NO_LAPACKE=1
 
     # install openblas for runtime usage
     cp libopenblas.so "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION"
