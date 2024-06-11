@@ -16,6 +16,7 @@
 #include "configvariable.hxx"
 #include "threadmanagement.hxx"
 #include "runner.hxx"
+#include "scilabexception.hxx"
 
 extern "C"
 {
@@ -62,9 +63,6 @@ int TCL_EvalScilabCmd(ClientData clientData, Tcl_Interp * theinterp, int objc, C
             // execute all commands before return to scilab prompt
             while (isEmptyCommandQueue() == false)
             {
-                // Wake up Runner waiting for my execution ends
-                ThreadManagement::SendAwakeRunnerSignal();
-                ThreadManagement::WaitForRunMeSignal();
                 try
                 {
                     StaticRunner_launch();

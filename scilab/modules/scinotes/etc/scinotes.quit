@@ -11,4 +11,6 @@
 // along with this program.
 
 // close Scinotes
-closeEditor()
+if(getscilabmode() <> "NWNI")
+    closeEditor()
+end

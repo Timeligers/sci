@@ -1532,7 +1532,7 @@ int ConfigVariable::isScilabCommand()
 
 //debugger information
 bool ConfigVariable::m_bEnabledebug = false;
-std::unique_ptr<ast::ConstVisitor> ConfigVariable::m_defaultvisitor(nullptr);
+std::unique_ptr<ast::ConstVisitor> ConfigVariable::m_defaultvisitor(new ast::ExecVisitor());
 
 bool ConfigVariable::getEnableDebug()
 {

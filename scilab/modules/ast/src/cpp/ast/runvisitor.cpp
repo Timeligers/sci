@@ -57,6 +57,7 @@ extern "C"
 #include "storeCommand.h"
 #include "prompt.h"
 #include "scilabRead.h"
+#include "InitScilab.h"
 }
 
 namespace ast

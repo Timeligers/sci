@@ -234,7 +234,6 @@ am__objects_2 = src/cpp/libscicore_algo_la-demangle.lo \
 	src/cpp/libscicore_algo_la-banner.lo \
 	src/cpp/libscicore_algo_la-with_module.lo \
 	src/cpp/libscicore_algo_la-runner.lo \
-	src/cpp/libscicore_algo_la-tasks.lo \
 	src/cpp/libscicore_algo_la-getvariablesname.lo \
 	src/cpp/libscicore_algo_la-getmacrosname.lo \
 	src/cpp/libscicore_algo_la-getfunctionsname.lo \
@@ -514,7 +513,6 @@ am__depfiles_remade =  \
 	src/cpp/$(DEPDIR)/libscicore_algo_la-runner.Plo \
 	src/cpp/$(DEPDIR)/libscicore_algo_la-setformat.Plo \
 	src/cpp/$(DEPDIR)/libscicore_algo_la-storeCommand.Plo \
-	src/cpp/$(DEPDIR)/libscicore_algo_la-tasks.Plo \
 	src/cpp/$(DEPDIR)/libscicore_algo_la-with_module.Plo \
 	src/cpp/hash/$(DEPDIR)/libscicore_algo_la-crc32.Plo \
 	src/cpp/hash/$(DEPDIR)/libscicore_algo_la-md5.Plo \
@@ -962,7 +960,6 @@ CORE_CPP_SOURCES = \
     src/cpp/banner.cpp \
     src/cpp/with_module.cpp \
     src/cpp/runner.cpp \
-    src/cpp/tasks.cpp \
     src/cpp/getvariablesname.cpp \
     src/cpp/getmacrosname.cpp \
     src/cpp/getfunctionsname.cpp \
@@ -1373,8 +1370,6 @@ src/cpp/libscicore_algo_la-with_module.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libscicore_algo_la-runner.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
-src/cpp/libscicore_algo_la-tasks.lo: src/cpp/$(am__dirstamp) \
-	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libscicore_algo_la-getvariablesname.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libscicore_algo_la-getmacrosname.lo: src/cpp/$(am__dirstamp) \
@@ -1779,7 +1774,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscicore_algo_la-runner.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscicore_algo_la-setformat.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscicore_algo_la-storeCommand.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscicore_algo_la-tasks.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/$(DEPDIR)/libscicore_algo_la-with_module.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/hash/$(DEPDIR)/libscicore_algo_la-crc32.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/cpp/hash/$(DEPDIR)/libscicore_algo_la-md5.Plo@am__quote@ # am--include-marker
@@ -2099,13 +2093,6 @@ src/cpp/libscicore_algo_la-runner.lo: src/cpp/runner.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/runner.cpp' object='src/cpp/libscicore_algo_la-runner.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/libscicore_algo_la-runner.lo `test -f 'src/cpp/runner.cpp' || echo '$(srcdir)/'`src/cpp/runner.cpp
-
-src/cpp/libscicore_algo_la-tasks.lo: src/cpp/tasks.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/libscicore_algo_la-tasks.lo -MD -MP -MF src/cpp/$(DEPDIR)/libscicore_algo_la-tasks.Tpo -c -o src/cpp/libscicore_algo_la-tasks.lo `test -f 'src/cpp/tasks.cpp' || echo '$(srcdir)/'`src/cpp/tasks.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/cpp/$(DEPDIR)/libscicore_algo_la-tasks.Tpo src/cpp/$(DEPDIR)/libscicore_algo_la-tasks.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/cpp/tasks.cpp' object='src/cpp/libscicore_algo_la-tasks.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/libscicore_algo_la-tasks.lo `test -f 'src/cpp/tasks.cpp' || echo '$(srcdir)/'`src/cpp/tasks.cpp
 
 src/cpp/libscicore_algo_la-getvariablesname.lo: src/cpp/getvariablesname.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/cpp/libscicore_algo_la-getvariablesname.lo -MD -MP -MF src/cpp/$(DEPDIR)/libscicore_algo_la-getvariablesname.Tpo -c -o src/cpp/libscicore_algo_la-getvariablesname.lo `test -f 'src/cpp/getvariablesname.cpp' || echo '$(srcdir)/'`src/cpp/getvariablesname.cpp
@@ -3010,7 +2997,6 @@ distclean: distclean-am
 	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-runner.Plo
 	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-setformat.Plo
 	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-storeCommand.Plo
-	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-tasks.Plo
 	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-with_module.Plo
 	-rm -f src/cpp/hash/$(DEPDIR)/libscicore_algo_la-crc32.Plo
 	-rm -f src/cpp/hash/$(DEPDIR)/libscicore_algo_la-md5.Plo
@@ -3173,7 +3159,6 @@ maintainer-clean: maintainer-clean-am
 	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-runner.Plo
 	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-setformat.Plo
 	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-storeCommand.Plo
-	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-tasks.Plo
 	-rm -f src/cpp/$(DEPDIR)/libscicore_algo_la-with_module.Plo
 	-rm -f src/cpp/hash/$(DEPDIR)/libscicore_algo_la-crc32.Plo
 	-rm -f src/cpp/hash/$(DEPDIR)/libscicore_algo_la-md5.Plo

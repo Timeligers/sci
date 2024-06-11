@@ -5,7 +5,6 @@ EXPORTS
 with_module
 StoreCommand
 StorePrioritaryCommand
-ismenu
 freeArrayOfString
 MyHeapAlloc
 MyHeapFree
