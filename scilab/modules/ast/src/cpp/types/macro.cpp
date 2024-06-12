@@ -1248,12 +1248,28 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
 
     types::GenericType* g = x->getAs<types::GenericType>();
 
+    types::typed_list in1 = {x};
+    types::typed_list out1;
+    if (Overload::call(L"size", in1, 1, out1) != types::Function::OK)
+    {
+        return nullptr;
+    }
+
+    types::Double* p1 = out1[0]->getAs<types::Double>();
+    std::vector<int> dims1(p1->get(), p1->get() + p1->getSize());
+    p1->killMe();
+
+    if (dims1.size() != dims.size())
+    {
+        return nullptr;
+    }
+
     if (dims.size() == 1 && std::get<1>(dims[0]) == nullptr)
     {
         auto&& d = std::get<0>(dims[0]);
         for (int i = 0; i < d.size(); ++i)
         {
-            if (d[i] == g->getSize())
+            if (d[i] == dims1[0])
             {
                 return x;
             }
@@ -1267,14 +1283,13 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
         return expandvar(x, dims, isStatic);
     }
 
-    if (g->getDims() != dims.size())
+    if (dims1.size() != dims.size())
     {
         return nullptr;
     }
 
-    int* s = g->getDimsArray();
     bool status = true;
-    for (int i = 0; i < g->getDims(); ++i)
+    for (int i = 0; i < dims1.size(); ++i)
     {
         std::vector<int> dim;
         symbol::Variable* v;
@@ -1290,7 +1305,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
 
                 for (int j = 0; j < d->getSize(); ++j)
                 {
-                    if (d->get()[j] == s[i])
+                    if (d->get()[j] == dims1[i])
                     {
                         ok = true;
                         break;
@@ -1302,7 +1317,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
         {
             for (int j = 0; j < dim.size(); ++j)
             {
-                if (dim[j] == -1 || dim[j] == s[i])
+                if (dim[j] == -1 || dim[j] == dims1[i])
                 {
                     ok = true;
                     break;
@@ -1312,7 +1327,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
 
         status &= ok;
 
-        if (ok == false && s[i] == 1)
+        if (ok == false && dims1[i] == 1)
         {
             return transposevar(x, dims);
         }
