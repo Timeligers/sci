@@ -24,6 +24,20 @@ extern "C"
 #include "dynlib_differential_equations_gw.h"
 }
 
+class DifferentialEquationsModule
+{
+private :
+    DifferentialEquationsModule() {};
+    ~DifferentialEquationsModule() {};
+
+public :
+    DIFFERENTIAL_EQUATIONS_GW_IMPEXP static int Load();
+    DIFFERENTIAL_EQUATIONS_GW_IMPEXP static int Unload()
+    {
+        return 1;
+    }
+};
+
 // equation 1
 CPP_GATEWAY_PROTOTYPE(sci_ode);
 
