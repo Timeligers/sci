@@ -103,7 +103,6 @@ GATEWAY_FORTRAN_SOURCES = \
     sci_gateway/fortran/Ex-bvode.f
 
 GATEWAY_CPP_SOURCES = \
-    sci_gateway/cpp/differential_equations_gw.cpp \
     sci_gateway/cpp/sci_int2d.cpp \
     sci_gateway/cpp/sci_int3d.cpp \
     sci_gateway/cpp/sci_intg.cpp \
@@ -308,10 +307,8 @@ libscisundials_la_LIBADD = $(KLU_LIBS) \
     $(UMFPACK_LIBS) \
     $(OPENMP_LIBS)
 
-pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
-if MAINTAINER_MODE
 noinst_LTLIBRARIES = libscidifferential_equations-algo.la
-endif
+pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
 
 if IS_MACOSX
 # enforce -O0 for some files

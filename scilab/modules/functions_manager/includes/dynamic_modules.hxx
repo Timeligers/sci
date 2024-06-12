@@ -67,6 +67,12 @@ public :
     static int Load();
 };
 
+class DifferentialEquationsModule : public GenericModule
+{
+public :
+    static int Load();
+};
+
 class SignalProcessingModule : public GenericModule
 {
 public :
