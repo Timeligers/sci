@@ -250,7 +250,6 @@
     <ClCompile Include="..\jni\AdvCLIManagement_wrap.c" />
     <ClCompile Include="..\cpp\prompt.cpp" />
     <ClCompile Include="..\cpp\scilabRead.cpp" />
-    <ClCompile Include="..\jni\CallScilabBridge.cpp" />
     <ClCompile Include="..\cpp\ClearConsole.cpp" />
     <ClCompile Include="..\cpp\ClearConsolePart.cpp" />
     <ClCompile Include="..\cpp\ConsoleIsWaitingForInput.cpp" />

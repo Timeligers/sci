@@ -23,9 +23,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\jni\CallScilabBridge.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\cpp\ClearConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
