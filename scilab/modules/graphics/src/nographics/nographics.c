@@ -347,18 +347,6 @@ void setDoubleArraySingleValue(double dest[], double value, int nbElement)
 }
 
 /*--------------------------------------------------------------------------*/
-BOOL sciIsExistingFigure(int figNum)
-{
-    return FALSE;
-}
-
-/*--------------------------------------------------------------------------*/
-int createNewFigureWithAxes(void)
-{
-    return 0;
-}
-
-/*--------------------------------------------------------------------------*/
 int getOrCreateDefaultSubwin(void)
 {
     return 0;
