@@ -86,9 +86,7 @@ libscitypes_algo_la_CPPFLAGS = 	\
     $(libscitypes_la_CPPFLAGS) \
     $(AM_CPPFLAGS)
 
-libscitypes_java_la_LIBADD = \
-			$(top_builddir)/modules/commons/libscicommons.la \
-			$(top_builddir)/modules/jvm/libscijvm.la
+libscitypes_java_la_LIBADD =
 
 libscitypes_java_la_SOURCES = $(TYPES_JAVA_C_SOURCES) $(TYPES_JAVA_CPP_SOURCES)
 

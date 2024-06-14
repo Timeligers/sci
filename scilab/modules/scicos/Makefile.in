@@ -1150,6 +1150,8 @@ sci_gateway/fortran/sci_f_tree4.f
 
 
 #### Multi-libraries handling ######
+
+# dynamic module, loaded on demand
 noinst_LTLIBRARIES = libsciscicos-algo.la
 @XCOS_TRUE@pkglib_LTLIBRARIES = libsciscicos-cli.la $(am__append_1)
 @XCOS_FALSE@libsciscicos_algo_la_CPPFLAGS = -I$(top_srcdir)/modules/output_stream/includes/ \

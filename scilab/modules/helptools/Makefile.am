@@ -18,13 +18,10 @@ GIWS_WRAPPERS = \
     src/jni/BuildDocObject.giws.xml \
 	src/jni/BuildDocObjectv2.giws.xml
 
-libscihelptools_la_LIBADD = \
-    libscihelptools-algo.la \
-    $(top_builddir)/modules/commons/libscicommons.la
+libscihelptools_la_LIBADD = libscihelptools-algo.la
 
 libscihelptools_algo_la_SOURCES =  $(HELPTOOLS_SOURCES)
 libscihelptools_algo_la_CPPFLAGS = $(libscihelptools_la_CPPFLAGS)
-noinst_LTLIBRARIES = libscihelptools-algo.la
 
 HELPTOOLS_DISABLE_CPP_SOURCES = sci_gateway/nogui/nogui.cpp
 
@@ -40,7 +37,13 @@ else
 GATEWAY_CXX_SOURCES = sci_gateway/nogui/nogui.cpp
 endif
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscihelptools.la libscihelptools-disable.la
+noinst_LTLIBRARIES = libscihelptools-algo.la
+else
+pkglib_LTLIBRARIES = 
+noinst_LTLIBRARIES = libscihelptools-algo.la libscihelptools.la libscihelptools-disable.la
+endif
 
 libscihelptools_la_CPPFLAGS= \
 	$(JAVA_JNI_INCLUDE) \

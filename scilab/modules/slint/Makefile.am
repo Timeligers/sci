@@ -131,8 +131,12 @@ libscislint_la_CPPFLAGS = \
     $(SLINT_FLAGS) \
     $(AM_CPPFLAGS)
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscislint.la
 noinst_LTLIBRARIES = libscislint-algo.la
+else
+noinst_LTLIBRARIES = libscislint-algo.la libscislint.la
+endif
 
 libscislint_algo_la_SOURCES = $(SLINT_CXX_SOURCES)
 libscislint_la_SOURCES = $(GATEWAY_CXX_SOURCES)

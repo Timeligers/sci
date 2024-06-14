@@ -105,12 +105,23 @@ PREFERENCES_CLI_CPP_SOURCES = src/nopreferences/nopreferences.cpp \
 
 libscipreferences_cli_la_SOURCES = $(PREFERENCES_CLI_CPP_SOURCES)
 
-pkglib_LTLIBRARIES = libscipreferences-cli.la
 
+if MAINTAINER_MODE
+
+pkglib_LTLIBRARIES = libscipreferences-cli.la
 if GUI
-    pkglib_LTLIBRARIES += libscipreferences.la
-    noinst_LTLIBRARIES = libscipreferences-algo.la
+pkglib_LTLIBRARIES += libscipreferences.la
+noinst_LTLIBRARIES = libscipreferences-algo.la
 endif
+
+else
+
+noinst_LTLIBRARIES = libscipreferences-cli.la
+if GUI
+noinst_LTLIBRARIES += libscipreferences-algo.la libscipreferences.la
+endif
+
+endif # MAINTAINER _MODE
 
 
 libscipreferences_algo_la_SOURCES = $(PREFERENCES_C_SOURCES)

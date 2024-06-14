@@ -221,6 +221,8 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+@MAINTAINER_MODE_FALSE@am_libscilocalization_algo_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscilocalization_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libscilocalization_la_DEPENDENCIES = libscilocalization-algo.la \
 	$(am__DEPENDENCIES_1)
@@ -238,6 +240,9 @@ libscilocalization_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
 	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscilocalization_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
+@MAINTAINER_MODE_FALSE@am_libscilocalization_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscilocalization_la_rpath = -rpath \
+@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -698,8 +703,9 @@ libscilocalization_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/dynamic_link/includes/ \
     $(AM_CPPFLAGS)
 
-pkglib_LTLIBRARIES = libscilocalization.la
-noinst_LTLIBRARIES = libscilocalization-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscilocalization.la
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscilocalization-algo.la libscilocalization.la
+@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscilocalization-algo.la
 libscilocalization_la_CFLAGS = $(AM_CFLAGS) $(am__append_4)
 libscilocalization_algo_la_SOURCES = $(LOCALIZATION_C_SOURCES) $(LOCALIZATION_CPP_SOURCES)
 libscilocalization_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
@@ -938,7 +944,7 @@ src/cpp/libscilocalization_algo_la-UTF8.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscilocalization-algo.la: $(libscilocalization_algo_la_OBJECTS) $(libscilocalization_algo_la_DEPENDENCIES) $(EXTRA_libscilocalization_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK)  $(libscilocalization_algo_la_OBJECTS) $(libscilocalization_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscilocalization_algo_la_rpath) $(libscilocalization_algo_la_OBJECTS) $(libscilocalization_algo_la_LIBADD) $(LIBS)
 sci_gateway/c/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/c
 	@: > sci_gateway/c/$(am__dirstamp)
@@ -974,7 +980,7 @@ sci_gateway/cpp/libscilocalization_la-sci_getlanguage.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscilocalization.la: $(libscilocalization_la_OBJECTS) $(libscilocalization_la_DEPENDENCIES) $(EXTRA_libscilocalization_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscilocalization_la_LINK) -rpath $(pkglibdir) $(libscilocalization_la_OBJECTS) $(libscilocalization_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(libscilocalization_la_LINK) $(am_libscilocalization_la_rpath) $(libscilocalization_la_OBJECTS) $(libscilocalization_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

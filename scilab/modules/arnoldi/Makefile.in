@@ -172,7 +172,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libsciarnoldi_la_etcdir)" \
 	"$(DESTDIR)$(libsciarnoldi_la_rootdir)" \
 	"$(DESTDIR)$(libsciarnoldi_la_sci_gatewaydir)"
-LTLIBRARIES = $(pkglib_LTLIBRARIES)
+LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libsciarnoldi_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
@@ -191,6 +191,8 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+@MAINTAINER_MODE_FALSE@am_libsciarnoldi_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libsciarnoldi_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -611,7 +613,6 @@ libsciarnoldi_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/elementary_functions/includes/ \
     $(AM_CPPFLAGS)
 
-pkglib_LTLIBRARIES = libsciarnoldi.la
 libsciarnoldi_la_LIBADD = $(BLAS_LIBS) $(LAPACK_LIBS) $(ARPACK_LIBS)
 libsciarnoldi_la_SOURCES = $(ARNOLDI_C_SOURCES) $(GATEWAY_C_SOURCES)
 
@@ -621,6 +622,8 @@ INCLUDE_FLAGS = $(libsciarnoldi_la_CPPFLAGS)
 
 #### Target ######
 modulename = arnoldi
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciarnoldi.la
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciarnoldi.la
 
 #### arnoldi : Conf files ####
 libsciarnoldi_la_rootdir = $(mydatadir)
@@ -741,6 +744,17 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
+
 install-pkglibLTLIBRARIES: $(pkglib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	@list='$(pkglib_LTLIBRARIES)'; test -n "$(pkglibdir)" || list=; \
@@ -811,7 +825,7 @@ sci_gateway/c/libsciarnoldi_la-sci_znaupd.lo:  \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 
 libsciarnoldi.la: $(libsciarnoldi_la_OBJECTS) $(libsciarnoldi_la_DEPENDENCIES) $(EXTRA_libsciarnoldi_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libsciarnoldi_la_OBJECTS) $(libsciarnoldi_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) $(am_libsciarnoldi_la_rpath) $(libsciarnoldi_la_OBJECTS) $(libsciarnoldi_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -1118,7 +1132,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
-	clean-pkglibLTLIBRARIES mostlyclean-am
+	clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 		-rm -f sci_gateway/c/$(DEPDIR)/libsciarnoldi_la-sci_dnaupd.Plo
@@ -1209,14 +1223,15 @@ uninstall-am: uninstall-libsciarnoldi_la_etcDATA \
 
 .PHONY: CTAGS GTAGS TAGS all all-am all-local am--depfiles check \
 	check-am check-local clean clean-generic clean-libtool \
-	clean-local clean-pkglibLTLIBRARIES cscopelist-am ctags \
-	ctags-am distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-local distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-data-local install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-html-local install-info \
-	install-info-am install-libsciarnoldi_la_etcDATA \
+	clean-local clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES \
+	cscopelist-am ctags ctags-am distclean distclean-compile \
+	distclean-generic distclean-libtool distclean-local \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am \
+	install-data-local install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am \
+	install-html-local install-info install-info-am \
+	install-libsciarnoldi_la_etcDATA \
 	install-libsciarnoldi_la_rootDATA \
 	install-libsciarnoldi_la_sci_gatewayDATA install-man \
 	install-pdf install-pdf-am install-pkglibLTLIBRARIES \

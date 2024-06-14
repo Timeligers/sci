@@ -147,8 +147,12 @@ libsciexternal_objects_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/threads/includes \
     -I$(top_srcdir)/modules/console/includes
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libsciexternal_objects.la
 noinst_LTLIBRARIES = libsciexternal_objects-algo.la
+else
+noinst_LTLIBRARIES = libsciexternal_objects-algo.la libsciexternal_objects.la
+endif
 
 libsciexternal_objects_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
 

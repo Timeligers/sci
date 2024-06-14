@@ -124,8 +124,9 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 @GIWS_TRUE@am__append_1 = giws
-@GUI_TRUE@am__append_2 = libscigraphic_export.la
-@NEED_JAVA_TRUE@am__append_3 = java
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_2 = libscigraphic_export.la
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_3 = libscigraphic_export-algo.la libscigraphic_export.la
+@NEED_JAVA_TRUE@am__append_4 = java
 subdir = modules/graphic_export
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -197,11 +198,15 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@am_libscigraphic_export_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscigraphic_export_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscigraphic_export_algo_la_rpath =
 libscigraphic_export_disable_la_LIBADD =
 am_libscigraphic_export_disable_la_OBJECTS = src/nographic_export/libscigraphic_export_disable_la-nographic_export.lo
 libscigraphic_export_disable_la_OBJECTS =  \
 	$(am_libscigraphic_export_disable_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscigraphic_export_disable_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscigraphic_export_disable_la_rpath =  \
+@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 libscigraphic_export_la_DEPENDENCIES = libscigraphic_export-algo.la
 am__objects_2 = sci_gateway/c/libscigraphic_export_la-sci_xs2bmp.lo \
 	sci_gateway/c/libscigraphic_export_la-sci_xs2gif.lo \
@@ -219,7 +224,9 @@ am__objects_3 = sci_gateway/cpp/libscigraphic_export_la-sci_driver.lo \
 am_libscigraphic_export_la_OBJECTS = $(am__objects_2) $(am__objects_3)
 libscigraphic_export_la_OBJECTS =  \
 	$(am_libscigraphic_export_la_OBJECTS)
-@GUI_TRUE@am_libscigraphic_export_la_rpath = -rpath $(pkglibdir)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscigraphic_export_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscigraphic_export_la_rpath =  \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -746,9 +753,17 @@ libscigraphic_export_disable_la_CPPFLAGS = \
 
 # Name of the future library (.la will be replace by .so, .a, etc regarding
 # the system)
-pkglib_LTLIBRARIES = libscigraphic_export-disable.la $(am__append_2)
-@GUI_TRUE@USEANT = 1
-@GUI_TRUE@noinst_LTLIBRARIES = libscigraphic_export-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES =  \
+@MAINTAINER_MODE_TRUE@	libscigraphic_export-disable.la \
+@MAINTAINER_MODE_TRUE@	$(am__append_2)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@USEANT = 1
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@USEANT = 1
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES =  \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	libscigraphic_export-algo.la \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(am__append_3)
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES =  \
+@MAINTAINER_MODE_FALSE@	libscigraphic_export-disable.la \
+@MAINTAINER_MODE_FALSE@	$(am__append_3)
 
 #### graphic_export : gateway declaration ####
 libscigraphic_export_la_sci_gatewaydir = $(mydatadir)/sci_gateway
@@ -775,7 +790,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_3)
+TARGETS_ALL = $(am__append_4)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -941,7 +956,7 @@ src/nographic_export/libscigraphic_export_disable_la-nographic_export.lo:  \
 	src/nographic_export/$(DEPDIR)/$(am__dirstamp)
 
 libscigraphic_export-disable.la: $(libscigraphic_export_disable_la_OBJECTS) $(libscigraphic_export_disable_la_DEPENDENCIES) $(EXTRA_libscigraphic_export_disable_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscigraphic_export_disable_la_OBJECTS) $(libscigraphic_export_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) $(am_libscigraphic_export_disable_la_rpath) $(libscigraphic_export_disable_la_OBJECTS) $(libscigraphic_export_disable_la_LIBADD) $(LIBS)
 sci_gateway/c/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/c
 	@: > sci_gateway/c/$(am__dirstamp)

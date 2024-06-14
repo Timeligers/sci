@@ -414,6 +414,7 @@ SCICOS_BLOCKS_FORTRAN_SOURCES = \
 
 #### Multi-libraries handling ######
 
+# dynamic module, loaded on demand
 noinst_LTLIBRARIES = libsciscicos_blocks-algo.la
 pkglib_LTLIBRARIES = libsciscicos_blocks-cli.la
 if XCOS

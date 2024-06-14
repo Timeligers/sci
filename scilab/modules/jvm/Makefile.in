@@ -124,8 +124,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@GUI_TRUE@am__append_1 = libscijvm.la
-@NEED_JAVA_TRUE@am__append_2 = java
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_1 = libscijvm.la
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_2 = libscijvm-algo.la libscijvm.la
+@NEED_JAVA_TRUE@am__append_3 = java
 subdir = modules/jvm
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -213,11 +214,15 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@am_libscijvm_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscijvm_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscijvm_algo_la_rpath =
 libscijvm_disable_la_LIBADD =
 am__objects_2 = src/nojvm/libscijvm_disable_la-nojvm.lo
 am_libscijvm_disable_la_OBJECTS = $(am__objects_2)
 libscijvm_disable_la_OBJECTS = $(am_libscijvm_disable_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscijvm_disable_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscijvm_disable_la_rpath = -rpath \
+@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 am__DEPENDENCIES_1 =
 libscijvm_la_DEPENDENCIES = libscijvm-algo.la $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
@@ -231,7 +236,9 @@ libscijvm_la_OBJECTS = $(am_libscijvm_la_OBJECTS)
 libscijvm_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(libscijvm_la_LDFLAGS) $(LDFLAGS) -o $@
-@GUI_TRUE@am_libscijvm_la_rpath = -rpath $(pkglibdir)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscijvm_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscijvm_la_rpath = -rpath \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -696,9 +703,15 @@ libscijvm_la_CPPFLAGS = \
     $(XML_FLAGS) \
     $(AM_CPPFLAGS)
 
-pkglib_LTLIBRARIES = libscijvm-disable.la $(am__append_1)
-@GUI_TRUE@USEANT = 1
-@GUI_TRUE@noinst_LTLIBRARIES = libscijvm-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscijvm-disable.la \
+@MAINTAINER_MODE_TRUE@	$(am__append_1)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@USEANT = 1
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@USEANT = 1
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES =  \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	libscijvm-algo.la \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(am__append_2)
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscijvm-disable.la \
+@MAINTAINER_MODE_FALSE@	$(am__append_2)
 libscijvm_la_LDFLAGS = -pthread
 libscijvm_la_LIBADD = libscijvm-algo.la $(XML_LIBS) $(JAVA_JNI_LIBS)
 
@@ -795,7 +808,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_2)
+TARGETS_ALL = $(am__append_3)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -981,7 +994,7 @@ src/nojvm/libscijvm_disable_la-nojvm.lo: src/nojvm/$(am__dirstamp) \
 	src/nojvm/$(DEPDIR)/$(am__dirstamp)
 
 libscijvm-disable.la: $(libscijvm_disable_la_OBJECTS) $(libscijvm_disable_la_DEPENDENCIES) $(EXTRA_libscijvm_disable_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscijvm_disable_la_OBJECTS) $(libscijvm_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) $(am_libscijvm_disable_la_rpath) $(libscijvm_disable_la_OBJECTS) $(libscijvm_disable_la_LIBADD) $(LIBS)
 sci_gateway/c/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/c
 	@: > sci_gateway/c/$(am__dirstamp)

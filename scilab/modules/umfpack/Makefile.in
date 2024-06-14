@@ -633,6 +633,8 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 yacc_present = @yacc_present@
 modulename = umfpack
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciumfpack.la
 @UMFPACK_TRUE@noinst_LTLIBRARIES = libsciumfpack-algo.la
 

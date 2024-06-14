@@ -111,9 +111,12 @@ libscistatistics_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/string/includes/ \
     $(AM_CPPFLAGS)
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscistatistics.la
 noinst_LTLIBRARIES = libscistatistics-algo.la
-
+else
+noinst_LTLIBRARIES = libscistatistics-algo.la libscistatistics.la
+endif
 
 
 libscistatistics_algo_la_SOURCES = $(STATISTICS_C_SOURCES) $(STATISTICS_FORTRAN_SOURCES)

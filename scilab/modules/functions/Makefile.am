@@ -36,7 +36,13 @@ libscifunctions_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/dynamic_link/includes/ \
     $(AM_CPPFLAGS)
 
+
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscifunctions.la
+else
+noinst_LTLIBRARIES = libscifunctions.la
+endif # MAINTAINER_MODE
+
 
 libscifunctions_la_SOURCES = $(GATEWAY_CPP_SOURCES)
 

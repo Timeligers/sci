@@ -308,9 +308,13 @@ libscisundials_la_LIBADD = $(KLU_LIBS) \
     $(UMFPACK_LIBS) \
     $(OPENMP_LIBS)
 
-pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
+# keep sundials as a shared object ; it is used by scicos which is a dynamic module
 if MAINTAINER_MODE
+pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
 noinst_LTLIBRARIES = libscidifferential_equations-algo.la
+else
+pkglib_LTLIBRARIES = libscisundials.la
+noinst_LTLIBRARIES = libscidifferential_equations-algo.la libscidifferential_equations.la
 endif
 
 if IS_MACOSX

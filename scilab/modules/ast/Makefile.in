@@ -180,7 +180,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libsciast_la_etcdir)" \
 	"$(DESTDIR)$(libsciast_la_includedir)" \
 	"$(DESTDIR)$(libsciast_scilab_la_includedir)"
-LTLIBRARIES = $(pkglib_LTLIBRARIES)
+LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
 libsciast_la_LIBADD =
 am__libsciast_la_SOURCES_DIST = src/c/operations/doublecomplex.c \
 	src/c/operations/invert_matrix.c \
@@ -358,6 +358,8 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+@MAINTAINER_MODE_FALSE@am_libsciast_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libsciast_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -858,7 +860,8 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 yacc_present = @yacc_present@
-pkglib_LTLIBRARIES = libsciast.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciast.la
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciast.la
 libsciast_la_SOURCES = src/c/operations/doublecomplex.c \
 	src/c/operations/invert_matrix.c \
 	src/c/operations/matrix_addition.c \
@@ -1258,6 +1261,17 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
+
 install-pkglibLTLIBRARIES: $(pkglib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	@list='$(pkglib_LTLIBRARIES)'; test -n "$(pkglibdir)" || list=; \
@@ -1605,7 +1619,7 @@ src/cpp/parse/libsciast_la-fmemopen.lo: src/cpp/parse/$(am__dirstamp) \
 	src/cpp/parse/$(DEPDIR)/$(am__dirstamp)
 
 libsciast.la: $(libsciast_la_OBJECTS) $(libsciast_la_DEPENDENCIES) $(EXTRA_libsciast_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libsciast_la_OBJECTS) $(libsciast_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciast_la_rpath) $(libsciast_la_OBJECTS) $(libsciast_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -2690,7 +2704,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
-	clean-pkglibLTLIBRARIES mostlyclean-am
+	clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 		-rm -f src/c/operations/$(DEPDIR)/libsciast_la-doublecomplex.Plo
@@ -2962,14 +2976,15 @@ uninstall-am: uninstall-libsciast_la_etcDATA \
 
 .PHONY: CTAGS GTAGS TAGS all all-am all-local am--depfiles check \
 	check-am check-local clean clean-generic clean-libtool \
-	clean-local clean-pkglibLTLIBRARIES cscopelist-am ctags \
-	ctags-am distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-local distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-data-local install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-html-local install-info \
-	install-info-am install-libsciast_la_etcDATA \
+	clean-local clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES \
+	cscopelist-am ctags ctags-am distclean distclean-compile \
+	distclean-generic distclean-libtool distclean-local \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am \
+	install-data-local install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am \
+	install-html-local install-info install-info-am \
+	install-libsciast_la_etcDATA \
 	install-libsciast_la_includeHEADERS \
 	install-libsciast_scilab_la_includeHEADERS install-man \
 	install-pdf install-pdf-am install-pkglibLTLIBRARIES \

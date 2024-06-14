@@ -606,6 +606,8 @@ libjavasci2_la_etc_DATA = \
 @JAVASCI_TRUE@    src/jni/putLists.c \
 @JAVASCI_TRUE@    src/c/javasci2_helper.c
 
+
+# Very specific library, javasci is a user entry point ; shipped as a dedicated library
 @JAVASCI_TRUE@pkglib_LTLIBRARIES = libjavasci2.la
 @JAVASCI_TRUE@libjavasci2_la_SOURCES = $(JAVASCI_V2_C_SOURCES)
 

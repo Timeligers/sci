@@ -86,12 +86,22 @@ SCINOTES_DISABLE_C_SOURCES = src/noscinotes/noscinotes.c
 SCINOTES_DISABLE_CPP_SOURCES = src/noscinotes/noscinotes_gw.cpp
 libsciscinotes_disable_la_SOURCES = $(SCINOTES_DISABLE_C_SOURCES) $(SCINOTES_DISABLE_CPP_SOURCES)
 
-pkglib_LTLIBRARIES = libsciscinotes-disable.la
 
+if MAINTAINER_MODE
+pkglib_LTLIBRARIES = libsciscinotes-disable.la
 if GUI
-    pkglib_LTLIBRARIES += libsciscinotes.la
-    noinst_LTLIBRARIES = libsciscinotes-algo.la
+USEANT=1
+pkglib_LTLIBRARIES += libsciscinotes.la
+noinst_LTLIBRARIES = libsciscinotes-algo.la
 endif
+else
+noinst_LTLIBRARIES = libsciscinotes-disable.la
+if GUI
+USEANT=1
+noinst_LTLIBRARIES += libsciscinotes-algo.la libsciscinotes.la
+endif
+endif
+
 
 libsciscinotes_algo_la_SOURCES = $(SCINOTES_C_SOURCES) $(SCINOTES_JNI_SOURCES) $(SCINOTES_CXX_SOURCES)
 libsciscinotes_la_SOURCES = $(GATEWAY_CXX_SOURCES)

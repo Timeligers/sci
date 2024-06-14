@@ -131,10 +131,12 @@ libscihdf5_la_CPPFLAGS = \
 libscihdf5_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscihdf5_la_sci_gateway_DATA = sci_gateway/hdf5_gateway.xml
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscihdf5.la
-noinst_LTLIBRARIES =
-
-noinst_LTLIBRARIES += libscihdf5-algo.la
+noinst_LTLIBRARIES = libscihdf5-algo.la
+else
+noinst_LTLIBRARIES = libscihdf5-algo.la libscihdf5.la
+endif
 
 
 libscihdf5_algo_la_SOURCES = $(HDF5_SOURCES) $(HDF5_CXX_SOURCES)

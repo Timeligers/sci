@@ -53,12 +53,19 @@ libscijvm_la_CPPFLAGS = \
     $(XML_FLAGS) \
     $(AM_CPPFLAGS)
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscijvm-disable.la
-
 if GUI
 USEANT=1
 pkglib_LTLIBRARIES += libscijvm.la
 noinst_LTLIBRARIES = libscijvm-algo.la
+endif
+else
+noinst_LTLIBRARIES = libscijvm-disable.la
+if GUI
+USEANT=1
+noinst_LTLIBRARIES += libscijvm-algo.la libscijvm.la
+endif
 endif
 
 libscijvm_la_LDFLAGS = -pthread

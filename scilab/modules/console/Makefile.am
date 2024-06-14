@@ -38,9 +38,13 @@ libsciconsole_la_etc_DATA = \
 	etc/Actions-Configuration.xml
 
 #### console : List of the cpp files ####
-CONSOLE_CPP_JNI_SOURCES = src/jni/CallScilabBridge.cpp
-
 CONSOLE_CPP_SOURCES = \
+    src/cpp/prompt.cpp \
+    src/cpp/scilabRead.cpp
+
+CONSOLE_CPP_JNI_SOURCES =
+
+CONSOLE_CPP_JVM_SOURCES = \
     src/cpp/ClearConsole.cpp \
     src/cpp/ClearConsolePart.cpp \
     src/cpp/ConsolePrintf.cpp \
@@ -51,13 +55,49 @@ CONSOLE_CPP_SOURCES = \
     src/cpp/ScilabLinesUpdate.cpp \
     src/cpp/SetConsolePrompt.cpp
 
+CONSOLE_GATEWAY_CPP_SOURCES = \
+    sci_gateway/cpp/sci_clc.cpp \
+    sci_gateway/cpp/sci_tohome.cpp \
+    sci_gateway/cpp/sci_lines.cpp \
+    sci_gateway/cpp/sci_prompt.cpp \
+    sci_gateway/cpp/sci_iswaitingforinput.cpp \
+    sci_gateway/cpp/console_gw.cpp
+
+
 #### console : List of the c files ####
+CONSOLE_C_SOURCES = \
+    src/c/clc.c \
+    src/c/tohome.c \
+    src/c/more.c \
+    src/c/scilines.c \ \
+    src/c/getpipeline.c \
+    src/c/others/gotoxy_nw.c \
+    src/c/others/clrscr_nw.c \
+    src/c/GuiManagement.c \
+    src/c/dropFiles.c
+
+if IS_MACOSX
+CONSOLE_C_SOURCES += src/c/others/initMacOSXEnv.c
+endif
+
 CONSOLE_C_JNI_SOURCES = \
     src/jni/GuiManagement_wrap.c \
     src/jni/DropFiles_wrap.c \
     src/jni/AdvCLIManagement_wrap.c
 
-GIWS_WRAPPERS = src/jni/CallScilabBridge.giws.xml
+CONSOLE_CMDLINE_C_SOURCES = \
+    src/c/cmdLine/autoCompletionCli.c \
+    src/c/cmdLine/charactersManagement.c \
+    src/c/cmdLine/cliDisplayManagement.c \
+    src/c/cmdLine/cliHistory.c \
+    src/c/cmdLine/cliPrompt.c \
+    src/c/cmdLine/getKey.c \
+    src/c/cmdLine/getNbrLine.c \
+    src/c/cmdLine/gotoFunctions.c \
+    src/c/cmdLine/initConsoleMode.c \
+    src/c/cmdLine/termcapManagement.c
+
+# Pre-processing
 
 BUILT_SOURCES=
 
@@ -69,46 +109,8 @@ if SWIG
 BUILT_SOURCES+=swig
 endif
 
-# List of the c files
-
-libsciconsole_minimal_la_SOURCES = \
-    src/noconsole/noconsole.c \
-    sci_gateway/cpp/sci_clc.cpp \
-    sci_gateway/cpp/sci_tohome.cpp \
-    sci_gateway/cpp/sci_lines.cpp \
-    sci_gateway/cpp/sci_prompt.cpp \
-    sci_gateway/cpp/sci_iswaitingforinput.cpp \
-    src/c/clc.c \
-    src/c/tohome.c \
-    src/c/more.c \
-    src/c/scilines.c \
-    src/c/others/gotoxy_nw.c \
-    src/c/others/clrscr_nw.c \
-    src/cpp/prompt.cpp \
-    src/c/getpipeline.c \
-    src/c/cmdLine/autoCompletionCli.c \
-    src/c/cmdLine/charactersManagement.c \
-    src/c/cmdLine/cliDisplayManagement.c \
-    src/c/cmdLine/cliHistory.c \
-    src/c/cmdLine/cliPrompt.c \
-    src/c/cmdLine/getKey.c \
-    src/c/cmdLine/getNbrLine.c \
-    src/c/cmdLine/gotoFunctions.c \
-    src/c/cmdLine/initConsoleMode.c \
-    src/c/cmdLine/termcapManagement.c \
-    src/cpp/scilabRead.cpp \
-    sci_gateway/cpp/console_gw.cpp
-
-CONSOLE_C_SOURCES = \
-    src/c/GuiManagement.c \
-    src/c/dropFiles.c
-
-if IS_MACOSX
-CONSOLE_C_SOURCES += src/c/others/initMacOSXEnv.c
-endif
-
-
-libsciconsole_minimal_la_CPPFLAGS = \
+# Includes need for the compilation
+libsciconsole_algo_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c/ \
     -I$(top_srcdir)/modules/ast/includes/ast/ \
@@ -130,60 +132,63 @@ libsciconsole_minimal_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
     -I$(top_srcdir)/modules/fileio/includes/ \
     -I$(top_srcdir)/modules/ui_data/includes/ \
-    -I$(top_srcdir)/modules/jvm/includes \
     -I$(top_srcdir)/modules/threads/includes \
     -I$(top_srcdir)/modules/string/includes \
     -I$(top_srcdir)/modules/dynamic_link/includes \
-    $(NCURSES_CFLAGS) \
-    $(AM_CPPFLAGS)
+    $(NCURSES_CFLAGS)
 
-# Includes need for the compilation
+libsciconsole_minimal_la_CPPFLAGS = \
+    $(libsciconsole_algo_la_CPPFLAGS)
+
 libsciconsole_la_CPPFLAGS = \
-    -I$(top_srcdir)/modules/api_scilab/includes \
-    -I$(srcdir)/includes/ \
-    -I$(srcdir)/src/cpp/ \
-    -I$(srcdir)/src/c/ \
     -I$(srcdir)/src/jni/ \
-    -I$(top_srcdir)/modules/ast/includes/ast/ \
-    -I$(top_srcdir)/modules/ast/includes/exps/ \
-    -I$(top_srcdir)/modules/ast/includes/operations/ \
-    -I$(top_srcdir)/modules/ast/includes/parse/ \
-    -I$(top_srcdir)/modules/ast/includes/symbol/ \
-    -I$(top_srcdir)/modules/ast/includes/system_env/ \
-    -I$(top_srcdir)/modules/ast/includes/types/ \
-    -I$(top_srcdir)/modules/jvm/includes/ \
-    -I$(top_srcdir)/modules/action_binding/includes \
-    -I$(top_srcdir)/modules/history_manager/includes/ \
-    -I$(top_srcdir)/modules/ui_data/includes/ \
-    -I$(top_srcdir)/modules/threads/includes \
-    -I$(top_srcdir)/modules/completion/includes \
-    -I$(top_srcdir)/modules/output_stream/includes \
-    -I$(top_srcdir)/modules/string/includes \
-    -I$(top_srcdir)/modules/fileio/includes \
-    -I$(top_srcdir)/modules/localization/includes \
     -I$(top_srcdir)/modules/commons/src/jni \
-    -I$(top_srcdir)/modules/dynamic_link/includes \
-    $(JAVA_JNI_INCLUDE) \
-    $(AM_CPPFLAGS)
-
+    -I$(top_srcdir)/modules/jvm/includes \
+    -I$(top_srcdir)/modules/gui/src/jni \
+    $(libsciconsole_algo_la_CPPFLAGS) \
+    $(JAVA_JNI_INCLUDE)
 
 # Name of the library
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libsciconsole-minimal.la
-
-libsciconsole_minimal_la_LIBADD = $(NCURSES_LIBS)
-
 if GUI
 pkglib_LTLIBRARIES += libsciconsole.la
-
-libsciconsole_la_LIBADD = $(NCURSES_LIBS)
-
-# All the sources needed by libsciconsole.la
-libsciconsole_la_SOURCES = $(CONSOLE_C_JNI_SOURCES) $(CONSOLE_C_SOURCES) $(CONSOLE_CPP_JNI_SOURCES) $(CONSOLE_CPP_SOURCES) $(CONSOLE_GATEWAY_C_SOURCES) $(CONSOLE_GATEWAY_CPP_SOURCES)
+endif
+noinst_LTLIBRARIES = libsciconsole-algo.la
+else
+noinst_LTLIBRARIES = libsciconsole-algo.la libsciconsole-minimal.la
+if GUI
+noinst_LTLIBRARIES += libsciconsole.la
+endif
 endif
 
+# All the sources needed by libsciconsole.la
+libsciconsole_algo_la_SOURCES = \
+    $(CONSOLE_CPP_SOURCES) \
+    $(CONSOLE_C_SOURCES) \
+    $(CONSOLE_CMDLINE_C_SOURCES)
+
+libsciconsole_minimal_la_SOURCES = \
+    src/noconsole/noconsole.c \
+    $(CONSOLE_GATEWAY_CPP_SOURCES)
+
+libsciconsole_la_SOURCES = \
+    src/c/InitializeConsole.c \
+    $(CONSOLE_C_JNI_SOURCES) \
+    $(CONSOLE_CPP_JNI_SOURCES) \
+    $(CONSOLE_CPP_JVM_SOURCES) \
+    $(CONSOLE_GATEWAY_CPP_SOURCES)
+
+## Libraries necessary
+libsciconsole_minimal_la_LIBADD = libsciconsole-algo.la \
+    $(NCURSES_LIBS)
+    
+libsciconsole_la_LIBADD = libsciconsole-algo.la \
+    $(NCURSES_LIBS)
+
 # For the code check (splint)
-CHECK_SRC= $(CONSOLE_C_JNI_SOURCES) $(CONSOLE_C_SOURCES)
-INCLUDE_FLAGS = $(libsciconsole_la_CPPFLAGS)
+CHECK_SRC= $(libsciconsole_algo_la_SOURCES)
+INCLUDE_FLAGS = $(libsciconsole_algo_la_CPPFLAGS)
 
 #### SWIG Declaration ####
 SWIG_WRAPPERS = src/jni/GuiManagement.i \

@@ -122,10 +122,11 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@GUI_TRUE@am__append_1 = libsciscinotes.la
-@GIWS_TRUE@am__append_2 = giws
-@SWIG_TRUE@am__append_3 = swig
-@NEED_JAVA_TRUE@am__append_4 = java
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_1 = libsciscinotes.la
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_2 = libsciscinotes-algo.la libsciscinotes.la
+@GIWS_TRUE@am__append_3 = giws
+@SWIG_TRUE@am__append_4 = swig
+@NEED_JAVA_TRUE@am__append_5 = java
 subdir = modules/scinotes
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -197,7 +198,8 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@am_libsciscinotes_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libsciscinotes_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libsciscinotes_algo_la_rpath =
 libsciscinotes_disable_la_LIBADD =
 am__objects_4 =  \
 	src/noscinotes/libsciscinotes_disable_la-noscinotes.lo
@@ -207,6 +209,9 @@ am_libsciscinotes_disable_la_OBJECTS = $(am__objects_4) \
 	$(am__objects_5)
 libsciscinotes_disable_la_OBJECTS =  \
 	$(am_libsciscinotes_disable_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libsciscinotes_disable_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libsciscinotes_disable_la_rpath = -rpath \
+@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 am__DEPENDENCIES_1 =
 libsciscinotes_la_DEPENDENCIES = libsciscinotes-algo.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
@@ -214,7 +219,9 @@ am__objects_6 = sci_gateway/cpp/libsciscinotes_la-sci_scinotes.lo \
 	sci_gateway/cpp/libsciscinotes_la-sci_closeSciNotesFromScilab.lo
 am_libsciscinotes_la_OBJECTS = $(am__objects_6)
 libsciscinotes_la_OBJECTS = $(am_libsciscinotes_la_OBJECTS)
-@GUI_TRUE@am_libsciscinotes_la_rpath = -rpath $(pkglibdir)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libsciscinotes_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libsciscinotes_la_rpath = -rpath \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -698,8 +705,16 @@ libsciscinotes_disable_la_CPPFLAGS = \
 SCINOTES_DISABLE_C_SOURCES = src/noscinotes/noscinotes.c
 SCINOTES_DISABLE_CPP_SOURCES = src/noscinotes/noscinotes_gw.cpp
 libsciscinotes_disable_la_SOURCES = $(SCINOTES_DISABLE_C_SOURCES) $(SCINOTES_DISABLE_CPP_SOURCES)
-pkglib_LTLIBRARIES = libsciscinotes-disable.la $(am__append_1)
-@GUI_TRUE@noinst_LTLIBRARIES = libsciscinotes-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciscinotes-disable.la \
+@MAINTAINER_MODE_TRUE@	$(am__append_1)
+@BUILD_HELP_TRUE@@GUI_TRUE@USEANT = 1
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@USEANT = 1
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@USEANT = 1
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES =  \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	libsciscinotes-algo.la \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(am__append_2)
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciscinotes-disable.la \
+@MAINTAINER_MODE_FALSE@	$(am__append_2)
 libsciscinotes_algo_la_SOURCES = $(SCINOTES_C_SOURCES) $(SCINOTES_JNI_SOURCES) $(SCINOTES_CXX_SOURCES)
 libsciscinotes_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libsciscinotes_algo_la_CPPFLAGS = $(libsciscinotes_la_CPPFLAGS)
@@ -709,13 +724,12 @@ CHECK_SRC = $(SCINOTES_C_SOURCES)
 INCLUDE_FLAGS = $(libsciscinotes_la_CPPFLAGS)
 GIWS_WRAPPERS = src/jni/SciNotes.giws.xml
 SWIG_WRAPPERS = src/jni/ScilabKeywords.i
-BUILT_SOURCES = $(am__append_2) $(am__append_3)
+BUILT_SOURCES = $(am__append_3) $(am__append_4)
 libsciscinotes_la_LIBADD = libsciscinotes-algo.la $(X_LIBS) $(X_EXTRA_LIBS)
 
 #### scinotes : gateway declaration ####
 libsciscinotes_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libsciscinotes_la_sci_gateway_DATA = sci_gateway/scinotes_gateway.xml
-@BUILD_HELP_TRUE@@GUI_TRUE@USEANT = 1
 
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir = $(pkgdatadir)/modules/$(modulename)
@@ -738,7 +752,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_4)
+TARGETS_ALL = $(am__append_5)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -913,7 +927,7 @@ src/noscinotes/libsciscinotes_disable_la-noscinotes_gw.lo:  \
 	src/noscinotes/$(DEPDIR)/$(am__dirstamp)
 
 libsciscinotes-disable.la: $(libsciscinotes_disable_la_OBJECTS) $(libsciscinotes_disable_la_DEPENDENCIES) $(EXTRA_libsciscinotes_disable_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libsciscinotes_disable_la_OBJECTS) $(libsciscinotes_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciscinotes_disable_la_rpath) $(libsciscinotes_disable_la_OBJECTS) $(libsciscinotes_disable_la_LIBADD) $(LIBS)
 sci_gateway/cpp/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp
 	@: > sci_gateway/cpp/$(am__dirstamp)

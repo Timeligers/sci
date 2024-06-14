@@ -122,10 +122,11 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@GUI_TRUE@am__append_1 = libscipreferences.la
-@GIWS_TRUE@am__append_2 = giws
-@SWIG_TRUE@am__append_3 = swig
-@NEED_JAVA_TRUE@am__append_4 = java
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_1 = libscipreferences.la
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_2 = libscipreferences-algo.la libscipreferences.la
+@GIWS_TRUE@am__append_3 = giws
+@SWIG_TRUE@am__append_4 = swig
+@NEED_JAVA_TRUE@am__append_5 = java
 subdir = modules/preferences
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -200,7 +201,8 @@ libscipreferences_algo_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libscipreferences_algo_la_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-@GUI_TRUE@am_libscipreferences_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscipreferences_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscipreferences_algo_la_rpath =
 libscipreferences_cli_la_DEPENDENCIES = libscipreferences-algo.la
 am__objects_2 =  \
 	src/nopreferences/libscipreferences_cli_la-nopreferences.lo \
@@ -208,6 +210,9 @@ am__objects_2 =  \
 am_libscipreferences_cli_la_OBJECTS = $(am__objects_2)
 libscipreferences_cli_la_OBJECTS =  \
 	$(am_libscipreferences_cli_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscipreferences_cli_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscipreferences_cli_la_rpath = -rpath \
+@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 am__DEPENDENCIES_1 =
 libscipreferences_la_DEPENDENCIES = libscipreferences-algo.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
@@ -219,7 +224,9 @@ am__objects_3 = sci_gateway/cpp/libscipreferences_la-sci_addModulePreferences.lo
 am__objects_4 = src/jni/libscipreferences_la-ScilabPreferences.lo
 am_libscipreferences_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscipreferences_la_OBJECTS = $(am_libscipreferences_la_OBJECTS)
-@GUI_TRUE@am_libscipreferences_la_rpath = -rpath $(pkglibdir)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscipreferences_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscipreferences_la_rpath =  \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -726,8 +733,13 @@ PREFERENCES_CLI_CPP_SOURCES = src/nopreferences/nopreferences.cpp \
 							  sci_gateway/cpp/preferences_gw.cpp
 
 libscipreferences_cli_la_SOURCES = $(PREFERENCES_CLI_CPP_SOURCES)
-pkglib_LTLIBRARIES = libscipreferences-cli.la $(am__append_1)
-@GUI_TRUE@noinst_LTLIBRARIES = libscipreferences-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscipreferences-cli.la \
+@MAINTAINER_MODE_TRUE@	$(am__append_1)
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES =  \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	libscipreferences-algo.la \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(am__append_2)
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscipreferences-cli.la \
+@MAINTAINER_MODE_FALSE@	$(am__append_2)
 libscipreferences_algo_la_SOURCES = $(PREFERENCES_C_SOURCES)
 libscipreferences_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)  $(PREFERENCES_JNI_SOURCES)
 libscipreferences_algo_la_CFLAGS = $(libscipreferences_la_CFLAGS)
@@ -738,7 +750,7 @@ CHECK_SRC = $(PREFERENCES_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscipreferences_la_CPPFLAGS)
 GIWS_WRAPPERS = src/jni/ScilabPreferences.giws.xml
 SWIG_WRAPPERS = 
-BUILT_SOURCES = $(am__append_2) $(am__append_3)
+BUILT_SOURCES = $(am__append_3) $(am__append_4)
 libscipreferences_cli_la_LIBADD = libscipreferences-algo.la
 libscipreferences_la_LIBADD = libscipreferences-algo.la $(X_LIBS) $(X_EXTRA_LIBS) $(XML_LIBS)
 @GUI_TRUE@USEANT = 1
@@ -764,7 +776,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_4)
+TARGETS_ALL = $(am__append_5)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -927,7 +939,7 @@ sci_gateway/cpp/libscipreferences_cli_la-preferences_gw.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscipreferences-cli.la: $(libscipreferences_cli_la_OBJECTS) $(libscipreferences_cli_la_DEPENDENCIES) $(EXTRA_libscipreferences_cli_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscipreferences_cli_la_OBJECTS) $(libscipreferences_cli_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscipreferences_cli_la_rpath) $(libscipreferences_cli_la_OBJECTS) $(libscipreferences_cli_la_LIBADD) $(LIBS)
 sci_gateway/cpp/libscipreferences_la-sci_addModulePreferences.lo:  \
 	sci_gateway/cpp/$(am__dirstamp) \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)

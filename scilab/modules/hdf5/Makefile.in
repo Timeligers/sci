@@ -217,6 +217,8 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+@MAINTAINER_MODE_FALSE@am_libscihdf5_algo_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscihdf5_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libscihdf5_la_DEPENDENCIES = libscihdf5-algo.la $(am__DEPENDENCIES_1)
 am__objects_3 = sci_gateway/cpp/libscihdf5_la-hdf5_gw.lo \
@@ -257,6 +259,8 @@ am__objects_3 = sci_gateway/cpp/libscihdf5_la-hdf5_gw.lo \
 	sci_gateway/cpp/libscihdf5_la-sci_percent_H5Object_fieldnames.lo
 am_libscihdf5_la_OBJECTS = $(am__objects_3)
 libscihdf5_la_OBJECTS = $(am_libscihdf5_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscihdf5_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscihdf5_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -833,8 +837,9 @@ libscihdf5_la_CPPFLAGS = \
 #### hdf5 : gateway declaration ####
 libscihdf5_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscihdf5_la_sci_gateway_DATA = sci_gateway/hdf5_gateway.xml
-pkglib_LTLIBRARIES = libscihdf5.la
-noinst_LTLIBRARIES = libscihdf5-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscihdf5.la
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscihdf5-algo.la libscihdf5.la
+@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscihdf5-algo.la
 libscihdf5_algo_la_SOURCES = $(HDF5_SOURCES) $(HDF5_CXX_SOURCES)
 libscihdf5_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libscihdf5_algo_la_CPPFLAGS = $(libscihdf5_la_CPPFLAGS)
@@ -1143,7 +1148,7 @@ src/c/libscihdf5_algo_la-DllmainHdf5.lo: src/c/$(am__dirstamp) \
 	src/c/$(DEPDIR)/$(am__dirstamp)
 
 libscihdf5-algo.la: $(libscihdf5_algo_la_OBJECTS) $(libscihdf5_algo_la_DEPENDENCIES) $(EXTRA_libscihdf5_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK)  $(libscihdf5_algo_la_OBJECTS) $(libscihdf5_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscihdf5_algo_la_rpath) $(libscihdf5_algo_la_OBJECTS) $(libscihdf5_algo_la_LIBADD) $(LIBS)
 sci_gateway/cpp/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp
 	@: > sci_gateway/cpp/$(am__dirstamp)
@@ -1260,7 +1265,7 @@ sci_gateway/cpp/libscihdf5_la-sci_percent_H5Object_fieldnames.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscihdf5.la: $(libscihdf5_la_OBJECTS) $(libscihdf5_la_DEPENDENCIES) $(EXTRA_libscihdf5_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscihdf5_la_OBJECTS) $(libscihdf5_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscihdf5_la_rpath) $(libscihdf5_la_OBJECTS) $(libscihdf5_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

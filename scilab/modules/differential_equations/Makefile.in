@@ -247,6 +247,7 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+@MAINTAINER_MODE_FALSE@am_libscidifferential_equations_algo_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libscidifferential_equations_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libscidifferential_equations_la_DEPENDENCIES =  \
@@ -280,6 +281,9 @@ am_libscidifferential_equations_la_OBJECTS = $(am__objects_4) \
 	$(am__objects_5)
 libscidifferential_equations_la_OBJECTS =  \
 	$(am_libscidifferential_equations_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscidifferential_equations_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscidifferential_equations_la_rpath =  \
+@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 libscisundials_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_libscisundials_la_OBJECTS =  \
@@ -375,6 +379,9 @@ am_libscisundials_la_OBJECTS =  \
 	src/patched_sundials/src/sunnonlinsol/fixedpoint/libscisundials_la-sunnonlinsol_fixedpoint.lo \
 	src/patched_sundials/src/sunnonlinsol/newton/libscisundials_la-sunnonlinsol_newton.lo
 libscisundials_la_OBJECTS = $(am_libscisundials_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscisundials_la_rpath = -rpath \
+@MAINTAINER_MODE_FALSE@	$(pkglibdir)
+@MAINTAINER_MODE_TRUE@am_libscisundials_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -1236,7 +1243,11 @@ libscisundials_la_LIBADD = $(KLU_LIBS) \
     $(UMFPACK_LIBS) \
     $(OPENMP_LIBS)
 
-pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
+@MAINTAINER_MODE_FALSE@pkglib_LTLIBRARIES = libscisundials.la
+
+# keep sundials as a shared object ; it is used by scicos which is a dynamic module
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscidifferential_equations-algo.la libscidifferential_equations.la
 @MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscidifferential_equations-algo.la
 libscidifferential_equations_algo_la_SOURCES = $(DIFFERENTIAL_EQUATIONS_C_SOURCES) $(DIFFERENTIAL_EQUATIONS_FORTRAN_SOURCES) $(DIFFERENTIAL_EQUATIONS_CPP_SOURCES)
 libscidifferential_equations_la_SOURCES = $(GATEWAY_FORTRAN_SOURCES) $(GATEWAY_CPP_SOURCES) $(GATEWAY_C_SOURCES)
@@ -1721,7 +1732,7 @@ sci_gateway/cpp/libscidifferential_equations_la-sci_percent_odeSolution.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscidifferential_equations.la: $(libscidifferential_equations_la_OBJECTS) $(libscidifferential_equations_la_DEPENDENCIES) $(EXTRA_libscidifferential_equations_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscidifferential_equations_la_OBJECTS) $(libscidifferential_equations_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscidifferential_equations_la_rpath) $(libscidifferential_equations_la_OBJECTS) $(libscidifferential_equations_la_LIBADD) $(LIBS)
 src/patched_sundials/src/arkode/$(am__dirstamp):
 	@$(MKDIR_P) src/patched_sundials/src/arkode
 	@: > src/patched_sundials/src/arkode/$(am__dirstamp)
@@ -2133,7 +2144,7 @@ src/patched_sundials/src/sunnonlinsol/newton/libscisundials_la-sunnonlinsol_newt
 	src/patched_sundials/src/sunnonlinsol/newton/$(DEPDIR)/$(am__dirstamp)
 
 libscisundials.la: $(libscisundials_la_OBJECTS) $(libscisundials_la_DEPENDENCIES) $(EXTRA_libscisundials_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscisundials_la_OBJECTS) $(libscisundials_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) $(am_libscisundials_la_rpath) $(libscisundials_la_OBJECTS) $(libscisundials_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

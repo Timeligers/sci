@@ -123,8 +123,12 @@ libsciexternal_objects_java_la_CPPFLAGS = \
     $(JAVA_JNI_INCLUDE)
 
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libsciexternal_objects_java.la
 noinst_LTLIBRARIES = libsciexternal_objects_java-algo.la
+else
+noinst_LTLIBRARIES = libsciexternal_objects_java-algo.la libsciexternal_objects_java.la
+endif
 
 libsciexternal_objects_java_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
 
@@ -135,8 +139,6 @@ libsciexternal_objects_java_algo_la_CPPFLAGS = $(libsciexternal_objects_java_la_
 
 libsciexternal_objects_java_la_LIBADD = \
     libsciexternal_objects_java-algo.la \
-    $(top_builddir)/modules/commons/libscicommons.la \
-    $(top_builddir)/modules/jvm/libscijvm.la \
     $(X_LIBS) $(X_EXTRA_LIBS)
 
 # For the code check (splint)

@@ -184,7 +184,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libscirenderer_la_etcdir)" \
 	"$(DESTDIR)$(libscirenderer_la_rootdir)"
-LTLIBRARIES = $(pkglib_LTLIBRARIES)
+LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
 libscirenderer_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = src/cpp/libscirenderer_la-GetJavaProperty.lo \
@@ -199,7 +199,9 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@am_libscirenderer_la_rpath = -rpath $(pkglibdir)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscirenderer_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscirenderer_la_rpath = -rpath \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -640,8 +642,9 @@ GIWS_WRAPPERS = \
 src/jni/XlFontManager.giws.xml \
 src/jni/renderer.giws.xml
 
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscirenderer.la
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscirenderer.la
 @GUI_TRUE@USEANT = 1
-@GUI_TRUE@pkglib_LTLIBRARIES = libscirenderer.la
 
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir = $(pkgdatadir)/modules/$(modulename)
@@ -750,6 +753,17 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
+
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
 
 install-pkglibLTLIBRARIES: $(pkglib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
@@ -1085,7 +1099,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
-	clean-pkglibLTLIBRARIES mostlyclean-am
+	clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 		-rm -f src/cpp/$(DEPDIR)/libscirenderer_la-GetJavaProperty.Plo
@@ -1171,14 +1185,15 @@ uninstall-am: uninstall-libscirenderer_la_etcDATA \
 
 .PHONY: CTAGS GTAGS TAGS all all-am all-local am--depfiles check \
 	check-am check-local clean clean-generic clean-libtool \
-	clean-local clean-pkglibLTLIBRARIES cscopelist-am ctags \
-	ctags-am distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-local distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-data-local install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-html-local install-info \
-	install-info-am install-libscirenderer_la_etcDATA \
+	clean-local clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES \
+	cscopelist-am ctags ctags-am distclean distclean-compile \
+	distclean-generic distclean-libtool distclean-local \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am \
+	install-data-local install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am \
+	install-html-local install-info install-info-am \
+	install-libscirenderer_la_etcDATA \
 	install-libscirenderer_la_rootDATA install-man install-pdf \
 	install-pdf-am install-pkglibLTLIBRARIES install-ps \
 	install-ps-am install-strip installcheck installcheck-am \

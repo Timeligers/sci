@@ -13,6 +13,8 @@
 
 modulename=umfpack
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciumfpack.la
 
 if UMFPACK

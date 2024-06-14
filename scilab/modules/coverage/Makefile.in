@@ -191,6 +191,8 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+@MAINTAINER_MODE_FALSE@am_libscicoverage_algo_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscicoverage_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libscicoverage_la_DEPENDENCIES = libscicoverage-algo.la \
 	$(am__DEPENDENCIES_1)
@@ -204,6 +206,8 @@ am__objects_2 = sci_gateway/cpp/libscicoverage_la-sci_covStart.lo \
 	sci_gateway/cpp/libscicoverage_la-coverage_gw.lo
 am_libscicoverage_la_OBJECTS = $(am__objects_2)
 libscicoverage_la_OBJECTS = $(am_libscicoverage_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscicoverage_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscicoverage_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -733,8 +737,9 @@ libscicoverage_la_CPPFLAGS = \
     $(COVERAGE_FLAGS) \
     $(AM_CPPFLAGS)
 
-pkglib_LTLIBRARIES = libscicoverage.la
-noinst_LTLIBRARIES = libscicoverage-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscicoverage.la
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscicoverage-algo.la libscicoverage.la
+@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscicoverage-algo.la
 libscicoverage_algo_la_SOURCES = $(COVERAGE_CXX_SOURCES)
 libscicoverage_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libscicoverage_algo_la_CPPFLAGS = $(libscicoverage_la_CPPFLAGS)
@@ -853,7 +858,7 @@ src/cpp/libscicoverage_algo_la-CoverModule_interface.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscicoverage-algo.la: $(libscicoverage_algo_la_OBJECTS) $(libscicoverage_algo_la_DEPENDENCIES) $(EXTRA_libscicoverage_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK)  $(libscicoverage_algo_la_OBJECTS) $(libscicoverage_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscicoverage_algo_la_rpath) $(libscicoverage_algo_la_OBJECTS) $(libscicoverage_algo_la_LIBADD) $(LIBS)
 sci_gateway/cpp/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp
 	@: > sci_gateway/cpp/$(am__dirstamp)
@@ -886,7 +891,7 @@ sci_gateway/cpp/libscicoverage_la-coverage_gw.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscicoverage.la: $(libscicoverage_la_OBJECTS) $(libscicoverage_la_DEPENDENCIES) $(EXTRA_libscicoverage_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscicoverage_la_OBJECTS) $(libscicoverage_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscicoverage_la_rpath) $(libscicoverage_la_OBJECTS) $(libscicoverage_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

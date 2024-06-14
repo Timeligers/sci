@@ -50,6 +50,7 @@ libsciinterpolation_la_CPPFLAGS= \
     -I$(top_srcdir)/modules/string/includes \
     -I$(top_srcdir)/modules/elementary_functions/includes
 
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciinterpolation.la
 noinst_LTLIBRARIES = libsciinterpolation-algo.la
 

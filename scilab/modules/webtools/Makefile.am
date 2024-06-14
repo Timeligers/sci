@@ -55,6 +55,7 @@ libsciwebtools_la_CPPFLAGS= \
 
 libsciwebtools_algo_la_CPPFLAGS = $(libsciwebtools_la_CPPFLAGS)
 
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciwebtools.la
 noinst_LTLIBRARIES = libsciwebtools-algo.la
 

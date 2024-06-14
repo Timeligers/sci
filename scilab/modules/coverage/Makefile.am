@@ -70,8 +70,12 @@ libscicoverage_la_CPPFLAGS = \
     $(COVERAGE_FLAGS) \
     $(AM_CPPFLAGS)
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscicoverage.la
 noinst_LTLIBRARIES = libscicoverage-algo.la
+else
+noinst_LTLIBRARIES = libscicoverage-algo.la libscicoverage.la
+endif
 
 libscicoverage_algo_la_SOURCES = $(COVERAGE_CXX_SOURCES)
 libscicoverage_la_SOURCES = $(GATEWAY_CXX_SOURCES)

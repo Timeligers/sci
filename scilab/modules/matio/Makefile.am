@@ -70,6 +70,7 @@ libscimatio_la_CPPFLAGS = \
     $(MATIO_CFLAGS) \
     $(AM_CPPFLAGS)
 
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscimatio.la
 noinst_LTLIBRARIES = libscimatio-algo.la
 

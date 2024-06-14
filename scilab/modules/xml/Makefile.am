@@ -112,8 +112,12 @@ libscixml_la_CPPFLAGS = \
     $(XML_FLAGS) \
     $(AM_CPPFLAGS)
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscixml.la
 noinst_LTLIBRARIES = libscixml-algo.la
+else
+noinst_LTLIBRARIES = libscixml-algo.la libscixml.la
+endif
 
 libscixml_algo_la_SOURCES = $(XML_JNI_SOURCES) $(XML_CXX_SOURCES)
 libscixml_la_SOURCES = $(GATEWAY_CXX_SOURCES)

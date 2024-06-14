@@ -85,11 +85,17 @@ libsciaction_binding_la_CPPFLAGS = \
 
 # Name of the future library (.la will be replace by .so, .a, etc regarding
 # the system)
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libsciaction_binding-disable.la
-
 if GUI
 pkglib_LTLIBRARIES += libsciaction_binding.la
+endif
 noinst_LTLIBRARIES = libsciaction_binding-algo.la
+else
+noinst_LTLIBRARIES = libsciaction_binding-algo.la libsciaction_binding-disable.la
+if GUI
+noinst_LTLIBRARIES += libsciaction_binding.la
+endif
 endif
 
 

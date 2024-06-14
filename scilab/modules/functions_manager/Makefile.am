@@ -18,7 +18,13 @@ FUNCTION_MANAGER_CPP_SOURCES = \
     src/cpp/dynamic_modules.cpp \
     src/cpp/functions_manager.cpp
 
+
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscifunctions_manager.la
+else
+noinst_LTLIBRARIES = libscifunctions_manager.la
+endif # MAINTAINER_MODE
+
 
 libscifunctions_manager_la_SOURCES = \
     $(FUNCTION_MANAGER_CPP_SOURCES)

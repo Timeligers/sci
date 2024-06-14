@@ -192,7 +192,8 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@BUILD_HELP_TRUE@@GUI_TRUE@am_libscihelptools_algo_la_rpath =
+@MAINTAINER_MODE_FALSE@am_libscihelptools_algo_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscihelptools_algo_la_rpath =
 libscihelptools_disable_la_LIBADD =
 am__libscihelptools_disable_la_SOURCES_DIST =  \
 	sci_gateway/nogui/nogui.cpp
@@ -200,9 +201,11 @@ am__libscihelptools_disable_la_SOURCES_DIST =  \
 am_libscihelptools_disable_la_OBJECTS = $(am__objects_2)
 libscihelptools_disable_la_OBJECTS =  \
 	$(am_libscihelptools_disable_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscihelptools_disable_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscihelptools_disable_la_rpath = -rpath \
+@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 @BUILD_HELP_TRUE@@GUI_TRUE@libscihelptools_la_DEPENDENCIES =  \
-@BUILD_HELP_TRUE@@GUI_TRUE@	libscihelptools-algo.la \
-@BUILD_HELP_TRUE@@GUI_TRUE@	$(top_builddir)/modules/commons/libscicommons.la
+@BUILD_HELP_TRUE@@GUI_TRUE@	libscihelptools-algo.la
 am__libscihelptools_la_SOURCES_DIST = sci_gateway/nogui/nogui.cpp \
 	sci_gateway/cpp/sci_buildDoc.cpp
 @BUILD_HELP_FALSE@@GUI_TRUE@am__objects_3 = sci_gateway/nogui/libscihelptools_la-nogui.lo
@@ -211,6 +214,9 @@ am__libscihelptools_la_SOURCES_DIST = sci_gateway/nogui/nogui.cpp \
 @GUI_FALSE@	sci_gateway/nogui/libscihelptools_la-nogui.lo
 am_libscihelptools_la_OBJECTS = $(am__objects_3)
 libscihelptools_la_OBJECTS = $(am_libscihelptools_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscihelptools_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscihelptools_la_rpath = -rpath \
+@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -621,16 +627,15 @@ yacc_present = @yacc_present@
 @BUILD_HELP_TRUE@@GUI_TRUE@    src/jni/BuildDocObject.giws.xml \
 @BUILD_HELP_TRUE@@GUI_TRUE@	src/jni/BuildDocObjectv2.giws.xml
 
-@BUILD_HELP_TRUE@@GUI_TRUE@libscihelptools_la_LIBADD = \
-@BUILD_HELP_TRUE@@GUI_TRUE@    libscihelptools-algo.la \
-@BUILD_HELP_TRUE@@GUI_TRUE@    $(top_builddir)/modules/commons/libscicommons.la
-
+@BUILD_HELP_TRUE@@GUI_TRUE@libscihelptools_la_LIBADD = libscihelptools-algo.la
 @BUILD_HELP_TRUE@@GUI_TRUE@libscihelptools_algo_la_SOURCES = $(HELPTOOLS_SOURCES)
 @BUILD_HELP_TRUE@@GUI_TRUE@libscihelptools_algo_la_CPPFLAGS = $(libscihelptools_la_CPPFLAGS)
-@BUILD_HELP_TRUE@@GUI_TRUE@noinst_LTLIBRARIES = libscihelptools-algo.la
 @BUILD_HELP_TRUE@@GUI_TRUE@HELPTOOLS_DISABLE_CPP_SOURCES = sci_gateway/nogui/nogui.cpp
 @BUILD_HELP_TRUE@@GIWS_TRUE@@GUI_TRUE@BUILT_SOURCES = giws
-pkglib_LTLIBRARIES = libscihelptools.la libscihelptools-disable.la
+@MAINTAINER_MODE_FALSE@pkglib_LTLIBRARIES = 
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscihelptools.la libscihelptools-disable.la
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscihelptools-algo.la libscihelptools.la libscihelptools-disable.la
+@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscihelptools-algo.la
 libscihelptools_la_CPPFLAGS = \
 	$(JAVA_JNI_INCLUDE) \
 	-I$(srcdir)/src/jni/ \
@@ -893,7 +898,7 @@ sci_gateway/nogui/libscihelptools_disable_la-nogui.lo:  \
 	sci_gateway/nogui/$(DEPDIR)/$(am__dirstamp)
 
 libscihelptools-disable.la: $(libscihelptools_disable_la_OBJECTS) $(libscihelptools_disable_la_DEPENDENCIES) $(EXTRA_libscihelptools_disable_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscihelptools_disable_la_OBJECTS) $(libscihelptools_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscihelptools_disable_la_rpath) $(libscihelptools_disable_la_OBJECTS) $(libscihelptools_disable_la_LIBADD) $(LIBS)
 sci_gateway/nogui/libscihelptools_la-nogui.lo:  \
 	sci_gateway/nogui/$(am__dirstamp) \
 	sci_gateway/nogui/$(DEPDIR)/$(am__dirstamp)
@@ -908,7 +913,7 @@ sci_gateway/cpp/libscihelptools_la-sci_buildDoc.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscihelptools.la: $(libscihelptools_la_OBJECTS) $(libscihelptools_la_DEPENDENCIES) $(EXTRA_libscihelptools_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscihelptools_la_OBJECTS) $(libscihelptools_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscihelptools_la_rpath) $(libscihelptools_la_OBJECTS) $(libscihelptools_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

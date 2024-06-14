@@ -135,11 +135,22 @@ libscigraphic_objects_disable_la_CPPFLAGS = \
 GRAPHIC_OBJECTS_DISABLE_C_SOURCES = src/nographic_objects/nographic_objects.c
 libscigraphic_objects_disable_la_SOURCES = $(GRAPHIC_OBJECTS_DISABLE_C_SOURCES)
 
-pkglib_LTLIBRARIES = libscigraphic_objects-disable.la
 
+if MAINTAINER_MODE
+
+pkglib_LTLIBRARIES = libscigraphic_objects-disable.la
 if GUI
 pkglib_LTLIBRARIES += libscigraphic_objects.la
 endif
+
+else
+
+noinst_LTLIBRARIES = libscigraphic_objects-disable.la
+if GUI
+noinst_LTLIBRARIES += libscigraphic_objects.la
+endif
+
+endif # MAINTAINER_MODE
 
 libscigraphic_objects_la_SOURCES = $(GRAPHIC_OBJECTS_GEN_SOURCES) $(GRAPHIC_OBJECTS_C_SOURCES) $(GRAPHIC_OBJECTS_JNI_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES) $(GRAPHIC_OBJECTS_CXX_SOURCES)
 

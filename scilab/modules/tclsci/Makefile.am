@@ -94,9 +94,12 @@ libscitclsci_algo_la_CPPFLAGS = $(libscitclsci_la_CPPFLAGS)
 TCLSCI_DISABLE_CPP_SOURCES = src/notclsci/notclsci.cpp
 libscitclsci_disable_la_SOURCES = $(TCLSCI_DISABLE_CPP_SOURCES)
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscitclsci-disable.la libscitclsci.la
 noinst_LTLIBRARIES = libscitclsci-algo.la
-
+else
+noinst_LTLIBRARIES = libscitclsci-algo.la libscitclsci-disable.la libscitclsci.la
+endif
 
 # For the code check (splint)
 CHECK_SRC= $(libscitclsci_la_SOURCES)

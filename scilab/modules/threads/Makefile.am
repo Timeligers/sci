@@ -15,6 +15,7 @@ THREADS_CPP_SOURCES = \
 
 libscithreads_la_CPPFLAGS= \
 	-I$(srcdir)/includes/
+
 if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscithreads.la
 else

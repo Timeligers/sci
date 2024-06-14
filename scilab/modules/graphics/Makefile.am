@@ -587,15 +587,20 @@ libscigraphics_disable_la_CPPFLAGS = \
 
 # endif
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscigraphics-disable.la
-
 if GUI
 USEANT=1
 pkglib_LTLIBRARIES += libscigraphics.la
 noinst_LTLIBRARIES = libscigraphics-algo.la
 endif
-
-
+else
+noinst_LTLIBRARIES = libscigraphics-disable.la
+if GUI
+USEANT=1
+noinst_LTLIBRARIES += libscigraphics-algo.la libscigraphics.la
+endif
+endif
 
 include $(top_srcdir)/Makefile.incl.am
 

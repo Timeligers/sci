@@ -61,8 +61,12 @@ libscispecial_functions_la_CPPFLAGS = \
     $(AM_CPPFLAGS)
 
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscispecial_functions.la
 noinst_LTLIBRARIES = libscispecial_functions-algo.la
+else
+noinst_LTLIBRARIES = libscispecial_functions-algo.la libscispecial_functions.la 
+endif
 
 
 libscispecial_functions_algo_la_SOURCES = $(SPECIAL_FUNCTIONS_C_SOURCES) $(SPECIAL_FUNCTIONS_FORTRAN_SOURCES) $(SPECIAL_FUNCTIONS_CXX_SOURCES)

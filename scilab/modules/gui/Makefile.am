@@ -274,12 +274,20 @@ GUI_DISABLE_C_SOURCES = src/nogui/nogui.c
 libscigui_disable_la_SOURCES = $(GUI_DISABLE_C_SOURCES)
 
 
-pkglib_LTLIBRARIES = libscigui-disable.la
+if MAINTAINER_MODE
 
+pkglib_LTLIBRARIES = libscigui-disable.la
 if GUI
 pkglib_LTLIBRARIES += libscigui.la
 noinst_LTLIBRARIES = libscigui-algo.la
 endif
+
+else
+
+noinst_LTLIBRARIES = libscigui-disable.la
+noinst_LTLIBRARIES += libscigui-algo.la libscigui.la
+
+endif # MAINTAINER _MODE
 
 
 libscigui_algo_la_SOURCES = $(GUI_C_SOURCES) $(GUI_CXX_SOURCES)

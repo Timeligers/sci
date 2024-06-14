@@ -256,12 +256,16 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+@MAINTAINER_MODE_FALSE@am_libscislint_algo_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscislint_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libscislint_la_DEPENDENCIES = libscislint-algo.la \
 	$(am__DEPENDENCIES_1)
 am__objects_2 = sci_gateway/cpp/libscislint_la-sci_slint.lo
 am_libscislint_la_OBJECTS = $(am__objects_2)
 libscislint_la_OBJECTS = $(am_libscislint_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscislint_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscislint_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -908,8 +912,9 @@ libscislint_la_CPPFLAGS = \
     $(SLINT_FLAGS) \
     $(AM_CPPFLAGS)
 
-pkglib_LTLIBRARIES = libscislint.la
-noinst_LTLIBRARIES = libscislint-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscislint.la
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscislint-algo.la libscislint.la
+@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscislint-algo.la
 libscislint_algo_la_SOURCES = $(SLINT_CXX_SOURCES)
 libscislint_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libscislint_algo_la_CPPFLAGS = $(libscislint_la_CPPFLAGS)
@@ -1158,7 +1163,7 @@ src/cpp/libscislint_algo_la-CNESCsvResult.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscislint-algo.la: $(libscislint_algo_la_OBJECTS) $(libscislint_algo_la_DEPENDENCIES) $(EXTRA_libscislint_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK)  $(libscislint_algo_la_OBJECTS) $(libscislint_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscislint_algo_la_rpath) $(libscislint_algo_la_OBJECTS) $(libscislint_algo_la_LIBADD) $(LIBS)
 sci_gateway/cpp/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp
 	@: > sci_gateway/cpp/$(am__dirstamp)
@@ -1170,7 +1175,7 @@ sci_gateway/cpp/libscislint_la-sci_slint.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscislint.la: $(libscislint_la_OBJECTS) $(libscislint_la_DEPENDENCIES) $(EXTRA_libscislint_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscislint_la_OBJECTS) $(libscislint_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscislint_la_rpath) $(libscislint_la_OBJECTS) $(libscislint_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

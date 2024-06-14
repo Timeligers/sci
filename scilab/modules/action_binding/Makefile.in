@@ -123,8 +123,9 @@ build_triplet = @build@
 host_triplet = @host@
 @SWIG_TRUE@am__append_1 = swig
 @GIWS_TRUE@am__append_2 = giws
-@GUI_TRUE@am__append_3 = libsciaction_binding.la
-@NEED_JAVA_TRUE@am__append_4 = java
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_3 = libsciaction_binding.la
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_4 = libsciaction_binding.la
+@NEED_JAVA_TRUE@am__append_5 = java
 subdir = modules/action_binding
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -202,11 +203,15 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@am_libsciaction_binding_algo_la_rpath =
+@MAINTAINER_MODE_FALSE@am_libsciaction_binding_algo_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libsciaction_binding_algo_la_rpath =
 libsciaction_binding_disable_la_LIBADD =
 am_libsciaction_binding_disable_la_OBJECTS = src/noaction_binding/libsciaction_binding_disable_la-noaction_binding.lo
 libsciaction_binding_disable_la_OBJECTS =  \
 	$(am_libsciaction_binding_disable_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libsciaction_binding_disable_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libsciaction_binding_disable_la_rpath =  \
+@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 libsciaction_binding_la_DEPENDENCIES = libsciaction_binding-algo.la
 am__libsciaction_binding_la_SOURCES_DIST =  \
 	sci_gateway/cpp/action_binding_gw.cpp \
@@ -216,7 +221,9 @@ am__libsciaction_binding_la_SOURCES_DIST =  \
 am_libsciaction_binding_la_OBJECTS = $(am__objects_4)
 libsciaction_binding_la_OBJECTS =  \
 	$(am_libsciaction_binding_la_OBJECTS)
-@GUI_TRUE@am_libsciaction_binding_la_rpath = -rpath $(pkglibdir)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libsciaction_binding_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libsciaction_binding_la_rpath =  \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -692,8 +699,16 @@ libsciaction_binding_la_CPPFLAGS = \
 
 # Name of the future library (.la will be replace by .so, .a, etc regarding
 # the system)
-pkglib_LTLIBRARIES = libsciaction_binding-disable.la $(am__append_3)
-@GUI_TRUE@noinst_LTLIBRARIES = libsciaction_binding-algo.la
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES =  \
+@MAINTAINER_MODE_TRUE@	libsciaction_binding-disable.la \
+@MAINTAINER_MODE_TRUE@	$(am__append_3)
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES =  \
+@MAINTAINER_MODE_FALSE@	libsciaction_binding-algo.la \
+@MAINTAINER_MODE_FALSE@	libsciaction_binding-disable.la \
+@MAINTAINER_MODE_FALSE@	$(am__append_4)
+@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES =  \
+@MAINTAINER_MODE_TRUE@	libsciaction_binding-algo.la \
+@MAINTAINER_MODE_TRUE@	$(am__append_4)
 
 # All the sources needed by libsciaction_binding.la
 libsciaction_binding_algo_la_SOURCES = $(ACTION_BINDING_C_SOURCES) $(ACTION_BINDING_CPP_SOURCES) $(CONSOLE_C_JNI_SOURCES)
@@ -744,7 +759,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_4)
+TARGETS_ALL = $(am__append_5)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -916,7 +931,7 @@ src/noaction_binding/libsciaction_binding_disable_la-noaction_binding.lo:  \
 	src/noaction_binding/$(DEPDIR)/$(am__dirstamp)
 
 libsciaction_binding-disable.la: $(libsciaction_binding_disable_la_OBJECTS) $(libsciaction_binding_disable_la_DEPENDENCIES) $(EXTRA_libsciaction_binding_disable_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libsciaction_binding_disable_la_OBJECTS) $(libsciaction_binding_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciaction_binding_disable_la_rpath) $(libsciaction_binding_disable_la_OBJECTS) $(libsciaction_binding_disable_la_LIBADD) $(LIBS)
 sci_gateway/cpp/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp
 	@: > sci_gateway/cpp/$(am__dirstamp)

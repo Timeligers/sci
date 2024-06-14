@@ -761,6 +761,8 @@ libscisignal_processing_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/threads/includes/ \
 	$(AM_CPPFLAGS)
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscisignal_processing.la
 noinst_LTLIBRARIES = libscisignal_processing-algo.la
 libscisignal_processing_algo_la_SOURCES = $(SIGNAL_PROCESSING_FORTRAN_SOURCES) $(SIGNAL_PROCESSING_C_SOURCES) $(SIGNAL_PROCESSING_CPP_SOURCES)

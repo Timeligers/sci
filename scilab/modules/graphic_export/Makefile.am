@@ -120,12 +120,19 @@ libscigraphic_export_disable_la_CPPFLAGS = \
 
 # Name of the future library (.la will be replace by .so, .a, etc regarding
 # the system)
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscigraphic_export-disable.la
-
 if GUI
 USEANT=1
 pkglib_LTLIBRARIES += libscigraphic_export.la
 noinst_LTLIBRARIES = libscigraphic_export-algo.la
+endif
+else
+noinst_LTLIBRARIES = libscigraphic_export-disable.la
+if GUI
+USEANT=1
+noinst_LTLIBRARIES += libscigraphic_export-algo.la libscigraphic_export.la
+endif
 endif
 
 

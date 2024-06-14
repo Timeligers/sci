@@ -65,8 +65,12 @@ libscilocalization_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/dynamic_link/includes/ \
     $(AM_CPPFLAGS)
 
+if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libscilocalization.la
 noinst_LTLIBRARIES = libscilocalization-algo.la
+else
+noinst_LTLIBRARIES = libscilocalization-algo.la libscilocalization.la
+endif
 
 libscilocalization_la_CFLAGS = $(AM_CFLAGS)
 

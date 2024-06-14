@@ -107,6 +107,7 @@ libscisignal_processing_la_CPPFLAGS = \
 	$(AM_CPPFLAGS)
 
 
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscisignal_processing.la
 noinst_LTLIBRARIES = libscisignal_processing-algo.la
 
