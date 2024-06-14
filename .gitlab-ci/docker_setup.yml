@@ -60,6 +60,8 @@ prebuild_linux:
     # do not rebuild on tag
     - if: $CI_COMMIT_TAG
       when: manual
+      variables:
+        DOCKER_TAG: "${CI_COMMIT_TAG}"
     # rebuild on demand
     - changes: *DOCKER_CHANGES
 
@@ -81,6 +83,8 @@ tester_linux:
     # do not rebuild on tag
     - if: $CI_COMMIT_TAG
       when: manual
+      variables:
+        DOCKER_TAG: "${CI_COMMIT_TAG}"
     # rebuild on demand
     - changes: *DOCKER_CHANGES
       allow_failure: true
