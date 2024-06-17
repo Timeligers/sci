@@ -12,7 +12,13 @@
 
 function [h,err]=time_id(n,u,y)
 
-    [lhs,rhs]=argn(0)
+    arguments
+        n
+        u {mustBeA(u, ["double", "string"])}
+        y
+    end
+
+    // [lhs,rhs]=argn(0)
     y=y(:)
     npt=size(y,"*");
     select type(u)
@@ -27,8 +33,6 @@ function [h,err]=time_id(n,u,y)
         else
             error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),"time_id",2,"""i"",""s"""))
         end
-    else
-        error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"),"time_id",2,"""i"",""s"""))
     end
     if y(1)==0 then // strictly proper case
         m(npt-1,2*n)=0;
@@ -46,7 +50,7 @@ function [h,err]=time_id(n,u,y)
 
     h=syslin("d",num,den)
 
-    if lhs==2 then
+    if nargout==2 then
         err=norm(y-rtitr(num,den,u')',2)
     end
 endfunction
