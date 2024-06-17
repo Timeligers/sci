@@ -23,9 +23,9 @@ objects = list(sparse([]), sparse(0), sparse(5), sparse([2 0 -3 0 4]), ..
     eb, sparse(%t), sparse(%f), sparse([%t %f %f %t %f]), ..
     sparse([%t %f %f %t %f]'), sparse([%t %f %t ; %t %t %f]));
 for a = objects
-    typeref = 1
+    typeref = 1;
     for b = objects
-        [dref, kref] = setdiff(full(a), full(b))
+        [dref, kref] = setdiff(full(a), full(b));
         d = setdiff(a, b);
         assert_checktrue(issparse(d));
         assert_checkequal(full(d), dref);
@@ -65,7 +65,7 @@ for a = objects
         if issparse(a)
             dref = sparse(dref);
             if type(a)==6 & dref==sparse([])
-                dref = eb
+                dref = eb;
             end
         end
         assert_checkequal(d, dref);

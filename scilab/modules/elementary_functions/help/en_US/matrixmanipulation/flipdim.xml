@@ -137,6 +137,13 @@ flipdim(X, 2, 2) // => [10 11   8 9   6 7   4 5   2 3   0 1] // Block size = 2.
 flipdim(X, 2, 3) // => [9 10 11   6 7 8   3 4 5   0 1 2]
 flipdim(X, 2, 4) // => [8 9 10 11   4 5 6 7   0 1 2 3]
 flipdim(X, 2, 6) // => [6 7 8 9 10 11   0 1 2 3 4 5]
+
+// Error if blockSize does not divide the targeted dimension of x.
+try
+    y = flipdim(X, 2, 5); // size(X) = [1 12] and blockSize=5 does not divide 12.
+catch
+    disp("size(X) = [1 12] and blockSize=5 does not divide 12");
+end
  ]]></programlisting>
     <para>Example of results:</para>
     <screen><![CDATA[

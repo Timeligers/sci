@@ -9,5 +9,6 @@ subdemolist = [
     _("Parabolic model (3 params)"), "datafit.dem.sce"
     _("Sloping gaussian model (5 params)"), "slopingGaussian.dem.sce"
     _("Tilted ellipse (5 params)"), "ellipse.dem.sce"
+    _("Random shape (10 params)"), "optimShape.dem.sce"
     ];
 subdemolist(:,2) = SCI + "/modules/optimization/demos/datafit/" + subdemolist(:,2);

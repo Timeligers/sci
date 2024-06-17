@@ -20,42 +20,58 @@ Xcos trace:   propertyUpdated( 1 , DIAGRAM , CONTEXT ) : NO_CHANGES
 Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
 Xcos trace:   propertyUpdated( 1 , DIAGRAM , CHILDREN ) : NO_CHANGES
 Xcos trace:   propertyUpdated( 1 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
- scs_m  = 
+ scs_m = (diagram) with fields:
 Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
 Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
-wpar = [600,450,0,0,600,450]
-title = ["Untitled";""]
-tol = [0.000001,0.000001,1.000D-10,100001,0,1,0]
-tf = 30
-context = []
-void1 = []
-options = tlist(["scsopt","3D","Background","Link","ID","Cmap"],list(%t,33),[8,1],[1,5],list([4,1,10,1],[4,1,2,1]),[0.8,0.8,0.8])
-void2 = []
-void3 = []
-doc = list()
+  props: (params tlist) with fields:
+      wpar = [600,450,0,0,600,450]
+      title = ["Untitled";""]
+      tol: [1x7 double]
+      tf = 30
+      context = []
+      void1 = []
+      options: (scsopt tlist) with fields:
+          3D: (2-elements list)
+          Background = [8,1]
+          Link = [1,5]
+          ID: (2-elements list)
+          Cmap = [0.8,0.8,0.8]
+      void2 = []
+      void3 = []
+      doc: (empty list)
+  objs: (empty list)
+  version = "scicos4.4"
+  contrib: (empty list)
 scs_m.props
 Xcos trace:   objectReferenced( 1 , DIAGRAM ) : 1
 Xcos trace:   objectUnreferenced( 1 , DIAGRAM ) : 0
- ans  =
-wpar = [600,450,0,0,600,450]
-title = ["Untitled";""]
-tol = [0.000001,0.000001,1.000D-10,100001,0,1,0]
-tf = 30
-context = []
-void1 = []
-options = tlist(["scsopt","3D","Background","Link","ID","Cmap"],list(%t,33),[8,1],[1,5],list([4,1,10,1],[4,1,2,1]),[0.8,0.8,0.8])
-void2 = []
-void3 = []
-doc = list()
+ ans = (params tlist) with fields:
+  wpar = [600,450,0,0,600,450]
+  title = ["Untitled";""]
+  tol: [1x7 double]
+  tf = 30
+  context = []
+  void1 = []
+  options: (scsopt tlist) with fields:
+      3D: (2-elements list)
+          (1) = %t
+          (2) = 33
+      Background = [8,1]
+      Link = [1,5]
+      ID: (2-elements list)
+          (1) = [4,1,10,1]
+          (2) = [4,1,2,1]
+      Cmap = [0.8,0.8,0.8]
+  void2 = []
+  void3 = []
+  doc: (empty list)
 scs_m.objs
- ans  =
-  empty list()
+ ans = (empty list)
 scs_m.version
- ans  =
+ ans = 
   "scicos4.4"
 scs_m.contrib
- ans  =
-  empty list()
+ ans = (empty list)
 clear scs_m
 Xcos info:    objectDeleted( 1 , DIAGRAM )
 // Create a dummy diagram with one undefined block then clear it
@@ -495,44 +511,53 @@ Xcos trace:   objectUnreferenced( 21 , BLOCK ) : 0
 Xcos trace:   objectUnreferenced( 24 , LINK ) : 0
 Xcos trace:   objectUnreferenced( 25 , LINK ) : 0
 Xcos trace:   propertyUpdated( 13 , DIAGRAM , VERSION_NUMBER ) : NO_CHANGES
- scs_m  = 
+ scs_m = (diagram) with fields:
 Xcos trace:   objectReferenced( 13 , DIAGRAM ) : 1
 Xcos trace:   objectUnreferenced( 13 , DIAGRAM ) : 0
-wpar = [600,450,0,0,600,450]
-title = ["Untitled";""]
-tol = [0.000001,0.000001,1.000D-10,100001,0,1,0]
-tf = 30
-context = []
-void1 = []
-options = tlist(["scsopt","3D","Background","Link","ID","Cmap"],list(%t,33),[8,1],[1,5],list([4,1,10,1],[4,1,2,1]),[0.8,0.8,0.8])
-void2 = []
-void3 = []
-doc = list()
 Xcos trace:   objectReferenced( 14 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 21 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 24 , LINK ) : 1
 Xcos trace:   objectReferenced( 25 , LINK ) : 1
-1     BIGSOM_f
-2     CSCOPE
-3     CSCOPE
 Xcos trace:   objectUnreferenced( 14 , BLOCK ) : 0
 Xcos trace:   objectUnreferenced( 18 , BLOCK ) : 0
 Xcos trace:   objectUnreferenced( 21 , BLOCK ) : 0
 Xcos trace:   objectUnreferenced( 24 , LINK ) : 0
 Xcos trace:   objectUnreferenced( 25 , LINK ) : 0
+  props: (params tlist) with fields:
+      wpar = [600,450,0,0,600,450]
+      title = ["Untitled";""]
+      tol: [1x7 double]
+      tf = 30
+      context = []
+      void1 = []
+      options: (scsopt tlist) with fields:
+          3D: (2-elements list)
+          Background = [8,1]
+          Link = [1,5]
+          ID: (2-elements list)
+          Cmap = [0.8,0.8,0.8]
+      void2 = []
+      void3 = []
+      doc: (empty list)
+  objs: (5-elements list)
+      (1): (BIGSOM_f Block)
+      (2): (CSCOPE Block)
+      (3): (CSCOPE Block)
+  version = "scicos4.4"
+  contrib: (empty list)
 scs_m.objs
 Xcos trace:   objectReferenced( 14 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 18 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 21 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 24 , LINK ) : 1
 Xcos trace:   objectReferenced( 25 , LINK ) : 1
- ans  =
-  (1) : Block
-  (2) : Block
-  (3) : Block
-  (4) : Link
-  (5) : Link
+ ans = (5-elements list)
+  (1): (BIGSOM_f Block)
+  (2): (CSCOPE Block)
+  (3): (CSCOPE Block)
+  (4): (Link)
+  (5): (Link)
 // Link output port #1 of block #1 with input port #1 of block #2 thanks to lnk1
 scs_m.objs(4).from = [1 1 0]; // Link block #1
 Xcos trace:   objectReferenced( 14 , BLOCK ) : 2
@@ -1567,10 +1592,10 @@ scs_m.objs
 Xcos trace:   objectReferenced( 48 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 52 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 55 , LINK ) : 1
- ans  =
-  (1) : Block
-  (2) : Block
-  (3) : Link
+ ans = (3-elements list)
+  (1): (BIGSOM_f Block)
+  (2): (CSCOPE Block)
+  (3): (Link)
 assert_checkequal(scs_m.objs(3).from, [1 1 0]);
 Xcos trace:   objectReferenced( 48 , BLOCK ) : 2
 Xcos trace:   objectReferenced( 52 , BLOCK ) : 2
@@ -1850,10 +1875,10 @@ scs_m.objs
 Xcos trace:   objectReferenced( 58 , LINK ) : 1
 Xcos trace:   objectReferenced( 59 , BLOCK ) : 1
 Xcos trace:   objectReferenced( 63 , BLOCK ) : 1
- ans  =
-  (1) : Link
-  (2) : Block
-  (3) : Block
+ ans = (3-elements list)
+  (1): (Link)
+  (2): (BIGSOM_f Block)
+  (3): (CSCOPE Block)
 // Check that the linking has been done
 // Sum (#2 in diagram) is linked to Scope1 (#3) through lnk (#1)
 assert_checkequal(scs_m.objs(1).from, [2 1 0]);

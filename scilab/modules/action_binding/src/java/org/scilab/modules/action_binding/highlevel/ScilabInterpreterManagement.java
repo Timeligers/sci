@@ -50,6 +50,10 @@ public final class ScilabInterpreterManagement extends InterpreterManagement {
     private ScilabInterpreterManagement() {
     }
 
+    public static void forceClose() {
+        executor.shutdownNow();
+    }
+
     /**
      * Throw when there is a problem to communicate with the scilab interpreter.
      */

@@ -27,7 +27,6 @@ __threadKey ThreadManagement::m_tkReadAndExec;
 __threadKey ThreadManagement::m_tkConsole;
 #endif // DEBUG_THREAD
 
-__threadLock ThreadManagement::m_RunnerLock;
 __threadLock ThreadManagement::m_ParseLock;
 __threadLock ThreadManagement::m_StoreCommandLock;
 __threadLock ThreadManagement::m_ScilabReadLock;
@@ -38,38 +37,22 @@ __threadSignalLock ThreadManagement::m_ConsoleExecDoneLock;
 __threadSignal ThreadManagement::m_DebuggerExecDone;
 __threadSignalLock ThreadManagement::m_DebuggerExecDoneLock;
 
-__threadSignal ThreadManagement::m_AwakeRunner;
-__threadSignalLock ThreadManagement::m_AwakeRunnerLock;
-
-__threadSignal ThreadManagement::m_AvailableRunner;
-__threadSignalLock ThreadManagement::m_AvailableRunnerLock;
-
 __threadSignal ThreadManagement::m_StartPending;
 __threadSignalLock ThreadManagement::m_StartPendingLock;
 
 __threadSignal ThreadManagement::m_CommandStored;
 __threadSignalLock ThreadManagement::m_CommandStoredLock;
 
-__threadSignal ThreadManagement::m_RunMe;
-__threadSignalLock ThreadManagement::m_RunMeLock;
-
-bool ThreadManagement::m_AvailableRunnerWasSignalled    = false;
 bool ThreadManagement::m_ConsoleExecDoneWasSignalled    = false;
 bool ThreadManagement::m_DebuggerExecDoneWasSignalled   = false;
-bool ThreadManagement::m_AwakeRunnerWasSignalled        = false;
 bool ThreadManagement::m_StartPendingWasSignalled       = false;
 bool ThreadManagement::m_CommandStoredWasSignalled      = false;
-bool ThreadManagement::m_RunMeWasSignalled              = false;
 
 void ThreadManagement::initialize()
 {
-    __InitLock(&m_RunnerLock);
     __InitLock(&m_ParseLock);
     __InitLock(&m_StoreCommandLock);
     __InitLock(&m_ScilabReadLock);
-
-    __InitSignal(&m_AwakeRunner);
-    __InitSignalLock(&m_AwakeRunnerLock);
 
     __InitSignal(&m_ConsoleExecDone);
     __InitSignalLock(&m_ConsoleExecDoneLock);
@@ -77,17 +60,11 @@ void ThreadManagement::initialize()
     __InitSignal(&m_DebuggerExecDone);
     __InitSignalLock(&m_DebuggerExecDoneLock);
 
-    __InitSignal(&m_AvailableRunner);
-    __InitSignalLock(&m_AvailableRunnerLock);
-
     __InitSignal(&m_StartPending);
     __InitSignalLock(&m_StartPendingLock);
 
     __InitSignal(&m_CommandStored);
     __InitSignalLock(&m_CommandStoredLock);
-
-    __InitSignal(&m_RunMe);
-    __InitSignalLock(&m_RunMeLock);
 }
 
 /***
@@ -131,26 +108,6 @@ void ThreadManagement::UnlockStoreCommand(void)
 }
 
 /***
-    [Runner Lock]
-    Used when we want to access to the global Runner.
-***/
-void ThreadManagement::LockRunner(void)
-{
-#ifdef DEBUG_THREAD
-    PrintDebug("LockRunner");
-#endif // DEBUG_THREAD
-    __Lock(&m_RunnerLock);
-}
-
-void ThreadManagement::UnlockRunner(void)
-{
-#ifdef DEBUG_THREAD
-    PrintDebug("UnlockRunner");
-#endif // DEBUG_THREAD
-    __UnLock(&m_RunnerLock);
-}
-
-/***
     [ScilabRead Lock]
     Used to manage scilabRead output wich can be used by Console thread or
     main thread through mscanf function.
@@ -169,42 +126,6 @@ void ThreadManagement::UnlockScilabRead(void)
     PrintDebug("UnlockScilabRead");
 #endif // DEBUG_THREAD
     __UnLock(&m_ScilabReadLock);
-}
-
-/***
-    [AvailableRunner Signal]
-
-    Send : The global Runner is available to store a new one.
-    Wait : This happens when the last Runner is not yet in execution.
-
-    This signal can be sent without any threads are waiting for,
-    so we have to perform the Wait for each call to WaitForConsoleExecDoneSignal.
-
-    The loop while is used to avoid spurious wakeup of __Wait.
-***/
-void ThreadManagement::SendAvailableRunnerSignal(void)
-{
-    __LockSignal(&m_AvailableRunnerLock);
-    m_AvailableRunnerWasSignalled = true;
-#ifdef DEBUG_THREAD
-    PrintDebug("SendAvailableRunnerSignal");
-#endif // DEBUG_THREAD
-    __Signal(&m_AvailableRunner);
-    __UnLockSignal(&m_AvailableRunnerLock);
-}
-
-void ThreadManagement::WaitForAvailableRunnerSignal(void)
-{
-    __LockSignal(&m_AvailableRunnerLock);
-    m_AvailableRunnerWasSignalled = false;
-    while (m_AvailableRunnerWasSignalled == false)
-    {
-#ifdef DEBUG_THREAD
-        PrintDebug("WaitForAvailableRunnerSignal");
-#endif // DEBUG_THREAD
-        __Wait(&m_AvailableRunner, &m_AvailableRunnerLock);
-    }
-    __UnLockSignal(&m_AvailableRunnerLock);
 }
 
 /***
@@ -285,7 +206,7 @@ void ThreadManagement::WaitForDebuggerExecDoneSignal(bool bResume)
         // before we are waiting for.
         // we avoid this by the lock of "m_DebuggerExecDoneLock"
         // This signal is sent only in pause case because a runner already exists
-        ThreadManagement::SendRunMeSignal();
+        // ThreadManagement::SendRunMeSignal();
     }
 
     ThreadManagement::UnlockStoreCommand();
@@ -298,53 +219,6 @@ void ThreadManagement::WaitForDebuggerExecDoneSignal(bool bResume)
         __Wait(&m_DebuggerExecDone, &m_DebuggerExecDoneLock);
     }
     __UnLockSignal(&m_DebuggerExecDoneLock);
-}
-
-/***
-    [AwakeRunner Signal]
-
-    Send : Wakeup the runner when:
-    Wait : Runner is waiting for:
-            - a new prioritary command have to be execute.
-            - a pause is executed, to allow a new console command.
-            - the last execution is made.
-
-    This signal can be sent without any threads are waiting for,
-    so we have to perform the Wait for each call to WaitForAwakeRunnerSignal.
-
-    The loop while is used to avoid spurious wakeup of __Wait.
-***/
-
-void ThreadManagement::SendAwakeRunnerSignal(void)
-{
-# ifdef __DEBUG_SIGNAL
-    std::cout << "SendAwakeRunnerSignal" << std::endl;
-# endif // __DEBUG_SIGNAL
-    __LockSignal(&m_AwakeRunnerLock);
-    m_AwakeRunnerWasSignalled = true;
-#ifdef DEBUG_THREAD
-    PrintDebug("SendAwakeRunnerSignal");
-#endif // DEBUG_THREAD
-    __Signal(&m_AwakeRunner);
-    __UnLockSignal(&m_AwakeRunnerLock);
-}
-
-void ThreadManagement::WaitForAwakeRunnerSignal(void)
-{
-# ifdef __DEBUG_SIGNAL
-    std::cout << "WaitForAwakeRunnerSignal" << std::endl;
-# endif // __DEBUG_SIGNAL
-    __LockSignal(&m_AwakeRunnerLock);
-    ThreadManagement::UnlockRunner();
-    m_AwakeRunnerWasSignalled = false;
-    while (m_AwakeRunnerWasSignalled == false)
-    {
-#ifdef DEBUG_THREAD
-        PrintDebug("WaitForAwakeRunnerSignal");
-#endif // DEBUG_THREAD
-        __Wait(&m_AwakeRunner, &m_AwakeRunnerLock);
-    }
-    __UnLockSignal(&m_AwakeRunnerLock);
 }
 
 /***
@@ -416,6 +290,7 @@ void ThreadManagement::SendCommandStoredSignal(void)
 
 void ThreadManagement::WaitForCommandStoredSignal(void)
 {
+    m_CommandStoredWasSignalled = isEmptyCommandQueue() ? false : true;
     __LockSignal(&m_CommandStoredLock);
     while (m_CommandStoredWasSignalled == false)
     {
@@ -428,52 +303,10 @@ void ThreadManagement::WaitForCommandStoredSignal(void)
     __UnLockSignal(&m_CommandStoredLock);
 }
 
-/***
-    [RunMe Signal]
-
-    Send : A new runner is available for execution.
-    Wait : Wait for an available Runner.
-
-    This signal can be sent without any threads are waiting for,
-    so we have to perform the Wait for each call to WaitForRunMeSignal.
-    (This can happends when an execution is interrupted by another one.
-     This signal is sent but the main thread is not waiting for.)
-
-    The loop while is used to avoid spurious wakeup of __Wait.
-***/
-void ThreadManagement::SendRunMeSignal(void)
-{
-    __LockSignal(&m_RunMeLock);
-    m_RunMeWasSignalled = true;
 #ifdef DEBUG_THREAD
-    PrintDebug("SendRunMeSignal");
-#endif // DEBUG_THREAD
-    __Signal(&m_RunMe);
-    __UnLockSignal(&m_RunMeLock);
-}
-
-void ThreadManagement::WaitForRunMeSignal(void)
-{
-    __LockSignal(&m_RunMeLock);
-    m_RunMeWasSignalled = false;
-    // Some times, the signal "SendRunMeSignal" can be sent before the main thread is waiting for.
-    // If a Runner is available do not perform this wait.
-    bool bWait = StaticRunner_isRunnerAvailable() == false;
-    while (m_RunMeWasSignalled == false && bWait)
-    {
-#ifdef DEBUG_THREAD
-        PrintDebug("WaitForRunMeSignal");
-#endif // DEBUG_THREAD
-        __Wait(&m_RunMe, &m_RunMeLock);
-    }
-    __UnLockSignal(&m_RunMeLock);
-}
-
-#ifdef DEBUG_THREAD
-void ThreadManagement::SetThreadKey(__threadKey tkMain, __threadKey tkReadAndExec, __threadKey tkConsole)
+void ThreadManagement::SetThreadKey(__threadKey tkMain, __threadKey tkConsole)
 {
     m_tkMain = tkMain;
-    m_tkReadAndExec = tkReadAndExec;
     m_tkConsole = tkConsole;
 }
 
@@ -481,13 +314,12 @@ void ThreadManagement::PrintDebug(const char* pcfunName)
 {
     if (__GetCurrentThreadKey() == m_tkConsole)
     {
-        std::cout.width(2 * PRINT_COL_SIZE);
+        std::cout.width(PRINT_COL_SIZE);
         std::cout << " ";
     }
-
-    if (__GetCurrentThreadKey() == m_tkReadAndExec)
+    else if (__GetCurrentThreadKey() != m_tkMain)
     {
-        std::cout.width(PRINT_COL_SIZE);
+        std::cout.width(2*PRINT_COL_SIZE);
         std::cout << " ";
     }
 
@@ -507,9 +339,9 @@ void ThreadManagement::PrintDebugHead()
     std::cout.width(PRINT_COL_SIZE);
     std::cout << "Main Thread";
     std::cout.width(PRINT_COL_SIZE);
-    std::cout << "ReadAndExec Thread";
-    std::cout.width(PRINT_COL_SIZE);
     std::cout << "Console Thread";
+    std::cout.width(2*PRINT_COL_SIZE);
+    std::cout << "Other Threads";
     std::cout << std::endl << std::endl;
 }
 #endif // DEBUG_THREAD

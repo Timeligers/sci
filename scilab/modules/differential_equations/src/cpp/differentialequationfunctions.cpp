@@ -171,9 +171,9 @@ DifferentialEquationFunctions::DifferentialEquationFunctions(const std::wstring&
         m_staticFunctionMap[L"aplusp"]  = (void*) C2F(aplusp); // adda
         m_staticFunctionMap[L"dgbydy"]  = (void*) C2F(dgbydy); // jac
     }
-    else if (callerName == L"dassl" ||
-             callerName == L"dasrt" ||
-             callerName == L"daskr")
+    else if (callerName == L"%_dassl" ||
+             callerName == L"%_dasrt" ||
+             callerName == L"%_daskr")
     {
         //res
         m_staticFunctionMap[L"res1"]    = (void*) C2F(res1);
@@ -187,14 +187,14 @@ DifferentialEquationFunctions::DifferentialEquationFunctions(const std::wstring&
         m_staticFunctionMap[L"djac1"]  = (void*) C2F(djac1);
 
         //g
-        if (callerName == L"dasrt" || callerName == L"daskr")
+        if (callerName == L"%_dasrt" || callerName == L"%_daskr")
         {
             m_staticFunctionMap[L"gr1"]  = (void*) C2F(gr1);
             m_staticFunctionMap[L"gr2"]  = (void*) C2F(gr2);
         }
 
         // pjac, psol
-        if (callerName == L"daskr")
+        if (callerName == L"%_daskr")
         {
             m_staticFunctionMap[L"pjac1"]  = (void*) pjac1;
             m_staticFunctionMap[L"psol1"]  = (void*) psol1;

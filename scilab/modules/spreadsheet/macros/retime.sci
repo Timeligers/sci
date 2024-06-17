@@ -507,7 +507,9 @@ function out = retime(varargin)
         idx(idx == 0) = [];
 
         out = timeseries(newTimes, data(:));
-        out(idx) = ts(newTimes(idx), :);
+        for u = unique(idx)
+            out(u) = ts(newTimes(u), :)(1);
+        end
 
         if method == "fillwithconstant" then
             for i = 2:size(out.vars, "*")

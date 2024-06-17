@@ -281,7 +281,7 @@ drawlater
 
 // Figure settings
 f = gcf();
-f.color_map = jetcolormap(100);
+f.color_map = jet(100);
 //f.axes_size = [840 570];
 
 // Main plot
@@ -333,7 +333,7 @@ clf
 drawlater
 // Figure settings
 f = gcf();
-f.color_map = jetcolormap(100);
+f.color_map = jet(100);
 f.axes_size = [840 570];
 
 // Main plot
@@ -361,7 +361,7 @@ drawlater
 
 // Figure settings
 f = gcf();
-f.color_map = jetcolormap(100);
+f.color_map = jet(100);
 //f.axes_size = [840 570];
 
 // Main plot
@@ -412,7 +412,7 @@ drawlater
 
 // Figure settings
 f = gcf();
-f.color_map = jetcolormap(100);
+f.color_map = jet(100);
 f.axes_size = [840 570];
 
 // Main plot

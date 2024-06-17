@@ -19,7 +19,7 @@ function resonator_demo()
 
     surf(eps);
     h=gcf();
-    h.color_map=hotcolormap(64);
+    h.color_map=hot(64);
     f=gcf();f.background=60;
     e=gce();
     a=gca();

@@ -11,9 +11,8 @@
 // along with this program.
 
 function r = ismatrix(A)
-    rhs=argn(2);
-    if rhs<>1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"ismatrix", 1));
+    arguments
+        A
     end
     if type(A) == 15 then
         r = size(A) <> 0;

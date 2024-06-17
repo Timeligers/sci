@@ -19,7 +19,7 @@ ref = pathconvert('a/b/c/d/e/f/g/h/i/j',%f,%f);
 r = fullfile('a','b','c','d','e','f','g','h','i','j');
 if r <> ref then bugmes();quit;end
 ref = []
- ref  = 
+ ref = 
     []
 r = fullfile([],[]);
 if r <> ref then bugmes();quit;end

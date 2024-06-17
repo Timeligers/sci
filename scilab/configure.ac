@@ -43,8 +43,8 @@ else
 fi
 
 # Change version here, other files will be updated at the end of configure
-SCILAB_VERSION_MAJOR=2024
-SCILAB_VERSION_MINOR=1
+SCILAB_VERSION_MAJOR=2025
+SCILAB_VERSION_MINOR=0
 SCILAB_VERSION_MAINTENANCE=0
 AC_SUBST(SCILAB_VERSION_MAJOR)
 AC_SUBST(SCILAB_VERSION_MINOR)
@@ -517,17 +517,17 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
 
     if test "$enable_debug_CXX" = yes; then
         DEBUG_CXXFLAGS="-O0 -g3"
-        case "$host" in
-        *-linux-gnu )
-            # Only doing that under Linux
-            DEBUG_CXXFLAGS="$DEBUG_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
-            ;;
-        esac
     else
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
 
     WARNING_CXXFLAGS="-Wall -pedantic "
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
+        ;;
+    esac
 
     COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-stack-protector " # bug 3131
     # add the extra filesystem library if needed
@@ -547,10 +547,19 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
     
-    WARNING_CXXFLAGS="-Wall -pedantic "
+    WARNING_CXXFLAGS="-Wall"
+    # Valid ISO C and ISO C++ programs
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -pedantic"
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
+        ;;
+    esac
 
     COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-stack-protector " # bug 3131
     # allow to compile under macOS < Catalina with c++17 enabled clang
+    # or compile under macOS > Catalina with min_macosx_version < 11
     case "$host_os" in
          *Darwin* | *darwin*)
            macosx_version=`sw_vers -productVersion`
@@ -561,11 +570,28 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
                        COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -D_LIBCPP_DISABLE_AVAILABILITY"
                    fi
                ;;
+               *)
+                   if test -n "$with_min_macosx_version"; then
+                        min_macosx_version_major=`echo $with_min_macosx_version | awk -F\. {'print $1'}`
+                        min_macosx_version_minor=`echo $with_min_macosx_version | awk -F\. {'print $2'}`
+                        if [[ $min_macosx_version_major -eq 10 ]]; then
+                            COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -D_LIBCPP_DISABLE_AVAILABILITY"
+                            if [[ $min_macosx_version_minor -ge 13 ]]; then
+                                # fmemopen() appeared in macos >= 10.13
+                                SYS_FMEMOPEN=1
+                            fi
+                        fi
+                        
+                    fi
+                ;;
            esac
            ;;
     esac    
     ;;
 esac
+
+AM_CONDITIONAL(IS_SYS_FMEMOPEN, test -n "$SYS_FMEMOPEN")
+
 
 #### 64 bits detection
 IS_64_BITS_CPU=false
@@ -607,6 +633,12 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
     WARNING_CFLAGS="-Wall "
     # Valid ISO C and ISO C++ programs
     WARNING_CFLAGS="$WARNINGS_CFLAGS -pedantic "
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CFLAGS="$WARNING_CFLAGS -fdiagnostics-show-option -Werror=format-security"
+        ;;
+    esac
 
     COMPILER_CFLAGS="$COMPILER_CFLAGS -fno-stack-protector " # bug 3131
     # Explictly disable the as needed. It was disable by default but Ubuntu
@@ -688,7 +720,7 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
     
     WARNING_CFLAGS="-Wall "
     # Valid ISO C and ISO C++ programs
-    WARNING_CFLAGS="$WARNINGS_CFLAGS -pedantic "
+    WARNING_CFLAGS="$WARNING_CFLAGS -pedantic "
 
     COMPILER_CFLAGS="$COMPILER_CFLAGS -fno-stack-protector " # bug 3131
     # prevent dll optimizations in the final binary
@@ -990,7 +1022,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
                 AC_SUBST(SCIRENDERER_CP)
 
                 # Docking system
-                AC_JAVA_CHECK_JAR([flexdock],[org.flexdock.util.Utilities],[Scilab Gui],[],[VERSION],[1.2.4])
+                AC_JAVA_CHECK_JAR([flexdock],[org.flexdock.util.Utilities],[Scilab Gui],[],[VERSION],[1.2.5])
                 FLEXDOCK=$PACKAGE_JAR_FILE
                 AC_SUBST(FLEXDOCK)
 
@@ -2073,17 +2105,21 @@ AC_DEFINE_UNQUOTED([SHARED_LIB_EXTW],[L"$shrext_cmds"],[Extension of a shared li
 #########
 AC_CHECK_STDCPP_STATIC()
 AC_CHECK_ADDRESS_SANTIZER()
+AC_CHECK_ANALYZER()
 
 #################
-## stop on warning: default warning declaration and stop compilation when a warning is found
+# Warnings can be set as erors:
+#  1. modern compilers enforce a set of options on some platforms ; add them here as a common subset
+#  2. when "--enable-stop-on-warning" flag, stop compilation on all warnings
 #################
+# all functions should be declared in defined in C99
+WARNING_CFLAGS="$WARNING_CFLAGS -Werror=implicit"
+# function pointers should match in C99
+WARNING_CFLAGS="$WARNING_CFLAGS -Werror=incompatible-pointer-types"
 if test "$enable_stop_on_warning" = yes; then
-    # all functions should be declared in defined
-    WARNING_CFLAGS="$WARNING_CFLAGS -Werror=implicit "
-    # function pointers should match
-    WARNING_CFLAGS="$WARNING_CFLAGS -Werror=incompatible-pointer-types "
+    WARNING_CFLAGS="$WARNING_CFLAGS -Werror"
 
-    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Werror "
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Werror"
     # Scilab indexes are int, standard containers are size_t: do not error when comparing them
     WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Wno-error=sign-compare"
     # on graphics_object we cast user_data InternalType pointer depending on 32bits, 64bits alignement

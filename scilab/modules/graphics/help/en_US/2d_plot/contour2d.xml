@@ -183,7 +183,7 @@ z = cos(x')*cos(x);
 clf(); f=gcf();
 // trick 1: fpf=" " implies that the level numbers are not
 //          drawn on the level curves
-f.color_map=jetcolormap(7);
+f.color_map=jet(7);
 // trick 2: to be able to put the legend on the right without
 //          interfering with the level curves use rect with a xmax
 //          value large enough
@@ -199,7 +199,7 @@ xtitle("Some level curves of the function cos(x)cos(y)")
 
             clf(); f=gcf();
 
-            f.color_map=jetcolormap(7);
+            f.color_map=jet(7);
 
             contour2d(x,x,z,-0.75:0.25:0.75,frameflag=3,rect=[0,0,5*%pi,4*%pi],fpf=" ")
 

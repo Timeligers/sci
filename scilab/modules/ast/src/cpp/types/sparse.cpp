@@ -158,22 +158,22 @@ template<typename T> std::wstring toString(T const& m, int precision)
     getIntFormat(m.rows(), &iWidthRows);
     getIntFormat(m.cols(), &iWidthCols);
 
-    ostr << L"(";
-    addIntValue<unsigned long long>(&ostr, m.rows(), iWidthRows);
-    ostr << ",";
-    addIntValue<unsigned long long>(&ostr, m.cols(), iWidthCols);
-    ostr << L")";
-
+    // ostr << L"(";
+    // addIntValue<unsigned long long>(&ostr, m.rows(), iWidthRows);
+    // ostr << ",";
+    // addIntValue<unsigned long long>(&ostr, m.cols(), iWidthCols);
+    // ostr << L")";
+    //
     Printer p(precision);
-    if (m.rows()*m.cols() ==0)
-    {
-        ostr << (p.emptyName<typename Eigen::internal::traits<T>::Scalar>());
-    }
-    else if (!m.nonZeros())
-    {
-        ostr << (p.allZeroName<typename Eigen::internal::traits<T>::Scalar>());
-    }
-    ostr << " " << p.typeName<typename Eigen::internal::traits<T>::Scalar>() << L" matrix\n\n";
+    // if (m.rows()*m.cols() ==0)
+    // {
+    //     ostr << (p.emptyName<typename Eigen::internal::traits<T>::Scalar>());
+    // }
+    // else if (!m.nonZeros())
+    // {
+    //     ostr << (p.allZeroName<typename Eigen::internal::traits<T>::Scalar>());
+    // }
+    // ostr << " " << p.typeName<typename Eigen::internal::traits<T>::Scalar>() << L" matrix\n\n";
 
     auto * pIColPos      = m.innerIndexPtr();
     auto * pINbItemByRow = m.outerIndexPtr();

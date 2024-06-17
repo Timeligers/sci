@@ -29,7 +29,7 @@ function moebius()
     my_handle.immediate_drawing = "off";
     plot3d2(X,Y,Z);
     my_plot                     = my_axe.children;
-    my_handle.color_map         = jetcolormap(128);
+    my_handle.color_map         = jet(128);
     my_plot.color_flag          = 1;
     my_axe.rotation_angles      = [88,56];
     my_handle.immediate_drawing = "on";

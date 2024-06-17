@@ -25,7 +25,7 @@ params = add_param(params, "doublematrix", ones(10, 10));
 params = add_param(params, "stringval", "1");
 params = add_param(params, "stringmat", ["1" "2"]);
 string(params)
- ans  =
+ ans = [9x1 string]
   "Parameters list:"                
   "================"                
   "Number of fields = 6"            

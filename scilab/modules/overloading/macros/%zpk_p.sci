@@ -36,7 +36,7 @@ function %zpk_p(T)
                 m=[m;mz(ki)]
                 if zi<>[] then
                     N=[N;
-                    msprintf("(%s^2%+g%s%+g)\n",v+emptystr(zi),-2*real(zi),v+emptystr(zi),abs(zi)^2)];
+                    msprintf("(%s^2%+g%s%+g)\n",v+emptystr(zi),-2*real(zi),v+emptystr(zi),abs(zi).^2)];
                 end
                 i=find(m>1)
                 if i<>[] then

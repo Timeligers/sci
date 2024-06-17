@@ -43,7 +43,7 @@ function testHessBoeing(filename)
     gcf().axes_size = [755,377]
     gcf().figure_name = url;
     k = unique(col,"keepOrder");
-    gcf().color_map = parulacolormap(max(k))
+    gcf().color_map = parula(max(k))
     delete(gcf().children)
 
     subplot(1,2,1)

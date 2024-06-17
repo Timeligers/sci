@@ -32,30 +32,14 @@ function s = %_nansum(x,orient)
     //fixed: 2003/09/03
     //error texts and all NAN rows or columns
     //
-    rhs = argn(2);
-    if rhs < 1 | rhs > 2 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"),"nansum",1,2))
-    end
-
-    if or(type(x) == [10 15 16]) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real or complex, boolean, polynomial matrix expected.\n"), "nansum", 1));
+    arguments
+        x {mustBeA(x, ["double", "boolean", "polynomial", "sparse", "int"])}
+        orient (1, 1) {mustBeA(orient, ["double", "string"]), mustBeMember(orient, {1, 2, "r", "c", "*"})} = "*"
     end
 
     if isempty(x) | and(isnan(x)) then
         s = 0;
         return
-    end
-
-    if rhs == 1 then
-        orient = "*";
-    else
-        if and(type(orient) <> [1  10])  then
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: string or scalar expected.\n"), "nansum", 2));
-        end
-
-        if ~or(orient == ["r", "*", "c"] | orient == [1, 2]) then
-            error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "nansum", 2, """r"", ""c"", ""*"", 1, 2"));
-        end
     end
 
     isn=isnan(x)

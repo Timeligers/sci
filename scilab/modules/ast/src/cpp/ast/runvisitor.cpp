@@ -57,6 +57,7 @@ extern "C"
 #include "storeCommand.h"
 #include "prompt.h"
 #include "scilabRead.h"
+#include "InitScilab.h"
 }
 
 namespace ast
@@ -120,20 +121,9 @@ void RunVisitorT<T>::visitprivate(const SimpleVar & e)
     {
         if (e.isVerbose() && pI->isCallable() == false && ConfigVariable::isPrintOutput())
         {
-            std::wostringstream ostr;
-            ostr << L" " << e.getSymbol().getName() << L"  = ";
-#ifndef NDEBUG
-            ostr << L"(" << pI->getRef() << L")";
-#endif
-            ostr << std::endl;
-            if (ConfigVariable::isPrintCompact() == false)
-            {
-                ostr << std::endl;
-            }
-            scilabWriteW(ostr.str().c_str());
-            std::wostringstream ostrName;
-            ostrName << e.getSymbol().getName();
-            VariableToString(pI, ostrName.str().c_str());
+            std::wstring wstrName = e.getSymbol().getName();
+            scilabWriteW(printVarEqualTypeDimsInfo(pI, wstrName).c_str());
+            VariableToString(pI, wstrName.c_str());
         }
 
         //check if var is recalled in current scope like

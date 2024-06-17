@@ -19,7 +19,9 @@
           xml:id="regexp" xml:lang="ja">
     <refnamediv>
         <refname>regexp</refname>
-        <refpurpose>正規表現文字列に一致する部分文字列を探す</refpurpose>
+        <refpurpose>
+            文字列内で、正規表現に一致する部分文字列を検索 (および抽出) します
+        </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>呼び出し手順</title>

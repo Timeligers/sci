@@ -160,7 +160,7 @@ edit(path+"/locales/en_US.po")
                 </revdescription>
             </revision>
             <revision>
-                <revnumber>6.1.2</revnumber>
+                <revnumber>2023.0.0</revnumber>
                 <revdescription>
                     Existing .po files are now automatically updated for every newly detected msgid.
                 </revdescription>

@@ -160,7 +160,7 @@ xmlns:scilab="http://www.scilab.org" xml:id="resize_matrix" xml:lang="en">
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
 // Embedded examples, including with polynomials:
-resize_matrix
+//resize_matrix
 
 // Resizing a numerical matrix:
 M = grand(4, 3, "uin", -9, 9)

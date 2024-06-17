@@ -112,8 +112,12 @@ function C = expression2code(e)
                 if opi == "(EOL)" then
                     C = [C ; ""]
                 else
-                    C($) = C($) + opi
-                    if i <> nb_op then
+                    if size(opi,"*")>1 then
+                        C = [C(1:$-1);C($)+opi(1);opi(2:$)]
+                    else
+                        C = [C(1:$-1);C($)+opi]
+                    end
+                    if i <> nb_op & isempty(stripblanks(C($))) == %f then
                         C($) = C($) +";"
                     end
                 end

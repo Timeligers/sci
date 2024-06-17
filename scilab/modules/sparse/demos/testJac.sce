@@ -24,7 +24,7 @@ function testJac()
     // compute colored Jacobian
     J = jacobian(x0,p);
     clf;
-    gcf().color_map = parulacolormap(max(jacobian.colors))
+    gcf().color_map = parula(max(jacobian.colors))
 
     subplot(1,2,1)
     spyCol(J,jacobian.colors)

@@ -120,5 +120,16 @@ covWrite("html", "TMPDIR/isempty", "TMPDIR/coverage") // render the results as H
             </member>
         </simplelist>
     </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revdescription>
+                    Formating of <literal>covWrite("html")</literal> results improved.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
 </refentry>
 

@@ -12,6 +12,7 @@
 function out = datetime(varargin)
 
     function [dt, input1] = datetimeWithInputFormat(infmt, t, sep, replace, index)
+        infmtRef = infmt;
         [row, col] = size(t);
         if size(t, 1) >=1 & size(t, 2) > 1 then
             t = t(:);
@@ -36,7 +37,7 @@ function out = datetime(varargin)
             [r, km, vindex, nb] = unique(m, "keepOrder");
             [m_nb, m_loc] = members(r, mount_list1);
             if or(m_loc == 0) then
-                error(msprintf(_("%s: Wrong or missing ""InputFormat"" to be applied.\n"), "datetime"));
+                error(msprintf(_("%s: Unable to apply the %s input format.\n"), "datetime", sci2exp(infmtRef)));
             end
         end
 
@@ -47,7 +48,7 @@ function out = datetime(varargin)
         nbSpace = length(strindex(t(jdx), " "));
 
         if nbSpace <> nbSpaceExpected then
-            error(msprintf(_("%s: Wrong or missing ""InputFormat"" to be applied.\n"), "datetime"));
+            error(msprintf(_("%s: Unable to apply the %s input format.\n"), "datetime", sci2exp(infmtRef)));
         end
         
         test = find(length(t) <> expectedLen);
@@ -68,8 +69,17 @@ function out = datetime(varargin)
 
         tmp = csvTextScan(t, " ");
         
-        if size(tmp, "c") > 3 & (or(tmp(:, 4) > 24) | or(tmp(:, 5) > 59) | or(tmp(:,6) > 59)) then
-            error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 24], minutes in [0, 59] and seconds in [0, 59].\n"), "datetime"))
+        if size(tmp, "c") > 3 then
+            // hours, minutes and seconds
+            if size(tmp, "c") == 6 & (or(tmp(:, 4) > 24) | or(tmp(:, 5) > 59) | or(tmp(:,6) > 59)) then
+                error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 24], minutes in [0, 59] and seconds in [0, 59].\n"), "datetime"))
+            elseif size(tmp, "c") == 5 & (or(tmp(:, 4) > 24) | or(tmp(:, 5) > 59)) then
+                // hours and minutes only
+                error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 24] and minutes in [0, 59].\n"), "datetime"));
+            elseif or(tmp(:, 4) > 24) then
+                // hours only
+                error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 24].\n"), "datetime"));
+            end
         end
 
         if and(isnan(tmp(:,$))) then
@@ -83,7 +93,12 @@ function out = datetime(varargin)
                 tmp(jdx, 4) = modulo(tmp(jdx, 4) + hasAMPM(jdx) * 12, 24);
             end
             tmp(:,$) = [];
+        else
+            if grep(infmt, "hh") then
+                error(msprintf(_("%s: Unable to apply the %s input format, use ""HH"" instead of ""hh"".\n"), "datetime", sci2exp(infmtRef)));
+            end
         end
+        
         t = tmp;
 
         if monthStr then
@@ -96,6 +111,8 @@ function out = datetime(varargin)
         select size(t, 2)
         case 3
             d(idx, index(:,1)) = t(:, [1 2 3]);
+        case 4
+            d(idx, index(:,1)) = t(:, [1 2 3 4]);
         case 5
             d(idx, index(:,1)) = t(:, [1 2 3 4 5]);
         case 6

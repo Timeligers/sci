@@ -272,7 +272,7 @@ deff("r=test()",[
 if test() then bugmes();quit;end
 deff("test()",["try a=2; try a=xxxx; catch a=a+1,end; catch;b=2;end"])
 tree2code(macr2tree(test))
- ans  =
+ ans = [12x1 string]
   "function test()"
   "try "           
   "  a = 2;  try " 

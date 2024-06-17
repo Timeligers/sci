@@ -65,7 +65,6 @@
 #include "scicos_internal.h"
 #include "blocks.h"
 #include "core_math.h"
-#include "storeCommand.h"
 #include "syncexec.h"
 #include "realtime.h"
 #include "sci_malloc.h"
@@ -1743,15 +1742,6 @@ static void cossim(double *told)
     /*     main loop on time */
     while (*told < *tf)
     {
-        while (ismenu()) //** if the user has done something, do the actions
-        {
-            int ierr2 = 0;
-            int iUnused;
-            GetCommand(&CommandToUnstack, &SeqSync, &iUnused, NONE); //** get to the action
-            CommandLength = (int)strlen(CommandToUnstack);
-            //syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
-            FREE(CommandToUnstack);
-        }
         if (C2F(coshlt).halt != 0)
         {
             if (C2F(coshlt).halt == 2)
@@ -2936,15 +2926,6 @@ static void cossimdaskr(double *told)
     /*     main loop on time */
     while (*told < *tf)
     {
-        while (ismenu()) //** if the user has done something, do the actions
-        {
-            int ierr2 = 0;
-            int iUnused;
-            GetCommand(&CommandToUnstack, &SeqSync, &iUnused, NONE); //** get to the action
-            CommandLength = (int)strlen(CommandToUnstack);
-            //syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
-            FREE(CommandToUnstack);
-        }
         if (C2F(coshlt).halt != 0)
         {
             if (C2F(coshlt).halt == 2)
@@ -3123,16 +3104,6 @@ L30:
                         						do it once in the absence of mode (nmod=0) */
                         /* updating the modes through Flag==9, Phase==1 */
 
-                        /* Serge Steer 29/06/2009 */
-                        while (ismenu()) //** if the user has done something, do the actions
-                        {
-                            int ierr2 = 0;
-                            int iUnused;
-                            GetCommand(&CommandToUnstack, &SeqSync, &iUnused, NONE); //** get to the action
-                            CommandLength = (int)strlen(CommandToUnstack);
-                            //syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
-                            FREE(CommandToUnstack);
-                        }
                         if (C2F(coshlt).halt != 0)
                         {
                             if (C2F(coshlt).halt == 2)
@@ -3474,16 +3445,6 @@ L30:
                             }
                         }
                     }
-                }
-                /* Serge Steer 29/06/2009 */
-                while (ismenu()) //** if the user has done something, do the actions
-                {
-                    int ierr2 = 0;
-                    int iUnused;
-                    GetCommand(&CommandToUnstack, &SeqSync, &iUnused, NONE); //** get to the action
-                    CommandLength = (int)strlen(CommandToUnstack);
-                    //syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
-                    FREE(CommandToUnstack);
                 }
 
                 if (C2F(coshlt).halt != 0)
@@ -7106,16 +7067,6 @@ static int CallKinsol(double *told)
             if (status >= 0)
             {
                 break;
-            }
-            /* Serge Steer 29/06/2009 */
-            while (ismenu()) //** if the user has done something, do the actions
-            {
-                int ierr2 = 0;
-                int iUnused;
-                GetCommand(&CommandToUnstack, &SeqSync, &iUnused, NONE); //** get to the action
-                CommandLength = (int)strlen(CommandToUnstack);
-                //syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
-                FREE(CommandToUnstack);
             }
 
             if (C2F(coshlt).halt != 0)

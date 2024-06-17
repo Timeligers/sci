@@ -20,7 +20,7 @@
     <refnamediv>
         <refname>regexp</refname>
         <refpurpose>
-            поиск подстроки, соответствующей строке регулярного выражения
+            в строке найдите (и распакуйте) подстроки, соответствующие регулярному выражению
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>

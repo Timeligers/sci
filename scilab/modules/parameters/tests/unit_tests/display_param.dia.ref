@@ -13,7 +13,7 @@
 //<-- CLI SHELL MODE -->
 // Forcing display
 test_list = init_param()
- test_list  = 
+ test_list = (plist mlist)
 Parameters list:
 ================
 Number of fields = 0

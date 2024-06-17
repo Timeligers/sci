@@ -101,6 +101,7 @@ protected:
     void            apply_indent(void);
     void            enable_force_parenthesis(void);
     void            set_force_parenthesis(bool new_state);
+    void            printMatrixOrCellBody(const ast::exps_t& lines);
 
 private:
 

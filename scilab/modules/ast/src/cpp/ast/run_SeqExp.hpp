@@ -61,10 +61,6 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
         // interrupt me to execute a prioritary command
         while (isEmptyCommandQueuePrioritary() == 0 && StaticRunner_isInterruptibleCommand() == 1)
         {
-            // Awake the runner thread to create a runner for the prioritary command
-            ThreadManagement::SendAwakeRunnerSignal();
-            ThreadManagement::WaitForRunMeSignal();
-
             StaticRunner_launch();
         }
 
@@ -94,10 +90,6 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
         // interrupt me to execute a prioritary command
         while (isEmptyCommandQueuePrioritary() == 0 && StaticRunner_isInterruptibleCommand() == 1)
         {
-            // Awake the runner thread to create a runner for the prioritary command
-            ThreadManagement::SendAwakeRunnerSignal();
-            ThreadManagement::WaitForRunMeSignal();
-
             StaticRunner_launch();
         }
 
@@ -220,13 +212,9 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                     if ((*it)->isVerbose() && ConfigVariable::isPrintOutput())
                     {
                         //TODO manage multiple returns
-                        scilabWriteW(L" ans  =\n");
-                        if (ConfigVariable::isPrintCompact() == false)
-                        {
-                            scilabWriteW(L"\n");
-                        }
                         std::wostringstream ostrName;
                         ostrName << L"ans";
+                        scilabWriteW(printVarEqualTypeDimsInfo(pITAns, L"ans").c_str());
                         VariableToString(pITAns, ostrName.str().c_str());
                     }
                 }

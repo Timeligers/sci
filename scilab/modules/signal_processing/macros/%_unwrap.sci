@@ -97,7 +97,7 @@ function %_unwrap(typexample)
         ax = gda();
         ax.title.font_size = 2;
         f = scf();
-        f.color_map = hotcolormap(100);
+        f.color_map = hot(100);
         f.figure_size = [475 1050];
         f.figure_position(2) = 0;
         f.figure_name = "unwrap()" + _(": 2-D examples");

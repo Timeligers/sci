@@ -24,7 +24,7 @@ function %_Matplot()
     f = gcf();
     my_plot_desc  = _("Classical Matplot");
     f.figure_name = my_plot_desc;
-    f.color_map = coolcolormap(nx);
+    f.color_map = cool(nx);
 
     a = gca();
     a.tight_limits = "on";

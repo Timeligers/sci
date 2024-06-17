@@ -69,17 +69,6 @@ body = [...
 
 checkbody(body)
 
-// varargin
-body = [...
-"function test1(x, varargin)"
-"    arguments"
-"        x"
-"        varargin"
-"    end"
-"end"];
-
-checkbody(body)
-
 // dims
 body = [...
 "function test1(x)"
@@ -384,3 +373,60 @@ test_bool(int64(vref), vref == 1)
 test_bool(uint64(vref), vref == 1)
 test_bool(vref == 1, vref == 1)
 test_bool(string(vref == 1), vref == 1)
+
+//varargin
+function r = test_varargin(a, varargin)
+    arguments
+        a
+        varargin
+    end
+
+    r = nargin;
+endfunction
+
+assert_checkequal(test_varargin(1), 1);
+assert_checkequal(test_varargin(1, 2), 2);
+assert_checkequal(test_varargin(1, 2, 3), 3);
+
+code = [
+    "function test_varargin(a, b, varargin)"
+    "    arguments"
+    "        a"
+    "        b"
+    "    end"
+    "endfunction"
+];
+
+checkbody(code);
+
+code = [
+    "function test_varargin(a, b, varargin)"
+    "    arguments"
+    "        a"
+    "        b"
+    "        varargin (3)"
+    "    end"
+    "endfunction"
+];
+
+checkbody(code);
+
+//overload of size function
+function test_size(a)
+    arguments
+        a (1, :)
+    end
+endfunction
+
+test_size(1/%s);
+test_size(table(1));
+test_size(table([1, 2]));
+
+function test_size(a)
+    arguments
+        a (3)
+    end
+endfunction
+
+test_size(list(1, 2 ,3))
+

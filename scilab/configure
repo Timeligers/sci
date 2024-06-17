@@ -669,6 +669,8 @@ SCI_LDFLAGS
 SCI_FFLAGS
 SCI_CXXFLAGS
 SCI_CFLAGS
+USE_ANALYZER_FALSE
+USE_ANALYZER_TRUE
 USE_ADDRESS_SANITIZER_FALSE
 USE_ADDRESS_SANITIZER_TRUE
 USE_STATIC_SYSTEM_LIB_FALSE
@@ -920,6 +922,8 @@ CODE_COVERAGE_FALSE
 CODE_COVERAGE_TRUE
 GENHTML
 LCOV
+IS_SYS_FMEMOPEN_FALSE
+IS_SYS_FMEMOPEN_TRUE
 IS_MIPS_SGI_IRIX_FALSE
 IS_MIPS_SGI_IRIX_TRUE
 IS_SOLARIS_FALSE
@@ -1138,6 +1142,7 @@ enable_libtool_lock
 enable_ccache
 enable_static_system_lib
 enable_address_sanitizer
+enable_analyzer
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1857,6 +1862,7 @@ Optional Features:
                           libs
   --enable-address-sanitizer
                           Enable AddressSanitizer instrumentation
+  --enable-analyzer       Enable compiler static analysis (-fanalyzer)
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -3876,8 +3882,8 @@ else
 fi
 
 # Change version here, other files will be updated at the end of configure
-SCILAB_VERSION_MAJOR=2024
-SCILAB_VERSION_MINOR=1
+SCILAB_VERSION_MAJOR=2025
+SCILAB_VERSION_MINOR=0
 SCILAB_VERSION_MAINTENANCE=0
 
 
@@ -10863,17 +10869,17 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
 
     if test "$enable_debug_CXX" = yes; then
         DEBUG_CXXFLAGS="-O0 -g3"
-        case "$host" in
-        *-linux-gnu )
-            # Only doing that under Linux
-            DEBUG_CXXFLAGS="$DEBUG_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
-            ;;
-        esac
     else
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
 
     WARNING_CXXFLAGS="-Wall -pedantic "
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
+        ;;
+    esac
 
     COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-stack-protector " # bug 3131
     # add the extra filesystem library if needed
@@ -10893,10 +10899,19 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
 
-    WARNING_CXXFLAGS="-Wall -pedantic "
+    WARNING_CXXFLAGS="-Wall"
+    # Valid ISO C and ISO C++ programs
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -pedantic"
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
+        ;;
+    esac
 
     COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-stack-protector " # bug 3131
     # allow to compile under macOS < Catalina with c++17 enabled clang
+    # or compile under macOS > Catalina with min_macosx_version < 11
     case "$host_os" in
          *Darwin* | *darwin*)
            macosx_version=`sw_vers -productVersion`
@@ -10907,11 +10922,35 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
                        COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -D_LIBCPP_DISABLE_AVAILABILITY"
                    fi
                ;;
+               *)
+                   if test -n "$with_min_macosx_version"; then
+                        min_macosx_version_major=`echo $with_min_macosx_version | awk -F\. {'print $1'}`
+                        min_macosx_version_minor=`echo $with_min_macosx_version | awk -F\. {'print $2'}`
+                        if [ $min_macosx_version_major -eq 10 ]; then
+                            COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -D_LIBCPP_DISABLE_AVAILABILITY"
+                            if [ $min_macosx_version_minor -ge 13 ]; then
+                                # fmemopen() appeared in macos >= 10.13
+                                SYS_FMEMOPEN=1
+                            fi
+                        fi
+
+                    fi
+                ;;
            esac
            ;;
     esac
     ;;
 esac
+
+ if test -n "$SYS_FMEMOPEN"; then
+  IS_SYS_FMEMOPEN_TRUE=
+  IS_SYS_FMEMOPEN_FALSE='#'
+else
+  IS_SYS_FMEMOPEN_TRUE='#'
+  IS_SYS_FMEMOPEN_FALSE=
+fi
+
+
 
 #### 64 bits detection
 IS_64_BITS_CPU=false
@@ -10953,6 +10992,12 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
     WARNING_CFLAGS="-Wall "
     # Valid ISO C and ISO C++ programs
     WARNING_CFLAGS="$WARNINGS_CFLAGS -pedantic "
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CFLAGS="$WARNING_CFLAGS -fdiagnostics-show-option -Werror=format-security"
+        ;;
+    esac
 
     COMPILER_CFLAGS="$COMPILER_CFLAGS -fno-stack-protector " # bug 3131
     # Explictly disable the as needed. It was disable by default but Ubuntu
@@ -11035,7 +11080,7 @@ printf "%s\n" "$as_me: WARNING: gfortran not used. Could not detect the architec
 
     WARNING_CFLAGS="-Wall "
     # Valid ISO C and ISO C++ programs
-    WARNING_CFLAGS="$WARNINGS_CFLAGS -pedantic "
+    WARNING_CFLAGS="$WARNING_CFLAGS -pedantic "
 
     COMPILER_CFLAGS="$COMPILER_CFLAGS -fno-stack-protector " # bug 3131
     # prevent dll optimizations in the final binary
@@ -12679,8 +12724,10 @@ else $as_nop
 fi
 
 
+save_CFLAGS="$CFLAGS"
+save_LIBS="$LIBS"
+
 if test "x$with_hdf5_include" != "xyes"; then
-    save_CFLAGS="$CFLAGS"
     CFLAGS="-I$with_hdf5_include"
     ac_fn_c_check_header_compile "$LINENO" "hdf5.h" "ac_cv_header_hdf5_h" "$ac_includes_default"
 if test "x$ac_cv_header_hdf5_h" = xyes
@@ -12691,7 +12738,6 @@ else $as_nop
 
 fi
 
-    CFLAGS="$save_CFLAGS"
 else
     HDF5_CFLAGS=""
     if $WITH_DEVTOOLS; then # Scilab thirdparties
@@ -12718,8 +12764,6 @@ fi
         fi
     fi
 fi
-
-save_LIBS="$LIBS"
 
 # --with-hdf5-library set then check in this dir
 if test "x$with_hdf5_library" != "xyes"; then
@@ -12877,6 +12921,181 @@ fi
     fi
 fi
 
+CFLAGS="$CFLAGS $HDF5_CFLAGS"
+LIBS="$LIBS $HDF5_LIBS"
+ac_fn_c_check_header_compile "$LINENO" "hdf5.h" "ac_cv_header_hdf5_h" "$ac_includes_default"
+if test "x$ac_cv_header_hdf5_h" = xyes
+then :
+
+else $as_nop
+  as_fn_error $? "Check libhdf5 presence and version. See more details in config.log" "$LINENO" 5
+fi
+
+
+hdf5_version_ok=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if hdf5 version is >= 1.10" >&5
+printf %s "checking if hdf5 version is >= 1.10... " >&6; }
+if test "$cross_compiling" = yes
+then :
+  { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+printf "%s\n" "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "cannot run test program while cross compiling
+See \`config.log' for more details" "$LINENO" 5; }
+else $as_nop
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+#include <H5public.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int
+main (void)
+{
+
+#if H5_VERSION_GE(1,10,0) == 0
+exit(1);
+#endif
+printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_run "$LINENO"
+then :
+  hdf5_version_ok=yes
+else $as_nop
+  as_fn_error $? "hdf5 must be >= 1.10" "$LINENO" 5
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
+  conftest.$ac_objext conftest.beam conftest.$ac_ext
+fi
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $hdf5_version_ok" >&5
+printf "%s\n" "$hdf5_version_ok" >&6; }
+
+hdf5_has_deprecated_symbols=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if hdf5 has deprecated symbols" >&5
+printf %s "checking if hdf5 has deprecated symbols... " >&6; }
+if test "$cross_compiling" = yes
+then :
+  { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+printf "%s\n" "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "cannot run test program while cross compiling
+See \`config.log' for more details" "$LINENO" 5; }
+else $as_nop
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+#include <H5public.h>
+#include <stdlib.h>
+
+int
+main (void)
+{
+
+#if H5_VERSION_GE(1,11,0) == 1
+#if defined(H5_NO_DEPRECATED_SYMBOLS)
+exit(1);
+#endif
+#endif
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_run "$LINENO"
+then :
+  hdf5_has_deprecated_symbols=yes
+else $as_nop
+  as_fn_error $? "hdf5 must be compiled with deprecated symbols for hdf5 > 1.10" "$LINENO" 5
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
+  conftest.$ac_objext conftest.beam conftest.$ac_ext
+fi
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $hdf5_has_deprecated_symbols" >&5
+printf "%s\n" "$hdf5_has_deprecated_symbols" >&6; }
+
+FORCE_HDF_API="\
+-DH5Dopen_vers=2 \
+-DH5Topen_vers=2 \
+-DH5Dcreate_vers=2 \
+-DH5Aiterate_vers=2 \
+-DH5Gcreate_vers=2 \
+-DH5Gopen_vers=2 \
+-DH5Tget_array_dims_vers=2 \
+-DH5Acreate_vers=2 \
+-DH5Rdereference_vers=2 \
+-DH5Eset_auto_vers=2"
+
+hdf5_has_default_api_set=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if hdf5 has a default API defined" >&5
+printf %s "checking if hdf5 has a default API defined... " >&6; }
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+#include <H5public.h>
+#include <H5Ppublic.h>
+#include <H5Rpublic.h>
+
+int
+main (void)
+{
+
+hid_t dataset;
+void* ref;
+hid_t d = H5Rdereference(dataset, H5P_DATASET_ACCESS_DEFAULT, H5R_OBJECT, ref);
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+  hdf5_has_default_api_set=yes
+else $as_nop
+  hdf5_has_default_api_set="no, versioned API set"; HDF5_CFLAGS="$HDF5_CFLAGS $FORCE_HDF_API"
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $hdf5_has_default_api_set" >&5
+printf "%s\n" "$hdf5_has_default_api_set" >&6; }
+
+if test "x$hdf5_has_default_api_set" != "xyes"; then
+    CFLAGS="$CFLAGS $HDF5_CFLAGS"
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking compilation of versioned API" >&5
+printf %s "checking compilation of versioned API... " >&6; }
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+        #include <H5public.h>
+        #include <H5Ppublic.h>
+        #include <H5Rpublic.h>
+
+int
+main (void)
+{
+
+        hid_t dataset;
+        void* ref;
+        hid_t d = H5Rdereference(dataset, H5P_DATASET_ACCESS_DEFAULT, H5R_OBJECT, ref);
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+else $as_nop
+  as_fn_error $? "failed to compile with $HDF5_CFLAGS" "$LINENO" 5
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+fi
+
+CFLAGS="$save_CFLAGS"
 LIBS="$save_LIBS"
 
 
@@ -13479,7 +13698,7 @@ printf "%s\n" "$ac_java_classpath" >&6; }
 printf %s "checking to see if the java compiler works... " >&6; }
 
     cat << \EOF > conftest.java
-// #line 13482 "configure"
+// #line 13701 "configure"
 import java.util.regex.Pattern;
 
 
@@ -13566,7 +13785,7 @@ printf %s "checking type of jvm... " >&6; }
     if test "x$ac_java_jvm_name" = "x" ; then
 
     cat << \EOF > conftest.java
-// #line 13569 "configure"
+// #line 13788 "configure"
 import java.util.regex.Pattern;
 
 import gnu.java.io.EncodingManager;
@@ -13650,7 +13869,7 @@ printf %s "checking java API version... " >&6; }
     # The class java.nio.charset.Charset is new in Java 1.4
 
     cat << \EOF > conftest.java
-// #line 13653 "configure"
+// #line 13872 "configure"
 import java.util.regex.Pattern;
 
 import java.nio.charset.Charset;
@@ -13715,7 +13934,7 @@ EOF
     # The class java.lang.StringBuilder is new in Java 1.5
 
     cat << \EOF > conftest.java
-// #line 13718 "configure"
+// #line 13937 "configure"
 import java.util.regex.Pattern;
 
 import java.lang.StringBuilder;
@@ -13780,7 +13999,7 @@ EOF
     # The class java.util.ArrayDeque is new in Java 1.6
 
     cat << \EOF > conftest.java
-// #line 13783 "configure"
+// #line 14002 "configure"
 import java.util.regex.Pattern;
 
 import java.util.ArrayDeque;
@@ -13845,7 +14064,7 @@ EOF
     # The class java.nio.file.Path is new in Java 1.7
 
     cat << \EOF > conftest.java
-// #line 13848 "configure"
+// #line 14067 "configure"
 import java.util.regex.Pattern;
 
 import java.nio.file.Path;
@@ -13910,7 +14129,7 @@ EOF
     # The class java.util.stream.DoubleStream is new in Java 1.8
 
     cat << \EOF > conftest.java
-// #line 13913 "configure"
+// #line 14132 "configure"
 import java.util.regex.Pattern;
 
 import java.util.stream.DoubleStream;
@@ -13975,7 +14194,7 @@ EOF
     # The class java.lang.ProcessHandle is new in Java 1.9
 
     cat << \EOF > conftest.java
-// #line 13978 "configure"
+// #line 14197 "configure"
 import java.util.regex.Pattern;
 
 import java.lang.ProcessHandle;
@@ -14040,7 +14259,7 @@ EOF
     # The class jdk.jfr.events.FileForceEvent is new in Java 10
 
     cat << \EOF > conftest.java
-// #line 14043 "configure"
+// #line 14262 "configure"
 import java.util.regex.Pattern;
 
 import jdk.jfr.events.FileForceEvent;
@@ -14105,7 +14324,7 @@ EOF
     # The class java.net.http.HttpClient is new in Java 11
 
     cat << \EOF > conftest.java
-// #line 14108 "configure"
+// #line 14327 "configure"
 import java.util.regex.Pattern;
 
 import java.net.http.HttpClient;
@@ -14170,7 +14389,7 @@ EOF
     # The class java.lang.constant.ClassDesc is new in Java 12
 
     cat << \EOF > conftest.java
-// #line 14173 "configure"
+// #line 14392 "configure"
 import java.util.regex.Pattern;
 
 import java.lang.constant.ClassDesc;
@@ -14235,7 +14454,7 @@ EOF
     # Method newFileSystem(Path) was added to java.nio.file.FileSystems in Java 13
 
     cat << \EOF > conftest.java
-// #line 14238 "configure"
+// #line 14457 "configure"
 import java.util.regex.Pattern;
 
 
@@ -14307,7 +14526,7 @@ EOF
     # Switch expressions are a standard feature of Java 14 (were a preview feature in 12 & 13)
 
     cat << \EOF > conftest.java
-// #line 14310 "configure"
+// #line 14529 "configure"
 import java.util.regex.Pattern;
 
 
@@ -14384,7 +14603,7 @@ EOF
     # Text blocks are a standard feature of Java 15 (were a preview feature in 13 & 14)
 
     cat << \EOF > conftest.java
-// #line 14387 "configure"
+// #line 14606 "configure"
 import java.util.regex.Pattern;
 
 
@@ -14454,7 +14673,7 @@ EOF
     # The class java.net.UnixDomainSocketAddress is new in Java 16
 
     cat << \EOF > conftest.java
-// #line 14457 "configure"
+// #line 14676 "configure"
 import java.util.regex.Pattern;
 
 import java.net.UnixDomainSocketAddress;
@@ -14519,7 +14738,7 @@ EOF
     # The class java.util.random.RandomGenerator is new in Java 17
 
     cat << \EOF > conftest.java
-// #line 14522 "configure"
+// #line 14741 "configure"
 import java.util.regex.Pattern;
 
 import java.util.random.RandomGenerator;
@@ -16004,7 +16223,7 @@ fi
                 # Checked before activation.jar to avoid false detection
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16007 "configure"
+// #line 16226 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16205,7 +16424,7 @@ printf %s "checking jakarta.activation... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16208 "configure"
+// #line 16427 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16440,7 +16659,7 @@ printf %s "checking jgraphx... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16443 "configure"
+// #line 16662 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16674,7 +16893,7 @@ printf %s "checking jaxb-api... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16677 "configure"
+// #line 16896 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -16908,7 +17127,7 @@ printf %s "checking jaxb-runtime... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 16911 "configure"
+// #line 17130 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -17142,7 +17361,7 @@ printf %s "checking jaxb-impl... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 17145 "configure"
+// #line 17364 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -17376,7 +17595,7 @@ printf %s "checking activation... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 17379 "configure"
+// #line 17598 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -17610,7 +17829,7 @@ printf %s "checking istack-commons-runtime... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 17613 "configure"
+// #line 17832 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -17846,7 +18065,7 @@ printf %s "checking scirenderer... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 17849 "configure"
+// #line 18068 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18088,7 +18307,7 @@ printf %s "checking flexdock... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18091 "configure"
+// #line 18310 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18280,7 +18499,7 @@ EOF
     CLASSPATH=$ac_java_classpath
     export CLASSPATH
     echo "CLASSPATH="$CLASSPATH >&5
-    cmd="$JAVA conftestSharedChecker \"flexdock\" \"org.flexdock.util.Utilities\" \"$jar_resolved\" \"VERSION\" \"1.2.4\" \"\""
+    cmd="$JAVA conftestSharedChecker \"flexdock\" \"org.flexdock.util.Utilities\" \"$jar_resolved\" \"VERSION\" \"1.2.5\" \"\""
     if (echo $cmd >&5 ; eval $cmd >conftestSharedChecker.java.output 2>&5); then
         read PACKAGE_JAR_FILE PACKAGE_JAR_VERSION << EOF
 $(tail -n 1 conftestSharedChecker.java.output)
@@ -18322,7 +18541,7 @@ printf %s "checking looks... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18325 "configure"
+// #line 18544 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18556,7 +18775,7 @@ printf %s "checking jgoodies-looks... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18559 "configure"
+// #line 18778 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -18791,7 +19010,7 @@ printf %s "checking skinlf... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 18794 "configure"
+// #line 19013 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -19025,7 +19244,7 @@ printf %s "checking javax.annotation-api... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 19028 "configure"
+// #line 19247 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -19259,7 +19478,7 @@ printf %s "checking jakarta.activation-api... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 19262 "configure"
+// #line 19481 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -19493,7 +19712,7 @@ printf %s "checking jogl... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 19496 "configure"
+// #line 19715 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -19833,7 +20052,7 @@ printf %s "checking gluegen... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 19836 "configure"
+// #line 20055 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20124,7 +20343,7 @@ printf %s "checking jhall... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20127 "configure"
+// #line 20346 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20356,7 +20575,7 @@ printf %s "checking javahelp2... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20359 "configure"
+// #line 20578 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20591,7 +20810,7 @@ printf %s "checking lucene-core... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20594 "configure"
+// #line 20813 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -20825,7 +21044,7 @@ printf %s "checking lucene-analyzers-common... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 20828 "configure"
+// #line 21047 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21059,7 +21278,7 @@ printf %s "checking lucene-queryparser... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21062 "configure"
+// #line 21281 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21293,7 +21512,7 @@ printf %s "checking jrosetta-API... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21296 "configure"
+// #line 21515 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21524,7 +21743,7 @@ printf %s "checking jrosetta-api... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21527 "configure"
+// #line 21746 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21759,7 +21978,7 @@ printf %s "checking jrosetta-engine... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21762 "configure"
+// #line 21981 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -21995,7 +22214,7 @@ printf %s "checking jeuclid-core... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 21998 "configure"
+// #line 22217 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -22230,7 +22449,7 @@ printf %s "checking javafx.base... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22233 "configure"
+// #line 22452 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -22465,7 +22684,7 @@ printf %s "checking javafx.swing... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22468 "configure"
+// #line 22687 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -22700,7 +22919,7 @@ printf %s "checking javafx.graphics... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22703 "configure"
+// #line 22922 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -22935,7 +23154,7 @@ printf %s "checking fop... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 22938 "configure"
+// #line 23157 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -23177,7 +23396,7 @@ printf %s "checking freehep-graphics2d... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 23180 "configure"
+// #line 23399 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -23411,7 +23630,7 @@ printf %s "checking freehep-graphicsio... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 23414 "configure"
+// #line 23633 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -23645,7 +23864,7 @@ printf %s "checking freehep-graphicsio-emf... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 23648 "configure"
+// #line 23867 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -23879,7 +24098,7 @@ printf %s "checking freehep-io... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 23882 "configure"
+// #line 24101 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -24113,7 +24332,7 @@ printf %s "checking freehep-util... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 24116 "configure"
+// #line 24335 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -24348,7 +24567,7 @@ printf %s "checking batik-all... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 24351 "configure"
+// #line 24570 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -24582,7 +24801,7 @@ printf %s "checking batik... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 24585 "configure"
+// #line 24804 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -24817,7 +25036,7 @@ printf %s "checking commons-io... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 24820 "configure"
+// #line 25039 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -25051,7 +25270,7 @@ printf %s "checking xmlgraphics-commons... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 25054 "configure"
+// #line 25273 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -25285,7 +25504,7 @@ printf %s "checking avalon-framework... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 25288 "configure"
+// #line 25507 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -25519,7 +25738,7 @@ printf %s "checking xml-apis-ext... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 25522 "configure"
+// #line 25741 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -25753,7 +25972,7 @@ printf %s "checking xml-commons-apis-ext... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 25756 "configure"
+// #line 25975 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -25991,7 +26210,7 @@ printf %s "checking commons-logging... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 25994 "configure"
+// #line 26213 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -26225,7 +26444,7 @@ printf %s "checking jlatexmath... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 26228 "configure"
+// #line 26447 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -26459,7 +26678,7 @@ printf %s "checking jlatexmath-fop... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 26462 "configure"
+// #line 26681 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -26693,7 +26912,7 @@ printf %s "checking saxon9he... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 26696 "configure"
+// #line 26915 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -26933,7 +27152,7 @@ printf %s "checking checkstyle... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 26936 "configure"
+// #line 27155 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -27167,7 +27386,7 @@ printf %s "checking commons-beanutils... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 27170 "configure"
+// #line 27389 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -27401,7 +27620,7 @@ printf %s "checking antlr... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 27404 "configure"
+// #line 27623 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -27635,7 +27854,7 @@ printf %s "checking junit4... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 27638 "configure"
+// #line 27857 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -27866,7 +28085,7 @@ printf %s "checking junit... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 27869 "configure"
+// #line 28088 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -28104,7 +28323,7 @@ printf %s "checking hamcrest-all... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 28107 "configure"
+// #line 28326 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -28335,7 +28554,7 @@ printf %s "checking hamcrest/all... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 28338 "configure"
+// #line 28557 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -28570,7 +28789,7 @@ printf %s "checking cobertura... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 28573 "configure"
+// #line 28792 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -28804,7 +29023,7 @@ printf %s "checking asm3... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 28807 "configure"
+// #line 29026 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -29035,7 +29254,7 @@ printf %s "checking asm... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 29038 "configure"
+// #line 29257 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -29269,7 +29488,7 @@ printf %s "checking ecj... " >&6; }
     if test ! -f conftestSharedChecker.class ; then
 
     cat << \EOF > conftestSharedChecker.java
-// #line 29272 "configure"
+// #line 29491 "configure"
 import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
@@ -31605,7 +31824,7 @@ rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
            # be generating 64-bit code.
            cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
-#if defined __powerpc64__ || defined __LP64__
+#if defined __powerpc64__ || defined _ARCH_PPC64
                    int ok;
                   #else
                    error fail
@@ -31786,7 +32005,7 @@ then :
 else $as_nop
   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
-#if defined __ELF__ || (defined __linux__ && defined __EDG__)
+#ifdef __ELF__
         Extensible Linking Format
         #endif
 
@@ -31804,7 +32023,7 @@ rm -rf conftest*
 fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $gl_cv_elf" >&5
 printf "%s\n" "$gl_cv_elf" >&6; }
-  if test $gl_cv_elf = yes; then
+  if test $gl_cv_elf; then
     # Extract the ELF class of a file (5th byte) in decimal.
     # Cf. https://en.wikipedia.org/wiki/Executable_and_Linkable_Format#File_header
     if od -A x < /dev/null >/dev/null 2>/dev/null; then
@@ -31821,22 +32040,19 @@ printf "%s\n" "$gl_cv_elf" >&6; }
         echo
       }
     fi
-    # Use 'expr', not 'test', to compare the values of func_elfclass, because on
-    # Solaris 11 OpenIndiana and Solaris 11 OmniOS, the result is 001 or 002,
-    # not 1 or 2.
     case $HOST_CPU_C_ABI_32BIT in
       yes)
         # 32-bit ABI.
         acl_is_expected_elfclass ()
         {
-          expr "`func_elfclass | sed -e 's/[ 	]//g'`" = 1 > /dev/null
+          test "`func_elfclass | sed -e 's/[ 	]//g'`" = 1
         }
         ;;
       no)
         # 64-bit ABI.
         acl_is_expected_elfclass ()
         {
-          expr "`func_elfclass | sed -e 's/[ 	]//g'`" = 2 > /dev/null
+          test "`func_elfclass | sed -e 's/[ 	]//g'`" = 2
         }
         ;;
       *)
@@ -32366,14 +32582,7 @@ fi
                     fi
                     ;;
                   -l*)
-                                                                                                                                                                dep=`echo "X$dep" | sed -e 's/^X-l//'`
-                    if test "X$dep" != Xc \
-                       || case $host_os in
-                            linux* | gnu* | k*bsd*-gnu) false ;;
-                            *)                          true ;;
-                          esac; then
-                      names_next_round="$names_next_round $dep"
-                    fi
+                                        names_next_round="$names_next_round "`echo "X$dep" | sed -e 's/^X-l//'`
                     ;;
                   *.la)
                                                                                 names_next_round="$names_next_round "`echo "X$dep" | sed -e 's,^X.*/,,' -e 's,^lib,,' -e 's,\.la$,,'`
@@ -32735,9 +32944,8 @@ int
 main (void)
 {
 int result = 0;
-  /* Test against AIX 5.1...7.2 bug: Failures are not distinguishable from
-     successful returns.  This is even documented in
-     <https://www.ibm.com/support/knowledgecenter/ssw_aix_72/i_bostechref/iconv.html> */
+  /* Test against AIX 5.1 bug: Failures are not distinguishable from successful
+     returns.  */
   {
     iconv_t cd_utf8_to_88591 = iconv_open ("ISO8859-1", "UTF-8");
     if (cd_utf8_to_88591 != (iconv_t)(-1))
@@ -33319,14 +33527,7 @@ fi
                     fi
                     ;;
                   -l*)
-                                                                                                                                                                dep=`echo "X$dep" | sed -e 's/^X-l//'`
-                    if test "X$dep" != Xc \
-                       || case $host_os in
-                            linux* | gnu* | k*bsd*-gnu) false ;;
-                            *)                          true ;;
-                          esac; then
-                      names_next_round="$names_next_round $dep"
-                    fi
+                                        names_next_round="$names_next_round "`echo "X$dep" | sed -e 's/^X-l//'`
                     ;;
                   *.la)
                                                                                 names_next_round="$names_next_round "`echo "X$dep" | sed -e 's,^X.*/,,' -e 's,^lib,,' -e 's,\.la$,,'`
@@ -56027,16 +56228,105 @@ fi
 
 
 
-#################
-## stop on warning: default warning declaration and stop compilation when a warning is found
-#################
-if test "$enable_stop_on_warning" = yes; then
-    # all functions should be declared in defined
-    WARNING_CFLAGS="$WARNING_CFLAGS -Werror=implicit "
-    # function pointers should match
-    WARNING_CFLAGS="$WARNING_CFLAGS -Werror=incompatible-pointer-types "
 
-    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Werror "
+# Check whether --enable-analyzer was given.
+if test ${enable_analyzer+y}
+then :
+  enableval=$enable_analyzer;
+fi
+
+
+# Check if -fsanitize=address is supported at compile time and link time
+saved_CFLAGS="$CFLAGS"
+asan_supported=no
+
+CFLAGS="$CFLAGS -fanalyzer"
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether the C compiler accepts -fanalyzer" >&5
+printf %s "checking whether the C compiler accepts -fanalyzer... " >&6; }
+ac_ext=c
+ac_cpp='$CPP $CPPFLAGS'
+ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
+if test "$cross_compiling" = yes
+then :
+  { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+printf "%s\n" "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "cannot run test program while cross compiling
+See \`config.log' for more details" "$LINENO" 5; }
+else $as_nop
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+const char hw[] = "Hello, Analyzer\n";
+#ifdef F77_DUMMY_MAIN
+
+#  ifdef __cplusplus
+     extern "C"
+#  endif
+   int F77_DUMMY_MAIN() { return 1; }
+
+#endif
+int
+main (void)
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_run "$LINENO"
+then :
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }; analyzer_supported=yes
+else $as_nop
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
+  conftest.$ac_objext conftest.beam conftest.$ac_ext
+fi
+
+ac_ext=c
+ac_cpp='$CPP $CPPFLAGS'
+ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
+
+CFLAGS="$saved_CFLAGS"
+LDFLAGS="$saved_LDFLAGS"
+if test "x$analyzer_supported" == "xno" -a "x$enable_analyzer" == "xyes"; then
+    as_fn_error $? "The $CC compiler does not support the options -fanalyzer . Update your compiler." "$LINENO" 5
+elif test "x$enable_analyzer" == "xyes"; then
+    COMPILER_CFLAGS="$COMPILER_CFLAGS -fanalyzer"
+    COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fanalyzer"
+fi
+
+ if test "x$enable_analyzer" == "xyes"; then
+  USE_ANALYZER_TRUE=
+  USE_ANALYZER_FALSE='#'
+else
+  USE_ANALYZER_TRUE='#'
+  USE_ANALYZER_FALSE=
+fi
+
+
+
+
+#################
+# Warnings can be set as erors:
+#  1. modern compilers enforce a set of options on some platforms ; add them here as a common subset
+#  2. when "--enable-stop-on-warning" flag, stop compilation on all warnings
+#################
+# all functions should be declared in defined in C99
+WARNING_CFLAGS="$WARNING_CFLAGS -Werror=implicit"
+# function pointers should match in C99
+WARNING_CFLAGS="$WARNING_CFLAGS -Werror=incompatible-pointer-types"
+if test "$enable_stop_on_warning" = yes; then
+    WARNING_CFLAGS="$WARNING_CFLAGS -Werror"
+
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Werror"
     # Scilab indexes are int, standard containers are size_t: do not error when comparing them
     WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Wno-error=sign-compare"
     # on graphics_object we cast user_data InternalType pointer depending on 32bits, 64bits alignement
@@ -56261,6 +56551,10 @@ if test -z "${IS_MIPS_SGI_IRIX_TRUE}" && test -z "${IS_MIPS_SGI_IRIX_FALSE}"; th
   as_fn_error $? "conditional \"IS_MIPS_SGI_IRIX\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
+if test -z "${IS_SYS_FMEMOPEN_TRUE}" && test -z "${IS_SYS_FMEMOPEN_FALSE}"; then
+  as_fn_error $? "conditional \"IS_SYS_FMEMOPEN\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 if test -z "${CODE_COVERAGE_TRUE}" && test -z "${CODE_COVERAGE_FALSE}"; then
   as_fn_error $? "conditional \"CODE_COVERAGE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
@@ -56375,6 +56669,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${USE_ADDRESS_SANITIZER_TRUE}" && test -z "${USE_ADDRESS_SANITIZER_FALSE}"; then
   as_fn_error $? "conditional \"USE_ADDRESS_SANITIZER\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${USE_ANALYZER_TRUE}" && test -z "${USE_ANALYZER_FALSE}"; then
+  as_fn_error $? "conditional \"USE_ANALYZER\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
@@ -58312,9 +58610,7 @@ See \`config.log' for more details" "$LINENO" 5; }
                 #      presentlang can be used as a fallback for messages
                 #      which are not translated in the desiredlang catalog).
                 case "$desiredlang" in
-                  "$presentlang" | "$presentlang"_* | "$presentlang".* | "$presentlang"@*)
-                    useit=yes
-                    ;;
+                  "$presentlang"*) useit=yes;;
                 esac
               done
               if test $useit = yes; then

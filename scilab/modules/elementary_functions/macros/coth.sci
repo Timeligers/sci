@@ -15,13 +15,10 @@ function t = coth(x)
     //
     // hyperbolic co-tangent of x
 
-    if argn(2) <> 1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"coth",1));
+    arguments
+        x {mustBeA(x, ["double", "sparse"])}
     end
-
-    if and(type(x) <> [1 5]) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real or complex matrix expected.\n"),"coth",1));
-    end
+    
     // ( coth(0) => +/- Inf ) => (sparse => full)
     t = 1 ./ tanh(full(x))
 endfunction

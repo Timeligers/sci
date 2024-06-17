@@ -21,15 +21,9 @@
 namespace ast
 {
 
-/** \name Visit Matrix Expressions nodes.
- ** \{ */
-void PrintVisitor::visit (const MatrixExp &e)
-{
+void PrintVisitor::printMatrixOrCellBody(const ast::exps_t& lines) {
     ast::exps_t::const_iterator	i, j;
-    *ostr << SCI_OPEN_MATRIX;
-    ++indent;
     bool is_last_matrix_line = false;
-    ast::exps_t lines = e.getLines();
     for (i = lines.begin() ; i != lines.end() ; )
     {
         bool addIndent = false;
@@ -72,6 +66,15 @@ void PrintVisitor::visit (const MatrixExp &e)
 
         ++i;
     }
+}
+
+/** \name Visit Matrix Expressions nodes.
+ ** \{ */
+void PrintVisitor::visit (const MatrixExp &e)
+{
+    *ostr << SCI_OPEN_MATRIX;
+    ++indent;
+    this->printMatrixOrCellBody(e.getLines());
     *ostr << SCI_CLOSE_MATRIX;
     --indent;
 }
@@ -113,27 +116,9 @@ void PrintVisitor::visit (const MatrixLineExp &e)
  ** \{ */
 void PrintVisitor::visit (const CellExp &e)
 {
-    ast::exps_t::const_iterator	i, j;
-
     *ostr << SCI_OPEN_CELL;
     ++indent;
-    ast::exps_t lines = e.getLines();
-    for (i = lines.begin() ; i != lines.end() ; )
-    {
-        if (displayOriginal)
-        {
-            (*i)->getOriginal()->accept(*this);
-        }
-        else
-        {
-            (*i)->accept(*this);
-        }
-        if (++i != lines.end())
-        {
-            *ostr << SCI_LINE_SEPARATOR << std::endl;
-            this->apply_indent();
-        }
-    }
+    this->printMatrixOrCellBody(e.getLines());
     *ostr << SCI_CLOSE_CELL;
     --indent;
 }

@@ -95,6 +95,27 @@ std::unordered_map<std::wstring, std::wstring> DeprecatedChecker::initDep()
     // TODO: get this list from a conf file
     std::unordered_map<std::wstring, std::wstring> map;
 
+    // Scilab 2024.1.0 => 2026.0.0
+    map.emplace(L"dassl", L"dae");
+    map.emplace(L"dasrt", L"dae");
+    map.emplace(L"daskr", L"dae");
+    map.emplace(L"autumncolormap", L"autumn");
+    map.emplace(L"bonecolormap", L"bone"); 
+    map.emplace(L"coolcolormap", L"cool"); 
+    map.emplace(L"coppercolormap", L"copper"); 
+    map.emplace(L"graycolormap", L"gray");
+    map.emplace(L"hotcolormap", L"hot");
+    map.emplace(L"hsvcolormap", L"hsv"); 
+    map.emplace(L"jetcolormap", L"jet");
+    map.emplace(L"oceancolormap", L"ocean");
+    map.emplace(L"parulacolormap", L"parula");
+    map.emplace(L"pinkcolormap", L"pink");
+    map.emplace(L"rainbowcolormap", L"rainbow");
+    map.emplace(L"springcolormap", L"spring");
+    map.emplace(L"summercolormap", L"summer");
+    map.emplace(L"whitecolormap", L"white");
+    map.emplace(L"wintercolormap", L"winter");
+
     // Scilab 2024.0.0 => 2025.0.0
 
     // Scilab 2023.1.0 => 2025.0.0
