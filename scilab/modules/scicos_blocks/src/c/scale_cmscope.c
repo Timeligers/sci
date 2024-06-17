@@ -380,7 +380,7 @@ static sco_data *getScoData(scicos_block * block)
             goto error_handler_periodCounter;
         }
 
-        sco->scope.minY = (int *) CALLOC(block->nin, sizeof(double));
+        sco->scope.minY = (double *) CALLOC(block->nin, sizeof(double));
         if (sco->scope.minY == NULL)
         {
             goto error_handler_minY;
@@ -390,7 +390,7 @@ static sco_data *getScoData(scicos_block * block)
             sco->scope.minY[i] = SCOPE_INITIAL_MIN_Y;
         }
 
-        sco->scope.maxY = (int *) CALLOC(block->nin, sizeof(double));
+        sco->scope.maxY = (double *) CALLOC(block->nin, sizeof(double));
         if (sco->scope.maxY == NULL)
         {
             goto error_handler_maxY;
@@ -854,7 +854,7 @@ static void setAxesSettings(int iAxeUID, scicos_block * block, int index)
     margins[3] = 0.125;
     setGraphicObjectProperty(iAxeUID, __GO_MARGINS__, margins, jni_double_vector, 4);
 
-};
+}
 
 /*****************************************************************************
  *

@@ -49,7 +49,7 @@ size_t Inspector::getUnreferencedItemCount()
 void Inspector::addItem(InternalType* _pIT)
 {
     types::GenericType* pGT = _pIT->getAs<types::GenericType>();
-    m_vIT.insert(_pIT);
+    m_vIT.insert(pGT);
 }
 
 void Inspector::removeItem(InternalType* _pIT)

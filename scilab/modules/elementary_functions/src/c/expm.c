@@ -25,6 +25,9 @@
 #include "matrix_multiplication.h"
 #include "matrix_right_division.h"
 
+static double spdblExpmC[41] = {0};
+static double sdblExpmN = 0;
+
 extern int C2F(dexpm1)(int* ia, int* n, double* a, double* ea, int* iea, double* w, int* iw, int* ierr);
 
 
