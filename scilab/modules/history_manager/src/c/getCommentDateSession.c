@@ -161,15 +161,14 @@ static char **getMonths(void)
 /*------------------------------------------------------------------------*/
 static char *ASCIItimeShort(const struct tm *timeptr)
 {
-#define FORMAT_TIME_SHORT "%.2d/%.2d/%.4d %.2d:%.2d:%.2d"
-    int len_result = (int)20;   //strlen("21/05/2011 14:11:04")+1
+#define FORMAT_TIME_SHORT "%d/%m/%Y %H:%M:%S"
+    int len_result = 25; // big enough
 
     char *result = (char *)MALLOC(sizeof(char) * (len_result + 1));
 
     if (result)
     {
-        sprintf(result, FORMAT_TIME_SHORT,
-                timeptr->tm_mday, timeptr->tm_mon + 1 , 1900 + timeptr->tm_year, timeptr->tm_hour, timeptr->tm_min, timeptr->tm_sec);
+        strftime(result, len_result, FORMAT_TIME_SHORT, timeptr);
     }
 
     return result;

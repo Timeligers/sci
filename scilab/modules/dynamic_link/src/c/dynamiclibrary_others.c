@@ -76,7 +76,12 @@ DynLibFuncPtr GetDynLibFuncPtr(DynLibHandle hInstance, const char *funcName)
 {
     if (hInstance)
     {
-        return dlsym(hInstance, funcName);
+// ISO C forbids conversion of object pointer to function pointer type
+// will error will be on caller but not on `dlsym()`.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+        return (DynLibFuncPtr) dlsym(hInstance, funcName);
+#pragma GCC diagnostic pop
     }
     return NULL;
 }

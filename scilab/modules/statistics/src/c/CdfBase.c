@@ -99,7 +99,7 @@ int rotate(int i, int step, int length)
 char* cdf_options(struct cdf_descriptor const * const cdf)
 {
     char *ret;
-    size_t len = 0;
+    size_t len = 1;
     char const * const spc = ", ";
     struct cdf_item const * it;
 

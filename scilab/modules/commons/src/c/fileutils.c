@@ -104,11 +104,7 @@ int isEmptyDirectory(char *dirName)
         return 0;
     }
 
-#ifdef __USE_LARGEFILE64
-    while ((readdir64_r(dir, ptr, &result) == 0) && (result != NULL))
-#else
-    while ((readdir_r(dir, ptr, &result) == 0) && (result != NULL))
-#endif
+    while(ptr = readdir(dir))
     {
         if (!strcmp(ptr->d_name, ".") || !strcmp(ptr->d_name, ".."))
         {

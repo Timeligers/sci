@@ -22,6 +22,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 
 #include "machine.h"
@@ -149,7 +150,7 @@ sci_backtrace_t *sci_backtrace_create(void)
                 bt->s_file[i] = infos->dli_fname ? strdup(infos->dli_fname) : strdup(" ");
 
                 // we calculate the relative address in the library
-                snprintf(buffer, 32, "%p", (void*)(p - infos->dli_fbase));
+                snprintf(buffer, 32, "%p", (void*)((intptr_t)p - (intptr_t)infos->dli_fbase));
                 bt->s_addr[i] = strdup(buffer);
             }
         }

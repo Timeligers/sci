@@ -22,7 +22,7 @@
 #include "BOOL.h" /* BOOL */
 
 typedef void * DynLibHandle;
-typedef void * DynLibFuncPtr;
+typedef void (*DynLibFuncPtr)();
 
 /**
 * Maps the specified executable module into the address space of the calling process

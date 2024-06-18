@@ -45,7 +45,7 @@ char *GetXmlFileEncoding(const char *filename)
                     FREE(encoding);
                     encoding = NULL;
                 }
-                encoding = os_strdup(doc->encoding);
+                encoding = os_strdup((char*) doc->encoding);
             }
         }
         xmlFreeDoc (doc);

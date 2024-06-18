@@ -605,6 +605,5 @@ static void generateInfo_v1(VarInfo_v1* _pInfo, const char* _pstType)
     {
         snprintf(pstSize, sizeof(pstSize), "%d", _pInfo->piDims[0]);
     }
-    snprintf(_pInfo->pstInfo, sizeof(_pInfo->pstInfo), "%-*s%-*s%-*s%-*d", 25, _pInfo->varName, 15, _pstType, 16, pstSize, 10, _pInfo->iSize);
+    sprintf(_pInfo->pstInfo, "%-25.25s%-15.15s%-16.16s%-10.10d", _pInfo->varName, _pstType, pstSize, _pInfo->iSize);
 }
-
