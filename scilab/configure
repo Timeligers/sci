@@ -33954,6 +33954,23 @@ fi
     LIBS="$saved_LIBS"
 
     ac_cv_lib_ncurses_tgetent=$ac_cv_lib_scincurses_tgetent
+
+    saved_CFLAGS="$CFLAGS"
+    CFLAGS="$CFLAGS $NCURSES_CFLAGS"
+    ac_fn_c_check_header_compile "$LINENO" "ncurses.h" "ac_cv_header_ncurses_h" "$ac_includes_default"
+if test "x$ac_cv_header_ncurses_h" = xyes
+then :
+  printf "%s\n" "#define HAVE_NCURSES_H 1" >>confdefs.h
+
+fi
+ac_fn_c_check_header_compile "$LINENO" "curses.h" "ac_cv_header_curses_h" "$ac_includes_default"
+if test "x$ac_cv_header_curses_h" = xyes
+then :
+  printf "%s\n" "#define HAVE_CURSES_H 1" >>confdefs.h
+
+fi
+
+    CFLAGS="$saved_CFLAGS"
 else
     NCURSES_CFLAGS=""
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in -lcurses" >&5
@@ -34084,9 +34101,8 @@ then :
 fi
 
     fi
-fi
 
-ac_fn_c_check_header_compile "$LINENO" "ncurses.h" "ac_cv_header_ncurses_h" "$ac_includes_default"
+    ac_fn_c_check_header_compile "$LINENO" "ncurses.h" "ac_cv_header_ncurses_h" "$ac_includes_default"
 if test "x$ac_cv_header_ncurses_h" = xyes
 then :
   printf "%s\n" "#define HAVE_NCURSES_H 1" >>confdefs.h
@@ -34099,6 +34115,7 @@ then :
 
 fi
 
+fi
 
 if test "x$ac_cv_lib_curses_tgetent" = "xyes" -o "x$ac_cv_lib_ncurses_tgetent" = "xyes" -o "x$ac_cv_lib_termcap_tgetent" = "xyes" ; then
 

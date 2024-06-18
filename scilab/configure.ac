@@ -1542,6 +1542,11 @@ if $WITH_DEVTOOLS; then
     LIBS="$saved_LIBS"
     
     ac_cv_lib_ncurses_tgetent=$ac_cv_lib_scincurses_tgetent
+
+    saved_CFLAGS="$CFLAGS"
+    CFLAGS="$CFLAGS $NCURSES_CFLAGS"
+    AC_CHECK_HEADERS([ncurses.h curses.h])
+    CFLAGS="$saved_CFLAGS"
 else
     NCURSES_CFLAGS=""
     AC_CHECK_LIB([curses],[tgetent],[NCURSES_LIBS="-lcurses"])
@@ -1552,9 +1557,9 @@ else
     if test "x$ac_cv_lib_ncurses_tgetent" = "xno" ; then
         AC_CHECK_LIB([termcap],[tgetent])
     fi
-fi
 
-AC_CHECK_HEADERS([ncurses.h curses.h])
+    AC_CHECK_HEADERS([ncurses.h curses.h])
+fi
 
 if test "x$ac_cv_lib_curses_tgetent" = "xyes" -o "x$ac_cv_lib_ncurses_tgetent" = "xyes" -o "x$ac_cv_lib_termcap_tgetent" = "xyes" ; then
 AC_DEFINE([HAVE_TERMCAP],[],[Have Term Cap])
