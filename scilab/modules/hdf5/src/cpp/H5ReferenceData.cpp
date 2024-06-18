@@ -39,7 +39,7 @@ const char ** H5ReferenceData::getReferencesName() const
     char * cdata = static_cast<char *>(data) + offset;
     const char ** names = new const char*[totalSize];
 
-    for (int i = 0; i < totalSize; i++)
+    for (hsize_t i = 0; i < totalSize; i++)
     {
         void * ref = &(((void **)cdata)[i]);
         hid_t obj = H5Rdereference(file,
@@ -131,7 +131,7 @@ H5Object ** H5ReferenceData::getReferencesObject() const
     char * cdata = static_cast<char *>(data) + offset;
     H5Object ** objs = new H5Object *[totalSize];
 
-    for (int i = 0; i < totalSize; i++)
+    for (hsize_t i = 0; i < totalSize; i++)
     {
         void * ref = &(((void **)cdata)[i]);
         hid_t obj = H5Rdereference(file,

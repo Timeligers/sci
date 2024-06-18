@@ -827,9 +827,19 @@ static void updatel(TokenDef* token)
     token->pwstToken = newToken;
 }
 /*--------------------------------------------------------------------------*/
+static wchar_t* replace(const wchar_t* s, const wchar_t* r, int pos, const wchar_t* token)
+{
+    std::wstring h(token);
+    //find r
+    h.replace(pos - 1, wcslen(s), r);
+
+    wchar_t* res = new wchar_t[h.size() + 1];
+    wcscpy(res, h.data());
+    return res;
+}
+/*--------------------------------------------------------------------------*/
 static void replace_lu_llu(TokenDef* token)
 {
-#ifdef _MSC_VER
     if (token->length)
     {
         wchar_t* newToken = replace(L"lu", L"llu", token->typePos, token->pwstToken);
@@ -839,12 +849,10 @@ static void replace_lu_llu(TokenDef* token)
             token->pwstToken = newToken;
         }
     }
-#endif
 }
 /*--------------------------------------------------------------------------*/
 static void replace_ld_lld(TokenDef* token)
 {
-#ifdef _MSC_VER
     if (token->length)
     {
         wchar_t* newToken = replace(L"ld", L"lld", token->typePos, token->pwstToken);
@@ -854,7 +862,6 @@ static void replace_ld_lld(TokenDef* token)
             token->pwstToken = newToken;
         }
     }
-#endif
 }
 /*--------------------------------------------------------------------------*/
 static void print_nan_or_inf(wchar_t* pwstTemp, double dblVal, const wchar_t* token, int pos, int width)

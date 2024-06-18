@@ -525,7 +525,7 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
     case "$host" in
     *-linux-gnu )
         # Only doing that under Linux
-        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
+        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Wformat -Werror=format-security"
         ;;
     esac
 
@@ -553,7 +553,7 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
     case "$host" in
     *-linux-gnu )
         # Only doing that under Linux
-        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
+        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Wformat -Werror=format-security"
         ;;
     esac
 
@@ -623,7 +623,6 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
             if test "$enable_debug_linker" = yes; then
                 LDFLAGS="$LDFLAGS -Wl,--warn-common,-x"
             fi
-            DEBUG_CFLAGS="$DEBUG_CFLAGS -fdiagnostics-show-option -Werror=format-security"
             ;;
         esac
     else
@@ -636,7 +635,7 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
     case "$host" in
     *-linux-gnu )
         # Only doing that under Linux
-        WARNING_CFLAGS="$WARNING_CFLAGS -fdiagnostics-show-option -Werror=format-security"
+        WARNING_CFLAGS="$WARNING_CFLAGS -fdiagnostics-show-option -Wformat -Werror=format-security"
         ;;
     esac
 

@@ -114,14 +114,14 @@ protected:
 
         if (flip)
         {
-            for (int i = 0; i < ndims; i++)
+            for (hsize_t i = 0; i < ndims; i++)
             {
                 _dims[i] = (int)dims[ndims - 1 - i];
             }
         }
         else
         {
-            for (int i = 0; i < ndims; i++)
+            for (hsize_t i = 0; i < ndims; i++)
             {
                 _dims[i] = (int)dims[i];
             }

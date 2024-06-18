@@ -949,14 +949,14 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
 
     if (flip)
     {
-        for (int i = 0; i < *ndims; i++)
+        for (unsigned int i = 0; i < *ndims; i++)
         {
             (*dims)[i] = _dims[*ndims - 1 - i];
         }
     }
     else
     {
-        for (int i = 0; i < *ndims; i++)
+        for (unsigned int i = 0; i < *ndims; i++)
         {
             (*dims)[i] = _dims[i];
         }
