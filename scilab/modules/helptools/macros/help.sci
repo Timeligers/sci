@@ -1,79 +1,89 @@
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008 - INRIA - Vincent COUVERT
-// Copyright (C) 2012 - 2016 - Scilab Enterprises
-// Copyright (C) 2020 - 2021 - Samuel GOUGEON
-//
-// This file is hereby licensed under the terms of the GNU GPL v2.0,
-// pursuant to article 5.3.4 of the CeCILL v.2.1.
-// This file was originally licensed under the terms of the CeCILL v2.1,
-// and continues to be available under such terms.
-// For more information, see the COPYING file which you should have received
-// along with this program.
+// Copyright (C) 2024 - 3DS - Antoine ELIAS
 
-function help(varargin)
-
-    if findfiles("SCI/modules/helptools/jar","*_help.jar") == [] then
-        error(msprintf(gettext("%s: help file(.jar) is not installed.\n"), "help"));
-    end
-    if getscilabmode() == "NWNI" then
-        error(msprintf(gettext("%s: The help browser is disabled in %s mode.\n"), "help", getscilabmode()));
+function help(key, lang)
+    arguments
+        key (1, 1) string
+        lang (1, 1) string = getlanguage()
     end
 
-    if argn(2) >= 1 then
-        key = varargin(1);
-        if type(key) <> 10 then
-            error(msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"help",1));
-        end
-    else
-        key = "";
+    page = getPages(key, lang);
+    if page == [] then
+        error(sprintf("%s: Requested help page ""%s"" does not exist", "help", key));
     end
 
-    global %helps
-    // Retrieving the browser language and former page:
-    filename = SCIHOME + filesep() + "configuration.xml"
-    res = xmlGetValues("//Setting/Profile/HelpBrowser", ["index" "lang"], filename);
-    if key == "" then
-        key = res(1)
-    end
-    if res(2) == ""
-        lang = getlanguage()
-    else
-        lang = res(2)
+    formatHelp(page, key);
+end
+
+function loadHelpFiles(lang, page)
+    arguments
+        lang
+        page = %f //by default load only links
     end
 
-    key = stripblanks(key)
-
-    symbols = strsplit("()[]{}%''"":*/\.<>&^|~+-")';
-    exceptions = ["%t" "%T" "%f" "%F" "%onprompt"]; // https://gitlab.com/scilab/scilab/-/issues/15356
-    if or(part(key,1)==symbols) & exists(key)==0 & and(key~=exceptions) then
-        key = "symbols";
-    end
-
-    // Treat "$" apart because contrarily to the previous symbols, "$" is an existing variable in Scilab
-    if part(key,1)=="$" & (exists(key)==0 | length(key)==1) then
-        key = "symbols";
-    end
-    // Possible key redirection to Scilab's closest equivalent
-    key = helpRedirectExternal2Scilab(key)
-
-    // Calling the browser
-    helpbrowser(%helps(:,1), key, lang, %f);
-    // If the key is not a xml:id, then full-text search is done (See Java code)
-
-endfunction
-
-// ============================================================================
-
-function sciterm = helpRedirectExternal2Scilab(exterm)
-    sciterm = exterm
-    filename = SCIHOME + filesep() + "XConfiguration.xml"
-    res = xmlGetValues("//general/documentation/body/help", "redirectMatlab2Scilab", filename);
-    if res=="checked" then
-        filename = SCI + "/modules/helptools/data/external2scilab_equiv.csv"
-        tmp = csvRead(filename,";",[],"string",[]);
-        k = find(tmp(:,1)==exterm)
-        if k <> []
-            sciterm = tmp(k(1),2)
+    global %inline_help;
+    if %inline_help == [] || ~isfield(%inline_help, lang) || (page && ~isfield(%inline_help(lang), "pages")) then
+        //load "lang" links
+        filename = fullfile(SCI, "modules", "helptools", "inline", lang, "links.json");
+        if isfile(filename) then
+            %inline_help(lang).links = fromJSON(filename, "file");
+            if page then
+                filename = fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json");
+                if isfile(filename) then
+                    %inline_help(lang).pages = fromJSON(filename, "file");
+                end
+            end
         end
     end
-endfunction
+end
+
+function page = getPages(key, lang)
+    page = [];
+    loadHelpFiles(lang)
+    global %inline_help;
+
+    if ~isfield(%inline_help, lang) then
+        if lang <> "en_US" then
+            page = getPages(key, "en_US");
+            return;
+        end
+    end
+
+    l = %inline_help(lang).links;
+    if ~isfield(l, key) then
+        if lang <> "en_US" then
+            page = getPages(key, "en_US");
+            return;
+        end
+    end
+
+    link = l(key);
+    if ~isfield(%inline_help(lang), "pages") then
+        loadHelpFiles(lang, %t);
+    end
+
+    page = %inline_help(lang).pages(link);
+end
+
+function formatHelp(page, key)
+    printf("%s - %s\n", page.refname, page.refpurpose)
+    if size(page.synopsis, "*") <> 0 then
+        printf("\n  Syntax\n")
+        for s = page.synopsis'
+            printf("    %s\n", s);
+        end
+    end
+
+    if size(page.varlist, "*") <> 0 then
+        printf("\n  Arguments\n");
+        for a = page.varlist'
+            printf("    %s - %s\n", a.term, a.description);
+        end
+    end
+
+    if size(page.seealso, "*") <> 0 then
+        printf("\n  See also\n    ");
+        printf("%s", strcat(page.seealso, " - "));
+        printf("\n\nFor more information: `doc %s`\n", key);
+    end
+end

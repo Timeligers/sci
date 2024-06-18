@@ -18,7 +18,7 @@
 function generated_files = xmltoformat(output_format,dirs,titles,directory_language,default_language)
 
     // =========================================================================
-    // + output_format : "javaHelp", "pdf", "chm", "ps"
+    // + output_format : "javaHelp", "pdf", "chm", "ps", "inline"
     //
     // + dirs : A set of directories for which help files (jar, pdf, chm, ...) are
     //        genereated
@@ -150,6 +150,7 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
                 language_system_c    = [language_system_c;%T]; // Enable the language system
             end
         end
+
 
         // Only directories are precised
         // ---------------------------------------------------------------------
@@ -358,6 +359,14 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
         master_doc = pathconvert(SCI+"/modules/helptools/master_"+my_wanted_language+"_help.xml",%F);
         modules_tree("master_document") = master_doc;
         master_str = x2f_tree_to_master(modules_tree);
+
+        //shortcut rest of process
+        if output_format == "inline"
+            generated_files = [];
+            generate_inline_help(modules_tree);
+            return;
+        end
+
         mputl(master_str,master_doc);
 
         //
@@ -1926,3 +1935,102 @@ function [timestamp,path] = x2f_get_most_recent( tree )
     path      = xmllist( index(1) , 2 );
 
 endfunction
+
+//inline help generation
+function all = getXMLFiles(st)
+    fields = fieldnames(st);
+    idx = grep(fields, "/^dir_/", "r");
+    fields = fields(idx);
+
+    if st.xml_list == []
+        all = [];
+    else
+        all = st.xml_list(:, [2, 4]);
+    end
+
+    for f = fields'
+        all = [all ; getXMLFiles(st(f))];
+    end
+end
+
+function x = getNode(doc, key)
+    x = xmlXPath(doc, key, ["ns", "http://docbook.org/ns/docbook"]);
+end
+
+function x = getNodeContent(doc, key)
+    x = getNode(doc, key);
+    x = contentToString(x.content);
+end
+
+function x = getVarListNode(doc)
+    data = getNode(doc, "//ns:varlistentry");
+    x = [];
+    for i = 1:size(data, "*")
+        st = [];
+        d = data(i);
+        st.term = getChildContent(d, "term");
+        st.description = getChildContent(d, "listitem");
+        x = [x;st];
+    end
+end
+
+function x = getSeeAlso(doc)
+    x = [];
+    data = getNode(doc, "//ns:refsection[@role=""see also""]");
+    if size(data, "*") <> 0 then
+        links = getNode(data(1), ".//ns:link[@linkend]");
+        for i = 1:size(links, "*")
+            x = [x;links(i).attributes(1)];
+        end
+    end
+end
+
+function c = getChildContent(node, name)
+    c = [];
+    for i = 1:size(node.children, "*")
+        if node.children(i).name == name then
+            c = contentToString(node.children(i).content);
+            return;
+        end
+    end
+end
+
+function x = contentToString(content)
+    x = [];
+    for i = 1:size(content, "*")
+        x1 = stripblanks(strsplit(content(i), "/\n/"));
+        x1(x1 == "") = [];
+        x = [x; x1];
+    end
+end
+
+function generate_inline_help(modules_tree)
+    lang = modules_tree.language;
+    xmlfiles = getXMLFiles(modules_tree);
+
+    links = [];
+    pages = [];
+    for x = xmlfiles'
+        doc = xmlRead(x(1));
+        xp = xmlXPath(doc, "//@xml:id");
+        first = xp(1).content;
+        for i = 1:size(xp, "*")
+            links(xp(i).content) = first;
+        end
+
+        st = [];
+        st.refname = getNodeContent(doc, "//ns:refname");
+        st.refpurpose = getNodeContent(doc, "//ns:refpurpose");
+        st.synopsis = getNodeContent(doc, "//ns:synopsis");
+        st.varlist = getVarListNode(doc);
+        st.seealso = getSeeAlso(doc);
+        pages(first) = st;
+
+        xmlDelete(doc);
+    end
+
+    mkdir(fullfile(SCI, "modules", "helptools", "inline"));
+    mkdir(fullfile(SCI, "modules", "helptools", "inline", lang));
+    toJSON(links, fullfile(SCI, "modules", "helptools", "inline", lang, "links.json"));
+    toJSON(pages, fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json"));
+end

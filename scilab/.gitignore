@@ -25,6 +25,7 @@ Makefile
 #
 modules/*/build
 modules/jar
+modules/*/inline
 modules/*/jar
 modules/*/test-output
 junit-report

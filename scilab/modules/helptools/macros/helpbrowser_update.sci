@@ -22,7 +22,7 @@ function helpbrowser_update(startup)
               id = xmlGetValues("//Setting/Profile/HelpBrowser","index",SCIHOME+"/configuration.xml")
               // No way to retrieve as well the helpbrowser language, if it's
               // different from the session's one.
-              help(id)
+              doc(id)
           else
               // for atomsLoad and add_help_chapter
               id = hb.getCurrentID()
@@ -31,7 +31,7 @@ function helpbrowser_update(startup)
               [?,?,?,lang] = regexp(jar, "/scilab_([a-z]{2}_[A-Z]{2})_help\.jar/", "o")
               if lang=="en_US" // it may be a default external page in en_US,
                                // despite the browser is in another language
-                  help("ones") // We are sure this page is translated
+                  doc("ones") // We are sure this page is translated
                   jar = hb.getCurrentURL();
                   [?,?,?,lang] = regexp(jar, "/scilab_([a-z]{2}_[A-Z]{2})_help\.jar/", "o")
               end
