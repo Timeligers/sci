@@ -1473,7 +1473,7 @@ AC_FUNC_STRTOD
 
 AC_CHECK_HEADERS([limits.h values.h])
 
-AC_CHECK_HEADERS([fcntl.h float.h libintl.h locale.h malloc.h netdb.h netinet/in.h nlist.h sgtty.h stddef.h sys/file.h sys/ioctl.h sys/param.h sys/socket.h sys/time.h sys/timeb.h sys/utsname.h syslog.h term.h termcap.h termio.h termios.h wchar.h wctype.h time.h])
+AC_CHECK_HEADERS([fcntl.h float.h libintl.h locale.h malloc.h netdb.h netinet/in.h nlist.h sgtty.h stddef.h sys/file.h sys/ioctl.h sys/param.h sys/socket.h sys/time.h sys/timeb.h sys/utsname.h syslog.h wchar.h wctype.h time.h])
 
 # check header dirent
 AC_HEADER_DIRENT
@@ -1545,7 +1545,7 @@ if $WITH_DEVTOOLS; then
 
     saved_CFLAGS="$CFLAGS"
     CFLAGS="$CFLAGS $NCURSES_CFLAGS"
-    AC_CHECK_HEADERS([ncurses.h curses.h])
+    AC_CHECK_HEADERS([ncurses.h curses.h termcap.h term.h termio.h termios.h])
     CFLAGS="$saved_CFLAGS"
 else
     NCURSES_CFLAGS=""
@@ -1558,7 +1558,7 @@ else
         AC_CHECK_LIB([termcap],[tgetent])
     fi
 
-    AC_CHECK_HEADERS([ncurses.h curses.h])
+    AC_CHECK_HEADERS([ncurses.h curses.h termcap.h term.h termio.h termios.h])
 fi
 
 if test "x$ac_cv_lib_curses_tgetent" = "xyes" -o "x$ac_cv_lib_ncurses_tgetent" = "xyes" -o "x$ac_cv_lib_termcap_tgetent" = "xyes" ; then
