@@ -24,11 +24,11 @@ function loadHelpFiles(lang, page)
     global %inline_help;
     if %inline_help == [] || ~isfield(%inline_help, lang) || (page && ~isfield(%inline_help(lang), "pages")) then
         //load "lang" links
-        filename = fullfile(SCI, "modules", "helptools", "inline", lang, "links.json");
+        filename = fullfile(strsplit(SCI, "share/scilab")(1), "modules", "helptools", "inline", lang, "links.json");
         if isfile(filename) then
             %inline_help(lang).links = fromJSON(filename, "file");
             if page then
-                filename = fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json");
+                filename = fullfile(strsplit(SCI, "share/scilab")(1), "modules", "helptools", "inline", lang, "pages.json");
                 if isfile(filename) then
                     %inline_help(lang).pages = fromJSON(filename, "file");
                 end

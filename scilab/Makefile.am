@@ -267,6 +267,43 @@ javadoc-all:
 	-sourcepath $$LISTMODULES \
 	$$LISTPKG
 
+help-fr_FR:
+	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=fr_FR
+
+help-en_US:
+	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=en_US
+
+help-pt_BR:
+	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=pt_BR
+
+help-ru_RU:
+	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=ru_RU
+
+help-ja_JP:
+	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=ja_JP
+
+help: $(top_builddir)/scilab-bin $(top_builddir)/bin/scilab-cli
+if BUILD_HELP
+	@if test -x $(top_builddir)/scilab-bin; then \
+		cd $(top_builddir);\
+		for l in $(ALL_LINGUAS_DOC); do \
+			echo "-- Building help ($$l) --"; \
+			COMMAND="try xmltoinline([],[],'$$l');catch disp(lasterror()); exit(-1);end;exit(0);"; \
+			if test "$(MACOSX)" = "1"; then \
+				echo "LANG=$$l.UTF-8 HOME=/tmp $(top_builddir)/bin/scilab-cli -noatomsautoload -nb -l $$l -nouserstartup -e \"$$COMMAND\"";\
+				LANG=$$l.UTF-8 HOME=/tmp $(top_builddir)/bin/scilab-cli -noatomsautoload -nb -l $$l -nouserstartup -e "$$COMMAND" || exit 1;\
+			else \
+				echo "LANG=$$l.UTF-8 LC_ALL=C HOME=/tmp $(top_builddir)/bin/scilab-cli -noatomsautoload -nb -l $$l -nouserstartup -e \"$$COMMAND\"";\
+				LANG=$$l.UTF-8 LC_ALL=C HOME=/tmp $(top_builddir)/bin/scilab-cli -noatomsautoload -nb -l $$l -nouserstartup -e "$$COMMAND" || exit 1;\
+			fi; \
+		done; \
+	else \
+		echo "Cannot find scilab-cli binary"; \
+	fi
+else
+	@echo "Cannot buid help. Add --enable-build-help to the ./configure if you want to build it."
+endif
+
 doc-fr_FR:
 	@$(MAKE) $(AM_MAKEFLAGS) doc ALL_LINGUAS_DOC=fr_FR
 
@@ -304,7 +341,7 @@ if BUILD_HELP
 			fi; \
 		done; \
 	else \
-		echo "Cannot find Scilab-adv-cli binary"; \
+		echo "Cannot find scilab-adv-cli binary"; \
 	fi
 else
 	@echo "Cannot buid help. Add --enable-build-help to the ./configure if you want to build it."
@@ -326,7 +363,7 @@ if BUILD_HELP
 			fi; \
 		done; \
 	else \
-		echo "Cannot find Scilab-adv-cli binary"; \
+		echo "Cannot find scilab-adv-cli binary"; \
 	fi
 else
 	@echo "Cannot buid help. Add --enable-build-help to the ./configure if you want to build it."
@@ -388,9 +425,20 @@ clean-macros:
 	find $(top_builddir)/modules/*/macros -name "lib" | xargs --no-run-if-empty rm 2> /dev/null
 
 # To ensure previous compatibility
-clean-doc: clean-help
-
 clean-help:
+	-@if test -x $(top_builddir)/scilab-cli-bin; then \
+		COMMAND="try clean_help();catch exit(-1);end;exit(0)"; \
+		for l in $(ALL_LINGUAS_DOC); do \
+			echo "$(top_builddir)/bin/scilab-cli -nb -l $$l -noatomsautoload -nouserstartup -e '$$COMMAND'"; \
+			HOME=/tmp $(top_builddir)/bin/scilab-cli -nb -l $$l -noatomsautoload -nouserstartup -e "$$COMMAND" || exit 1; \
+		done; \
+	else \
+		echo "Cannot find Scilab binary"; \
+	fi; \
+	echo "rmdir $(top_builddir)/modules/helptools/inline/"; \
+	rm -rf $(top_builddir)/modules/helptools/inline/;
+
+clean-doc:
 	-@if test -x $(top_builddir)/scilab-cli-bin; then \
 		COMMAND="try clean_help();catch exit(-1);end;exit(0)"; \
 		for l in $(ALL_LINGUAS_DOC); do \
@@ -516,7 +564,8 @@ DOCMASK=scilab_*_help.jar
 DOCIMAGES=scilab_images.jar
 
 # Path to built files
-PATHTOHELPFILES = modules/helptools/jar/
+PATHTODOCFILES = modules/helptools/jar/
+PATHTOHELPFILES = modules/helptools/inline/
 
 # Path to scirenderer jar
 PATHTOSCIRENDERER = modules/scirenderer/jar/
@@ -544,14 +593,26 @@ endif
 # Starting from Scilab 5, documentation file are provided by Docbook
 # In the Scilab application we are generating a JavaHelp file.
 if BUILD_HELP
-	@$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES); \
-	echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES); \
-	if ls -lLd $(top_builddir)/$(PATHTOHELPFILES)/$(DOCMASK) >/dev/null 2>&1; then \
-		for file in $(top_builddir)/$(PATHTOHELPFILES)/$(DOCMASK) $(top_builddir)/$(PATHTOHELPFILES)/$(DOCIMAGES); do \
-		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES)" ; \
-	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES) ; \
+# Documentation
+	@$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTODOCFILES); \
+	echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTODOCFILES); \
+	if ls -lLd $(top_builddir)/$(PATHTODOCFILES)/$(DOCMASK) >/dev/null 2>&1; then \
+		for file in $(top_builddir)/$(PATHTODOCFILES)/$(DOCMASK) $(top_builddir)/$(PATHTODOCFILES)/$(DOCIMAGES); do \
+		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$(PATHTODOCFILES)" ; \
+	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdatadir)/$(PATHTODOCFILES) ; \
 		done; \
 	fi
+# Inline help
+	@$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES); \
+	echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES); \
+	for lang in $(ALL_LINGUAS); do \
+		if test -d $(top_builddir)/$(PATHTOHELPFILES)/$$lang/; then \
+			echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES)/$$lang; \
+			$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES)/$$lang; \
+			echo $(INSTALL_DATA) $(top_builddir)/$(PATHTOHELPFILES)/$$lang/*.* $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES)/$$lang/; \
+			$(INSTALL_DATA) $(top_builddir)/$(PATHTOHELPFILES)/$$lang/*.* $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES)/$$lang/; \
+		fi \
+	done
 ## Install Javasci documentation (javadoc)
 ## See target javadoc in this file to see how it is build
 	@if test -d $(PATHTOJAVASCIDOC); then \
@@ -583,6 +644,6 @@ pkgconfig_DATA = scilab.pc
 
 .PHONY: macros localization doc strip-debug
 
-.NOTPARALLEL: macros doc
+.NOTPARALLEL: macros doc help
 
 include $(top_srcdir)/Makefile.call_scilab.am
