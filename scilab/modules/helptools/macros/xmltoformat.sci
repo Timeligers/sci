@@ -422,6 +422,15 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 
         end
 
+        if output_format == "inline"
+            generated_files = [];
+            for p = fieldnames(contrib_tree)'
+                generate_inline_help(contrib_tree(p));
+            end
+            return;
+        end
+
+        //save("e:\toolboxhelp.sod", "contrib_tree");
     end
 
     // =========================================================================
@@ -637,7 +646,6 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
 
 
         // Dirs are precised in the input arguments
-
         nb_dir      = size(dirs,"*");
         displaydone = 0;
 
@@ -2029,8 +2037,18 @@ function generate_inline_help(modules_tree)
         xmlDelete(doc);
     end
 
-    mkdir(fullfile(SCI, "modules", "helptools", "inline"));
-    mkdir(fullfile(SCI, "modules", "helptools", "inline", lang));
-    toJSON(links, fullfile(SCI, "modules", "helptools", "inline", lang, "links.json"));
-    toJSON(pages, fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json"));
+    if modules_tree.path == SCI then
+        mkdir(fullfile(SCI, "modules", "helptools", "inline"));
+        mkdir(fullfile(SCI, "modules", "helptools", "inline", lang));
+        toJSON(links, fullfile(SCI, "modules", "helptools", "inline", lang, "links.json"));
+        toJSON(pages, fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json"));
+    else //toolbox
+        tbx_path = fullpath(fullfile(modules_tree.path, "..", ".."));
+        if isdir(tbx_path) then
+            mkdir(fullfile(tbx_path, "inline"));
+            mkdir(fullfile(tbx_path, "inline", lang));
+            toJSON(links, fullfile(tbx_path, "inline", lang, "links.json"));
+            toJSON(pages, fullfile(tbx_path, "inline", lang, "pages.json"));
+        end
+    end
 end

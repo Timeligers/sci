@@ -7,65 +7,81 @@ function help(key, lang)
         lang (1, 1) string = getlanguage()
     end
 
-    page = getPages(key, lang);
+    [page, name] = getPage(key, "scilab", lang);
     if page == [] then
-        error(sprintf("%s: Requested help page ""%s"" does not exist", "help", key));
-    end
-
-    formatHelp(page, key);
-end
-
-function loadHelpFiles(lang, page)
-    arguments
-        lang
-        page = %f //by default load only links
-    end
-
-    global %inline_help;
-    if %inline_help == [] || ~isfield(%inline_help, lang) || (page && ~isfield(%inline_help(lang), "pages")) then
-        //load "lang" links
-        filename = fullfile(strsplit(SCI, "share/scilab")(1), "modules", "helptools", "inline", lang, "links.json");
-        if isfile(filename) then
-            %inline_help(lang).links = fromJSON(filename, "file");
-            if page then
-                filename = fullfile(strsplit(SCI, "share/scilab")(1), "modules", "helptools", "inline", lang, "pages.json");
-                if isfile(filename) then
-                    %inline_help(lang).pages = fromJSON(filename, "file");
-                end
+        //look in toolbox
+        global %inline_help;
+        tbx = fieldnames(%inline_help);
+        tbx(tbx == "scilab") = [];
+        for t = tbx'
+            [page, name] = getPage(key, t, lang);
+            if page <> [] then
+                formatHelp(page, name, t);
+                return;
             end
         end
+
+        printf(_("%s: Requested help page ""%s"" does not exist.\n"), "help", key);
+        return;
     end
+
+    formatHelp(page, name);
 end
 
-function page = getPages(key, lang)
+function [page, name] = getPage(key, domain, lang)
     page = [];
-    loadHelpFiles(lang)
+    name = key;
+    loadInlineHelp(lang)
     global %inline_help;
 
-    if ~isfield(%inline_help, lang) then
+    if ~isfield(%inline_help(domain), lang) then
         if lang <> "en_US" then
-            page = getPages(key, "en_US");
+            page = getPage(key, domain, "en_US");
+            if page == [] then
+                //try in toolbox help page
+                disp("tbx");
+            end
             return;
         end
     end
 
-    l = %inline_help(lang).links;
+    l = %inline_help(domain)(lang).links;
     if ~isfield(l, key) then
-        if lang <> "en_US" then
-            page = getPages(key, "en_US");
-            return;
+        //try with some permutation for short key (factorial)
+        if length(key) <= 8  then
+            ret = perms(strsplit(key)');
+            ret = strcat(ret, "", "c");
+            ret = find(members(fieldnames(%inline_help(domain)(lang).links), ret));
+            if ret <> [] then
+                [page, name] = getPage(fieldnames(%inline_help(domain)(lang).links)(ret), domain, lang);
+                return;
+            end
         end
+
+        if lang <> "en_US" then
+            page = getPage(key, domain, "en_US");
+        end
+        return;
     end
 
     link = l(key);
-    if ~isfield(%inline_help(lang), "pages") then
-        loadHelpFiles(lang, %t);
+    if ~isfield(%inline_help(domain)(lang), "pages") then
+        loadInlineHelp(lang, %t);
     end
 
-    page = %inline_help(lang).pages(link);
+    page = %inline_help(domain)(lang).pages(link);
 end
 
-function formatHelp(page, key)
+function formatHelp(page, key, domain)
+    arguments
+        page
+        key
+        domain = []
+    end
+    if domain <> [] then
+        printf(_("From help pages of toolbox `%s`.\n"), domain);
+    end
+
     printf("%s - %s\n", page.refname, page.refpurpose)
     if size(page.synopsis, "*") <> 0 then
         printf("\n  Syntax\n")

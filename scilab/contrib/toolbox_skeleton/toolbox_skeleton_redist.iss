@@ -53,5 +53,7 @@ Source: tests\*.*; DestDir: {app}\tests; Flags: recursesubdirs
 ;Source: includes\*.h; DestDir: {app}\includes; Flags: recursesubdirs
 ;Source: locales\*.*; DestDir: {app}\locales; Flags: recursesubdirs
 Source: demos\*.*; DestDir: {app}\locales; Flags: recursesubdirs
+Source: jar\*.*; DestDir: {app}\jar; Flags: recursesubdirs
+Source: inline\*.*; DestDir: {app}\inline; Flags: recursesubdirs
 ;
 ;##############################################################################################################
