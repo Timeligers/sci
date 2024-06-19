@@ -1,3 +1,6 @@
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2024 - 3DS - Antoine ELIAS
+
 function loadInlineHelp(lang, page)
     arguments
         lang (1, 1) string = []

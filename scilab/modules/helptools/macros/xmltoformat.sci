@@ -5,6 +5,7 @@
 // Copyright (C) 2010 - 2011 DIGITEO - Allan CORNET
 // Copyright (C) 2013 - Scilab Enterprises - Clement DAVID
 // Copyright (C) 2016, 2018 - Samuel GOUGEON
+// Copyright (C) 2024 - 3DS - Antoine ELIAS
 //
 // Copyright (C) 2012 - 2016 - Scilab Enterprises
 //

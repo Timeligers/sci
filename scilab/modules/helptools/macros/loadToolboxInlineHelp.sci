@@ -1,3 +1,6 @@
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2024 - 3DS - Antoine ELIAS
+
 function loadToolboxInlineHelp(path, domain, lang)
     arguments
         path (1, 1) string
