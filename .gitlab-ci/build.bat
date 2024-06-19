@@ -15,18 +15,19 @@ REM Create log folder
 set LOG_PATH=%SCI_VERSION_STRING%
 if not exist %LOG_PATH% mkdir %LOG_PATH%
 
-curl.exe -k -o prereq.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-%SCI_VERSION_STRING%-windows_x64.zip
-unzip -o prereq.zip -d scilab > %LOG_PATH%\log_prereq_%CI_COMMIT_SHORT_SHA%.txt
+REM checkout pre-requirements
+REM Try with custom build for this commit or tag
+move /Y prerequirements-%SCI_VERSION_STRING%-windows_x64.zip prereq.zip
 if errorlevel 1 (
     REM no specific prereq build, use the branch one
     curl.exe -k -o prereq.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-%BRANCH%-windows_x64.zip
-    unzip -o prereq.zip -d scilab >> %LOG_PATH%\log_prereq_%CI_COMMIT_SHORT_SHA%.txt
 )
 if errorlevel 1 (
     REM fallback to the default branch
     curl.exe -k -o prereq.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-%CI_DEFAULT_BRANCH%-windows_x64.zip
-    unzip -o prereq.zip -d scilab >> %LOG_PATH%\log_prereq_%CI_COMMIT_SHORT_SHA%.txt
 )
+unzip -o prereq.zip -d scilab > %LOG_PATH%\log_prereq_%CI_COMMIT_SHORT_SHA%.txt
+
 @REM REM display svn revision
 type scilab\svn-info.txt
 if errorlevel 1 exit 1
