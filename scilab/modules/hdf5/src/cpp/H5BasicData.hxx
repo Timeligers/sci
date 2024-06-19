@@ -271,7 +271,7 @@ public:
 #endif
 
     __SCILAB_STACK_CREATOR__(char const*, String)
-    static void alloc(void * pvApiCtx, const int position, const int rows, const int cols, int * list, const int listPosition, char const* const* * ptr) {}
+    static void alloc(void * pvApiCtx, const int position, const int rows, const int cols, int * list, const int listPosition, char const* ** ptr) {}
 };
 }
 

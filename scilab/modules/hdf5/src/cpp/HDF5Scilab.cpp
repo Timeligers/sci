@@ -605,7 +605,7 @@ void HDF5Scilab::ls(H5Object & obj, const std::string & name, int position, void
 
     if (_name.size() == 0)
     {
-        H5BasicData<char *>::create(pvApiCtx, position, 0, 0, "", 0, 0);
+        H5BasicData<char const*>::create(pvApiCtx, position, 0, 0, "", 0, 0);
     }
     else
     {
