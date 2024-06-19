@@ -521,7 +521,7 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
 
-    WARNING_CXXFLAGS="-Wall -pedantic "
+    WARNING_CXXFLAGS="-Wall -Wpedantic"
     case "$host" in
     *-linux-gnu )
         # Only doing that under Linux
@@ -547,9 +547,7 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
     
-    WARNING_CXXFLAGS="-Wall"
-    # Valid ISO C and ISO C++ programs
-    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -pedantic"
+    WARNING_CXXFLAGS="-Wall -Wpedantic"
     case "$host" in
     *-linux-gnu )
         # Only doing that under Linux
@@ -629,9 +627,7 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
         DEBUG_CFLAGS="-DNDEBUG -g1 -O2"
     fi
     
-    WARNING_CFLAGS="-Wall "
-    # Valid ISO C and ISO C++ programs
-    WARNING_CFLAGS="$WARNINGS_CFLAGS -pedantic "
+    WARNING_CFLAGS="-Wall -Wpedantic "
     case "$host" in
     *-linux-gnu )
         # Only doing that under Linux
@@ -717,9 +713,13 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
         DEBUG_CFLAGS="-DNDEBUG -g1 -O2"
     fi
     
-    WARNING_CFLAGS="-Wall "
-    # Valid ISO C and ISO C++ programs
-    WARNING_CFLAGS="$WARNING_CFLAGS -pedantic "
+    WARNING_CFLAGS="-Wall -Wpedantic"
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CFLAGS="$WARNING_CFLAGS -fdiagnostics-show-option -Wformat -Werror=format-security"
+        ;;
+    esac
 
     COMPILER_CFLAGS="$COMPILER_CFLAGS -fno-stack-protector " # bug 3131
     # prevent dll optimizations in the final binary
