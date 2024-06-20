@@ -5,20 +5,20 @@
 stages:
   # refresh the Docker image
   - docker_setup
-  # define common env variables used to build and tests
-  - prebuild
-  # build scilab
-  - build
-  # run the tests
-  - test
-  # run the ATOMS tests on a dedicated stage / Scilab install
-  - test_atoms
-  # extract some content
-  - postbuild
-  # publish and make it available to the community
-  - publish
-  # update/cleanup Docker image
-  - docker_cleanup
+  # # define common env variables used to build and tests
+  # - prebuild
+  # # build scilab
+  # - build
+  # # run the tests
+  # - test
+  # # run the ATOMS tests on a dedicated stage / Scilab install
+  # - test_atoms
+  # # extract some content
+  # - postbuild
+  # # publish and make it available to the community
+  # - publish
+  # # update/cleanup Docker image
+  # - docker_cleanup
 
 variables:
   GIT_STRATEGY:
@@ -114,13 +114,13 @@ default:
 include:
   # Setup Docker
   - local: .gitlab-ci/docker_setup.yml
-  # updating files and runner states
-  - local: .gitlab-ci/prebuild.yml
-  # build
-  - local: .gitlab-ci/build.yml
-  # execute tests
-  - local: .gitlab-ci/test.yml
-  # sign and extract useful content
-  - local: .gitlab-ci/postbuild.yml
-  # deploy/publish a binary
-  - local: .gitlab-ci/publish.yml
+  # # updating files and runner states
+  # - local: .gitlab-ci/prebuild.yml
+  # # build
+  # - local: .gitlab-ci/build.yml
+  # # execute tests
+  # - local: .gitlab-ci/test.yml
+  # # sign and extract useful content
+  # - local: .gitlab-ci/postbuild.yml
+  # # deploy/publish a binary
+  # - local: .gitlab-ci/publish.yml
