@@ -749,7 +749,7 @@ static bool read_struct(hid_t dataset, VarInfo6& info)
             for (int j = 0; j < refcount; ++j)
             {
                 hid_t data = H5Rdereference(refs,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                                             H5P_DATASET_ACCESS_DEFAULT,
 #endif
                                             H5R_OBJECT, &vrefs[j]);

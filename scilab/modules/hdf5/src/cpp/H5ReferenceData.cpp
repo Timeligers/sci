@@ -43,7 +43,7 @@ const char ** H5ReferenceData::getReferencesName() const
     {
         void * ref = &(((void **)cdata)[i]);
         hid_t obj = H5Rdereference(file,
-    #if H5_VERSION_GE(1,10,0)
+    #if H5Rdereference_vers == 2
                                    H5P_DATASET_ACCESS_DEFAULT,
     #endif
                                    datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
@@ -89,7 +89,7 @@ H5Object & H5ReferenceData::getData(const unsigned int size, const unsigned int 
     file = getFile().getH5Id();
     ref = &(((void **)cdata)[0]);
     obj = H5Rdereference(file,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                          H5P_DATASET_ACCESS_DEFAULT,
 #endif
                          datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
@@ -135,7 +135,7 @@ H5Object ** H5ReferenceData::getReferencesObject() const
     {
         void * ref = &(((void **)cdata)[i]);
         hid_t obj = H5Rdereference(file,
-    #if H5_VERSION_GE(1,10,0)
+    #if H5Rdereference_vers == 2
                                    H5P_DATASET_ACCESS_DEFAULT,
     #endif
                                    datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
@@ -194,7 +194,7 @@ void H5ReferenceData::printData(std::ostream & os, const unsigned int pos, const
     void ** ref = &(((void **)cdata)[0]);
     hid_t file = getFile().getH5Id();
     hid_t obj = H5Rdereference(file,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                                H5P_DATASET_ACCESS_DEFAULT,
 #endif
                                datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);

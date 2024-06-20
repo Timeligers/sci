@@ -473,7 +473,7 @@ int readDoubleMatrix_v1(hid_t _iDatasetId, int _iRows, int _iCols, double *_pdbl
 
         //Open the referenced object, get its name and type.
         obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                              H5P_DATASET_ACCESS_DEFAULT,
 #endif
                              H5R_OBJECT, &Ref);
@@ -504,7 +504,7 @@ int readDoubleComplexMatrix_v1(hid_t _iDatasetId, int _iRows, int _iCols, double
 
     //Open the referenced object, get its name and type.
     obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                          H5P_DATASET_ACCESS_DEFAULT,
 #endif
                          H5R_OBJECT, &pRef[0]);
@@ -515,7 +515,7 @@ int readDoubleComplexMatrix_v1(hid_t _iDatasetId, int _iRows, int _iCols, double
     }
 
     obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                          H5P_DATASET_ACCESS_DEFAULT,
 #endif
                          H5R_OBJECT, &pRef[1]);
@@ -845,7 +845,7 @@ int readCommonPolyMatrix_v1(hid_t _iDatasetId, char *_pstVarname, int _iComplex,
         * Open the referenced object, get its name and type.
         */
         obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                              H5P_DATASET_ACCESS_DEFAULT,
 #endif
                              H5R_OBJECT, &pData[i]);
@@ -1084,7 +1084,7 @@ int readCommonSparseComplexMatrix_v1(hid_t _iDatasetId, int _iComplex, int _iRow
 
     //read Row data
     obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                          H5P_DATASET_ACCESS_DEFAULT,
 #endif
                          H5R_OBJECT, &pRef[0]);
@@ -1096,7 +1096,7 @@ int readCommonSparseComplexMatrix_v1(hid_t _iDatasetId, int _iComplex, int _iRow
 
     //read cols data
     obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                          H5P_DATASET_ACCESS_DEFAULT,
 #endif
                          H5R_OBJECT, &pRef[1]);
@@ -1108,7 +1108,7 @@ int readCommonSparseComplexMatrix_v1(hid_t _iDatasetId, int _iComplex, int _iRow
 
     //read sparse data
     obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                          H5P_DATASET_ACCESS_DEFAULT,
 #endif
                          H5R_OBJECT, &pRef[2]);
@@ -1158,7 +1158,7 @@ int readBooleanSparseMatrix_v1(hid_t _iDatasetId, int _iRows, int _iCols, int _i
 
     //read Row data
     obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                          H5P_DATASET_ACCESS_DEFAULT,
 #endif
                          H5R_OBJECT, &pRef[0]);
@@ -1170,7 +1170,7 @@ int readBooleanSparseMatrix_v1(hid_t _iDatasetId, int _iRows, int _iCols, int _i
 
     //read cols data
     obj = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                          H5P_DATASET_ACCESS_DEFAULT,
 #endif
                          H5R_OBJECT, &pRef[1]);
@@ -1269,7 +1269,7 @@ int getListItemDataset_v1(hid_t _iDatasetId, void *_piItemRef, int _iItemPos, hi
     hobj_ref_t poRef = ((hobj_ref_t *) _piItemRef)[_iItemPos];
 
     *_piItemDataset = H5Rdereference(_iDatasetId,
-#if H5_VERSION_GE(1,10,0)
+#if H5Rdereference_vers == 2
                                      H5P_DATASET_ACCESS_DEFAULT,
 #endif
                                      H5R_OBJECT, &poRef);
