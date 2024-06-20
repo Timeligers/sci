@@ -7,87 +7,87 @@
 # This stage is used to set them ready to build.
 #
 
-# Create/refresh Docker build
-builder_linux:
-  stage: docker_setup
-  image: docker:20.10.16
-  tags: [x86_64-linux-gnu, docker, scilab, build]
-  script:
-    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
-    - echo "Build image ${DOCKER_LINUX_BUILDER}:${DOCKER_TAG}"
-    - .gitlab-ci/docker_setup.sh --builder "${DOCKER_LINUX_BUILDER}" "${DOCKER_TAG}"
-    - docker logout "${CI_REGISTRY}"
-  rules:
-    # do not rebuild on contributor's fork
-    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
-      when: never
-    # do not rebuild on scheduled
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    # do not rebuild on tag
-    - if: $CI_COMMIT_TAG
-      when: manual
-      variables:
-        DOCKER_TAG: "${CI_COMMIT_TAG}"
-    # rebuild on demand
-    - changes: &DOCKER_CHANGES
-        paths:
-          - .gitlab-ci.yml
-          - .gitlab-ci/docker_setup.yml
-          - .gitlab-ci/docker_setup.sh
-          - .gitlab-ci/Dockerfile*
-          - .gitlab-ci/linux-images/Dockerfile*
-      allow_failure: true
+# # Create/refresh Docker build
+# builder_linux:
+#   stage: docker_setup
+#   image: docker:20.10.16
+#   tags: [x86_64-linux-gnu, docker, scilab, build]
+#   script:
+#     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+#     - echo "Build image ${DOCKER_LINUX_BUILDER}:${DOCKER_TAG}"
+#     - .gitlab-ci/docker_setup.sh --builder "${DOCKER_LINUX_BUILDER}" "${DOCKER_TAG}"
+#     - docker logout "${CI_REGISTRY}"
+#   rules:
+#     # do not rebuild on contributor's fork
+#     - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+#       when: never
+#     # do not rebuild on scheduled
+#     - if: $CI_PIPELINE_SOURCE == "schedule"
+#       when: never
+#     # do not rebuild on tag
+#     - if: $CI_COMMIT_TAG
+#       when: manual
+#       variables:
+#         DOCKER_TAG: "${CI_COMMIT_TAG}"
+#     # rebuild on demand
+#     - changes: &DOCKER_CHANGES
+#         paths:
+#           - .gitlab-ci.yml
+#           - .gitlab-ci/docker_setup.yml
+#           - .gitlab-ci/docker_setup.sh
+#           - .gitlab-ci/Dockerfile*
+#           - .gitlab-ci/linux-images/Dockerfile*
+#       allow_failure: true
 
-prebuild_linux:
-  stage: docker_setup
-  image: docker:20.10.16
-  tags: [x86_64-linux-gnu, docker, scilab, build]
-  needs:
-    - builder_linux
-  script:
-    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
-    - echo "Build image ${DOCKER_LINUX_PREBUILD}:${DOCKER_TAG}"
-    - .gitlab-ci/docker_setup.sh --prebuild "${DOCKER_LINUX_PREBUILD}" "${DOCKER_TAG}"
-    - docker logout "${CI_REGISTRY}"
-  rules:
-    # do not rebuild on contributor's fork
-    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
-      when: never
-    # do not rebuild on scheduled
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    # do not rebuild on tag
-    - if: $CI_COMMIT_TAG
-      when: manual
-      variables:
-        DOCKER_TAG: "${CI_COMMIT_TAG}"
-    # rebuild on demand
-    - changes: *DOCKER_CHANGES
+# prebuild_linux:
+#   stage: docker_setup
+#   image: docker:20.10.16
+#   tags: [x86_64-linux-gnu, docker, scilab, build]
+#   needs:
+#     - builder_linux
+#   script:
+#     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+#     - echo "Build image ${DOCKER_LINUX_PREBUILD}:${DOCKER_TAG}"
+#     - .gitlab-ci/docker_setup.sh --prebuild "${DOCKER_LINUX_PREBUILD}" "${DOCKER_TAG}"
+#     - docker logout "${CI_REGISTRY}"
+#   rules:
+#     # do not rebuild on contributor's fork
+#     - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+#       when: never
+#     # do not rebuild on scheduled
+#     - if: $CI_PIPELINE_SOURCE == "schedule"
+#       when: never
+#     # do not rebuild on tag
+#     - if: $CI_COMMIT_TAG
+#       when: manual
+#       variables:
+#         DOCKER_TAG: "${CI_COMMIT_TAG}"
+#     # rebuild on demand
+#     - changes: *DOCKER_CHANGES
 
-tester_linux:
-  stage: docker_setup
-  image: docker:20.10.16
-  tags: [x86_64-linux-gnu, docker, scilab]
-  script:
-    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
-    - .gitlab-ci/docker_setup.sh --testers --registry "${CI_REGISTRY_IMAGE}" "${DOCKER_TAG}"
-    - docker logout "${CI_REGISTRY}"
-  rules:
-    # do not rebuild on contributor's fork
-    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
-      when: never
-    # do not rebuild on scheduled
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    # do not rebuild on tag
-    - if: $CI_COMMIT_TAG
-      when: manual
-      variables:
-        DOCKER_TAG: "${CI_COMMIT_TAG}"
-    # rebuild on demand
-    - changes: *DOCKER_CHANGES
-      allow_failure: true
+# tester_linux:
+#   stage: docker_setup
+#   image: docker:20.10.16
+#   tags: [x86_64-linux-gnu, docker, scilab]
+#   script:
+#     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_JOB_TOKEN}" "${CI_REGISTRY}"
+#     - .gitlab-ci/docker_setup.sh --testers --registry "${CI_REGISTRY_IMAGE}" "${DOCKER_TAG}"
+#     - docker logout "${CI_REGISTRY}"
+#   rules:
+#     # do not rebuild on contributor's fork
+#     - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+#       when: never
+#     # do not rebuild on scheduled
+#     - if: $CI_PIPELINE_SOURCE == "schedule"
+#       when: never
+#     # do not rebuild on tag
+#     - if: $CI_COMMIT_TAG
+#       when: manual
+#       variables:
+#         DOCKER_TAG: "${CI_COMMIT_TAG}"
+#     # rebuild on demand
+#     - changes: *DOCKER_CHANGES
+#       allow_failure: true
 
 # builder_windows:
 #   stage: docker_setup
@@ -112,3 +112,4 @@ ced_test:
   tags: [x86_64-linux-gnu, docker, scilab]
   script:
     - id
+    - apt-get update -y
