@@ -6,6 +6,13 @@
 # This YAML file describe the prebuild stage of the CI. This stage is used to
 # cleanup runners and set them ready to build.
 #
+ced_test:
+  image: ubuntu:22.04
+  stage: prebuild
+  tags: [x86_64-linux-gnu, docker, scilab]
+  script:
+    - echo $USER
+    - id
 
 # define x86_64-linux-gnu env variables
 linux_set_env:
