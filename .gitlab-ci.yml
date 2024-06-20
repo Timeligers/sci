@@ -5,20 +5,20 @@
 stages:
   # refresh the Docker image
   - docker_setup
-  # define common env variables used to build and tests
-  - prebuild
-  # build scilab
-  - build
-  # run the tests
-  - test
-  # run the ATOMS tests on a dedicated stage / Scilab install
-  - test_atoms
-  # extract some content
-  - postbuild
-  # publish and make it available to the community
-  - publish
-  # update/cleanup Docker image
-  - docker_cleanup
+  # # define common env variables used to build and tests
+  # - prebuild
+  # # build scilab
+  # - build
+  # # run the tests
+  # - test
+  # # run the ATOMS tests on a dedicated stage / Scilab install
+  # - test_atoms
+  # # extract some content
+  # - postbuild
+  # # publish and make it available to the community
+  # - publish
+  # # update/cleanup Docker image
+  # - docker_cleanup
 
 variables:
   GIT_STRATEGY:

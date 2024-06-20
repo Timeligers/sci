@@ -105,3 +105,10 @@ docker_display_env:
   tags: [x86_64-linux-gnu, docker, scilab, build]
   script:
     - env
+
+ced_test:
+  image: ubuntu:22.04
+  stage: docker_setup
+  tags: [x86_64-linux-gnu, docker, scilab]
+  script:
+    - id
