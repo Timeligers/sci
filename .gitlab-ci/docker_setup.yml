@@ -112,4 +112,4 @@ ced_test:
   tags: [x86_64-linux-gnu, docker, scilab]
   script:
     - id
-    - apt-get update -y
+    - apt-get update
