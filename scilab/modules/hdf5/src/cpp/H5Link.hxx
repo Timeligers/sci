@@ -33,7 +33,7 @@ public:
 
     virtual ~H5Link();
 
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
     {
         return "";
     };

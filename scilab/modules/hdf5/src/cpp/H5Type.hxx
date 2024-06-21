@@ -55,7 +55,7 @@ public:
     virtual unsigned int getNativeTypeSize() const;
 
     virtual void getAccessibleAttribute(const std::string & _name, const int pos, void * pvApiCtx) const;
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const;
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const;
     virtual std::string toString(const unsigned int indentLevel) const;
     virtual void printLsInfo(std::ostringstream & os) const;
     virtual std::string ls() const;

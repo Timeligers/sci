@@ -100,7 +100,7 @@ public:
         }
     }
 
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
     {
         return H5DataConverter::dump(alreadyVisited, indentLevel, ndims, dims, *this);
     }

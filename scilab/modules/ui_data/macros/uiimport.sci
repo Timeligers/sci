@@ -540,7 +540,7 @@ function uiimport_function()
     idx = find(outputfmt <> "")
     if idx <> [] then
         for i = idx
-            str($+1) = sprintf("    data.%s.format = ""%s"";", varNames(i), outputfmt(i));
+            str($+1) = sprintf("    data(%s).format = ""%s"";", sci2exp(varNames(i)), outputfmt(i));
         end
     end
 

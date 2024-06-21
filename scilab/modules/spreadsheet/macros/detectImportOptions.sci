@@ -28,7 +28,7 @@ function opts = detectImportOptions(filename, varargin)
             // get extension from the filename
             extension = fileext(filename);
             // .txt, .dat or .csv for delimited text files
-            if or(extension == [".txt", ".dat", ".csv"]) then
+            if or(convstr(extension) == [".txt", ".dat", ".csv"]) then
                 f = mgetl(filename);
             else
                 return

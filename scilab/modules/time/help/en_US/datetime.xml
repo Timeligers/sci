@@ -432,20 +432,15 @@
         <title>History</title>
         <revhistory>
             <revision>
-                <revnumber>2024.1</revnumber>
-                <revdescription>
-                    <literal>datetime()</literal> and <literal>datetime("now")</literal> handle milliseconds values.
-                </revdescription>
-            </revision>
-        </revhistory>
-    </refsection>
-    <refsection role="history">
-        <title>History</title>
-        <revhistory>
-            <revision>
                 <revnumber>2024.0.0</revnumber>
                 <revdescription>
                     Introduction in Scilab.
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revdescription>
+                    <literal>datetime()</literal> and <literal>datetime("now")</literal> handle milliseconds values.
                 </revdescription>
             </revision>
         </revhistory>

@@ -11,7 +11,7 @@
 
 function varargout = %calendarDuration_size(varargin)
     select nargout
-    case 1
+    case {0,1}
         varargout(1) = size(varargin(1).y, varargin(2:$));
     case 2
         [varargout(1), varargout(2)] = size(varargin(1).y, varargin(2:$));

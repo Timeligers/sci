@@ -26,13 +26,11 @@
         <para>
             The link between the Scilab engine and the application code is called <literal>gateway</literal> and have this prototype:
             <refsection id="api_scilab_entrypoint">
-                <para></para>
-                <literallayout>
-                    int <varname>your_new_gateway</varname>(<literal><link linkend="api_types_scilabEnv"><command>scilabEnv</command></link></literal> env,
-                    int nin, <literal><link linkend="api_types_scilabVar"><command>scilabVar</command></link></literal> *in,
-                    int nopt, <literal><link linkend="api_types_scilabOpt"><command>scilabOpt</command></link></literal> opt,
-                    int nout, <literal><link linkend="api_types_scilabVar"><command>scilabVar</command></link></literal> *out)
-                </literallayout>
+                <programlisting role="code_gateway"><![CDATA[ 
+                    int your_new_gateway(scilabEnv env,
+                    int nin, scilabVar *in,
+                    int nopt, scilabOpt opt,
+                    int nout, scilabVar *out) ]]></programlisting>
                 <itemizedlist>
                     <listitem>
                         <para>

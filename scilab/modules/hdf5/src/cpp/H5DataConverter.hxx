@@ -35,7 +35,7 @@ class H5DataConverter
 
 public:
 
-    static std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel, const int ndims, const hsize_t * dims, const H5Data & obj, const bool line = true)
+    static std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel, const int ndims, const hsize_t * dims, const H5Data & obj, const bool line = true)
     {
         std::ostringstream os;
         std::string indent = H5Object::getIndentString(indentLevel);

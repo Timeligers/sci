@@ -97,17 +97,17 @@ AC_CHECK_HEADER([hdf5.h], [], [AC_MSG_ERROR([Check libhdf5 presence and version.
 
 dnl check HD5 version
 hdf5_version_ok=no
-AC_MSG_CHECKING([if hdf5 version is >= 1.10])
+AC_MSG_CHECKING([if hdf5 version is >= 1.14])
 AC_RUN_IFELSE([AC_LANG_PROGRAM([
 #include <H5public.h>
 #include <stdlib.h>
 #include <stdio.h>
 ],[
-#if H5_VERSION_GE(1,10,0) == 0
+#if H5_VERSION_GE(1,14,4) == 0
 exit(1);
 #endif
 printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
-])], [hdf5_version_ok=yes], [AC_MSG_ERROR(hdf5 must be >= 1.10)])
+])], [hdf5_version_ok=yes], [AC_MSG_ERROR(hdf5 must be >= 1.14)])
 AC_MSG_RESULT($hdf5_version_ok)
 
 dnl check if HDF5 is compiled with needed symbols
