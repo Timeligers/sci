@@ -12902,8 +12902,8 @@ fi
 
 
 hdf5_version_ok=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if hdf5 version is >= 1.10" >&5
-printf %s "checking if hdf5 version is >= 1.10... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if hdf5 version is >= 1.14" >&5
+printf %s "checking if hdf5 version is >= 1.14... " >&6; }
 if test "$cross_compiling" = yes
 then :
   { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
@@ -12922,7 +12922,7 @@ int
 main (void)
 {
 
-#if H5_VERSION_GE(1,10,0) == 0
+#if H5_VERSION_GE(1,14,4) == 0
 exit(1);
 #endif
 printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
@@ -12935,7 +12935,7 @@ if ac_fn_c_try_run "$LINENO"
 then :
   hdf5_version_ok=yes
 else $as_nop
-  as_fn_error $? "hdf5 must be >= 1.10" "$LINENO" 5
+  as_fn_error $? "hdf5 must be >= 1.14" "$LINENO" 5
 fi
 rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
   conftest.$ac_objext conftest.beam conftest.$ac_ext
@@ -12964,7 +12964,7 @@ int
 main (void)
 {
 
-#if H5_VERSION_GE(1,11,0) == 1
+#if H5_VERSION_GE(1,15,0) == 1
 #if defined(H5_NO_DEPRECATED_SYMBOLS)
 exit(1);
 #endif
@@ -12978,7 +12978,7 @@ if ac_fn_c_try_run "$LINENO"
 then :
   hdf5_has_deprecated_symbols=yes
 else $as_nop
-  as_fn_error $? "hdf5 must be compiled with deprecated symbols for hdf5 > 1.10" "$LINENO" 5
+  as_fn_error $? "hdf5 must be compiled with deprecated symbols for hdf5 > 1.14" "$LINENO" 5
 fi
 rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
   conftest.$ac_objext conftest.beam conftest.$ac_ext

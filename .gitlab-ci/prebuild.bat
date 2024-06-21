@@ -19,7 +19,7 @@ echo Scilab prerequirements for Windows %ARCH% in branch %BRANCH%
 rem ################################
 rem ##### DEPENDENCIES VERSION #####
 rem ################################
-set SVN_REVISION=30072
+set SVN_REVISION=30092
 
 rem ###############################
 rem ##### ARGUMENT MANAGEMENT #####

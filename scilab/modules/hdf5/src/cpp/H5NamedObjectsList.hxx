@@ -92,7 +92,7 @@ public :
                     return (herr_t) - 1;
                 }
 
-                err = H5Oget_info(obj, &oinfo);
+                err = H5Oget_info(obj, &oinfo, H5O_INFO_BASIC);
                 H5Oclose(obj);
 
                 if (err < 0)
@@ -131,7 +131,7 @@ public :
                     return (herr_t) - 1;
                 }
 
-                err = H5Oget_info(obj, &oinfo);
+                err = H5Oget_info(obj, &oinfo, H5O_INFO_BASIC);
                 H5Oclose(obj);
 
                 if (err < 0)
@@ -192,7 +192,7 @@ public :
         }
     }
 
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
     {
         std::ostringstream os;
         const unsigned int size = getSize();
@@ -307,7 +307,7 @@ private:
             throw H5Exception(__LINE__, __FILE__, _("Invalid name: %s."), name.c_str());
         }
 
-        err = H5Oget_info_by_name(H5Object::getParent().getH5Id(), name.c_str(), &info, H5P_DEFAULT);
+        err = H5Oget_info_by_name(H5Object::getParent().getH5Id(), name.c_str(), &info, H5O_INFO_BASIC, H5P_DEFAULT);
         if (err < 0)
         {
             throw H5Exception(__LINE__, __FILE__, _("Invalid name: %s."), name.c_str());

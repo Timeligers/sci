@@ -218,6 +218,12 @@ pbs = [ "s0"       "*"        // crash for all versions
         "tv"       "-v7.3"    // GetCharMatVar: Row array of strings saving is not implemented.
         "ts"       "-v7.3"    // Only first char is loaded (ts = "B" after loadmatfile)
         "spbm"     "*"        // Random issues: wrong number of non-zero values and/or wrong index for non-zeros values.
+        "spbs"     "-v4"      // matio issue with sparse nnz = 0
+        "spds"     "-v4"      // matio issue with sparse nnz = 0
+        "structS"   "-v7"     // problem at save with compression since matio 1.5.12 (test 15730 also disabled)
+        "structCol" "-v7"     // problem at save with compression since matio 1.5.12 (test 15730 also disabled)
+        "structRow" "-v7"     // problem at save with compression since matio 1.5.12 (test 15730 also disabled)
+        "structMat" "-v7"     // problem at save with compression since matio 1.5.12 (test 15730 also disabled)
       ];
 // Cases with exclusive versions to be tested
 only = [];
