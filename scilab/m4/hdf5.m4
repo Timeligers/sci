@@ -152,7 +152,7 @@ FORCE_HDF_API="-DH5_USE_18_API=1"
 
 hdf5_has_default_api_set=no
 AC_MSG_CHECKING([if hdf5 has expected default API])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([
+m4_define([HDF5_API_VERS_PROGRAM],[AC_LANG_PROGRAM([
 #include <H5Apublic.h>
 #include <H5Dpublic.h>
 #include <H5Epublic.h>
@@ -186,8 +186,14 @@ COMPILER_VERIFY(H5Rdereference_vers == 2);
 COMPILER_VERIFY(H5Tget_array_dims_vers == 2);
 COMPILER_VERIFY(H5Topen_vers == 2);
 
-])], [hdf5_has_default_api_set=yes], [hdf5_has_default_api_set="no, set API version macro $FORCE_HDF_API"; HDF5_CFLAGS="$HDF5_CFLAGS $FORCE_HDF_API"])
+])])
+AC_COMPILE_IFELSE([HDF5_API_VERS_PROGRAM], [hdf5_has_default_api_set=yes], [hdf5_has_default_api_set="no"; HDF5_CFLAGS="$HDF5_CFLAGS $FORCE_HDF_API"])
 AC_MSG_RESULT($hdf5_has_default_api_set)
+
+if test "x$hdf5_has_default_api_set" != "xyes"; then
+AC_MSG_CHECKING([if hdf5 compile with $FORCE_HDF_API])
+AC_COMPILE_IFELSE([HDF5_API_VERS_PROGRAM], [AC_MSG_RESULT([yes])], [AC_MSG_ERROR([failed, check config.log])])
+fi
 
 CFLAGS="$save_CFLAGS"
 LIBS="$save_LIBS"
