@@ -136,6 +136,7 @@ libscifileio_la_CPPFLAGS = \
 	$(HDF5_CFLAGS) \
 	$(XML_FLAGS) \
 	$(LIBARCHIVE_CFLAGS) \
+	$(CURL_CFLAGS) \
 	$(AM_CPPFLAGS)
 
 if MAINTAINER_MODE
@@ -158,7 +159,7 @@ CHECK_SRC= $(FILEIO_C_SOURCES) $(FILEIO_CPP_SOURCES) $(GATEWAY_C_SOURCES) $(GATE
 INCLUDE_FLAGS = $(libscifileio_la_CPPFLAGS)
 
 # pb of order $(top_builddir)/modules/console/libsciconsole.la
-libscifileio_la_LIBADD = libscifileio-algo.la
+libscifileio_la_LIBADD = $(CURL_LIBS) libscifileio-algo.la
 
 #### Target ######
 modulename=fileio
