@@ -97,17 +97,17 @@ AC_CHECK_HEADER([hdf5.h], [], [AC_MSG_ERROR([Check libhdf5 presence and version.
 
 dnl check HD5 version
 hdf5_version_ok=no
-AC_MSG_CHECKING([if hdf5 version is >= 1.14])
+AC_MSG_CHECKING([if hdf5 version is >= 1.12])
 AC_RUN_IFELSE([AC_LANG_PROGRAM([
 #include <H5public.h>
 #include <stdlib.h>
 #include <stdio.h>
 ],[
-#if H5_VERSION_GE(1,14,4) == 0
+printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
+#if H5_VERS_MAJOR < 1 || H5_VERS_MINOR < 12
 exit(1);
 #endif
-printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
-])], [hdf5_version_ok=yes], [AC_MSG_ERROR(hdf5 must be >= 1.14)])
+])], [hdf5_version_ok=yes], [AC_MSG_ERROR(hdf5 must be >= 1.12)])
 AC_MSG_RESULT($hdf5_version_ok)
 
 dnl check if HDF5 is compiled with needed symbols
@@ -148,7 +148,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([
 AC_MSG_RESULT($hdf5_has_needed_symbols)
 
 dnl set symbols version if HDF5 config as set an API_DEFAULT (Debian case)
-FORCE_HDF_API="-DH5_USE_18_API=1"
+FORCE_HDF_API="-DH5_USE_112_API=1"
 
 hdf5_has_default_api_set=no
 AC_MSG_CHECKING([if hdf5 has expected default API])
@@ -167,24 +167,25 @@ m4_define([HDF5_API_VERS_PROGRAM],[AC_LANG_PROGRAM([
 #define __GLUE(a,b) a ## b
 
 #define CVERIFY(expr, msg) typedef char GLUE (compiler_verify_, msg) [(expr) ? (+1) : (-1)]
-#define COMPILER_VERIFY(exp) CVERIFY (exp, __LINE__)
+#define COMPILER_VERIFY(exp, id) CVERIFY (exp, GLUE(id ## _, __LINE__))
+#define HDF5_VERIFY(fun, ver) COMPILER_VERIFY(fun ## _vers == ver, fun)
 
-COMPILER_VERIFY(H5Acreate_vers == 2);
-COMPILER_VERIFY(H5Aiterate_vers == 2);
-COMPILER_VERIFY(H5Dcreate_vers == 2);
-COMPILER_VERIFY(H5Dopen_vers == 2);
-COMPILER_VERIFY(H5Eset_auto_vers == 2);
-COMPILER_VERIFY(H5Gcreate_vers == 2);
-COMPILER_VERIFY(H5Gopen_vers == 2);
-COMPILER_VERIFY(H5Lget_info_by_idx_vers == 2);
-COMPILER_VERIFY(H5Lget_info_vers == 2);
-COMPILER_VERIFY(H5Literate_vers == 2);
-COMPILER_VERIFY(H5Oget_info_by_idx_vers == 3);
-COMPILER_VERIFY(H5Oget_info_by_name_vers == 3);
-COMPILER_VERIFY(H5Oget_info_vers == 3);
-COMPILER_VERIFY(H5Rdereference_vers == 2);
-COMPILER_VERIFY(H5Tget_array_dims_vers == 2);
-COMPILER_VERIFY(H5Topen_vers == 2);
+HDF5_VERIFY(H5Acreate, 2);
+HDF5_VERIFY(H5Aiterate, 2);
+HDF5_VERIFY(H5Dcreate, 2);
+HDF5_VERIFY(H5Dopen, 2);
+HDF5_VERIFY(H5Eset_auto, 2);
+HDF5_VERIFY(H5Gcreate, 2);
+HDF5_VERIFY(H5Gopen, 2);
+HDF5_VERIFY(H5Lget_info_by_idx, 2);
+HDF5_VERIFY(H5Lget_info, 2);
+HDF5_VERIFY(H5Literate, 2);
+HDF5_VERIFY(H5Oget_info_by_idx, 3);
+HDF5_VERIFY(H5Oget_info_by_name, 3);
+HDF5_VERIFY(H5Oget_info, 3);
+HDF5_VERIFY(H5Rdereference, 2);
+HDF5_VERIFY(H5Tget_array_dims, 2);
+HDF5_VERIFY(H5Topen, 2);
 
 ])])
 AC_COMPILE_IFELSE([HDF5_API_VERS_PROGRAM], [hdf5_has_default_api_set=yes], [hdf5_has_default_api_set="no"; HDF5_CFLAGS="$HDF5_CFLAGS $FORCE_HDF_API"])
