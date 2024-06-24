@@ -38682,13 +38682,18 @@ else $as_nop
 fi
 
 
-ac_fn_c_check_header_compile "$LINENO" "curl.h" "ac_cv_header_curl_h" "$ac_includes_default"
-if test "x$ac_cv_header_curl_h" = xyes
+       for ac_header in curl/curl.h
+do :
+  ac_fn_c_check_header_compile "$LINENO" "curl/curl.h" "ac_cv_header_curl_curl_h" "$ac_includes_default"
+if test "x$ac_cv_header_curl_curl_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_CURL_H 1" >>confdefs.h
+  printf "%s\n" "#define HAVE_CURL_CURL_H 1" >>confdefs.h
 
+else $as_nop
+  as_fn_error $? "Unable to use curl/curl.h" "$LINENO" 5
 fi
 
+done
 
 LIBS="$saved_LIBS"
 CFLAGS="$saved_cflags"
