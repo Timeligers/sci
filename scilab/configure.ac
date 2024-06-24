@@ -1916,9 +1916,6 @@ else
 fi
 AM_CONDITIONAL(DOXYGEN, test $DOXYGEN_ENABLE = yes)
 
-## Valgrind specific code
-PKG_CHECK_EXISTS([valgrind], [PKG_CHECK_MODULES([VALGRIND], [valgrind], [AC_DEFINE([VALGRIND_ENABLE], [], [Enable valgrind specific tweaks])])], [])
-
 ##############################################################
 ## Javasci module
 ##############################################################
@@ -2550,12 +2547,6 @@ echo "  GIWS_BIN ........... = $GIWS_BIN"
 else
 echo "  GIWS generation disabled"
 fi
-
-echo ""
-echo "Valgrind configuration:"
-echo "  VALGRIND_CFLAGS .... = $VALGRIND_CFLAGS"
-echo "  VALGRIND_LIBS ...... = $VALGRIND_LIBS"
-echo ""
 
 echo ""
 echo "Libtool config:"
