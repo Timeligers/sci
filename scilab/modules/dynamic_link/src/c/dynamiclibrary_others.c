@@ -22,10 +22,6 @@
 #include "sci_malloc.h"
 #include "localization.h"
 /*---------------------------------------------------------------------------*/
-#ifdef VALGRIND_ENABLE
-#include "valgrind.h"
-#endif
-/*---------------------------------------------------------------------------*/
 #ifndef NULL
 #define NULL 0
 #endif
@@ -34,17 +30,6 @@ BOOL FreeDynLibrary(DynLibHandle hInstance)
 {
     if (hInstance)
     {
-
-#ifdef VALGRIND_ENABLE
-        /*
-         * Accordingly to the Valgrind FAQ, using `dlclose` will clear the
-         * symbol table of the loaded library.
-         */
-        if (RUNNING_ON_VALGRIND)
-        {
-            return TRUE;
-        }
-#endif
 
 #if __SANITIZE_ADDRESS__
         // While using AddressSanitizer, closing dl libraries will discard
