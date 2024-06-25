@@ -420,7 +420,6 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
             master_str = x2f_tree_to_master(this_tree);
             mputl(master_str,master_doc);
             contrib_tree(dirs(k)) = this_tree;
-
         end
 
         if output_format == "inline"
@@ -431,7 +430,6 @@ function generated_files = xmltoformat(output_format,dirs,titles,directory_langu
             return;
         end
 
-        //save("e:\toolboxhelp.sod", "contrib_tree");
     end
 
     // =========================================================================

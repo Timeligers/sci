@@ -7,6 +7,10 @@ function varargout = help(key, lang)
         lang (1, 1) string = getlanguage()
     end
 
+    if ~isdir(fullfile(strsplit(SCI, "share/scilab")(1), "modules", "helptools", "inline")) then
+        error(msprintf(gettext("%s: help is not installed.\n"), "help"));
+    end
+
     [page, name] = getPage(key, "scilab", lang);
     if page == [] then
         //look in toolbox

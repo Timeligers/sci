@@ -13,16 +13,17 @@
 function doc(varargin)
 
     if findfiles("SCI/modules/helptools/jar","*_help.jar") == [] then
-        error(msprintf(gettext("%s: help file(.jar) is not installed.\n"), "help"));
+        error(msprintf(gettext("%s: help file(.jar) is not installed.\n"), "doc"));
     end
+
     if getscilabmode() == "NWNI" then
-        error(msprintf(gettext("%s: The help browser is disabled in %s mode.\n"), "help", getscilabmode()));
+        error(msprintf(gettext("%s: The help browser is disabled in %s mode.\n"), "doc", getscilabmode()));
     end
 
     if argn(2) >= 1 then
         key = varargin(1);
         if type(key) <> 10 then
-            error(msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"help",1));
+            error(msprintf(_("%s: Wrong type for input argument #%d: string expected.\n"),"doc",1));
         end
     else
         key = "";
