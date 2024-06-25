@@ -1,7 +1,7 @@
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2024 - 3DS - Antoine ELIAS
 
-function ret = help(key, lang)
+function varargout = help(key, lang)
     arguments
         key (1, 1) string
         lang (1, 1) string = getlanguage()
@@ -28,7 +28,7 @@ function ret = help(key, lang)
     if nargout == 0 then
         formatHelp(page, name);
     else
-        ret = page;
+        varargout(1) = page;
     end
 end
 
