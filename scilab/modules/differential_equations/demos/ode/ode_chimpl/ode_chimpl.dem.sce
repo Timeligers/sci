@@ -28,7 +28,7 @@ function demo_ode_chimpl()
     t    = [1.d-5:0.02:.4 0.41:.1:4 40 400 4000 40000 4d5 4d6 4d7 4d8 4d9 4d10];
     atol = [1.d-6;1.d-10;1.d-6];
     rtol = 1d-4;
-    y    = impl(y0,yd0,0,t,atol,rtol,chemres,chemad,chemjac);
+    y    = dae("stiff", [y0,yd0],0,t,rtol,atol,chemres,chemjac,chemad);
 
     // visualization
 
@@ -37,7 +37,7 @@ function demo_ode_chimpl()
     demo_viewCode("ode_chimpl.dem.sce");
 
     drawlater()
-    plot2d(t',(diag([1 10000 1])*y)',style=(1:3))
+    plot2d(t',(diag([1 10000 1])*y(1:3, :))',style=(1:3))
     ax=gca();
     ax.log_flags = "lnn";
     ax.box="on";
