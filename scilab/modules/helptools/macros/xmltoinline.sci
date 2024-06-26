@@ -1,5 +1,7 @@
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2024 - 3DS - Antoine ELIAS
+// For more information, see the COPYING file which you should have received
+// along with this program.
 
 function generated_files = xmltoinline(dirs,titles,directory_language,default_language)
 

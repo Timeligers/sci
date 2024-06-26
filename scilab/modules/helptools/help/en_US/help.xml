@@ -73,8 +73,7 @@ help type fr_FR
                 <revdescription>
                     <itemizedlist>
                         <listitem>
-                            <literal>help</literal> was rename to <literal>doc</literal>.
-                            Introduced in 2025.0.0.
+                            This function behavior changed and it was replaced by <literal>doc</literal>.
                         </listitem>
                     </itemizedlist>
                 </revdescription>

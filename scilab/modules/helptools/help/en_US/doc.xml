@@ -225,7 +225,7 @@ doc "linear sparse"
                 <revdescription>
                     <itemizedlist>
                         <listitem>
-                            <literal>help</literal> was rename to <literal>doc</literal>.
+                            Introduction in Scilab. <literal>help</literal> was renamed to <literal>doc</literal>.
                         </listitem>
                     </itemizedlist>
                 </revdescription>
