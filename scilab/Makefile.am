@@ -267,23 +267,23 @@ javadoc-all:
 	-sourcepath $$LISTMODULES \
 	$$LISTPKG
 
-help-fr_FR:
-	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=fr_FR
+doc-inline-fr_FR:
+	@$(MAKE) $(AM_MAKEFLAGS) doc-inline ALL_LINGUAS_DOC=fr_FR
 
-help-en_US:
-	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=en_US
+doc-inline-en_US:
+	@$(MAKE) $(AM_MAKEFLAGS) doc-inline ALL_LINGUAS_DOC=en_US
 
-help-pt_BR:
-	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=pt_BR
+doc-inline-pt_BR:
+	@$(MAKE) $(AM_MAKEFLAGS) doc-inline ALL_LINGUAS_DOC=pt_BR
 
-help-ru_RU:
-	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=ru_RU
+doc-inline-ru_RU:
+	@$(MAKE) $(AM_MAKEFLAGS) doc-inline ALL_LINGUAS_DOC=ru_RU
 
-help-ja_JP:
-	@$(MAKE) $(AM_MAKEFLAGS) help ALL_LINGUAS_DOC=ja_JP
+doc-inline-ja_JP:
+	@$(MAKE) $(AM_MAKEFLAGS) doc-inline ALL_LINGUAS_DOC=ja_JP
 
-help: $(top_builddir)/scilab-bin $(top_builddir)/bin/scilab-cli
-if BUILD_HELP
+doc-inline: $(top_builddir)/scilab-bin $(top_builddir)/bin/scilab-cli
+if BUILD_HELP # Java is not needed for this build but helptools module is disabled when building without Java (xmltoinline function is not available)
 	@if test -x $(top_builddir)/scilab-bin; then \
 		cd $(top_builddir);\
 		for l in $(ALL_LINGUAS_DOC); do \
