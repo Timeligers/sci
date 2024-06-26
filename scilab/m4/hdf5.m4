@@ -103,7 +103,7 @@ AC_RUN_IFELSE([AC_LANG_PROGRAM([
 #include <stdlib.h>
 #include <stdio.h>
 ],[
-#if H5_VERSION_GE(1,14,4) == 0
+#if H5_VERSION_GE(1,12,0) == 0
 exit(1);
 #endif
 printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
