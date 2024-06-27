@@ -135,6 +135,7 @@ types::Double *OdeManager::parseInitialCondition(types::typed_list &in, bool bIs
             {
                 types::InternalType* pIT = pDblY;
                 pDbl->transpose(pIT);
+                pDblY = static_cast<decltype(pDblY)>(pIT);
             }
             else
             {

@@ -32,6 +32,7 @@ void KINSOLManager::parseMatrices(types::typed_list &in)
         {
             types::InternalType* pIT = m_pDblY0;
             pDbl->transpose(pIT);
+            m_pDblY0 = static_cast<decltype(m_pDblY0)>(pIT);
         }
         else
         {

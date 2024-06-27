@@ -1979,8 +1979,9 @@ GenericType* Sparse::extract(typed_list* _pArgs)
                 }
                 else
                 {
-                    types::InternalType* pIT = pOut;
+                    types::InternalType* pIT;
                     this->transpose(pIT);
+                    pOut = static_cast<decltype(pOut)>(pIT);
                     return pOut;
                 }
             }

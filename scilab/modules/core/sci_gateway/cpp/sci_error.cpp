@@ -89,6 +89,7 @@ types::Function::ReturnValue sci_error(types::typed_list &in, int _iRetCount, ty
         }
         else
         {
+            iPosDouble = 2;
             pDbl = in[1]->getAs<types::Double>();
             pStrError = in[0]->getAs<types::String>();
         }
