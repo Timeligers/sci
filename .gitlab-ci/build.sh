@@ -83,6 +83,7 @@ echo -e "\e[0Ksection_end:$(date +%s):configure\r\e[0K"
 # make 
 echo -e "\e[0Ksection_start:$(date +%s):make\r\e[0KMake"
 make --jobs="$(nproc)" all &>>"../${LOG_PATH}/log_build_${CI_COMMIT_SHORT_SHA}.txt" ||(tail --lines=100 "../${LOG_PATH}/log_build_${CI_COMMIT_SHORT_SHA}.txt"; exit 1)
+make doc-inline &>"../${LOG_PATH}/log_doc-inline_${CI_COMMIT_SHORT_SHA}.txt" ||(tail --lines=100 "../$LOG_PATH/log_doc-inline_${CI_COMMIT_SHORT_SHA}.txt"; exit 1)
 make doc &>"../${LOG_PATH}/log_doc_${CI_COMMIT_SHORT_SHA}.txt" ||(tail --lines=100 "../$LOG_PATH/log_doc_${CI_COMMIT_SHORT_SHA}.txt"; exit 1)
 echo -e "\e[0Ksection_end:$(date +%s):make\r\e[0K"
 
