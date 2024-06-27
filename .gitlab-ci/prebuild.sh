@@ -165,10 +165,14 @@ download_dependencies() {
 
     # This archive contains .jar and directories that have been copied from Scilab prerequirements
     # JavaFX/openjfx is only shipped as JARs, no rebuild is needed for now
-    curl -L --time-cond thirdparty-jar.zip -o thirdparty-jar.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar-${BRANCH}.zip"
-    if ! unzip -tz "thirdparty-jar.zip"; then
+    curl -L --time-cond -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.zip"
+    if ! unzip -qt "thirdparty.zip"; then
+        # use thirdparty from the target branch
+        curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${BRANCH}.zip"
+    fi
+    if ! unzip -qt "thirdparty.zip"; then
         # fallback to the default branch
-        curl -L --time-cond thirdparty-jar.zip -o thirdparty-jar.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar-${CI_DEFAULT_BRANCH}.zip"
+        curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_DEFAULT_BRANCH}.zip"
     fi
 
     [ ! -f libarchive-$LIBARCHIVE_VERSION.tar.xz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/libarchive-$LIBARCHIVE_VERSION.tar.xz
@@ -418,13 +422,13 @@ make_jar() {
 
     # copy .jar from scilab prerequirements
     cd "$DOWNLOADDIR" || exit 1
-    rm -rf thirdparty-jar
-    mkdir thirdparty-jar
-    cd thirdparty-jar || exit 1
-    unzip "$DOWNLOADDIR/thirdparty-jar.zip"
+    rm -rf thirdparty
+    mkdir thirdparty
+    cd thirdparty || exit 1
+    unzip "$DOWNLOADDIR/thirdparty.zip"
     # remove .jar already managed
     rm xml* fontbox* commons* batik* avalon* fop.jar gluegen2-rt.jar jogl2.jar gluegen-rt.jar jogl-all.jar
-    # Copy all JARs from thirdparty-jar.zip
+    # Copy all JARs from thirdparty.zip
     cp -a ./* "$JAVATHIRDPARTYDIR"
     # Copy flexdock to be sure prerequirements archive will be regenerated when flexdock version changes
     # TODO: add all JARs below and remove global copy using ./*

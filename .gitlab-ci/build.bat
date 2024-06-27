@@ -19,18 +19,34 @@ REM checkout pre-requirements
 REM Try with custom build for this commit or tag
 move /Y prerequirements-%SCI_VERSION_STRING%-windows_x64.zip prereq.zip
 if errorlevel 1 (
-    REM no specific prereq build, use the branch one
+    REM failed, use the MR branch one
+    curl.exe -k -o prereq.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-%CI_MERGE_REQUEST_SOURCE_BRANCH_NAME%-windows_x64.zip
+    unzip.exe -qt prereq.zip
+)
+if errorlevel 1 (
+    REM failed, use the MR branch one
     curl.exe -k -o prereq.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-%BRANCH%-windows_x64.zip
+    unzip.exe -qt prereq.zip
 )
 if errorlevel 1 (
     REM fallback to the default branch
     curl.exe -k -o prereq.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-%CI_DEFAULT_BRANCH%-windows_x64.zip
+    unzip.exe -qt prereq.zip
 )
 unzip -o prereq.zip -d scilab > %LOG_PATH%\log_prereq_%CI_COMMIT_SHORT_SHA%.txt
 
-@REM REM display svn revision
+REM display svn revision
 type scilab\svn-info.txt
 if errorlevel 1 exit 1
+
+REM patch thirdparty JARs on WIP Merge-Request
+curl.exe -k -o thirdparty.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-%CI_MERGE_REQUEST_SOURCE_BRANCH_NAME%.zip
+unzip.exe -qt thirdparty.zip
+if errorlevel 0 (
+    rd /s /q scilab/thirdparty/
+    mkdir scilab/thirdparty/
+    unzip.exe -o thirdparty.zip -d scilab/thirdparty/
+)
 
 REM Define environment variables if not defined
 IF "%SCILAB_JDK64%"=="" set SCILAB_JDK64=%JAVA_HOME%
