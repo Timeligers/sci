@@ -29,8 +29,8 @@ Source: bin\no{#CONSOLE}.dll; DestDir: {app}\bin; DestName: sci{#CONSOLE}.dll; C
 Source: bin\no{#CONSOLE}.lib; DestDir: {app}\bin; DestName: sci{#CONSOLE}.lib; Components: {#COMPN_SCILAB} and not ({#COMPN_JVM_MODULE})
 ;
 Source: modules\{#CONSOLE}\jar\org.scilab.modules.{#CONSOLE}.jar;DestDir: {app}\modules\{#CONSOLE}\jar; Components: {#COMPN_SCILAB} and {#COMPN_JVM_MODULE}
-Source: thirdparty\jrosetta-engine.jar;DestDir: {app}\thirdparty; Components: {#COMPN_SCILAB} and {#COMPN_JVM_MODULE}
-Source: thirdparty\jrosetta-API.jar;DestDir: {app}\thirdparty; Components: {#COMPN_SCILAB} and {#COMPN_JVM_MODULE}
+Source: thirdparty\jrosetta-engine-1.0.4.jar;DestDir: {app}\thirdparty; Components: {#COMPN_SCILAB} and {#COMPN_JVM_MODULE}
+Source: thirdparty\jrosetta-API-1.0.4.jar;DestDir: {app}\thirdparty; Components: {#COMPN_SCILAB} and {#COMPN_JVM_MODULE}
 ;
 
 Source: modules\{#CONSOLE}\license.txt; DestDir: {app}\modules\{#CONSOLE}; Components: {#COMPN_SCILAB}
