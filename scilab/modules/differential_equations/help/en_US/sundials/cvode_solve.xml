@@ -182,20 +182,20 @@
                 we define the state of the equivalent first order equation as <latex>v=(y,y')</latex>. The right hand side is computed by the
                 function <literal>%SUN_vdp1</literal> (defined in the SUNDIALS module):
             </para>
-            <para>
-                <programlisting role="no-scilab-exec"><![CDATA[
-                    function vdot=%SUN_vdp1(t, v)
-                        mu = 1;
-                        vdot = [v(2); mu*(1-v(1)^2)*v(2)-v(1)]
-                    end
-                    ]]></programlisting>
-                </para>
                 <para>
                     <programlisting role="example"><![CDATA[
+                        function vdot=%SUN_vdp1(t, v)
+                            mu = 1;
+                            vdot = [v(2); mu*(1-v(1)^2)*v(2)-v(1)]
+                        end
                         [t,v] = cvode(%SUN_vdp1, [0 10], [0; 2]);
                         plot(t,v)
                         ]]></programlisting>
                         <scilab:image>
+                            function vdot=%SUN_vdp1(t, v)
+                                mu = 1;
+                                vdot = [v(2); mu*(1-v(1)^2)*v(2)-v(1)]
+                            end
                             [t,v] = cvode(%SUN_vdp1, [0 10], [0; 2]);
                             plot(t,v)
                             gcf().axes_size(2)=300
@@ -262,7 +262,7 @@
                 When the projection function is a DLL entry point, it must have the prototype
                 </para>
                 <para>
-                <programlisting role="scilab-noexec"><![CDATA[
+                <programlisting role="no-scilab-exec"><![CDATA[
                 int sunProj(realtype t, N_Vector X, N_Vector Corr, realtype epsProj, N_Vector Err, 
                 void *user_data)
                 ]]></programlisting>
@@ -296,6 +296,7 @@
                 "corr[1] = x[1]/R-x[1];"
                 "return 0;"
                 "}"]
+                cd TMPDIR
                 mputl(code,"code.c")
                 SUN_Clink(["sunRhs","sunProj"],"code.c",load=%t);
                 [t,x] = cvode(list("sunRhs",1),[0 10],[1 0],projection="sunProj");

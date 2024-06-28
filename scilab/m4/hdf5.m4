@@ -103,8 +103,7 @@ AC_RUN_IFELSE([AC_LANG_PROGRAM([
 #include <stdlib.h>
 #include <stdio.h>
 ],[
-printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
-#if H5_VERS_MAJOR < 1 || H5_VERS_MINOR < 12
+#if H5_VERSION_GE(1,12,0) == 0
 exit(1);
 #endif
 ])], [hdf5_version_ok=yes], [AC_MSG_ERROR(hdf5 must be >= 1.12)])

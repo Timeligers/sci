@@ -1267,7 +1267,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
     std::vector<int> dims1(p1->get(), p1->get() + p1->getSize());
     p1->killMe();
 
-    if (dims1.size() != dims.size())
+    if (dims1.size() > dims.size())
     {
         return nullptr;
     }
@@ -1291,18 +1291,13 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
         return expandvar(x, dims, isStatic);
     }
 
-    if (dims1.size() != dims.size())
-    {
-        return nullptr;
-    }
-
     bool status = true;
-    for (int i = 0; i < dims1.size(); ++i)
+    for (int i = 0; i < dims.size(); ++i)
     {
         std::vector<int> dim;
         symbol::Variable* v;
         std::tie(dim, v) = dims[i];
-
+        int ref = i < dims1.size() ? dims1[i] : 1;
         bool ok = false;
         if (v != nullptr)
         {
@@ -1313,7 +1308,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
 
                 for (int j = 0; j < d->getSize(); ++j)
                 {
-                    if (d->get()[j] == dims1[i])
+                    if (d->get()[j] == ref)
                     {
                         ok = true;
                         break;
@@ -1325,7 +1320,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
         {
             for (int j = 0; j < dim.size(); ++j)
             {
-                if (dim[j] == -1 || dim[j] == dims1[i])
+                if (dim[j] == -1 || dim[j] == ref)
                 {
                     ok = true;
                     break;
