@@ -13,7 +13,7 @@
 function [K,Y,err]=leqe(P21,Qx)
     arguments
         P21 {mustBeA(P21, "lss")}
-        Qx
+        Qx {mustBeA(Qx, "double")}
     end
 
     [A,B1,C2,D21,xo,dom]=P21(2:7)

@@ -13,7 +13,7 @@
 function show_margins(h,typ)
 
     arguments
-        h
+        h {mustBeA(h, ["r", "lss"])}
         typ {mustBeA(typ, "string"), mustBeMember(typ, ["bode", "nyquist"])} = "bode"
     end
 

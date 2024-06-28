@@ -14,11 +14,11 @@
 function   [den,num,err]=arl2(y,den0,n,imp,all)
 
     arguments
-        y
-        den0
-        n
-        imp = 0
-        all {mustBeA(all, "string"), mustBeMember(all, ["one", "all"])}= "one"
+        y {mustBeA(y, ["double", "polynomial"])}
+        den0 (1,1) {mustBeA(den0, "polynomial")}
+        n (1,1) {mustBeA(n, "double"), mustBeInteger}
+        imp (1,1) {mustBeA(imp, ["double", "string"])} = 0
+        all (1,1) {mustBeA(all, "string"), mustBeMember(all, ["one", "all"])} = "one"
     end
 
     // test the system type 'c' 'd' or dt

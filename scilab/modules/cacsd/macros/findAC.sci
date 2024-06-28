@@ -46,13 +46,13 @@ function [A,C,rcnd]=findAC(s,n,l,R,meth,tol,printw)
     //
 
     arguments
-        s
-        n
-        l
-        R
-        meth = 1
-        tol = 0
-        printw = 0
+        s (1, 1) {mustBeA(s, "double"), mustBeInteger}
+        n (1, 1) {mustBeA(n, "double"), mustBeInteger}
+        l (1, 1) {mustBeA(l, "double"), mustBeInteger}
+        R {mustBeA(R, "double")}
+        meth {mustBeA(meth, "double"), mustBeMember(meth, [1, 2, 3])} = 1
+        tol {mustBeA(tol, "double")} = 0
+        printw (1,1) {mustBeA(printw, "double"), mustBeMember(printw, [0, 1])} = 0
     end
 
     nout = nargout;

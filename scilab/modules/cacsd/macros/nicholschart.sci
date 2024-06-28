@@ -56,9 +56,9 @@ function handles = nicholschart(modules, args, colors)
     else
         try
             if type(modules) == 0 then
-                msg = "%s: %s(, [args, colors]) is obsolete. Please use %s(modules, [args, colors]) with the default modules values instead.\n"
+                msg = "%s: %s(, [args, colors]) is obsolete. Please use %s(modules, [args, colors]) with modules = [].\n"
                 msg = msprintf(msg, fname, fname, fname);
-                msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026")]
+                msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026.0.0")]
                 warning(msg);
             end
         end
@@ -74,9 +74,9 @@ function handles = nicholschart(modules, args, colors)
     else
         try
             if type(args) == 0 then
-                msg = "%s: %s(modules, , colors) is obsolete. Please use %s(modules, args, colors) with the default args values instead.\n"
+                msg = "%s: %s(modules, , colors) is obsolete. Please use %s(modules, args, colors) with args = [].\n"
                 msg = msprintf(msg, fname, fname, fname);
-                msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026")]
+                msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026.0.0")]
                 warning(msg);
             end
         end
@@ -87,9 +87,9 @@ function handles = nicholschart(modules, args, colors)
     if exists("colors","local")==0 | colors == [] then
         try
             if type(colors) == 0 then
-                msg = "%s: %s(modules, args, ) is obsolete. Please use %s(modules, args, colors) with the default colors values instead.\n"
+                msg = "%s: %s(modules, args, ) is obsolete. Please use %s(modules, args, colors) with colors = [].\n"
                 msg = msprintf(msg, fname, fname, fname);
-                msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026")]
+                msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026.0.0")]
                 warning(msg);
             end
         end

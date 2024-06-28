@@ -23,7 +23,7 @@ function [K,R]=kpure(sl,eps)
     //Author: Serge Steer, INRIA
     arguments
         sl {mustBeA(sl, ["r", "lss"])}
-        eps = 1e-6
+        eps {mustBeA(eps, "double"), mustBePositive} = 1e-6
     end
     y=[];R=[];
     if size(eps,"*")==2 then  eps=eps(2),end //compatibility

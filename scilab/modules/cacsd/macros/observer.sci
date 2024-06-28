@@ -63,7 +63,7 @@ function [Obs, U, m] = %observer(Sys, flag, alfa)
     arguments
         Sys {mustBeA(Sys, "lss")}
         flag (1,1) {mustBeA(flag, "string"), mustBeMember(flag, ["st", "pp"])} = "st"
-        alfa = -ones(1, size(Sys.A, "r"))
+        alfa {mustBeA(alfa, "double")} = -ones(1, size(Sys.A, "r"))
     end
 
     [nx,nx]=size(Sys.A);

@@ -19,7 +19,7 @@ function w=sdiff(z,d)
 
     arguments
         z
-        d = 1
+        d (1,1) {mustBeA(d, "double")} = 1
     end
 
     w=z;

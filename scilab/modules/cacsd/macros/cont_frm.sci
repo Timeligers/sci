@@ -16,8 +16,8 @@ function sl=cont_frm(num,den)
     //!
 
     arguments
-        num
-        den (1,1)
+        num {mustBeA(num, ["double", "polynomial"])}
+        den (1,1) {mustBeA(den, ["double", "polynomial"])} 
     end
 
     [ns,ne]=size(num);

@@ -32,9 +32,9 @@ function [P,r]=augment(G,SRT,flag)
     //!
 
     arguments
-        G
+        G {mustBeA(G, ["r", "lss"])}
         SRT {mustBeA(SRT, "string"), mustBeMember(SRT, ["S", "R", "T", "SR", "ST", "RT", "SRT"])}= "SRT"
-        flag = "output"
+        flag {mustBeA(flag, "string"), mustBeMember(flag, ["output", "input", "o", "i"])}= "output"
     end
 
     select part(flag,1)

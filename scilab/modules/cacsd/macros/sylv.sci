@@ -13,9 +13,9 @@
 function X = sylv(A,B,C,flag)
     //  solve  A*X+X*B=C if flag=='c' or  A*X*B+X=C if flag=='d'
     arguments
-        A {mustBeSquare}
-        B {mustBeSquare}
-        C 
+        A {mustBeA(A, "double"), mustBeReal, mustBeSquare}
+        B {mustBeA(B, "double"), mustBeReal, mustBeSquare}
+        C {mustBeA(C, "double"), mustBeReal}
         flag {mustBeA(flag, "string"), mustBeMember(flag, ["c", "d"])}
     end
     

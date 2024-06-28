@@ -20,9 +20,9 @@ function [Se,R,T]=sensi(G,Sk,flag)
     //!
 
     arguments
-        G
-        Sk
-        flag {mustBeA(flag, "string"), mustBeMember(flag, ["o", "i"])}= "o"
+        G {mustBeA(G, "lss")}
+        Sk {mustBeA(Sk, "lss")}
+        flag (1,1) {mustBeA(flag, "string"), mustBeMember(flag, ["o", "i"])} = "o"
     end
 
     select flag

@@ -13,8 +13,8 @@
 function X = lyap(A,C,flag)
     //  solve  A'*X+X*A=C if flag=='c' or  A'*X*A-X=C if flag=='d'
     arguments
-        A
-        C
+        A {mustBeA(A, "double"), mustBeReal, mustBeSquare}
+        C {mustBeA(C, "double"), mustBeReal, mustBeSquare}
         flag {mustBeA(flag, "string"), mustBeMember(flag, ["c", "d"])}
     end
 

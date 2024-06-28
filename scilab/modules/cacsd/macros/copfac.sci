@@ -30,7 +30,7 @@ function [n,m,xt,yt]=copfac(g,polf,polc,tol)
         g {mustBeA(g, ["lss", "r"])}
         polf {mustBeA(polf, "double")} = -1
         polc {mustBeA(polc, "double")} = -1
-        tol (1,1) {mustBeA(tol, "double"), mustBeReal, mustBeNonnegative}= 1000*%eps
+        tol (1,1) {mustBeA(tol, "double"), mustBeReal, mustBeNonnegative} = 1000*%eps
     end
 
     if typeof(g) == "rational" then

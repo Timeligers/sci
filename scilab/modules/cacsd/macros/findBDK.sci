@@ -74,17 +74,17 @@ function [B,D,K,Q,Ry,S,rcnd]=findBDK(s,n,l,R,A,C,meth,job,nsmpl,tol,printw)
     //
 
     arguments
-        s
-        n
-        l
-        R
-        A
-        C
-        meth = 2
-        job = 2
-        nsmpl = 0
-        tol = 0
-        printw = 0
+        s (1, 1) {mustBeA(s, "double"), mustBeInteger}
+        n (1, 1) {mustBeA(n, "double"), mustBeInteger}
+        l (1, 1) {mustBeA(l, "double"), mustBeInteger}
+        R {mustBeA(R, "double")}
+        A {mustBeA(A, "double"), mustBeSquare}
+        C {mustBeA(C, "double")}
+        meth {mustBeA(meth, "double"), mustBeMember(meth, [1, 2])} = 2
+        job {mustBeA(job, "double"), mustBeMember(job, [1, 2])} = 2
+        nsmpl {mustBeA(nsmpl, "double"), mustBeInteger} = 0
+        tol {mustBeA(tol, "double")} = 0
+        printw (1,1) {mustBeA(printw, "double"), mustBeMember(printw, [0, 1])} = 0
     end
 
     B=[];D=[];K=[];Q=[];Ry=[];S=[];rcnd=[];

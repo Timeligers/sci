@@ -16,12 +16,12 @@ function [best_h,best_w]=frep2tf(frq,repf,dg,dom,tols,weight)
 
     // Copyright INRIA
     arguments
-        frq
-        repf
-        dg
-        dom = "c"
-        tols = [1e-2; 1.e-4; 10]
-        weight = []
+        frq {mustBeA(frq, "double")}
+        repf {mustBeA(repf, "double")}
+        dg (1,1) {mustBeA(dg, "double")}
+        dom {mustBeA(dom, ["double", "string"]), mustBeScalarOrEmpty} = "c"
+        tols {mustBeA(tols, "double")} = [1e-2; 1.e-4; 10]
+        weight {mustBeA(weight, "double")} = []
     end
 
     rtol=tols(1);atol=tols(2);N=tols(3);
@@ -51,11 +51,11 @@ function [h,err]=frep2tf_b(frq,repf,dg,dom,weight)
     // steer, jpc, fd 1997 (Nov)
     //============================
     arguments
-        frq
-        repf
-        dg
-        dom = "c"
-        weight = []
+        frq {mustBeA(frq, "double")}
+        repf {mustBeA(repf, "double")}
+        dg (1,1) {mustBeA(dg, "double")}
+        dom {mustBeA(dom, ["double", "string"]), mustBeScalarOrEmpty} = "c"
+        weight {mustBeA(weight, "double")} = []
     end
     // test the system type 'c' 'd' or dt
     if dom==[] then dom="c";end

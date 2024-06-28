@@ -19,7 +19,7 @@ function [S]=tf2des(G,flag)
     //!
 
     arguments
-        G
+        G {mustBeA(G, ["r", "lss"])}
         flag {mustBeA(flag, "string"), mustBeScalarOrEmpty, mustBeMember(flag, ["", "withD"])} = ""
     end
 

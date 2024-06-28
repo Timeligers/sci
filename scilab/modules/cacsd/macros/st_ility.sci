@@ -15,7 +15,7 @@ function [n,nc,u,sl,v]=st_ility(sl,tol)
 
     arguments
         sl {mustBeA(sl, ["double", "lss"])}
-        tol = []
+        tol {mustBeA(tol, "double"), mustBeScalarOrEmpty} = []
     end
 
     rhs = nargin;
@@ -24,7 +24,7 @@ function [n,nc,u,sl,v]=st_ility(sl,tol)
         //[n,nc,u,A,B]=st_ility(A,B,tol)
         msg = "%s: %s(Sl [, tol]) is obsolete when Sl is a matrix of doubles.\n"
         msg = msprintf(msg, "st_ility", "st_ility");
-        msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026")]
+        msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026.0.0")]
         warning(msg) 
         if rhs == 2 then
             sl = syslin("c",sl,tol,[]);

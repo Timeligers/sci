@@ -57,8 +57,6 @@ function [X,dims,F,U,k,Z]=abinv(Sl,Alfa,Beta,flag)
         flag {mustBeA(flag, "string"), mustBeMember(flag, ["ge", "st", "pp"])} = "ge"
     end
 
-    disp(Sl, Alfa, Beta)
-
     timedomain=Sl.dt;
     if timedomain==[] then
         warning(msprintf(gettext("%s: Input argument %d is assumed continuous time.\n"),"abinv",1));

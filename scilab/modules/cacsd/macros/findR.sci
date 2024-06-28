@@ -79,14 +79,14 @@ function [R,n,sval,rcnd]=findR(s,y,u,meth,alg,jobd,tol,printw)
     //
 
     arguments
-        s
-        y
-        u = []
-        meth = 1
-        alg = 1
-        jobd = 2
-        tol = [0, -1]
-        printw = 0
+        s (1, 1) {mustBeA(s, "double"), mustBeInteger}
+        y {mustBeA(y, "double")}
+        u {mustBeA(u, "double")} = []
+        meth {mustBeA(meth, "double"), mustBeMember(meth, [1, 2])} = 1
+        alg {mustBeA(alg, "double"), mustBeMember(alg, [1, 2, 3])} = 1
+        jobd {mustBeA(jobd, "double"), mustBeMember(jobd, [1, 2])} = 2
+        tol {mustBeA(tol, "double"), mustBeVector} = [0, -1]
+        printw (1,1) {mustBeA(printw, "double"), mustBeMember(printw, [0, 1])} = 0
     end
 
     R=[];n=[];sval=[];rcnd=[];

@@ -26,7 +26,7 @@ function [nh]=h2norm(g,tol)
     if type(g)==1 then
         msg = "%s: %s(Sl [, tol]) is obsolete when Sl is a matrix of doubles.\n"
         msg = msprintf(msg, "h2norm", "h2norm");
-        msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026")]
+        msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026.0.0")]
         warning(msg) 
         
         if norm(g)==0 then 

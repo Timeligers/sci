@@ -56,14 +56,14 @@ function [x0,B,D,V,rcnd]=findx0BD(A,C,y,u,withx0,withd,tol,printw)
     //
 
     arguments
-        A
-        C
-        y
-        u
-        withx0 {mustBeMember(withd, [0 1])} = 1
-        withd {mustBeMember(withd, [0 1])} = 1
-        tol = 0
-        printw = 0
+        A {mustBeA(A, "double")}
+        C {mustBeA(C, "double")}
+        y {mustBeA(y, "double")}
+        u {mustBeA(u, "double")}
+        withx0 {mustBeA(withx0, "double"), mustBeMember(withd, [0 1])} = 1
+        withd {mustBeA(withd, "double"), mustBeMember(withd, [0 1])} = 1
+        tol {mustBeA(tol, "double")} = 0
+        printw (1,1) {mustBeA(printw, "double"), mustBeMember(printw, [0, 1])} = 0
     end
 
     nout = nargout;

@@ -14,7 +14,7 @@ function slc=contrss(a,tol)
 
     arguments
         a {mustBeA(a, "lss")}
-        tol = sqrt(%eps)
+        tol (1,1) {mustBeA(tol, "double")} = sqrt(%eps)
     end
 
     [a,b,c,d,x0,dom]=a(2:7)

@@ -24,7 +24,7 @@ function [dim,x]=unobs(A,C,tol)
     arguments
         A {mustBeA(A, "double"), mustBeReal}
         C {mustBeA(C, "double"), mustBeReal}
-        tol = 1.d-10*norm([A;C],1)
+        tol (1,1) {mustBeA(tol, "double")} = 1.d-10*norm([A;C],1)
     end
 
     [p,p]=size(A);

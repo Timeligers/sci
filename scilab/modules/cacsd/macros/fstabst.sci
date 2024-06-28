@@ -26,7 +26,7 @@ function [J]=fstabst(Stplant,r)
     //!
     arguments
         Stplant {mustBeA(Stplant, ["r", "lss"])}
-        r
+        r (1,2) {mustBeA(r, "double")}
     end
 
     if Stplant.dt<>"c" then

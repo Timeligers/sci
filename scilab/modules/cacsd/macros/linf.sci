@@ -22,14 +22,14 @@ function [n]=linf(g,eps,tol)
 
     arguments
         g {mustBeA(g, ["double", "r", "lss"])}
-        eps = 1e-7
-        tol = 1000*%eps
+        eps (1,1) {mustBeA(eps, "double")} = 1e-7
+        tol (1,1) {mustBeA(tol, "double")} = 1000*%eps
     end
 
     if type(g)==1 then
         msg = "%s: %s(g [, eps, tol]) is obsolete when g is a matrix of doubles.\n"
         msg = msprintf(msg, "linf", "linf");
-        msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026")]
+        msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026.0.0")]
         warning(msg) 
 
         if norm(g)==0 then

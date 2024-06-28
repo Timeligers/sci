@@ -21,8 +21,8 @@ function [Stmp,Ws]=colregul(Sl,Alfa,Beta);
 
     arguments
         Sl {mustBeA(Sl, ["r", "lss"])}
-        Alfa = 0
-        Beta = 0
+        Alfa {mustBeA(Alfa, "double")} = 0
+        Beta {mustBeA(Beta, "double")} = 0
     end
 
     flag=0;

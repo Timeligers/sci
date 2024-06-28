@@ -16,7 +16,7 @@ function Sli=invrs(Sl,alfa);
     //!
     arguments
         Sl {mustBeA(Sl, "lss")}
-        alfa
+        alfa {mustBeA(alfa, "double")}
     end
 
     D=Sl.D;

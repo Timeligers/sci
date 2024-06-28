@@ -22,7 +22,7 @@ function [k,x,err]=leqr(p12,vx)
 
     arguments
         p12 {mustBeA(p12, "lss")}
-        vx
+        vx {mustBeA(vx, "double")}
     end
 
     [a,b2,c1,d12]=p12(2:5);

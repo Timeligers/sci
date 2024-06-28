@@ -14,8 +14,8 @@
 function [db,phi]=dbphi(repf,mod)
 
     arguments
-        repf
-        mod = "c"
+        repf {mustBeA(repf, "double")}
+        mod {mustBeA(mod, "string"), mustBeMember(mod, ["c", "m"])} = "c"
     end
 
     phi=phasemag(repf,mod);

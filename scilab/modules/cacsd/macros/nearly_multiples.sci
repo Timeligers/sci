@@ -16,8 +16,8 @@ function [u,m]=nearly_multiples(v,tol)
     //m   : the multiplicity of the "unique" values/ (u(i) is nearly equal to
     //      m(i) values in v
     arguments
-        v
-        tol = 1e-10
+        v {mustBeA(v, "double")}
+        tol (1,1) {mustBeA(tol, "double")} = 1e-10
     end
     
     v=v(:);

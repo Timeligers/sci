@@ -14,7 +14,7 @@ function [nk,W]=hankelsv(sl,tol)
     //!
     arguments
         sl {mustBeA(sl, "lss")}
-        tol = 1000*%eps
+        tol (1,1) {mustBeA(tol, "double")} = 1000*%eps
     end
 
     if sl.dt==[] then

@@ -24,12 +24,12 @@ function [ar]=armac(a,b,d,ny,nu,sig)
     //!
 
     arguments
-        a (ny, :)
-        b
-        d (ny, :)
-        ny
-        nu
-        sig (ny, ny)
+        a (ny, :) {mustBeA(a, "double")}
+        b {mustBeA(b, "double")}
+        d (ny, :) {mustBeA(d, "double")}
+        ny (1,1) {mustBeA(ny, "double"), mustBeInteger}
+        nu (1,1) {mustBeA(nu, "double"), mustBeInteger}
+        sig (ny, ny) {mustBeA(sig, "double")}
     end
 
 

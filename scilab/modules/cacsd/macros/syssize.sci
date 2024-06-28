@@ -29,7 +29,7 @@ function [io,s] = syssize(sys)
     case 1 then
         msg = "%s: %s(Sl) is obsolete when Sl is a matrix of doubles.\n"
         msg = msprintf(msg, "syssize", "syssize");
-        msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026")]
+        msg = [msg, msprintf(_("This feature will be permanently removed in Scilab %s"), "2026.0.0")]
         warning(msg) 
         io=size(sys)
         s=[]

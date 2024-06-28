@@ -14,7 +14,7 @@ function Slmin=minss(Sl,tol)
 
     arguments
         Sl {mustBeA(Sl, "lss")}
-        tol = 1.d-10*norm([Sl("a");Sl("c")],1)
+        tol (1,1) {mustBeA(tol, "double"), mustBeReal} = 1.d-10*norm([Sl("a");Sl("c")],1)
     end
 
     [a,b,c,d,x0,dom]=Sl(2:7)

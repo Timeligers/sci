@@ -51,13 +51,13 @@ function [Closed,F,G]=ddp(Sys,zeroed,B1,D1,flag,Alfa,Beta)
     // (resp. controllability) of (A,B2).
     //
     arguments
-        Sys
-        zeroed
-        B1
-        D1 = zeros(size(Sys("C"),1),size(B1,2))
-        flag = "st"
-        Alfa = -1
-        Beta = -1
+        Sys {mustBeA(Sys, "lss")}
+        zeroed {mustBeA(zeroed, "double"), mustBeInteger}
+        B1 {mustBeA(B1, "double")}
+        D1 {mustBeA(D1, "double")} = zeros(size(Sys("C"),1),size(B1,2))
+        flag {mustBeA(flag, "string"), mustBeMember(flag, ["ge", "st", "pp"])}= "st"
+        Alfa {mustBeA(Alfa, "double")} = -1
+        Beta {mustBeA(Beta, "double")} = -1
     end
 
     if size(B1,1) ~= size(Sys("A"),1) then

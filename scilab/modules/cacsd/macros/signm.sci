@@ -23,7 +23,7 @@ function x = signm(a)
     //   sign function.
 
     arguments
-        a {mustBeSquare}
+        a {mustBeA(a, "double"), mustBeReal, mustBeSquare}
     end
 
     flag = or(a <> a');

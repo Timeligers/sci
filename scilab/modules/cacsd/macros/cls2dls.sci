@@ -24,8 +24,8 @@ function [s1]=cls2dls(s,t,fp)
 
     arguments
         s {mustBeA(s, "lss")}
-        t
-        fp = []
+        t (1,1) {mustBeA(t, "double")}
+        fp {mustBeA(fp, "double")} = []
     end
 
 

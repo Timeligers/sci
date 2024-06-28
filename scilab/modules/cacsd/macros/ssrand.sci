@@ -118,10 +118,10 @@ function [sl,U]=ssrand(nout,nin,nstate,flag)
     endfunction
 
     arguments
-        nout
-        nin
-        nstate
-        flag = []
+        nout (1,1) {mustBeA(nout, "double")}
+        nin (1,1) {mustBeA(nin, "double")}
+        nstate (1,1) {mustBeA(nstate, "double")}
+        flag {mustBeA(flag, "list")} = list([])
     end
 
     margin=0.5;  //M "stable"  will mean real-part(M) < -margin

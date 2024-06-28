@@ -49,12 +49,12 @@ function [arc,resid]=armax1(r,s,q,y,u,b0f)
     //      in armax function
 
     arguments
-        r
-        s
-        q
-        y
-        u {mustBeEqualDims(u, y)}
-        b0f = 0
+        r (1,1) {mustBeA(r, "double"), mustBeInteger, mustBeNonnegative}
+        s (1,1) {mustBeA(s, "double"), mustBeInteger, mustBeGreaterThanOrEqual(s, -1)}
+        q (1,1) {mustBeA(q, "double"), mustBeInteger}
+        y {mustBeA(y, "double")}
+        u {mustBeA(u, "double"), mustBeEqualDims(u, y)}
+        b0f (1,1) {mustBeA(b0f, "double"), mustBeInteger} = 0
     end
 
     if s==-1,b0f=0;end // Seems not natural, but makes things work

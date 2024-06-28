@@ -14,8 +14,8 @@ function [slm]=arhnk(a,ordre,tol)
 
     arguments
         a {mustBeA(a, "lss")}
-        ordre
-        tol = 0
+        ordre {mustBeA(ordre, "double"), mustBeInteger}
+        tol {mustBeA(tol, "double") }= 0
     end
 
     if nargout <> 1 then

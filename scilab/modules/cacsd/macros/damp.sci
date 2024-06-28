@@ -13,13 +13,11 @@ function [wn,z,p] = damp(R,dt1)
     //   polynomial array or  a linear dynamical system
 
     arguments
-        R
+        R {mustBeA(R, ["lss", "r", "zpk", "polynomial", "double"])}
         dt1 {mustBeA(dt1, ["double", "string"]), mustBeScalarOrEmpty}= []
     end
 
-    if argn(2)<1 then
-        error(msprintf(_("%s: Wrong number of input arguments: %d or %d expected.\n"),"damp",1,2))
-    end
+    
     //handling optional argument dt1
     if dt1 <> [] then
         if type(dt1)==1 then

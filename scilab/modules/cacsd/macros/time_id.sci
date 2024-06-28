@@ -13,9 +13,9 @@
 function [h,err]=time_id(n,u,y)
 
     arguments
-        n
+        n (1,1) {mustBeA(n, "double")}
         u {mustBeA(u, ["double", "string"])}
-        y
+        y {mustBeA(y, "double"), mustBeVector}
     end
 
     // [lhs,rhs]=argn(0)

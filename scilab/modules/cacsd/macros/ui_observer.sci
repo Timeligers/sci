@@ -67,13 +67,13 @@ function [UIobs,J,N]=ui_observer(Sys,reject,C1,D1,flag,Alfa,Beta)
     //        UIobs=ui_observer(Sys,1,C1,D1);
 
     arguments
-        Sys
-        reject
-        C1
-        D1 = []
-        flag = "st"
-        Alfa = -1
-        Beta = -1
+        Sys  {mustBeA(Sys, "lss")}
+        reject {mustBeA(reject, "double"), mustBeInteger}
+        C1 {mustBeA(C1, "double"), mustBeReal}
+        D1 {mustBeA(D1, "double"), mustBeReal} = []
+        flag {mustBeA(flag, "string"), mustBeMember(flag, ["ge", "st", "pp"])}= "st"
+        Alfa {mustBeA(Alfa, "double")} = -1
+        Beta {mustBeA(Alfa, "double")} = -1
     end
 
     if size(C1,2) ~= size(Sys("A"),1) then

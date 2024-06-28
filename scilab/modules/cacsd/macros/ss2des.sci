@@ -17,7 +17,7 @@ function S=ss2des(Sl,flag)
     // otherwise D=0;
     // Copyright INRIA
     arguments
-        Sl
+        Sl {mustBeA(Sl, "lss")}
         flag {mustBeA(flag, "string"), mustBeScalarOrEmpty, mustBeMember(flag, ["", "withD"])} = ""
     end
     

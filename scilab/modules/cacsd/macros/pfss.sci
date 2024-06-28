@@ -23,8 +23,8 @@ function elts = pfss(S, rmax, cord)
 
     arguments
         S {mustBeA(S, ["r", "lss"])}
-        rmax = []
-        cord = []
+        rmax {mustBeA(rmax, ["double", "string"])} = []
+        cord {mustBeA(cord, ["double", "string"])} = []
     end
 
     if nargin == 2 && type(rmax) == 10 then

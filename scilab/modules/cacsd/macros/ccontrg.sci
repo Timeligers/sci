@@ -25,7 +25,7 @@ function [K]=ccontrg(PP,r,Gamma);
     arguments
         PP {mustBeA(PP, "lss")}
         r {mustBeA(r, "double"), mustBeReal, mustBeVector, mustBeNonnegative}
-        Gamma
+        Gamma {mustBeA(Gamma, "double")}
     end
 
     if PP.dt<>"c" then

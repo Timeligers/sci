@@ -13,8 +13,8 @@
 function [phi,db]=phasemag(z,mod)
 
     arguments
-        z
-        mod = "c"
+        z {mustBeA(z, "double")}
+        mod (1,1) {mustBeA(mod, "string"), mustBeMember(mod, ["c", "m"])} = "c"
     end
 
     if nargout == 2 then

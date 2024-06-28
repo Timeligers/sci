@@ -55,9 +55,9 @@ function [X,dims,J,Y,k,Z]=cainv(Sl,Alfa,Beta,flag)
     // H*W = [0 | *]  (with at least as many columns as above).
 
     arguments
-        Sl
-        Alfa = -1
-        Beta = Alfa
+        Sl {mustBeA(Sl, "lss")}
+        Alfa {mustBeA(Alfa, "double")} = -1
+        Beta {mustBeA(Beta, "double")} =  Alfa
         flag (1,1) {mustBeA(flag, "string"), mustBeMember(flag, ["ge", "st", "pp"])}= "ge"
     end
 
