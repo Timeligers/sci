@@ -11,7 +11,6 @@ Description:
     <module name="Checker">
         <property name="severity" value="warning"/>
         <module name="TreeWalker">
-            <module name="FileContentsHolder"/>
             <module name="JavadocMethod"/>
             <module name="JavadocType"/>
             <module name="JavadocVariable">
@@ -34,9 +33,6 @@ Description:
             <module name="IllegalImport"/>
             <module name="RedundantImport"/>
             <module name="UnusedImports"/>
-            <module name="LineLength">
-                <property name="max" value="150"/>
-            </module>
             <module name="MethodLength"/>
             <module name="ParameterNumber"/>
             <module name="EmptyForIteratorPad"/>
@@ -116,6 +112,15 @@ Description:
             <module name="CyclomaticComplexity"/>
             <module name="JavaNCSS"/>
             <module name="NPathComplexity"/>
+            <module name="SuppressionCommentFilter">
+                <property name="offCommentFormat" value="CSOFF\: ([\w\|]+)"/>
+                <property name="onCommentFormat" value="CSON\: ([\w\|]+)"/>
+                <property name="checkFormat" value="$1"/>
+            </module>
+            <module name="SuppressionCommentFilter" />
+        </module>
+        <module name="LineLength">
+            <property name="max" value="150"/>
         </module>
         <module name="FileLength"/>
         <module name="JavadocPackage">
@@ -129,10 +134,4 @@ Commented because we do need it (copy and paste for create bridges)
 <module name="StrictDuplicateCode">
         <property name="severity" value="info"/>
     </module>-->
-        <module name="SuppressionCommentFilter">
-            <property name="offCommentFormat" value="CSOFF\: ([\w\|]+)"/>
-            <property name="onCommentFormat" value="CSON\: ([\w\|]+)"/>
-            <property name="checkFormat" value="$1"/>
-        </module>
-        <module name="SuppressionCommentFilter" />
     </module>

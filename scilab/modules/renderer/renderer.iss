@@ -30,8 +30,8 @@ Source: bin\newt_head.dll; DestDir: {app}\bin; Components: {#COMPN_GRAPHICS}
 Source: bin\sci{#RENDERER}.dll; DestDir: {app}\bin; Components: {#COMPN_GRAPHICS}
 ;Source: bin\no{#RENDERER}.dll; DestDir: {app}\bin; DestName: scirenderer.dll; Components: not ({#COMPN_GRAPHICS})
 ;
-Source: thirdparty\gluegen-rt.jar; DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
-Source: thirdparty\jogl-all.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\gluegen-rt-2.5.0.jar; DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\jogl-all-2.5.0.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
 Source: modules\scirenderer\jar\scirenderer.jar;DestDir: {app}\modules\scirenderer\jar; Components: {#COMPN_GRAPHICS}
 ;
 Source: thirdparty\fonts\scilabsymbols.ttf;DestDir: {app}\thirdparty\fonts; Components: {#COMPN_GRAPHICS}
