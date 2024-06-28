@@ -1153,7 +1153,7 @@ static types::InternalType* import_usertype(hid_t dataset)
         return nullptr;
     }
 
-    types::String* s = it->getAs<types::String>();
+    types::String* s = itType->getAs<types::String>();
     wchar_t* type = s->get()[0];
 
     types::InternalType* data = ss->get(L"data");
@@ -1164,7 +1164,8 @@ static types::InternalType* import_usertype(hid_t dataset)
     }
 
     // ensure the stored type is the same as the actual datatype
-    if (data->getShortTypeStr() != std::wstring(type))
+    std::wstring dataShortTypeStr = data->getShortTypeStr();
+    if (dataShortTypeStr != std::wstring(type))
     {
         delete it;
         return nullptr;
