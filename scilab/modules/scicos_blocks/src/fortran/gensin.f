@@ -36,5 +36,5 @@ c
 
 c
 c
-         y(1)=rpar(1)*sin(rpar(2)*t+rpar(3))
+         y(1)=rpar(1)*sin(rpar(2)*(t-floor(t))+rpar(3))
       end
