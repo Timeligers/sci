@@ -165,7 +165,7 @@ windows_only:
 .linux_test:
   stage: test
   tags: [x86_64-linux-gnu, docker, scilab]
-  image: ${CI_REGISTRY_IMAGE}/ubuntu-18.04:${DOCKER_TAG}
+  image: ${CI_REGISTRY_IMAGE}/ubuntu-20.04:${DOCKER_TAG}
   script: bash -e -x .gitlab-ci/test.sh
   artifacts:
     when: always

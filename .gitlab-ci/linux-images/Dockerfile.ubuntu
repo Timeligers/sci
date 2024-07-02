@@ -5,7 +5,7 @@
 # This Dockerfile describe the configuration of a Linux Ubuntu image base system
 #
 
-ARG DISTRO=ubuntu:18.04
+ARG DISTRO=ubuntu:20.04
 FROM $DISTRO
 
 RUN apt-get update && apt-get install -y \
