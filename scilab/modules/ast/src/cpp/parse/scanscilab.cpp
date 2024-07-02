@@ -2375,358 +2375,334 @@ YY_RULE_SETUP
 case 2:
 YY_RULE_SETUP
 {
-    BEGIN(INITIAL);
-    return scan_throw(BOOLTRUE);
+  BEGIN(INITIAL);
+  return scan_throw(BOOLTRUE);
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 {
-    BEGIN(INITIAL);
-    return scan_throw(BOOLFALSE);
+  BEGIN(INITIAL);
+  return scan_throw(BOOLFALSE);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 {
   if (last_token != DOT)
-    {
-        ParserSingleInstance::pushControlStatus(Parser::WithinArguments);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-    return scan_throw(ARGUMENTS);
+  {
+    ParserSingleInstance::pushControlStatus(Parser::WithinArguments);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(ARGUMENTS);
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::pushControlStatus(Parser::WithinIf);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-    return scan_throw(IF);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::pushControlStatus(Parser::WithinIf);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(IF);
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 {
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-    return scan_throw(THEN);
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(THEN);
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        // Pop to step out IF
-        ParserSingleInstance::popControlStatus();
-        ParserSingleInstance::pushControlStatus(Parser::WithinElse);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-	return scan_throw(ELSE);
+  if (last_token != DOT)
+  {
+    // Pop to step out IF
+    ParserSingleInstance::popControlStatus();
+    ParserSingleInstance::pushControlStatus(Parser::WithinElse);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(ELSE);
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::popControlStatus();
-        ParserSingleInstance::pushControlStatus(Parser::WithinElseIf);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-	return scan_throw(ELSEIF);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::popControlStatus();
+    ParserSingleInstance::pushControlStatus(Parser::WithinElseIf);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(ELSEIF);
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::popControlStatus();
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-    return scan_throw(END);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::popControlStatus();
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(END);
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::pushControlStatus(Parser::WithinSelect);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-    return scan_throw(SELECT);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::pushControlStatus(Parser::WithinSelect);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(SELECT);
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::pushControlStatus(Parser::WithinSwitch);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-    return scan_throw(SWITCH);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::pushControlStatus(Parser::WithinSwitch);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(SWITCH);
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::popControlStatus();
-        ParserSingleInstance::pushControlStatus(Parser::WithinOtherwise);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-	return scan_throw(OTHERWISE);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::popControlStatus();
+    ParserSingleInstance::pushControlStatus(Parser::WithinOtherwise);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(OTHERWISE);
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::popControlStatus();
-        ParserSingleInstance::pushControlStatus(Parser::WithinCase);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-    return scan_throw(CASE);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::popControlStatus();
+    ParserSingleInstance::pushControlStatus(Parser::WithinCase);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(CASE);
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::pushControlStatus(Parser::WithinFunction);
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-    return scan_throw(FUNCTION);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::pushControlStatus(Parser::WithinFunction);
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(FUNCTION);
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::popControlStatus();
-    }
-    DEBUG("BEGIN(INITIAL)");
-    BEGIN(INITIAL);
-	return scan_throw(ENDFUNCTION);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::popControlStatus();
+  }
+  DEBUG("BEGIN(INITIAL)");
+  BEGIN(INITIAL);
+  return scan_throw(ENDFUNCTION);
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::pushControlStatus(Parser::WithinFor);
-    }
-    BEGIN(INITIAL);
-    return scan_throw(FOR);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::pushControlStatus(Parser::WithinFor);
+  }
+  BEGIN(INITIAL);
+  return scan_throw(FOR);
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 {
-	if (last_token != DOT)
-    {
-        ParserSingleInstance::pushControlStatus(Parser::WithinWhile);
-    }
-	BEGIN(INITIAL);
-	return scan_throw(WHILE);
+  if (last_token != DOT)
+  {
+    ParserSingleInstance::pushControlStatus(Parser::WithinWhile);
+  }
+  BEGIN(INITIAL);
+  return scan_throw(WHILE);
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 {
-	BEGIN(INITIAL);
-    return scan_throw(DO);
+  BEGIN(INITIAL);
+  return scan_throw(DO);
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 {
-    	BEGIN(INITIAL);
-        return scan_throw(BREAK);
+  BEGIN(INITIAL);
+  return scan_throw(BREAK);
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 {
-    	BEGIN(INITIAL);
-        return scan_throw(CONTINUE);
+  BEGIN(INITIAL);
+  return scan_throw(CONTINUE);
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 {
-	ParserSingleInstance::pushControlStatus(Parser::WithinTry);
-	BEGIN(INITIAL);
-	return scan_throw(TRY);
+  ParserSingleInstance::pushControlStatus(Parser::WithinTry);
+  BEGIN(INITIAL);
+  return scan_throw(TRY);
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 {
-    // Pop to step out TRY
-	ParserSingleInstance::popControlStatus();
-	ParserSingleInstance::pushControlStatus(Parser::WithinCatch);
-	BEGIN(INITIAL);
-	return scan_throw(CATCH);
+  // Pop to step out TRY
+  ParserSingleInstance::popControlStatus();
+  ParserSingleInstance::pushControlStatus(Parser::WithinCatch);
+  BEGIN(INITIAL);
+  return scan_throw(CATCH);
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 {
-    BEGIN(INITIAL);
-    return scan_throw(RETURN);
+  BEGIN(INITIAL);
+  return scan_throw(RETURN);
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 {
-    BEGIN(INITIAL);
-    return scan_throw(RETURN);
+  BEGIN(INITIAL);
+  return scan_throw(RETURN);
 }
 	YY_BREAK
 case 25:
 /* rule 25 can match eol */
 YY_RULE_SETUP
 {
-        DEBUG("BEGIN(BEGIN)");
-        BEGIN(BEGINID);
+  DEBUG("BEGIN(BEGINID)");
+  BEGIN(BEGINID);
 }
 	YY_BREAK
-
 case 26:
 YY_RULE_SETUP
 {
-        wchar_t *pwText = to_wide_string(yytext);
-        if (yytext != NULL && pwText == NULL)
-        {
-	        std::string str = "Can\'t convert \'";
-	        str += yytext;
-	        str += "\' to UTF-8";
-	        BEGIN(INITIAL);
-	        yyerror(str);
-	        return scan_throw(FLEX_ERROR);
-        }
-        yylval.str = new std::wstring(pwText);
-	      FREE(pwText);
-	      types::InternalType * pIT = symbol::Context::getInstance()->get(symbol::Symbol(*yylval.str));
-        if (pIT && pIT->isCallable() && ParserSingleInstance::getControlStatus() != Parser::WithinArguments)
-        {
-            DEBUG("BEGIN(SHELLMODE)");
-            BEGIN(SHELLMODE);
-        }
-        else
-        {
-            DEBUG("BEGIN(INITIAL)");
-            BEGIN(INITIAL);
-        }
-        #ifdef TOKENDEV
-          std::cout << "--> [DEBUG] ID : " << yytext << std::endl;
-        #endif
-	      return scan_throw(ID);
-    }
+  wchar_t *pwText = to_wide_string(yytext);
+  if (yytext != NULL && pwText == NULL)
+  {
+    std::string str = "Can\'t convert \'";
+    str += yytext;
+    str += "\' to UTF-8";
+    BEGIN(INITIAL);
+    yyerror(str);
+    return scan_throw(FLEX_ERROR);
+  }
+  yylval.str = new std::wstring(pwText);
+  FREE(pwText);
+  types::InternalType * pIT = symbol::Context::getInstance()->get(symbol::Symbol(*yylval.str));
+  if (pIT && pIT->isCallable() && ParserSingleInstance::getControlStatus() != Parser::WithinArguments)
+  {
+    DEBUG("BEGIN(SHELLMODE)");
+    BEGIN(SHELLMODE);
+  }
+  else
+  {
+    DEBUG("BEGIN(INITIAL)");
+    BEGIN(INITIAL);
+  }
+  #ifdef TOKENDEV
+  std::cout << "--> [DEBUG] ID : " << yytext << std::endl;
+  #endif
+  return scan_throw(ID);
+}
 	YY_BREAK
-
 case 27:
 YY_RULE_SETUP
-{
-  return scan_throw(NOT);
-}
+return scan_throw(NOT);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-{
-  return scan_throw(DOLLAR);
-}
+return scan_throw(DOLLAR);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-{
-  return scan_throw(BOOLTRUE);
-}
+return scan_throw(BOOLTRUE);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-{
-  return scan_throw(BOOLFALSE);
-}
+return scan_throw(BOOLFALSE);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-{
-  return scan_throw(AND);
-}
+return scan_throw(AND);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-{
-  return scan_throw(ANDAND);
-}
+return scan_throw(ANDAND);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-{
-  return scan_throw(OR);
-}
+return scan_throw(OR);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-{
-  return scan_throw(OROR);
-}
+return scan_throw(OROR);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-{
-  return scan_throw(LPAREN);
-}
+return scan_throw(LPAREN);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-{
-  return scan_throw(RPAREN);
-}
+return scan_throw(RPAREN);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 {
-	scan_step();
+  scan_step();
   return scan_throw(SEMI);
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 {
-	scan_step();
+  scan_step();
   return scan_throw(COMMA);
 }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-{
-  return scan_throw(COLON);
-}
+return scan_throw(COLON);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
@@ -2739,159 +2715,115 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-{
-  return scan_throw(RBRACE);
-}
+return scan_throw(RBRACE);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-{
-  return scan_throw(DOTQUOTE);
-}
+return scan_throw(DOTQUOTE);
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-{
-  return scan_throw(DOTTIMES);
-}
+return scan_throw(DOTTIMES);
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-{
-  return scan_throw(DOTRDIVIDE);
-}
+return scan_throw(DOTRDIVIDE);
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-{
-  return scan_throw(DOTLDIVIDE);
-}
+return scan_throw(DOTLDIVIDE);
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-{
-  return scan_throw(DOTPOWER);
-}
+return scan_throw(DOTPOWER);
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-{
-  return scan_throw(MINUS);
-}
+return scan_throw(MINUS);
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-{
-  return scan_throw(PLUS);
-}
+return scan_throw(PLUS);
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-{
-  return scan_throw(TIMES);
-}
+return scan_throw(TIMES);
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-{
-  return scan_throw(RDIVIDE);
-}
+return scan_throw(RDIVIDE);
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-{
-  return scan_throw(LDIVIDE);
-}
+return scan_throw(LDIVIDE);
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-{
-  return scan_throw(POWER);
-}
+return scan_throw(POWER);
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-{
-  return scan_throw(KRONTIMES);
-}
+return scan_throw(KRONTIMES);
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-{
-  return scan_throw(KRONRDIVIDE);
-}
+return scan_throw(KRONRDIVIDE);
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-{
-  return scan_throw(KRONLDIVIDE);
-}
+return scan_throw(KRONLDIVIDE);
 	YY_BREAK
 case 56:
 /* rule 56 can match eol */
 YY_RULE_SETUP
 {
-    unput(yytext[yyleng - 1]);
-    return scan_throw(CONTROLTIMES);
+  unput(yytext[yyleng - 1]);
+  return scan_throw(CONTROLTIMES);
 }
 	YY_BREAK
 case 57:
 /* rule 57 can match eol */
 YY_RULE_SETUP
 {
-    unput(yytext[yyleng - 1]);
-    return scan_throw(CONTROLRDIVIDE);
+  unput(yytext[yyleng - 1]);
+  return scan_throw(CONTROLRDIVIDE);
 }
 	YY_BREAK
 case 58:
 /* rule 58 can match eol */
 YY_RULE_SETUP
 {
-    unput(yytext[yyleng - 1]);
-    return scan_throw(CONTROLLDIVIDE);
+  unput(yytext[yyleng - 1]);
+  return scan_throw(CONTROLLDIVIDE);
 }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-{
-  return scan_throw(EQ);
-}
+return scan_throw(EQ);
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-{
-  return scan_throw(NE);
-}
+return scan_throw(NE);
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-{
-  return scan_throw(LT);
-}
+return scan_throw(LT);
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-{
-  return scan_throw(GT);
-}
+return scan_throw(GT);
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-{
-  return scan_throw(LE);
-}
+return scan_throw(LE);
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-{
-  return scan_throw(GE);
-}
+return scan_throw(GE);
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-{
-  return scan_throw(ASSIGN);
- }
+return scan_throw(ASSIGN);
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
@@ -2905,21 +2837,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-{
-  return scan_throw(RBRACK);
-}
+return scan_throw(RBRACK);
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-{
-  return scan_throw(DOT);
-}
+return scan_throw(DOT);
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
 {
-    ParserSingleInstance::pushControlStatus(Parser::WithinDots);
-    yy_push_state(LINEBREAK);
+  ParserSingleInstance::pushControlStatus(Parser::WithinDots);
+  yy_push_state(LINEBREAK);
 }
 	YY_BREAK
 case 70:
@@ -2962,7 +2890,6 @@ case 73:
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
 {
-
   yylval.number = atof(yytext);
 #ifdef TOKENDEV
   std::cout << "--> [DEBUG] NUMBER WITH DOT AS LAST CHARACTER : " << yytext << std::endl;
@@ -2998,18 +2925,18 @@ YY_RULE_SETUP
 case 76:
 YY_RULE_SETUP
 {
-    wchar_t *pwText = to_wide_string(yytext);
-    if (yytext != NULL && pwText == NULL)
-    {
-	std::string str = "Can\'t convert \'";
-	str += yytext;
-	str += "\' to UTF-8";
-	BEGIN(INITIAL);
-	yyerror(str);
-	return scan_throw(FLEX_ERROR);
-    }
-    yylval.str = new std::wstring(pwText);
-    FREE(pwText);
+  wchar_t *pwText = to_wide_string(yytext);
+  if (yytext != NULL && pwText == NULL)
+  {
+    std::string str = "Can\'t convert \'";
+    str += yytext;
+    str += "\' to UTF-8";
+    BEGIN(INITIAL);
+    yyerror(str);
+    return scan_throw(FLEX_ERROR);
+  }
+  yylval.str = new std::wstring(pwText);
+  FREE(pwText);
 #ifdef TOKENDEV
   std::cout << "--> [DEBUG] ID : " << yytext << std::endl;
 #endif
@@ -3020,8 +2947,8 @@ YY_RULE_SETUP
 case 77:
 YY_RULE_SETUP
 {
-    yyerror("syntax error, unexpected identifier, expecting end of file");
-    return scan_throw(FLEX_ERROR);
+  yyerror("syntax error, unexpected identifier, expecting end of file");
+  return scan_throw(FLEX_ERROR);
 }
 	YY_BREAK
 case 78:
@@ -3058,12 +2985,12 @@ YY_RULE_SETUP
   ** Can not be Matrix Transposition
   ** Pushing SIMPLESTRING
   */
-    pstBuffer.clear();
-    str_opener_column = yylloc.first_column;
-    #ifdef TOKENDEV
-      std::cout << "--> Push State SIMPLESTRING" << std::endl;
-    #endif
-    yy_push_state(SIMPLESTRING);
+  pstBuffer.clear();
+  str_opener_column = yylloc.first_column;
+  #ifdef TOKENDEV
+  std::cout << "--> Push State SIMPLESTRING" << std::endl;
+  #endif
+  yy_push_state(SIMPLESTRING);
 }
 	YY_BREAK
 case 82:
@@ -3083,27 +3010,25 @@ YY_RULE_SETUP
       || last_token == BOOLTRUE
       || last_token == BOOLFALSE)
   {
-      #ifdef TOKENDEV
-        std::cout << "--> QUOTE" << std::endl;
-      #endif
-      return scan_throw(QUOTE);
+    #ifdef TOKENDEV
+    std::cout << "--> QUOTE" << std::endl;
+    #endif
+    return scan_throw(QUOTE);
   }
   else
   {
-      pstBuffer.clear();
-      str_opener_column = yylloc.first_column;
-      #ifdef TOKENDEV
-        std::cout << "--> Push State SIMPLESTRING" << std::endl;
-      #endif
-      yy_push_state(SIMPLESTRING);
+    pstBuffer.clear();
+    str_opener_column = yylloc.first_column;
+    #ifdef TOKENDEV
+    std::cout << "--> Push State SIMPLESTRING" << std::endl;
+    #endif
+    yy_push_state(SIMPLESTRING);
   }
 }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-{
-        scan_step();
-}
+scan_step();
 	YY_BREAK
 case 84:
 /* rule 84 can match eol */
@@ -3113,9 +3038,8 @@ YY_RULE_SETUP
   yylloc.last_column = 1;
   scan_step();
   if (last_token != EOL) {
-      return scan_throw(EOL);
+    return scan_throw(EOL);
   }
-
 }
 	YY_BREAK
 case 85:
@@ -3127,7 +3051,7 @@ YY_RULE_SETUP
   scan_step();
   if (last_token != EOL)
   {
-      return scan_throw(EOL);
+    return scan_throw(EOL);
   }
   scan_throw(EOL);
 }
@@ -3141,7 +3065,7 @@ YY_RULE_SETUP
   scan_step();
   if (last_token != EOL)
   {
-      return scan_throw(EOL);
+    return scan_throw(EOL);
   }
   scan_throw(EOL);
 }
@@ -3175,50 +3099,48 @@ YY_RULE_SETUP
 case 90:
 YY_RULE_SETUP
 {
-      unput(yytext[yyleng - 1]);
-      --yylloc.last_column;
-      if (last_token == ID
-          || last_token == RPAREN
-          || last_token == QUOTE
-          || last_token == VARINT
-          || last_token == VARFLOAT
-          || last_token == NUM)
-      {
-          return scan_throw(COMMA);
-      }
+    unput(yytext[yyleng - 1]);
+    --yylloc.last_column;
+    if (last_token == ID
+        || last_token == RPAREN
+        || last_token == QUOTE
+        || last_token == VARINT
+        || last_token == VARFLOAT
+        || last_token == NUM)
+    {
+      return scan_throw(COMMA);
+    }
   }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-{
-      return scan_throw(COLON);
-  }
+return scan_throw(COLON);
 	YY_BREAK
 case 92:
 /* rule 92 can match eol */
 YY_RULE_SETUP
 {
-      yylloc.last_line += 1;
-      yylloc.last_column = 1;
-      scan_step();
-      if(last_token != DOTS && last_token != EOL)
-      {
-          return scan_throw(EOL);
-      }
-      scan_throw(EOL);
+    yylloc.last_line += 1;
+    yylloc.last_column = 1;
+    scan_step();
+    if(last_token != DOTS && last_token != EOL)
+    {
+      return scan_throw(EOL);
+    }
+    scan_throw(EOL);
   }
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
 {
-      unput('\'');
-      yylloc.last_column--;
-      if (last_token == ID
-          || last_token == RPAREN
-          || last_token == QUOTE)
-      {
-          return scan_throw(COMMA);
-      }
+    unput('\'');
+    yylloc.last_column--;
+    if (last_token == ID
+        || last_token == RPAREN
+        || last_token == QUOTE)
+    {
+      return scan_throw(COMMA);
+    }
   }
 	YY_BREAK
 case 94:
@@ -3288,7 +3210,6 @@ YY_RULE_SETUP
     // but [a +b] == [a, +b] and plus here is unary and is not removed, as unary plus
     // is not necessary defined for all data types (https://gitlab.com/scilab/scilab/-/issues/15850)
     // A priori, the space *is* coding
-
     unput('+');
     yylloc.last_column--;
     if (last_token != LBRACK
@@ -3315,16 +3236,15 @@ YY_RULE_SETUP
        && last_token != LE
        && last_token != GE
       && paren_levels.top() == 0)
-   {
-       return scan_throw(COMMA);
-   }
+    {
+      return scan_throw(COMMA);
+    }
   }
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
 {
     // See {spaces}{plus} rule for the rationale
-
     unput('-');
     yylloc.last_column--;
     if (last_token != LBRACK
@@ -3351,9 +3271,9 @@ YY_RULE_SETUP
        && last_token != LE
        && last_token != GE
        && paren_levels.top() == 0)
-   {
+    {
        return scan_throw(COMMA);
-   }
+    }
   }
 	YY_BREAK
 case 102:
@@ -3377,66 +3297,66 @@ YY_RULE_SETUP
 case 103:
 YY_RULE_SETUP
 {
-             // This rule is made to take into account a +... without spaces after plus
-             // if one simply ignores the next a situation like this could arise
-             // Example
-             // =======
-             // A = [1 +...
-             // 2] 
-             //
-             // what is meant by the user [1 +2] ? or [1 + 2]
-             // simply ignoring the ... would yield the 1st situation [1, 2]
-             // We consider this is NOT proper and instead that the user meant a binary plus
-             // split is two lines
-             // The same rationale applies to minus.
+    // This rule is made to take into account a +... without spaces after plus
+    // if one simply ignores the next a situation like this could arise
+    // Example
+    // =======
+    // A = [1 +...
+    // 2] 
+    //
+    // what is meant by the user [1 +2] ? or [1 + 2]
+    // simply ignoring the ... would yield the 1st situation [1, 2]
+    // We consider this is NOT proper and instead that the user meant a binary plus
+    // split is two lines
+    // The same rationale applies to minus.
 
-             linebreak_stored_space = FALSE; // no spaces before ...
-             linebreak_stored_token = PLUS; // keep last token to restore
-             ParserSingleInstance::pushControlStatus(Parser::WithinDots);
-             yy_push_state(LINEBREAK);
-             return scan_throw(PLUS);
-         }
+    linebreak_stored_space = FALSE; // no spaces before ...
+    linebreak_stored_token = PLUS; // keep last token to restore
+    ParserSingleInstance::pushControlStatus(Parser::WithinDots);
+    yy_push_state(LINEBREAK);
+    return scan_throw(PLUS);
+  }
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
 {
-             // see {spaces}*{minus}{next} for the rationale
+    // see {spaces}*{minus}{next} for the rationale
 
-             linebreak_stored_space = FALSE; // no spaces before ...
-             linebreak_stored_token = MINUS; // keep last token to restore
-             ParserSingleInstance::pushControlStatus(Parser::WithinDots);
-             yy_push_state(LINEBREAK);
-             return scan_throw(MINUS);
-         }
+    linebreak_stored_space = FALSE; // no spaces before ...
+    linebreak_stored_token = MINUS; // keep last token to restore
+    ParserSingleInstance::pushControlStatus(Parser::WithinDots);
+    yy_push_state(LINEBREAK);
+    return scan_throw(MINUS);
+  }
 	YY_BREAK
 case 105:
 YY_RULE_SETUP
 {
-             // Store the state of the previously scanned token for next rule
-             // Only considerations of coding spaces is important for the parser
+    // Store the state of the previously scanned token for next rule
+    // Only considerations of coding spaces is important for the parser
 
-             linebreak_stored_space = FALSE; // no spaces before ...
-             linebreak_stored_token = last_token; // keep last token to restore state
-             ParserSingleInstance::pushControlStatus(Parser::WithinDots);
-             yy_push_state(LINEBREAK);
-         }
+    linebreak_stored_space = FALSE; // no spaces before ...
+    linebreak_stored_token = last_token; // keep last token to restore state
+    ParserSingleInstance::pushControlStatus(Parser::WithinDots);
+    yy_push_state(LINEBREAK);
+  }
 	YY_BREAK
 case 106:
 YY_RULE_SETUP
 {
-             // Store the state of the previously scanned token for next rule
-             // Only considerations of coding spaces is important for the parser
+    // Store the state of the previously scanned token for next rule
+    // Only considerations of coding spaces is important for the parser
 
-             linebreak_stored_space = TRUE; // no spaces before ...
-             linebreak_stored_token = last_token; // keep last token to restore state
-             ParserSingleInstance::pushControlStatus(Parser::WithinDots);
-             yy_push_state(LINEBREAK);
-         }
+    linebreak_stored_space = TRUE; // no spaces before ...
+    linebreak_stored_token = last_token; // keep last token to restore state
+    ParserSingleInstance::pushControlStatus(Parser::WithinDots);
+    yy_push_state(LINEBREAK);
+  }
 	YY_BREAK
 case YY_STATE_EOF(MATRIX):
 {
-      yy_pop_state();
-      paren_levels.pop();
+    yy_pop_state();
+    paren_levels.pop();
   }
 	YY_BREAK
 
@@ -3450,9 +3370,9 @@ YY_RULE_SETUP
     last_token = linebreak_stored_token;
     if (linebreak_stored_space)
     {
-        // This is important to restore coding spaces as if ... was not present
-        unput(' ');
-        linebreak_stored_space = FALSE;
+      // This is important to restore coding spaces as if ... was not present
+      unput(' ');
+      linebreak_stored_space = FALSE;
     }
     yy_pop_state();
     ParserSingleInstance::popControlStatus();
@@ -3478,12 +3398,12 @@ YY_RULE_SETUP
 case 110:
 YY_RULE_SETUP
 {
-      /* Do nothing... */
+    /* Do nothing... */
   }
 	YY_BREAK
 case YY_STATE_EOF(LINEBREAK):
 {
-      yy_pop_state();
+    yy_pop_state();
   }
 	YY_BREAK
 case 111:
@@ -3518,10 +3438,10 @@ YY_RULE_SETUP
     // loop to manage \n and \r\n
     for (int i = yyleng - 1 ; i >= 0 ; --i)
     {
-        //std::cerr << "Unputting i = {" << i << "}" << std::endl;
-        //std::cerr << "Unputting {" << yytext[i] << "}" << std::endl;
-        unput(yytext[i]);
-        yylloc.last_column--;
+      //std::cerr << "Unputting i = {" << i << "}" << std::endl;
+      //std::cerr << "Unputting {" << yytext[i] << "}" << std::endl;
+      unput(yytext[i]);
+      yylloc.last_column--;
     }
     // yylloc.first_column is the location of the {newline}
     // remove the size of the comment to have proper location 
@@ -3554,7 +3474,7 @@ YY_RULE_SETUP
     }
     else
     {
-	    pstBuffer.clear();
+      pstBuffer.clear();
     }
   }
 	YY_BREAK
@@ -3591,7 +3511,8 @@ case 114:
 YY_RULE_SETUP
 {
     --comment_level;
-    if (comment_level == 0) {
+    if (comment_level == 0)
+    {
       ParserSingleInstance::popControlStatus();
       yy_pop_state();
       //return scan_throw(BLOCKCOMMENT);
@@ -3634,27 +3555,19 @@ case YY_STATE_EOF(REGIONCOMMENT):
 
 case 119:
 YY_RULE_SETUP
-{
-    pstBuffer += "\"";
-  }
+pstBuffer += "\"";
 	YY_BREAK
 case 120:
 YY_RULE_SETUP
-{
-    pstBuffer += "'";
-  }
+pstBuffer += "'";
 	YY_BREAK
 case 121:
 YY_RULE_SETUP
-{
-    pstBuffer += "\"";
-  }
+pstBuffer += "\"";
 	YY_BREAK
 case 122:
 YY_RULE_SETUP
-{
-    pstBuffer += "'";
-  }
+pstBuffer += "'";
 	YY_BREAK
 case 123:
 YY_RULE_SETUP
@@ -3664,13 +3577,13 @@ YY_RULE_SETUP
     wchar_t *pwstBuffer = to_wide_string(pstBuffer.c_str());
     if (pstBuffer.c_str() != NULL && pwstBuffer == NULL)
     {
-	pstBuffer.clear();
-	std::string str = "Can\'t convert \'";
-        str += pstBuffer.c_str();
-        str += "\' to UTF-8";
-	BEGIN(INITIAL);
-	yyerror(str);
-	return scan_throw(FLEX_ERROR);
+      pstBuffer.clear();
+      std::string str = "Can\'t convert \'";
+      str += pstBuffer.c_str();
+      str += "\' to UTF-8";
+      BEGIN(INITIAL);
+      yyerror(str);
+      return scan_throw(FLEX_ERROR);
     }
     yylval.str = new std::wstring(pwstBuffer);
     pstBuffer.clear();
@@ -3720,27 +3633,19 @@ YY_RULE_SETUP
 
 case 128:
 YY_RULE_SETUP
-{
-    pstBuffer += "\"";
-  }
+pstBuffer += "\"";
 	YY_BREAK
 case 129:
 YY_RULE_SETUP
-{
-    pstBuffer += "'";
-  }
+pstBuffer += "'";
 	YY_BREAK
 case 130:
 YY_RULE_SETUP
-{
-    pstBuffer += "\"";
-  }
+pstBuffer += "\"";
 	YY_BREAK
 case 131:
 YY_RULE_SETUP
-{
-    pstBuffer += "'";
-  }
+pstBuffer += "'";
 	YY_BREAK
 case 132:
 YY_RULE_SETUP
@@ -3750,13 +3655,13 @@ YY_RULE_SETUP
     wchar_t *pwstBuffer = to_wide_string(pstBuffer.c_str());
     if (pstBuffer.c_str() != NULL && pwstBuffer == NULL)
     {
-	pstBuffer.clear();
-        std::string str = "Can\'t convert \'";
-        str += pstBuffer.c_str();
-        str += "\' to UTF-8";
-	BEGIN(INITIAL);
-	yyerror(str);
-	return scan_throw(FLEX_ERROR);
+      pstBuffer.clear();
+      std::string str = "Can\'t convert \'";
+      str += pstBuffer.c_str();
+      str += "\' to UTF-8";
+      BEGIN(INITIAL);
+      yyerror(str);
+      return scan_throw(FLEX_ERROR);
     }
     yylval.str = new std::wstring(pwstBuffer);
     pstBuffer.clear();
@@ -3799,8 +3704,8 @@ case 135:
 case 136:
 YY_RULE_SETUP
 {
-   //scan_step();
-   pstBuffer += yytext;
+    //scan_step();
+    pstBuffer += yytext;
   }
 	YY_BREAK
 
@@ -3809,70 +3714,70 @@ YY_RULE_SETUP
 {
         if (last_token == ID)
         {
-            scan_throw(SPACES);
-            //return ID;
+          scan_throw(SPACES);
+          //return ID;
         }
     }
 	YY_BREAK
 case 138:
 YY_RULE_SETUP
 {
-        BEGIN(INITIAL);
-        scan_step();
-        return scan_throw(SEMI);
+      BEGIN(INITIAL);
+      scan_step();
+      return scan_throw(SEMI);
     }
 	YY_BREAK
 case 139:
 YY_RULE_SETUP
 {
-        BEGIN(INITIAL);
-        scan_step();
-        return scan_throw(COMMA);
+      BEGIN(INITIAL);
+      scan_step();
+      return scan_throw(COMMA);
     }
 	YY_BREAK
 case 140:
 /* rule 140 can match eol */
 YY_RULE_SETUP
 {
-        BEGIN(INITIAL);
-        yylloc.last_line += 1;
-        yylloc.last_column = 1;
-        scan_step();
-        return scan_throw(EOL);
+      BEGIN(INITIAL);
+      yylloc.last_line += 1;
+      yylloc.last_column = 1;
+      scan_step();
+      return scan_throw(EOL);
     }
 	YY_BREAK
 case 141:
 YY_RULE_SETUP
 {
-        if (last_token == STR || last_token == SPACES)
-        {
-	    wchar_t *pwText = to_wide_string(yytext);
-            yylval.str = new std::wstring(pwText);
-	    FREE(pwText);
-            return scan_throw(STR);
-        }
-        else
-        {
-            BEGIN(INITIAL);
-            return scan_throw(ASSIGN);
-        }
+      if (last_token == STR || last_token == SPACES)
+      {
+        wchar_t *pwText = to_wide_string(yytext);
+        yylval.str = new std::wstring(pwText);
+        FREE(pwText);
+        return scan_throw(STR);
+      }
+      else
+      {
+        BEGIN(INITIAL);
+        return scan_throw(ASSIGN);
+      }
     }
 	YY_BREAK
 case 142:
 YY_RULE_SETUP
 {
-        if (last_token == STR || last_token == SPACES)
-        {
-	    wchar_t *pwText = to_wide_string(yytext);
-            yylval.str = new std::wstring(pwText);
-	    FREE(pwText);
-            return scan_throw(STR);
-        }
-        else
-        {
-            BEGIN(INITIAL);
-            return scan_throw(LPAREN);
-        }
+      if (last_token == STR || last_token == SPACES)
+      {
+        wchar_t *pwText = to_wide_string(yytext);
+        yylval.str = new std::wstring(pwText);
+        FREE(pwText);
+        return scan_throw(STR);
+      }
+      else
+      {
+        BEGIN(INITIAL);
+        return scan_throw(LPAREN);
+      }
     }
 	YY_BREAK
 case 143:
@@ -3880,15 +3785,15 @@ YY_RULE_SETUP
 {
         if (last_token == STR || last_token == SPACES)
         {
-	    wchar_t *pwText = to_wide_string(yytext);
-            yylval.str = new std::wstring(pwText);
-	    FREE(pwText);
-            return scan_throw(STR);
+          wchar_t *pwText = to_wide_string(yytext);
+          yylval.str = new std::wstring(pwText);
+          FREE(pwText);
+          return scan_throw(STR);
         }
         else
         {
-            BEGIN(INITIAL);
-            return scan_throw(LT);
+          BEGIN(INITIAL);
+          return scan_throw(LT);
         }
     }
 	YY_BREAK
@@ -3897,15 +3802,15 @@ YY_RULE_SETUP
 {
         if (last_token == STR || last_token == SPACES)
         {
-	    wchar_t *pwText = to_wide_string(yytext);
-            yylval.str = new std::wstring(pwText);
-	    FREE(pwText);
-            return scan_throw(STR);
+          wchar_t *pwText = to_wide_string(yytext);
+          yylval.str = new std::wstring(pwText);
+          FREE(pwText);
+          return scan_throw(STR);
         }
         else
         {
-            BEGIN(INITIAL);
-            return scan_throw(GT);
+          BEGIN(INITIAL);
+          return scan_throw(GT);
         }
     }
 	YY_BREAK
@@ -3914,30 +3819,30 @@ YY_RULE_SETUP
 {
         if (last_token == STR || last_token == SPACES)
         {
-	    wchar_t *pwText = to_wide_string(yytext);
-            yylval.str = new std::wstring(pwText);
-	    FREE(pwText);
-            return scan_throw(STR);
+          wchar_t *pwText = to_wide_string(yytext);
+          yylval.str = new std::wstring(pwText);
+          FREE(pwText);
+          return scan_throw(STR);
         }
         else
         {
-            BEGIN(INITIAL);
-            return scan_throw(NOT);
+          BEGIN(INITIAL);
+          return scan_throw(NOT);
         }
     }
 	YY_BREAK
 case 146:
 YY_RULE_SETUP
 {
-	wchar_t *pwText = to_wide_string(yytext);
-        yylval.str = new std::wstring(pwText);
-	FREE(pwText);
-        return scan_throw(STR);
+      wchar_t *pwText = to_wide_string(yytext);
+      yylval.str = new std::wstring(pwText);
+      FREE(pwText);
+      return scan_throw(STR);
     }
 	YY_BREAK
 case YY_STATE_EOF(SHELLMODE):
 {
-        BEGIN(INITIAL);
+      BEGIN(INITIAL);
     }
 	YY_BREAK
 
@@ -4981,7 +4886,7 @@ int scan_throw(int token) {
 }
 
 int get_last_token() {
-    return last_token;
+  return last_token;
 }
 
 void scan_step() {
@@ -5010,155 +4915,83 @@ int isatty (int desc)
 #ifdef DEV
 std::string token_to_string(int token)
 {
-    std::string str;
-    switch(token)
-    {
-        case AND :                   str = "AND";
-                                     break;
-        case ASSIGN :                str = "ASSIGN";
-                                     break;
-        case BOOLFALSE :             str = "BOOLFALSE";
-                                     break;
-        case BOOLTRUE :              str = "BOOLTRUE";
-                                     break;
-        case BREAK :                 str = "BREAK";
-                                     break;
-        case CASE :                  str = "CASE";
-                                     break;
-        case CATCH :                 str = "CATCH";
-                                     break;
-        case COLON :                 str = "COLON";
-                                     break;
-        case COMMA :                 str = "COMMA";
-                                     break;
-        case COMMENT :               str = "COMMENT";
-                                     break;
-        case CONTINUE :              str = "CONTINUE";
-                                     break;
-        case CONTROLLDIVIDE :        str = "CONTROLLDIVIDE";
-                                     break;
-        case CONTROLRDIVIDE :        str = "CONTROLRDIVIDE";
-                                     break;
-        case CONTROLTIMES :          str = "CONTROLTIMES";
-                                     break;
-        case DO :                    str = "DO";
-                                     break;
-        case DOLLAR :                str = "DOLLAR";
-                                     break;
-        case DOT :                   str = "DOT";
-                                     break;
-        case DOTLDIVIDE :            str = "DOTLDIVIDE";
-                                     break;
-        case DOTPOWER :              str = "DOTPOWER";
-                                     break;
-        case DOTQUOTE :              str = "DOTQUOTE";
-                                     break;
-        case DOTRDIVIDE :            str = "DOTRDIVIDE";
-                                     break;
-        case DOTS :                  str = "DOTS";
-                                     break;
-        case DOTTIMES :              str = "DOTTIMES";
-                                     break;
-        case ELSE :                  str = "ELSE";
-                                     break;
-        case ELSEIF :                str = "ELSEIF";
-                                     break;
-        case END :                   str = "END";
-                                     break;
-        case ENDFUNCTION :           str = "ENDFUNCTION";
-                                     break;
-        case EOL :                   str = "EOL";
-                                     break;
-        case EQ :                    str = "EQ";
-                                     break;
-        case FLEX_ERROR :            str = "FLEX_ERROR";
-                                     break;
-        case FOR :                   str = "FOR";
-                                     break;
-        case FUNCTION :              str = "FUNCTION";
-                                     break;
-        case GE :                    str = "GE";
-                                     break;
-        case GT :                    str = "GT";
-                                     break;
-        case ID :                    str = "ID";
-                                     break;
-        case IF :                    str = "IF";
-                                     break;
-        case KRONLDIVIDE :           str = "KRONLDIVIDE";
-                                     break;
-        case KRONRDIVIDE :           str = "KRONRDIVIDE";
-                                     break;
-        case KRONTIMES :             str = "KRONTIMES";
-                                     break;
-        case LBRACE :                str = "LBRACE";
-                                     break;
-        case LBRACK :                str = "LBRACK";
-                                     break;
-        case LDIVIDE :               str = "LDIVIDE";
-                                     break;
-        case LE :                    str = "LE";
-                                     break;
-        case LPAREN :                str = "LPAREN";
-                                     break;
-        case LT :                    str = "LT";
-                                     break;
-        case MINUS :                 str = "MINUS";
-                                     break;
-        case NE :                    str = "NE";
-                                     break;
-        case NOT :                   str = "NOT";
-                                     break;
-        case NUM :                   str = "NUM";
-                                     break;
-        case OR :                    str = "OR";
-                                     break;
-        case OROR :                  str = "OROR";
-                                     break;
-        case OTHERWISE :             str = "OTHERWISE";
-                                     break;
-        case PLUS :                  str = "PLUS";
-                                     break;
-        case POWER :                 str = "POWER";
-                                     break;
-        case QUOTE :                 str = "QUOTE";
-                                     break;
-        case RBRACE :                str = "RBRACE";
-                                     break;
-        case RBRACK :                str = "RBRACK";
-                                     break;
-        case RDIVIDE :               str = "RDIVIDE";
-                                     break;
-        case RETURN :                str = "RETURN";
-                                     break;
-        case RPAREN :                str = "RPAREN";
-                                     break;
-        case SELECT :                str = "SELECT";
-                                     break;
-        case SEMI :                  str = "SEMI";
-                                     break;
-        case SPACES :                str = "SPACES";
-                                     break;
-        case STR :                   str = "STR";
-                                     break;
-        case SWITCH :                str = "SWITCH";
-                                     break;
-        case THEN :                  str = "THEN";
-                                     break;
-        case TIMES :                 str = "TIMES";
-                                     break;
-        case TRY :                   str = "TRY";
-                                     break;
-        case VARFLOAT :              str = "VARFLOAT";
-                                     break;
-        case VARINT :                str = "VARINT";
-                                     break;
-        case WHILE :                 str = "WHILE";
-                                     break;
-        default :                    str = "UNKNOWN";
-                                     break;
-    }
-    return str;
+  std::string str;
+  switch(token)
+  {
+    case AND :                   str = "AND"; break;
+    case ASSIGN :                str = "ASSIGN"; break;
+    case BOOLFALSE :             str = "BOOLFALSE"; break;
+    case BOOLTRUE :              str = "BOOLTRUE"; break;
+    case BREAK :                 str = "BREAK"; break;
+    case CASE :                  str = "CASE"; break;
+    case CATCH :                 str = "CATCH"; break;
+    case COLON :                 str = "COLON"; break;
+    case COMMA :                 str = "COMMA"; break;
+    case COMMENT :               str = "COMMENT"; break;
+    case CONTINUE :              str = "CONTINUE"; break;
+    case CONTROLLDIVIDE :        str = "CONTROLLDIVIDE"; break;
+    case CONTROLRDIVIDE :        str = "CONTROLRDIVIDE"; break;
+    case CONTROLTIMES :          str = "CONTROLTIMES"; break;
+    case DO :                    str = "DO"; break;
+    case DOLLAR :                str = "DOLLAR"; break;
+    case DOT :                   str = "DOT"; break;
+    case DOTLDIVIDE :            str = "DOTLDIVIDE"; break;
+    case DOTPOWER :              str = "DOTPOWER"; break;
+    case DOTQUOTE :              str = "DOTQUOTE"; break;
+    case DOTRDIVIDE :            str = "DOTRDIVIDE"; break;
+    case DOTS :                  str = "DOTS"; break;
+    case DOTTIMES :              str = "DOTTIMES"; break;
+    case ELSE :                  str = "ELSE"; break;
+    case ELSEIF :                str = "ELSEIF"; break;
+    case END :                   str = "END"; break;
+    case ENDFUNCTION :           str = "ENDFUNCTION"; break;
+    case EOL :                   str = "EOL"; break;
+    case EQ :                    str = "EQ"; break;
+    case FLEX_ERROR :            str = "FLEX_ERROR"; break;
+    case FOR :                   str = "FOR"; break;
+    case FUNCTION :              str = "FUNCTION"; break;
+    case GE :                    str = "GE"; break;
+    case GT :                    str = "GT"; break;
+    case ID :                    str = "ID"; break;
+    case IF :                    str = "IF"; break;
+    case KRONLDIVIDE :           str = "KRONLDIVIDE"; break;
+    case KRONRDIVIDE :           str = "KRONRDIVIDE"; break;
+    case KRONTIMES :             str = "KRONTIMES"; break;
+    case LBRACE :                str = "LBRACE"; break;
+    case LBRACK :                str = "LBRACK"; break;
+    case LDIVIDE :               str = "LDIVIDE"; break;
+    case LE :                    str = "LE"; break;
+    case LPAREN :                str = "LPAREN"; break;
+    case LT :                    str = "LT"; break;
+    case MINUS :                 str = "MINUS"; break;
+    case NE :                    str = "NE"; break;
+    case NOT :                   str = "NOT"; break;
+    case NUM :                   str = "NUM"; break;
+    case OR :                    str = "OR"; break;
+    case OROR :                  str = "OROR"; break;
+    case OTHERWISE :             str = "OTHERWISE"; break;
+    case PLUS :                  str = "PLUS"; break;
+    case POWER :                 str = "POWER"; break;
+    case QUOTE :                 str = "QUOTE"; break;
+    case RBRACE :                str = "RBRACE"; break;
+    case RBRACK :                str = "RBRACK"; break;
+    case RDIVIDE :               str = "RDIVIDE"; break;
+    case RETURN :                str = "RETURN"; break;
+    case RPAREN :                str = "RPAREN"; break;
+    case SELECT :                str = "SELECT"; break;
+    case SEMI :                  str = "SEMI"; break;
+    case SPACES :                str = "SPACES"; break;
+    case STR :                   str = "STR"; break;
+    case SWITCH :                str = "SWITCH"; break;
+    case THEN :                  str = "THEN"; break;
+    case TIMES :                 str = "TIMES"; break;
+    case TRY :                   str = "TRY"; break;
+    case VARFLOAT :              str = "VARFLOAT"; break;
+    case VARINT :                str = "VARINT"; break;
+    case WHILE :                 str = "WHILE"; break;
+    default :                    str = "UNKNOWN"; break;
+  }
+  return str;
 
 }
 #endif
