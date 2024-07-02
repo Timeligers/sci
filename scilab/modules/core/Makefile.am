@@ -50,7 +50,6 @@ CORE_CPP_SOURCES = \
     src/cpp/banner.cpp \
     src/cpp/with_module.cpp \
     src/cpp/runner.cpp \
-    src/cpp/tasks.cpp \
     src/cpp/getvariablesname.cpp \
     src/cpp/getmacrosname.cpp \
     src/cpp/getfunctionsname.cpp \

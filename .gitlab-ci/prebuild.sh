@@ -63,10 +63,10 @@ ARPACK_VERSION=3.9.1
 CURL_VERSION=7.64.1
 EIGEN_VERSION=3.3.2
 FFTW_VERSION=3.3.3
-HDF5_VERSION=1.10.10
+HDF5_VERSION=1.14.4
 NCURSES_VERSION=6.4
 LIBXML2_VERSION=2.9.9
-MATIO_VERSION=1.5.9
+MATIO_VERSION=1.5.27
 OPENSSL_VERSION=1.1.1c
 PCRE_VERSION=8.38
 SUITESPARSE_VERSION=4.4.5
@@ -140,7 +140,7 @@ download_dependencies() {
     [ ! -f curl-$CURL_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/curl-$CURL_VERSION.tar.gz
     [ ! -f eigen-$EIGEN_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/eigen-$EIGEN_VERSION.tar.gz
     [ ! -f fftw-$FFTW_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/fftw-$FFTW_VERSION.tar.gz
-    [ ! -f hdf5-$HDF5_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/hdf5-$HDF5_VERSION.tar.gz
+    [ ! -f hdf5-$HDF5_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/hdf5-$HDF5_VERSION.zip
     [ ! -f libxml2-$LIBXML2_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/libxml2-$LIBXML2_VERSION.tar.gz
     [ ! -f matio-$MATIO_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/matio-$MATIO_VERSION.tar.gz
     [ ! -f openssl-$OPENSSL_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/openssl-$OPENSSL_VERSION.tar.gz
@@ -165,10 +165,14 @@ download_dependencies() {
 
     # This archive contains .jar and directories that have been copied from Scilab prerequirements
     # JavaFX/openjfx is only shipped as JARs, no rebuild is needed for now
-    curl -L --time-cond thirdparty-jar.zip -o thirdparty-jar.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar-${BRANCH}.zip"
-    if ! unzip -t "thirdparty-jar.zip"; then
+    curl -L --time-cond -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.zip"
+    if ! unzip -qt "thirdparty.zip"; then
+        # use thirdparty from the target branch
+        curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${BRANCH}.zip"
+    fi
+    if ! unzip -qt "thirdparty.zip"; then
         # fallback to the default branch
-        curl -L --time-cond thirdparty-jar.zip -o thirdparty-jar.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar-${CI_DEFAULT_BRANCH}.zip"
+        curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_DEFAULT_BRANCH}.zip"
     fi
 
     [ ! -f libarchive-$LIBARCHIVE_VERSION.tar.xz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/libarchive-$LIBARCHIVE_VERSION.tar.xz
@@ -427,13 +431,13 @@ make_jar() {
 
     # copy .jar from scilab prerequirements
     cd "$DOWNLOADDIR" || exit 1
-    rm -rf thirdparty-jar
-    mkdir thirdparty-jar
-    cd thirdparty-jar || exit 1
-    unzip "$DOWNLOADDIR/thirdparty-jar.zip"
+    rm -rf thirdparty
+    mkdir thirdparty
+    cd thirdparty || exit 1
+    unzip "$DOWNLOADDIR/thirdparty.zip"
     # remove .jar already managed
     rm xml* fontbox* commons* batik* avalon* fop.jar gluegen2-rt.jar jogl2.jar gluegen-rt.jar jogl-all.jar
-    # Copy all JARs from thirdparty-jar.zip
+    # Copy all JARs from thirdparty.zip
     cp -a ./* "$JAVATHIRDPARTYDIR"
     # Copy flexdock to be sure prerequirements archive will be regenerated when flexdock version changes
     # TODO: add all JARs below and remove global copy using ./*
@@ -540,9 +544,8 @@ build_hdf5() {
 
     INSTALL_DIR=$BUILDDIR/hdf5-$HDF5_VERSION/install_dir
 
-    tar -xzf "$DOWNLOADDIR/hdf5-$HDF5_VERSION.tar.gz"
-    cd hdf5-$HDF5_VERSION || exit 1
-    sed -i -e 's|//int i1, i2;|/* int i1, i2; */|' tools/lib/h5diff.c
+    unzip -o "$DOWNLOADDIR/hdf5-$HDF5_VERSION.zip"
+    cd hdf5-hdf5_$HDF5_VERSION || exit 1
 
     mkdir -p build
     cd build || exit 1

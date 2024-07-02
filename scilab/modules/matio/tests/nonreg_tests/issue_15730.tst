@@ -7,7 +7,10 @@
 //
 // <-- CLI SHELL MODE -->
 // <-- NO CHECK REF -->
-
+//
+// problem at save with compression since matio 1.5.12
+// also disabled in savematfile.tst
+// <-- NOT FIXED -->
 //
 // <-- Non-regression test for issue 15730 -->
 //

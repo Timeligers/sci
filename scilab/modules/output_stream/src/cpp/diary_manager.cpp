@@ -270,6 +270,11 @@ int diaryWrite(const wchar_t *wstr, BOOL bInput)
 {
     if (SCIDIARY)
     {
+        if (wstr == nullptr)
+        {
+            return 1;
+        }
+
         if (bInput)
         {
             SCIDIARY->write(std::wstring(wstr), true);
@@ -287,6 +292,11 @@ int diaryWriteln(const wchar_t *wstr, BOOL bInput)
 {
     if (SCIDIARY)
     {
+        if (wstr == nullptr)
+        {
+            return 1;
+        }
+        
         if (bInput)
         {
             SCIDIARY->writeln(std::wstring(wstr), true);

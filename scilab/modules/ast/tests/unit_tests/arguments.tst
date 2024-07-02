@@ -411,3 +411,22 @@ code = [
 
 checkbody(code);
 
+//overload of size function
+function test_size(a)
+    arguments
+        a (1, :)
+    end
+endfunction
+
+test_size(1/%s);
+test_size(table(1));
+test_size(table([1, 2]));
+
+function test_size(a)
+    arguments
+        a (3)
+    end
+endfunction
+
+test_size(list(1, 2 ,3))
+

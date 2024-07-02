@@ -56,18 +56,6 @@ void Parser::cleanup()
 
 void Parser::parseFile(const std::wstring& fileName, const std::wstring& progName)
 {
-    // Calling Parse state machine in C with global values
-    // Must be locked to avoid concurrent access
-    // FIXME : LOCK
-    if (getParseTrace() == true)
-    {
-        ParserSingleInstance::enableParseTrace();
-    }
-    else
-    {
-        ParserSingleInstance::disableParseTrace();
-    }
-
     try
     {
         ParserSingleInstance::parseFile(fileName, progName);
@@ -135,18 +123,6 @@ void ParserSingleInstance::parseFile(const std::wstring& fileName, const std::ws
 
 void Parser::parse(const char *command)
 {
-    // Calling Parse state machine in C with global values
-    // Must be locked to avoid concurrent access
-    // FIXME : LOCK
-    if (getParseTrace() == true)
-    {
-        ParserSingleInstance::enableParseTrace();
-    }
-    else
-    {
-        ParserSingleInstance::disableParseTrace();
-    }
-
     ParserSingleInstance::parse(command);
     this->setExitStatus(ParserSingleInstance::getExitStatus());
     this->setControlStatus(ParserSingleInstance::getControlStatus());

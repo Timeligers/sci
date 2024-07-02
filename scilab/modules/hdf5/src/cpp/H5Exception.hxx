@@ -89,7 +89,7 @@ private:
 
         if (stackSize)
         {
-            herr_t err = H5Ewalk2(stid, H5E_WALK_UPWARD, getStackErrorMsg, &ret);
+            H5Ewalk2(stid, H5E_WALK_UPWARD, getStackErrorMsg, &ret);
             H5Eclear2(stid);
         }
 

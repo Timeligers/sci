@@ -37,12 +37,7 @@ void pause_interpreter(void)
     int iPauseLevel = ConfigVariable::getPauseLevel();
     while (ConfigVariable::getPauseLevel() == iPauseLevel)
     {
-        ThreadManagement::SendAwakeRunnerSignal();
-        ThreadManagement::WaitForRunMeSignal();
-        if (StaticRunner::isRunnerAvailable())
-        {
-            StaticRunner::launch();
-        }
+        StaticRunner::launch();
     }
 
     //return from console so change mode to initial

@@ -14,7 +14,7 @@
 // https://gitlab.com/scilab/scilab/-/issues/2547
 //
 // <-- Short Description -->
-// export of very circle marks of very small size in postcript are not displayed
+// export of very circle marks of very small size in postscript are not displayed
 
 plot(1:10,'.')
 e = gce().children;

@@ -701,10 +701,8 @@ static bool read_struct(hid_t dataset, VarInfo6& info)
 
     //open __refs__ node
     hid_t refs = getDataSetIdFromName(dataset, "__refs__");
-    H5O_info_t oinfo;
     for (int i = 0; i < fieldCount; ++i)
     {
-        H5Oget_info_by_idx(dataset, ".", H5_INDEX_NAME, H5_ITER_NATIVE, i, &oinfo, H5P_DEFAULT);
         ssize_t len = H5Lget_name_by_idx(dataset, ".", H5_INDEX_NAME, H5_ITER_INC, i, 0, 0, H5P_DEFAULT) + 1;
         char* name = (char*)MALLOC(sizeof(char) * len);
         H5Lget_name_by_idx(dataset, ".", H5_INDEX_NAME, H5_ITER_INC, i, name, len, H5P_DEFAULT);
@@ -741,9 +739,7 @@ static bool read_struct(hid_t dataset, VarInfo6& info)
             for (int j = 0; j < refcount; ++j)
             {
                 hid_t data = H5Rdereference(refs,
-#if H5_VERSION_GE(1,10,0)
                                             H5P_DATASET_ACCESS_DEFAULT,
-#endif
                                             H5R_OBJECT, &vrefs[j]);
                 if (data < 0)
                 {

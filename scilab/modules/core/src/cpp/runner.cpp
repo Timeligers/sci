@@ -14,10 +14,21 @@
  *
  */
 
+#ifdef _WIN32
+#include <fcntl.h>
+#include <io.h>
+#endif
+
 #include "runner.hxx"
+#include "timer.hxx"
 #include "threadmanagement.hxx"
 #include "configvariable.hxx"
 #include "debugmanager.hxx"
+#include "printvisitor.hxx"
+#include "execvisitor.hxx"
+#include "prettyprintvisitor.hxx"
+#include "debuggervisitor.hxx"
+#include "visitor_common.hxx"
 
 extern "C"
 {
@@ -30,48 +41,27 @@ extern "C"
 #include "InitializeJVM.h"
 }
 
-std::atomic<Runner*> StaticRunner::m_RunMe(nullptr);
-std::atomic<Runner*> StaticRunner::m_CurrentRunner(nullptr);
+Runner* StaticRunner::m_CurrentRunner = nullptr;
+bool StaticRunner::m_bDumpStack = false;
+bool StaticRunner::m_bExecAst = true;
+bool StaticRunner::m_bDumpAst = false;
+bool StaticRunner::m_bPrintAst = false;
 
-static bool initialJavaHooks = false;
-
-void StaticRunner::sendExecDoneSignal()
-{
-    switch (m_CurrentRunner.load()->getCommandOrigin())
-    {
-        case DEBUGGER :
-        {
-            ThreadManagement::SendDebuggerExecDoneSignal();
-            break;
-        }
-        case CONSOLE :
-        {
-            ThreadManagement::SendConsoleExecDoneSignal();
-            break;
-        }
-        case TCLSCI :
-        case NONE :
-        default : {}
-    }
-}
+static Timer _timer;
 
 int StaticRunner::launch()
 {
-    //set execution thread in java
-    if (!initialJavaHooks && getScilabMode() != SCILAB_NWNI)
-    {
-        initialJavaHooks = true;
-        // Execute the initial hooks registered in Scilab.java
-        ExecuteInitialHooks();
-    }
-
     int iRet = 0;
 
-    // save current runner
-    Runner* pRunSave = m_CurrentRunner.load();
+    // Wait for a new command only if the command queue is empty
+    ThreadManagement::WaitForCommandStoredSignal();
 
-    // get the runner to execute
-    std::unique_ptr<Runner> runMe(getRunner());
+    Runner* runMe = (Runner*)GetCommand();
+    processRunner(runMe);
+
+    // save current runner
+    Runner* pRunSave = m_CurrentRunner;
+    m_CurrentRunner = runMe;
 
     debugger::DebuggerManager* manager = debugger::DebuggerManager::getInstance();
     manager->resetAborted();
@@ -97,7 +87,7 @@ int StaticRunner::launch()
         int level = ConfigVariable::getRecursionLevel();
         try
         {
-            runMe->getProgram()->accept(*(runMe->getVisitor()));
+            runMe->getProgram()->accept(*ConfigVariable::getDefaultVisitor());
         }
         catch (const ast::RecursionException& re)
         {
@@ -158,7 +148,14 @@ int StaticRunner::launch()
             // Release the console to display the prompt after aborting a callback execution
             sendExecDoneSignal();
             // set back the runner wich have been overwritten in StaticRunner::getRunner
-            m_CurrentRunner.store(pRunSave);
+            m_CurrentRunner = pRunSave;
+
+            // dumping stack after execution
+            if (m_bDumpStack)
+            {
+                dumpStackTask();
+            }
+
             throw ia;
         }
 
@@ -179,7 +176,13 @@ int StaticRunner::launch()
         manager->sendExecutionReleased();
 
         // set back the runner wich have been overwritten in StaticRunner::getRunner
-        m_CurrentRunner.store(pRunSave);
+        m_CurrentRunner = pRunSave;
+
+        // dumping stack after execution
+        if (m_bDumpStack)
+        {
+            dumpStackTask();
+        }
         throw ia;
     }
 
@@ -223,73 +226,84 @@ int StaticRunner::launch()
     manager->resetStep();
 
     // set back the runner wich have been overwritten in StaticRunner::getRunner
-    m_CurrentRunner.store(pRunSave);
+    m_CurrentRunner = pRunSave;
+
+    // dumping stack after execution
+    if (m_bDumpStack)
+    {
+        dumpStackTask();
+    }
 
     return iRet;
 }
 
-void StaticRunner::setRunner(Runner* _RunMe)
+void StaticRunner::sendExecDoneSignal()
 {
-    m_RunMe = _RunMe;
-}
-
-Runner* StaticRunner::getRunner(void)
-{
-    m_CurrentRunner.store(m_RunMe.exchange(nullptr));
-    ThreadManagement::SendAvailableRunnerSignal();
-    return m_CurrentRunner.load();
-}
-
-// return true if a Runner is already set in m_RunMe.
-bool StaticRunner::isRunnerAvailable(void)
-{
-    return m_RunMe.load() != nullptr;
+    switch (m_CurrentRunner->getCommandOrigin())
+    {
+        case DEBUGGER :
+        {
+            ThreadManagement::SendDebuggerExecDoneSignal();
+            break;
+        }
+        case CONSOLE :
+        {
+            ThreadManagement::SendConsoleExecDoneSignal();
+            break;
+        }
+        case TCLSCI :
+        case NONE :
+        default : {}
+    }
 }
 
 // return true if a command is running or paused.
 bool StaticRunner::isRunning(void)
 {
-    return m_CurrentRunner.load() != nullptr;
+    return m_CurrentRunner != nullptr;
 }
 
 bool StaticRunner::isInterruptibleCommand()
 {
-    return m_CurrentRunner.load()->isInterruptible();
+    return m_CurrentRunner->isInterruptible();
 }
 
-command_origin_t StaticRunner::getCommandOrigin()
+void StaticRunner::setDumpStack(bool _bValue)
 {
-    return m_RunMe.load()->getCommandOrigin();
+    m_bDumpStack = _bValue;
 }
 
-void StaticRunner::setCommandOrigin(command_origin_t _origin)
+void StaticRunner::setExecAst(bool _bValue)
 {
-    m_CurrentRunner.load()->setCommandOrigin(_origin);
+    m_bExecAst = _bValue;
 }
 
-void StaticRunner::execAndWait(ast::Exp* _theProgram, ast::RunVisitor *_visitor,
-                               bool /*_isPrioritaryThread*/, bool _isInterruptible, command_origin_t _iCommandOrigin)
+void StaticRunner::setDumpAst(bool _bValue)
 {
-    if (isRunnerAvailable())
+    m_bDumpAst = _bValue;
+}
+
+bool StaticRunner::getDumpAst()
+{
+    return m_bDumpStack;
+}
+
+void StaticRunner::setPrintAst(bool _bValue)
+{
+    m_bPrintAst = _bValue;
+}
+
+bool StaticRunner::getPrintAst()
+{
+    return m_bPrintAst;
+}
+
+bool StaticRunner::execCommand(const std::string& _stCMD)
+{
+    if(StoreCommand(_stCMD.data()))
     {
-        // wait for managenement of last Runner
-        ThreadManagement::WaitForAvailableRunnerSignal();
+        return false;
     }
-
-    // lock runner to be sure we are waiting for
-    // "AwakeRunner" signal before start execution
-    ThreadManagement::LockRunner();
-    Runner *runMe = new Runner(_theProgram, _visitor, _iCommandOrigin, _isInterruptible);
-    setRunner(runMe);
-
-    ThreadManagement::SendRunMeSignal();
-    ThreadManagement::WaitForAwakeRunnerSignal();
-}
-
-bool StaticRunner::exec(ast::Exp* _theProgram, ast::RunVisitor *_visitor)
-{
-    Runner *runMe = new Runner(_theProgram, _visitor);
-    setRunner(runMe);
 
     try
     {
@@ -297,11 +311,125 @@ bool StaticRunner::exec(ast::Exp* _theProgram, ast::RunVisitor *_visitor)
     }
     catch (const ast::InternalAbort& /*ia*/)
     {
-        //catch exit command in .start or .quit
-        return false;
+        // catch exit command in .start or .quit
+        return true;
+    }
+    catch (const ast::RecursionException& /*re*/)
+    {
+        return true;
     }
 
-    return true;
+    return false;
+}
+
+void StaticRunner::processRunner(Runner* _runner)
+{
+    ast::Exp* tree = _runner->getProgram();
+
+    // dumping tree
+    if (m_bDumpAst)
+    {
+        dumpAstTask(tree);
+    }
+
+    // pretty print tree
+    if (m_bPrintAst)
+    {
+        printAstTask(tree);
+    }
+
+    // executing tree
+    if (m_bExecAst)
+    {
+        if (ConfigVariable::getSerialize())
+        {
+            ast::Exp* newTree = NULL;
+            if (ConfigVariable::getTimed())
+            {
+                newTree = callTyper(tree, L"tasks");
+            }
+            else
+            {
+                newTree = callTyper(tree);
+            }
+
+            delete tree;
+            tree = newTree;
+            _runner->setProgram(tree);
+        }
+    }
+}
+
+void StaticRunner::dumpStackTask()
+{
+    bool timed = ConfigVariable::getTimed();
+    if (timed)
+    {
+        _timer.start();
+    }
+
+    symbol::Context::getInstance()->print(std::wcout);
+
+    if (timed)
+    {
+        _timer.check(L"Dumping Stack");
+    }
+}
+
+void StaticRunner::printAstTask(ast::Exp *tree)
+{
+    if(ConfigVariable::getStartProcessing() || ConfigVariable::getEndProcessing())
+    {
+        return;
+    }
+
+    bool timed = ConfigVariable::getTimed();
+    if (timed)
+    {
+        _timer.start();
+    }
+
+    if (tree)
+    {
+#ifdef _WIN32
+        int iOldMode = _setmode(_fileno(stdout), _O_U8TEXT);
+#endif
+        ast::PrintVisitor printMe (std::wcout);
+        tree->accept(printMe);
+#ifdef _WIN32
+        _setmode(_fileno(stdout), iOldMode);
+#endif
+    }
+
+    if (timed)
+    {
+        _timer.check(L"Pretty Print");
+    }
+}
+
+void StaticRunner::dumpAstTask(ast::Exp *tree)
+{
+    if(ConfigVariable::getStartProcessing() || ConfigVariable::getEndProcessing())
+    {
+        return;
+    }
+
+    bool timed = ConfigVariable::getTimed();
+    if (timed)
+    {
+        _timer.start();
+    }
+
+    ast::PrettyPrintVisitor debugMe;
+    if (tree)
+    {
+        tree->accept(debugMe);
+    }
+
+    if (timed)
+    {
+        _timer.check(L"AST Dump");
+    }
 }
 
 void StaticRunner_launch(void)
@@ -314,22 +442,12 @@ int StaticRunner_isRunning(void)
     return StaticRunner::isRunning() ? 1 : 0;
 }
 
-int StaticRunner_isRunnerAvailable(void)
-{
-    return StaticRunner::isRunnerAvailable() ? 1 : 0;
-}
-
 int StaticRunner_isInterruptibleCommand(void)
 {
     return StaticRunner::isInterruptibleCommand() ? 1 : 0;
 }
 
-command_origin_t StaticRunner_getCommandOrigin(void)
+int StaticRunner_execCommand(const char* cmd)
 {
-    return StaticRunner::getCommandOrigin();
-}
-
-void StaticRunner_setCommandOrigin(command_origin_t _origin)
-{
-    StaticRunner::setCommandOrigin(_origin);
+    return StaticRunner::execCommand(cmd) ? 1 : 0;
 }

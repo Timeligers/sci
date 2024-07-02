@@ -121,7 +121,7 @@ std::string H5ExternalLink::ls() const
     return os.str();
 }
 
-std::string H5ExternalLink::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5ExternalLink::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
     std::vector<std::string *> target = getLinkTargets();
