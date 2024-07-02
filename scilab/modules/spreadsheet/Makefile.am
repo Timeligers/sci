@@ -58,6 +58,7 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_csvTextScan.c \
     sci_gateway/c/sci_csvWrite.c
 
+
 # dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscispreadsheet.la
 noinst_LTLIBRARIES = libscispreadsheet-algo.la

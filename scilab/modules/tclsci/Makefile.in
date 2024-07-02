@@ -208,16 +208,11 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@MAINTAINER_MODE_FALSE@am_libscitclsci_algo_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscitclsci_algo_la_rpath =
 libscitclsci_disable_la_LIBADD =
 am__objects_3 = src/notclsci/libscitclsci_disable_la-notclsci.lo
 am_libscitclsci_disable_la_OBJECTS = $(am__objects_3)
 libscitclsci_disable_la_OBJECTS =  \
 	$(am_libscitclsci_disable_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libscitclsci_disable_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscitclsci_disable_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 am__DEPENDENCIES_1 =
 @TCLTK_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
 libscitclsci_la_DEPENDENCIES = libscitclsci-algo.la \
@@ -251,8 +246,6 @@ am__libscitclsci_la_SOURCES_DIST = sci_gateway/c/sci_opentk.c \
 @TCLTK_TRUE@	sci_gateway/c/libscitclsci_la-sci_TCL_UpVar.lo
 am_libscitclsci_la_OBJECTS = $(am__objects_4)
 libscitclsci_la_OBJECTS = $(am_libscitclsci_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libscitclsci_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscitclsci_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -770,9 +763,10 @@ libscitclsci_la_SOURCES = $(GATEWAY_C_SOURCES)
 libscitclsci_algo_la_CPPFLAGS = $(libscitclsci_la_CPPFLAGS)
 TCLSCI_DISABLE_CPP_SOURCES = src/notclsci/notclsci.cpp
 libscitclsci_disable_la_SOURCES = $(TCLSCI_DISABLE_CPP_SOURCES)
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscitclsci-disable.la libscitclsci.la
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscitclsci-algo.la libscitclsci-disable.la libscitclsci.la
-@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscitclsci-algo.la
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscitclsci-disable.la libscitclsci.la
+noinst_LTLIBRARIES = libscitclsci-algo.la
 
 # For the code check (splint)
 CHECK_SRC = $(libscitclsci_la_SOURCES)
@@ -1047,13 +1041,13 @@ src/c/libscitclsci_algo_la-LoadUnloadTclsci.lo: src/c/$(am__dirstamp) \
 	src/c/$(DEPDIR)/$(am__dirstamp)
 
 libscitclsci-algo.la: $(libscitclsci_algo_la_OBJECTS) $(libscitclsci_algo_la_DEPENDENCIES) $(EXTRA_libscitclsci_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libscitclsci_algo_la_rpath) $(libscitclsci_algo_la_OBJECTS) $(libscitclsci_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK)  $(libscitclsci_algo_la_OBJECTS) $(libscitclsci_algo_la_LIBADD) $(LIBS)
 src/notclsci/libscitclsci_disable_la-notclsci.lo:  \
 	src/notclsci/$(am__dirstamp) \
 	src/notclsci/$(DEPDIR)/$(am__dirstamp)
 
 libscitclsci-disable.la: $(libscitclsci_disable_la_OBJECTS) $(libscitclsci_disable_la_DEPENDENCIES) $(EXTRA_libscitclsci_disable_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libscitclsci_disable_la_rpath) $(libscitclsci_disable_la_OBJECTS) $(libscitclsci_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscitclsci_disable_la_OBJECTS) $(libscitclsci_disable_la_LIBADD) $(LIBS)
 sci_gateway/c/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/c
 	@: > sci_gateway/c/$(am__dirstamp)
@@ -1101,7 +1095,7 @@ sci_gateway/c/libscitclsci_la-sci_TCL_UpVar.lo:  \
 	sci_gateway/c/$(DEPDIR)/$(am__dirstamp)
 
 libscitclsci.la: $(libscitclsci_la_OBJECTS) $(libscitclsci_la_DEPENDENCIES) $(EXTRA_libscitclsci_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) $(am_libscitclsci_la_rpath) $(libscitclsci_la_OBJECTS) $(libscitclsci_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscitclsci_la_OBJECTS) $(libscitclsci_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

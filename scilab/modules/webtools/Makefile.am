@@ -55,11 +55,13 @@ libsciwebtools_la_CPPFLAGS= \
 
 libsciwebtools_algo_la_CPPFLAGS = $(libsciwebtools_la_CPPFLAGS)
 
+
 # dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciwebtools.la
 noinst_LTLIBRARIES = libsciwebtools-algo.la
 
-libsciwebtools_algo_la_LDFLAGS = $(CURL_LIBS)
+
+libsciwebtools_algo_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(CURL_LIBS)
 libsciwebtools_algo_la_SOURCES = $(WEBTOOLS_CPP_SOURCES) $(WEBTOOLS_C_SOURCES)
 
 libsciwebtools_la_SOURCES = $(GATEWAY_CPP_SOURCES) $(GATEWAY_C_SOURCES)

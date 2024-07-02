@@ -37,7 +37,10 @@ libsciparallel_la_CPPFLAGS= \
     -I$(top_srcdir)/modules/parameters/includes \
     -I$(top_srcdir)/modules/dynamic_link/includes
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciparallel.la
+
 
 libsciparallel_la_LDFLAGS = $(OPENMP_LIBS) -version-number $(SCILAB_LIBRARY_VERSION)
 

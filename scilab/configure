@@ -11229,7 +11229,7 @@ SCILIBS_FFLAGS=''
 SCILIBS_LDFLAGS=''
 if $WITH_DEVTOOLS; then
     # with devtools the needed dependencies are all there, discard others system-wide dependencies
-    SCILIBS_LDFLAGS="-Wl,--allow-shlib-undefined"
+    # SCILIBS_LDFLAGS="-Wl,--allow-shlib-undefined"
     # set rpath for in-tree `make check`
     SCILIBS_LDFLAGS+=" -Wl,-rpath -Wl,$SCI_SRCDIR_FULL/lib/thirdparty:$SCI_SRCDIR_FULL/lib/thirdparty/redist"
 fi

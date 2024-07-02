@@ -148,19 +148,14 @@ libsciconsole_la_CPPFLAGS = \
     $(libsciconsole_algo_la_CPPFLAGS) \
     $(JAVA_JNI_INCLUDE)
 
+
 # Name of the library
-if MAINTAINER_MODE
 pkglib_LTLIBRARIES = libsciconsole-minimal.la
 if GUI
 pkglib_LTLIBRARIES += libsciconsole.la
 endif
 noinst_LTLIBRARIES = libsciconsole-algo.la
-else
-noinst_LTLIBRARIES = libsciconsole-algo.la libsciconsole-minimal.la
-if GUI
-noinst_LTLIBRARIES += libsciconsole.la
-endif
-endif
+
 
 # All the sources needed by libsciconsole.la
 libsciconsole_algo_la_SOURCES = \

@@ -60,6 +60,7 @@ libscirandlib_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/console/includes/ \
 	$(AM_CPPFLAGS)
 
+
 # dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscirandlib.la
 noinst_LTLIBRARIES = libscirandlib-algo.la

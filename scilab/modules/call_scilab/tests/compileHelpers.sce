@@ -91,9 +91,9 @@ function [stdout, status, stderr] = run_executable(binary)
 
     if getos() <> "Windows"
         if isLinuxPackaged()
-            env = ["LD_LIBRARY_FLAGS="+strcat([SCI+"/../../lib/scilab"], ":")]
+            env = ["LD_LIBRARY_PATH="+strcat([SCI+"/../../lib/scilab"], ":")]
         else
-            env = ["LD_LIBRARY_FLAGS="+strcat([SCI+"/modules/call_scilab/.libs" SCI+"/modules/.libs"], ":")]
+            env = ["LD_LIBRARY_PATH="+strcat([SCI+"/modules/call_scilab/.libs" SCI+"/modules/.libs"], ":")]
         end
     end
 

@@ -84,24 +84,13 @@ libscicompletion_la_CPPFLAGS = \
     $(libscicompletion_algo_la_CPPFLAGS) \
     $(JAVA_JNI_INCLUDE)
 
-# Name of the future library (.la will be replace by .so, .a, etc regarding
-# the system)
-if MAINTAINER_MODE
 
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscicompletion-disable.la
 if GUI
 pkglib_LTLIBRARIES += libscicompletion.la
 endif
 noinst_LTLIBRARIES = libscicompletion-algo.la
-
-else
-
-noinst_LTLIBRARIES = libscicompletion-algo.la libscicompletion-disable.la
-if GUI
-noinst_LTLIBRARIES += libscicompletion.la
-endif
-
-endif # MAINTAINER_MODE
 
 
 # All the sources needed by libscicompletion.la

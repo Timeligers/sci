@@ -15,11 +15,7 @@
 ##
 
 
-if MAINTAINER_MODE
-pkglib_LTLIBRARIES 	= libsciast.la
-else
 noinst_LTLIBRARIES 	= libsciast.la
-endif
 
 
 libsciast_la_SOURCES = \

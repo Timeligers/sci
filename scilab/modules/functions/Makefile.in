@@ -169,8 +169,7 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libscifunctions_la_etcdir)" \
-	"$(DESTDIR)$(libscifunctions_la_rootdir)" \
-	"$(DESTDIR)$(libscifunctions_la_sci_gatewaydir)"
+	"$(DESTDIR)$(libscifunctions_la_rootdir)"
 LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
 libscifunctions_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -181,7 +180,8 @@ am__objects_1 = sci_gateway/cpp/libscifunctions_la-sci_exec.lo \
 	sci_gateway/cpp/libscifunctions_la-sci_macrovar.lo \
 	sci_gateway/cpp/libscifunctions_la-sci_libraryinfo.lo \
 	sci_gateway/cpp/libscifunctions_la-sci_librarieslist.lo \
-	sci_gateway/cpp/libscifunctions_la-sci_idempotence.lo
+	sci_gateway/cpp/libscifunctions_la-sci_idempotence.lo \
+	sci_gateway/cpp/libscifunctions_la-functions_gw.lo
 am_libscifunctions_la_OBJECTS = $(am__objects_1)
 libscifunctions_la_OBJECTS = $(am_libscifunctions_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -207,6 +207,7 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/modules/core/includes
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade =  \
+	sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-functions_gw.Plo \
 	sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_exec.Plo \
 	sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_execstr.Plo \
 	sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_functionlist.Plo \
@@ -241,8 +242,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-DATA = $(libscifunctions_la_etc_DATA) $(libscifunctions_la_root_DATA) \
-	$(libscifunctions_la_sci_gateway_DATA)
+DATA = $(libscifunctions_la_etc_DATA) $(libscifunctions_la_root_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -590,7 +590,8 @@ GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_macrovar.cpp \
     sci_gateway/cpp/sci_libraryinfo.cpp \
     sci_gateway/cpp/sci_librarieslist.cpp \
-    sci_gateway/cpp/sci_idempotence.cpp
+    sci_gateway/cpp/sci_idempotence.cpp \
+    sci_gateway/cpp/functions_gw.cpp
 
 libscifunctions_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
@@ -635,10 +636,6 @@ libscifunctions_la_etc_DATA = \
     etc/functions.quit \
     etc/functions.start
 
-
-#### functions : gateway declaration ####
-libscifunctions_la_sci_gatewaydir = $(mydatadir)/sci_gateway
-libscifunctions_la_sci_gateway_DATA = sci_gateway/functions_gateway.xml
 
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir = $(pkgdatadir)/modules/$(modulename)
@@ -822,6 +819,9 @@ sci_gateway/cpp/libscifunctions_la-sci_librarieslist.lo:  \
 sci_gateway/cpp/libscifunctions_la-sci_idempotence.lo:  \
 	sci_gateway/cpp/$(am__dirstamp) \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
+sci_gateway/cpp/libscifunctions_la-functions_gw.lo:  \
+	sci_gateway/cpp/$(am__dirstamp) \
+	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscifunctions.la: $(libscifunctions_la_OBJECTS) $(libscifunctions_la_DEPENDENCIES) $(EXTRA_libscifunctions_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(CXXLINK) $(am_libscifunctions_la_rpath) $(libscifunctions_la_OBJECTS) $(libscifunctions_la_LIBADD) $(LIBS)
@@ -834,6 +834,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-functions_gw.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_exec.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_execstr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_functionlist.Plo@am__quote@ # am--include-marker
@@ -929,6 +930,13 @@ sci_gateway/cpp/libscifunctions_la-sci_idempotence.lo: sci_gateway/cpp/sci_idemp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifunctions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o sci_gateway/cpp/libscifunctions_la-sci_idempotence.lo `test -f 'sci_gateway/cpp/sci_idempotence.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_idempotence.cpp
 
+sci_gateway/cpp/libscifunctions_la-functions_gw.lo: sci_gateway/cpp/functions_gw.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifunctions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT sci_gateway/cpp/libscifunctions_la-functions_gw.lo -MD -MP -MF sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-functions_gw.Tpo -c -o sci_gateway/cpp/libscifunctions_la-functions_gw.lo `test -f 'sci_gateway/cpp/functions_gw.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/functions_gw.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-functions_gw.Tpo sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-functions_gw.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sci_gateway/cpp/functions_gw.cpp' object='sci_gateway/cpp/libscifunctions_la-functions_gw.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifunctions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o sci_gateway/cpp/libscifunctions_la-functions_gw.lo `test -f 'sci_gateway/cpp/functions_gw.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/functions_gw.cpp
+
 mostlyclean-libtool:
 	-rm -f *.lo
 
@@ -977,27 +985,6 @@ uninstall-libscifunctions_la_rootDATA:
 	@list='$(libscifunctions_la_root_DATA)'; test -n "$(libscifunctions_la_rootdir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(libscifunctions_la_rootdir)'; $(am__uninstall_files_from_dir)
-install-libscifunctions_la_sci_gatewayDATA: $(libscifunctions_la_sci_gateway_DATA)
-	@$(NORMAL_INSTALL)
-	@list='$(libscifunctions_la_sci_gateway_DATA)'; test -n "$(libscifunctions_la_sci_gatewaydir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(libscifunctions_la_sci_gatewaydir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(libscifunctions_la_sci_gatewaydir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(libscifunctions_la_sci_gatewaydir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(libscifunctions_la_sci_gatewaydir)" || exit $$?; \
-	done
-
-uninstall-libscifunctions_la_sci_gatewayDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(libscifunctions_la_sci_gateway_DATA)'; test -n "$(libscifunctions_la_sci_gatewaydir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(libscifunctions_la_sci_gatewaydir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -1088,7 +1075,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA) all-local
 installdirs:
-	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libscifunctions_la_etcdir)" "$(DESTDIR)$(libscifunctions_la_rootdir)" "$(DESTDIR)$(libscifunctions_la_sci_gatewaydir)"; do \
+	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libscifunctions_la_etcdir)" "$(DESTDIR)$(libscifunctions_la_rootdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -1129,7 +1116,8 @@ clean-am: clean-generic clean-libtool clean-local \
 	clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
-		-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_exec.Plo
+		-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-functions_gw.Plo
+	-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_exec.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_execstr.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_functionlist.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_idempotence.Plo
@@ -1154,8 +1142,7 @@ info: info-am
 info-am:
 
 install-data-am: install-data-local install-libscifunctions_la_etcDATA \
-	install-libscifunctions_la_rootDATA \
-	install-libscifunctions_la_sci_gatewayDATA
+	install-libscifunctions_la_rootDATA
 
 install-dvi: install-dvi-am
 
@@ -1184,7 +1171,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_exec.Plo
+		-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-functions_gw.Plo
+	-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_exec.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_execstr.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_functionlist.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscifunctions_la-sci_idempotence.Plo
@@ -1210,7 +1198,6 @@ ps-am:
 
 uninstall-am: uninstall-libscifunctions_la_etcDATA \
 	uninstall-libscifunctions_la_rootDATA \
-	uninstall-libscifunctions_la_sci_gatewayDATA \
 	uninstall-pkglibLTLIBRARIES
 
 .MAKE: check-am install-am install-strip
@@ -1226,17 +1213,14 @@ uninstall-am: uninstall-libscifunctions_la_etcDATA \
 	install-exec-am install-html install-html-am \
 	install-html-local install-info install-info-am \
 	install-libscifunctions_la_etcDATA \
-	install-libscifunctions_la_rootDATA \
-	install-libscifunctions_la_sci_gatewayDATA install-man \
-	install-pdf install-pdf-am install-pkglibLTLIBRARIES \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am \
-	uninstall-libscifunctions_la_etcDATA \
+	install-libscifunctions_la_rootDATA install-man install-pdf \
+	install-pdf-am install-pkglibLTLIBRARIES install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
+	uninstall-am uninstall-libscifunctions_la_etcDATA \
 	uninstall-libscifunctions_la_rootDATA \
-	uninstall-libscifunctions_la_sci_gatewayDATA \
 	uninstall-pkglibLTLIBRARIES
 
 .PRECIOUS: Makefile

@@ -22,7 +22,7 @@
 #include "../../integer/includes/integer_gw.hxx"
 #include "../../core/includes/core_gw.hxx"
 #include "../../io/includes/io_gw.hxx"
-//#include "../../functions/includes/functions_gw.hxx"
+#include "../../functions/includes/functions_gw.hxx"
 #include "../../output_stream/includes/output_stream_gw.hxx"
 //#include "../../matio/includes/matio_gw.hxx"
 #include "../../fileio/includes/fileio_gw.hxx"

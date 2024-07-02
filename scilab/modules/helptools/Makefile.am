@@ -37,13 +37,11 @@ else
 GATEWAY_CXX_SOURCES = sci_gateway/nogui/nogui.cpp
 endif
 
-if MAINTAINER_MODE
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscihelptools.la libscihelptools-disable.la
 noinst_LTLIBRARIES = libscihelptools-algo.la
-else
-pkglib_LTLIBRARIES = 
-noinst_LTLIBRARIES = libscihelptools-algo.la libscihelptools.la libscihelptools-disable.la
-endif
+
 
 libscihelptools_la_CPPFLAGS= \
 	$(JAVA_JNI_INCLUDE) \

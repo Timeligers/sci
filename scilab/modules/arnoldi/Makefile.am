@@ -45,11 +45,8 @@ INCLUDE_FLAGS = $(libsciarnoldi_la_CPPFLAGS)
 modulename=arnoldi
 
 
-if MAINTAINER_MODE
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciarnoldi.la
-else
-noinst_LTLIBRARIES = libsciarnoldi.la
-endif # MAINTAINER_MODE
 
 
 #### arnoldi : Conf files ####

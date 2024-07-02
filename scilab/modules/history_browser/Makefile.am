@@ -85,21 +85,11 @@ HISTORY_BROWSER_DISABLE_C_SOURCES =  src/nohistory_browser/CommandHistory_Wrap_F
 libscihistory_browser_disable_la_SOURCES = $(HISTORY_BROWSER_DISABLE_C_SOURCES)
 
 
-if MAINTAINER_MODE
-
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscihistory_browser-disable.la
 if GUI
 pkglib_LTLIBRARIES += libscihistory_browser.la
 endif
-
-else
-
-noinst_LTLIBRARIES = libscihistory_browser-disable.la
-if GUI
-noinst_LTLIBRARIES += libscihistory_browser.la
-endif
-
-endif # MAINTAINER_MODE
 
 
 libscihistory_browser_la_LIBADD = $(X_LIBS) $(X_EXTRA_LIBS)

@@ -70,9 +70,11 @@ libscimatio_la_CPPFLAGS = \
     $(MATIO_CFLAGS) \
     $(AM_CPPFLAGS)
 
+
 # dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscimatio.la
 noinst_LTLIBRARIES = libscimatio-algo.la
+
 
 libscimatio_algo_la_SOURCES = $(MATIO_C_SOURCES) $(MATIO_CPP_SOURCES)
 libscimatio_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)

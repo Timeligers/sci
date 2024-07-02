@@ -123,14 +123,9 @@ libsciexternal_objects_java_la_CPPFLAGS = \
     $(JAVA_JNI_INCLUDE)
 
 
-if MAINTAINER_MODE
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciexternal_objects_java.la
 noinst_LTLIBRARIES = libsciexternal_objects_java-algo.la
-else
-noinst_LTLIBRARIES = libsciexternal_objects_java-algo.la libsciexternal_objects_java.la
-endif
-
-libsciexternal_objects_java_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
 
 libsciexternal_objects_java_algo_la_SOURCES = $(EXTERNAL_OBJECTS_JAVA_C_SOURCES) $(EXTERNAL_OBJECTS_JAVA_JNI_SOURCES) $(EXTERNAL_OBJECTS_JAVA_CPP_SOURCES)
 libsciexternal_objects_java_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)

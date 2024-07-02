@@ -141,9 +141,9 @@ libscixcos_disable_la_CPPFLAGS = \
 XCOS_DISABLE_C_SOURCES = src/noxcos/noxcos.c
 libscixcos_disable_la_SOURCES = $(XCOS_DISABLE_C_SOURCES)
 
+
 # dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscixcos-disable.la
-
 if XCOS
 if GUI
 noinst_LTLIBRARIES = libscixcos-algo.la

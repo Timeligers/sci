@@ -83,20 +83,13 @@ libsciaction_binding_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/string/includes \
     $(AM_CPPFLAGS)
 
-# Name of the future library (.la will be replace by .so, .a, etc regarding
-# the system)
-if MAINTAINER_MODE
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciaction_binding-disable.la
 if GUI
 pkglib_LTLIBRARIES += libsciaction_binding.la
 endif
 noinst_LTLIBRARIES = libsciaction_binding-algo.la
-else
-noinst_LTLIBRARIES = libsciaction_binding-algo.la libsciaction_binding-disable.la
-if GUI
-noinst_LTLIBRARIES += libsciaction_binding.la
-endif
-endif
 
 
 # All the sources needed by libsciaction_binding.la

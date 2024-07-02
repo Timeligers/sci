@@ -128,7 +128,7 @@ build_triplet = @build@
 host_triplet = @host@
 @GIWS_TRUE@am__append_1 = giws
 @SWIG_TRUE@am__append_2 = swig
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_3 = libscigui.la
+@GUI_TRUE@am__append_3 = libscigui.la
 @NEED_JAVA_TRUE@am__append_4 = java
 subdir = modules/gui
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -292,15 +292,11 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscigui_algo_la_rpath =
-@MAINTAINER_MODE_FALSE@am_libscigui_algo_la_rpath =
+@GUI_TRUE@am_libscigui_algo_la_rpath =
 libscigui_disable_la_LIBADD =
 am__objects_3 = src/nogui/libscigui_disable_la-nogui.lo
 am_libscigui_disable_la_OBJECTS = $(am__objects_3)
 libscigui_disable_la_OBJECTS = $(am_libscigui_disable_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libscigui_disable_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscigui_disable_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 libscigui_la_DEPENDENCIES = libscigui-algo.la
 am__objects_4 = sci_gateway/c/libscigui_la-sci_x_choose.lo \
 	sci_gateway/c/libscigui_la-sci_x_choose_modeless.lo \
@@ -354,9 +350,7 @@ am__objects_5 = sci_gateway/cpp/libscigui_la-sci_printsetupbox.lo \
 	sci_gateway/cpp/libscigui_la-sci_x_dialog.lo
 am_libscigui_la_OBJECTS = $(am__objects_4) $(am__objects_5)
 libscigui_la_OBJECTS = $(am_libscigui_la_OBJECTS)
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscigui_la_rpath = -rpath \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
-@MAINTAINER_MODE_FALSE@am_libscigui_la_rpath =
+@GUI_TRUE@am_libscigui_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -1154,11 +1148,10 @@ libscigui_disable_la_CPPFLAGS = \
 
 GUI_DISABLE_C_SOURCES = src/nogui/nogui.c
 libscigui_disable_la_SOURCES = $(GUI_DISABLE_C_SOURCES)
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscigui-disable.la \
-@MAINTAINER_MODE_TRUE@	$(am__append_3)
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscigui-algo.la
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscigui-disable.la \
-@MAINTAINER_MODE_FALSE@	libscigui-algo.la libscigui.la
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscigui-disable.la $(am__append_3)
+@GUI_TRUE@noinst_LTLIBRARIES = libscigui-algo.la
 libscigui_algo_la_SOURCES = $(GUI_C_SOURCES) $(GUI_CXX_SOURCES)
 libscigui_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES)
 libscigui_algo_la_CPPFLAGS = $(libscigui_la_CPPFLAGS)
@@ -1694,7 +1687,7 @@ src/nogui/libscigui_disable_la-nogui.lo: src/nogui/$(am__dirstamp) \
 	src/nogui/$(DEPDIR)/$(am__dirstamp)
 
 libscigui-disable.la: $(libscigui_disable_la_OBJECTS) $(libscigui_disable_la_DEPENDENCIES) $(EXTRA_libscigui_disable_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) $(am_libscigui_disable_la_rpath) $(libscigui_disable_la_OBJECTS) $(libscigui_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscigui_disable_la_OBJECTS) $(libscigui_disable_la_LIBADD) $(LIBS)
 sci_gateway/c/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/c
 	@: > sci_gateway/c/$(am__dirstamp)

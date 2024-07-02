@@ -29,8 +29,6 @@ else
 noinst_LTLIBRARIES = libsciwindows_tools.la
 endif
 
-libsciwindows_tools_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
-
 # All the sources needed by libsciwindows_tools.la
 libsciwindows_tools_la_SOURCES = $(WINDOWS_TOOLS_C_SOURCES)
 

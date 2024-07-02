@@ -131,9 +131,8 @@ host_triplet = @host@
 @IS_MACOSX_TRUE@am__append_1 = src/c/others/initMacOSXEnv.c
 @GIWS_TRUE@am__append_2 = giws
 @SWIG_TRUE@am__append_3 = swig
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_4 = libsciconsole.la
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_5 = libsciconsole.la
-@NEED_JAVA_TRUE@am__append_6 = java
+@GUI_TRUE@am__append_4 = libsciconsole.la
+@NEED_JAVA_TRUE@am__append_5 = java
 subdir = modules/console
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -237,8 +236,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@MAINTAINER_MODE_FALSE@am_libsciconsole_algo_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libsciconsole_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libsciconsole_minimal_la_DEPENDENCIES = libsciconsole-algo.la \
 	$(am__DEPENDENCIES_1)
@@ -253,9 +250,6 @@ am_libsciconsole_minimal_la_OBJECTS =  \
 	$(am__objects_5)
 libsciconsole_minimal_la_OBJECTS =  \
 	$(am_libsciconsole_minimal_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libsciconsole_minimal_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libsciconsole_minimal_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 libsciconsole_la_DEPENDENCIES = libsciconsole-algo.la \
 	$(am__DEPENDENCIES_1)
 am__objects_6 = src/jni/libsciconsole_la-GuiManagement_wrap.lo \
@@ -281,9 +275,7 @@ am_libsciconsole_la_OBJECTS =  \
 	src/c/libsciconsole_la-InitializeConsole.lo $(am__objects_6) \
 	$(am__objects_7) $(am__objects_8) $(am__objects_9)
 libsciconsole_la_OBJECTS = $(am_libsciconsole_la_OBJECTS)
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libsciconsole_la_rpath =
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libsciconsole_la_rpath = -rpath \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
+@GUI_TRUE@am_libsciconsole_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -851,13 +843,8 @@ libsciconsole_la_CPPFLAGS = \
 
 
 # Name of the library
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciconsole-minimal.la \
-@MAINTAINER_MODE_TRUE@	$(am__append_4)
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciconsole-algo.la \
-@MAINTAINER_MODE_FALSE@	libsciconsole-minimal.la \
-@MAINTAINER_MODE_FALSE@	$(am__append_5)
-@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libsciconsole-algo.la \
-@MAINTAINER_MODE_TRUE@	$(am__append_5)
+pkglib_LTLIBRARIES = libsciconsole-minimal.la $(am__append_4)
+noinst_LTLIBRARIES = libsciconsole-algo.la
 
 # All the sources needed by libsciconsole.la
 libsciconsole_algo_la_SOURCES = \
@@ -946,7 +933,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_6)
+TARGETS_ALL = $(am__append_5)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -1161,7 +1148,7 @@ src/c/cmdLine/libsciconsole_algo_la-termcapManagement.lo:  \
 	src/c/cmdLine/$(DEPDIR)/$(am__dirstamp)
 
 libsciconsole-algo.la: $(libsciconsole_algo_la_OBJECTS) $(libsciconsole_algo_la_DEPENDENCIES) $(EXTRA_libsciconsole_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciconsole_algo_la_rpath) $(libsciconsole_algo_la_OBJECTS) $(libsciconsole_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK)  $(libsciconsole_algo_la_OBJECTS) $(libsciconsole_algo_la_LIBADD) $(LIBS)
 src/noconsole/$(am__dirstamp):
 	@$(MKDIR_P) src/noconsole
 	@: > src/noconsole/$(am__dirstamp)
@@ -1197,7 +1184,7 @@ sci_gateway/cpp/libsciconsole_minimal_la-console_gw.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libsciconsole-minimal.la: $(libsciconsole_minimal_la_OBJECTS) $(libsciconsole_minimal_la_DEPENDENCIES) $(EXTRA_libsciconsole_minimal_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciconsole_minimal_la_rpath) $(libsciconsole_minimal_la_OBJECTS) $(libsciconsole_minimal_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libsciconsole_minimal_la_OBJECTS) $(libsciconsole_minimal_la_LIBADD) $(LIBS)
 src/c/libsciconsole_la-InitializeConsole.lo: src/c/$(am__dirstamp) \
 	src/c/$(DEPDIR)/$(am__dirstamp)
 src/jni/$(am__dirstamp):

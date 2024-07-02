@@ -57,9 +57,10 @@ libscimpi_la_CPPFLAGS=  -Iincludes/ \
 # libscimpi_la_LDFLAGS = $(LAMPI_LDFLAGS)
 libscimpi_la_LIBADD = $(OPENMPI_LIBS)
 
-# Name of the future library (.la will be replace by .so, .a, etc regarding
-# the system)
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscimpi.la
+
 
 # All the sources needed by libscimpi.la
 libscimpi_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES) $(MPI_C_SOURCES) $(MPI_CPP_SOURCES)

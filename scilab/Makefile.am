@@ -98,9 +98,9 @@ COMMON_LIBS += $(VALGRIND_LIBS)
 
 scilab_bin_SOURCES = modules/startup/src/cpp/scilab.cpp
 
-# the scilab-bin object file itself uses symbols from at least libscilab-cli.la,
-# libsciconsole-minimal.la and libscijvm-disable.la, so we have to link with these
-# libraries explicitly unless we link with -Wl,--copy-dt-needed-entries
+# the scilab-bin object file itself uses symbols from libscilab libs and others.
+# Link all the needed ones (even the dynamic modules) as dlopen will re-use them
+# on dynamic modules loading if needed.
 scilab_bin_LDADD 	= \
 			$(top_builddir)/modules/libscilab.la \
 			$(OPENMPI_LIBS) $(XML_LIBS) \
@@ -108,13 +108,28 @@ scilab_bin_LDADD 	= \
 
 if NEED_JAVA
 scilab_bin_LDADD += \
+			$(top_builddir)/modules/arnoldi/libsciarnoldi.la \
+			$(top_builddir)/modules/ui_data/libsciui_data.la \
+			$(top_builddir)/modules/call_scilab/libscicall_scilab.la \
+			$(top_builddir)/modules/commons/libscicommons.la \
 			$(top_builddir)/modules/console/libsciconsole.la \
+			$(top_builddir)/modules/graphics/libscigraphics.la \
+			$(top_builddir)/modules/gui/libscigui.la \
+			$(top_builddir)/modules/completion/libscicompletion.la \
+			$(top_builddir)/modules/xml/libscixml.la \
+			$(top_builddir)/modules/history_browser/libscihistory_browser.la \
+			$(top_builddir)/modules/graphics/libscigraphics.la \
 			$(top_builddir)/modules/jvm/libscijvm.la \
-			$(top_builddir)/modules/commons/libscicommons.la
+			$(top_builddir)/modules/call_scilab/libscicall_scilab.la \
+			$(top_builddir)/modules/tclsci/libscitclsci.la \
+			$(top_builddir)/modules/arnoldi/libsciarnoldi.la \
+			$(top_builddir)/modules/external_objects/libsciexternal_objects.la
 else
 scilab_bin_LDADD += \
 			$(top_builddir)/modules/console/libsciconsole-minimal.la \
-			$(top_builddir)/modules/jvm/libscijvm-disable.la
+			$(top_builddir)/modules/jvm/libscijvm-disable.la \
+			$(top_builddir)/modules/tclsci/libscitclsci-disable.la \
+			$(top_builddir)/modules/xml/libscixml.la
 endif
 
 # BLAS_LIBS & LAPACK_LIBS are explicitly linked at the end. Unlike Scilab 5 in which the binary

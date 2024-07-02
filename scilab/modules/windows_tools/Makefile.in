@@ -183,8 +183,8 @@ am__v_lt_0 = --silent
 am__v_lt_1 = 
 libsciwindows_tools_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libsciwindows_tools_la_CFLAGS) $(CFLAGS) \
-	$(libsciwindows_tools_la_LDFLAGS) $(LDFLAGS) -o $@
+	$(libsciwindows_tools_la_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
 @MAINTAINER_MODE_FALSE@am_libsciwindows_tools_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libsciwindows_tools_la_rpath = -rpath \
 @MAINTAINER_MODE_TRUE@	$(pkglibdir)
@@ -594,7 +594,6 @@ libsciwindows_tools_la_CFLAGS = \
 # the system)
 @MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciwindows_tools.la
 @MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciwindows_tools.la
-libsciwindows_tools_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
 
 # All the sources needed by libsciwindows_tools.la
 libsciwindows_tools_la_SOURCES = $(WINDOWS_TOOLS_C_SOURCES)

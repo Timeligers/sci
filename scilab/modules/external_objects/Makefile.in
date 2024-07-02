@@ -246,8 +246,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@MAINTAINER_MODE_FALSE@am_libsciexternal_objects_algo_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libsciexternal_objects_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libsciexternal_objects_la_DEPENDENCIES =  \
 	libsciexternal_objects-algo.la $(am__DEPENDENCIES_1) \
@@ -287,13 +285,6 @@ am__objects_3 = sci_gateway/cpp/libsciexternal_objects_la-sci_percent_EObj_e.lo 
 am_libsciexternal_objects_la_OBJECTS = $(am__objects_3)
 libsciexternal_objects_la_OBJECTS =  \
 	$(am_libsciexternal_objects_la_OBJECTS)
-libsciexternal_objects_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) \
-	$(libsciexternal_objects_la_LDFLAGS) $(LDFLAGS) -o $@
-@MAINTAINER_MODE_FALSE@am_libsciexternal_objects_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libsciexternal_objects_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -963,10 +954,10 @@ libsciexternal_objects_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/threads/includes \
     -I$(top_srcdir)/modules/console/includes
 
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciexternal_objects.la
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciexternal_objects-algo.la libsciexternal_objects.la
-@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libsciexternal_objects-algo.la
-libsciexternal_objects_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libsciexternal_objects.la
+noinst_LTLIBRARIES = libsciexternal_objects-algo.la
 libsciexternal_objects_algo_la_SOURCES = $(EXTERNAL_OBJECTS_C_SOURCES) $(EXTERNAL_OBJECTS_JNI_SOURCES) $(EXTERNAL_OBJECTS_CPP_SOURCES)
 libsciexternal_objects_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libsciexternal_objects_algo_la_CFLAGS = $(libsciexternal_objects_la_CFLAGS)
@@ -1186,7 +1177,7 @@ src/cpp/libsciexternal_objects_algo_la-EOType.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libsciexternal_objects-algo.la: $(libsciexternal_objects_algo_la_OBJECTS) $(libsciexternal_objects_algo_la_DEPENDENCIES) $(EXTRA_libsciexternal_objects_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciexternal_objects_algo_la_rpath) $(libsciexternal_objects_algo_la_OBJECTS) $(libsciexternal_objects_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK)  $(libsciexternal_objects_algo_la_OBJECTS) $(libsciexternal_objects_algo_la_LIBADD) $(LIBS)
 sci_gateway/cpp/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp
 	@: > sci_gateway/cpp/$(am__dirstamp)
@@ -1291,7 +1282,7 @@ sci_gateway/cpp/libsciexternal_objects_la-sci_percent_EObj_clear.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libsciexternal_objects.la: $(libsciexternal_objects_la_OBJECTS) $(libsciexternal_objects_la_DEPENDENCIES) $(EXTRA_libsciexternal_objects_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciexternal_objects_la_LINK) $(am_libsciexternal_objects_la_rpath) $(libsciexternal_objects_la_OBJECTS) $(libsciexternal_objects_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libsciexternal_objects_la_OBJECTS) $(libsciexternal_objects_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

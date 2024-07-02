@@ -50,8 +50,6 @@ libmat_la_CPPFLAGS = \
     $(MEXLIB_FLAGS) \
     $(AM_CPPFLAGS)
 
-libmat_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
-
 libmx_la_SOURCES = $(MEXLIB_CPP_SOURCES)
 
 libmx_la_LIBADD = $(MEXLIB_DEP)

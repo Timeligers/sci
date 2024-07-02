@@ -123,8 +123,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 @NEED_JAVA_TRUE@am__append_1 = java
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_2 = libscihistory_browser.la
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_3 = libscihistory_browser.la
+@GUI_TRUE@am__append_2 = libscihistory_browser.la
 subdir = modules/history_browser
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -182,7 +181,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libscihistory_browser_la_etcdir)" \
 	"$(DESTDIR)$(libscihistory_browser_la_rootdir)" \
 	"$(DESTDIR)$(libscihistory_browser_la_sci_gatewaydir)"
-LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
+LTLIBRARIES = $(pkglib_LTLIBRARIES)
 libscihistory_browser_disable_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = src/nohistory_browser/libscihistory_browser_disable_la-CommandHistory_Wrap_Fake.lo
@@ -193,9 +192,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@MAINTAINER_MODE_FALSE@am_libscihistory_browser_disable_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscihistory_browser_disable_la_rpath =  \
-@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 am__DEPENDENCIES_1 =
 libscihistory_browser_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
@@ -212,9 +208,7 @@ am_libscihistory_browser_la_OBJECTS = $(am__objects_2) \
 	$(am__objects_3) $(am__objects_4)
 libscihistory_browser_la_OBJECTS =  \
 	$(am_libscihistory_browser_la_OBJECTS)
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscihistory_browser_la_rpath =
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscihistory_browser_la_rpath =  \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
+@GUI_TRUE@am_libscihistory_browser_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -753,12 +747,9 @@ libscihistory_browser_disable_la_CPPFLAGS = \
 
 HISTORY_BROWSER_DISABLE_C_SOURCES = src/nohistory_browser/CommandHistory_Wrap_Fake.c
 libscihistory_browser_disable_la_SOURCES = $(HISTORY_BROWSER_DISABLE_C_SOURCES)
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES =  \
-@MAINTAINER_MODE_TRUE@	libscihistory_browser-disable.la \
-@MAINTAINER_MODE_TRUE@	$(am__append_2)
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES =  \
-@MAINTAINER_MODE_FALSE@	libscihistory_browser-disable.la \
-@MAINTAINER_MODE_FALSE@	$(am__append_3)
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscihistory_browser-disable.la $(am__append_2)
 libscihistory_browser_la_LIBADD = $(X_LIBS) $(X_EXTRA_LIBS)
 libscihistory_browser_la_SOURCES = $(HISTORY_BROWSER_C_SOURCES) $(HISTORY_BROWSER_JNI_SOURCES) $(HISTORY_BROWSER_CPP_SOURCES)
 
@@ -809,17 +800,6 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
-clean-noinstLTLIBRARIES:
-	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
-	@list='$(noinst_LTLIBRARIES)'; \
-	locs=`for p in $$list; do echo $$p; done | \
-	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
-	      sort -u`; \
-	test -z "$$locs" || { \
-	  echo rm -f $${locs}; \
-	  rm -f $${locs}; \
-	}
-
 install-pkglibLTLIBRARIES: $(pkglib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	@list='$(pkglib_LTLIBRARIES)'; test -n "$(pkglibdir)" || list=; \
@@ -865,7 +845,7 @@ src/nohistory_browser/libscihistory_browser_disable_la-CommandHistory_Wrap_Fake.
 	src/nohistory_browser/$(DEPDIR)/$(am__dirstamp)
 
 libscihistory_browser-disable.la: $(libscihistory_browser_disable_la_OBJECTS) $(libscihistory_browser_disable_la_DEPENDENCIES) $(EXTRA_libscihistory_browser_disable_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) $(am_libscihistory_browser_disable_la_rpath) $(libscihistory_browser_disable_la_OBJECTS) $(libscihistory_browser_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscihistory_browser_disable_la_OBJECTS) $(libscihistory_browser_disable_la_LIBADD) $(LIBS)
 src/nohistory_browser/libscihistory_browser_la-CommandHistory_Wrap_Fake.lo:  \
 	src/nohistory_browser/$(am__dirstamp) \
 	src/nohistory_browser/$(DEPDIR)/$(am__dirstamp)
@@ -1217,7 +1197,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
-	clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES mostlyclean-am
+	clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 		-rm -f sci_gateway/c/$(DEPDIR)/libscihistory_browser_la-sci_browsehistory.Plo
@@ -1304,15 +1284,14 @@ uninstall-am: uninstall-libscihistory_browser_la_etcDATA \
 
 .PHONY: CTAGS GTAGS TAGS all all-am all-local am--depfiles check \
 	check-am check-local clean clean-generic clean-libtool \
-	clean-local clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES \
-	cscopelist-am ctags ctags-am distclean distclean-compile \
-	distclean-generic distclean-libtool distclean-local \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am \
-	install-data-local install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am \
-	install-html-local install-info install-info-am \
-	install-libscihistory_browser_la_etcDATA \
+	clean-local clean-pkglibLTLIBRARIES cscopelist-am ctags \
+	ctags-am distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-local distclean-tags distdir dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-data install-data-am install-data-local install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-html-local install-info \
+	install-info-am install-libscihistory_browser_la_etcDATA \
 	install-libscihistory_browser_la_rootDATA \
 	install-libscihistory_browser_la_sci_gatewayDATA install-man \
 	install-pdf install-pdf-am install-pkglibLTLIBRARIES \

@@ -176,6 +176,7 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libscidifferential_equations_la_etcdir)" \
+	"$(DESTDIR)$(libscidifferential_equations_la_gatewaydir)" \
 	"$(DESTDIR)$(libscidifferential_equations_la_rootdir)" \
 	"$(DESTDIR)$(libscidifferential_equations_la_sci_gatewaydir)" \
 	"$(DESTDIR)$(libscidifferential_equations_la_includedir)" \
@@ -247,8 +248,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@MAINTAINER_MODE_FALSE@am_libscidifferential_equations_algo_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscidifferential_equations_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libscidifferential_equations_la_DEPENDENCIES =  \
 	libscidifferential_equations-algo.la libscisundials.la \
@@ -260,7 +259,7 @@ am__objects_4 = sci_gateway/fortran/Ex-impl.lo \
 	sci_gateway/fortran/Ex-dasrt.lo \
 	sci_gateway/fortran/Ex-dassl.lo \
 	sci_gateway/fortran/Ex-bvode.lo
-am__objects_5 = sci_gateway/cpp/libscidifferential_equations_la-differential_equations_gw.lo \
+am__objects_5 =  \
 	sci_gateway/cpp/libscidifferential_equations_la-sci_int2d.lo \
 	sci_gateway/cpp/libscidifferential_equations_la-sci_int3d.lo \
 	sci_gateway/cpp/libscidifferential_equations_la-sci_intg.lo \
@@ -281,9 +280,6 @@ am_libscidifferential_equations_la_OBJECTS = $(am__objects_4) \
 	$(am__objects_5)
 libscidifferential_equations_la_OBJECTS =  \
 	$(am_libscidifferential_equations_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libscidifferential_equations_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscidifferential_equations_la_rpath =  \
-@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 libscisundials_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_libscisundials_la_OBJECTS =  \
@@ -379,9 +375,6 @@ am_libscisundials_la_OBJECTS =  \
 	src/patched_sundials/src/sunnonlinsol/fixedpoint/libscisundials_la-sunnonlinsol_fixedpoint.lo \
 	src/patched_sundials/src/sunnonlinsol/newton/libscisundials_la-sunnonlinsol_newton.lo
 libscisundials_la_OBJECTS = $(am_libscisundials_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libscisundials_la_rpath = -rpath \
-@MAINTAINER_MODE_FALSE@	$(pkglibdir)
-@MAINTAINER_MODE_TRUE@am_libscisundials_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -397,8 +390,7 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/modules/core/includes
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-differential_equations_gw.Plo \
-	sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_arkode.Plo \
+am__depfiles_remade = sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_arkode.Plo \
 	sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_bvode.Plo \
 	sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_cvode.Plo \
 	sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_daskr.Plo \
@@ -594,6 +586,7 @@ am__can_run_installinfo = \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
 DATA = $(libscidifferential_equations_la_etc_DATA) \
+	$(libscidifferential_equations_la_gateway_DATA) \
 	$(libscidifferential_equations_la_root_DATA) \
 	$(libscidifferential_equations_la_sci_gateway_DATA)
 HEADERS = $(libscidifferential_equations_la_include_HEADERS) \
@@ -1038,7 +1031,6 @@ GATEWAY_FORTRAN_SOURCES = \
     sci_gateway/fortran/Ex-bvode.f
 
 GATEWAY_CPP_SOURCES = \
-    sci_gateway/cpp/differential_equations_gw.cpp \
     sci_gateway/cpp/sci_int2d.cpp \
     sci_gateway/cpp/sci_int3d.cpp \
     sci_gateway/cpp/sci_intg.cpp \
@@ -1243,12 +1235,10 @@ libscisundials_la_LIBADD = $(KLU_LIBS) \
     $(UMFPACK_LIBS) \
     $(OPENMP_LIBS)
 
-@MAINTAINER_MODE_FALSE@pkglib_LTLIBRARIES = libscisundials.la
 
-# keep sundials as a shared object ; it is used by scicos which is a dynamic module
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscidifferential_equations-algo.la libscidifferential_equations.la
-@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscidifferential_equations-algo.la
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
+noinst_LTLIBRARIES = libscidifferential_equations-algo.la
 libscidifferential_equations_algo_la_SOURCES = $(DIFFERENTIAL_EQUATIONS_C_SOURCES) $(DIFFERENTIAL_EQUATIONS_FORTRAN_SOURCES) $(DIFFERENTIAL_EQUATIONS_CPP_SOURCES)
 libscidifferential_equations_la_SOURCES = $(GATEWAY_FORTRAN_SOURCES) $(GATEWAY_CPP_SOURCES) $(GATEWAY_C_SOURCES)
 libscidifferential_equations_algo_la_CPPFLAGS = $(libscidifferential_equations_la_CPPFLAGS)
@@ -1276,6 +1266,10 @@ libscidifferential_equations_la_root_DATA = license.txt
 #### differential_equations : init scripts ####
 libscidifferential_equations_la_etcdir = $(mydatadir)/etc
 libscidifferential_equations_la_etc_DATA = etc/differential_equations.quit etc/differential_equations.start
+
+#### hdf5 : gateway declaration ####
+libscidifferential_equations_la_gatewaydir = $(mydatadir)/sci_gateway
+libscidifferential_equations_la_gateway_DATA = sci_gateway/differential_equations_gateway.xml
 
 #### sundials : include files ####
 # find src/patched_sundials/include  -type f -name '*.h' -or -name '*.hxx' -or -name '*.hpp' | sort |xargs printf '%s \\\n'
@@ -1652,7 +1646,7 @@ src/cpp/libscidifferential_equations_algo_la-complexHelpers.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscidifferential_equations-algo.la: $(libscidifferential_equations_algo_la_OBJECTS) $(libscidifferential_equations_algo_la_DEPENDENCIES) $(EXTRA_libscidifferential_equations_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libscidifferential_equations_algo_la_rpath) $(libscidifferential_equations_algo_la_OBJECTS) $(libscidifferential_equations_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK)  $(libscidifferential_equations_algo_la_OBJECTS) $(libscidifferential_equations_algo_la_LIBADD) $(LIBS)
 sci_gateway/fortran/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/fortran
 	@: > sci_gateway/fortran/$(am__dirstamp)
@@ -1679,9 +1673,6 @@ sci_gateway/cpp/$(am__dirstamp):
 sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp/$(DEPDIR)
 	@: > sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
-sci_gateway/cpp/libscidifferential_equations_la-differential_equations_gw.lo:  \
-	sci_gateway/cpp/$(am__dirstamp) \
-	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 sci_gateway/cpp/libscidifferential_equations_la-sci_int2d.lo:  \
 	sci_gateway/cpp/$(am__dirstamp) \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
@@ -1732,7 +1723,7 @@ sci_gateway/cpp/libscidifferential_equations_la-sci_percent_odeSolution.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscidifferential_equations.la: $(libscidifferential_equations_la_OBJECTS) $(libscidifferential_equations_la_DEPENDENCIES) $(EXTRA_libscidifferential_equations_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libscidifferential_equations_la_rpath) $(libscidifferential_equations_la_OBJECTS) $(libscidifferential_equations_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscidifferential_equations_la_OBJECTS) $(libscidifferential_equations_la_LIBADD) $(LIBS)
 src/patched_sundials/src/arkode/$(am__dirstamp):
 	@$(MKDIR_P) src/patched_sundials/src/arkode
 	@: > src/patched_sundials/src/arkode/$(am__dirstamp)
@@ -2144,7 +2135,7 @@ src/patched_sundials/src/sunnonlinsol/newton/libscisundials_la-sunnonlinsol_newt
 	src/patched_sundials/src/sunnonlinsol/newton/$(DEPDIR)/$(am__dirstamp)
 
 libscisundials.la: $(libscisundials_la_OBJECTS) $(libscisundials_la_DEPENDENCIES) $(EXTRA_libscisundials_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) $(am_libscisundials_la_rpath) $(libscisundials_la_OBJECTS) $(libscisundials_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscisundials_la_OBJECTS) $(libscisundials_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -2208,7 +2199,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-differential_equations_gw.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_arkode.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_bvode.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_cvode.Plo@am__quote@ # am--include-marker
@@ -3208,13 +3198,6 @@ src/cpp/libscidifferential_equations_algo_la-complexHelpers.lo: src/cpp/complexH
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscidifferential_equations_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/cpp/libscidifferential_equations_algo_la-complexHelpers.lo `test -f 'src/cpp/complexHelpers.cpp' || echo '$(srcdir)/'`src/cpp/complexHelpers.cpp
 
-sci_gateway/cpp/libscidifferential_equations_la-differential_equations_gw.lo: sci_gateway/cpp/differential_equations_gw.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscidifferential_equations_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT sci_gateway/cpp/libscidifferential_equations_la-differential_equations_gw.lo -MD -MP -MF sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-differential_equations_gw.Tpo -c -o sci_gateway/cpp/libscidifferential_equations_la-differential_equations_gw.lo `test -f 'sci_gateway/cpp/differential_equations_gw.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/differential_equations_gw.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-differential_equations_gw.Tpo sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-differential_equations_gw.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='sci_gateway/cpp/differential_equations_gw.cpp' object='sci_gateway/cpp/libscidifferential_equations_la-differential_equations_gw.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscidifferential_equations_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o sci_gateway/cpp/libscidifferential_equations_la-differential_equations_gw.lo `test -f 'sci_gateway/cpp/differential_equations_gw.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/differential_equations_gw.cpp
-
 sci_gateway/cpp/libscidifferential_equations_la-sci_int2d.lo: sci_gateway/cpp/sci_int2d.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscidifferential_equations_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT sci_gateway/cpp/libscidifferential_equations_la-sci_int2d.lo -MD -MP -MF sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_int2d.Tpo -c -o sci_gateway/cpp/libscidifferential_equations_la-sci_int2d.lo `test -f 'sci_gateway/cpp/sci_int2d.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_int2d.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_int2d.Tpo sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_int2d.Plo
@@ -3390,6 +3373,27 @@ uninstall-libscidifferential_equations_la_etcDATA:
 	@list='$(libscidifferential_equations_la_etc_DATA)'; test -n "$(libscidifferential_equations_la_etcdir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(libscidifferential_equations_la_etcdir)'; $(am__uninstall_files_from_dir)
+install-libscidifferential_equations_la_gatewayDATA: $(libscidifferential_equations_la_gateway_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(libscidifferential_equations_la_gateway_DATA)'; test -n "$(libscidifferential_equations_la_gatewaydir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libscidifferential_equations_la_gatewaydir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libscidifferential_equations_la_gatewaydir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(libscidifferential_equations_la_gatewaydir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(libscidifferential_equations_la_gatewaydir)" || exit $$?; \
+	done
+
+uninstall-libscidifferential_equations_la_gatewayDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libscidifferential_equations_la_gateway_DATA)'; test -n "$(libscidifferential_equations_la_gatewaydir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libscidifferential_equations_la_gatewaydir)'; $(am__uninstall_files_from_dir)
 install-libscidifferential_equations_la_rootDATA: $(libscidifferential_equations_la_root_DATA)
 	@$(NORMAL_INSTALL)
 	@list='$(libscidifferential_equations_la_root_DATA)'; test -n "$(libscidifferential_equations_la_rootdir)" || list=; \
@@ -3606,7 +3610,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) all-local
 installdirs:
-	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libscidifferential_equations_la_etcdir)" "$(DESTDIR)$(libscidifferential_equations_la_rootdir)" "$(DESTDIR)$(libscidifferential_equations_la_sci_gatewaydir)" "$(DESTDIR)$(libscidifferential_equations_la_includedir)" "$(DESTDIR)$(libscidifferential_equations_nvector_la_includedir)" "$(DESTDIR)$(libscidifferential_equations_sundials_la_includedir)" "$(DESTDIR)$(libscidifferential_equations_sunmatrix_la_includedir)"; do \
+	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libscidifferential_equations_la_etcdir)" "$(DESTDIR)$(libscidifferential_equations_la_gatewaydir)" "$(DESTDIR)$(libscidifferential_equations_la_rootdir)" "$(DESTDIR)$(libscidifferential_equations_la_sci_gatewaydir)" "$(DESTDIR)$(libscidifferential_equations_la_includedir)" "$(DESTDIR)$(libscidifferential_equations_nvector_la_includedir)" "$(DESTDIR)$(libscidifferential_equations_sundials_la_includedir)" "$(DESTDIR)$(libscidifferential_equations_sunmatrix_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -3701,8 +3705,7 @@ clean-am: clean-generic clean-libtool clean-local \
 	clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
-		-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-differential_equations_gw.Plo
-	-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_arkode.Plo
+		-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_arkode.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_bvode.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_cvode.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_daskr.Plo
@@ -3852,6 +3855,7 @@ info-am:
 
 install-data-am: install-data-local \
 	install-libscidifferential_equations_la_etcDATA \
+	install-libscidifferential_equations_la_gatewayDATA \
 	install-libscidifferential_equations_la_includeHEADERS \
 	install-libscidifferential_equations_la_rootDATA \
 	install-libscidifferential_equations_la_sci_gatewayDATA \
@@ -3886,8 +3890,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-differential_equations_gw.Plo
-	-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_arkode.Plo
+		-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_arkode.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_bvode.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_cvode.Plo
 	-rm -f sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-sci_daskr.Plo
@@ -4036,6 +4039,7 @@ ps: ps-am
 ps-am:
 
 uninstall-am: uninstall-libscidifferential_equations_la_etcDATA \
+	uninstall-libscidifferential_equations_la_gatewayDATA \
 	uninstall-libscidifferential_equations_la_includeHEADERS \
 	uninstall-libscidifferential_equations_la_rootDATA \
 	uninstall-libscidifferential_equations_la_sci_gatewayDATA \
@@ -4057,6 +4061,7 @@ uninstall-am: uninstall-libscidifferential_equations_la_etcDATA \
 	install-exec-am install-html install-html-am \
 	install-html-local install-info install-info-am \
 	install-libscidifferential_equations_la_etcDATA \
+	install-libscidifferential_equations_la_gatewayDATA \
 	install-libscidifferential_equations_la_includeHEADERS \
 	install-libscidifferential_equations_la_rootDATA \
 	install-libscidifferential_equations_la_sci_gatewayDATA \
@@ -4070,6 +4075,7 @@ uninstall-am: uninstall-libscidifferential_equations_la_etcDATA \
 	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am tags tags-am uninstall uninstall-am \
 	uninstall-libscidifferential_equations_la_etcDATA \
+	uninstall-libscidifferential_equations_la_gatewayDATA \
 	uninstall-libscidifferential_equations_la_includeHEADERS \
 	uninstall-libscidifferential_equations_la_rootDATA \
 	uninstall-libscidifferential_equations_la_sci_gatewayDATA \

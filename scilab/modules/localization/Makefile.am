@@ -65,14 +65,13 @@ libscilocalization_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/dynamic_link/includes/ \
     $(AM_CPPFLAGS)
 
-if MAINTAINER_MODE
+
 pkglib_LTLIBRARIES = libscilocalization.la
 noinst_LTLIBRARIES = libscilocalization-algo.la
-else
-noinst_LTLIBRARIES = libscilocalization-algo.la libscilocalization.la
-endif
+
 
 libscilocalization_la_CFLAGS = $(AM_CFLAGS)
+libscilocalization_la_LDFLAGS = $(SCI_LDFLAGS) -version-number $(SCILAB_LIBRARY_VERSION)
 
 libscilocalization_algo_la_SOURCES = $(LOCALIZATION_C_SOURCES) $(LOCALIZATION_CPP_SOURCES)
 libscilocalization_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
@@ -86,7 +85,7 @@ libscilocalization_la_LIBADD = libscilocalization-algo.la
 
 # FIXME: platform dependent things should be in configure.ac
 if IS_MACOSX
-libscilocalization_la_LDFLAGS = $(SCI_LDFLAGS) -framework Cocoa
+libscilocalization_la_LDFLAGS += -framework Cocoa
 libscilocalization_la_LIBADD += -lintl
 libscilocalization_la_CFLAGS += -framework Cocoa
 endif

@@ -87,19 +87,11 @@ SCINOTES_DISABLE_CPP_SOURCES = src/noscinotes/noscinotes_gw.cpp
 libsciscinotes_disable_la_SOURCES = $(SCINOTES_DISABLE_C_SOURCES) $(SCINOTES_DISABLE_CPP_SOURCES)
 
 
-if MAINTAINER_MODE
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciscinotes-disable.la
 if GUI
-USEANT=1
 pkglib_LTLIBRARIES += libsciscinotes.la
 noinst_LTLIBRARIES = libsciscinotes-algo.la
-endif
-else
-noinst_LTLIBRARIES = libsciscinotes-disable.la
-if GUI
-USEANT=1
-noinst_LTLIBRARIES += libsciscinotes-algo.la libsciscinotes.la
-endif
 endif
 
 

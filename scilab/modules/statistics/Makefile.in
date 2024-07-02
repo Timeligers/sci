@@ -213,8 +213,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@MAINTAINER_MODE_FALSE@am_libscistatistics_algo_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscistatistics_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libscistatistics_la_DEPENDENCIES = libscistatistics-algo.la \
 	$(am__DEPENDENCIES_1)
@@ -236,9 +234,6 @@ am__objects_4 =  \
 	sci_gateway/cpp/libscistatistics_la-sci_nanmean.lo
 am_libscistatistics_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscistatistics_la_OBJECTS = $(am_libscistatistics_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libscistatistics_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscistatistics_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -783,9 +778,10 @@ libscistatistics_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/string/includes/ \
     $(AM_CPPFLAGS)
 
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscistatistics.la
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscistatistics-algo.la libscistatistics.la
-@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscistatistics-algo.la
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscistatistics.la
+noinst_LTLIBRARIES = libscistatistics-algo.la
 libscistatistics_algo_la_SOURCES = $(STATISTICS_C_SOURCES) $(STATISTICS_FORTRAN_SOURCES)
 libscistatistics_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscistatistics_algo_la_CPPFLAGS = $(libscistatistics_la_CPPFLAGS)
@@ -1106,7 +1102,7 @@ src/dcdflib/cdfbet.lo: src/dcdflib/$(am__dirstamp) \
 	src/dcdflib/$(DEPDIR)/$(am__dirstamp)
 
 libscistatistics-algo.la: $(libscistatistics_algo_la_OBJECTS) $(libscistatistics_algo_la_DEPENDENCIES) $(EXTRA_libscistatistics_algo_la_DEPENDENCIES) 
-	$(AM_V_F77LD)$(F77LINK) $(am_libscistatistics_algo_la_rpath) $(libscistatistics_algo_la_OBJECTS) $(libscistatistics_algo_la_LIBADD) $(LIBS)
+	$(AM_V_F77LD)$(F77LINK)  $(libscistatistics_algo_la_OBJECTS) $(libscistatistics_algo_la_LIBADD) $(LIBS)
 sci_gateway/c/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/c
 	@: > sci_gateway/c/$(am__dirstamp)
@@ -1166,7 +1162,7 @@ sci_gateway/cpp/libscistatistics_la-sci_nanmean.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscistatistics.la: $(libscistatistics_la_OBJECTS) $(libscistatistics_la_DEPENDENCIES) $(EXTRA_libscistatistics_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libscistatistics_la_rpath) $(libscistatistics_la_OBJECTS) $(libscistatistics_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscistatistics_la_OBJECTS) $(libscistatistics_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

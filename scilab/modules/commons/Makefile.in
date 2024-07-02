@@ -124,11 +124,9 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 @NEED_JAVA_TRUE@am__append_1 = src/jni/GiwsException.cpp
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_2 = libscicommons.la
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_3 = libscicommons.la
-@SWIG_TRUE@am__append_4 = swig
-@GIWS_TRUE@am__append_5 = giws-exception
-@NEED_JAVA_TRUE@am__append_6 = java
+@SWIG_TRUE@am__append_2 = swig
+@GIWS_TRUE@am__append_3 = giws-exception
+@NEED_JAVA_TRUE@am__append_4 = java
 subdir = modules/commons
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -199,9 +197,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@MAINTAINER_MODE_FALSE@am_libscicommons_disable_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscicommons_disable_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 libscicommons_la_LIBADD =
 am__libscicommons_la_SOURCES_DIST = src/jni/ScilabCommons_wrap.c \
 	src/jni/CommonFileUtils_wrap.c src/c/fileutils.c \
@@ -216,9 +211,7 @@ am__objects_5 = $(am__objects_4)
 am_libscicommons_la_OBJECTS = $(am__objects_2) $(am__objects_3) \
 	$(am__objects_5)
 libscicommons_la_OBJECTS = $(am_libscicommons_la_OBJECTS)
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscicommons_la_rpath =
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscicommons_la_rpath = -rpath \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
+@GUI_TRUE@am_libscicommons_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -677,10 +670,8 @@ libscicommons_disable_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/string/includes/ \
     $(AM_CPPFLAGS)
 
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscicommons-disable.la \
-@MAINTAINER_MODE_TRUE@	$(am__append_2)
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscicommons-disable.la \
-@MAINTAINER_MODE_FALSE@	$(am__append_3)
+noinst_LTLIBRARIES = libscicommons-disable.la
+@GUI_TRUE@pkglib_LTLIBRARIES = libscicommons.la
 libscicommons_la_SOURCES = $(COMMONS_C_SOURCES) $(COMMONS_JNI_SOURCES) $(COMMONS_CPP_SOURCES)
 
 # For the code check (splint)
@@ -692,7 +683,7 @@ SWIG_WRAPPERS = src/jni/ScilabCommons.i \
                 src/jni/CommonFileUtils.i
 
 GIWS_WRAPPERS = src/jni/FindIconHelper.giws.xml
-BUILT_SOURCES = $(am__append_4) $(am__append_5)
+BUILT_SOURCES = $(am__append_2) $(am__append_3)
 
 #### commons : gateway declaration ####
 libscicommons_la_sci_gatewaydir = $(mydatadir)/sci_gateway
@@ -724,7 +715,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_6)
+TARGETS_ALL = $(am__append_4)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -866,7 +857,7 @@ src/c/libscicommons_disable_la-fileutils.lo: src/c/$(am__dirstamp) \
 	src/c/$(DEPDIR)/$(am__dirstamp)
 
 libscicommons-disable.la: $(libscicommons_disable_la_OBJECTS) $(libscicommons_disable_la_DEPENDENCIES) $(EXTRA_libscicommons_disable_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) $(am_libscicommons_disable_la_rpath) $(libscicommons_disable_la_OBJECTS) $(libscicommons_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK)  $(libscicommons_disable_la_OBJECTS) $(libscicommons_disable_la_LIBADD) $(LIBS)
 src/jni/$(am__dirstamp):
 	@$(MKDIR_P) src/jni
 	@: > src/jni/$(am__dirstamp)

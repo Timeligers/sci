@@ -140,28 +140,6 @@ int ScinotesModule::Load()
     return 1;
 }
 
-//Functions module
-int FunctionsModule::Load()
-{
-    std::wstring wstPath = L"functions";
-#ifdef _MSC_VER
-    std::wstring wstModuleName = L"functions_gw";
-    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_1);
-#else
-    std::wstring wstModuleName = L"functions";
-    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_3);
-#endif
-    vectGateway vect = loadGatewaysName(wstPath);
-
-    for (int i = 0 ; i < (int)vect.size() ; i++)
-    {
-        symbol::Context::getInstance()->addFunction(types::Function::createFunction(vect[i].wstFunction, vect[i].wstName, pwstLibName, vect[i].iType, NULL, wstPath));
-    }
-
-    FREE(pwstLibName);
-    return 1;
-}
-
 int StatisticsModule::Load()
 {
     std::wstring wstPath = L"statistics";
@@ -405,6 +383,27 @@ int OptimizationModule::Load()
     wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_3);
 #endif
     vectGateway vect = loadGatewaysName(wstModuleName);
+
+    for (int i = 0 ; i < (int)vect.size() ; i++)
+    {
+        symbol::Context::getInstance()->addFunction(types::Function::createFunction(vect[i].wstFunction, vect[i].wstName, pwstLibName, vect[i].iType, NULL, wstModuleName));
+    }
+
+    FREE(pwstLibName);
+    return 1;
+}
+
+int DifferentialEquationsModule::Load()
+{
+    std::wstring wstPath = L"differential_equations";
+#ifdef _MSC_VER
+    std::wstring wstModuleName = L"differential_equations_gw";
+    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_1);
+#else
+    std::wstring wstModuleName = L"differential_equations";
+    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_3);
+#endif
+    vectGateway vect = loadGatewaysName(wstPath);
 
     for (int i = 0 ; i < (int)vect.size() ; i++)
     {

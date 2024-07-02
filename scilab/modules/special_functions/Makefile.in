@@ -189,8 +189,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@MAINTAINER_MODE_FALSE@am_libscispecial_functions_algo_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscispecial_functions_algo_la_rpath =
 am__DEPENDENCIES_1 =
 libscispecial_functions_la_DEPENDENCIES =  \
 	libscispecial_functions-algo.la $(am__DEPENDENCIES_1)
@@ -211,9 +209,6 @@ am_libscispecial_functions_la_OBJECTS = $(am__objects_4) \
 	$(am__objects_5)
 libscispecial_functions_la_OBJECTS =  \
 	$(am_libscispecial_functions_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libscispecial_functions_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscispecial_functions_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -702,9 +697,10 @@ libscispecial_functions_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/console/includes/ \
     $(AM_CPPFLAGS)
 
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscispecial_functions.la
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscispecial_functions-algo.la libscispecial_functions.la 
-@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscispecial_functions-algo.la
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscispecial_functions.la
+noinst_LTLIBRARIES = libscispecial_functions-algo.la
 libscispecial_functions_algo_la_SOURCES = $(SPECIAL_FUNCTIONS_C_SOURCES) $(SPECIAL_FUNCTIONS_FORTRAN_SOURCES) $(SPECIAL_FUNCTIONS_CXX_SOURCES)
 libscispecial_functions_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES)
 libscispecial_functions_algo_la_CPPFLAGS = $(libscispecial_functions_la_CPPFLAGS)
@@ -923,7 +919,7 @@ src/cpp/libscispecial_functions_algo_la-faddeeva.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscispecial_functions-algo.la: $(libscispecial_functions_algo_la_OBJECTS) $(libscispecial_functions_algo_la_DEPENDENCIES) $(EXTRA_libscispecial_functions_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libscispecial_functions_algo_la_rpath) $(libscispecial_functions_algo_la_OBJECTS) $(libscispecial_functions_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK)  $(libscispecial_functions_algo_la_OBJECTS) $(libscispecial_functions_algo_la_LIBADD) $(LIBS)
 sci_gateway/c/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/c
 	@: > sci_gateway/c/$(am__dirstamp)
@@ -971,7 +967,7 @@ sci_gateway/cpp/libscispecial_functions_la-sci_dlgamma.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscispecial_functions.la: $(libscispecial_functions_la_OBJECTS) $(libscispecial_functions_la_DEPENDENCIES) $(EXTRA_libscispecial_functions_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libscispecial_functions_la_rpath) $(libscispecial_functions_la_OBJECTS) $(libscispecial_functions_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libscispecial_functions_la_OBJECTS) $(libscispecial_functions_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

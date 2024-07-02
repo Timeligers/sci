@@ -123,9 +123,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_1 = libscigraphics.la
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_2 = libscigraphics-algo.la libscigraphics.la
-@NEED_JAVA_TRUE@am__append_3 = java
+@GUI_TRUE@am__append_1 = libscigraphics.la
+@NEED_JAVA_TRUE@am__append_2 = java
 subdir = modules/graphics
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -569,16 +568,12 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscigraphics_algo_la_rpath =
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscigraphics_algo_la_rpath =
+@GUI_TRUE@am_libscigraphics_algo_la_rpath =
 libscigraphics_disable_la_LIBADD =
 am_libscigraphics_disable_la_OBJECTS =  \
 	src/nographics/libscigraphics_disable_la-nographics.lo
 libscigraphics_disable_la_OBJECTS =  \
 	$(am_libscigraphics_disable_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libscigraphics_disable_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libscigraphics_disable_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 libscigraphics_la_DEPENDENCIES = libscigraphics-algo.la
 am__objects_3 = sci_gateway/c/libscigraphics_la-sci_swap_handles.lo \
 	sci_gateway/c/libscigraphics_la-sci_grayplot.lo \
@@ -641,9 +636,7 @@ am__objects_4 = sci_gateway/cpp/libscigraphics_la-sci_get.lo \
 	sci_gateway/cpp/libscigraphics_la-sci_glue.lo
 am_libscigraphics_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscigraphics_la_OBJECTS = $(am_libscigraphics_la_OBJECTS)
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscigraphics_la_rpath =
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscigraphics_la_rpath = -rpath \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
+@GUI_TRUE@am_libscigraphics_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -2058,15 +2051,11 @@ libscigraphics_disable_la_CPPFLAGS = \
 
 
 # endif
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscigraphics-disable.la \
-@MAINTAINER_MODE_TRUE@	$(am__append_1)
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@USEANT = 1
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@USEANT = 1
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES =  \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	libscigraphics-algo.la \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(am__append_2)
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscigraphics-disable.la \
-@MAINTAINER_MODE_FALSE@	$(am__append_2)
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscigraphics-disable.la $(am__append_1)
+@GUI_TRUE@USEANT = 1
+@GUI_TRUE@noinst_LTLIBRARIES = libscigraphics-algo.la
 
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir = $(pkgdatadir)/modules/$(modulename)
@@ -2089,7 +2078,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_3)
+TARGETS_ALL = $(am__append_2)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -3342,7 +3331,7 @@ src/nographics/libscigraphics_disable_la-nographics.lo:  \
 	src/nographics/$(DEPDIR)/$(am__dirstamp)
 
 libscigraphics-disable.la: $(libscigraphics_disable_la_OBJECTS) $(libscigraphics_disable_la_DEPENDENCIES) $(EXTRA_libscigraphics_disable_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) $(am_libscigraphics_disable_la_rpath) $(libscigraphics_disable_la_OBJECTS) $(libscigraphics_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscigraphics_disable_la_OBJECTS) $(libscigraphics_disable_la_LIBADD) $(LIBS)
 sci_gateway/c/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/c
 	@: > sci_gateway/c/$(am__dirstamp)

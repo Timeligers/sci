@@ -11,7 +11,8 @@ GATEWAY_CPP_SOURCES =  \
     sci_gateway/cpp/sci_macrovar.cpp \
     sci_gateway/cpp/sci_libraryinfo.cpp \
     sci_gateway/cpp/sci_librarieslist.cpp \
-    sci_gateway/cpp/sci_idempotence.cpp
+    sci_gateway/cpp/sci_idempotence.cpp \
+    sci_gateway/cpp/functions_gw.cpp
 
 
 libscifunctions_la_CPPFLAGS = \
@@ -64,9 +65,5 @@ libscifunctions_la_etcdir = $(mydatadir)/etc
 libscifunctions_la_etc_DATA = \
     etc/functions.quit \
     etc/functions.start
-
-#### functions : gateway declaration ####
-libscifunctions_la_sci_gatewaydir = $(mydatadir)/sci_gateway
-libscifunctions_la_sci_gateway_DATA = sci_gateway/functions_gateway.xml
 
 include $(top_srcdir)/Makefile.incl.am

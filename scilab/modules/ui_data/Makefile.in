@@ -124,9 +124,8 @@ build_triplet = @build@
 host_triplet = @host@
 @GIWS_TRUE@am__append_1 = giws
 @SWIG_TRUE@am__append_2 = swig
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_3 = libsciui_data.la
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_4 = libsciui_data-algo.la libsciui_data.la
-@NEED_JAVA_TRUE@am__append_5 = java
+@GUI_TRUE@am__append_3 = libsciui_data.la
+@NEED_JAVA_TRUE@am__append_4 = java
 subdir = modules/ui_data
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -202,16 +201,12 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libsciui_data_algo_la_rpath =
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libsciui_data_algo_la_rpath =
+@GUI_TRUE@am_libsciui_data_algo_la_rpath =
 libsciui_data_disable_la_LIBADD =
 am__objects_4 = src/noui_data/libsciui_data_disable_la-noui_data.lo
 am_libsciui_data_disable_la_OBJECTS = $(am__objects_4)
 libsciui_data_disable_la_OBJECTS =  \
 	$(am_libsciui_data_disable_la_OBJECTS)
-@MAINTAINER_MODE_FALSE@am_libsciui_data_disable_la_rpath =
-@MAINTAINER_MODE_TRUE@am_libsciui_data_disable_la_rpath = -rpath \
-@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 am__DEPENDENCIES_1 =
 libsciui_data_la_DEPENDENCIES = libsciui_data-algo.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
@@ -221,9 +216,7 @@ am__objects_5 = sci_gateway/cpp/libsciui_data_la-sci_editvar.lo \
 	sci_gateway/cpp/libsciui_data_la-sci_updatebrowsevar.lo
 am_libsciui_data_la_OBJECTS = $(am__objects_5)
 libsciui_data_la_OBJECTS = $(am_libsciui_data_la_OBJECTS)
-@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libsciui_data_la_rpath =
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libsciui_data_la_rpath = -rpath \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
+@GUI_TRUE@am_libsciui_data_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -732,13 +725,10 @@ libsciui_data_disable_la_CPPFLAGS = \
 
 UI_DATA_DISABLE_C_SOURCES = src/noui_data/noui_data.c
 libsciui_data_disable_la_SOURCES = $(UI_DATA_DISABLE_C_SOURCES)
-@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciui_data-disable.la \
-@MAINTAINER_MODE_TRUE@	$(am__append_3)
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES =  \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	libsciui_data-algo.la \
-@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(am__append_4)
-@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciui_data-disable.la \
-@MAINTAINER_MODE_FALSE@	$(am__append_4)
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libsciui_data-disable.la $(am__append_3)
+@GUI_TRUE@noinst_LTLIBRARIES = libsciui_data-algo.la
 libsciui_data_algo_la_SOURCES = $(UI_DATA_C_SOURCES) $(UI_DATA_JNI_SOURCES) $(UI_DATA_CXX_SOURCES)
 libsciui_data_la_SOURCES = $(GATEWAY_CXX_SOURCES)
 libsciui_data_algo_la_CPPFLAGS = $(libsciui_data_la_CPPFLAGS)
@@ -801,7 +791,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_5)
+TARGETS_ALL = $(am__append_4)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -979,7 +969,7 @@ src/noui_data/libsciui_data_disable_la-noui_data.lo:  \
 	src/noui_data/$(DEPDIR)/$(am__dirstamp)
 
 libsciui_data-disable.la: $(libsciui_data_disable_la_OBJECTS) $(libsciui_data_disable_la_DEPENDENCIES) $(EXTRA_libsciui_data_disable_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) $(am_libsciui_data_disable_la_rpath) $(libsciui_data_disable_la_OBJECTS) $(libsciui_data_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libsciui_data_disable_la_OBJECTS) $(libsciui_data_disable_la_LIBADD) $(LIBS)
 sci_gateway/cpp/$(am__dirstamp):
 	@$(MKDIR_P) sci_gateway/cpp
 	@: > sci_gateway/cpp/$(am__dirstamp)

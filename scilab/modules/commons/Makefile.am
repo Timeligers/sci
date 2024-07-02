@@ -69,21 +69,10 @@ libscicommons_disable_la_CPPFLAGS =  \
     $(AM_CPPFLAGS)
 
 
-if MAINTAINER_MODE
-
-pkglib_LTLIBRARIES = libscicommons-disable.la
-if GUI
-pkglib_LTLIBRARIES += libscicommons.la
-endif
-
-else
-
 noinst_LTLIBRARIES = libscicommons-disable.la
 if GUI
-noinst_LTLIBRARIES += libscicommons.la
+pkglib_LTLIBRARIES = libscicommons.la
 endif
-
-endif # MAINTAINER_MODE
 
 
 libscicommons_la_SOURCES = $(COMMONS_C_SOURCES) $(COMMONS_JNI_SOURCES) $(COMMONS_CPP_SOURCES)
