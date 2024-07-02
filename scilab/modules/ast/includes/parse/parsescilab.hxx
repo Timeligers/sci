@@ -125,18 +125,19 @@ extern int yydebug;
     ID = 326,                      /* "identifier"  */
     VARINT = 327,                  /* "integer"  */
     VARFLOAT = 328,                /* "float"  */
-    NUM = 329,                     /* "number"  */
-    PATH = 330,                    /* "path"  */
-    COMMENT = 331,                 /* "line comment"  */
-    BLOCKCOMMENT = 332,            /* "block comment"  */
-    TOPLEVEL = 333,                /* TOPLEVEL  */
-    HIGHLEVEL = 334,               /* HIGHLEVEL  */
-    UPLEVEL = 335,                 /* UPLEVEL  */
-    LISTABLE = 336,                /* LISTABLE  */
-    CONTROLBREAK = 337,            /* CONTROLBREAK  */
-    UMINUS = 338,                  /* UMINUS  */
-    UPLUS = 339,                   /* UPLUS  */
-    FUNCTIONCALL = 340             /* FUNCTIONCALL  */
+    COMPLEXNUM = 329,              /* "complex number"  */
+    NUM = 330,                     /* "number"  */
+    PATH = 331,                    /* "path"  */
+    COMMENT = 332,                 /* "line comment"  */
+    BLOCKCOMMENT = 333,            /* "block comment"  */
+    TOPLEVEL = 334,                /* TOPLEVEL  */
+    HIGHLEVEL = 335,               /* HIGHLEVEL  */
+    UPLEVEL = 336,                 /* UPLEVEL  */
+    LISTABLE = 337,                /* LISTABLE  */
+    CONTROLBREAK = 338,            /* CONTROLBREAK  */
+    UMINUS = 339,                  /* UMINUS  */
+    UPLUS = 340,                   /* UPLUS  */
+    FUNCTIONCALL = 341             /* FUNCTIONCALL  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -216,18 +217,19 @@ extern int yydebug;
 #define ID 326
 #define VARINT 327
 #define VARFLOAT 328
-#define NUM 329
-#define PATH 330
-#define COMMENT 331
-#define BLOCKCOMMENT 332
-#define TOPLEVEL 333
-#define HIGHLEVEL 334
-#define UPLEVEL 335
-#define LISTABLE 336
-#define CONTROLBREAK 337
-#define UMINUS 338
-#define UPLUS 339
-#define FUNCTIONCALL 340
+#define COMPLEXNUM 329
+#define NUM 330
+#define PATH 331
+#define COMMENT 332
+#define BLOCKCOMMENT 333
+#define TOPLEVEL 334
+#define HIGHLEVEL 335
+#define UPLEVEL 336
+#define LISTABLE 337
+#define CONTROLBREAK 338
+#define UMINUS 339
+#define UPLUS 340
+#define FUNCTIONCALL 341
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
