@@ -69,10 +69,10 @@ function [delim, decim] = detectDelimiter(str, delimiters)
     // find decimal separator "," or "."
     if delim <> "," then
         index = find(delimiters == ",");
-        decimal = [",", "."];
+        decimal = [".", ","];
         if index <> [] then
             // search only "." separator
-            count = [count(index) 0];
+            count = [0, count(index)];
             k = 2;          
         else
             count = zeros(1, 2);
