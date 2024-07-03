@@ -1101,13 +1101,13 @@ do
         rm -rf "$INSTALLROOTDIR"
         create_folders
         echo "Download prerequirements sources"
-        download_dependencies > "$LOGDIR/downloads.log" 2>&1 || (tail --lines=100 "$LOGDIR/downloads.log/log"; exit 1)
+        download_dependencies > "$LOGDIR/prebuild_downloads.log" 2>&1 || (tail --lines=100 "$LOGDIR/prebuild_downloads.log"; exit 1)
         echo "Build prerequirements"
-        make_all > "$LOGDIR/build_all.log" 2>&1 || (tail --lines=100 "$LOGDIR/build_all.log"; exit 1)
+        make_all > "$LOGDIR/prebuild_build_all.log" 2>&1 || (tail --lines=100 "$LOGDIR/prebuild_build_all.log"; exit 1)
         echo "Create binary"
-        make_binary_directory > "$LOGDIR/binary.log" 2>&1 || (tail --lines=100 "$LOGDIR/binary.log"; exit 1)
+        make_binary_directory > "$LOGDIR/prebuild_binary.log" 2>&1 || (tail --lines=100 "$LOGDIR/prebuild_binary.log"; exit 1)
         echo "Make jar"
-        make_jar > "$LOGDIR/jar.log" 2>&1 || (tail --lines=100 "$LOGDIR/jar.log"; exit 1)
+        make_jar > "$LOGDIR/prebuild_jar.log" 2>&1 || (tail --lines=100 "$LOGDIR/prebuild_jar.log"; exit 1)
         make_archive
         shift
         ;;
