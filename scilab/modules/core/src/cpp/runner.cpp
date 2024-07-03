@@ -285,7 +285,7 @@ void StaticRunner::setDumpAst(bool _bValue)
 
 bool StaticRunner::getDumpAst()
 {
-    return m_bDumpStack;
+    return m_bDumpAst;
 }
 
 void StaticRunner::setPrintAst(bool _bValue)
