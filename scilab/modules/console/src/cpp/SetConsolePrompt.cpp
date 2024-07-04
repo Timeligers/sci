@@ -15,11 +15,10 @@
 
 /*--------------------------------------------------------------------------*/
 #include "SetConsolePrompt.hxx"
-#include "CallScilabBridge.hxx"
+#include "CallConsole.h"
 /*--------------------------------------------------------------------------*/
-using namespace  org_scilab_modules_gui_bridge;
 BOOL SetConsolePrompt(const char *Sci_prompt)
 {
-    CallScilabBridge::setPrompt(getScilabJavaVM(), Sci_prompt);
+    console_setPrompt(Sci_prompt);
     return TRUE;
 }

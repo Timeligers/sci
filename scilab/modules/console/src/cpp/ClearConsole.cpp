@@ -16,11 +16,10 @@
 /*--------------------------------------------------------------------------*/
 #include "ClearConsole.hxx"
 /*--------------------------------------------------------------------------*/
-#include "CallScilabBridge.hxx"
-using namespace  org_scilab_modules_gui_bridge;
+#include "CallConsole.h"
 BOOL ClearConsole(void)
 {
-    CallScilabBridge::clear(getScilabJavaVM());
+    console_clear();
     return TRUE;
 }
 /*--------------------------------------------------------------------------*/

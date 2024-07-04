@@ -18,12 +18,10 @@
 /*--------------------------------------------------------------------------*/
 #include "ConsolePrintf.hxx"
 /*--------------------------------------------------------------------------*/
-#include "CallScilabBridge.hxx"
+#include "CallConsole.h"
 extern "C" {
 #include "getScilabJavaVM.h"
 }
-
-using namespace  org_scilab_modules_gui_bridge;
 
 int ConsolePrintf(const char *line)
 {
@@ -35,7 +33,7 @@ int ConsolePrintf(const char *line)
     }
     else
     {
-        CallScilabBridge::display(vm, line);
+        console_display(line);
     }
 
     return 0;

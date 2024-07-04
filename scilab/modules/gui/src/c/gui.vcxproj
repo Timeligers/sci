@@ -217,6 +217,7 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatipremove.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_saveGui.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_xchoicesi.cpp" />
+    <ClCompile Include="..\cpp\CallConsole.cpp" />
     <ClCompile Include="..\cpp\CreateUIControl.cpp" />
     <ClCompile Include="..\cpp\GetConsoleShowHiddenHandles.cpp" />
     <ClCompile Include="..\cpp\GetUicontrolIcon.cpp" />
@@ -411,6 +412,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\includes\CallClipboard.h" />
     <ClInclude Include="..\..\includes\CallColorChooser.h" />
+    <ClInclude Include="..\..\includes\CallConsole.h" />
     <ClInclude Include="..\..\includes\CallFontChooser.h" />
     <ClInclude Include="..\..\includes\CallHelpBrowser.h" />
     <ClInclude Include="..\..\includes\CallJuigetfile.h" />

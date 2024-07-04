@@ -1,0 +1,13 @@
+LIBRARY    scigui.dll
+
+
+EXPORTS
+console_display
+console_readLine
+console_clear
+console_clearNLines
+console_getCharWithoutPrompt
+console_toHome
+console_linesUpdate
+console_setPrompt
+console_isWaitingForInput

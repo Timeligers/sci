@@ -17,11 +17,10 @@
 #include "ConsoleRead.hxx"
 
 /*--------------------------------------------------------------------------*/
-#include "CallScilabBridge.hxx"
+#include "CallConsole.h"
 
 #include "os_string.h"
 
-using namespace  org_scilab_modules_gui_bridge;
 /*--------------------------------------------------------------------------*/
 static char *line = NULL;
 /*--------------------------------------------------------------------------*/
@@ -32,7 +31,7 @@ char *ConsoleRead(void)
         delete[] line;
         line = NULL;
     }
-    line = CallScilabBridge::readLine(getScilabJavaVM());
+    line = console_readLine();
     return os_strdup(line);
 }
 /*--------------------------------------------------------------------------*/

@@ -16,11 +16,10 @@
 /*--------------------------------------------------------------------------*/
 #include "ClearConsolePart.hxx"
 /*--------------------------------------------------------------------------*/
-#include "CallScilabBridge.hxx"
-using namespace  org_scilab_modules_gui_bridge;
+#include "CallConsole.h"
 BOOL ClearConsolePart(int nbLines)
 {
-    CallScilabBridge::clear(getScilabJavaVM(), nbLines);
+    console_clearNLines(nbLines);
     return TRUE;
 }
 /*--------------------------------------------------------------------------*/
