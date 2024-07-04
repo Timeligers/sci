@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/env bash
 
 ARCH=$(cc -print-multiarch)
 
@@ -960,7 +960,7 @@ build_gluegen() {
     rm -fr jcpp && mv jcpp-v$JOGL_VERSION jcpp
 
     cd make || exit 1
-    "$ANT_HOME/bin/ant"
+    "$ANT_HOME/bin/ant" || exit 1
 
     cd "$BUILDDIR/gluegen-v$JOGL_VERSION" || exit 1
     cp -a build/obj/libgluegen_rt.so "$INSTALLROOTDIR/lib/thirdparty"
@@ -975,7 +975,7 @@ build_jogl() {
 
     cd jogl-v$JOGL_VERSION/make || exit 1
 
-    "$ANT_HOME/bin/ant"
+    "$ANT_HOME/bin/ant" || exit 1
 
     cd "$BUILDDIR/jogl-v$JOGL_VERSION" || exit 1
     cp -a -t "$INSTALLROOTDIR/lib/thirdparty" build/lib/libjogl_desktop.so build/lib/libnativewindow_awt.so build/lib/libnativewindow_drm.so build/lib/libnativewindow_x11.so build/lib/libnewt_drm.so build/lib/libnewt_head.so

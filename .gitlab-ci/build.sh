@@ -79,7 +79,7 @@ cd scilab ||exit 1
 ./configure --prefix='' | tee -a "../${LOG_PATH}/build_configure_${CI_COMMIT_SHORT_SHA}.log"
 CONFIGURE_STATUS="${PIPESTATUS[0]}"
 cp -a config.log "../${LOG_PATH}/build_config.log_${CI_COMMIT_SHORT_SHA}.log"
-if test "${CONFIGURE_STATUS}" -eq 0; then
+if [ "${CONFIGURE_STATUS}" -ne 0 ]; then
 	exit "${CONFIGURE_STATUS}"
 fi
 echo -e "\e[0Ksection_end:$(date +%s):configure\r\e[0K"
