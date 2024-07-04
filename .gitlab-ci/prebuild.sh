@@ -170,6 +170,11 @@ download_dependencies() {
         # use thirdparty from the target branch
         curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${BRANCH}.zip"
     fi
+    #FIXME: hard-coded branch name, remove before merge
+    if ! unzip -qt "thirdparty.zip"; then
+        # fallback to the default branch
+        curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-update-thirdparty-jars.zip"
+    fi
     if ! unzip -qt "thirdparty.zip"; then
         # fallback to the default branch
         curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_DEFAULT_BRANCH}.zip"
