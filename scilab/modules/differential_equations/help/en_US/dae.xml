@@ -97,7 +97,8 @@
                     <para>
                         an <link linkend="external">external</link> function, computes the value of 
                         <literal>g(t, y, ydot)</literal>. It may be a Scilab function, list or string. The syntax differs 
-                        depending on the solver used. See residual description section for more details.
+                        depending on the solver used. See <link linkend="res_func_dae">residual description</link> 
+                        section for more details.
                     </para>
                 </listitem>
             </varlistentry>
@@ -107,7 +108,7 @@
                     <para>
                         an <link linkend="external">external</link> function, computes the Jacobian of the function 
                         <literal>g(t, y, ydot)</literal>. It may be a Scilab function, list or string. The syntax differs 
-                        depending on the solver used. See jacobian description section for more details.
+                        depending on the solver used. See <link linkend="jac_func_dae">jacobian description</link> section for more details.
                     </para>
                 </listitem>
             </varlistentry>
@@ -118,7 +119,7 @@
                         an <link linkend="external">external</link> (function, list or string), computes the value of the column vector
                         <literal>surface(t,x)</literal> with <literal>ng</literal>
                         components. Each component defines a surface. Used ONLY with <emphasis role="bold">dasrt ("root") </emphasis> and 
-                        <emphasis role="bold">daskr ("root2")</emphasis> solvers. For more details, see surface description section.
+                        <emphasis role="bold">daskr ("root2")</emphasis> solvers. For more details, see <link linkend="surf_func_dae">surface description</link> section.
                     </para>
                 </listitem>
             </varlistentry>
@@ -128,7 +129,7 @@
                     <para>
                         an <link linkend="external">external</link> (function, list or string), computes <literal>p = p + a</literal> with <literal>a = a(t,y)</literal>. 
                         Used ONLY with <emphasis role="bold">"stiff" and "adams"</emphasis> solver. 
-                        See adda description section for more details.
+                        See <link linkend="adda_func_dae">adda description</link> section for more details.
                     </para>
                 </listitem>
             </varlistentry>
@@ -139,7 +140,8 @@
                         <link linkend="external">external</link> (function, list or string). 
                         Used ONLY with <emphasis role="bold">"root2" (daskr)</emphasis> solver. Solves a linear system
                         <literal>P*x = b</literal>, with P being the factored preconditioner that routine <literal>pjac</literal>
-                        computed beforehand and stored in <literal>wp</literal> and <literal>iwp</literal>. See psol description section for more details.
+                        computed beforehand and stored in <literal>wp</literal> and <literal>iwp</literal>. See <link linkend="psol_func_dae">psol description</link>
+                         section for more details.
                     </para>
                 </listitem>
             </varlistentry>
@@ -150,7 +152,8 @@
                         <link linkend="external">external</link> (function, list or string). 
                         Used ONLY with <emphasis role="bold">"root2" (daskr)</emphasis> solver. Computes the value of
                         <literal>dg/dy + cj*dg/dydot</literal> for a given value of parameter
-                        <literal>cj</literal> and LU-factorizes it in two arrays, real and integer. See pjac description section for more details.
+                        <literal>cj</literal> and LU-factorizes it in two arrays, real and integer. See <link linkend="pjac_func_dae">pjac description</link>
+                         section for more details.
                     </para>
                 </listitem>
             </varlistentry>
@@ -268,7 +271,7 @@ x(t0) = x0 and xdot(t0) = xdot0
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description" xml:id="res_func_dae">
         <title>Residual function</title>
         <para>
             The input argument <literal>res</literal> is the right hand side usually called "residual" of the DAE. 
@@ -480,7 +483,7 @@ x(t0) = x0 and xdot(t0) = xdot0
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description" xml:id="jac_func_dae">
         <title>Jacobian function</title>
         <para>
             The input argument <literal>jac</literal> computes the jacobian. As <literal>res</literal>, <literal>jac</literal>
@@ -660,7 +663,7 @@ x(t0) = x0 and xdot(t0) = xdot0
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description" xml:id="surf_func_dae">
         <title>Surface function</title>
         <para>
             The input argument <literal>surface</literal>, used ONLY with <emphasis role="bold">dassl</emphasis>, 
@@ -750,7 +753,7 @@ x(t0) = x0 and xdot(t0) = xdot0
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description" xml:id="adda_func_dae">
         <title>adda function</title>
         <para>
             The input argument <literal>adda</literal>, used ONLY with <emphasis role="bold">adams</emphasis> and 
@@ -832,7 +835,7 @@ x(t0) = x0 and xdot(t0) = xdot0
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description" xml:id="psol_func_dae">
         <title>psol function</title>
         <para>
             The input argument <literal>psol</literal>, used ONLY with <emphasis role="bold">daskr</emphasis> 
@@ -920,7 +923,7 @@ x(t0) = x0 and xdot(t0) = xdot0
             </varlistentry>
         </variablelist>
     </refsection>
-    <refsection>
+    <refsection role="description" xml:id="pjac_func_dae">
         <title>pjac function</title>
         <para>
             The input argument <literal>pjac</literal>, used ONLY with <emphasis role="bold">daskr</emphasis>  
