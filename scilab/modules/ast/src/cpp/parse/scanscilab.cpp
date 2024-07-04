@@ -2454,6 +2454,10 @@ YY_RULE_SETUP
   }
   DEBUG("BEGIN(INITIAL)");
   BEGIN(INITIAL);
+  if (paren_levels.size() != 0 && paren_levels.top() != 0)
+  {
+    return scan_throw(DOLLAR);  
+  }
   return scan_throw(END);
 }
 	YY_BREAK
@@ -2680,11 +2684,20 @@ return scan_throw(OROR);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-return scan_throw(LPAREN);
+{
+  if(paren_levels.size() == 0) {
+    paren_levels.push(0);
+  }
+  ++paren_levels.top();
+  return scan_throw(LPAREN);
+}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-return scan_throw(RPAREN);
+{
+  --paren_levels.top();
+  return scan_throw(RPAREN);
+}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP

@@ -248,6 +248,10 @@ assign            "="
   }
   DEBUG("BEGIN(INITIAL)");
   BEGIN(INITIAL);
+  if (paren_levels.size() != 0 && paren_levels.top() != 0)
+  {
+    return scan_throw(DOLLAR);  
+  }
   return scan_throw(END);
 }
 
@@ -413,8 +417,19 @@ assign            "="
 <INITIAL,MATRIX>{boolandand}     return scan_throw(ANDAND);
 <INITIAL,MATRIX>{boolor}         return scan_throw(OR);
 <INITIAL,MATRIX>{booloror}       return scan_throw(OROR);
-<INITIAL>{lparen}                return scan_throw(LPAREN);
-<INITIAL>{rparen}                return scan_throw(RPAREN);
+
+<INITIAL>{lparen}                {
+  if(paren_levels.size() == 0) {
+    paren_levels.push(0);
+  }
+  ++paren_levels.top();
+  return scan_throw(LPAREN);
+}
+
+<INITIAL>{rparen}                {
+  --paren_levels.top();
+  return scan_throw(RPAREN);
+}
 
 <INITIAL,MATRIX>{semicolon}      {
   scan_step();
