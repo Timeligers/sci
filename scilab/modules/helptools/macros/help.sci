@@ -92,24 +92,24 @@ function formatHelp(page, key, domain)
         printf(_("From help pages of toolbox `%s`.\n"), domain);
     end
 
-    printf("%s - %s\n", page.refname, page.refpurpose)
+    printf("  %s - %s\n", page.refname, page.refpurpose)
     if size(page.synopsis, "*") <> 0 then
-        printf("\n  Syntax\n")
+        printf("\n    Syntax\n")
         for s = page.synopsis'
-            printf("    %s\n", s);
+            printf("      %s\n", s);
         end
     end
 
     if size(page.varlist, "*") <> 0 then
-        printf("\n  Arguments\n");
+        printf("\n    Arguments\n");
         for a = page.varlist'
-            printf("    %s - %s\n", a.term, a.description);
+            printf("      %s - %s\n", a.term, strcat(a.description, " "));
         end
     end
 
     if size(page.seealso, "*") <> 0 then
-        printf("\n  See also\n    ");
-        printf("%s", strcat(page.seealso, " - "));
-        printf("\n\nFor more information: `doc %s`\n", key);
+        printf("\n    See also\n");
+        printf("      %s", strcat(page.seealso, " - "));
+        printf("\n\n  For more information: `doc %s`\n", key);
     end
 end
