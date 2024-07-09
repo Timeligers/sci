@@ -2015,8 +2015,6 @@ function generate_inline_help(modules_tree)
     lang = modules_tree.language;
     xmlfiles = getXMLFiles(modules_tree);
 
-    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\linear_algebra\help\en_US\eigen\eigs.xml";
-
     links = [];
     pages = [];
     for x = xmlfiles'
