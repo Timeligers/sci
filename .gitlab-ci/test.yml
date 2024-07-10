@@ -17,11 +17,7 @@
     paths:
       - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
       - "${SCI_VERSION_STRING}/${ARCH}-windows/log_iss_install_${CI_COMMIT_SHORT_SHA}.txt"
-      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.tst"
-      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.res"
-      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.err"
-      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.dia.tmp"
-      - "${SCI_VERSION_STRING}/${ARCH}-windows/*.dia"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}/"
     reports:
       junit: "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
 
@@ -171,11 +167,7 @@ windows_only:
     when: always
     paths:
       - "${SCI_VERSION_STRING}/${ARCH}/${TEST}.xml"
-      - "${SCI_VERSION_STRING}/${ARCH}/*.tst"
-      - "${SCI_VERSION_STRING}/${ARCH}/*.res"
-      - "${SCI_VERSION_STRING}/${ARCH}/*.err"
-      - "${SCI_VERSION_STRING}/${ARCH}/*.dia.tmp"
-      - "${SCI_VERSION_STRING}/${ARCH}/*.dia"
+      - "${SCI_VERSION_STRING}/${ARCH}/${TEST}/"
     reports:
       junit: "${SCI_VERSION_STRING}/${ARCH}/${TEST}.xml"
 
@@ -238,6 +230,8 @@ linux_advanced:
 windows_atoms:
   extends: .windows_test
   stage: test_atoms
+  variables:
+    ARCH: "x64"
   rules:
     - if: $CI_COMMIT_TAG
     - if: $CI_PIPELINE_SOURCE == "schedule"
