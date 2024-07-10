@@ -1,7 +1,7 @@
 #!/bin/sh
-
+#
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-# Copyright (C) Dassault Systemes - 2022-2023 - Clement DAVID
+# Copyright (C) Dassault Systemes - 2022-2024 - Clement DAVID
 #
 # Helper script to build all Linux images
 #
@@ -12,13 +12,13 @@ Build and push all Docker images to a specific DOCKER_TAG
 where:
         --help                            show this help text and exit
     -r, --registry CI_REGISTRY_IMAGE      set the GitLab CI_REGISTRY_IMAGE to push images to
-    -b, --builder DOCKER_LINUX_BUILDER    build the DOCKER_LINUX_BUILDER image, like CI_REGISTRY_IMAGE/linux-builder-BRANCH
-    -p, --prebuild DOCKER_LINUX_PREBUILD  build the DOCKER_LINUX_PREBUILD image, like CI_REGISTRY_IMAGE/linux-prebuild-BRANCH
+    -b, --builder DOCKER_LINUX_BUILDER    build the DOCKER_LINUX_BUILDER image, like CI_REGISTRY_IMAGE/linux-builder
+    -p, --prebuild DOCKER_LINUX_PREBUILD  build the DOCKER_LINUX_PREBUILD image, like CI_REGISTRY_IMAGE/linux-prebuild
     -t, --testers                         build the CI_REGISTRY_IMAGE/{fedora, ubuntu, debian} images
     
 Example to push images for mr325:
  docker login registry.gitlab.com/scilab/scilab
- .gitlab-ci/$(basename "$0") --registry registry.gitlab.com/scilab/scilab --builder registry.gitlab.com/scilab/scilab/linux-builder-main mr325
+ .gitlab-ci/$(basename "$0") --registry registry.gitlab.com/scilab/scilab --builder registry.gitlab.com/scilab/scilab/linux-builder mr325
 "
 
 set -e
