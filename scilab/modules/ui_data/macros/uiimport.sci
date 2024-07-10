@@ -1161,7 +1161,9 @@ function uiimport_preview()
             fc = get("uiimport_import");
             delete(fc.children);
             fp = get("uiimport_preview");
+            fp.visible = "off";
             delete(fp.children)
+            fp.visible = "on";
             return;
         end
     end
