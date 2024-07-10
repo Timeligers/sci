@@ -16,7 +16,7 @@
     when: always
     paths:
       - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
-      - "${SCI_VERSION_STRING}/${ARCH}-windows/log_iss_install_${CI_COMMIT_SHORT_SHA}.txt"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/test_iss_install_${CI_COMMIT_SHORT_SHA}.log"
       - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}/"
     reports:
       junit: "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
