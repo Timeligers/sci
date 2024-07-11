@@ -8,6 +8,7 @@
 // <-- CLI SHELL MODE -->
 // <-- NO CHECK REF -->
 
+// DOLLAR
 a=$**2;
 assert_checkequal(a, $**2); // Was doing a segfault in Scilab 6 as some point
 a=[1,2,3;4,5,6];
@@ -41,4 +42,40 @@ assert_checkequal(x, []);
 clear x; x(1:$)=42
 assert_checkequal(x, []);
 x=[]; x(1:$)=42
+assert_checkequal(x, []);
+
+// END
+//a=end**2;
+//assert_checkequal(a, end**2); // Was doing a segfault in Scilab 6 as some point
+a=[1,2,3;4,5,6];
+assert_checkequal(a(end),6);
+
+b = [1 2 3;4 5 6;7 8 9];
+assert_checkequal(b(1,end),3);
+
+assert_checkequal(b(end,2),8);
+assert_checkequal(b(end,end),9);
+
+// Add a row at the end of the matrix b
+b(end+1,:) = [1 1 1];
+b_ref = [1 2 3;4 5 6;7 8 9;1 1 1];
+assert_checkequal(b, b_ref);
+
+// new or empty variable
+clear x;x(1:2)=42;
+assert_checkequal(x, [42; 42]);
+x=[]; x(1:2)=42;
+assert_checkequal(x, [42; 42]);
+clear x;x(end+1:end+2)=42;
+assert_checkequal(x, [42; 42]);
+x=[]; x(end+1:end+2)=42;
+assert_checkequal(x, [42; 42]);
+
+clear x; x(1:0)=42
+assert_checkequal(x, []);
+x=[]; x(1:0)=42
+assert_checkequal(x, []);
+clear x; x(1:end)=42
+assert_checkequal(x, []);
+x=[]; x(1:end)=42
 assert_checkequal(x, []);
