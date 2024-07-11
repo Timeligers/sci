@@ -296,7 +296,7 @@ wchar_t *wcssub_reg(const wchar_t* _pwstInput, const wchar_t* _pwstSearch, const
         }
         else
         {
-            const wchar_t* end;
+            wchar_t* end;
             wchar_t digit[3] = {(p + 1)[0], (p + 1)[1]};
             double d = wcstod(digit, &end);
             if (ISNAN(d) || end == digit)

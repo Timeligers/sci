@@ -33,7 +33,7 @@ int sci_gettext(char *fname, void* pvApiCtx)
     SciErr sciErr;
     int *piAddressVarOne = NULL;
     char* pstDomain = NULL;
-    char **TranslatedStrings = NULL;
+    const char **TranslatedStrings = NULL;
     int m = 0;
     int n = 0;
     char **StringsToTranslate = NULL;
@@ -93,7 +93,7 @@ int sci_gettext(char *fname, void* pvApiCtx)
         return 0;
     }
 
-    TranslatedStrings = (char **)MALLOC(sizeof(char*) * (m * n));
+    TranslatedStrings = (const char **)MALLOC(sizeof(const char*) * (m * n));
     if (TranslatedStrings == NULL)
     {
         Scierror(999, _("%s: No more memory.\n"), fname);
@@ -121,7 +121,13 @@ int sci_gettext(char *fname, void* pvApiCtx)
     StringsToTranslate = NULL;
 
     sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, m, n, TranslatedStrings);
-    freeArrayOfString(TranslatedStrings, m * n);
+    //freeArrayOfString(TranslatedStrings, m * n);
+    // Freeing manually as freeArrayOfString works on char**, not const char**.
+    for (i = 0; i < m * n; i++)
+    {
+        free(TranslatedStrings[i]);
+    }
+    free(TranslatedStrings);
     TranslatedStrings = NULL;
 
     if (sciErr.iErr)

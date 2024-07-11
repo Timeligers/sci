@@ -128,7 +128,7 @@ static int sci_csvDefault_no_rhs(char *fname, void* pvApiCtx)
         arrayOut[14] = os_strdup(getCsvDefaultEncoding());
         arrayOut[15] = os_strdup(getCsvDefaultCsvIgnoreBlankLine());
 
-        sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, nbRows, nbCols, arrayOut);
+        sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, nbRows, nbCols, (const char**)(arrayOut));
         freeArrayOfString(arrayOut, sizeArray);
         if (sciErr.iErr)
         {

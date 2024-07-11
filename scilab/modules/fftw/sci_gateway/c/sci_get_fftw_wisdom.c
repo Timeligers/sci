@@ -147,7 +147,7 @@ int sci_get_fftw_wisdom(char *fname, void* pvApiCtx)
     }
     Str1[n1 - 1][0] = '\0';
 
-    createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, n1, 1, Str1);
+    createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, n1, 1, (const char**)(Str1));
 
     freeArrayOfString(Str1, n1);
     if (Str)
