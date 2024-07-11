@@ -107,7 +107,7 @@ utf4              ({utf41}|{utf42}|{utf43})
 utf               ({utf2}|{utf3}|{utf4})
 id                ((([a-zA-Z_%!#?]|{utf})([a-zA-Z_0-9!#?$]|{utf})*)|([$]([a-zA-Z_0-9!#?$]|{utf})+))
 
-incorrect_number  ({integer}|{number}|{floating_D}|{floating_E}){id}
+incorrect_number  ({little}|{integer}|{number}|{floating_D}|{floating_E}){id}
 
 newline           ("\r"|"\n"|"\r\n")
 blankline         {spaces}+{newline}
@@ -569,7 +569,10 @@ assign            "="
 }
 
 <INITIAL,MATRIX>{incorrect_number}   {
-  yyerror("syntax error, unexpected identifier, expecting end of file");
+  std::string str = "Can\'t convert \'";
+  str += yytext;
+  str += "\' to a valid number nor identifier";
+  yyerror(str);
   return scan_throw(FLEX_ERROR);
 }
 

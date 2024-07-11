@@ -7,6 +7,7 @@
 //
 // <-- Non-regression test for issue 16670 -->
 //
+// <-- TEST WITH GRAPHIC -->
 // <-- NO CHECK REF -->
 //
 // <-- Gitlab URL -->
