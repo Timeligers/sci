@@ -21,6 +21,7 @@ function loadInlineHelp(lang, page)
             if page then
                 filename = fullfile(strsplit(SCI, "share/scilab")(1), "modules", "helptools", "inline", lang, "pages.json");
                 if isfile(filename) then
+                    data = fromJSON(filename, "file");
                     %inline_help.scilab(lang).pages = fromJSON(filename, "file");
                 end
             end

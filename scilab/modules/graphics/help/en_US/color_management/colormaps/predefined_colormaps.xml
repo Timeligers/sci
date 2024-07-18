@@ -20,10 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis><![CDATA[
-        cmap = $colormapfunction$() // Replace $colormapfunction$ by the name of a function described below
-        cmap = $colormapfunction$(n)
-        ]]></synopsis>
+        <synopsis>
+            cmap = $colormapfunction$() // Replace $colormapfunction$ by the name of a function described below
+            cmap = $colormapfunction$(n)
+        </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -167,7 +167,7 @@
                 <term xml:id="hsv">hsv</term>
                 <listitem>
                     <para>Computes a colormap with <literal>n</literal>colors. This colormap  varies the hue component of the
-                    hsv color model. The colors begin with red, pass through yellow, green, cyan, blue, magenta, and return to red. 
+                    hsv color model. The colors begin with red, pass through yellow, green, cyan, blue, magenta, and return to red.
                     The map is particularly useful for displaying periodic functions.</para>
                 </listitem>
             </varlistentry>
@@ -478,22 +478,22 @@
             <revision>
                 <revnumber>2024.1.0</revnumber>
                 <revremark>
-                    Colormap functions renamed to <literal>autumn</literal>, <literal>bone</literal>, <literal>cool</literal>, <literal>copper</literal>, <literal>gray</literal>, <literal>hot</literal>, <literal>hsv</literal>, <literal>jet</literal>, 
+                    Colormap functions renamed to <literal>autumn</literal>, <literal>bone</literal>, <literal>cool</literal>, <literal>copper</literal>, <literal>gray</literal>, <literal>hot</literal>, <literal>hsv</literal>, <literal>jet</literal>,
                     <literal>ocean</literal>, <literal>parula</literal>, <literal>pink</literal>, <literal>rainbow</literal>, <literal>spring</literal>, <literal>summer</literal>, <literal>white</literal>, <literal>winter</literal>.
                 </revremark>
             </revision>
             <revision>
                 <revnumber>2024.1.0</revnumber>
                 <revremark>
-                    Functions <literal>autumncolormap</literal>, <literal>bonecolormap</literal>, <literal>coolcolormap</literal>, <literal>coppercolormap</literal>, <literal>graycolormap</literal>, <literal>hotcolormap</literal>, 
-                    <literal>hsvcolormap</literal>, <literal>jetcolormap</literal>, <literal>oceancolormap</literal>, <literal>parulacolormap</literal>, <literal>pinkcolormap</literal>, <literal>rainbowcolormap</literal>, 
+                    Functions <literal>autumncolormap</literal>, <literal>bonecolormap</literal>, <literal>coolcolormap</literal>, <literal>coppercolormap</literal>, <literal>graycolormap</literal>, <literal>hotcolormap</literal>,
+                    <literal>hsvcolormap</literal>, <literal>jetcolormap</literal>, <literal>oceancolormap</literal>, <literal>parulacolormap</literal>, <literal>pinkcolormap</literal>, <literal>rainbowcolormap</literal>,
                     <literal>springcolormap</literal>, <literal>summercolormap</literal>, <literal>whitecolormap</literal>, <literal>wintercolormap</literal> are obsolete and will be removed in Scilab 2026.0.0, see above for more details.
                 </revremark>
             </revision>
             <revision>
                 <revnumber>2024.1.0</revnumber>
                 <revremark>
-                    New colormap functions <literal>blues</literal>, <literal>BrBG</literal>, <literal>BuGn</literal>, <literal>BuPu</literal>, <literal>coolwarm</literal>, <literal>GnBu</literal>, <literal>greens</literal>, <literal>greys</literal>, 
+                    New colormap functions <literal>blues</literal>, <literal>BrBG</literal>, <literal>BuGn</literal>, <literal>BuPu</literal>, <literal>coolwarm</literal>, <literal>GnBu</literal>, <literal>greens</literal>, <literal>greys</literal>,
                     <literal>oranges</literal>, <literal>OrRd</literal>, <literal>PiYG</literal>, <literal>PRGn</literal>, <literal>PuBu</literal>, <literal>PuBuGn</literal>, <literal>PuOr</literal>, <literal>PuRd</literal>,
                     <literal>purples</literal>, <literal>RdBu</literal>, <literal>RdGy</literal>, <literal>RdPu</literal>, <literal>RdYlBu</literal>, <literal>RdYlGn</literal>, <literal>reds</literal>, <literal>spectral</literal>,
                     <literal>YlGn</literal>, <literal>YlGnBu</literal>, <literal>YlOrBr</literal>, <literal>YlOrRd</literal> introduced.

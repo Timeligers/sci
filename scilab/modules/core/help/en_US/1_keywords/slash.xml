@@ -23,14 +23,14 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis><![CDATA[
+        <synopsis>
             X = A / B        // while A = X * B
             X = A ./ B       // while A = X .* B
             X = A ./. B      // while A = X .*. B
             S = G /. K
             // on-row comment
             /* block of multilines comments */
-        ]]></synopsis>
+        </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Description</title>

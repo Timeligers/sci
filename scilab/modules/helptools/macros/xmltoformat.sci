@@ -1965,19 +1965,28 @@ function x = getNode(doc, key)
 end
 
 function x = getNodeContent(doc, key)
-    x = getNode(doc, key);
-    x = contentToString(x.content);
+    node = getNode(doc, key)
+    for i = 1:size(node, "*")
+        x($+1) = getNodes(node(i));
+    end
 end
 
 function x = getVarListNode(doc)
-    data = getNode(doc, "//ns:refsection[1]//ns:varlistentry");
+    data = getNode(doc, "//ns:refsection[1]/ns:variablelist/ns:varlistentry");
     x = [];
     for i = 1:size(data, "*")
-        st = [];
-        d = data(i);
-        st.term = getChildContent(d, "term");
-        st.description = getChildContent(d, "listitem");
+        st = getVarEntry(data(i));
         x = [x;st];
+    end
+end
+
+function x = contentToString(content)
+    x = [];
+    for i = 1:size(content, "*")
+
+        x1 = stripblanks(strsplit(content(i), "/\n/"));
+        x1(x1 == "") = [];
+        x = [x x1(:)'];
     end
 end
 
@@ -1992,22 +2001,34 @@ function x = getSeeAlso(doc)
     end
 end
 
-function c = getChildContent(node, name)
-    c = [];
-    for i = 1:size(node.children, "*")
-        if node.children(i).name == name then
-            c = contentToString(node.children(i).content);
-            return;
+function ret = reduceNode(node)
+    ret = node;
+    s = size(node.children, "*")
+
+    if s == 1 then
+        if node.type == "text" then
+            ret = struct("type", node.type, "children", [], "string", node.children(1).string);
         end
     end
 end
 
-function x = contentToString(content)
-    x = [];
-    for i = 1:size(content, "*")
-        x1 = stripblanks(strsplit(content(i), "/\n/"));
-        x1(x1 == "") = [];
-        x = [x; x1];
+function ret = getNodes(node)
+    select node.name
+    case {"text" "term" "constant" "link" "ulink" "function" "literal" "varname", "emphasis", "subscript" "superscript" "command" "replaceable" "xref"}
+        ret = struct("type", node.name, "children", [], "string", contentToString(node.content));
+    case {"title" "synopsis" "refsection" "refsect1" "refsect2" "refsect3" "refsynopsisdiv" "refpurpose" "refname" "refentry" "refnamediv" "para" "listitem" "varlistentry" "variablelist" "itemizedlist" "simplelist" "member" "orderedlist" "warning" "important" "caution" "tip"}
+        c = [];
+        for i = 1:size(node.children, "*")
+            c(1, $+1) = getNodes(node.children(i));
+        end
+
+        ret = struct("type", node.name, "children", c, "string", []);
+        ret = reduceNode(ret);
+    case {"comment" "code" "table" "informaltable" "inlinemediaobject" "note" "revhistory" "screen" "informalequation" "programlisting" "image" "mediaobject", "latex" "bibliomixed" "qandaset" ""}
+        ret = [];
+    else
+        ret = [];
+        error(node.name);
     end
 end
 
@@ -2015,9 +2036,26 @@ function generate_inline_help(modules_tree)
     lang = modules_tree.language;
     xmlfiles = getXMLFiles(modules_tree);
 
+    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\Matplot.xml";
+    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\plot2d.xml";
+    //xmlfiles = "E:\plot2d.xml";
+    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\core\help\en_US\configuration\recursionlimit.xml";
+    xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\differential_equations\help\en_US\bvode.xml";
     links = [];
     pages = [];
-    for x = xmlfiles'
+    printf("Progress: |")
+    progress = 0;
+    s = size(xmlfiles, 1)
+    for k = 1:s
+        x = xmlfiles(k, 1);
+
+        if floor(k / s * 100) > progress then
+            progress = progress + 1;
+            if modulo(progress, 10) == 0 then
+                printf("-", progress);
+            end
+        end
+
         doc = xmlRead(x(1));
         xp = xmlXPath(doc, "//@xml:id");
         first = xp(1).content;
@@ -2025,29 +2063,38 @@ function generate_inline_help(modules_tree)
             links(xp(i).content) = first;
         end
 
-        st = [];
+        nodes = getNodes(doc.root);
         st.refname = getNodeContent(doc, "//ns:refname");
         st.refpurpose = getNodeContent(doc, "//ns:refpurpose");
         st.synopsis = getNodeContent(doc, "//ns:synopsis");
-        st.varlist = getVarListNode(doc);
+
+        data = getNode(doc, "//ns:refsection[1]/ns:variablelist/ns:varlistentry");
+        x = [];
+        for i = 1:size(data, "*")
+            x = [x;getNodes(data(i))];
+        end
+
+        st.varlist = x;
         st.seealso = getSeeAlso(doc);
         pages(first) = st;
 
         xmlDelete(doc);
     end
 
+    printf("|\n");
+
     if modules_tree.path == SCI then
         mkdir(fullfile(SCI, "modules", "helptools", "inline"));
         mkdir(fullfile(SCI, "modules", "helptools", "inline", lang));
-        toJSON(links, fullfile(SCI, "modules", "helptools", "inline", lang, "links.json"));
-        toJSON(pages, fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json"));
+        toJSON(links, fullfile(SCI, "modules", "helptools", "inline", lang, "links.json"), 4);
+        toJSON(pages, fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json"), 4);
     else //toolbox
         tbx_path = fullpath(fullfile(modules_tree.path, "..", ".."));
         if isdir(tbx_path) then
             mkdir(fullfile(tbx_path, "inline"));
             mkdir(fullfile(tbx_path, "inline", lang));
-            toJSON(links, fullfile(tbx_path, "inline", lang, "links.json"));
-            toJSON(pages, fullfile(tbx_path, "inline", lang, "pages.json"));
+            toJSON(links, fullfile(tbx_path, "inline", lang, "links.json"), 4);
+            toJSON(pages, fullfile(tbx_path, "inline", lang, "pages.json"), 4);
         end
     end
 end

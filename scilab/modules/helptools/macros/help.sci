@@ -103,7 +103,7 @@ function formatHelp(page, key, domain)
     if size(page.varlist, "*") <> 0 then
         printf("\n    Arguments\n");
         for a = page.varlist'
-            printf("      %s - %s\n", a.term, strcat(a.description, " "));
+            printVarList(a, 0);
         end
     end
 
@@ -111,5 +111,46 @@ function formatHelp(page, key, domain)
         printf("\n    See also\n");
         printf("      %s", strcat(page.seealso, " - "));
         printf("\n\n  For more information: `doc %s`\n", key);
+    end
+end
+
+function printVarList(node, indent)
+    printf("      %*s%s", indent * 2, "", node.term);
+    if typeof(node.description) == "list" then
+        for i = 1:size(node.description)
+            a = node.description(i);
+            //disp(a);
+            if a == [] then
+                printf("\n");
+            elseif typeof(a) == "string" then
+                if size(a, "*") == 1 then
+                    if i == 1 then
+                        printf("\n");
+                    end
+                    printf("      %*s%s\n", (indent + 1) * 2, "", a);
+                else
+                    for j = 1:size(a, "*")
+                        if i == 1 then
+                            printf("\n%s\n", a(j));
+                        else
+                            printf("      %*s%s\n", (indent + 2) * 2, "", a(j));
+                        end
+                    end
+                end
+            else //struct
+                for b = a
+                    printVarList(b, indent + 2);
+                end
+            end
+        end
+    else
+        if size(node.description, "*") > 1
+            printf("\n");
+            for i = 1:size(node.description, "*")
+                printf("      %*s%s\n", (indent + 1) * 2, "", node.description(i));
+            end
+        else
+            printf(" - %s\n", node.description);
+        end
     end
 end
