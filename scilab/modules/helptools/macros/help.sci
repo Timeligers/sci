@@ -92,11 +92,14 @@ function formatHelp(page, key, domain)
         printf(_("From help pages of toolbox `%s`.\n"), domain);
     end
 
-    printf("  %s - %s\n", page.refname, page.refpurpose)
+    for i = 1:min(size(page.refname, "*"), size(page.refpurpose, "*"))
+        printf("  %s - %s\n", page.refname(i).children.string, page.refpurpose(i).children.string)
+    end
+
     if size(page.synopsis, "*") <> 0 then
         printf("\n    Syntax\n")
         for s = page.synopsis'
-            printf("      %s\n", s);
+            printf("      %s\n", s.children(1).string);
         end
     end
 
@@ -114,35 +117,77 @@ function formatHelp(page, key, domain)
     end
 end
 
-function printVarList(node, indent)
-    printf("      %*s%s", indent * 2, "", node.term);
-    if typeof(node.description) == "list" then
-        for i = 1:size(node.description)
-            a = node.description(i);
-            //disp(a);
-            if a == [] then
-                printf("\n");
-            elseif typeof(a) == "string" then
-                if size(a, "*") == 1 then
-                    if i == 1 then
-                        printf("\n");
-                    end
-                    printf("      %*s%s\n", (indent + 1) * 2, "", a);
-                else
-                    for j = 1:size(a, "*")
-                        if i == 1 then
-                            printf("\n%s\n", a(j));
-                        else
-                            printf("      %*s%s\n", (indent + 2) * 2, "", a(j));
-                        end
-                    end
-                end
-            else //struct
-                for b = a
-                    printVarList(b, indent + 2);
-                end
+function f = findSt(st, field, type)
+    f = [];
+    if isfield(st, field) then
+        for s = st
+            if s(field) == type then
+                f = s;
             end
         end
+    end
+
+end
+
+function str = concatdesc(desc)
+    str = [];
+    for s = desc
+        str = str + s.string;
+    end
+end
+
+function str = nodeString(node)
+
+end
+
+function printVarList(node, indent)
+
+    term = findSt(node.children, "type", "term");
+    desc = findSt(node.children, "type", "listitem");
+
+    if term == [] || desc == [] then
+        return
+    end
+
+    printf("      %*s%s", indent * 2, "", term.string);
+    for i = 1:size(desc, "*")
+        a = desc(i);
+
+        select desc.type
+        case "listitem"
+            for l = desc.children
+                disp(l, "");
+            end
+        case "para"
+            disp("para");
+        else
+        end
+        /*
+        if a == [] then
+            printf("\n");
+        elseif typeof(a) == "string" then
+            if size(a, "*") == 1 then
+                if i == 1 then
+                    printf("\n");
+                end
+                printf("      %*s%s\n", (indent + 1) * 2, "", a);
+            else
+                for j = 1:size(a, "*")
+                    if i == 1 then
+                        printf("\n%s\n", a(j));
+                    else
+                        printf("      %*s%s\n", (indent + 2) * 2, "", a(j));
+                    end
+                end
+            end
+        else //struct
+            for b = a
+                printVarList(b, indent + 2);
+            end
+        end
+        */
+    end
+    /*
     else
         if size(node.description, "*") > 1
             printf("\n");
@@ -153,4 +198,5 @@ function printVarList(node, indent)
             printf(" - %s\n", node.description);
         end
     end
+    */
 end

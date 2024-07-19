@@ -1971,23 +1971,19 @@ function x = getNodeContent(doc, key)
     end
 end
 
-function x = getVarListNode(doc)
-    data = getNode(doc, "//ns:refsection[1]/ns:variablelist/ns:varlistentry");
-    x = [];
-    for i = 1:size(data, "*")
-        st = getVarEntry(data(i));
-        x = [x;st];
-    end
-end
-
 function x = contentToString(content)
     x = [];
     for i = 1:size(content, "*")
-
-        x1 = stripblanks(strsplit(content(i), "/\n/"));
-        x1(x1 == "") = [];
+        x1 = strsplit(content(i), "/\n/");
         x = [x x1(:)'];
     end
+
+    x(1) = stripblanks(x(1), %t, -1);
+
+    x(2:$) = strsubst(x(2:$), "/\s{1,}/", " ", "r");
+    x(x == "") = [];
+    x(x == " ") = [];
+
 end
 
 function x = getSeeAlso(doc)
@@ -2040,7 +2036,7 @@ function generate_inline_help(modules_tree)
     //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\plot2d.xml";
     //xmlfiles = "E:\plot2d.xml";
     //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\core\help\en_US\configuration\recursionlimit.xml";
-    xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\differential_equations\help\en_US\bvode.xml";
+    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\differential_equations\help\en_US\bvode.xml";
     links = [];
     pages = [];
     printf("Progress: |")
@@ -2086,15 +2082,15 @@ function generate_inline_help(modules_tree)
     if modules_tree.path == SCI then
         mkdir(fullfile(SCI, "modules", "helptools", "inline"));
         mkdir(fullfile(SCI, "modules", "helptools", "inline", lang));
-        toJSON(links, fullfile(SCI, "modules", "helptools", "inline", lang, "links.json"), 4);
-        toJSON(pages, fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json"), 4);
+        toJSON(links, fullfile(SCI, "modules", "helptools", "inline", lang, "links.json"));
+        toJSON(pages, fullfile(SCI, "modules", "helptools", "inline", lang, "pages.json"));
     else //toolbox
         tbx_path = fullpath(fullfile(modules_tree.path, "..", ".."));
         if isdir(tbx_path) then
             mkdir(fullfile(tbx_path, "inline"));
             mkdir(fullfile(tbx_path, "inline", lang));
-            toJSON(links, fullfile(tbx_path, "inline", lang, "links.json"), 4);
-            toJSON(pages, fullfile(tbx_path, "inline", lang, "pages.json"), 4);
+            toJSON(links, fullfile(tbx_path, "inline", lang, "links.json"));
+            toJSON(pages, fullfile(tbx_path, "inline", lang, "pages.json"));
         end
     end
 end
