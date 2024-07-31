@@ -443,11 +443,12 @@ function status = test_module(_params)
 
     // For the XML export, all temporary files will be preserved on a directory named after the module
     if ~isfield(_params, "output_dir") || _params.output_dir == "" then
-        result_path = TMPDIR + filesep();
+        result_path = pwd() + filesep();
     else
-        result_path = params.output_dir;
+        [?, d] = fileparts(fullpath(_params.moduleName));
+        result_path = params.output_dir + filesep() + d;
     end
-    _params.output_dir = result_path + basename(moduleName) + filesep();
+    _params.output_dir = result_path;
     remove_output_dir_if_empty = ~isdir(_params.output_dir);
     mkdir(_params.output_dir)
 
