@@ -446,7 +446,7 @@ function status = test_module(_params)
         result_path = pwd() + filesep();
     else
         [?, d] = fileparts(fullpath(_params.moduleName));
-        result_path = params.output_dir + filesep() + d;
+        result_path = params.output_dir + filesep() + d + filesep();
     end
     _params.output_dir = result_path;
     remove_output_dir_if_empty = ~isdir(_params.output_dir);
