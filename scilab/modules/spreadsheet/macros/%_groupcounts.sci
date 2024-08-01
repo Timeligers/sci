@@ -97,9 +97,10 @@ function [val, count, vindex, uniqueVal] = %_groupcounts(t, groupvars, groupbins
                 val = uniqueVal;
             case {"datetime", "calendarDuration", "duration"}
                 [groupbins, rowtimes, dt] = groupTimeCheck(groupbins, d);
-                
                 if includedEdge == "left" then
-                    dt(2:$-1) = dt(2:$-1)-1d-5;
+                    if size(dt, "*") > 2 then
+                        dt(2:$-1) = dt(2:$-1)-1d-5;
+                    end
                     str = "[ " + string(groupbins(1:$-1))+ ", "+ string(groupbins(2:$)) + " )";
                     str($) = strsubst(str($), " )", " ]");   
                     val = str;
@@ -242,7 +243,9 @@ function [val, count, vindex, uniqueVal] = %_groupcounts(t, groupvars, groupbins
                 [u, rowtimes, dt] = groupTimeCheck(groupbins, d);
 
                 if includedEdge == "left" then
-                    dt(2:$-1) = dt(2:$-1)-1d-5;
+                    if size(dt, "*") > 2 then
+                        dt(2:$-1) = dt(2:$-1)-1d-5;
+                    end
                     str = "[ " + string(u(1:$-1))+ ", "+ string(u(2:$)) + " )";
                     str($) = strsubst(str($), " )", " ]");   
                     val = str;
@@ -397,7 +400,9 @@ function [val, count, vindex, uniqueVal] = %_groupcounts(t, groupvars, groupbins
                             // dt(2:$) = dt(2:$)-1d-10;
 
                             if includedEdge == "left" then
-                                dt(2:$-1) = dt(2:$-1)-1d-5;
+                                if size(dt, "*") > 2 then
+                                    dt(2:$-1) = dt(2:$-1)-1d-5;
+                                end
                                 str = "[ " + string(vecbins(1:$-1))+ ", "+ string(vecbins(2:$)) + " )";
                                 str($) = strsubst(str($), " )", " ]");   
                                 val = str;
@@ -641,6 +646,9 @@ function [groupbins, rowtimes, dt] = groupTimeCheck(groupbins, d)
         end
 
         groupbins = (dStart:step:dEnd)';
+        if groupbins($) < dEnd then
+            groupbins($+1) = groupbins($) + step;
+        end
 
         rowtimes = d.date * 24*60*60 + d.time;
         dt = groupbins.date * 24*60*60 + groupbins.time;        
