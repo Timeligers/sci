@@ -296,6 +296,14 @@ assert_checkequal(median(d, "r"), duration([10 15], [18 39], [12 50]));
 assert_checkequal(median(d, 2), duration([7 55 29; 18 2 33]));
 assert_checkequal(median(d, "c"), duration([7 55 29; 18 2 33]));
 
+// stdev
+checkstring(stdev(d), "06:36:38.609");
+checkstring(stdev(d), "06:36:38.609");
+checkstring(stdev(d, 1), ["07:08:54.444" "07:09:36.870"]);
+checkstring(stdev(d, "r"), ["07:08:54.444" "07:09:36.870"]);
+checkstring(stdev(d, 2), ["03:47:04.533"; "03:47:46.959"]);
+checkstring(stdev(d, "c"), ["03:47:04.533"; "03:47:46.959"]);
+
 // checkerror
 msg = msprintf(_("%s: Wrong number of input argument: %d to %d expected, except to %d.\n"), "duration", 1, 8, 2);
 assert_checkerror("duration()", msg);
