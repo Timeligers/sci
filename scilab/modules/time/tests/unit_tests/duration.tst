@@ -239,6 +239,62 @@ checkstring(d, "3661.000 s");
 d = duration(1, 0, 0);
 assert_checkequal(d(1):d($), d(1));
 
+// overload
+// sum
+m = [10 31 15; 6 40 36];
+d = duration(m);
+s = sum(d);
+assert_checkequal(s, duration(17, 11, 51));
+assert_checkequal(sum(d, "*"), duration(17, 11, 51));
+
+h = [5 10;15 20];
+mn = [14 36; 21 43];
+s = [55 3;29 37];
+d = duration(h, mn, s);
+assert_checkequal(sum(d), duration(51, 56, 4));
+assert_checkequal(sum(d, "*"), duration(51, 56, 4));
+assert_checkequal(sum(d, 1), duration([20 31], [36 19], [24 40]));
+assert_checkequal(sum(d, "r"), duration([20 31], [36 19], [24 40]));
+assert_checkequal(sum(d, 2), duration([15 50 58; 36 05 06]));
+assert_checkequal(sum(d, "c"), duration([15 50 58; 36 05 06]));
+
+// min
+assert_checkequal(min(d), d(1));
+assert_checkequal(min(d, "r"), d(1,:));
+assert_checkequal(min(d, "c"), d(:, 1));
+assert_checkequal(min(d, d, d), d);
+assert_checkequal(min(d, d', d), [d(1) d(3);d(3) d($)]);
+assert_checkequal(min(d, d(:, $:-1:1)), [d(1), d(1); d(2) d(2)]);
+assert_checkequal(min(list(d, d, d)), d);
+assert_checkequal(min(list(d, d', d)), [d(1) d(3);d(3) d($)]);
+assert_checkequal(min(list(d, d(:, $:-1:1))), [d(1), d(1); d(2) d(2)]);
+
+// max
+assert_checkequal(max(d), d($));
+assert_checkequal(max(d, "r"), d(2,:));
+assert_checkequal(max(d, "c"), d(:, 2));
+assert_checkequal(max(d, d, d), d);
+assert_checkequal(max(d, d', d), [d(1) d(2);d(2) d($)]);
+assert_checkequal(max(d, d(:, $:-1:1)), [d(3), d(3); d(4) d(4)]);
+assert_checkequal(max(list(d, d, d)), d);
+assert_checkequal(max(list(d, d', d)), [d(1) d(2);d(2) d($)]);
+assert_checkequal(max(list(d, d(:, $:-1:1))), [d(3), d(3); d(4) d(4)]);
+
+// mean
+assert_checkequal(mean(d), duration(12, 59, 1));
+assert_checkequal(mean(d, "*"), duration(12, 59, 1));
+assert_checkequal(mean(d, 1), duration([10 15], [18 39], [12 50]));
+assert_checkequal(mean(d, "r"), duration([10 15], [18 39], [12 50]));
+assert_checkequal(mean(d, 2), duration([7 55 29; 18 2 33]));
+assert_checkequal(mean(d, "c"), duration([7 55 29; 18 2 33]));
+
+// median
+assert_checkequal(median(d), duration(12, 58, 46));
+assert_checkequal(median(d, "*"), duration(12, 58, 46));
+assert_checkequal(median(d, 1), duration([10 15], [18 39], [12 50]));
+assert_checkequal(median(d, "r"), duration([10 15], [18 39], [12 50]));
+assert_checkequal(median(d, 2), duration([7 55 29; 18 2 33]));
+assert_checkequal(median(d, "c"), duration([7 55 29; 18 2 33]));
 
 // checkerror
 msg = msprintf(_("%s: Wrong number of input argument: %d to %d expected, except to %d.\n"), "duration", 1, 8, 2);
