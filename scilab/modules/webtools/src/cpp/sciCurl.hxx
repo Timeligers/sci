@@ -39,6 +39,7 @@ public:
     bool setProxy();
     bool setCookies();
     void setCustomCookies(const char* pcCookies);
+    int  setTimeOut(double second);
 
     void ssl(bool verifyPeer);
     void follow(int follow);
