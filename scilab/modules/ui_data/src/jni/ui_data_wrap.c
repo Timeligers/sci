@@ -239,7 +239,7 @@ SWIGEXPORT void JNICALL Java_org_scilab_modules_ui_1data_UI_1dataJNI_putScilabVa
   }
   arg3 = (int)jarg3; 
   arg4 = (int)jarg4; 
-  putScilabVariable(arg1,arg2,arg3,arg4);
+  putScilabVariable(arg1,(const char**)(arg2),arg3,arg4);
   if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
   {
     int i;

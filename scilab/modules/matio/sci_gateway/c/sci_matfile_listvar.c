@@ -168,7 +168,7 @@ int sci_matfile_listvar(char *fname, void* pvApiCtx)
     {
         nbRow = nbvar;
         nbCol = 1;
-        sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, nbRow, nbCol, varnames);
+        sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, nbRow, nbCol, (const char**)(varnames));
         if (sciErr.iErr)
         {
             printError(&sciErr, 0);

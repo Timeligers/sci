@@ -176,9 +176,9 @@ int putUnsignedInt(char * variableName, unsigned int variable[], int nbRow, int 
 
 #ifdef __SCILAB_INT64__
 // long = int64
-int putLong(char * variableName, long variable[], int nbRow, int nbCol);
+int putLong(char * variableName, long long variable[], int nbRow, int nbCol);
 
-int putUnsignedLong(char * variableName, unsigned long variable[], int nbRow, int nbCol);
+int putUnsignedLong(char * variableName, unsigned long long variable[], int nbRow, int nbCol);
 #endif
 
 // This position matters. It will apply only to the following lines

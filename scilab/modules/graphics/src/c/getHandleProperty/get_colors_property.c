@@ -45,7 +45,7 @@ void* get_colors_property(void* _pvCtx, int iObjUID)
     }
 
     getGraphicObjectProperty(iObjUID, __GO_DATA_MODEL_COLORS__, jni_int_vector, (void **)&colors);
-    getGraphicObjectProperty(iObjUID, __GO_DATA_MODEL_NUM_COLORS__, jni_int, &piNumColors);
+    getGraphicObjectProperty(iObjUID, __GO_DATA_MODEL_NUM_COLORS__, jni_int, (void**)(&piNumColors));
 
     if (colors == NULL || numColors == 0)
     {

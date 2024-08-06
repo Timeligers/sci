@@ -922,42 +922,6 @@ void C2F(getblockbylabel)(int *kfun, char **label, int *n)
     }
 }
 /*--------------------------------------------------------------------------*/
-/*never used, never interfaced */
-int C2F(getsciblockbylabel)(int*kfun, int label[], int *n)
-{
-    int k, i, i0, nblk, n1;
-    int job = 1;
-    char* lab[100];
-    if (scicos_imp.x == (double *)NULL)
-    {
-        return (2); /* undefined import table scicos is not running */
-    }
-    nblk = scicos_imp.nblk[0];
-
-    F2C(cvstr)(n, lab, label, &job, *n);
-
-    *kfun = 0;
-    for (k = 0; k < nblk; k++)
-    {
-        n1 = (int)(scicos_imp.izptr[k] - scicos_imp.izptr[k - 1]);
-        if (n1 == *n)
-        {
-            i0 = scicos_imp.izptr[k - 1] - 1;
-            i = 0;
-            while ((lab[i] == scicos_imp.iz[i0 + i]) & (i < n1))
-            {
-                i++;
-            }
-            if (i == n1)
-            {
-                *kfun = k + 1;
-                return 0;
-            }
-        }
-    }
-    return 0;
-}
-/*--------------------------------------------------------------------------*/
 int getscilabel(int *kfun, char *label, int *n)
 {
     int k;
