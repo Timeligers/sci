@@ -304,6 +304,17 @@ checkstring(stdev(d, "r"), ["07:08:54.444" "07:09:36.870"]);
 checkstring(stdev(d, 2), ["03:47:04.533"; "03:47:46.959"]);
 checkstring(stdev(d, "c"), ["03:47:04.533"; "03:47:46.959"]);
 
+// linspace
+l = linspace(duration(1,10,30), duration(2,0,0), 10);
+assert_checkequal(l, duration([1 10 30;1 16 0; 1 21 30; 1 27 0; 1 32 30; 1 38 0; 1 43 30; 1 49 0; 1 54 30; 2 0 0])');
+
+l = linspace(minutes(10), hours(1), 5);
+expected = duration([0 10 0; 0 22 30; 0 35 0;0 47 30; 1 0 0])';
+assert_checkequal(l, expected);
+
+l = linspace(hours(1), minutes(10), 5);
+assert_checkequal(l, expected($:-1:1));
+
 // checkerror
 msg = msprintf(_("%s: Wrong number of input argument: %d to %d expected, except to %d.\n"), "duration", 1, 8, 2);
 assert_checkerror("duration()", msg);
