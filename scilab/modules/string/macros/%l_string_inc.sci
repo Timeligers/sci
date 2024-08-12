@@ -73,9 +73,10 @@ function [head,str]=%l_field_format(x,i,level,maxlevel)
         end        
     elseif or(type(value) == [1,2,4,5,6,8,10]) || iscell(value)
         // almost-native arrayOf types
-        if (ismatrix(value) & size(value,1) == 1) || (value == [])
+        L = lines()(1)/2;
+        if (value == []) || (size(value, "*") < L)
             head = sci2exp(value);
-            if size(head, "*") > 1 || length(head) > lines()/2 then
+            if size(head, "*") > 1 || length(head) > L then
                 head = emptystr();
             else
                 char = " = ";
