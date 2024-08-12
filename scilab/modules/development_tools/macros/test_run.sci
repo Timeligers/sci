@@ -445,7 +445,7 @@ function status = test_module(_params)
     if ~isfield(_params, "output_dir") || _params.output_dir == "" then
         result_path = pwd() + filesep();
     else
-        [?, d] = fileparts(fullpath(_params.moduleName));
+        [_, d] = fileparts(fullpath(_params.moduleName));
         result_path = params.output_dir + filesep() + d + filesep();
     end
     _params.output_dir = result_path;
