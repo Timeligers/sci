@@ -445,7 +445,7 @@ function status = test_module(_params)
     if ~isfield(_params, "output_dir") then
         // on TMPDIR when unspecified
         result_path = TMPDIR + filesep();
-    else if _params.output_dir == "" then
+    elseif _params.output_dir == "" then
         // on current directory
         result_path = pwd() + filesep();
     else
