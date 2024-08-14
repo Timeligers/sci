@@ -1646,6 +1646,19 @@ void ConfigVariable::setWebMode(bool _mode)
     webMode = _mode;
 }
 
+// API (eg. call_scilab or javasci)
+bool ConfigVariable::m_API_mode = true;
+
+bool ConfigVariable::isAPIMode()
+{
+    return m_API_mode;
+}
+
+void ConfigVariable::setAPIMode()
+{
+    m_API_mode = true;
+}
+
 // stdin redirected
 bool ConfigVariable::m_isatty = false;
 bool ConfigVariable::isatty()

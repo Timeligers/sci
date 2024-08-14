@@ -22,15 +22,11 @@
 
 #define VERBOSE_ERROR 0
 
-#define SCILAB_FEATURE_CLI          (1 << 0) /* with a native console (not Java console) */
-#define SCILAB_FEATURE_WITH_JVM     (1 << 1) /* with a JVM */
-#define SCILAB_FEATURE_API          (1 << 2) /* as an API eg. call_scilab or javasci */
-#define SCILAB_FEATURE_LSP_DAP      (1 << 3) /* as a Language Server Protocol server */
 typedef enum
 {
-    SCILAB_STD              = SCILAB_FEATURE_WITH_JVM,                      /* The standard Scilab (desktop, gui, plots ...) */
-    SCILAB_NW               = SCILAB_FEATURE_CLI | SCILAB_FEATURE_WITH_JVM, /* Scilab with the gui, plots but without desktop */
-    SCILAB_NWNI             = SCILAB_FEATURE_CLI                            /* Scilab without JVM, plots, desktop */
+    SCILAB_STD = 2, /* The standard Scilab (gui, plot ...) */
+    SCILAB_NW,      /* Scilab in command line with the plots */
+    SCILAB_NWNI     /* Scilab in command line without any graphics. What not mandataroy here */
 } scilabMode;
 
 EXTERN_AST int getSimpMode(void);
@@ -97,5 +93,6 @@ EXTERN_AST void setPolynomialDisplay(int);
 EXTERN_AST int getPolynomialDisplay();
 
 EXTERN_AST int getWebMode();
+EXTERN_AST int isAPIMode();
 
 #endif /* !__CONFIGVARIABLE_INTERFACE_H__ */

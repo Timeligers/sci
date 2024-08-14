@@ -62,7 +62,7 @@ static CALL_SCILAB_ENGINE_STATE csEngineState = CALL_SCILAB_ENGINE_STOP;
 /*--------------------------------------------------------------------------*/
 void DisableInteractiveMode(void)
 {
-    setScilabMode(SCILAB_FEATURE_API);
+    setScilabMode(SCILAB_NWNI);
 }
 
 /*--------------------------------------------------------------------------*/
@@ -118,6 +118,7 @@ int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char* ScilabStartup, int S
     }
 
     SetFromCToON();
+    setAPIMode();
 
     if (SCIpath == NULL) /* No SCIpath provided... */
     {
@@ -201,7 +202,7 @@ BOOL TerminateScilab(char* ScilabQuit)
         setCallScilabEngineState(CALL_SCILAB_ENGINE_STOP);
 
         /* restore default mode */
-        setScilabMode(SCILAB_FEATURE_API | SCILAB_FEATURE_WITH_JVM);
+        setScilabMode(SCILAB_NW);
 
         FREE(pGlobalSEI);
         pGlobalSEI = NULL;

@@ -290,3 +290,8 @@ int getWebMode()
     return ConfigVariable::getWebMode() ? 1 : 0;
 }
 
+int isAPIMode()
+{
+    return ConfigVariable::isAPIMode() ? 1 : 0;
+}
+
