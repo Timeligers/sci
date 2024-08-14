@@ -17,7 +17,7 @@
     </refsynopsisdiv>
     <refsection>
         <title>Description</title>
-        <para>Returns scilab modes. 3 execution modes are possible: "STD", "NW", "NWNI".</para>
+        <para>Returns Scilab modes. 3 execution modes are possible: "STD", "NW", "NWNI".</para>
         <para>
             <literal>"STD"</literal>: the standard Scilab (desktop, gui, plot ...).
         </para>
