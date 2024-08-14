@@ -26,7 +26,7 @@
 int gw_ui_data(void)
 {
 #ifndef _MSC_VER
-    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == 0)
+    if ((getScilabMode() & SCILAB_FEATURE_WITH_JVM) == 0)
     {
         Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "ui_data");
     }

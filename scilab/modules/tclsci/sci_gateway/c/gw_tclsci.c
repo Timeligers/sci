@@ -47,7 +47,7 @@ static gw_generic_table Tab[] =
 /*--------------------------------------------------------------------------*/
 int gw_tclsci(void)
 {
-    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == 0)
+    if ((getScilabMode() & SCILAB_FEATURE_WITH_JVM) == 0)
     {
         if (bFirstTclInit)
         {

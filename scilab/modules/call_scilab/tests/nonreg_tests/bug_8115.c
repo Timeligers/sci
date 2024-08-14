@@ -32,7 +32,7 @@
 int main(void)
 {
     int iErr = 0;
-    if (getScilabMode() == (SCILAB_API_MASK | SCILAB_WITH_JVM_MASK))
+    if (getScilabMode() == (SCILAB_FEATURE_API | SCILAB_FEATURE_WITH_JVM))
     {
         fprintf(stderr, "BUG 8115 NOT FIXED. (1)\n");
         iErr = 1;
@@ -46,7 +46,7 @@ int main(void)
 #endif
 
     /* check that it is NWNI mode */
-    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == 0)
+    if ((getScilabMode() & SCILAB_FEATURE_WITH_JVM) == 0)
     {
         fprintf(stderr, "BUG 8115 NOT FIXED. (2)\n");
         iErr = 1;
@@ -55,7 +55,7 @@ int main(void)
     TerminateScilab(NULL);
 
     /* check that we returns to default mode */
-    if (getScilabMode() == (SCILAB_API_MASK | SCILAB_WITH_JVM_MASK))
+    if (getScilabMode() == (SCILAB_FEATURE_API | SCILAB_FEATURE_WITH_JVM))
     {
         fprintf(stderr, "BUG 8115 NOT FIXED. (3)\n");
         iErr = 1;
@@ -68,7 +68,7 @@ int main(void)
 #endif
 
     /* check that it is API mode */
-    if ((getScilabMode() & SCILAB_API_MASK) == SCILAB_API_MASK)
+    if ((getScilabMode() & SCILAB_FEATURE_API) == SCILAB_FEATURE_API)
     {
         fprintf(stderr, "BUG 8115 NOT FIXED. (4)\n");
         iErr = 1;
@@ -77,7 +77,7 @@ int main(void)
     TerminateScilab(NULL);
 
     /* check that we returns to default mode */
-    if (getScilabMode() == (SCILAB_API_MASK | SCILAB_WITH_JVM_MASK))
+    if (getScilabMode() == (SCILAB_FEATURE_API | SCILAB_FEATURE_WITH_JVM))
     {
         fprintf(stderr, "BUG 8115 NOT FIXED. (5)\n");
         iErr = 1;

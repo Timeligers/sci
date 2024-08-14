@@ -389,6 +389,6 @@ BOOL with_modelica_compiler(void)
 /*--------------------------------------------------------------------------*/
 BOOL with_tk(void)
 {
-    return with_module(TCLSCI_MODULE_NAME) && ((getScilabMode() & SCILAB_WITH_JVM_MASK) == SCILAB_WITH_JVM_MASK);
+    return with_module(TCLSCI_MODULE_NAME) && ((getScilabMode() & SCILAB_FEATURE_WITH_JVM) == SCILAB_FEATURE_WITH_JVM);
 }
 /*--------------------------------------------------------------------------*/

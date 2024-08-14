@@ -165,7 +165,7 @@ void setScilabMode(scilabMode newmode)
 const char* getScilabModeString(void)
 {
     scilabMode smMode = getScilabMode();
-    if (SCILAB_API_MASK & smMode)
+    if (SCILAB_FEATURE_API & smMode)
     {
         return "API";
     }

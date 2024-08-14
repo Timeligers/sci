@@ -52,7 +52,7 @@ int sci_ClipBoard(char *fname, void* pvApiCtx)
     CheckInputArgument(pvApiCtx, 0, 2);
     CheckOutputArgument(pvApiCtx, 0, 1);
 
-    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == SCILAB_WITH_JVM_MASK)
+    if ((getScilabMode() & SCILAB_FEATURE_WITH_JVM) == SCILAB_FEATURE_WITH_JVM)
     {
         /*--------------------*/
         /* clipboard("paste") */

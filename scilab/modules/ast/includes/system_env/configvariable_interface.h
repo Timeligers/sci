@@ -22,17 +22,15 @@
 
 #define VERBOSE_ERROR 0
 
+#define SCILAB_FEATURE_CLI          (1 << 0) /* with a native console (not Java console) */
+#define SCILAB_FEATURE_WITH_JVM     (1 << 1) /* with a JVM */
+#define SCILAB_FEATURE_API          (1 << 2) /* as an API eg. call_scilab or javasci */
+#define SCILAB_FEATURE_LSP_DAP      (1 << 3) /* as a Language Server Protocol server */
 typedef enum
 {
-    /* you can use these values as mask */
-    SCILAB_API_MASK         = 1 << 2, /* launched as an API */
-    SCILAB_WITH_JVM_MASK    = 1 << 1, /* launched with a JVM */
-    SCILAB_CLI_MASK         = 1 << 0, /* launched with a native console (not Java console) */
-    
-    /* Pre-encoded mask values, do not use as mask */
-    SCILAB_STD              = 2,      /* The standard Scilab (desktop, gui, plots ...) */
-    SCILAB_NW               = 3,      /* Scilab with the gui, plots but without desktop */
-    SCILAB_NWNI             = 1       /* Scilab without JVM, plots, desktop */
+    SCILAB_STD              = SCILAB_FEATURE_WITH_JVM,                      /* The standard Scilab (desktop, gui, plots ...) */
+    SCILAB_NW               = SCILAB_FEATURE_CLI | SCILAB_FEATURE_WITH_JVM, /* Scilab with the gui, plots but without desktop */
+    SCILAB_NWNI             = SCILAB_FEATURE_CLI                            /* Scilab without JVM, plots, desktop */
 } scilabMode;
 
 EXTERN_AST int getSimpMode(void);

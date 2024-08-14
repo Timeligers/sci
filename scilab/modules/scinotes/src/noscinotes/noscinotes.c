@@ -20,7 +20,7 @@
 /*--------------------------------------------------------------------------*/
 int gw_scinotes(void)
 {
-    if ((getScilabMode() & SCILAB_WITH_JVM_MASK) == 0)
+    if ((getScilabMode() & SCILAB_FEATURE_WITH_JVM) == 0)
     {
         Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "scinotes");
     }
