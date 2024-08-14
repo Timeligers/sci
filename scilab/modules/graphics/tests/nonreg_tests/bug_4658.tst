@@ -17,21 +17,21 @@
 //   Use the standard messages for graphics macros.
 
 // Check error messages from this macros :
-// autumncolormap
-// bonecolormap
-// coolcolormap
-// coppercolormap
-// graycolormap
-// hotcolormap
-// hsvcolormap
-// jetcolormap
-// oceancolormap
-// pinkcolormap
-// rainbowcolormap
-// springcolormap
-// summercolormap
-// whitecolormap
-// wintercolormap
+// autumn
+// bone
+// cool
+// copper
+// gray
+// hot
+// hsv
+// jet
+// ocean
+// pink
+// rainbow
+// spring
+// summer
+// white
+// winter
 // addcolor
 // colorbar
 // colordef

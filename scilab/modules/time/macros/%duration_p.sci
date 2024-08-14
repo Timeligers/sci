@@ -11,7 +11,6 @@
 
 function %duration_p(dura)
     if dura.duration == [] then
-        printf("%dx%d duration\n", size(dura.duration, 1), size(dura.duration, 2));
         return;
     end
 
@@ -27,19 +26,22 @@ function %duration_p(dura)
     else
         output = string(dura);
     end
-    
-    printf("%dx%d duration\n", size(dura.duration, 1), size(dura.duration, 2));
+
     for c = 1:size(dura.duration, 2)
         max_len = max(length(output(: , c)));
         current_len = current_len + max_len + 3;
         if current_len >= l(1) then
-            printf("\n         column %d to %d\n\n", col_s, c - 1);
+            printf("         column %d to %d\n", col_s, c - 1);
 
             res = strcat(res, "", "c");
             res = strcat(res, "\n");
-        
+
             printf(res);
-            printf("\n\n");
+            printf("\n");
+
+            if mode() > 1
+                printf("\n");
+            end
 
             res = [];
             col_s = c;
@@ -59,7 +61,7 @@ function %duration_p(dura)
     end
 
     if col_s <> 1 then
-        printf("         column %d to %d\n\n", col_s, c);
+        printf("         column %d to %d\n", col_s, c);
     end
 
     res = strcat(res, "", "c");

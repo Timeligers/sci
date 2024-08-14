@@ -28,16 +28,16 @@
 
 #include "sci_malloc.h"
 #include "funcmanager.hxx"
-#include "execvisitor.hxx"
 #include "configvariable.hxx"
 #include "module_declaration.hxx"
-#include "parser.hxx"
+#include "runner.hxx"
+#include "UTF8.hxx"
 
 extern "C"
 {
 #include "findfiles.h"
 #include "configvariable_interface.h"
-#include "os_string.h"
+#include "storeCommand.h"
 }
 
 #define BASENAMEMODULESFILE L"etc/modules.xml"
@@ -391,37 +391,10 @@ bool FuncManager::CreateModuleList(void)
 
 bool FuncManager::ExecuteFile(const std::wstring& _stFile)
 {
-    Parser parser;
-
-    parser.parseFile(_stFile, ConfigVariable::getSCIPath());
-
-    if (parser.getExitStatus() == Parser::Failed)
-    {
-        std::wostringstream ostr;
-        ostr << _W("Unable to execute : ") << _stFile << std::endl;
-        scilabWriteW(ostr.str().c_str());
-        delete parser.getTree();
-        return false;
-    }
-
-    //save current prompt mode
-    int oldVal = ConfigVariable::getPromptMode();
-    //set mode silent for errors
-    ConfigVariable::setPromptMode(-1);
-    try
-    {
-        ast::ExecVisitor exec;
-        parser.getTree()->accept(exec);
-    }
-    catch (const ast::InternalError& ie)
-    {
-        scilabWriteW(ie.GetErrorMessage().c_str());
-    }
-
-    //restore previous prompt mode
-    ConfigVariable::setPromptMode(oldVal);
-    delete parser.getTree();
-    return true;
+    //execute scilab.quit
+    std::string stFile = scilab::UTF8::toUTF8(_stFile);
+    std::string stCMD = "exec('"+stFile+"', -1);";
+    return StaticRunner_execCommand(stCMD.data());
 }
 
 bool FuncManager::LoadModules()

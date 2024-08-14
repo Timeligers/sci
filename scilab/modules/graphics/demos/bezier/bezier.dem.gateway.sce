@@ -5,8 +5,6 @@
 
 demopath = get_absolute_file_path("bezier.dem.gateway.sce");
 
-exec(demopath+"/Macros.sci");
-
 subdemolist=[
 "Gammatest"              , "gammatest.sce";
 "2D curve Bezier test"   , "beziertest.sce";

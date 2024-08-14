@@ -4,7 +4,7 @@
 batik.jar=@BATIK@
 
 ; Reusable components used by Batik and FOP 
-fop.jar=@FOP@
+fop-core.jar=@FOP_CORE@
 
 ; LaTeX plugin
 jlatexmath-fop.jar=@JLATEXMATH_FOP@

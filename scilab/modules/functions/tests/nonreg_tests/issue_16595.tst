@@ -8,6 +8,7 @@
 // <-- Non-regression test for bug 16595 -->
 //
 // <-- NO CHECK REF -->
+// <-- CLI SHELL MODE -->
 //
 // <-- Gitlab URL -->
 // https://gitlab.com/scilab/scilab/-/issues/16595

@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // The display of one column hypermatrix is wrong
 matrix(1:8, [1,1,2,2,2])
- ans  =
+ ans = [1x1x2x2x2 double]
 (:,:,1,1,1)
    1.
 (:,:,2,1,1)
@@ -33,7 +33,7 @@ matrix(1:8, [1,1,2,2,2])
 (:,:,2,2,2)
    8.
 cat(4,4,5)
- ans  =
+ ans = [1x1x1x2 double]
 (:,:,1,1)
    4.
 (:,:,1,2)

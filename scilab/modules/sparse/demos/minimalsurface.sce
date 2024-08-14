@@ -55,7 +55,7 @@ function minimalsurface()
     jacobian = spCompJacobian(fun,sp,FiniteDifferenceType="COMPLEXSTEP");
 
     clf
-    gcf().color_map=parulacolormap(128)
+    gcf().color_map=parula(128)
 
     // Display minimal surface equation
     a=newaxes();

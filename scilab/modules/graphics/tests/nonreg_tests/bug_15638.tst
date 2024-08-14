@@ -20,7 +20,7 @@
 x = linspace(0,1,81);
 z = cos(2*%pi*x)'*sin(2*%pi*x);
 clf()
-gcf().color_map = jetcolormap(4);
+gcf().color_map = jet(4);
 Sgrayplot(x, x, z);
 colorbar(min(z), max(z));
 contour(x,x,z,[-0.5 0 0.5]);
@@ -39,7 +39,7 @@ function z = f(x,y)
     z = cos(2*%pi*x)'*sin(2*%pi*y);
 endfunction
 clf()
-gcf().color_map = jetcolormap(4);
+gcf().color_map = jet(4);
 x = linspace(0,1,81);
 Sfgrayplot(x, x, f);
 z = f(x,x);

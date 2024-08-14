@@ -125,6 +125,10 @@ public class SwingScilabDockingWindow extends SwingScilabWindow {
      */
     @Override
     public int getNbDockedObjects() {
+        if (sciDockingPort == null)
+        {
+            return 0;
+        }
         return sciDockingPort.getDockables().size();
     }
 

@@ -19,7 +19,7 @@ function demo_irrfilter()
         clf(my_handle, "reset");
         plot2d(fr', hzm');
         xtitle(_("Discrete IIR filter: low pass  fr < 0.2"), " ", " ");
-        halt(_("Press Return to continue ... \n"));
+        messagebox(_("Please click OK to go on..."), _("Discrete IIR filter demo"), "modal");
     end
 
     //Band pass filter (length 3, type ellip, cut-offs .15 and .25)

@@ -20,7 +20,7 @@
 ;
 #define GRAPH "graph"
 ;
-Source: thirdparty\jgraphx.jar;DestDir: {app}\thirdparty; Components: {#COMPN_SCILAB} and {#COMPN_JVM_MODULE}
+Source: thirdparty\jgraphx-2.1.0.7.jar;DestDir: {app}\thirdparty; Components: {#COMPN_SCILAB} and {#COMPN_JVM_MODULE}
 ;
 Source: modules\{#GRAPH}\jar\org.scilab.modules.{#GRAPH}.jar;DestDir: {app}\modules\{#GRAPH}\jar; Components: {#COMPN_SCILAB} and {#COMPN_JVM_MODULE}
 ;

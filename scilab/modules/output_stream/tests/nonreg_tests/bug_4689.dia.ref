@@ -20,7 +20,7 @@ disp("Hello world");
   "Hello world"
 diary(id, 'close');
 mgetl(fileout)
- ans  =
+ ans = [6x1 string]
   ""                        
   "disp("Hello world");"
   ""                        

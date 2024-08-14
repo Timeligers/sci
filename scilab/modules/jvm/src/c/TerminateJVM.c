@@ -21,6 +21,7 @@
 /*--------------------------------------------------------------------------*/
 BOOL TerminateJVM(void)
 {
+    forceCloseMainScilabObject();
     freeClassPathxmlDocPtr();
     finishMainScilabObject();
     return finishJVM();

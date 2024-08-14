@@ -43,6 +43,7 @@
 #include "mlist.hxx"
 #include "tlist.hxx"
 #include "argumentvisitor.hxx"
+#include "macrovarvisitor.hxx"
 
 extern "C"
 {
@@ -894,10 +895,29 @@ int mustBeValidVariableName(types::typed_list& x)
 
 int mustBeEqualDims(types::typed_list& x)
 {
-    int iDims1 = x[0]->getAs<types::GenericType>()->getDims();
-    int iDims2 = x[1]->getAs<types::GenericType>()->getDims();
-    std::vector<int> ref = {-1};
+    types::typed_list in1 = {x[0]};
+    types::typed_list out1;
+    if (Overload::call(L"size", in1, 1, out1) != types::Function::OK)
+    {
+        return 1;
+    }
 
+    types::typed_list in2 = {x[1]};
+    types::typed_list out2;
+    if (Overload::call(L"size", in2, 1, out2) != types::Function::OK)
+    {
+        return 1;
+    }
+
+    types::Double* p1 = out1[0]->getAs<types::Double>();
+    std::vector<int> dims1(p1->get(), p1->get() + p1->getSize());
+    p1->killMe();
+
+    types::Double* p2 = out2[0]->getAs<types::Double>();
+    std::vector<int> dims2(p2->get(), p2->get() + p2->getSize());
+    p2->killMe();
+
+    std::vector<int> ref = {-1};
     if (x.size() == 3)
     {
         types::Double* pref = x[2]->getAs<types::Double>();
@@ -913,7 +933,7 @@ int mustBeEqualDims(types::typed_list& x)
     {
         for (int i = 0; i < ref.size(); ++i)
         {
-            if (iDims1 < ref[i] || iDims2 < ref[i])
+            if (dims1.size() < ref[i] || dims2.size() < ref[i])
             {
                 return 1;
             }
@@ -921,19 +941,17 @@ int mustBeEqualDims(types::typed_list& x)
     }
     else
     {
-        if (iDims2 != iDims2)
+        if (dims1.size() != dims2.size())
         {
             return 1;
         }
     }
 
-    int* piDims1 = x[0]->getAs<types::GenericType>()->getDimsArray();
-    int* piDims2 = x[1]->getAs<types::GenericType>()->getDimsArray();
     if (ref.size() >= 1 && ref[0] != -1)
     {
         for (int i = 0; i < ref.size(); ++i)
         {
-            if (piDims1[ref[i] - 1] != piDims2[ref[i] - 1])
+            if (dims1[ref[i] - 1] != dims2[ref[i] - 1])
             {
                 return 1;
             }
@@ -941,9 +959,9 @@ int mustBeEqualDims(types::typed_list& x)
     }
     else
     {
-        for (int i = 0; i < iDims1; ++i)
+        for (int i = 0; i < dims1.size(); ++i)
         {
-            if (piDims1[i] != piDims2[i])
+            if (dims1[i] != dims2[i])
             {
                 return 1;
             }
@@ -1231,12 +1249,28 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
 
     types::GenericType* g = x->getAs<types::GenericType>();
 
+    types::typed_list in1 = {x};
+    types::typed_list out1;
+    if (Overload::call(L"size", in1, 1, out1) != types::Function::OK)
+    {
+        return nullptr;
+    }
+
+    types::Double* p1 = out1[0]->getAs<types::Double>();
+    std::vector<int> dims1(p1->get(), p1->get() + p1->getSize());
+    p1->killMe();
+
+    if (dims1.size() > dims.size())
+    {
+        return nullptr;
+    }
+
     if (dims.size() == 1 && std::get<1>(dims[0]) == nullptr)
     {
         auto&& d = std::get<0>(dims[0]);
         for (int i = 0; i < d.size(); ++i)
         {
-            if (d[i] == g->getSize())
+            if (d[i] == dims1[0])
             {
                 return x;
             }
@@ -1250,19 +1284,13 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
         return expandvar(x, dims, isStatic);
     }
 
-    if (g->getDims() != dims.size())
-    {
-        return nullptr;
-    }
-
-    int* s = g->getDimsArray();
     bool status = true;
-    for (int i = 0; i < g->getDims(); ++i)
+    for (int i = 0; i < dims.size(); ++i)
     {
         std::vector<int> dim;
         symbol::Variable* v;
         std::tie(dim, v) = dims[i];
-
+        int ref = i < dims1.size() ? dims1[i] : 1;
         bool ok = false;
         if (v != nullptr)
         {
@@ -1273,7 +1301,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
 
                 for (int j = 0; j < d->getSize(); ++j)
                 {
-                    if (d->get()[j] == s[i])
+                    if (d->get()[j] == ref)
                     {
                         ok = true;
                         break;
@@ -1285,7 +1313,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
         {
             for (int j = 0; j < dim.size(); ++j)
             {
-                if (dim[j] == -1 || dim[j] == s[i])
+                if (dim[j] == -1 || dim[j] == ref)
                 {
                     ok = true;
                     break;
@@ -1295,7 +1323,7 @@ types::InternalType* checksize(types::InternalType* x, const std::vector<std::tu
 
         status &= ok;
 
-        if (ok == false && s[i] == 1)
+        if (ok == false && dims1[i] == 1)
         {
             return transposevar(x, dims);
         }
@@ -1369,8 +1397,107 @@ std::wstring dims2str(const std::vector<std::tuple<std::vector<int>, symbol::Var
 
 namespace types
 {
+Macro::Macro(std::vector<symbol::Variable*>& _inputArgs, ast::SeqExp& _body, const std::wstring& _stModule, std::unordered_map<std::wstring, types::InternalType*> captured) : Callable(),
+    m_inputArgs(&_inputArgs), m_body(_body.clone()), m_isLambda(true), m_outputArgs(nullptr),
+    m_Nargin(symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"nargin"))),
+    m_Nargout(symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"nargout"))),
+    m_Varargin(symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"varargin"))),
+    m_Varargout(symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"varargout"))),
+    m_captured(captured)
+{
+    setName(L"anonymous");
+    setModule(_stModule);
+    m_pDblArgIn = new Double(1);
+    m_pDblArgIn->IncreaseRef(); // never delete
+    m_pDblArgOut = new Double(1);
+    m_pDblArgOut->IncreaseRef(); // never delete
+
+    m_body->setReturnable();
+    m_stPath = L"";
+
+    updateArguments();
+
+    // check variables/macros in body
+    ast::MacrovarVisitor visit;
+    getBody()->accept(visit);
+
+    for (auto&& c : m_captured)
+    {
+        c.second->IncreaseRef();//protect loaded variable
+    }
+
+    // external variables
+    auto externals = visit.getExternal();
+    for (auto&& e : externals)
+    {
+        symbol::Symbol var = symbol::Symbol(e);
+        if (std::find_if(m_inputArgs->begin(), m_inputArgs->end(), [var](symbol::Variable* v)
+                         { return v->getSymbol() == var; }) != m_inputArgs->end())
+        {
+            // input parameter
+            continue;
+        }
+
+        types::InternalType* pIT = symbol::Context::getInstance()->get(var);
+        if (pIT == nullptr && m_captured.find(e) == m_captured.end())
+        {
+            char msg[128];
+            os_sprintf(msg, _("%s: variable `'%ls\' must exist.\n"), "lambda", e.data());
+            throw ast::InternalError(scilab::UTF8::toWide(msg));
+        }
+
+        if (pIT)
+        {
+            m_captured[e] = pIT->clone();
+            m_captured[e]->IncreaseRef();
+        }
+    }
+
+    // called functions
+    auto called = visit.getCalled();
+    for (auto&& c : called)
+    {
+        symbol::Symbol var = symbol::Symbol(c);
+        if (std::find_if(m_inputArgs->begin(), m_inputArgs->end(), [var](symbol::Variable* v)
+                         { return v->getSymbol() == var; }) != m_inputArgs->end())
+        {
+            // input parameter
+            continue;
+        }
+
+        types::InternalType* pIT = symbol::Context::getInstance()->get(var);
+        if (pIT == nullptr && m_captured.find(c) == m_captured.end())
+        {
+            char msg[128];
+            os_sprintf(msg, _("%s: variable `%ls` must exist.\n"), "lambda", c.data());
+            throw ast::InternalError(scilab::UTF8::toWide(msg));
+        }
+
+        if (pIT)
+        {
+            symbol::Variable* v = symbol::Context::getInstance()->getOrCreate(var);
+            if (v->empty())
+            {
+                types::InternalType* p = symbol::Context::getInstance()->get(var);
+                if (p)
+                {
+                    m_captured[c] = p->clone();
+                    m_captured[c]->IncreaseRef();
+                }
+            }
+            else if (v->top()->m_iLevel > SCOPE_GATEWAY)
+            {
+                // sciprint("level: %ls(%d)\n", c.data(), v->top()->m_iLevel);
+                //  not a original function of Scilab
+                m_captured[c] = pIT->clone();
+                m_captured[c]->IncreaseRef();
+            }
+        }
+    }
+}
+
 Macro::Macro(const std::wstring& _stName, std::vector<symbol::Variable*>& _inputArgs, std::vector<symbol::Variable*>& _outputArgs, ast::SeqExp& _body, const std::wstring& _stModule) : Callable(),
-    m_inputArgs(&_inputArgs), m_outputArgs(&_outputArgs), m_body(_body.clone()),
+    m_inputArgs(&_inputArgs), m_outputArgs(&_outputArgs), m_body(_body.clone()), m_isLambda(false),
     m_Nargin(symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"nargin"))),
     m_Nargout(symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"nargout"))),
     m_Varargin(symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"varargin"))),
@@ -1413,6 +1540,14 @@ Macro::~Macro()
         sub.second->killMe();
     }
 
+    if (isLambda())
+    {
+        for (auto&& c : m_captured)
+        {
+            c.second->DecreaseRef();
+            c.second->killMe();
+        }
+    }
     m_submacro.clear();
 }
 
@@ -1455,30 +1590,37 @@ bool Macro::toString(std::wostringstream& ostr)
     }
 
     ostr.str(L"");
-    ostr << L"[";
 
-    // output arguments [a,b,c] = ....
-    if (m_outputArgs->empty() == false)
+    if (isLambda())
     {
-        std::vector<symbol::Variable*>::iterator OutArg = m_outputArgs->begin();
-        std::vector<symbol::Variable*>::iterator OutArgfter = OutArg;
-        OutArgfter++;
-
-        for (; OutArgfter != m_outputArgs->end(); OutArgfter++)
+        ostr << wcsVarName << L": ";
+    }
+    else
+    {
+        ostr << L"[";
+        // output arguments [a,b,c] = ....
+        if (m_outputArgs->empty() == false)
         {
+            std::vector<symbol::Variable*>::iterator OutArg = m_outputArgs->begin();
+            std::vector<symbol::Variable*>::iterator OutArgfter = OutArg;
+            OutArgfter++;
+
+            for (; OutArgfter != m_outputArgs->end(); OutArgfter++)
+            {
+                ostr << (*OutArg)->getSymbol().getName();
+                ostr << ",";
+                OutArg++;
+            }
+
             ostr << (*OutArg)->getSymbol().getName();
-            ostr << ",";
-            OutArg++;
         }
 
-        ostr << (*OutArg)->getSymbol().getName();
+        ostr << L"]";
+        // function name
+        ostr << L"=" << wcsVarName;
     }
 
-    ostr << L"]";
-
-    // function name
-    ostr << L"=" << wcsVarName << L"(";
-
+    ostr << L"(";
     // input arguments function(a,b,c)
     if (m_inputArgs->empty() == false)
     {
@@ -1521,9 +1663,11 @@ Callable::ReturnValue Macro::call(typed_list& in, optional_list& opt, int _iRetC
     //  Scilab Macro can be called with less than prototyped arguments,
     //  but not more execpts with varargin
 
+    bool bVarargin = false;
     // varargin management
     if (m_inputArgs->size() > 0 && m_inputArgs->back()->getSymbol().getName() == L"varargin")
     {
+        bVarargin = true;
         List* pL = new List();
         int iVarPos = rhs;
         if (iVarPos > static_cast<int>(m_inputArgs->size()) - 1)
@@ -1617,166 +1761,182 @@ Callable::ReturnValue Macro::call(typed_list& in, optional_list& opt, int _iRetC
                 pContext->put(symbol::Symbol(it.first), it.second);
             }
         }
-
-        /*argument checker*/
-        if (m_arguments.size() != 0)
+    }
+    /*argument checker*/
+    if (m_arguments.size() != 0)
+    {
+        try
         {
-            try
+            types::InternalType* skipArgs = symbol::Context::getInstance()->get(symbol::Symbol(L"%skipArgs"));
+            if (skipArgs == nullptr)
             {
-                types::InternalType* skipArgs = symbol::Context::getInstance()->get(symbol::Symbol(L"%skipArgs"));
-                if (skipArgs == nullptr)
+                int expectedmin = 0;
+                int expectedmax = 0;
+                for (auto&& a : m_arguments)
                 {
-                    int expectedmin = 0;
-                    int expectedmax = 0;
-                    for (auto&& a : m_arguments)
-                    {
-                        expectedmin += a.second.default_value == nullptr ? 1 : 0;
-                        expectedmax += 1;
-                    }
+                    expectedmin += a.second.default_value == nullptr ? 1 : 0;
+                    expectedmax += 1;
+                }
 
-                    if (in.size() < expectedmin || in.size() > m_arguments.size())
+                if (in.size() < expectedmin || (bVarargin == false && in.size() > m_arguments.size()))
+                {
+                    char msg[128];
+                    if (expectedmin != expectedmax)
                     {
-                        char msg[128];
-                        if (expectedmin != expectedmax)
+                        os_sprintf(msg, _("%s: Wrong number of input arguments: %d to %d expected.\n"), scilab::UTF8::toUTF8(m_wstName).data(), expectedmin, expectedmax);
+                    }
+                    else
+                    {
+                        if (bVarargin)
                         {
-                            os_sprintf(msg, _("%s: Wrong number of input arguments: %d to %d expected.\n"), scilab::UTF8::toUTF8(m_wstName).data(), expectedmin, expectedmax);
+                            os_sprintf(msg, _("%s: Wrong number of input argument(s): at least %d expected.\n"), scilab::UTF8::toUTF8(m_wstName).data(), (int)m_arguments.size());
                         }
                         else
                         {
                             os_sprintf(msg, _("%s: Wrong number of input argument(s): %d expected.\n"), scilab::UTF8::toUTF8(m_wstName).data(), (int)m_arguments.size());
                         }
-
-                        throw ast::InternalError(scilab::UTF8::toWide(msg), 999, getBody()->getLocation());
                     }
+
+                    throw ast::InternalError(scilab::UTF8::toWide(msg), 999, getBody()->getLocation());
+                }
+            }
+
+            //manage default_value of all inputs before everything else
+            for (int i = 0; i < m_inputArgs->size(); ++i)
+            {
+                std::wstring name = (*m_inputArgs)[i]->getSymbol().getName();
+                if (m_arguments.find(name) == m_arguments.end())
+                {
+                    continue;
                 }
 
-                //manage default_value of all inputs before everything else
-                for (int i = 0; i < m_inputArgs->size(); ++i)
+                ARG arg = m_arguments[name];
+                if (i >= in.size())
                 {
-                    std::wstring name = (*m_inputArgs)[i]->getSymbol().getName();
-                    ARG arg = m_arguments[name];
-                    if (i >= in.size())
+                    if (arg.default_value)
                     {
-                        if (arg.default_value)
+                        ast::RunVisitor* exec = (ast::RunVisitor*)ConfigVariable::getDefaultVisitor();
+                        arg.default_value->accept(*exec);
+                        InternalType* pIT = exec->getResult();
+                        if (pIT == nullptr || pIT->isAssignable() == false)
                         {
-                            ast::RunVisitor* exec = (ast::RunVisitor*)ConfigVariable::getDefaultVisitor();
-                            arg.default_value->accept(*exec);
-                            InternalType* pIT = exec->getResult();
-                            if (pIT == nullptr || pIT->isAssignable() == false)
-                            {
-                                char msg[128];
-                                os_sprintf(msg, _("%s: Unable to evaluate default value.\n"), scilab::UTF8::toUTF8(m_wstName).data());
-                                throw ast::InternalError(scilab::UTF8::toWide(msg), 999, arg.default_value->getLocation());
-                            }
-
-                            pIT->IncreaseRef();
-                            pContext->put(symbol::Symbol(name), pIT);
-                            in.push_back(pIT);
-                            delete exec;
+                            char msg[128];
+                            os_sprintf(msg, _("%s: Unable to evaluate default value.\n"), scilab::UTF8::toUTF8(m_wstName).data());
+                            throw ast::InternalError(scilab::UTF8::toWide(msg), 999, arg.default_value->getLocation());
                         }
+
+                        pIT->IncreaseRef();
+                        pContext->put(symbol::Symbol(name), pIT);
+                        in.push_back(pIT);
+                        delete exec;
                     }
                 }
+            }
 
-                for (int i = 0; i < m_inputArgs->size(); ++i)
+            for (int i = 0; i < m_inputArgs->size(); ++i)
+            {
+                std::wstring name = (*m_inputArgs)[i]->getSymbol().getName();
+                if (m_arguments.find(name) == m_arguments.end())
                 {
-                    std::wstring name = (*m_inputArgs)[i]->getSymbol().getName();
-                    ARG arg = m_arguments[name];
-                    if (arg.dimsConvertor)
-                    {
-                        // check size + expand + transpose
-                        types::InternalType* p = arg.dimsConvertor(in[i]);
-                        if (p == nullptr)
-                        {
-                            if (skipArgs == nullptr)
-                            {
-                                char msg[128];
-                                os_sprintf(msg, _("%s: Wrong size of input argument #%d: %ls expected.\n"), scilab::UTF8::toUTF8(m_wstName).data(), i + 1, arg.dimsStr().c_str());
-                                throw ast::InternalError(scilab::UTF8::toWide(msg));
-                            }
+                    continue;
+                }
 
-                            p = in[i]; // no error and send "bad formatted var to function, following 'skipArguments' status"
-                        }
-                        else
+                ARG arg = m_arguments[name];
+                if (arg.dimsConvertor)
+                {
+                    // check size + expand + transpose
+                    types::InternalType* p = arg.dimsConvertor(in[i]);
+                    if (p == nullptr)
+                    {
+                        if (skipArgs == nullptr)
                         {
-                            if (in[i] != p)
-                            {
-                                // update var
-                                pContext->put(symbol::Symbol(name), p);
-                            }
+                            char msg[128];
+                            os_sprintf(msg, _("%s: Wrong size of input argument #%d: %ls expected.\n"), scilab::UTF8::toUTF8(m_wstName).data(), i + 1, arg.dimsStr().c_str());
+                            throw ast::InternalError(scilab::UTF8::toWide(msg));
                         }
+
+                        p = in[i]; // no error and send "bad formatted var to function, following 'skipArguments' status"
                     }
-
-                    for (auto&& convertor : arg.convertors)
+                    else
                     {
-                        types::InternalType* p = convertor.convertor(in[i]);
-                        if (p)
+                        if (in[i] != p)
                         {
-                            if (arg.dimsConvertor)
-                            {
-                                p = arg.dimsConvertor(p);
-                            }
-
+                            // update var
                             pContext->put(symbol::Symbol(name), p);
                         }
                     }
+                }
 
-                    if (skipArgs == nullptr)
+                for (auto&& convertor : arg.convertors)
+                {
+                    types::InternalType* p = convertor.convertor(in[i]);
+                    if (p)
                     {
-                        for (int j = 0; j < arg.validators.size(); ++j)
+                        if (arg.dimsConvertor)
                         {
-                            types::typed_list args;
-                            for (int k = 0; k < arg.validators[j].inputs.size(); ++k)
+                            p = arg.dimsConvertor(p);
+                        }
+
+                        pContext->put(symbol::Symbol(name), p);
+                    }
+                }
+
+                if (skipArgs == nullptr)
+                {
+                    for (int j = 0; j < arg.validators.size(); ++j)
+                    {
+                        types::typed_list args;
+                        for (int k = 0; k < arg.validators[j].inputs.size(); ++k)
+                        {
+                            int index = -1;
+                            types::InternalType* val = nullptr;
+                            std::tie(index, val) = arg.validators[j].inputs[k];
+                            if (index != -1)
                             {
-                                int index = -1;
-                                types::InternalType* val = nullptr;
-                                std::tie(index, val) = arg.validators[j].inputs[k];
-                                if (index != -1)
-                                {
-                                    args.push_back(in[index]);
-                                }
-                                else
-                                {
-                                    args.push_back(val);
-                                }
+                                args.push_back(in[index]);
+                            }
+                            else
+                            {
+                                args.push_back(val);
+                            }
+                        }
+
+                        int ret = arg.validators[j].validator(args);
+                        if (ret != 0)
+                        {
+                            auto error = arg.validators[j].error;
+                            auto errorArgs = arg.validators[j].errorArgs;
+                            char msg[128];
+
+                            switch (abs(std::get<1>(error)))
+                            {
+                                case 2:
+                                    os_sprintf(msg, _(std::get<0>(error).data()), scilab::UTF8::toUTF8(m_wstName).data(), i + 1);
+                                    break;
+                                case 3:
+                                    os_sprintf(msg, _(std::get<0>(error).data()), scilab::UTF8::toUTF8(m_wstName).data(), i + 1, errorArgs[0].data());
+                                    break;
+                                case 4:
+                                    os_sprintf(msg, _(std::get<0>(error).data()), scilab::UTF8::toUTF8(m_wstName).data(), i + 1, errorArgs[0].data(), errorArgs[1].data());
+                                    break;
+                                case 5:
+                                    os_sprintf(msg, _(std::get<0>(error).data()), scilab::UTF8::toUTF8(m_wstName).data(), i + 1, errorArgs[0].data(), errorArgs[1].data(), errorArgs[2].data());
+                                    break;
                             }
 
-                            int ret = arg.validators[j].validator(args);
-                            if (ret != 0)
-                            {
-                                auto error = arg.validators[j].error;
-                                auto errorArgs = arg.validators[j].errorArgs;
-                                char msg[128];
-
-                                switch (abs(std::get<1>(error)))
-                                {
-                                    case 2:
-                                        os_sprintf(msg, _(std::get<0>(error).data()), scilab::UTF8::toUTF8(m_wstName).data(), i + 1);
-                                        break;
-                                    case 3:
-                                        os_sprintf(msg, _(std::get<0>(error).data()), scilab::UTF8::toUTF8(m_wstName).data(), i + 1, errorArgs[0].data());
-                                        break;
-                                    case 4:
-                                        os_sprintf(msg, _(std::get<0>(error).data()), scilab::UTF8::toUTF8(m_wstName).data(), i + 1, errorArgs[0].data(), errorArgs[1].data());
-                                        break;
-                                    case 5:
-                                        os_sprintf(msg, _(std::get<0>(error).data()), scilab::UTF8::toUTF8(m_wstName).data(), i + 1, errorArgs[0].data(), errorArgs[1].data(), errorArgs[2].data());
-                                        break;
-                                }
-
-                                throw ast::InternalError(scilab::UTF8::toWide(msg), 999, arg.loc);
-                            }
+                            throw ast::InternalError(scilab::UTF8::toWide(msg), 999, arg.loc);
                         }
                     }
                 }
             }
-            catch (const ast::InternalError& ie)
-            {
-                pContext->scope_end();
-                ConfigVariable::fillWhereError(ie.GetErrorLocation().first_line);
-                ConfigVariable::macroFirstLine_end();
-                //return types::Function::Error;
-                throw ie;
-            }
+        }
+        catch (const ast::InternalError& ie)
+        {
+            pContext->scope_end();
+            ConfigVariable::fillWhereError(ie.GetErrorLocation().first_line);
+            ConfigVariable::macroFirstLine_end();
+            //return types::Function::Error;
+            throw ie;
         }
     }
 
@@ -1786,19 +1946,22 @@ Callable::ReturnValue Macro::call(typed_list& in, optional_list& opt, int _iRetC
     // varargout can containt more items than caller need
     // varargout must containt at leat caller needs
 
-    if (m_outputArgs->size() >= 1 && m_outputArgs->back()->getSymbol().getName() == L"varargout")
+    if (isLambda() == false)
     {
-        bVarargout = true;
-        List* pL = new List();
-        pContext->put(m_Varargout, pL);
-    }
+        if (m_outputArgs->size() >= 1 && m_outputArgs->back()->getSymbol().getName() == L"varargout")
+        {
+            bVarargout = true;
+            List* pL = new List();
+            pContext->put(m_Varargout, pL);
+        }
 
-    // iRetCount = 0 is granted to the macro (as argn(0))
-    // when there is no formal output argument
-    // or if varargout is the only formal output argument.
-    if (m_outputArgs->size() - (bVarargout ? 1 : 0) >= 1)
-    {
-        iRetCount = std::max(1, iRetCount);
+        // iRetCount = 0 is granted to the macro (as argn(0))
+        // when there is no formal output argument
+        // or if varargout is the only formal output argument.
+        if (m_outputArgs->size() - (bVarargout ? 1 : 0) >= 1)
+        {
+            iRetCount = std::max(1, iRetCount);
+        }
     }
 
     // common part with or without varargin/varargout
@@ -1830,10 +1993,24 @@ Callable::ReturnValue Macro::call(typed_list& in, optional_list& opt, int _iRetC
         pContext->put(sub.first, sub.second);
     }
 
+    if (isLambda())
+    {
+        //add varargout in new context
+        //List* pL = new List();
+        //pContext->put(m_Varargout, pL);
+
+        for (auto&& c : m_captured)
+        {
+            pContext->put(symbol::Symbol(c.first), c.second);
+        }
+    }
+
     // save current prompt mode
     int oldVal = ConfigVariable::getPromptMode();
     std::wstring iExecFile = ConfigVariable::getExecutedFile();
     std::unique_ptr<ast::ConstVisitor> exec(ConfigVariable::getDefaultVisitor());
+    ((ast::RunVisitor*)exec.get())->setLambda(isLambda());
+
     try
     {
         ConfigVariable::setExecutedFile(m_stPath);
@@ -1854,6 +2031,7 @@ Callable::ReturnValue Macro::call(typed_list& in, optional_list& opt, int _iRetC
                 Sciwarning("WARNING: \"skipArguments\" was called in \"%ls\".\n", func);
             }
         }
+
         ConfigVariable::setExecutedFile(iExecFile);
         cleanCall(pContext, oldVal);
         throw ie;
@@ -1866,72 +2044,31 @@ Callable::ReturnValue Macro::call(typed_list& in, optional_list& opt, int _iRetC
     }
 
     // nb excepted output without varargout
-    int iRet = std::min((int)m_outputArgs->size() - (bVarargout ? 1 : 0), std::max(1, iRetCount));
+    int iRet = iRetCount;
 
-    // normal output management
-    // for (std::list<symbol::Variable*>::iterator i = m_outputArgs->begin(); i != m_outputArgs->end() && _iRetCount; ++i, --_iRetCount)
-    for (auto arg : *m_outputArgs)
+    if (isLambda() == false)
     {
-        iRet--;
-        if (iRet < 0)
-        {
-            break;
-        }
+        iRet = std::min((int)m_outputArgs->size() - (bVarargout ? 1 : 0), std::max(1, iRetCount));
 
-        InternalType* pIT = pContext->get(arg);
-        if (pIT)
+        // normal output management
+        for (auto arg : *m_outputArgs)
         {
-            out.push_back(pIT);
-            pIT->IncreaseRef();
-        }
-        else
-        {
-            const int size = (const int)out.size();
-            for (int j = 0; j < size; ++j)
+            iRet--;
+            if (iRet < 0)
             {
-                out[j]->DecreaseRef();
-                out[j]->killMe();
+                break;
             }
-            out.clear();
-            cleanCall(pContext, oldVal);
 
-            char* pstArgName = wide_string_to_UTF8(arg->getSymbol().getName().c_str());
-            char* pstMacroName = wide_string_to_UTF8(getName().c_str());
-            Scierror(999, _("Undefined variable '%s' in function '%s'.\n"), pstArgName, pstMacroName);
-            FREE(pstArgName);
-            FREE(pstMacroName);
-            return Callable::Error;
-        }
-    }
-
-    // varargout management
-    if (bVarargout)
-    {
-        InternalType* pOut = pContext->get(m_Varargout);
-        if (pOut == NULL)
-        {
-            cleanCall(pContext, oldVal);
-            Scierror(999, _("Invalid index.\n"));
-            return Callable::Error;
-        }
-
-        if (pOut->isList() == false)
-        {
-            cleanCall(pContext, oldVal);
-            char* pstMacroName = wide_string_to_UTF8(getName().c_str());
-            Scierror(999, _("%s: Wrong type for %s: A list expected.\n"), pstMacroName, "Varargout");
-            FREE(pstMacroName);
-            return Callable::Error;
-        }
-
-        List* pVarOut = pOut->getAs<List>();
-        const int size = std::min(pVarOut->getSize(), std::max(1, iRetCount) - (int)out.size());
-        for (int i = 0; i < size; ++i)
-        {
-            InternalType* pIT = pVarOut->get(i);
-            if (pIT->isVoid())
+            InternalType* pIT = pContext->get(arg);
+            if (pIT)
             {
-                for (int j = 0; j < i; ++j)
+                out.push_back(pIT);
+                pIT->IncreaseRef();
+            }
+            else
+            {
+                const int size = (const int)out.size();
+                for (int j = 0; j < size; ++j)
                 {
                     out[j]->DecreaseRef();
                     out[j]->killMe();
@@ -1939,18 +2076,99 @@ Callable::ReturnValue Macro::call(typed_list& in, optional_list& opt, int _iRetC
                 out.clear();
                 cleanCall(pContext, oldVal);
 
-                Scierror(999, _("List element number %d is Undefined.\n"), i + 1);
+                char* pstArgName = wide_string_to_UTF8(arg->getSymbol().getName().c_str());
+                char* pstMacroName = wide_string_to_UTF8(getName().c_str());
+                Scierror(999, _("Undefined variable '%s' in function '%s'.\n"), pstArgName, pstMacroName);
+                FREE(pstArgName);
+                FREE(pstMacroName);
+                return Callable::Error;
+            }
+        }
+
+        // varargout management
+        if (bVarargout)
+        {
+            InternalType* pOut = pContext->get(m_Varargout);
+            if (pOut == NULL)
+            {
+                cleanCall(pContext, oldVal);
+                Scierror(999, _("Invalid index.\n"));
                 return Callable::Error;
             }
 
-            pIT->IncreaseRef();
-            out.push_back(pIT);
+            if (pOut->isList() == false)
+            {
+                cleanCall(pContext, oldVal);
+                char* pstMacroName = wide_string_to_UTF8(getName().c_str());
+                Scierror(999, _("%s: Wrong type for %s: A list expected.\n"), pstMacroName, "Varargout");
+                FREE(pstMacroName);
+                return Callable::Error;
+            }
+
+            List* pVarOut = pOut->getAs<List>();
+            const int size = std::min(pVarOut->getSize(), std::max(1, iRetCount) - (int)out.size());
+            for (int i = 0; i < size; ++i)
+            {
+                InternalType* pIT = pVarOut->get(i);
+                if (pIT->isVoid())
+                {
+                    for (int j = 0; j < i; ++j)
+                    {
+                        out[j]->DecreaseRef();
+                        out[j]->killMe();
+                    }
+                    out.clear();
+                    cleanCall(pContext, oldVal);
+
+                    Scierror(999, _("List element number %d is Undefined.\n"), i + 1);
+                    return Callable::Error;
+                }
+
+                pIT->IncreaseRef();
+                out.push_back(pIT);
+            }
+        }
+    }
+    else
+    {
+        InternalType* pOut = pContext->get(m_Varargout);
+        if (pOut == NULL)
+        {
+            types::InternalType* result = ((ast::RunVisitor*)exec.get())->getLambdaResult();
+            if (result)
+            {
+                types::InternalType* p = result;
+                p->IncreaseRef();
+                out.push_back(p);
+                ((ast::RunVisitor*)exec.get())->clearLambdaResult();
+            }
+        }
+        else
+        {
+            if (pOut->isList() == false)
+            {
+                cleanCall(pContext, oldVal);
+                char* pstMacroName = wide_string_to_UTF8(getName().c_str());
+                Scierror(999, _("%s: Wrong type for %s: A list expected.\n"), pstMacroName, "Varargout");
+                FREE(pstMacroName);
+                return Callable::Error;
+            }
+
+            List* pVarOut = pOut->getAs<List>();
+            const int size = std::min(pVarOut->getSize(), iRetCount);
+            for (int i = 0; i < size; ++i)
+            {
+                types::InternalType* p = pVarOut->get(i);
+                p->IncreaseRef();
+                out.push_back(p);
+            }
         }
     }
 
     // close the current scope
     cleanCall(pContext, oldVal);
 
+    //reduce ref of outputs to case of in and out have same symbol
     for (typed_list::iterator i = out.begin(), end = out.end(); i != end; ++i)
     {
         (*i)->DecreaseRef();
@@ -1976,6 +2194,11 @@ int Macro::getNbInputArgument(void)
 
 int Macro::getNbOutputArgument(void)
 {
+    if (isLambda())
+    {
+        return -1;//will be manage later in call()
+    }
+
     if (m_outputArgs->size() >= 1 && m_outputArgs->back()->getSymbol().getName() == L"varargout")
     {
         return -1;
@@ -2006,6 +2229,11 @@ bool Macro::operator==(const InternalType& it)
     std::vector<symbol::Variable*>* pOutput = NULL;
     types::Macro* pRight = const_cast<InternalType&>(it).getAs<types::Macro>();
 
+    if (pRight->isLambda() != isLambda())
+    {
+        return false;
+    }
+
     // check inputs
     pInput = pRight->getInputs();
     if (pInput->size() != m_inputArgs->size())
@@ -2025,22 +2253,25 @@ bool Macro::operator==(const InternalType& it)
         }
     }
 
-    // check outputs
-    pOutput = pRight->getOutputs();
-    if (pOutput->size() != m_outputArgs->size())
+    if (isLambda() == false)
     {
-        return false;
-    }
-
-    itOld = pOutput->begin();
-    itEndOld = pOutput->end();
-    itMacro = m_outputArgs->begin();
-
-    for (; itOld != itEndOld; ++itOld, ++itMacro)
-    {
-        if ((*itOld)->getSymbol() != (*itMacro)->getSymbol())
+        // check outputs
+        pOutput = pRight->getOutputs();
+        if (pOutput->size() != m_outputArgs->size())
         {
             return false;
+        }
+
+        itOld = pOutput->begin();
+        itEndOld = pOutput->end();
+        itMacro = m_outputArgs->begin();
+
+        for (; itOld != itEndOld; ++itOld, ++itMacro)
+        {
+            if ((*itOld)->getSymbol() != (*itMacro)->getSymbol())
+            {
+                return false;
+            }
         }
     }
 
@@ -2081,6 +2312,7 @@ void Macro::updateArguments()
     }
 
     bool needDefaultValue = false;
+    bool bvarargin = false;
     for (auto&& e : m_body->getExps())
     {
         if (e->isCommentExp()) continue;
@@ -2118,6 +2350,7 @@ void Macro::updateArguments()
                 }
                 else // FieldExp
                 {
+                    /*
                     const ast::FieldExp* f = dec->getArgumentName()->getAs<ast::FieldExp>();
                     name = f->getHead()->getAs<ast::SimpleVar>()->getSymbol().getName();
                     if (m_arguments.size() >= inputNames.size() || inputNames[m_arguments.size()] != name)
@@ -2137,13 +2370,28 @@ void Macro::updateArguments()
 
                     name += L".";
                     name += f->getTail()->getAs<ast::SimpleVar>()->getSymbol().getName();
+                    */
+
+                    char msg[128];
+                    os_sprintf(msg, _("%s: Expression with field are not managed.\n"), "arguments");
+                    throw ast::InternalError(scilab::UTF8::toWide(msg), 999, dec->getArgumentType()->getLocation());
                 }
 
                 if (name == L"varargin")
                 {
-                    char msg[128];
-                    os_sprintf(msg, _("%s: varargin cannot be used with arguments block.\n"), scilab::UTF8::toUTF8(m_wstName).data());
-                    throw ast::InternalError(scilab::UTF8::toWide(msg), 999, m_body->getLocation());
+                    //check that there is no information !
+                    if (dec->getArgumentDims()->getExps().size() != 0 ||
+                        dec->getArgumentDefaultValue()->getExps().size() != 0 ||
+                        dec->getArgumentType()->getExps().size() != 0 ||
+                        dec->getArgumentValidators()->getExps().size() != 0)
+                    {
+                        char msg[128];
+                        os_sprintf(msg, _("%s: varargin must be declared without parameter.\n"), "arguments");
+                        throw ast::InternalError(scilab::UTF8::toWide(msg), 999, dec->getArgumentType()->getLocation());
+                    }
+
+                    bvarargin = true;
+                    continue;
                 }
 
 
@@ -2454,7 +2702,7 @@ void Macro::updateArguments()
                 m_arguments[name] = arg;
             } //for
 
-            if (m_arguments.size() != m_inputArgs->size())
+            if (m_arguments.size() + (bvarargin ? 1 : 0) != m_inputArgs->size())
             {
                 char msg[128];
                 os_sprintf(msg, _("%s: All parameters must be specified in arguments block.\n"), scilab::UTF8::toUTF8(m_wstName).data());

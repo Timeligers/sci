@@ -21,7 +21,7 @@ rho=1:256;
 theta=(1:360)./180.*%pi;
 z=30+round(theta'*(1+rho.^2));
 f=gcf();
-f.color_map= hotcolormap(128);
+f.color_map= hot(128);
 clf();
 graypolarplot(theta,rho,z);
 close(winsid());

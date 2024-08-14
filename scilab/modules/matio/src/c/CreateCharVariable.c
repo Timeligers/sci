@@ -30,6 +30,7 @@ int CreateCharVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * pa
     {
         int nbRow  = (int)matVariable->dims[0];
         int strLen = (int)matVariable->dims[1];
+        int dataSize = matVariable->data_size;
         int i     = 0;
         int j     = 0;
         char** ppcData = NULL;
@@ -37,13 +38,14 @@ int CreateCharVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * pa
         // empty matrix string
         nbRow = nbRow == 0 ? 1 : nbRow;
         ppcData = (char**) MALLOC(sizeof(char*) * (nbRow));
+
         /* Fill items: data in Matlab file is stored columnwise */
         for (i = 0; i < nbRow; i++) /* Loop over items */
         {
             ppcData[i] = (char*) MALLOC(sizeof(char) * (strLen + 1));
-            for (j = 0; j < strLen; j++)
+            for (j = 0; j < strLen; ++j)
             {
-                ppcData[i][j] = ((char *)matVariable->data)[j * nbRow + i];
+                ppcData[i][j] = ((char *)matVariable->data)[j * nbRow * dataSize + (i * dataSize)];
             }
             ppcData[i][strLen] = '\0';
         }

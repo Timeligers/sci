@@ -289,3 +289,4 @@ int getWebMode()
 {
     return ConfigVariable::getWebMode() ? 1 : 0;
 }
+

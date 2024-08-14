@@ -14,7 +14,7 @@ function hole3d()
     exec("SCI/modules/graphics/demos/surface/Macros.sci",-1);
     my_handle = scf(100001);
     clf(my_handle,"reset");
-    my_handle.color_map = jetcolormap(128);
+    my_handle.color_map = jet(128);
     demo_viewCode("hole3d.sce");
 
     t     = linspace(-%pi,%pi,40);

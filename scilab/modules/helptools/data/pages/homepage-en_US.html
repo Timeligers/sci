@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Scilab Help Homepage</title>
     <style type="text/css" media="all">
         @import url("scilab_code.css");
@@ -24,11 +24,11 @@
         <a href="https://www.scilab.org/about/community/mailing-lists" class="ulink">Mailing Lists Archives</a> |
         <a href="https://atoms.scilab.org/" class="ulink">ATOMS</a> |
         <a href="https://fileexchange.scilab.org/" class="ulink">File Exchange</a>
-        <hr>
+        <hr/>
     </div>
     <span class="path"><a href="index.html">Scilab help</a> &gt;&gt; Homepage</span>
-    <br>
-    <br>
+    <br/>
+    <br/>
     <div class="refsection">
         <h2 class="title">Welcome to Scilab 2024.1.0</h2>
         <p class="para">
@@ -39,7 +39,7 @@
             Here is a tour of the changes since Scilab 2023.1.0.
         </p>
         <p class="para">
-            To have a tour with the help browser, enter <code>help("2024.1.0")</code>
+            To view it in the help browser, enter <code>help("2024.1.0")</code>
             in the console, and browse related pages.
         </p>
         <h3 class="title">Feature changes and additions</h3>
@@ -50,13 +50,19 @@
                     <li><code>cvode()</code>, <code>arkode()</code>, <code>ida()</code> and <code>kinsol()</code> from <a href="https://computing.llnl.gov/projects/sundials">SUNDIALS</a>.</li>
                     <li><code>compress()</code> and <code>decompress()</code> functions manage compressed archives (ZIP, tar.gz and tar.xz files).</li>
                     <li><code>angle()</code> computes the argument of complex numbers, in radians.</li>
+                    <li><code>uiimport()</code> GUI facilitating the import data from CSV or TXT file.</li>
+                    <li><code>scilab()</code> runs another Scilab in interactive or batch mode with command line options.</li>
+                    <li><code>colormap()</code> sets and/or gets a figure colormap.</li>
+                    <li><code>bezier()</code> computes the points of a Bezier curve using <code>bernstein()</code> matrix.</li>
+                    <li><code>princomp()</code> now returns the variance percentage and the estimated mean of each variable of input.</li>
+                    <li><a href="https://help.scilab.org/predefined_colormaps">Predefined colormaps</a> function helpers have been added to generate different types of <a href="https://help.scilab.org/colormaps">colormaps</a>.</li>
                 </ul>
             </li>
             <li>Language changes:
                 <ul>
                     <li><code>arguments/end</code> keywords added: validate function input arguments in a standard way (using standard error messages) and faster than using Scilab code (<code>type</code>, <code>typeof</code>, ...).
                     Some helpers have been added for this new block: <code>mustBeSameType</code>, <code>mustBeEqualDimsOrScalar</code>, ...
-                    Some Scilab functions (<code>modulo</code>, <code>pmodulo</code>, ...) and modules (<code>time</code>, ...) have been updated to use this new block hence enhancing theirs performances.</li>
+                    Some Scilab functions (<code>modulo</code>, <code>pmodulo</code>, ...) and modules (<code>elementary functions</code>, <code>statistics</code>, <code>time</code>, ...) have been updated to use this new block hence enhancing theirs performances.</li>
                     <li><code>select/case</code> supports multiple cases with <code>cells</code>.</li>
                     <li>When calling a function or extracting values, it is possible to skip an output argument. If a variable is named <code>_</code> the output value will not be assigned (e.g. <code>[r1, _, r3,...] = func(...)</code>).</li>
                 </ul>
@@ -65,7 +71,7 @@
                 <ul>
                 <li>Use <code>curl</code> as default in <code>atomsDownload()</code> for all OS to handle local file repositories.</li>
                 <li><code>url_encode()</code> and <code>url_decode()</code> are added.</li>
-                <li>Headers added as optional input argument to <code>http_*</code> functions.</li>
+                <li>Headers added as optional input and output argument to <code>http_*</code> functions.</li>
                 <li>Cookie management added to webtools module.</li>
                 </ul>
             </li>
@@ -76,10 +82,12 @@
                 <li>triangles pointing to data: upward, downward, left, right,</li>
                 <li>horizontal line (minus sign) centered on data,</li>
                 <li>vertical line centered on data.</li>
+                </ul>
                 </li>
                 <li><code>errbar()</code> function uses horiontal line marks.</li>
                 <li><code>subplot()</code> manages <code>frame</code> uicontrols.</li>
                 </ul>
+            </li>
             <li>Differential equations:
                 <ul>
                 <li>Several features added to <code>cvode()</code>, <code>arkode()</code>, <code>ida()</code> and <code>kinsol()</code> through optional arguments (<code>cvode()</code> and <code>ida()</code> have specific sensitivity features).</li>
@@ -89,12 +97,14 @@
             <li>Sparse matrices:
                 <ul>
                 <li><a href="https://github.com/CSCsw/ColPack">ColPack</a> graph coloring algorithms for sparse jacobian computation have been integrated.</li>
-                </ul>
+                <li>Sparse matrix concatenation and product operations have been speedup (See <a href="https://gitlab.com/scilab/scilab/-/issues/17183">#17183</a>).</li>
+            </ul>
             </li>
             <li>Other Improvements:
                 <ul>
                     <li><code>strsubst()</code> manages group in replacement.</li>
                     <li><code>string()</code> accepts <code>lists</code>, <code>cells</code> and <code>structs</code>.</li>
+                    <li>Type and Dimensions of variables are now displayed in command line output.</li>
                 </ul>
             </li>
         </ul>
@@ -104,7 +114,7 @@
             Detailed information about those improvements can be found in the <a href="CHANGES.html">CHANGES</a> file.
         </p>
     </div>
-    <hr>
+    <hr/>
     <div class="refsection">
         <h3 class="title">Documentation and help</h3>
         <p class="para">If you are new to Scilab, please use
@@ -116,7 +126,7 @@
             some <a href="https://www.scilab.org/tutorials">documentation
                 and tutorials</a>.</p>
     </div>
-    <hr>
+    <hr/>
     <div class="refsection">
         <h3 class="title">Other resources</h3>
         <p class="para"><a href="https://www.scilab.org/" class="ulink">Scilab Website</a> - Consult Scilab official
@@ -134,7 +144,7 @@
         <p class="para"><a href="https://atoms.scilab.org/" class="ulink">ATOMS</a> - Browse Scilab packaged modules</p>
         <p class="para"><a href="https://fileexchange.scilab.org/" class="ulink">File Exchange</a> - Exchange your
             scripts, results and files.</p>
-        <br>
+        <br/>
     </div>
 </body>
 

@@ -12,6 +12,7 @@
 function ts = table2timeseries(varargin)
     data = varargin(1)
     names = data.Properties.VariableNames;
+    hasrowtimes = %f;
     timeindex = [];
     rhs = nargin;
     opts = list();
@@ -48,6 +49,7 @@ function ts = table2timeseries(varargin)
                     timeindex = idx;
                     timeData = data(rowTimes);
                 end
+                hasrowtimes = %t;
             else
                 opts($+1) = varargin(i);
                 opts($+1) = varargin(i+1);
@@ -59,7 +61,7 @@ function ts = table2timeseries(varargin)
 
     l = list();
     
-    if timeindex == [] then
+    if ~hasrowtimes & timeindex == [] then
         for i = 1:size(data, 2);
             d = data.vars(i).data;
             if timeindex == [] && or(isduration(d) || isdatetime(d)) then
@@ -79,7 +81,18 @@ function ts = table2timeseries(varargin)
         varNames = [varNames names];
         val = list(timeData, l(:));
     else
-        varNames = ["Time", names];
+        idx = grep(names, "Time");
+        if idx == [] then
+            varNames = ["Time", names];
+        else
+            n = names(idx);
+            pos = ["" emptystr(n)]
+            pos(2:$) = "_" + string(1:length(idx))
+            r = strsubst(n, "Time", "");
+            nb = members(pos, r);
+            varNames = ["Time" + pos(nb==0)(1), names];
+        end
+
         val = l;
     end
 

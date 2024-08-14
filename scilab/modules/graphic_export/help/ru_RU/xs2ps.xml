@@ -84,7 +84,7 @@
         <programlisting role="example"><![CDATA[
 scf(0);
 plot2d();
-// экспорт в Postcript
+// экспорт в Postscript
 filename='foo.ps';
 xs2ps(0,filename);
  ]]></programlisting>

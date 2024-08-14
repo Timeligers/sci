@@ -280,7 +280,7 @@ plot(f, abs(y(1:n)))
 A = zeros(256,256);
 A(5:24,13:17) = 1;
 X = fftshift(fft(A));
-set(gcf(), "color_map",jetcolormap(128));
+set(gcf(), "color_map",jet(128));
 clf; grayplot(0:255, 0:255, abs(X)')
      ]]></programlisting>
         <para>N-Dimensional FFT (of a ND array):</para>

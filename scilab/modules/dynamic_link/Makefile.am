@@ -42,7 +42,6 @@ libscidynamic_link_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/fileio/includes/ \
 	-I$(top_srcdir)/modules/threads/includes/ \
 	-I$(top_srcdir)/modules/localization/includes/ \
-	$(VALGRIND_CFLAGS) \
 	$(AM_CPPFLAGS)
 
 if MAINTAINER_MODE

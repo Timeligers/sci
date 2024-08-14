@@ -27,7 +27,7 @@ function demo_remezfilter()
         ax.margins(3) = 0.2;
         title(title_c);
 
-        halt(_("Press Return to continue ... \n"));
+        messagebox(_("Please click OK to go on..."), _("Minimax FIR filter demo"), "modal");
     end
 
     //Triangular filter created using remezb
@@ -48,7 +48,7 @@ function demo_remezfilter()
         plot2d(fr', hm'),
         xtitle(_("Remez Triangular filter"), _("frequency"), ("magnitude"));
 
-        halt(_("Press Return to continue ... \n"));
+        messagebox(_("Please click OK to go on..."), _("Minimax FIR filter demo"), "modal");
     end
 
     if is_handle_valid(my_handle) then

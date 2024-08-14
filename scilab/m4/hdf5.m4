@@ -32,14 +32,15 @@ AC_ARG_WITH(hdf5_library,
         [with_hdf5_library='yes']
         )
 
+save_CFLAGS="$CFLAGS"
+save_LIBS="$LIBS"
+
 if test "x$with_hdf5_include" != "xyes"; then
-    save_CFLAGS="$CFLAGS"
     CFLAGS="-I$with_hdf5_include"
     AC_CHECK_HEADER([hdf5.h],
         [HDF5_CFLAGS="$CFLAGS"],
         [AC_MSG_ERROR([Cannot find headers (hdf5.h) of the library HDF5 in $with_hdf5_include. Please install the dev package])]
     )
-    CFLAGS="$save_CFLAGS"
 else
     HDF5_CFLAGS=""
     if $WITH_DEVTOOLS; then # Scilab thirdparties
@@ -56,8 +57,6 @@ else
         fi
     fi
 fi
-
-save_LIBS="$LIBS"
 
 # --with-hdf5-library set then check in this dir
 if test "x$with_hdf5_library" != "xyes"; then
@@ -92,6 +91,81 @@ else
     fi
 fi
 
+CFLAGS="$CFLAGS $HDF5_CFLAGS"
+LIBS="$LIBS $HDF5_LIBS"
+AC_CHECK_HEADER([hdf5.h], [], [AC_MSG_ERROR([Check libhdf5 presence and version. See more details in config.log])])
+
+dnl check HD5 version
+hdf5_version_ok=no
+AC_MSG_CHECKING([if hdf5 version is >= 1.14])
+AC_RUN_IFELSE([AC_LANG_PROGRAM([
+#include <H5public.h>
+#include <stdlib.h>
+#include <stdio.h>
+],[
+#if H5_VERSION_GE(1,12,0) == 0
+exit(1);
+#endif
+printf("%d.%d.%d\t", H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE);
+])], [hdf5_version_ok=yes], [AC_MSG_ERROR(hdf5 must be >= 1.14)])
+AC_MSG_RESULT($hdf5_version_ok)
+
+dnl check if HDF5 is compiled with deprecated symbolsif a recent version is used
+hdf5_has_deprecated_symbols=no
+AC_MSG_CHECKING([if hdf5 has deprecated symbols])
+AC_RUN_IFELSE([AC_LANG_PROGRAM([
+#include <H5public.h>
+#include <stdlib.h>
+],[
+#if H5_VERSION_GE(1,15,0) == 1
+#if defined(H5_NO_DEPRECATED_SYMBOLS)
+exit(1);
+#endif
+#endif
+])], [hdf5_has_deprecated_symbols=yes], [AC_MSG_ERROR(hdf5 must be compiled with deprecated symbols for hdf5 > 1.14)])
+AC_MSG_RESULT($hdf5_has_deprecated_symbols)
+
+dnl set symbols version if HDF5 config as set an API_DEFAULT (Debian case)
+FORCE_HDF_API="\
+-DH5Dopen_vers=2 \
+-DH5Topen_vers=2 \
+-DH5Dcreate_vers=2 \
+-DH5Aiterate_vers=2 \
+-DH5Gcreate_vers=2 \
+-DH5Gopen_vers=2 \
+-DH5Tget_array_dims_vers=2 \
+-DH5Acreate_vers=2 \
+-DH5Rdereference_vers=2 \
+-DH5Eset_auto_vers=2"
+
+hdf5_has_default_api_set=no
+AC_MSG_CHECKING([if hdf5 has a default API defined])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([
+#include <H5public.h>
+#include <H5Ppublic.h>
+#include <H5Rpublic.h>
+],[
+hid_t dataset;
+void* ref;
+hid_t d = H5Rdereference(dataset, H5P_DATASET_ACCESS_DEFAULT, H5R_OBJECT, ref);
+])], [hdf5_has_default_api_set=yes], [hdf5_has_default_api_set="no, versioned API set"; HDF5_CFLAGS="$HDF5_CFLAGS $FORCE_HDF_API"])
+AC_MSG_RESULT($hdf5_has_default_api_set)
+
+if test "x$hdf5_has_default_api_set" != "xyes"; then
+    CFLAGS="$CFLAGS $HDF5_CFLAGS"
+    AC_MSG_CHECKING([compilation of versioned API])
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([
+        #include <H5public.h>
+        #include <H5Ppublic.h>
+        #include <H5Rpublic.h>
+        ],[
+        hid_t dataset;
+        void* ref;
+        hid_t d = H5Rdereference(dataset, H5P_DATASET_ACCESS_DEFAULT, H5R_OBJECT, ref);
+        ])], [AC_MSG_RESULT(yes)], [AC_MSG_ERROR(failed to compile with $HDF5_CFLAGS)])
+fi
+
+CFLAGS="$save_CFLAGS"
 LIBS="$save_LIBS"
 
 AC_SUBST(HDF5_LIBS)

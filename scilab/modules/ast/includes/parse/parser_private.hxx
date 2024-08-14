@@ -18,7 +18,7 @@
 
 #include "parser.hxx"
 
-class ParserSingleInstance
+class EXTERN_AST ParserSingleInstance
 {
 public :
     static Parser::ControlStatus getControlStatus(void)
