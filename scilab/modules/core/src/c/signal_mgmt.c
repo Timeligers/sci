@@ -411,7 +411,7 @@ static void sig_fatal(int signum, siginfo_t * info, void *p)
 
     free(bt);
 
-    if ((getScilabMode() & SCILAB_FEATURE_CLI) == SCILAB_FEATURE_CLI)
+    if (getScilabMode() == SCILAB_NWNI || getScilabMode() == SCILAB_NW)
     {
         /* Reset termcaps and Characters display. */
         setAttr(ATTR_RESET);

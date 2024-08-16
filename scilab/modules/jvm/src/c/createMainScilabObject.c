@@ -38,12 +38,13 @@ BOOL createMainScilabObject(void)
         if (cls)
         {
             jmethodID mid = NULL;
-            mid = (*currentENV)->GetMethodID(currentENV, cls, "<init>", "(I)V");
+            mid = (*currentENV)->GetMethodID(currentENV, cls, "<init>", "(IZ)V");
             bOK = catchIfJavaException(_("Could not access to the constructor of the Main Scilab Class:\n"));
             if (mid)
             {
-                jint ScilabMode = getScilabMode();
-                jobject localScilabObject = (*currentENV)->NewObject(currentENV, cls, mid, ScilabMode);
+                jint scilabMode = getScilabMode();
+                jboolean apiMode = isAPIMode() != 0;
+                jobject localScilabObject = (*currentENV)->NewObject(currentENV, cls, mid, scilabMode, apiMode);
                 bOK = catchIfJavaException(_("Could not create a Scilab main class. Error:\n"));
                 if (bOK == TRUE)
                 {

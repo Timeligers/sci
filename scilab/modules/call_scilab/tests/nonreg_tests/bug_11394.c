@@ -42,7 +42,7 @@ int main(void)
         return 1;
     }
 
-    if (getScilabMode() == (SCILAB_FEATURE_API | SCILAB_FEATURE_WITH_JVM))
+    if (isAPIMode())
     {
         fprintf(stderr, "BUG 11394 NOT FIXED. (2)\n");
         return 1;

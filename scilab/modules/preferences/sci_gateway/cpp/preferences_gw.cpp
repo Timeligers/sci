@@ -23,7 +23,7 @@
 
 int PreferencesModule::LoadDeps(const std::wstring& _functionName)
 {
-    if ((ConfigVariable::getScilabMode() & SCILAB_FEATURE_WITH_JVM) == 0)
+    if (getScilabMode() == SCILAB_NWNI)
     {
         Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "preferences");
         return 0;

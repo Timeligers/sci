@@ -24,7 +24,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
@@ -81,19 +80,15 @@ public class Scilab {
     private static boolean finish;
     private static boolean exitCalled;
     
-    /** Scilab mode, set to SCILAB_STD or SCILAB_NW  */
+    /** Scilab mode, set to SCILAB_STD, SCILAB_NW or SCILAB_NWNI */
     private static int mode;
 
-    /* you can use these values as mask */
-    public static final int SCILAB_FEATURE_CLI      = (1 << 0); /* with a native console (not Java console) */
-    public static final int SCILAB_FEATURE_WITH_JVM = (1 << 1); /* with a JVM */
-    public static final int SCILAB_FEATURE_API      = (1 << 2); /* as an API eg. call_scilab or javasci */
-    public static final int SCILAB_FEATURE_LSP_DAP  = (1 << 3); /* as a Language Server Protocol server */
-    /* Pre-encoded mask values, do not use as mask */
-    public static final int SCILAB_STD              = SCILAB_FEATURE_WITH_JVM;                      /* The standard Scilab (desktop, gui, plots ...) */
-    public static final int SCILAB_NW               = SCILAB_FEATURE_CLI | SCILAB_FEATURE_WITH_JVM; /* Scilab with the gui, plots but without desktop */
-    public static final int SCILAB_NWNI             = SCILAB_FEATURE_CLI;                           /* Scilab without JVM, plots, desktop */
-    
+    /** The standard Scilab (desktop, gui, plots ...) */
+    public static final int SCILAB_STD              = 2;
+    /** Scilab with the gui, plots but without desktop */
+    public static final int SCILAB_NW               = 3;
+    /** Scilab without JVM, plots, desktop */
+    public static final int SCILAB_NWNI             = 4;
 
     private static List<Runnable> finalhooks = new ArrayList<Runnable>();
     private static List<Runnable> initialhooks = new ArrayList<Runnable>();
@@ -106,10 +101,11 @@ public class Scilab {
 
     /**
      * Constructor Scilab Class.
-     * @param mode Mode Scilab -NW -NWNI -STD masked with API
+     * @param scilabMode Mode Scilab -NW -NWNI -STD
+     * @param apiMode true if Scilab has been started through call_scilab or javasci
      */
-    public Scilab(int mode) {
-        Scilab.mode = mode;
+    public Scilab(int scilabMode, boolean apiMode) {
+        Scilab.mode = scilabMode;
         ScilabConstants.setMode(mode);
 
         DockingManager.setDockableFactory(ScilabTabFactory.getInstance());
@@ -123,7 +119,7 @@ public class Scilab {
             /*
              * Set Java directories to Scilab ones
              */
-            if ((mode & SCILAB_FEATURE_API) == 0) {
+            if (apiMode) {
                 /* only modify these properties if Scilab is not called by another application */
                 /* In this case, we let the calling application to use its own properties */
                 System.setProperty("java.io.tmpdir", ScilabConstants.TMPDIR.getCanonicalPath());
@@ -159,7 +155,7 @@ public class Scilab {
          * If SCI_JAVA_ENABLE_HEADLESS is set, do not set the look and feel.
          * (needed when building the documentation under *ux)
          */
-        if ((mode & SCILAB_FEATURE_API) == 0 && System.getenv("SCI_JAVA_ENABLE_HEADLESS") == null) {
+        if (apiMode && System.getenv("SCI_JAVA_ENABLE_HEADLESS") == null) {
 
             /* http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/plaf.html */
             try {

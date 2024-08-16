@@ -42,7 +42,7 @@ void suspendProcess(int signum)
     /* Then apply settings. */
     sigaction(signum, &signalDefaultSettings, &lastSignalSettings);
     /* If scilab is launched in cli mode */
-    if ((getScilabMode() & SCILAB_FEATURE_CLI) == SCILAB_FEATURE_CLI)
+    if (getScilabMode() == SCILAB_NWNI || getScilabMode() == SCILAB_NW)
     {
         /* Reset termcaps and Characters display. */
         setAttr(ATTR_RESET);
@@ -77,7 +77,7 @@ void continueProcess(int signum)
     char *currentLine = NULL;
 
     /* If scilab is launched in cli mode */
-    if ((getScilabMode() & SCILAB_FEATURE_CLI) == SCILAB_FEATURE_CLI)
+    if (getScilabMode() == SCILAB_NWNI || getScilabMode() == SCILAB_NW)
     {
         /* Set termcaps and colors to Scilab Console settings. */
         setCharDisplay(DISP_LAST_SET);

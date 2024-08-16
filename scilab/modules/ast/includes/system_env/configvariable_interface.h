@@ -22,6 +22,9 @@
 
 #define VERBOSE_ERROR 0
 
+/**
+ * Describe the current Scilab features available ; output value of `getScilabMode()`
+ */
 typedef enum
 {
     SCILAB_STD = 2, /* The standard Scilab (gui, plot ...) */
@@ -93,6 +96,8 @@ EXTERN_AST void setPolynomialDisplay(int);
 EXTERN_AST int getPolynomialDisplay();
 
 EXTERN_AST int getWebMode();
+/** Scilab started from call_scilab or javasci */
 EXTERN_AST int isAPIMode();
+EXTERN_AST void setAPIMode();
 
 #endif /* !__CONFIGVARIABLE_INTERFACE_H__ */

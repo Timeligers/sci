@@ -165,10 +165,6 @@ void setScilabMode(scilabMode newmode)
 const char* getScilabModeString(void)
 {
     scilabMode smMode = getScilabMode();
-    if (SCILAB_FEATURE_API & smMode)
-    {
-        return "API";
-    }
     switch (smMode)
     {
         case SCILAB_STD:
@@ -293,5 +289,10 @@ int getWebMode()
 int isAPIMode()
 {
     return ConfigVariable::isAPIMode() ? 1 : 0;
+}
+
+void setAPIMode()
+{
+    ConfigVariable::setAPIMode();
 }
 

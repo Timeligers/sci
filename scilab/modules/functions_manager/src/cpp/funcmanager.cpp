@@ -54,7 +54,7 @@ FuncManager* FuncManager::getInstance()
     {
         me = new FuncManager();
         me->CreateModuleList();
-        if ((ConfigVariable::getScilabMode() & SCILAB_FEATURE_WITH_JVM) == 0)
+        if (ConfigVariable::getScilabMode() == SCILAB_NWNI)
         {
             me->CreateNonNwniModuleList();
         }

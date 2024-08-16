@@ -155,7 +155,7 @@ int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char* ScilabStartup, int S
     pGlobalSEI->iConsoleMode = 1;
     pGlobalSEI->iStartConsoleThread = 0;
 
-    pGlobalSEI->iNoJvm = ((getScilabMode() & SCILAB_FEATURE_WITH_JVM) == SCILAB_FEATURE_WITH_JVM);
+    pGlobalSEI->iNoJvm = getScilabMode() == SCILAB_NWNI;
 
     setForceQuit(0);
     ierr = StartScilabEngine(pGlobalSEI);
@@ -220,7 +220,7 @@ void ScilabDoOneEvent(void)
 {
     if (getCallScilabEngineState() == CALL_SCILAB_ENGINE_STARTED)
     {
-        if (getScilabMode() & SCILAB_FEATURE_WITH_JVM == 0)
+        if (getScilabMode() != SCILAB_NWNI)
         {
 #if 0
             C2F(scirun) ("quit;", (int)strlen("quit;"));

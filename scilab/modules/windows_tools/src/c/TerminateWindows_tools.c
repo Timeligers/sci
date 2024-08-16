@@ -22,9 +22,8 @@
 BOOL TerminateWindows_tools(void)
 {
     BOOL bOK = FALSE;
-    int scilabMode = getScilabMode() & ~SCILAB_FEATURE_API;
 
-    switch (scilabMode)
+    switch (getScilabMode())
     {
         case SCILAB_STD:
         {

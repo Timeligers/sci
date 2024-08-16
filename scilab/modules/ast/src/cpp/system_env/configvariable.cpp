@@ -232,7 +232,7 @@ int ConfigVariable::getConsoleLines(void)
 */
 
 // Scilab is launch as an API with the JVM but no GUI (as expected by javasci)
-int ConfigVariable::m_iScilabMode = (SCILAB_FEATURE_API | SCILAB_FEATURE_WITH_JVM);
+int ConfigVariable::m_iScilabMode = SCILAB_NW;
 
 void ConfigVariable::setScilabMode(int _iScilabMode)
 {
@@ -1646,8 +1646,8 @@ void ConfigVariable::setWebMode(bool _mode)
     webMode = _mode;
 }
 
-// API (eg. call_scilab or javasci)
-bool ConfigVariable::m_API_mode = true;
+// Scilab has been insantiated as an API (eg. call_scilab or javasci)
+bool ConfigVariable::m_API_mode = false;
 
 bool ConfigVariable::isAPIMode()
 {

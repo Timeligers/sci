@@ -204,7 +204,7 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     }
 #endif
 
-    if ((scilabMode & SCILAB_FEATURE_WITH_JVM) == SCILAB_FEATURE_WITH_JVM)
+    if (scilabMode == SCILAB_STD || scilabMode == SCILAB_NW)
     {
         CreateScilabHiddenWndThread();
     }
@@ -225,12 +225,12 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     }
     else
     {
-        if ((scilabMode & SCILAB_FEATURE_CLI) == SCILAB_FEATURE_CLI)
+        if (scilabMode == SCILAB_NW || scilabMode == SCILAB_NWNI)
         {
             SaveConsoleColors();
             SaveConsoleFont();
             UpdateConsoleFont();
-            if ((scilabMode & SCILAB_FEATURE_WITH_JVM) == SCILAB_FEATURE_WITH_JVM)
+            if (scilabMode == SCILAB_NW)
             {
                 RenameConsole();
                 UpdateConsoleColors();
@@ -948,7 +948,7 @@ static void checkForLinkerErrors(void)
 #define LINKER_ERROR_1 "Scilab startup function detected that the function proposed to the engine is the wrong one. Usually, it comes from a linker problem in your distribution/OS.\n"
 #define LINKER_ERROR_2 "If you do not know what it means, please report a bug on https://gitlab.com/scilab/scilab/-/issues. If you do, you probably know that you should change the link order in SCI/modules/Makefile.am\n"
 
-    if ((getScilabMode() & SCILAB_FEATURE_WITH_JVM) == SCILAB_FEATURE_WITH_JVM)
+    if (getScilabMode() != SCILAB_NWNI && !isAPIMode())
     {
         /* NW or STD mode*/
         if (isItTheDisabledLib())
@@ -1342,7 +1342,9 @@ static void executeDebuggerCommand(std::string _command)
     else if(cmd.compare("h")     == 0 ||
             cmd.compare("help")  == 0)
     {
-        if((ConfigVariable::getScilabMode() & SCILAB_FEATURE_WITH_JVM) == SCILAB_FEATURE_WITH_JVM)
+        int scilabMode = ConfigVariable::getScilabMode();
+        if(cmd.compare("help") == 0 &&
+          (scilabMode == SCILAB_NW || scilabMode == SCILAB_STD))
         {
             StorePrioritaryCommand("help debug");
             vCommand.clear();
