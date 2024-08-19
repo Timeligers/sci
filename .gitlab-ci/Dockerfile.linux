@@ -14,6 +14,7 @@ FROM ubuntu:20.04
 LABEL description="Build needed compilers"
 
 # Install needed packages
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y curl autoconf make gcc g++
 
 # Set environment variables
@@ -133,6 +134,7 @@ FROM ubuntu:20.04
 LABEL description="Scilab builder image used by CI/CD runners"
 
 # Fetch system dependencies
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
         locales xz-utils zip \
         curl rsync git \
