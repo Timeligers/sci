@@ -15,10 +15,18 @@ function [binary] = compile_executable(srcFiles, cflags, ldflags)
     binary = basename(srcFiles(1));
 
     if getos() == "Windows"
+        // Load dynamic_link Internal lib if it's not already loaded
+        if ~ exists("dynamic_linkwindowslib") then
+            load("SCI/modules/dynamic_link/macros/windows/lib");
+        end
+        [dynamic_info, static_info] = getdebuginfo();
+        arch_info  = static_info(grep(static_info,"/^Compiler Architecture:/","r"));
+        arch = strsplit(arch_info, ": ")($);
+
+        CL_EXE =  listfiles(getVsWhereInformation()(1).path + "\VC\Tools\MSVC\*")(1) + "\bin\Host"+arch+"\"+arch+"\cl.exe";
         binary = binary + ".exe";
 
-        // cl.exe should be in PATH
-        CC = "cl.exe /out:"+binary;
+        CC = CL_EXE + " /out:"+binary;
         CFLAGS = [  "/Wall"
                     "/I ""WSCI\modules\call_scilab\includes"""
                     "/I ""WSCI\modules\core\includes"""
