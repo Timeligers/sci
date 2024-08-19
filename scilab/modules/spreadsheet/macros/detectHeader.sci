@@ -15,7 +15,7 @@ function [header, c, nblines] = detectHeader(str)
     c = [];
     nblines = [];
     s = part(str, 1);
-    split = strsubst(s, "/[""a-zA-Z0-9\.,;:|\s]+/", "", "r");
+    split = strsubst(s, "/[""a-zA-Z0-9\.,;:|\s\-\+]+/", "", "r");
     j = split <> "";
     if or(j) then
         nblines = find(j);

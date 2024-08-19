@@ -21,35 +21,11 @@ for t = T
     test.field = iconvert(1,t);
     disp(test)
 end
-             (1)
-  "test"  "field"
-             (2)
-  1
-             (1)
-  "test"  "field"
-             (2)
-  1
-             (1)
-  "test"  "field"
-             (2)
-  1
-             (1)
-  "test"  "field"
-             (2)
-  1
-             (1)
-  "test"  "field"
-             (2)
-  1
-             (1)
-  "test"  "field"
-             (2)
-  1
-             (1)
-  "test"  "field"
-             (2)
-  1
-             (1)
-  "test"  "field"
-             (2)
-  1
+  field = int8(1)
+  field = int16(1)
+  field = int32(1)
+  field = int64(1)
+  field = uint8(1)
+  field = uint16(1)
+  field = uint32(1)
+  field = uint64(1)

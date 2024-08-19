@@ -52,7 +52,7 @@ function t=sci2exp(a,nom,lmax)
     end
 
     // For an hypermatrix, we concatenate all components in a single row:
-    hyperMat = or(type(a)==[1 2 4 8 10]) && ndims(a) > 2;
+    hyperMat = or(type(a)==[1 2 4 8 10] | typeof(a) == "ce") && ndims(a) > 2;
     if hyperMat then
         s = size(a);
         a = matrix(a,1,-1);
@@ -105,6 +105,8 @@ function t=sci2exp(a,nom,lmax)
     case 17 then            // cells, struct, mlists
         if typeof(a)=="st"
             t = struct2exp(a, lmax);
+        elseif typeof(a) == "ce" then
+            t = cell2exp(a, lmax);
         else
             t = mlist2exp(a, lmax);
         end
@@ -147,7 +149,7 @@ function t=str2exp(a,lmax)
 
     [m,n]=size(a),
     dots="."+"."
-    t="";
+    t=[];
     quote="''"
 
     a=strsubst(a,quote,quote+quote)
@@ -181,6 +183,8 @@ function t=str2exp(a,lmax)
         if i<m then x($)=x($)+";",end
         if lmax>0 then
             t=[t;x]
+        elseif isempty(t) then
+            t = x;
         else
             t=t+x
         end
@@ -248,9 +252,15 @@ function t = mat2exp(a,lmax)
             k1=1;l=0;I=[];
             while %t
                 if lx-l<lmax|k1>length(ind) then,break,end
-                k2=k1-1+max(find(ind(k1:$)<l+lmax))
+                found = find(ind(k1:$)<l+lmax);
+                if found then
+                    k2=k1-1+max(found);
+                else
+                    // keep the element size in case where
+                    // the element is bigger than lmax
+                    k2=k1
+                end
                 I=[I ind(k2)];
-                //	t=[t;part(x,l+1:ind(k2))]
                 k1=k2+1
                 l=ind(k2)
             end
@@ -261,15 +271,20 @@ function t = mat2exp(a,lmax)
         lx=length(x)
         if lmax==0|lx<lmax then
             t=x;
-
         else
             ind=strindex(x,",");
             k1=1;l=0;I=[];
             while %t
                 if lx-l<lmax|k1>length(ind) then break,end
-                k2=k1-1+max(find(ind(k1:$)<l+lmax))
+                found = find(ind(k1:$)<l+lmax);
+                if found then
+                    k2=k1-1+max(found);
+                else
+                    // keep the element size in case where
+                    // the element is bigger than lmax
+                    k2=k1
+                end
                 I=[I ind(k2)];
-                //	t=[t;part(x,l+1:ind(k2))+dots]
                 k1=k2+1
                 l=ind(k2)
             end
@@ -436,43 +451,16 @@ function t = glist2exp(listType, l, lmax)
     [lhs,rhs] = argn(0)
     if rhs<3 then lmax = 0, end
     dots = "."+".";
-    isCell = typeof(l)=="ce";
-    if isCell then
-        if length(l)==0
-            t = "{}"
-            return
-        end
-        s = size(l);
-        s = strcat(msprintf("%d\n",s(:)),",");  // Literal list of sizes
-        t = "makecell(";
-        if lmax>0 & (length(t) > (lmax-length(s)-4))
-            t = [t + dots; "["+s+"],.. "];
-        else
-            t = t + "["+s+"], ";
-        end
-        // ND-transposition needed due to makecell() special indexing:
-        if ndims(l)<3
-            l = l'
-        else
-            i = 1:ndims(l);
-            i([1 2]) = [2 1];
-            l = permute(l, i);
-        end
-        //
-        l = l{:};
-        L = length(l);
+    t = listType + "("
+    if or(listType==["list", "mlist", "tlist"]) then
+        L = length(l)
     else
-        t = listType + "("
-        if or(listType==["list", "mlist", "tlist"]) then
-            L = length(l)
-        else
-             L = size(getfield(1,l),"*");
-        end
+        L = size(getfield(1,l),"*");
     end
     for k = 1:L
         sep = ",", if k==1 then sep = "", end
         clear lk
-        if isCell | listType ~= "mlist"
+        if listType ~= "mlist"
             lk = l(k)
         else
             try
@@ -492,7 +480,45 @@ function t = glist2exp(listType, l, lmax)
             t = [t; t1]
         end
     end
+
     t($) = t($)+")"
+
+endfunction
+
+function t = cell2exp(l, lmax)
+    if argn(2)<2 then lmax = 0, end
+    dots = "."+".";
+    [m, n]=size(l);
+    s = m * n;
+    if s == 0 then
+        t = "{}"
+        return
+    end
+    t = "{";
+    if m > 1 && n > 1 then
+        L = m
+    else
+        L = 1 
+    end
+
+    l = l{:}
+    for ki = 1:m
+        for kj = 1:n
+            sep = ",", if kj==1 then sep = "", end
+            lk = l(ki+L*(kj-1))
+            t1 = sci2exp(lk, lmax)
+            if size(t1,"*")==1 & (lmax==0|max(length(t1))+length(t($))<lmax) then
+                t($) = t($)+sep+t1
+            else
+                t($) = t($)+sep+dots
+                t = [t; t1]
+            end
+        end
+        if ki * kj < s then
+            t($) = t($)+";";
+        end
+    end
+    t($) = t($) + "}";
 endfunction
 
 function t = struct2exp(l, lmax)

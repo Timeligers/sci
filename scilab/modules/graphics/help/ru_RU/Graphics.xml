@@ -733,7 +733,7 @@
             </varlistentry>
             <varlistentry>
                 <term>
-                    <link linkend="graycolormap">graycolormap</link>
+                    <link linkend="gray">gray</link>
                 </term>
                 <listitem>
                     <para>Линейная серая цветовая карта</para>
@@ -741,7 +741,7 @@
             </varlistentry>
             <varlistentry>
                 <term>
-                    <link linkend="hotcolormap">hotcolormap</link>
+                    <link linkend="hot">hot</link>
                 </term>
                 <listitem>
                     <para>Цветовая карта от красного до жёлтого</para>

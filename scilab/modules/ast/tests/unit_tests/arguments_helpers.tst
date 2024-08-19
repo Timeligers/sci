@@ -104,13 +104,16 @@ assert_checkerror("foo(sparse(1))", [], 999);
 clear foo;
 
 // mustBeReal
-function foo(a)
+function foo(a, b)
     arguments
-        a {mustBeReal}
+        a {mustBeReal(a, b)}
+        b = 0
     end
 endfunction
 
 foo(1);
+foo(complex(1, 0));
+foo(complex(1, %eps), %eps);
 assert_checkerror("foo(%i)", [], 999);
 assert_checkerror("foo(complex(0, 1))", [], 999);
 clear foo;

@@ -78,9 +78,9 @@ endfunction
 
 function hFound = findMatchingChild(handles, testString, depth)
     hFound = []
-    for index = 1:size(handles,1)
+    for index = 1:size(handles,"*")
         h = handles(index);
-        ierr = execstr("bResult = " + testString, "errcatch");
+        [bResult, ierr] = evstr(testString);
         if ierr==0 & bResult then
             hFound = [hFound; handles(index)];
         end

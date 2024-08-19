@@ -15,7 +15,7 @@ function out = %datetime_b_calendarDuration(dt1, dura, dt2)
     end
     
     out = datetime([], "OutputFormat", dt1.format);
-    if dt1 < dt2 && dura > caldays(0) then
+    if dt1 <= dt2 && dura > caldays(0) then
         if dura.y == 0 && dura.m == 0 then
             // dura == caldays
             s = dt2.date - dt1.date;

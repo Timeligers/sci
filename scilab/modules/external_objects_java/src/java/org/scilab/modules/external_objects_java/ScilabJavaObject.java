@@ -1163,6 +1163,7 @@ public class ScilabJavaObject {
         freePlace = new FreePlace();
         ScilabClassLoader.clazz.clear();
         System.gc();
+        System.runFinalization();
     }
 
     /**

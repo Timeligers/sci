@@ -1,7 +1,7 @@
 /*
-* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
-* Copyright (C) 2012 - Scilab Enterprises - Cedric DELAMARRE
-*
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises - Cedric DELAMARRE
+ *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
@@ -10,8 +10,8 @@
  * and continues to be available under such terms.
  * For more information, see the COPYING file which you should have received
  * along with this program.
-*
-*/
+ *
+ */
 
 #include "configvariable.hxx"
 #include "debugmanager.hxx"
@@ -162,7 +162,7 @@ void setScilabMode(scilabMode newmode)
     ConfigVariable::setScilabMode(static_cast<int>(newmode));
 }
 
-const char * getScilabModeString(void)
+const char* getScilabModeString(void)
 {
     scilabMode smMode = getScilabMode();
     switch (smMode)
@@ -204,7 +204,6 @@ void setWarningStop(int _iStop)
 {
     ConfigVariable::setWarningStop(_iStop != 0);
 }
-
 
 int checkReferenceModule(const wchar_t* _module)
 {
@@ -289,3 +288,4 @@ int getWebMode()
 {
     return ConfigVariable::getWebMode() ? 1 : 0;
 }
+

@@ -14,9 +14,8 @@
 function W = pertrans(A)
     // W = pertranspose(A)
 
-    [lhs, rhs] = argn(0);
-    if rhs <> 1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "pertrans", 1));
+    arguments
+        A
     end
 
     [n, m] = size(A);

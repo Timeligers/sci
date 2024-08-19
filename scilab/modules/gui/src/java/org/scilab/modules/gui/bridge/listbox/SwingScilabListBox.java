@@ -137,11 +137,7 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
                     return;
                 }
 
-                updateValue();
-
-                if (callback != null) {
-                    callback.actionPerformed(null);
-                }
+                updateAndCallback();
             }
         });
 
@@ -150,13 +146,22 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
             public void keyReleased(KeyEvent e) {
 
                 boolean hasControl = false;
+                boolean isMulti = getList().getSelectionMode() == ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+
                 int modifiers = e.getModifiersEx();
                 if ((modifiers & KeyEvent.CTRL_DOWN_MASK) == KeyEvent.CTRL_DOWN_MASK) {
                     hasControl = true;
                 }
 
-               //only up, down, end, home, pageup and pagedown change listbox selection
-               int key = e.getKeyCode();
+                //only up, down, end, home, pageup and pagedown change listbox selection
+                int key = e.getKeyCode();
+
+                //manage ctrl + A
+                if (hasControl && isMulti && key == KeyEvent.VK_A) {
+                    updateAndCallback();
+                    return;
+                }
+
                 if (key != KeyEvent.VK_UP &&
                     key != KeyEvent.VK_DOWN &&
                     key != KeyEvent.VK_HOME &&
@@ -168,17 +173,11 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
                 }
 
                 //use ctrl + direction on multiselection list must not trigger callback
-                if (hasControl && 
-                    getList().getSelectionMode() == ListSelectionModel.MULTIPLE_INTERVAL_SELECTION &&
-                    key != KeyEvent.VK_SPACE) {
+                if (hasControl && isMulti && key != KeyEvent.VK_SPACE) {
                     return;
                 }
 
-                updateValue();
-
-                if (callback != null) {
-                    callback.actionPerformed(null);
-                }
+                updateAndCallback();
             }
         });
 
@@ -191,6 +190,13 @@ public class SwingScilabListBox extends JScrollPane implements SwingViewObject, 
         getVerticalScrollBar().addAdjustmentListener(adjustmentListener);
     }
 
+    private void updateAndCallback() {
+        updateValue();
+
+        if (callback != null) {
+            callback.actionPerformed(null);
+        }
+    }
 
     private void updateValue() {
         // Scilab indices in Value begin at 1 and Java indices begin at 0

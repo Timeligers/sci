@@ -342,12 +342,12 @@ types::Function::ReturnValue sci_file(types::typed_list &in, int _iRetCount, typ
                 int iErr = 0;
                 while (iErr == 0)
                 {
-                    iErr = C2F(readinter)(&iFileUnit, "(a)", 1L);
+                    iErr = C2F(readinter)(&iFileUnit, "(a)", 3L);
                 }
 
                 if (iErr == 2)
                 {
-                    Scierror(999, _("%s: \n"), "file");
+                    Scierror(999, _("%s: Incorrect file or format.\n"), "file");
                     return types::Function::Error;
                 }
 

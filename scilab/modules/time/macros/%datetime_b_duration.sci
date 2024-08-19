@@ -15,7 +15,7 @@ function out = %datetime_b_duration(dt1, dura, dt2)
     end
 
     out = datetime([], "OutputFormat", dt1.format);
-    if dt1 < dt2 && dura > duration(0, 0, 0) then
+    if dt1 <= dt2 && dura > duration(0, 0, 0) then
         s = dt2 - dt1;
         vec = duration(0):dura:s;
         out = dt1 + vec;

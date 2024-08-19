@@ -15,7 +15,7 @@
 fname = "sample";
 err_msg_glob = msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"), fname, 2, 3);
 
-err_msg_orient = msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', ''%s'', %d or %d expected.\n"), fname, 3, "*", "r", "c", 1, 2);
+err_msg_orient = msprintf(gettext("%s: Wrong value for input argument #%d: Must be in %s.\n"), fname, 3, sci2exp({1, 2, "r", "c", "*"}));
 
 //========================================
 // Error for the number of input arguments

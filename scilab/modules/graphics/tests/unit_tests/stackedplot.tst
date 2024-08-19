@@ -238,6 +238,27 @@ assert_checkequal(size(a, "*"), 3);
 assert_checkequal(a.y_label.text, ["res4"; "res2"; "res3"; "res1"; "res2"]);
 assert_checkequal(a.x_label.text, ["Time"; ""; ""]);
 
+towns = ["Agen" "Bastia" "Chamonix" "Cognac" "Hyères" "Le Mans" "Le Puy" ..
+"Lille" "Lorient" "Mende" ];
+months = datetime(2023, 1:12, 1, "OutputFormat", "MMMM");
+
+T = [5.7 5.9 9.8 12.1 16.0 19.4 21.8 21.5 18.4 14.7 9.3 5.2 13.5
+9.4 9.4 11.2 13.3 17.3 21.0 24.1 24.5 21.2 17.6 13.3 10.4 16.1
+-2.3 -0.8 3.0 6.6 11.2 14.4 15.5 15.9 12.5 8.6 2.7 -1.6 7.2
+6.1 5.9 9.7 11.9 15.8 19.0 21.1 20.9 17.9 14.4 9.3 5.6 13.3
+8.7 8.9 11.0 13.1 16.7 20.3 23.2 23.3 20.2 16.8 12.6 9.8 15.4
+5.0 5.5 8.3 10.7 14.5 17.8 19.9 19.7 18.5 12.8 8.1 5.4 12.8
+1.0 1.3 4.8 7.2 11.3 14.3 17.6 17.1 13.5 9.9 4.6 1.8 8.8
+3.7 4.1 7.1 9.8 13.5 16.2 18.6 18.5 15.5 11.7 7.2 4.2 10.8
+6.6 6.7 8.6 10.3 13.6 16.2 18.1 18.0 16.0 13.0 9.4 7.0 12.0
+0.6 1.3 3.7 5.5 9.6 13.1 16.2 16.0 12.8 8.8 3.8 1.8 7.8
+];
+T = T(:, 1:12);
+
+ts = timeseries(months', T', "VariableNames", ["Time", towns]);
+
+stackedplot(ts, {towns});
+
 // error
 msg = msprintf(_("%s: Wrong type for input argument #%d: boolean expected.\n"), "stackedplot", 4);
 assert_checkerror("stackedplot(ts1, ts2, ""CombineMatchingNames"", 1)", msg);

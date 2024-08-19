@@ -20,8 +20,8 @@ if getos() == 'Windows' then
     if fileinfo(SCI+'\bin\jogl_desktop.dll') == [] then pause,end
     if fileinfo(SCI+'\bin\gluegen_rt.dll') == [] then pause,end
 
-    if fileinfo(SCI+'\thirdparty\gluegen-rt.jar') == [] then pause,end
-    if fileinfo(SCI+'\thirdparty\jogl-all.jar') == [] then pause,end
+    if fileinfo(SCI+'\thirdparty\gluegen-rt-2.5.0.jar') == [] then pause,end
+    if fileinfo(SCI+'\thirdparty\jogl-all-2.5.0.jar') == [] then pause,end
 
 end
 

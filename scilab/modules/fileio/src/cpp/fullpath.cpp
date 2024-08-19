@@ -61,7 +61,7 @@ char *get_full_path(const char *_Path)
 
     // preserve trailing slash
     size_t len = strlen(_Path);
-    if (len > 0 && _Path[len - 1] == std::filesystem::path::preferred_separator)
+    if (len > 0 && (_Path[len - 1] == '/' || _Path[len - 1] == '\\'))
     {
         p /= "";
     }
@@ -92,7 +92,7 @@ wchar_t *get_full_pathW(const wchar_t * _wcPath)
 
     // preserve trailing slash
     size_t len = wcslen(_wcPath);
-    if (len > 0 && _wcPath[len - 1] == std::filesystem::path::preferred_separator)
+    if (len > 0 && (_wcPath[len - 1] == '/' || _wcPath[len - 1] == '\\'))
     {
         p /= "";
     }

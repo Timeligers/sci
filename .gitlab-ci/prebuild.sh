@@ -58,15 +58,15 @@ export PATH="/usr/local/bin:$INSTALLUSRDIR/bin:$PATH"
 JDK_VERSION=17.0.7+7
 JRE_VERSION=17.0.7_7
 ANT_VERSION=1.10.5
-OPENBLAS_VERSION=0.3.7
-ARPACK_VERSION=3.1.5
+OPENBLAS_VERSION=0.3.27
+ARPACK_VERSION=3.9.1
 CURL_VERSION=7.64.1
 EIGEN_VERSION=3.3.2
 FFTW_VERSION=3.3.3
-HDF5_VERSION=1.10.10
+HDF5_VERSION=1.14.4
 NCURSES_VERSION=6.4
 LIBXML2_VERSION=2.9.9
-MATIO_VERSION=1.5.9
+MATIO_VERSION=1.5.27
 OPENSSL_VERSION=1.1.1c
 PCRE_VERSION=8.38
 SUITESPARSE_VERSION=4.4.5
@@ -79,6 +79,13 @@ JOGL_VERSION=2.5.0
 OPENXLSX_VERSION=0.3.2
 FOP_VERSION=2.0
 LIBARCHIVE_VERSION=3.7.1
+
+# CppServer and its deps
+CPPSERVER_VERSION=1.0.4.1
+ASIO_VERSION=1.29.0
+CPPCOMMON_VERSION=1.0.4.0
+CPPSERVER_FMT_VERSION=10.2.1
+CPPSERVER_CMAKE_VERSION=1.0.0.0
 
 # Variables used by ant to build Java deps in Java 8
 export JAVA_HOME="$BUILDDIR/java/jdk-$JDK_VERSION/"
@@ -112,6 +119,10 @@ make_versions() {
     echo "OPENXLSX_VERSION      = $OPENXLSX_VERSION"
     echo "FOP_VERSION           = $FOP_VERSION"
     echo "LIBARCHIVE_VERSION    = $LIBARCHIVE_VERSION"
+    echo "CPPSERVER_VERSION     = $CPPSERVER_VERSION"
+    echo "ASIO_VERSION          = $ASIO_VERSION"
+    echo "CPPCOMMON_VERSION     = $CPPCOMMON_VERSION"
+    echo "CPPSERVER_FMT_VERSION = $CPPSERVER_FMT_VERSION"
 }
 
 ####################
@@ -120,17 +131,16 @@ make_versions() {
 download_dependencies() {
     cd "$DOWNLOADDIR" || exit 1
 
-
     [ ! -f jre-$JRE_VERSION.tar.gz ] && curl -L -o jre-$JRE_VERSION.tar.gz "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/OpenJDK17U-jre_x64_linux_hotspot_$(echo ${JRE_VERSION} |sed 's/-//g').tar.gz"
     [ ! -f jdk-$JDK_VERSION.tar.gz ] && curl -L -o jdk-$JDK_VERSION.tar.gz "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/ibm-semeru-open-jdk_x64_linux_$(echo ${JDK_VERSION} |sed 's/+/_/g')_openj9-0.38.0.tar.gz"
-    
+
     [ ! -f OpenBLAS-$OPENBLAS_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/OpenBLAS-$OPENBLAS_VERSION.tar.gz
     [ ! -f apache-ant-$ANT_VERSION-bin.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/apache-ant-$ANT_VERSION-bin.tar.gz
     [ ! -f arpack-ng-$ARPACK_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/arpack-ng-$ARPACK_VERSION.tar.gz
     [ ! -f curl-$CURL_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/curl-$CURL_VERSION.tar.gz
     [ ! -f eigen-$EIGEN_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/eigen-$EIGEN_VERSION.tar.gz
     [ ! -f fftw-$FFTW_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/fftw-$FFTW_VERSION.tar.gz
-    [ ! -f hdf5-$HDF5_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/hdf5-$HDF5_VERSION.tar.gz
+    [ ! -f hdf5-$HDF5_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/hdf5-$HDF5_VERSION.zip
     [ ! -f libxml2-$LIBXML2_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/libxml2-$LIBXML2_VERSION.tar.gz
     [ ! -f matio-$MATIO_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/matio-$MATIO_VERSION.tar.gz
     [ ! -f openssl-$OPENSSL_VERSION.tar.gz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/openssl-$OPENSSL_VERSION.tar.gz
@@ -155,9 +165,24 @@ download_dependencies() {
 
     # This archive contains .jar and directories that have been copied from Scilab prerequirements
     # JavaFX/openjfx is only shipped as JARs, no rebuild is needed for now
-    curl -LO --time-cond thirdparty-jar.zip https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-jar.zip
+    curl -L --time-cond -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.zip"
+    if ! unzip -qt "thirdparty.zip"; then
+        # use thirdparty from the target branch
+        curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${BRANCH}.zip"
+    fi
+    if ! unzip -qt "thirdparty.zip"; then
+        # fallback to the default branch
+        curl -L -o thirdparty.zip "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_DEFAULT_BRANCH}.zip"
+    fi
 
     [ ! -f libarchive-$LIBARCHIVE_VERSION.tar.xz ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/libarchive-$LIBARCHIVE_VERSION.tar.xz
+
+    # CppServer and its deps
+    [ ! -f cppserver-$CPPSERVER_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cppserver-$CPPSERVER_VERSION.zip
+    [ ! -f asio-$ASIO_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/asio-$ASIO_VERSION.zip
+    [ ! -f cppcommon-$CPPCOMMON_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cppcommon-$CPPCOMMON_VERSION.zip
+    [ ! -f cppserverfmt-$CPPSERVER_FMT_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cppserverfmt-$CPPSERVER_FMT_VERSION.zip
+    [ ! -f cppservercmake-$CPPSERVER_FMT_VERSION.zip ] && curl -LO https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/cppservercmake-$CPPSERVER_CMAKE_VERSION.zip
 
     true;
 }
@@ -185,6 +210,7 @@ make_all() {
     build_ncurses
     build_openxlsx
     build_libarchive
+    build_cppserver
 }
 
 make_binary_directory() {
@@ -201,6 +227,9 @@ make_binary_directory() {
         --strip-components=1 \
         --exclude=demo \
         bwidget-$BWIDGET_VERSION/images bwidget-$BWIDGET_VERSION/lang --wildcards bwidget-$BWIDGET_VERSION/*.tcl
+    # fix permissions to fix issue #17231
+    chmod 644 "$(find "$TCL_DIR/BWidget" -type f)"
+    chmod 755 "$(find "$TCL_DIR/BWidget" -type d)"
 
     #################
     ##### EIGEN #####
@@ -220,10 +249,11 @@ make_binary_directory() {
     rm -f "$LIBTHIRDPARTYDIR"/libatlas.*
     rm -f "$LIBTHIRDPARTYDIR"/lib*blas.*
     rm -f "$LIBTHIRDPARTYDIR"/liblapack.*
-    mv "$INSTALLUSRDIR"/lib/libopenblas.so* "$LIBTHIRDPARTYDIR/"
+    cp "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$LIBTHIRDPARTYDIR/"
+    ln -fs libopenblas.so.$OPENBLAS_VERSION "$LIBTHIRDPARTYDIR/libopenblas.so.0"
     ln -fs libopenblas.so.$OPENBLAS_VERSION "$LIBTHIRDPARTYDIR/libblas.so.3"
     ln -fs libopenblas.so.$OPENBLAS_VERSION "$LIBTHIRDPARTYDIR/liblapack.so.3"
-
+    
     rm -f "$LIBTHIRDPARTYDIR"/libarpack.*
     cp -d "$INSTALLUSRDIR"/lib/libarpack.* "$LIBTHIRDPARTYDIR/"
 
@@ -312,6 +342,16 @@ make_binary_directory() {
     rm -f "$LIBTHIRDPARTYDIR"/redist/libncurses.* "$LIBTHIRDPARTYDIR"/redist/libscincurses.*
     cp -d "$INSTALLUSRDIR"/lib/libscincurses.so* "$LIBTHIRDPARTYDIR/redist/"
 
+    # cppserver lib and its deps
+    rm -f "$LIBTHIRDPARTYDIR"/libasio.so*
+    cp -d "$INSTALLUSRDIR"/lib/libasio.so "$LIBTHIRDPARTYDIR/"
+    rm -f "$LIBTHIRDPARTYDIR"/libfmt.so*
+    cp -d "$INSTALLUSRDIR"/lib/libfmt.so "$LIBTHIRDPARTYDIR/"
+    rm -f "$LIBTHIRDPARTYDIR"/libcppserver.so*
+    cp -d "$INSTALLUSRDIR"/lib/libcppserver.so "$LIBTHIRDPARTYDIR/"
+    rm -f "$LIBTHIRDPARTYDIR"/libcppcommon.so*
+    cp -d "$INSTALLUSRDIR"/lib/libcppcommon.so "$LIBTHIRDPARTYDIR/"
+
     # GCC libs could be there but are prefixed with "sci" to avoid clashing
     # system libraries static linked into scilab libraries instead.  This
     # avoid compilers (and support libraries) version mismatch between gcc
@@ -382,13 +422,17 @@ make_jar() {
 
     # copy .jar from scilab prerequirements
     cd "$DOWNLOADDIR" || exit 1
-    rm -rf thirdparty-jar
-    mkdir thirdparty-jar
-    cd thirdparty-jar || exit 1
-    unzip "$DOWNLOADDIR/thirdparty-jar.zip"
+    rm -rf thirdparty
+    mkdir thirdparty
+    cd thirdparty || exit 1
+    unzip "$DOWNLOADDIR/thirdparty.zip"
     # remove .jar already managed
     rm xml* fontbox* commons* batik* avalon* fop.jar gluegen2-rt.jar jogl2.jar gluegen-rt.jar jogl-all.jar
+    # Copy all JARs from thirdparty.zip
     cp -a ./* "$JAVATHIRDPARTYDIR"
+    # Copy flexdock to be sure prerequirements archive will be regenerated when flexdock version changes
+    # TODO: add all JARs below and remove global copy using ./*
+    cp -a flexdock-1.2.5.jar "$JAVATHIRDPARTYDIR/flexdock-1.2.5.jar"
 }
 
 make_archive() {
@@ -411,20 +455,20 @@ build_openblas() {
 
     tar -xzf "$DOWNLOADDIR/OpenBLAS-$OPENBLAS_VERSION.tar.gz"
     cd OpenBLAS-$OPENBLAS_VERSION || exit 1
-    make "-j$(nproc)" TARGET=NEHALEM
+    make -j"$(nproc)" DYNAMIC_ARCH=1 NO_AVX2=1 NO_STATIC=1 NO_LAPACKE=1
 
     # install openblas for runtime usage
-    cp -a libopenblas_nehalemp-r$OPENBLAS_VERSION.so "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION"
-
-    # BLAS and LAPACK libs
-    # TODO: only export BLAS / LAPACK ABI
-    cp -a "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$INSTALLUSRDIR/lib/libblas.so.3"
+    cp libopenblas.so "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION"
+    
+    # Provides BLAS
+    cp "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$INSTALLUSRDIR/lib/libblas.so.3"
     patchelf --set-soname libblas.so.3 "$INSTALLUSRDIR/lib/libblas.so.3"
-    cp -a "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$INSTALLUSRDIR/lib/liblapack.so.3"
+    ln -fs libblas.so.3 "$INSTALLUSRDIR/lib/libblas.so"
+    
+    # Provides LAPACK
+    cp "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION" "$INSTALLUSRDIR/lib/liblapack.so.3"
     patchelf --set-soname liblapack.so.3 "$INSTALLUSRDIR/lib/liblapack.so.3"
-    cd "$INSTALLUSRDIR/lib" || exit 1
-    ln -fs libblas.so.3 libblas.so
-    ln -fs liblapack.so.3 liblapack.so
+    ln -fs liblapack.so.3 "$INSTALLUSRDIR/lib/liblapack.so"
 }
 
 build_openjdk() {
@@ -461,16 +505,19 @@ build_arpack() {
 
     INSTALL_DIR=$BUILDDIR/arpack-ng-$ARPACK_VERSION/install_dir
 
+    rm -rf arpack-ng-$ARPACK_VERSION
     tar -xzf "$DOWNLOADDIR/arpack-ng-$ARPACK_VERSION.tar.gz"
     cd arpack-ng-$ARPACK_VERSION || exit 1
-    rm -rf "$INSTALL_DIR" && mkdir "$INSTALL_DIR"
-    ./configure --prefix=  F77=gfortran \
-        --with-blas="$INSTALLUSRDIR/lib/libblas.so" \
-        --with-lapack="$INSTALLUSRDIR/lib/liblapack.so"
-    make "-j$(nproc)"
-    make install DESTDIR="$INSTALL_DIR"
 
-    cp -a "$INSTALL_DIR"/lib/libarpack.so* "$INSTALLUSRDIR/lib/"
+    mkdir -p build || exit 1
+    cd build || exit 1
+    cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
+        -DBUILD_SHARED_LIBS=ON \
+        -DBLAS_LIBRARIES="$INSTALLUSRDIR/lib/libblas.so" \
+        -DLAPACK_LIBRARIES="$INSTALLUSRDIR/lib/liblapack.so" \
+        -G "Unix Makefiles"
+    cmake --build . --parallel --config Release
+    cp -a lib/libarpack.so* "$INSTALLUSRDIR/lib/"
 }
 
 build_eigen() {
@@ -488,17 +535,17 @@ build_hdf5() {
 
     INSTALL_DIR=$BUILDDIR/hdf5-$HDF5_VERSION/install_dir
 
-    tar -xzf "$DOWNLOADDIR/hdf5-$HDF5_VERSION.tar.gz"
-    cd hdf5-$HDF5_VERSION || exit 1
-    sed -i -e 's|//int i1, i2;|/* int i1, i2; */|' tools/lib/h5diff.c
+    unzip -o "$DOWNLOADDIR/hdf5-$HDF5_VERSION.zip"
+    cd hdf5-hdf5_$HDF5_VERSION || exit 1
 
     mkdir -p build
     cd build || exit 1
     cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
         -DBUILD_SHARED_LIBS=ON \
         -DHDF5_BUILD_CPP_LIB=ON \
-        -DHDF5_BUILD_HL_LIB=ON
-    cmake --build . --parallel --target install
+        -DHDF5_BUILD_HL_LIB=ON \
+        -G "Unix Makefiles"
+    cmake --build . --parallel --target install --config Release
 
     cp -a "$INSTALL_DIR"/lib/*.so* "$INSTALLUSRDIR/lib/"
     cp -a "$INSTALL_DIR"/include/* "$INSTALLUSRDIR/include/"
@@ -593,7 +640,7 @@ build_tcl() {
     make install DESTDIR="$INSTALL_DIR"
 
     cp -a "$INSTALL_DIR"/lib/libtcl*.so* "$INSTALLUSRDIR/lib/"
-    chmod 644 "$INSTALLUSRDIR"/lib/libtcl*.so*
+    chmod 755 "$INSTALLUSRDIR"/lib/libtcl*.so*
 
     cp -a "$INSTALL_DIR"/include/* "$INSTALLUSRDIR/include/"
 
@@ -602,9 +649,11 @@ build_tcl() {
     # install in module
     cp -a "$INSTALL_DIR"/lib/tcl* "$TCL_DIR"
     rm "$TCL_DIR/tclConfig.sh"
+    rm -rf "$TCL_DIR/tcl*/tzdata"
     # install in usr/lib
     cp -a "$INSTALL_DIR"/lib/tcl* "$INSTALLUSRDIR/lib/"
     rm "$INSTALLUSRDIR/lib/tclConfig.sh"
+    rm -rf "$INSTALLUSRDIR/tcl*/tzdata"
 }
 
 build_tk() {
@@ -619,7 +668,7 @@ build_tk() {
     make install DESTDIR="$INSTALL_DIR"
 
     cp -a "$INSTALL_DIR"/lib/libtk*.so* "$INSTALLUSRDIR/lib/"
-    chmod 644 "$INSTALLUSRDIR"/lib/libtk*.so*
+    chmod 755 "$INSTALLUSRDIR"/lib/libtk*.so*
 
     cp -a "$INSTALL_DIR"/include/* "$INSTALLUSRDIR/include/"
 
@@ -775,7 +824,8 @@ build_libarchive() {
 build_suitesparse() {
     cd "$BUILDDIR" || exit 1
 
-    INSTALL_DIR=$BUILDDIR/SuiteSparse/install_dir
+    INSTALL_DIR=$BUILDDIR/SuiteSparse-$SUITESPARSE_VERSION/install_dir
+
     rm -rf "$INSTALL_DIR"
     mkdir -p "$INSTALL_DIR/lib"
     mkdir -p "$INSTALL_DIR/include"
@@ -935,12 +985,16 @@ build_jogl() {
 build_openxlsx() {
     cd "$BUILDDIR" || exit 1
 
+    INSTALL_DIR=$BUILDDIR/OpenXLSX-$OPENXLSX_VERSION/install_dir
+
     tar -xzf "$DOWNLOADDIR/OpenXLSX-$OPENXLSX_VERSION.tar.gz"
     cd OpenXLSX-$OPENXLSX_VERSION || exit 1
 
     mkdir -p build
     cd build || exit 1
-    cmake ..
+    cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
+        -DBUILD_SHARED_LIBS=ON \
+        -G "Unix Makefiles"
     cmake --build . --parallel --target OpenXLSX --config Release
 
     cd ../
@@ -953,6 +1007,74 @@ build_openxlsx() {
         -Wl,--no-whole-archive
 
     cp -a libOpenXLSX.so "$INSTALLUSRDIR/lib/"
+}
+
+build_cppserver() {
+    cd "$BUILDDIR" || exit 1
+
+    INSTALL_DIR=$BUILDDIR/cppserver-$CPPSERVER_VERSION/install_dir
+
+    rm -rf cppserver
+    unzip -q "$DOWNLOADDIR/cppserver-$CPPSERVER_VERSION.zip"
+    mv CppServer-$CPPSERVER_VERSION cppserver
+    cd cppserver || exit 1
+    # add cmake files
+    unzip -q "$DOWNLOADDIR/cppservercmake-$CPPSERVER_CMAKE_VERSION.zip"
+    mv CppCMakeScripts-$CPPSERVER_CMAKE_VERSION cmake
+
+    # add cppserver needed modules
+    cd modules || exit 1
+    unzip -q "$DOWNLOADDIR/asio-$ASIO_VERSION.zip"
+    mv asio-asio-"$(echo $ASIO_VERSION | tr "." "-")" asio
+    unzip -q "$DOWNLOADDIR/cppcommon-$CPPCOMMON_VERSION.zip"
+    mv CppCommon-$CPPCOMMON_VERSION CppCommon
+    cd CppCommon/modules || exit 1
+    unzip -q "$DOWNLOADDIR/cppserverfmt-$CPPSERVER_FMT_VERSION.zip"
+    mv fmt-$CPPSERVER_FMT_VERSION fmt
+    cd ../../../
+
+    # link against our openssl
+    export OPENSSL_ROOT_DIR="$INSTALLUSRDIR"
+
+    ln -s "$BUILDDIR/cppserver/cmake" modules/CppCommon/cmake
+
+    # update cmake files to include only needed sources
+    sed -i '/Catch2/s/^/#/' modules/CMakeLists.txt
+    sed -i '/CppBenchmark/s/^/#/' modules/CMakeLists.txt
+    sed -i '/cpp-optparse/s/^/#/' modules/CMakeLists.txt
+    sed -i '/Catch2/s/^/#/' modules/CppCommon/modules/CMakeLists.txt
+    sed -i '/CppBenchmark/s/^/#/' modules/CppCommon/modules/CMakeLists.txt
+    sed -i '/vld/s/^/#/' modules/CppCommon/modules/CMakeLists.txt
+
+    # generate makefile
+    mkdir -p build
+    cd build || exit 1
+    # DCPPSERVER_MODULE: remove execution of benchmarks and tests from build
+    cmake .. -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
+        -DBUILD_SHARED_LIBS=ON \
+        -DCPPSERVER_MODULE=true \
+        -G "Unix Makefiles"
+    # build cppserver
+    cmake --build . --parallel --config Release
+
+    # copy libs
+    cd ../
+    cp -- $(find . -name *.so) "$INSTALLUSRDIR/lib/"
+
+    # copy includes
+    rm -rf "$INSTALLUSRDIR/include/cppserver/"
+    mkdir -p "$INSTALLUSRDIR/include/cppserver/cppserver"
+    mkdir -p "$INSTALLUSRDIR/include/cppserver/cppcommon"
+    mkdir -p "$INSTALLUSRDIR/include/cppserver/asio"
+    mkdir -p "$INSTALLUSRDIR/include/cppserver/fmt"
+
+    cp -r include/server "$INSTALLUSRDIR/include/cppserver/cppserver"
+
+    rm modules/asio/asio/include/Makefile.am
+    cp -r modules/asio/asio/include/* "$INSTALLUSRDIR/include/cppserver/asio/"
+
+    cp -r modules/CppCommon/include/* "$INSTALLUSRDIR/include/cppserver/cppcommon/"
+    cp -r modules/CppCommon/modules/fmt/include/* "$INSTALLUSRDIR/include/cppserver/fmt/"
 }
 
 #########################

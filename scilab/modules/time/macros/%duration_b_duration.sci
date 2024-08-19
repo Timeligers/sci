@@ -26,7 +26,7 @@ function out = %duration_b_duration(varargin)
 
 
     out = duration([], "OutputFormat", d1.format);
-    if d1 < d2 then
+    if d1 <= d2 then
         s = floor((d2 - d1) / dura);
         steps = (0:s) * dura;
         out = d1 + steps;

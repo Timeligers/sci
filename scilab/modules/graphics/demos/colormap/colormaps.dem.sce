@@ -88,7 +88,7 @@ function demo_colormaps()
 
     demo_viewCode("colormaps.dem.sce");
 
-    fig_handle.color_map = jetcolormap(128);
+    fig_handle.color_map = jet(128);
 
     // Radio buttons
     // =========================================================================
@@ -110,7 +110,7 @@ function demo_colormaps()
         "callback"     , "demo_update_misc", ...
         "groupname"    , "colormap_demo", ..
         "constraints"  , c, ...
-        "tag"          , mapname+"colormap_radio");
+        "tag"          , mapname+"_radio");
     end
 
     // Plots creation
@@ -197,7 +197,7 @@ function demo_colormaps()
 
     // define colormap
     f = gcf();
-    f.color_map = jetcolormap(128);
+    f.color_map = jet(128);
 
     my_plot_2_axes.background = color(240,240,240);
     my_plot_4_axes.background = color(240,240,240);
@@ -205,7 +205,7 @@ function demo_colormaps()
     // Color bar
     colorbar(0,128, [0 128], "%d");
     gcf().children(1).axes_bounds = [0.14 0.1 0.1 0.8];
-    gcf().figure_name = "Jetcolormap";
+    gcf().figure_name = "Jet Colormap";
     drawnow();
 
     fig_handle.visible = "on";

@@ -21,6 +21,6 @@
 #include "types.hxx"
 #include "internal.hxx"
 
-bool vec2var(const std::vector<double> in, types::InternalType* &out);
+bool vec2var(const std::vector<double>& in, types::InternalType* &out);
 
 #endif /* VEC2VAR_HXX_ */

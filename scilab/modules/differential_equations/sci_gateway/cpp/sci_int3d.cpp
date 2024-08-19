@@ -378,7 +378,7 @@ types::Function::ReturnValue sci_int3d(types::typed_list &in, int _iRetCount, ty
     if (bCatch)
     {
         wchar_t szError[bsiz];
-        os_swprintf(szError, bsiz, _W("%s: An error occurred in '%s' subroutine.\n").c_str(), "int3d", "dcutet");
+        os_swprintf(szError, bsiz, _W("%ls: An error occurred in '%ls' subroutine.\n").c_str(), L"int3d", L"dcutet");
         os << szError;
         throw ast::InternalError(os.str());
     }

@@ -59,10 +59,13 @@ plot2d(x,sinc(x))
         <title>Ver Também</title>
         <simplelist type="inline">
             <member>
-                <link linkend="sin">sin</link>
+                <link linkend="filt_sinc">filt_sinc</link>
             </member>
             <member>
-                <link linkend="cos">cos</link>
+                <link linkend="sincd">sincd</link>
+            </member>
+            <member>
+                <link linkend="sin">sin</link>
             </member>
         </simplelist>
     </refsection>

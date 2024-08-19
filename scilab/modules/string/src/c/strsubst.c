@@ -314,8 +314,8 @@ wchar_t *wcssub_reg(const wchar_t* _pwstInput, const wchar_t* _pwstSearch, const
         }
     }
 
-    wchar_t*** captured = (wchar_t***)MALLOC(sizeof(wchar_t**) * wcslen(_pwstInput));
-    int* captured_count = (int*)CALLOC(wcslen(_pwstInput), sizeof(int));
+    wchar_t*** captured = (wchar_t***)MALLOC(sizeof(wchar_t**) * len);
+    int* captured_count = (int*)CALLOC(len, sizeof(int));
     do
     {
         iPcreStatus = wide_pcre_private(_pwstInput + iJump, _pwstSearch, &iStart, &iEnd, &captured[iOccurs], &captured_count[iOccurs]);
@@ -345,7 +345,7 @@ wchar_t *wcssub_reg(const wchar_t* _pwstInput, const wchar_t* _pwstSearch, const
             return NULL;
         }
     }
-    while (iPcreStatus == PCRE_FINISHED_OK && iStart != iEnd);
+    while (iOccurs < len && iPcreStatus == PCRE_FINISHED_OK && iStart != iEnd);
 
     if (iOccurs)
     {

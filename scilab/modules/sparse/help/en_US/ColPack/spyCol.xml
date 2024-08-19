@@ -44,7 +44,7 @@
          jacobian = spCompJacobian(deff("y=f",""),sp);
          col = jacobian.colors;
          k = unique(col,"keepOrder");
-         gcf().color_map = jetcolormap(max(k))
+         gcf().color_map = jet(max(k))
          subplot(1,2,1)
          spyCol(sp,col)
          title(msprintf("Colored (%d x %d) Jacobian\n%d colors",size(sp,1),size(sp,2),max(k)))
@@ -63,7 +63,7 @@
          jacobian = spCompJacobian(deff("y=f",""),sp);
          col = jacobian.colors;
          k = unique(col,"keepOrder");
-         gcf().color_map = jetcolormap(max(k))
+         gcf().color_map = jet(max(k))
          subplot(1,2,1)
          spyCol(sp,col)
          title(msprintf("Colored (%d x %d) Jacobian, %d colors",size(sp,1),size(sp,2),max(k)))

@@ -57,7 +57,7 @@
     <refsection>
         <title>Descrição</title>
         <para>Esta função ajusta para zero todos os coeficientes
-            com valores absolutos&lt; <literal>epsa</literal> e valores relativos&lt;
+            com valores absolutos&lt;=<literal>epsa</literal> e valores relativos&lt;=
             <literal>epsr</literal> (relativo em relação ao max(A), ignorando %inf e %nan valores
             de <varname>A</varname>) em um polinômio (possivelmente uma matriz de polinômios ou
             matriz de razões de polinômios).

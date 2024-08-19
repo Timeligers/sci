@@ -37,7 +37,7 @@ public :
     virtual H5Attribute & getObject(const std::string & name);
     virtual unsigned int getSize() const;
 
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const;
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const;
     virtual std::string toString(const unsigned int indentLevel) const;
 
 private:

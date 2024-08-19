@@ -259,7 +259,7 @@ private :
                 std::wstring* s = get_wstring();
                 exp = new CommentExp(loc, s);
                 //delete s;
-                break; 
+                break;
             }
             case 6:
             {
@@ -470,7 +470,7 @@ private :
                 delete name;
                 break;
             }
-            case 30:
+            case 30: //keep it to compatiblity with old ListExp (without hasExplicitStep flag)
             {
                 Exp* _start = get_exp();
                 Exp* _step = get_exp();
@@ -540,6 +540,24 @@ private :
             {
                 exps_t* args = get_exps();
                 exp = new ArgumentsExp(loc, *args);
+                break;
+            }
+            case 40: // New ListExp (cf case 30) with hasExplicit flag
+            {
+                bool flag = get_bool();
+                Exp* _start = get_exp();
+                Exp* _step = get_exp();
+                Exp* _end = get_exp();
+                exp = new ListExp(loc, *_start, *_step, *_end, flag);
+                break;
+            }
+            case 41:
+            {
+                Location args_loc = get_location();
+                Exp* body = get_exp();
+                exps_t* args_list = get_vars();
+                ArrayListVar* args = new ArrayListVar(args_loc, *args_list);
+                exp = new FunctionDec(loc, *args, *body->getAs<SeqExp>());
                 break;
             }
             default:

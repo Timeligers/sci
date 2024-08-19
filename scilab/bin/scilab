@@ -153,7 +153,7 @@ detect_type_of_scilab(){
         SCILABBIN="scilab-bin"
     fi
 
-    if (echo "$progname"|grep "scilab-cli$" 2>&1 > /dev/null;) || (echo "$@"|grep "\-nwni" 2>&1 > /dev/null;) then
+    if (echo "$progname"|grep "scilab-cli$" 2>&1 > /dev/null;) || (echo "$@"|grep "\-nwni" 2>&1 > /dev/null;) || (echo "$@"|grep "\-nogui" 2>&1 > /dev/null;) then
         SCILAB_MODE="nwni"
         SCILABBIN="scilab-cli-bin"
         DISABLE_JAVA_DETECTION=1
@@ -758,14 +758,14 @@ dialog_try_or_exit()
 
 fail_macosx_version()
 {
-    dialog_try_or_exit "This version of Scilab may fail on this system ($macosxVersion): Scilab is currently supported from 10.9 (Mavericks) to 14 (Sonoma)."
+    dialog_try_or_exit "This version of Scilab may fail on this system ($macosxVersion): Scilab is currently supported from macOS 10.13 (High Sierra) to macOS 14 (Sonoma)."
 }
 check_macosx_version()
 {
     case $macosxMajorVersion in
         10)
             case $macosxMinorVersion in
-                9|10|11|12|13|14|15)
+                13|14|15)
                    ;;
                 *)
                     fail_macosx_version
@@ -1083,7 +1083,7 @@ if test "$rest" = "yes"; then
         fi
 
         case $sciarg in
-            -nogui|-version|-ns|-nb|-nouserstartup|-noatomsautoload|-nocolor|--texmacs)
+            -version|-ns|-nb|-nouserstartup|-noatomsautoload|-nocolor|--texmacs)
                 ;;
             -nw)
                 if test "$SCILAB_MODE" = "nwni"; then
@@ -1091,9 +1091,9 @@ if test "$rest" = "yes"; then
                     exit 5
                 fi
                 ;;
-            -nwni)
+            -nwni|-nogui)
                 if test "$SCILAB_MODE" = "nw"; then
-                    echo "Cannot use scilab-adv-cli with option -nwni"
+                    echo "Cannot use scilab-adv-cli with option -nwni or -nogui"
                     exit 5
                 fi
                 ;;

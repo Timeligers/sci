@@ -62,6 +62,3 @@ assert_checkerror("isregular(hours(2), 1)", msg);
 
 msg = msprintf(_("%s: Wrong value for input argument #%d: {""%s"", ""%s"", ""%s"", ""%s""} expected.\n"), "isregular", 2, "years", "months", "days", "time");
 assert_checkerror("isregular(hours(2), ""toto"")", msg);
-
-msg = msprintf(_("%s: Wrong value for input argument #%d: ""%s"" expected when the argument #%d is a duration.\n"), "isregular", 2, "time", 1);
-assert_checkerror("isregular(hours(2), ""days"")", msg);

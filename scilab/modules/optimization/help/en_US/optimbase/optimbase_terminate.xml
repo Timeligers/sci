@@ -149,7 +149,7 @@
                 </para>
                 <programlisting role="no-scilab-exec">
                     <![CDATA[
-                   iterations &gt;= maxiter
+                   iterations >= maxiter
                 ]]>
                 </programlisting>
                 <para>
@@ -163,7 +163,7 @@
                 </para>
                 <programlisting role="no-scilab-exec">
                     <![CDATA[
-                   funevals &gt;= maxfunevals
+                   funevals >= maxfunevals
                 ]]>
                 </programlisting>
                 <para>
@@ -186,7 +186,7 @@
                             <para>if the following condition</para>
                             <programlisting role="no-scilab-exec">
                                 <![CDATA[
-                   abs(currentfopt) &lg; tolfunrelative * abs(previousfopt) + tolfunabsolute
+                   abs(currentfopt) < tolfunrelative * abs(previousfopt) + tolfunabsolute
                 ]]>
                             </programlisting>
                             <para>
@@ -221,7 +221,7 @@
                             <para>if the following condition</para>
                             <programlisting role="no-scilab-exec">
                                 <![CDATA[
-                   norm(currentxopt - previousxopt) &lg; tolxrelative * norm(currentxopt) + tolxabsolute
+                   norm(currentxopt - previousxopt) < tolxrelative * norm(currentxopt) + tolxabsolute
                 ]]>
                             </programlisting>
                             <para>

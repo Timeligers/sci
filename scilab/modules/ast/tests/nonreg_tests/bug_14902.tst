@@ -6,7 +6,7 @@
 // =============================================================================
 //
 // <-- NO CHECK REF -->
-// <-- TEST WITH GRAPHICS -->
+// <-- TEST WITH GRAPHIC -->
 //
 // <-- Non-regression test for bug 14904 -->
 //

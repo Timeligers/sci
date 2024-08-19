@@ -15,9 +15,9 @@
 #ifndef __GATEWAY_PROTOTYPE_H__
 #define __GATEWAY_PROTOTYPE_H__
 
-typedef void* scilabEnv;
-typedef int* scilabVar;
-typedef int* scilabOpt;
+typedef struct scilabEnv_t *scilabEnv;
+typedef struct scilabVar_t *scilabVar;
+typedef struct scilabOpt_t *scilabOpt;
 
 typedef int (*OLDGW_FUNC)(char *fname, void* pvApiCtx);
 typedef int(*GW_C_FUNC)(scilabEnv env, int nin, scilabVar* in, int nopt, scilabOpt opt, int nout, scilabVar* out);

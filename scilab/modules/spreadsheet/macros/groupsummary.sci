@@ -158,15 +158,15 @@ function out = groupsummary(varargin)
                     v = varnames;
                     v(jdx) = [];
                     outputVariable = strcat(v, "_");
-                    if size(method) == 1 then
-                        outputVariable = "fun_" + outputVariable;
-                    end
+                    // if size(method) == 1 then
+                    //     outputVariable = "fun_" + outputVariable;
+                    // end
                     opts = struct("includeEmpty", includeEmptyGroups, ...
                         "includedEdge", includedEdge, ...
                         "method", method, ...
                         "nameMethod", nameMethod, ...
                         "outputVariable", outputVariable, ...
-                        "nb", 1);
+                        "nb", nb);
                     out = %_rowvarfun("rowfun", t, groupvars, opts, groupbins);
                 catch
                     error(msprintf(_("%s: problem with function.\n"), "groupsummary"));

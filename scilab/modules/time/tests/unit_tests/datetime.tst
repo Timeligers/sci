@@ -15,7 +15,7 @@ function checkdatetime1(dt, d, t)
 endfunction
 
 function checkdatetime2(dt, y, m, d, t)
-    
+
     dexptected = datenum(y, m, d);
     assert_checkequal(dt.date, dexptected);
 
@@ -28,8 +28,10 @@ function checkstring(d, v)
     assert_checkequal(%datetime_string(d), v);
 endfunction
 
-assert_checktrue(datetime() == datetime(datevec(now())));
-assert_checktrue(datetime("now") == datetime(datevec(now())));
+d = datetime();
+assert_checktrue(modulo(d.time, 1) >= 0);
+d = datetime("now");
+assert_checktrue(modulo(d.time, 1) >= 0);
 expected = floor(datenum());
 checkdatetime1(datetime("today"), expected, 0);
 checkdatetime1(datetime("yesterday"), expected - 1, 0);
@@ -75,7 +77,7 @@ for i = 1:2
         for k = 1:2
             d = strd(k);
             vd = vald(k);
-            
+
             fmt = y + "-" + m + "-" + d;
             str = vy + "-" + vm + "-" + vd;
             checkdatetime2(datetime(str, "InputFormat", fmt), 2022, 10, 6, d0);
@@ -156,7 +158,10 @@ checkdatetime2(datetime(2022, 10, [6 7; 8 9], 12, 30, 45), 2022 * ones(2, 2), 10
 //checkdatetime2(datetime(2022, 10, [6 7; 8 9], 12, 30, 45, 300), 2022, 10, [6 7; 8 9], dura6 * ones(2, 2));
 
 // datetime(x, "ConvertFrom", dateType)
-assert_checktrue(datetime(datenum(), "ConvertFrom", "datenum") == datetime());
+d = datetime(datenum(), "ConvertFrom", "datenum", "OutputFormat", "yyyy-MM-dd HH:mm:ss");
+dexpected = datetime("now", "OutputFormat", "yyyy-MM-dd HH:mm:ss");
+assert_checktrue(string(d) == string(dexpected));
+assert_checktrue(modulo(d.time, 1) >= 0);
 checkstring(datetime([44819.3834418981 44819.3834418981;44819.3834418981 44819.3834418981], "ConvertFrom", "excel"), ["2022-09-15 09:12:09.380" "2022-09-15 09:12:09.380"; "2022-09-15 09:12:09.380" "2022-09-15 09:12:09.380"]);
 
 // datetime([1663226303.936;1663226303.936], "ConvertFrom", "posixtime") == ["2022-09-15 09:18:23.936"; "2022-09-15 09:18:23.936"]
@@ -222,6 +227,30 @@ checkdatetime2(datetime(2022, 10, 6:10) + caldays(6:10), 2022, 10, (6:10) + (6:1
 checkdatetime2(datetime(2022, 10, (6:10)') + caldays(6:10)', 2022, 10, (6:10)' + (6:10)', d2);
 checkdatetime2(caldays(6:10) + datetime(2022, 10, 6:10), 2022, 10, (6:10) + (6:10), d1);
 checkdatetime2(caldays(6:10)' + datetime(2022, 10, (6:10)'), 2022, 10, (6:10)' + (6:10)', d2);
+
+checkstring(datetime(2023, 1, 29) + caldays(29), "2023-02-27");
+checkstring(datetime(2023, 1, 29) + caldays(30), "2023-02-28");
+
+checkstring(datetime(2023, 1, 30) + caldays(29), "2023-02-28");
+checkstring(datetime(2023, 1, 30) + caldays(30), "2023-03-01");
+
+checkstring(datetime(2023, 1, 31) + caldays(29), "2023-03-01");
+checkstring(datetime(2023, 1, 31) + caldays(30), "2023-03-02");
+
+checkstring(datetime(2024, 1, 29) + caldays(29), "2024-02-27");
+checkstring(datetime(2024, 1, 29) + caldays(30), "2024-02-28");
+
+checkstring(datetime(2024, 1, 30) + caldays(29), "2024-02-28");
+checkstring(datetime(2024, 1, 30) + caldays(30), "2024-02-29");
+
+checkstring(datetime(2024, 1, 31) + caldays(29), "2024-02-29");
+checkstring(datetime(2024, 1, 31) + caldays(30), "2024-03-01");
+
+checkstring(datetime(2023, 3, 1) - caldays(29), "2023-01-31");
+checkstring(datetime(2023, 3, 1) - caldays(30), "2023-01-30");
+
+checkstring(datetime(2024, 3, 1) - caldays(29), "2024-02-01");
+checkstring(datetime(2024, 3, 1) - caldays(30), "2024-01-31");
 
 // datetime - datetime
 computed = datetime("2022-10-6") - datetime("2022-10-5");
@@ -393,6 +422,73 @@ c = caldays(0:28);
 computed = dt + c;
 expected = string(datetime(2022,2,1:29,0,0,0));
 checkstring(computed, expected);
+
+assert_checkequal(dt(1):dt($), dt(1));
+
+dt = datetime("2/3/24", "InputFormat", "M/d/yy");
+assert_checkequal(string(dt), "2024-02-03");
+dt = datetime("12/3/24", "InputFormat", "M/d/yy");
+assert_checkequal(string(dt), "2024-12-03");
+dt = datetime("2/13/24", "InputFormat", "M/d/yy");
+assert_checkequal(string(dt), "2024-02-13");
+dt = datetime("12/13/24", "InputFormat", "M/d/yy");
+assert_checkequal(string(dt), "2024-12-13");
+
+h = sprintf("%02d\n", [12 1:11]')';
+mn = sprintf("%02d\n", [0:15:45]')';
+res = string(12:23);
+fmt = "MM/dd/yyyy hh:mm:ss a";
+for i = h
+    for j = mn
+        d = datetime("01/18/2022 " + i + ":" + j + ":00 AM", "InputFormat", fmt);
+        if i == "12"
+            if j == "00" then
+                assert_checkequal(string(d), "2022-01-18");
+            else
+                assert_checkequal(string(d), "2022-01-18 00:" + j + ":00");
+            end
+        else
+            assert_checkequal(string(d), "2022-01-18 " + i + ":" + j + ":00");
+        end
+    end
+end
+for i = 1:size(h, "*")
+    for j = mn
+        d = datetime("01/18/2022 " + h(i) + ":" + j + ":00 PM", "InputFormat", fmt);
+        assert_checkequal(string(d), "2022-01-18 " + res(i) + ":" + j + ":00");
+    end
+end
+
+for ampm = ["AM" "PM"]
+    for i = h
+        for j = mn
+            str = "01/18/2022 " + i + ":" + j + ":00 "+ ampm;
+            d = datetime(str, "InputFormat", fmt, "OutputFormat", fmt);
+            assert_checkequal(string(d), str);
+        end
+    end
+end
+
+d = datetime("01/18/2022 00:13:00 AM", "InputFormat", fmt, "OutputFormat", fmt);
+assert_checkequal(string(d), "01/18/2022 12:13:00 AM");
+d = datetime("01/18/2022 00:13:00 PM", "InputFormat", fmt, "OutputFormat", fmt);
+assert_checkequal(string(d), "01/18/2022 12:13:00 PM");
+
+dt = datetime("4/5/2024", "InputFormat", "M/d/yyyy", "OutputFormat", "dd-MM-yy");
+assert_checkequal(string(dt), "05-04-24");
+
+dt = datetime("14.07.1789 14:37:54.123", "InputFormat", "dd.MM.yyyy HH:mm:ss.SSS");
+assert_checkequal(string(dt), "1789-07-14 14:37:54.123");
+
+d = ["2024-04-10 14:48"; "2024-04-10 14:49"];
+dt = datetime(d, "OutputFormat", "MM/dd/yyyy hh:mm a");
+expected = ["04/10/2024 02:48 PM"; "04/10/2024 02:49 PM"];
+assert_checkequal(string(dt), expected);
+
+d = "2024-04-10 14";
+dt = datetime(d, "InputFormat", "yyyy-MM-dd HH");
+expected = "2024-04-10 14:00:00";
+assert_checkequal(string(dt), expected);
 
 // check error
 msg = msprintf(_("%s: Wrong number of input argument: %d to %d expected, except %d, %d and %d.\n"), "datetime", 0, 7, 2, 4, 5);

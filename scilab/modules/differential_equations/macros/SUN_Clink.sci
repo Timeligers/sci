@@ -54,7 +54,7 @@ function _lib = SUN_Clink(names,files_in,p1,p2,p3,p4,p5,p6,p7,p8,p9)
     
     LDFLAGS = "";
     if getos() == "Windows"
-        LDFLAGS=" "+WSCI+"\bin\patched_sundials.lib";
+        LDFLAGS=" "+SCI+"\bin\patched_sundials.lib";
     elseif isfile(SCI+"/modules/differential_equations/.libs/libscisundials"+getdynlibext())
         // Unix source tree version
         LDFLAGS=" "+SCI+"/modules/differential_equations/.libs/libscisundials"+getdynlibext();

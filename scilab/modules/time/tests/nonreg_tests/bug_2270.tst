@@ -19,6 +19,8 @@
 //    between 1 and 31', depending on the actual number of days in that 
 //    specific month.
 
-execstr('datenum(2006,12,32)','errcatch');
-error_str = lasterror();
-if stripblanks(error_str) <> "%datenum: Wrong value for input argument #3: Must be in range [1, 31]."  then pause,end
+// Test updated after https://gitlab.com/scilab/scilab/-/merge_requests/705/
+// Values outside (1:12) for monthes and outside (1:31) for days are now managed.
+
+d = datenum(2006,12,32);
+assert_checkequal(d, 733043);

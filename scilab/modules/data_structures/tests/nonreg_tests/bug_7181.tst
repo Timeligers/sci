@@ -23,4 +23,4 @@ s.txt = null();
 s.num = null();
 s.pol = null();
 
-disp(s)
+s

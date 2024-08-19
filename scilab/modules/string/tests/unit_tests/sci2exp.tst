@@ -99,3 +99,17 @@ for s = S'
     end
 end
 format(tmp([2 1]))
+
+c = {1, %t, %s, 3+%i};
+s = sci2exp(c);
+assert_checkequal(s, "{1,%t,%s,3+%i}");
+
+c = c';
+assert_checkequal(sci2exp(c), "{1;%t;%s;3+%i}");
+
+c = {1, {"toto", "titi"; %t, [1 2;3 4]}; [2;4], %s};
+assert_checkequal(sci2exp(c), "{1,{""toto"",""titi"";%t,[1,2;3,4]};[2;4],%s}");
+
+clear c;
+c{1,1,3} = {1 "toto"; %t %s};
+assert_checkequal(sci2exp(c), "matrix({[],[],{1,""toto"";%t,%s}}, [1,1,3])");

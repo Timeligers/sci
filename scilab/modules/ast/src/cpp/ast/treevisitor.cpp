@@ -702,11 +702,8 @@ void TreeVisitor::visit(const CallExp &e)
 
     // operator
     operation->append(new types::String(L"ext"));
-    types::List* lst = new types::List();
-    lst->append(operation);
-    operation->killMe();
 
-    l = lst;
+    l = operation;
 }
 
 void TreeVisitor::visit(const ForExp &e)
@@ -1162,18 +1159,44 @@ types::List* TreeVisitor::matrixOrCellExp(const exps_t& lines, TreeVisitor& me, 
     types::List* ope = new types::List();
     ast::exps_t::const_iterator	i, j;
     
+    int idx = 0;
     for (i = lines.begin() ; i != lines.end() ; )
     {
         (*i)->accept(me);
-        types::InternalType* tmp = me.getList();
-        ope->append(tmp);
-        tmp->killMe();
+        
+        if (idx >= 2)
+        {
+            sub->append(ope);
+            ope->killMe();
+            sub->append(new types::String(what.data()));
+            // create a new operation
+            // put previous stage in lhs and
+            // result in rhs
+            types::List* lst = createOperation();
+            types::List* l2 = new types::List();
+            l2->append(sub);
+            sub->killMe();
+            types::InternalType* tmp = me.getList();
+            l2->append(tmp);
+            tmp->killMe();
+
+            // lst->append(tmp);
+            ope = l2;
+            sub = lst;
+        }
+        else
+        {
+            types::InternalType* tmp = me.getList();
+            ope->append(tmp);
+            tmp->killMe();
+        }
         j = i;
         ++i;
         if (i != lines.end() && (*i)->getLocation().first_line != (*j)->getLocation().first_line)
         {
             ope->append(me.getEOL());
         }
+        ++idx;
     }
 
     sub->append(ope);

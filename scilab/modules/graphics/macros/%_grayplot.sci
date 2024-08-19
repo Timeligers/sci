@@ -26,5 +26,5 @@ function [] = %_grayplot()
     my_plot_desc  = "grayplot";
     f.figure_name = my_plot_desc;
     xtitle(my_plot_desc," "," "," ");
-    f.color_map = hotcolormap(128);
+    f.color_map = hot(128);
 endfunction

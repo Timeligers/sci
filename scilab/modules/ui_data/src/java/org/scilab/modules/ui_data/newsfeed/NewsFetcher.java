@@ -15,6 +15,7 @@
 
 package org.scilab.modules.ui_data.newsfeed;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -24,6 +25,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
 import org.w3c.dom.Node;
 
 import java.util.Date;
@@ -83,7 +85,15 @@ public class NewsFetcher {
             }
 
             // fetch the content and parse it
-            Document doc = builder.parse(con.getInputStream());
+            Document doc = builder.newDocument();
+            try
+            {
+                doc = builder.parse(con.getInputStream());
+            }
+            catch (IOException ex)
+            {
+                System.out.println("RSS URL is invalid: " + ex.getMessage());
+            }
 
             NodeList items = doc.getElementsByTagName("item");
             if ((items == null) || (items.getLength() == 0)) {

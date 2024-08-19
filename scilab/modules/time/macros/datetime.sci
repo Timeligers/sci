@@ -12,6 +12,7 @@
 function out = datetime(varargin)
 
     function [dt, input1] = datetimeWithInputFormat(infmt, t, sep, replace, index)
+        infmtRef = infmt;
         [row, col] = size(t);
         if size(t, 1) >=1 & size(t, 2) > 1 then
             t = t(:);
@@ -36,7 +37,7 @@ function out = datetime(varargin)
             [r, km, vindex, nb] = unique(m, "keepOrder");
             [m_nb, m_loc] = members(r, mount_list1);
             if or(m_loc == 0) then
-                error(msprintf(_("%s: Wrong or missing ""InputFormat"" to be applied.\n"), "datetime"));
+                error(msprintf(_("%s: Unable to apply the %s input format.\n"), "datetime", sci2exp(infmtRef)));
             end
         end
 
@@ -47,7 +48,7 @@ function out = datetime(varargin)
         nbSpace = length(strindex(t(jdx), " "));
 
         if nbSpace <> nbSpaceExpected then
-            error(msprintf(_("%s: Wrong or missing ""InputFormat"" to be applied.\n"), "datetime"));
+            error(msprintf(_("%s: Unable to apply the %s input format.\n"), "datetime", sci2exp(infmtRef)));
         end
         
         test = find(length(t) <> expectedLen);
@@ -67,14 +68,37 @@ function out = datetime(varargin)
         end
 
         tmp = csvTextScan(t, " ");
+        
+        if size(tmp, "c") > 3 then
+            // hours, minutes and seconds
+            if size(tmp, "c") == 6 & (or(tmp(:, 4) > 24) | or(tmp(:, 5) > 59) | or(tmp(:,6) > 59)) then
+                error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 24], minutes in [0, 59] and seconds in [0, 59].\n"), "datetime"))
+            elseif size(tmp, "c") == 5 & (or(tmp(:, 4) > 24) | or(tmp(:, 5) > 59)) then
+                // hours and minutes only
+                error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 24] and minutes in [0, 59].\n"), "datetime"));
+            elseif or(tmp(:, 4) > 24) then
+                // hours only
+                error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 24].\n"), "datetime"));
+            end
+        end
 
         if and(isnan(tmp(:,$))) then
-            jdx = find(part(t, $-1:$) == "PM");
-            if jdx <> [] then
-                tmp(jdx, 4) = modulo(tmp(jdx, 4) + 12, 24);
+            varAMPM = part(t, $-1:$);
+            if or(tmp(:, 4) > 12) then
+                error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 12].\n"), "datetime"));
+            end
+            hasAMPM = (varAMPM == "PM" & tmp(:, 4) <> 12) | (varAMPM == "AM" & tmp(:, 4) == 12);
+            if or(hasAMPM) then
+                jdx = find(hasAMPM);
+                tmp(jdx, 4) = modulo(tmp(jdx, 4) + hasAMPM(jdx) * 12, 24);
             end
             tmp(:,$) = [];
+        else
+            if grep(infmt, "hh") then
+                error(msprintf(_("%s: Unable to apply the %s input format, use ""HH"" instead of ""hh"".\n"), "datetime", sci2exp(infmtRef)));
+            end
         end
+        
         t = tmp;
 
         if monthStr then
@@ -86,17 +110,19 @@ function out = datetime(varargin)
 
         select size(t, 2)
         case 3
-            d(idx, [1 2 3]) = t(:, index(:,1));
+            d(idx, index(:,1)) = t(:, [1 2 3]);
+        case 4
+            d(idx, index(:,1)) = t(:, [1 2 3 4]);
         case 5
-            d(idx, [1 2 3 4 5]) = t(:, index(:,1));
+            d(idx, index(:,1)) = t(:, [1 2 3 4 5]);
         case 6
-            d(idx, :) = t(:, index(:,1));
+            d(idx, index(:,1)) = t;
         case 7
-            d(idx, :) = t(:, index(:,1));
+            d(idx, index(:,1)) = t(:, [1:6]);
             if t(:, 7) > 1 then
                 t(:,7) = t(:,7) * 1d-3;
             end
-            d(idx, 6) = t(:, index(:,1)==6) + t(:,7);
+            d(idx, index(:,1) == 6) = d(idx, index(:,1) == 6) + t(:,7);
         end
 
         year_val = d(:, 1);
@@ -674,9 +700,13 @@ function out = datetime(varargin)
                         d(:, order == 4) = d2(:, 1);
                         d(:, order == 5) = d2(:, 2);
                         d(:, order == 6) = d2(:, 3);
-                        hasPM = AMPM == "PM";
+                        if or(d(:, order == 4) > 12)  | or(d(:, order == 5) > 59) | or(d(:, order == 6) > 59) then
+                            error(msprintf(_("%s: Unable to convert the time: hours must be in [0, 12], minutes in [0, 59] and seconds in [0, 59].\n"), "datetime"))
+                        end
+                        hasPM = (AMPM == "PM" & d(:, 4) <> 12) | (AMPM == "AM" & d(:, 4) == 12);
                         if or(hasPM) then
-                            d(hasPM, order == 4) = modulo(d(hasAMPM, order == 4) + 12, 24);
+                            jdx = find(hasPM);
+                            d(jdx, order == 4) = modulo(d(jdx, order == 4) + hasPM * 12, 24);
                         end
                     end
 

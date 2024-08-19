@@ -25,7 +25,7 @@ function [val, b] = %_allCombinations(uniqueVal, vindex, km)
         ind = (ones(1, prod(s(1:k-1))) .*. (1:size(tmp, "*")) .*. ones(1, prod(s(k+1:$))))';
         v = tmp(ind);
         kdx = km(k)<>0;
-        index(kdx) = vindex(km(k)(kdx), k);
+        index(kdx) = vindex(k)(km(k)(kdx));
         b = [b, index(ind)];
         val(k) = v
     end

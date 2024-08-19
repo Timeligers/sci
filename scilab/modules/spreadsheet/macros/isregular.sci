@@ -33,42 +33,40 @@ function varargout = isregular(varargin)
         if and(timeUnit <> ["years", "months", "days", "time"]) then
             error(msprintf(_("%s: Wrong value for input argument #%d: {""%s"", ""%s"", ""%s"", ""%s""} expected.\n"), fname, 2, "years", "months", "days", "time"));
         end
-        if typeof(in) == "duration" && timeUnit <> "time" then
-            error(msprintf(_("%s: Wrong value for input argument #%d: ""%s"" expected when the argument #%d is a duration.\n"), fname, 2, "time", 1)); 
-        end
     end
-
 
     if typeof(in) == "timeseries" then
-        in = in.Time;
+        in = in.vars(1).data;
     end
 
+    step = %nan;
     if or(timeUnit == ["years", "months", "days"]) then
-        dt1 = datevec(in(1).date);
-        dt2 = datevec(in(2).date);
-        diffD = dt2 - dt1;
-        select timeUnit
-        case "years"
-            step = calyears(diffD(1));
-        case "months"
-            step = calmonths(diffD(2));
-        case "days"
-            step = caldays(diffD(3));
+        if isdatetime(in) then
+            dt1 = datevec(in(1).date);
+            dt2 = datevec(in(2).date);
+            diffD = dt2 - dt1;
+            select timeUnit
+            case "years"
+                step = calyears(diffD(1));
+            case "months"
+                step = calmonths(diffD(2));
+            case "days"
+                step = caldays(diffD(3));
+            end
         end
-        timeStart = in(1);
-        timeEnd = in($);
-        t = (timeStart:step:timeEnd); // BUG!!!!
+    else
+        diffD = in(2:$) - in(1:$-1);
+        step = diffD(1);
+    end
+    if ~isnan(step) then
+        t = in(1):step:in($);
         if iscolumn(in) then
             t = t';
         end
         out = and(t == in);
-    else
-        diffD = in(2:$) - in(1:$-1);
-        step = diffD(1);
-        out = and((diffD(2:$) - diffD(1:$-1)) == 0);
     end
 
-    varargout(1) = out
+    varargout(1) = out;
     if nargout == 2 then
         if out then
             varargout(2) = step;

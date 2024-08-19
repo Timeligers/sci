@@ -282,7 +282,7 @@ function varargout = stackedplot(varargin)
                             if idx <> [] then
                                 if labels == [] | ~isfield(labels, st.ylabel) then
                                     stacked(idx) = st;
-                                    labels(st.ylabel) = idx //length(stacked);
+                                    labels(st.ylabel) = idx;
                                 else
                                     stacked(labels(st.ylabel)) = [stacked(labels(st.ylabel)) st];
                                 end
@@ -350,6 +350,7 @@ function varargout = stackedplot(varargin)
     f.immediate_drawing = "off";
 
     stackedsize = size(stacked);
+    m = 0;
     for i = 1:stackedsize
         info = stacked(i);
         subplot(size(stacked), 1, i);
@@ -359,8 +360,10 @@ function varargout = stackedplot(varargin)
             y = tss(var.ts).vars(var.var).data;
 
             if var.type == "duration" then
+                fmt = y.format;
                 y = y.duration;
             elseif var.type == "datetime" then
+                fmt = y.format;
                 y = y.date * 24*60*60 + y.time;
                 if or(y < 0) then
                     y(y < 0) = %nan;
@@ -376,10 +379,11 @@ function varargout = stackedplot(varargin)
             e.thickness = var.thickness;
 
             if linespec == [] then
+                s = size(colors, "r");
                 if size(tss) > 1 then
-                    c = modulo(var.ts, size(colors, "*"));
+                    c = modulo(var.ts-1, s) + 1;
                 else
-                    c = modulo(j, size(colors, "*"));
+                    c = modulo(j - 1, s) + 1;
                 end
                 e.foreground = color(colors(c, 1), colors(c, 2), colors(c, 3));
                 e.line_style = var.line_style;
@@ -390,17 +394,26 @@ function varargout = stackedplot(varargin)
         if i <> stackedsize then
             a.axes_visible(1) = "off";
         end
+        a.box = "off";
+        a.tight_limits = "on";
+        a.sub_ticks  = [0 4];
 
-        loc = a.y_ticks.locations;
+        yticks = a.y_ticks;
+        loc = linspace(a.data_bounds(3), a.data_bounds(4), length(yticks(2))+1)'
+
         if var.type == "duration" then
-            d = duration(0, 0, zeros(loc));
+            d = duration(0, 0, zeros(loc), "OutputFormat", fmt);
             d.duration = loc;
-            a.y_ticks.labels = string(d);
+            yticks(3) = string(d);
         elseif var.type == "datetime" then //datatime
-            d = datetime(zeros(loc), 1, 1);
+            d = datetime(zeros(loc), 1, 1, "OutputFormat", fmt);
             d.date = floor(loc / (24*60*60));
-            a.y_ticks.labels = string(d);
+            yticks(3) = string(d);
+        else
+            yticks(3) = string(loc)
         end
+        yticks(2) = loc;
+        a.y_ticks = yticks;
 
         if yLabels <> [] then
             if combineMatchingNames then
@@ -414,11 +427,9 @@ function varargout = stackedplot(varargin)
         [tmp, k] = unique(ytext);
         yy(k) = tmp;
         ylabel(yy)
+        m = max(m, max(length(yy)))
+
         clear yy;
-        a.y_label.font_angle = 0;
-        a.y_label.auto_rotation = "on";
-        a.box = "off";
-        // a.tight_limits = "on";
 
         if size(info, "*") > 1 | legendLabels <> "" then
             t = "";
@@ -435,22 +446,31 @@ function varargout = stackedplot(varargin)
             hl.font_size = 2
         end
     end
-    update_margins(f)
+    //update_margins(f)
 
-    a = gca();
-    xlabel(xLabel)
-    loc = a.x_ticks.locations;
+
+    a = f.children(1);
+    a.x_label.text = xLabel;
+    xticks = a.x_ticks;
+    l = length(xticks(2))
+    if l < 10 then
+        l = l + 1;
+    end
+    loc = round(linspace(a.data_bounds(1), a.data_bounds(2), l))'
+
+    xticks(2) = loc;
 
     if isDuration then
         d = duration(0, 0, zeros(loc), "OutputFormat", datatime.format);
         d.duration = loc;
-        a.x_ticks.labels = string(d);
+        xticks(3) = string(d);
     else
         d = datetime(zeros(loc), 1, 1, "OutputFormat", datatime.format);
         d.date = floor(loc / (24*60*60));
         d.time = modulo(loc, 24*60*60);
-        a.x_ticks.labels = string(d);
+        xticks(3) = string(d);
     end
+    a.x_ticks = xticks;
 
     if titleFigure <> [] then
         title(f.children($), titleFigure)
@@ -461,8 +481,24 @@ function varargout = stackedplot(varargin)
     f.axes_size = f.axes_size - 1;
     f.immediate_drawing = "on";
 
+    // manage font_angle instead of the length of ylabel
+    if m < 16 then
+        for i = 1:size(f.children, "*")
+            a = f.children(i)
+            a.y_label.font_angle = 0;
+        
+            if m > 7 then
+                c = 0.15:0.01:0.22;
+                idx = find(m == 8:15);
+                a.margins(1) = c(idx);
+            end
+        end
+    end
+
     if nargout
         varargout(1) = f;
     end
     
 endfunction
+
+

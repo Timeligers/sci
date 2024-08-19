@@ -112,6 +112,23 @@ checkstring(tscomputed(:, $), [%duration_string(time) v3]);
 checkstring(tscomputed(2:3), [%duration_string(time(2:3)) string(v1(2:3)) string(v2(2:3)) v3(2:3)]);
 checkstring(tscomputed(2, 2:3), [%duration_string(time(2)) string(v2(2)) v3(2)]);
 
+n = 10;
+t = datetime(2000, 1, 1) + caldays(1:n)';
+y = floor(10 * rand(n, 3)) + 10;
+ts = timeseries(t, y(:, 1), y(:, 2), y(:, 3), "VariableNames", ["Time", "Var 1", "Var 2", "Var3"]);
+ts(t, :) = 1;
+checkstring(ts, [%datetime_string(t) string(ones(10,3))]);
+ts(datetime(2000, 1, 2), "Var 2") = 2;
+checkstring(ts(:,2), [%datetime_string(t) string([2; ones(9,1)])]);
+
+t = seconds(1:n)';
+ts = timeseries(t, y(:, 1), "VariableNames", ["seconds", "Var 1"]);
+ts(t, :) = 1;
+checkstring(ts, [%duration_string(t) string(ones(10,1))]);
+ts(seconds(1:2:n), :) = [2;3;4;5;6];
+checkstring(ts, [%duration_string(t) string([2;1;3;1;4;1;5;1;6;1])])
+
+
 // -----------------------------------------------------------------------
 // Others tests
 // -----------------------------------------------------------------------
@@ -146,6 +163,16 @@ assert_checkequal(ts.Properties.SampleRate, %nan);
 ts.Properties.StartTime = datetime(2019, 6, 25);
 assert_checktrue(ts.Time == datetime(2019, 6:10, [25 27 25 26 27])');
 
+// with duration
+time = [duration(0,0,0): minutes(15): duration(2,0,0)]';
+v1 = ones(length(time), 1);
+ts = timeseries(time, v1, "VariableNames", ["time", "v1"]);
+ts.time.format = "hh:mm";
+
+time.format = "hh:mm";
+
+assert_checkequal(string(ts.time), string(time));
+
 
 // -----------------------------------------------------------------------
 // [ts; ts], [ts ts]
@@ -163,10 +190,10 @@ assert_checkequal(ts.Properties.VariableNames, ["Time", "Info"]);
 t = timeseries(datetime(2023, 3, 15:20)', [1:6]');
 assert_checkequal(t(%f), []);
 assert_checkequal(t([%f, %f, %f, %f, %f, %f]), []);
-assert_checktrue(t(%t) == t(1));
+assert_checktrue(string(t(%t)) == string(t(1)));
 assert_checktrue(t([%t %f %t]) == t([1 3]));
-assert_checktrue(t([%t %f; %f %t; %t %t]) == t([1 3 5 6]));
-assert_checktrue(t([%t %f  %f; %t %t %t]) == t([1 2 4 6]));
+assert_checktrue(string(t([%t %f; %f %t; %t %t])) == string(t([1 3 5 6])));
+assert_checktrue(string(t([%t %f  %f; %t %t %t])) == string(t([1 2 4 6])));
 
 // -----------------------------------------------------------------------
 // timeseries with matrices

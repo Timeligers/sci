@@ -31,9 +31,13 @@ elif [ -f "prerequirements-scilab-branch-${BRANCH}.bin.${ARCH}.tar.xz" ]; then
 	# custom build for this branch
 	cp -a "prerequirements-scilab-branch-${BRANCH}.bin.${ARCH}.tar.xz" "prereq.tar.xz"
 else
-	# download prebuild for this branch
-	curl -k -o "prereq.tar.xz" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-${BRANCH}.bin.${ARCH}.tar.xz"
-	if ! xz -t "prereq.tar.xz"; then
+	# download prebuild for the MR branch
+	curl -k -o "prereq.tar.xz" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.bin.${ARCH}.tar.xz"
+	if ! xz -qt "prereq.tar.xz"; then
+		# download prebuild for the target branch
+		curl -k -o "prereq.tar.xz" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-${BRANCH}.bin.${ARCH}.tar.xz"
+	fi
+	if ! xz -qt "prereq.tar.xz"; then
 		# fallback to the default branch
 		curl -k -o "prereq.tar.xz" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-${CI_DEFAULT_BRANCH}.bin.${ARCH}.tar.xz"
 	fi
@@ -45,6 +49,14 @@ tar -xvf prereq.tar.xz -C scilab >"${LOG_PATH}/log_prereq_${CI_COMMIT_SHORT_SHA}
 # display svn revision
 cat scilab/svn-info.txt || cat scilab/version.txt || exit 1
 echo -e "\e[0Ksection_end:$(date +%s):prerequirements\r\e[0K"
+
+# patch thirdparty JARs on WIP Merge-Request
+curl -k -o "thirdparty.zip" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.zip"
+if unzip -qt "thirdparty.zip"; then
+	rm -rf scilab/thirdparty/
+	mkdir scilab/thirdparty/
+	unzip -o thirdparty.zip -d scilab/thirdparty/
+fi
 
 # patch version numbers
 sed -i \

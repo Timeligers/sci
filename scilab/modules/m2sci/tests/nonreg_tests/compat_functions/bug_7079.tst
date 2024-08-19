@@ -18,6 +18,6 @@
 
 h=8;
 f=scf(0);
-f.color_map=jetcolormap(14);
+f.color_map=jet(14);
 if size(mtlb_get(0, "colormap"), "*") <> 42 then pause, end;
 

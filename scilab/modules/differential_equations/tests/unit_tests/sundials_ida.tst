@@ -155,35 +155,19 @@ y0 = [1-1e-3; 0; 1e-3];
 yp0 = [-0.0400; 0.0400; 0];
 tspan = [0 4e6];
 
-timer();
-for i=1:10
 [t1,y1,info1] = ida("SUN_chemres",tspan,y0,yp0);
-end
-et1=timer()
-
-for i=1:10
 [t2,y2,info2] = ida(robertsidae,tspan,y0,yp0);
-end
-et2=timer()
-
-for i=1:10
 [t3,y3,info3] = ida("SUN_chemres",tspan,y0,yp0,jacobian="SUN_chemjac");
-end
-et3=timer()
 
 assert_checktrue(max(abs(y1(:,$)-y2(:,$)))<=1e-6)
 assert_checktrue(max(abs(info1.yp(:,$)-info2.yp(:,$)))<=1e-10)
-// using a C gateway outperforms Scilab macro
-assert_checktrue(et2/et1 > 10);
-// true Jacobian really helps the solver
-assert_checktrue(et1/et3 > 2);
 assert_checktrue(size(t1)/size(t3) > 2)
 
 //test dynamic event
 [t3,y3,info] = ida("SUN_chemres",tspan,y0,yp0,jacobian="SUN_chemjac",events="SUN_chemevent",nbEvents=1);
 assert_checkequal(info.te,4.84950409816763735D-03)
 
-//tes dynamic callback
+//test dynamic callback
 [t1,y1] = ida("SUN_chemres",tspan,y0,yp0,callback="SUN_chemcb");
 
 

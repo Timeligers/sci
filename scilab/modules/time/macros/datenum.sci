@@ -21,7 +21,7 @@ function n=datenum(varargin)
     select rhs
     case 0
         Date = getdate();
-        n = %datenum(Date(1), Date(2), Date(6), Date(7), Date(8), Date(9))
+        n = %datenum(Date(1), Date(2), Date(6), Date(7), Date(8), Date(9) + Date(10)/1000)
 
     case 1
         DateIn = varargin(1);
@@ -52,21 +52,51 @@ endfunction
 
 function n = %datenum(y, m, d, h, mn, s)
     arguments
-        y {mustBeA(y, "double")}
-        m {mustBeA(m, "double"), mustBeInRange(m, 1, 12)}
-        d {mustBeA(d, "double"), mustBeInRange(d, 1, 31)}
-        h {mustBeA(h, "double"),  mustBeInRange(h, 0, 23)} = 0
-        mn {mustBeA(mn, "double"),  mustBeInRange(mn, 0, 59)} = 0
-        s {mustBeA(s, "double"), mustBeInRange(s, 0, 60)} = 0
+        y {mustBeA(y, "double"), mustBeReal}
+        m {mustBeA(m, "double"), mustBeReal}
+        d {mustBeA(d, "double"), mustBeReal}
+        h {mustBeA(h, "double"), mustBeReal} = 0
+        mn {mustBeA(mn, "double"), mustBeReal} = 0
+        s {mustBeA(s, "double"), mustBeReal} = 0
     end
 
     vecSize = [size(y); size(m); size(d); size(h); size(mn); size(s)]
     sizeMax = max(vecSize, "r");
-    if ~(and((sizeMax(1) == vecSize(:, 1) & sizeMax(2) == vecSize(:, 2)) | (vecSize(:,1) == 1 & vecSize(:,2) == 1))) then
+    m1 = sizeMax(1);
+    m2 = sizeMax(2);
+
+    if ~(and((m1 == vecSize(:, 1) & m2 == vecSize(:, 2)) | (vecSize(:,1) == 1 & vecSize(:,2) == 1))) then
         error(msprintf(gettext("%s: Wrong size for input arguments: Same size expected.\n"),"datenum"));
     end
 
+    // resize y, m, d
+    if or(sizeMax <> 1) & or(vecSize(1:3, 1) == m1) & or(vecSize(1:3, 2) == m2) then
+        if vecSize(1,:) == 1 then
+            y = y .*.ones(m1, m2)
+        end
+        if vecSize(2,:) == 1 then
+            m = m .*. ones(m1, m2)
+        end
+        if vecSize(3,:) == 1 then
+            d = d .*. ones(m1, m2)
+        end
+    end
+
     decimal_part = (((s / 60 + mn) / 60) + h) / 24;
+
+    idx = find(m > 12);
+    while and(idx <> [])
+        y(idx) = y(idx) + 1;
+        m(idx) = m(idx) - 12;
+        idx = find(m > 12);
+    end
+
+    idx = find(m < 0);
+    while and(idx <> [])
+        y(idx) = y(idx) - 1;
+        m(idx) = 12 + m(idx);
+        idx = find(m < 0);
+    end
 
     // convert of month and day
     integer_part = d + floor((m * 3057 - 3007) / 100);

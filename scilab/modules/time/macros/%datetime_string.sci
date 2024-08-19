@@ -201,29 +201,41 @@ function out = %datetime_string(dt)
                         [_, args(i)] = weekday(w, "en_US");
                     end
                 elseif order(i) == 8 then //AM PM
-                    AMPM = "AM";
                     hh = datetime_items(:, 4);
-                    idx = find(hh > 12);
-                    
+                    AMPM = "AM" + emptystr(hh);
+
+                    idx = find(hh > 11);
                     if idx <> [] then
-                        hh(idx) = hh(idx) - 12;
-                        AMPM = "PM";
+                        time = hh(idx);
+                        jdx = find(time <> 12);
+                        if jdx <> [] then
+                            time(jdx) = time(jdx) - 12;
+                        end
+                        hh(idx) = time;
+                        AMPM(idx) = "PM";
+                    end
+
+                    idx = find(hh == 0);
+                    if idx <> [] then
+                        hh(idx) = 12;
                     end
 
                     select index(i, 2)
                     case 1
-                        args(i) = sprintf("%02d:%02d:%02d %s", hh, datetime_items(:, 5), datetime_items(:, 6), AMPM);
+                        args(i) = sprintf("%02d:%02d:%02d %s\n", hh, datetime_items(:, 5), datetime_items(:, 6), AMPM);
                     case 2
-                        args(i) = sprintf("%d:%02d:%02d %s", hh, datetime_items(:, 5), datetime_items(:, 6), AMPM);
+                        args(i) = sprintf("%d:%02d:%02d %s\n", hh, datetime_items(:, 5), datetime_items(:, 6), AMPM);
                     case 3
-                        args(i) = sprintf("%02d:%02d %s", hh, datetime_items(:, 5), AMPM);
+                        args(i) = sprintf("%02d:%02d %s\n", hh, datetime_items(:, 5), AMPM);
                     case 4
-                        args(i) = sprintf("%d:%02d %s", hh, datetime_items(:, 5), AMPM);
+                        args(i) = sprintf("%d:%02d %s\n", hh, datetime_items(:, 5), AMPM);
                     end
                 elseif order(i) == 2  && index(i, 2) == 1 then ///MMMM
                     args(i) = mount_list2(datetime_items(:, order(i)));
                 elseif order(i) == 2  && index(i, 2) == 2 then //MMM
                     args(i) = mount_list1(datetime_items(:, order(i)));
+                elseif order(i) == 1 && index(i, 2) == 2 then //yy
+                    args(i) = modulo(datetime_items(:, order(i)), 100);
                 else
                     args(i) = datetime_items(:, order(i));
                 end

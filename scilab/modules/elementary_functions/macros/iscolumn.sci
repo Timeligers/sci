@@ -11,9 +11,8 @@
 // along with this program.
 
 function r = iscolumn(v)
-    rhs=argn(2);
-    if rhs<>1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"iscolumn", 1));
+    arguments
+        v
     end
 
     s = size(v)

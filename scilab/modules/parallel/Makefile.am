@@ -14,6 +14,8 @@
 
 #GATEWAY_CPP_SOURCES =
 #sci_gateway/cpp/sci_parallel_run.cpp
+GATEWAY_CPP_SOURCES = \
+src/noparallel/noparallel.c
 
 #PARALLEL_C_SOURCES =
 

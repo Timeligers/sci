@@ -160,7 +160,7 @@ std::string H5CompoundData::toString(const unsigned int indentLevel) const
     return os.str();
 }
 
-std::string H5CompoundData::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5CompoundData::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     return H5DataConverter::dump(alreadyVisited, indentLevel, (int)ndims, dims, *this, false);
 }

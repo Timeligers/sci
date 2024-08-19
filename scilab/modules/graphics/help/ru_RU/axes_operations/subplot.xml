@@ -153,19 +153,31 @@
             <emphasis role="bold">Usage on uicontrol frames</emphasis> :
         </para>
         <programlisting role="example"><![CDATA[
-f = figure("default_axes","off", "toolbar","none", "name","subplot in frames", ..
-           "backgroundColor",[1 1 1]*0.97);
 x = -4:0.05:4;
+
+f = figure(...
+    "default_axes","off", ...
+    "toolbar","none", ...
+    "name","subplot in frames", ...
+    "backgroundColor",[1 1 1]*0.97);
 
 // Frame #1
 b = createBorder("titled", "Frame #1");
-uicontrol(f, "style", "frame", "units","normalized", "border", b, ..
-                   "position", [0.03 0.83 0.94 0.15]);
+uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.03 0.83 0.94 0.15]);
 
 // Frame #2
 b(2) = "Frame #2";
-fr2 = uicontrol(f, "style", "frame", "units","normalized", "border", b, ..
-                   "position", [0.03 0.03 0.60 0.8]);
+fr2 = uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.03 0.03 0.60 0.8]);
+
+a2 = newaxes(fr2);
 subplot(1,2,1)
 plot(x, tanh(x)), title("tanh")
 
@@ -174,9 +186,13 @@ plot(x, sinh(x)), title("sinh")
 
 // Frame #3
 b(2) = "Frame #3";
-fr3 = uicontrol(f, "style", "frame", "units","normalized", "border", b, ..
-                   "position", [0.65 0.03 0.32 0.8]);
-set("current_entity", fr3);
+fr3 = uicontrol(f, ...
+    "style", "frame", ...
+    "units","normalized", ...
+    "border", b, ...
+    "position", [0.65 0.03 0.32 0.8]);
+
+a3 = newaxes(fr3);
 subplot(2,1,1)
 plot(2*x, sinc(2*x)), title("sinc")
 
@@ -184,7 +200,7 @@ subplot(2,1,2)
 plot(2*x, sin(2*x)), title("sin")
 
 // Back to Frame #2
-set("current_entity", fr2);
+sca(a2);
 subplot(2,2,4)
 plot(x, cosh(x)), title("cosh")
      ]]></programlisting>
@@ -193,24 +209,24 @@ plot(x, cosh(x)), title("cosh")
  ans  =
 3 by 1 matrix of handles:
 =========================
-uicontrol 
-uicontrol 
-uicontrol 
+uicontrol
+uicontrol
+uicontrol
 
 --> gcf().children(1).children
  ans  =
 2 by 1 matrix of handles:
 =========================
-Axes 
-Axes 
+Axes
+Axes
 
 --> gcf().children(2).children
  ans  =
 3 by 1 matrix of handles:
 =========================
-Axes 
-Axes 
-Axes 
+Axes
+Axes
+Axes
 
 --> gcf().children(3).children
  ans  =

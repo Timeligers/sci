@@ -106,3 +106,31 @@ fi
 AM_CONDITIONAL(USE_ADDRESS_SANITIZER, test "x$enable_address_sanitizer" == "xyes")
 
 ])
+
+AC_DEFUN([AC_CHECK_ANALYZER],[
+
+AC_ARG_ENABLE(analyzer,
+    AS_HELP_STRING([--enable-analyzer], [Enable compiler static analysis (-fanalyzer)]))
+
+# Check if -fsanitize=address is supported at compile time and link time
+saved_CFLAGS="$CFLAGS"
+asan_supported=no
+
+CFLAGS="$CFLAGS -fanalyzer"
+AC_MSG_CHECKING([whether the C compiler accepts -fanalyzer])
+AC_LANG_PUSH(C)
+AC_RUN_IFELSE([AC_LANG_PROGRAM([[const char hw[] = "Hello, Analyzer\n";]], [])], [AC_MSG_RESULT([yes]); analyzer_supported=yes], [AC_MSG_RESULT([no])])
+AC_LANG_POP(C)
+
+CFLAGS="$saved_CFLAGS"
+LDFLAGS="$saved_LDFLAGS"
+if test "x$analyzer_supported" == "xno" -a "x$enable_analyzer" == "xyes"; then
+    AC_MSG_ERROR([The $CC compiler does not support the options -fanalyzer . Update your compiler.])
+elif test "x$enable_analyzer" == "xyes"; then
+    COMPILER_CFLAGS="$COMPILER_CFLAGS -fanalyzer"
+    COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fanalyzer"
+fi
+
+AM_CONDITIONAL(USE_ANALYZER, test "x$enable_analyzer" == "xyes")
+
+])

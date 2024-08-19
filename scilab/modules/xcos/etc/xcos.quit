@@ -15,4 +15,3 @@
 if getscilabmode() <> "NWNI" & getscilabmode() <> "API" then
   closeXcos();
 end
-

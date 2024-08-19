@@ -2,13 +2,10 @@
 
 package org.scilab.modules.helptools.scilab;
 
-import java.util.Arrays;
 import java.util.Set;
-import java.util.Map;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.Reader;
@@ -29,7 +26,6 @@ import java.io.IOException;
     private static Set<String> commands;
     private static Set<String> macros;
 
-    private int beginString;
     private boolean transposable;
     private boolean breakstring;
     private boolean breakargs;
@@ -56,9 +52,9 @@ import java.io.IOException;
        this(new String[]{primFile}, new String[]{macroFile});
     }
 
-    public ScilabLexer(Set<String> primitives, Set<String> macros) {
+    public ScilabLexer(Set<String> primitives, Set<String> _macros) {
        commands = primitives;
-       this.macros = macros;
+       macros = _macros;
     }
 
     private void loadNames(String[] files, Set<String> set) {
@@ -123,7 +119,6 @@ import java.io.IOException;
            handler = h;
            transposable = false;
            breakargs = false;
-           breakstring = false;
            whitesOnFirstLine = 0;
            localFun.clear();
            yyreset(code);
@@ -170,13 +165,12 @@ structureKwds = "if" | "for" | "while" | "try" | "select" | "switch" | "end" | "
 controlKwds = "abort" | "break" | "quit" | "return" | "resume" | "pause" | "continue" | "exit"
 
 break = ".."(".")*
-breakinstring = {break}[ \t]*({comment} | {eol})
 
 special = "$" | ":" | {break}
 
-string = (([^\t\'\"\r\n<>&\.]*)|([\'\"]{2})|("."[^\t\'\"\r\n<>&\.]))+
+string = (([^\t\'\"\r\n<>&]*)|([\'\"]{2})|([^\t\'\"\r\n<>&]))+
 
-argstring = ([^ \t,;/\n\r<>&]*) | ("/"[^ \t,;/\n\r<>&]*)
+argstring = ([^ \t,;/\n\r<>&]+) | ("/"[^ \t,;/\n\r<>&]+)
 
 id = ([a-zA-Z%_#!?][a-zA-Z0-9_#!$?]*)|("$"[a-zA-Z0-9_#!$?]+)
 
@@ -195,7 +189,7 @@ endfun = "endfunction"
 
 htmlentity = "&"[#a-zA-Z0-9]*";"
 
-%x QSTRING, COMMENT, FIELD, COMMANDS, COMMANDSWHITE, BREAKSTRING, FUNCTION, TYPEID, FUNNAME, RETS, ARGS, BREAKINARGS, WHITESEOL, CLEANFIRST, CLEAN
+%x QSTRING, COMMENT, FIELD, COMMANDS, COMMANDSWHITE, FUNCTION, TYPEID, FUNNAME, RETS, ARGS, BREAKINARGS, WHITESEOL, CLEANFIRST, CLEAN
 
 %%
 
@@ -362,7 +356,6 @@ htmlentity = "&"[#a-zA-Z0-9]*";"
                                    if (transposable) {
                                        handler.handleOperator("&#0039;");
                                    } else {
-                                       beginString = zzStartRead;
                                        yybegin(QSTRING);
                                        handler.handleString("&#0039;");
                                    }
@@ -380,7 +373,6 @@ htmlentity = "&"[#a-zA-Z0-9]*";"
 
   {dquote}                       {
                                    transposable = false;
-                                   beginString = zzStartRead;
                                    yybegin(QSTRING);
                                    handler.handleString("&#0034;");
                                  }
@@ -682,13 +674,6 @@ htmlentity = "&"[#a-zA-Z0-9]*";"
 }
 
 <QSTRING> {
-  {breakinstring}                {
-                                   yypushback(yylength());
-                                   yybegin(BREAKSTRING);
-                                   transposable = false;
-                                   handler.handleString(yytext());
-                                 }
-
   {lt}                           {
                                    transposable = false;
                                    handler.handleString("&#0060;");
@@ -704,8 +689,7 @@ htmlentity = "&"[#a-zA-Z0-9]*";"
                                    handler.handleString("&#0038;");
                                  }
 
-  {string}                       |
-  "."                            {
+  {string}                       {
                                    handler.handleString(yytext());
                                  }
 
@@ -737,7 +721,7 @@ htmlentity = "&"[#a-zA-Z0-9]*";"
 }
 
 <COMMENT> {
-  [^&<>\'\"\n\0]*                {
+  [^&<>\'\"\n\0]+                {
                                    handler.handleComment(yytext());
                                  }
 
@@ -770,46 +754,6 @@ htmlentity = "&"[#a-zA-Z0-9]*";"
                                      breakargs = false;
                                    } else {
                                      saveLexState = YYINITIAL;
-                                   }
-                                   handler.handleNothing("\n");
-                                   yybegin(CLEAN);
-                                 }
-
-  "\0"                           {
-                                   return;
-                                 }
-}
-
-<BREAKSTRING> {
-  {break}                        {
-                                   breakstring = true;
-                                   handler.handleSpecial(yytext());
-                                 }
-
-  " "                            {
-                                   handler.handleNothing(" ");
-                                 }
-
-  "\t"                           {
-                                   handler.handleNothing("    ");
-                                 }
-
-  {comment}                      {
-                                   transposable = false;
-                                   yypushback(2);
-                                   yybegin(COMMENT);
-                                 }
-
-  .                              {
-                                   handler.handleDefault(yytext());
-                                 }
-
-  {eol}                          {
-                                   if (breakstring) {
-                                      breakstring = false;
-                                      saveLexState = QSTRING;
-                                   } else {
-                                      saveLexState = YYINITIAL;
                                    }
                                    handler.handleNothing("\n");
                                    yybegin(CLEAN);

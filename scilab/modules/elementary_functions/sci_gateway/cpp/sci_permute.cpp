@@ -165,7 +165,8 @@ types::Function::ReturnValue sci_permute(types::typed_list& in, int _iRetCount, 
     int* piNewDimsArray = NULL;
     std::vector<int> dimsVect;
 
-    if ((iNewDims >= iDims) & pDims->isDouble() & !pDims->getAs<types::Double>()->isComplex())
+
+    if ((iNewDims >= iDims) && pDims->isDouble() && !pDims->getAs<types::Double>()->isComplex())
     {
         // Check if 2nd argument is a permutation of [1..iNewDims]
         types::Double* pDbl = pDims->getAs<types::Double>();

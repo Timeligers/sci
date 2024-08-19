@@ -33,6 +33,10 @@ if  abs( (one_hour - one_hour_ref) / one_hour ) > 1e-8 then pause,end
 
 if floor(datenum(2005,12,28)) <> datenum(2005,12,28) then pause,end
 
+assert_checkequal(datenum(2023, 14, 1), 739283);
+assert_checkequal(datenum(2023, [2; 14], 1), [738918; 739283]);
+assert_checkequal(datenum(2023, [2; 14; -14], 1), [738918; 739283; 738430]);
+
 // Check dims
 assert_checkequal(datenum(2023, 10, 1), 739160);
 assert_checkequal(datenum(2023, 10, [1:2]'), [739160; 739161]);

@@ -8,5 +8,3 @@ MyHeapAlloc
 MyHeapFree
 MyHeapRealloc
 xscion_
-ismenu
-GetCommand

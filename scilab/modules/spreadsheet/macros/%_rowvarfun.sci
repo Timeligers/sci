@@ -130,7 +130,6 @@ function out = %_rowvarfun(fname, t, groupingVariables, opts, varargin)
     end
 
     if fname == "varfun" then
-
         results = list();
         [B,k] = gsort(vindex, "g", "i");
         km = find([1; B(2:$) - B(1:$-1)] <> 0)';
@@ -152,7 +151,7 @@ function out = %_rowvarfun(fname, t, groupingVariables, opts, varargin)
                         mat(i) = func(data(i));
                     end
                 else
-                    if or(type(data) == [1, 4, 8]) then
+                    if or(type(data) == [1, 4, 8, 10]) then
                         mat = zeros(count);
                         res = zeros(lenkm, 1)
                         for i = 1:lenkm
@@ -194,7 +193,7 @@ function out = %_rowvarfun(fname, t, groupingVariables, opts, varargin)
                             end
                         end
                     else
-                        errargs = sci2exp(["double", "boolean", "int", "datetime", "duration"]);
+                        errargs = sci2exp(["double", "boolean", "int", "datetime", "duration", "string"]);
                         error(msprintf(_("%s: Wrong type for variable %s: Must be in %s.\n"), fname, t.props.variableNames(jdx), errargs));
                     end
 
@@ -286,6 +285,7 @@ function out = %_rowvarfun(fname, t, groupingVariables, opts, varargin)
             for i = 1:nb
                 execstr("res(" + string(i) + ") = tmp"+ string(i));
             end
+
             if size(method) > 1 then
                 if nameMethod(m) == "fun" then
                     nameMethod(m) = nameMethod(m) + string(m);

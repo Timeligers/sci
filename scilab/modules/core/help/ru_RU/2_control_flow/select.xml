@@ -129,6 +129,8 @@
                         </listitem>
                     </itemizedlist>
                 </revdescription>
+            </revision>
+            <revision>
                 <revnumber>2024.0</revnumber>
                 <revdescription>
                     <itemizedlist>

@@ -5,9 +5,7 @@ EXPORTS
 MyHeapFree
 MyHeapAlloc
 StaticRunner_launch
-StaticRunner_isRunnerAvailable
 StaticRunner_isInterruptibleCommand
-StaticRunner_setCommandOrigin
 StoreConsoleCommand
 StorePrioritaryCommand
 StoreDebuggerCommand
@@ -23,3 +21,4 @@ getScilabVersionAsString
 hasUIControlStyle
 hasHandleType
 isEmptyCommandQueuePrioritary
+isEmptyCommandQueue

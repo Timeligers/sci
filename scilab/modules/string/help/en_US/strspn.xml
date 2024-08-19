@@ -31,12 +31,21 @@
         <title>Arguments</title>
         <variablelist>
             <varlistentry>
-                <term>Strings, allowedChars, headsLengths</term>
+                <term>Strings, allowedChars</term>
                 <listitem>
                     <para>
                         Matrices of strings, of identical dimensions.
                         <varname>allowedChars</varname> can be a scalar string.
                         It is then used for all <varname>Strings</varname> components.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>headsLengths</term>
+                <listitem>
+                    <para>
+                        Matrix of positive real integers, of the size of <varname>Strings</varname>:
+						lengths of the selected <varname>Strings</varname> heads.
                     </para>
                 </listitem>
             </varlistentry>

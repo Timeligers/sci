@@ -32,6 +32,6 @@ M = csvTextScan(text);
 assert_checkequal(M, expected);
 text = ["Infi" "1+Nani"];
 csvTextScan(text)
- ans  =
+ ans = [2x1 double]
    0. + Infi
    1. + Nani

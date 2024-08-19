@@ -41,11 +41,12 @@ The option is "disableUnderMode" and can be:
 <path value="@JAVAFX_GRAPHICS@"/>
 <!-- Load when needed -->
 
-<path value="@FREEHEP_UTIL@" load="onUse">
+<!-- EMF export -->
+<path value="@FREEHEP_IO@" load="onUse">
   <load on="emf_graphic_export"/>
 </path>
 
-<path value="@FREEHEP_IO@" load="onUse">
+<path value="@FREEHEP_GRAPHICSBASE@" load="onUse">
   <load on="emf_graphic_export"/>
 </path>
 
@@ -127,7 +128,15 @@ The option is "disableUnderMode" and can be:
     <load on="documentationGeneration"/>
     <load on="pdf_ps_eps_graphic_export"/>
 </path>
-<path value="@FOP@" load="onUse">
+<path value="@FOP_CORE@" load="onUse">
+    <load on="documentationGeneration"/>
+    <load on="pdf_ps_eps_graphic_export"/>
+</path>
+<path value="@FOP_EVENT@" load="onUse">
+    <load on="documentationGeneration"/>
+    <load on="pdf_ps_eps_graphic_export"/>
+</path>
+<path value="@FOP_UTIL@" load="onUse">
     <load on="documentationGeneration"/>
     <load on="pdf_ps_eps_graphic_export"/>
 </path>
@@ -154,6 +163,15 @@ The option is "disableUnderMode" and can be:
 <path value="@SAXON@" load="onUse">
     <load on="documentationGeneration"/>
 </path>
+<path value="@HTTPCORE@" load="onUse">
+    <load on="documentationGeneration"/>
+</path>
+<path value="@HTTPCLIENT@" load="onUse">
+    <load on="documentationGeneration"/>
+</path>
+<path value="@XMLRESOLVER@" load="onUse">
+    <load on="documentationGeneration"/>
+</path>
 
 <!-- PDF doc generation (dep of jeuclid) -->
 <path value="@XMLGRAPHICS_COMMONS@" load="onUse">
@@ -168,7 +186,19 @@ The option is "disableUnderMode" and can be:
 </path>
 
 <path value="@JLATEXMATH@" load="onUse">
-      <load on="documentationGeneration"/>
+    <load on="documentationGeneration"/>
+    <load on="graphics_latex_textrendering"/>
+    <load on="pdf_ps_eps_graphic_export"/>
+    <load on="Xcos"/>
+</path>
+<path value="@JLATEXMATH_FONT_CYRILLIC@" load="onUse">
+    <load on="documentationGeneration"/>
+    <load on="graphics_latex_textrendering"/>
+    <load on="pdf_ps_eps_graphic_export"/>
+    <load on="Xcos"/>
+</path>
+<path value="@JLATEXMATH_FONT_GREEK@" load="onUse">
+    <load on="documentationGeneration"/>
     <load on="graphics_latex_textrendering"/>
     <load on="pdf_ps_eps_graphic_export"/>
     <load on="Xcos"/>

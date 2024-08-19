@@ -15,7 +15,7 @@
 // read_csv function contains erroneous error message.
 ierr = execstr("M = read_csv(''doesnotexist.txt'')", "errcatch");
 assert_checkequal(ierr,999)
- ans  =
+ ans = 
   T
 L = lasterror();
 assert_checkequal(grep(L(1),"doesnotexist.txt"), 1);

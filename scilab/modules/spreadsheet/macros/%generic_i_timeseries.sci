@@ -10,7 +10,6 @@
 // along with this program.
 
 function out = %generic_i_timeseries(varargin)
-    // disp("generic_i_timeseries")
     fname = "%generic_i_timeseries";
     out = varargin($);
     i = varargin(1);
@@ -126,15 +125,25 @@ function out = %generic_i_timeseries(varargin)
         select typeof(i)
         case "datetime"
             dt = out.vars(1).data;
-            i = find(dt == i);
+            if typeof(i) <> typeof(dt) then
+                error(msprintf(_("Wrong insertion: index of type ""%s"" expected.\n"), typeof(dt)));
+            end
+            dt_ext = dt.date * 24*60*60 + dt.time;
+            i_ext = i.date * 24*60*60 + i.time;
+            i = members(dt_ext, i_ext)
+            i = find(i <> 0);
             if i == [] then
-                error(mpsrintf(_("%s: Extraction impossible.\n"), fname));
+                error(msprintf(_("%s: Extraction impossible.\n"), fname));
             end
         case "duration"
             dt = out.vars(1).data;
-            i = find(dt == i);
+            if typeof(i) <> typeof(dt) then
+                error(msprintf(_("Wrong insertion: index of type ""%s"" expected.\n"), typeof(dt)));
+            end
+            i = members(dt.duration, i.duration)
+            i = find(i <> 0);
             if i == [] then
-                error(mpsrintf(_("%s: Extraction impossible.\n"), fname));
+                error(msprintf(_("%s: Extraction impossible.\n"), fname));
             end
         case "string"
         case "boolean"
@@ -224,10 +233,9 @@ function out = %generic_i_timeseries(varargin)
         end
 
         if val == [] then
-            // pause
             // à gerer le cas où i et j sont hors spectre
             if ~iIsImplicitlist & ~jIsImplicitlist then
-                error(msprintf(_("impossible insertion.\n")));
+                error(msprintf(_("Insertion impossible.\n")));
             end
             if iIsImplicitlist then
                 if max(j) <= c then 
@@ -238,7 +246,7 @@ function out = %generic_i_timeseries(varargin)
                     out.props.variableUnits(j) = val;
                     return
                 else
-                    error(msprintf(_("impossible insertion.\n")));
+                    error(msprintf(_("Insertion impossible.\n")));
                 end
             end
             if jIsImplicitlist then
@@ -248,21 +256,18 @@ function out = %generic_i_timeseries(varargin)
                     end
                     return
                 else
-                    error(msprintf(_("impossible insertion.\n")));
+                    error(msprintf(_("Insertion impossible.\n")));
                 end
             end
         end
 
         if istimeseries(val) then
             // traitement %timeseries_i_timeseries
-            //pause
             for k = 1:length(j)
-                //disp(i, j(k))
                 out.vars(j(k)).data(i) = val.vars(k+1).data
             end
         elseif iscell(val) then
             // traitement %ce_i_table
-            //pause
             if (size(i, "*") <> 1 | size(j, "*") <> 1) & size(val, "*") == 1 then
                 val = repmat(val, length(i), length(j));
             end
@@ -278,12 +283,16 @@ function out = %generic_i_timeseries(varargin)
             if (size(i, "*") <> 1 | size(j, "*") <> 1) & isscalar(val) then
                 val = repmat(val, length(i), length(j));
             elseif or(size(val) <> [length(i), length(j)]) then
-                error(msprintf(_("impossible insertion.\n")));
+                error(msprintf(_("Insertion impossible.\n")));
             end
 
+            r = size(out, "r");
             for l = 1:length(j)
                 for k = 1:length(i)
                     out.vars(j(l)).data(i(k)) = val(k, l);
+                end
+                if size(out.vars(j(l)).data, "r") <> r then
+                    error(msprintf(_("Insertion impossible.\n")));
                 end
             end
         end
@@ -292,7 +301,7 @@ function out = %generic_i_timeseries(varargin)
             if varnames == [] then
                 varnames = "Var" + string(j);
             end
-            out.props.variableNames(j) = varnames;
+            out.props.variableNames(j) = varnames(j);
             out.props.variableDescriptions(j) = emptystr(1, length(j));
             out.props.variableUnits(j) = emptystr(1, length(j));
         end

@@ -43,7 +43,7 @@ function demo_anim7()
     Y = (u/2)'*sin(v);
     Z = (sin(u).*u)'*(1+cos(v)/2);
 
-    curFig.color_map = coppercolormap(colormapSize);
+    curFig.color_map = copper(colormapSize);
 
     [xx,yy,zz]=nf3d(X,Y,Z);//build facets
 

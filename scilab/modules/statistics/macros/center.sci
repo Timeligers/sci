@@ -33,11 +33,14 @@ function [s]=center(x,orient)
     //with xbarh(i) the mean of the values of the i row.
     //
 
-    [lhs,rhs]=argn(0)
-    if (rhs<1)|(rhs>2) then error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"),"center",1,2)), end
+    arguments
+        x
+        orient (1, 1) {mustBeA(orient, ["double", "string"]), mustBeMember(orient, {1, 2, "r", "c", "*"})} = "*"
+    end
+
     if x==[] then s=%nan, return, end
     [m n]=size(x);
-    if rhs==1
+    if orient == "*" then
         xbar=(sum(x)/(m*n))
         s=x-(ones(m,n)*xbar)
     elseif orient=="c"|orient==2 then
@@ -46,6 +49,5 @@ function [s]=center(x,orient)
     elseif orient=="r"|orient==1 then
         xbar=sum(x,"r")/m
         s=x-(ones(m,1)*xbar)
-    else error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', %d or %d expected.\n"),"center",2,"r","c",1,2)),
     end
 endfunction

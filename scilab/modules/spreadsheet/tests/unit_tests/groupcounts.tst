@@ -181,7 +181,7 @@ assert_checkequal(G.Properties.VariableNames, ["OPINION", "UV_INDEX", "GroupCoun
 assert_checkequal(string(G), expected);
 
 G = groupcounts(TS, "DATE", "dayname");
-expected = ["Friday" "5"; "Monday" "4"; "Saturday" "4"; "Sunday" "4"; "Thursday", "5"; "Tuesday" "4"; "Wednesday", "4"];
+expected = ["Sunday" "4"; "Monday" "4"; "Tuesday" "4"; "Wednesday" "4"; "Thursday" "5"; "Friday" "5"; "Saturday" "4"];
 assert_checkequal(G.Properties.VariableNames, ["dayname_DATE" "GroupCount"]);
 assert_checkequal(string(G), expected);
 
@@ -202,3 +202,57 @@ str(22) = "103";
 expected = [gsort(unique(T.LOCATION)(ones(4,1).*.matrix(1:38, [38 1])), 'g', 'i'), repmat(unique(T.SUBJECT), 38, 1), str];
 assert_checkequal(G.Properties.VariableNames, ["LOCATION", "SUBJECT", "GroupCount"]);
 assert_checkequal(string(G), expected);
+
+rand("seed", 0)
+// with datetime
+dt = datetime(2023,[5 3:2:10]', 1);
+x = ["a"; "b"; "b"; "c"; "a"];
+A = timeseries(dt, x, x1, "VariableNames", ["dt", "x", "x1"]);
+
+G = groupcounts(A, "dt", "monthname");
+m = ["March"; "May"; "July"; "September"];
+values = [1; 2; 1; 1];
+expected = table(m, values, "VariableNames", ["monthname_dt", "GroupCount"]);
+assert_checkequal(G, expected);
+
+// With IncludeEmptyGroups
+G = groupcounts(A, "dt", "monthname", "IncludeEmptyGroups", %t);
+m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]';
+values = [0 0 1 0 2 0 1 0 1 0 0 0]';
+expected = table(m, values, "VariableNames", ["monthname_dt", "GroupCount"]);
+assert_checkequal(G, expected);
+
+// groupbins contains datetime or duration
+rand("seed", 0)
+time = datetime(2024, 4, floor(30*rand(10,1)+1));
+x = ["a"; "b"; "a"; "a"; "b"; "c"; "b"; "c"; "c"; "a"];
+y = floor(15 * rand(10, 1));
+t = timeseries(time, x, y, "VariableNames", ["time", "x", "y"]);
+
+G = groupcounts(t, "time", datetime(2024, 4, 20:2:30));
+str = ["[ 2024-04-20, 2024-04-22 )"; "[ 2024-04-22, 2024-04-24 )"; "[ 2024-04-26, 2024-04-28 )"];
+expected = table(str, [2; 1; 2], "VariableNames", ["time", "GroupCount"]);
+assert_checkequal(G, expected);
+
+G = groupcounts(t, ["time", "y"], {datetime(2024, 4, 20:2:30), [5 7 10 13]});
+str = ["[ 2024-04-20, 2024-04-22 )"; "[ 2024-04-20, 2024-04-22 )"; "[ 2024-04-22, 2024-04-24 )"; "[ 2024-04-26, 2024-04-28 )"; "[ 2024-04-26, 2024-04-28 )"; "<undefined>"; "<undefined>"; "<undefined>"];
+str2 = ["[7, 10)"; "<undefined>";  "[7, 10)"; "[10, 13]"; "<undefined>"; "[7, 10)"; "[10, 13]"; "<undefined>"];
+expected = table(str, str2, [1;1;1;1;1;2;1;2], "VariableNames", ["time", "disc_y", "GroupCount"]);
+assert_checkequal(G, expected);
+
+G = groupcounts(t, ["time", "x"], {datetime(2024, 4, 1:10:30), "none"});
+str = ["[ 2024-04-01, 2024-04-11 )"; "[ 2024-04-11, 2024-04-21 ]"; "[ 2024-04-11, 2024-04-21 ]"; "<undefined>"; "<undefined>"];
+str2 = ["a"; "b"; "c"; "b"; "c"];
+expected = table(str, str2, [4; 1; 2; 2; 1], "VariableNames", ["time", "x", "GroupCount"]);
+assert_checkequal(G, expected);
+
+G = groupcounts(t, "time", caldays(10));
+str = ["[ 2024-04-01, 2024-04-11 )"; "[ 2024-04-11, 2024-04-21 ]"];
+expected = table(str, [4; 3], "VariableNames", ["time", "GroupCount"]);
+assert_checkequal(G, expected);
+
+G = groupcounts(t, "time", hours(72));
+str = ["[ 2024-04-01, 2024-04-04 )"; "[ 2024-04-07, 2024-04-10 )"; "[ 2024-04-10, 2024-04-13 )"; ...
+"[ 2024-04-19, 2024-04-22 )"; "[ 2024-04-22, 2024-04-25 )"; "[ 2024-04-25, 2024-04-28 ]"];
+expected = table(str, [2; 1; 1; 3; 1; 2], "VariableNames", ["time", "GroupCount"]);
+assert_checkequal(G, expected);

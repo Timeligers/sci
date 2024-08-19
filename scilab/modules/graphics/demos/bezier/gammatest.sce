@@ -28,9 +28,9 @@ function gammatest (N)
 
     for n=N ;
         t = sqrt(linspace(0,1,n));
-        p = [cos(2*%pi*t);sin(2*%pi*t)];
-        y = bezier(p,x);
-        plot2d(y(1,:),y(2,:),icol);
+        p = [cos(2*%pi*t'), sin(2*%pi*t')];
+        y = bezier(p, x);
+        plot2d(y(:, 1), y(:, 2), icol);
         icol=icol+1;
     end
 

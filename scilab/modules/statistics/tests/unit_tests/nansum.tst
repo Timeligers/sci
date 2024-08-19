@@ -16,7 +16,7 @@ refMsg = msprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n
 assert_checkerror("nansum()", refMsg);
 
 assert_checkfalse(execstr("nansum(""s"")"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: Real or complex, boolean, polynomial matrix expected.\n"), "nansum", 1);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: Must be in %s.\n"), "%_nansum", 1, sci2exp(["double", "boolean", "polynomial", "sparse", "int"]));
 assert_checkerror("nansum(""s"")", refMsg);
 
 assert_checkequal(nansum([]), 0);

@@ -22,6 +22,7 @@ src/modelica_compiler/parser.mli
 XML2Modelica
 XML2Modelica.ocamlc
 xml2modelica.exe
+src/xml2modelica/linenum.ml
 
 
 #translator

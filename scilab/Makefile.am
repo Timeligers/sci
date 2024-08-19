@@ -92,10 +92,6 @@ scilab_bin_CPPFLAGS = \
 # (causing issues on some platform)
 COMMON_LIBS = $(LTLIBINTL)
 
-# Link against valgrind library as on some systems (eg. Fedora) it should be
-# link on the final binary
-COMMON_LIBS += $(VALGRIND_LIBS)
-
 scilab_bin_SOURCES = modules/startup/src/cpp/scilab.cpp
 
 # the scilab-bin object file itself uses symbols from at least libscilab-cli.la,
@@ -493,7 +489,6 @@ localization:
 		fi; \
 		POFILE=$$PATHTO/$(LANG_DOMAIN).po; \
 		$(MSGCAT) --use-first -o $$POFILE $$FILES || exit 2; \
-		if test "$(MACOSX)" = "1"; then sed -i -e '/charset=UTF-8/d' $$POFILE; fi; \
 		$(MSGFMT) $(MSGFMT_OPTS) --statistics -o $$PATHTO/$(LANG_DOMAIN).mo $$POFILE || exit 2; \
 	done;
 

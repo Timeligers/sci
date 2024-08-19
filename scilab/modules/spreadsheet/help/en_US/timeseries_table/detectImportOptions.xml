@@ -16,6 +16,7 @@
         <title>Syntax</title>
         <synopsis>
             opts = detectImportOptions(filename)
+            opts = detectImportOptions(filename, Name, Value)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -26,6 +27,42 @@
                 <listitem>
                     <para>path or name of file to read</para>
                     <para>format accepted: .txt, .dat and .csv</para>
+                    <para/>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>Name, Value</term>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Name: 'Delimiter', Value: string</emphasis>: the column separator mark.
+                    </para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Name: 'Decimal', Value: string</emphasis>: the decimal mark, '.' or ','.
+                    </para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Name: 'StartTime', duration or datetime value</emphasis>: 
+                        pecifies the start time of the timeseries.
+                    </para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Name: 'TimeStep', Value: duration or calendarDuration value</emphasis>: 
+                        time step.
+                    </para>
+                    <para/>
+                </listitem>
+                <listitem>
+                    <para>
+                        <emphasis role="bold">Name: 'SampleRate', Value: real scalar</emphasis>: 
+                        number of samples per second (Hz).
+                    </para>
                     <para/>
                 </listitem>
             </varlistentry>
@@ -55,6 +92,11 @@
                         <tr valign="top">
                             <td><emphasis role="bold">delimiter</emphasis></td><td>:</td>
                             <td>the column seperator.
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td><emphasis role="bold">decimal</emphasis></td><td>:</td>
+                            <td>the decimal seperator.
                             </td>
                         </tr>
                         <tr valign="top">
@@ -120,5 +162,16 @@
                 <link linkend="readtimeseries">readtimeseries</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    Introduction in Scilab.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

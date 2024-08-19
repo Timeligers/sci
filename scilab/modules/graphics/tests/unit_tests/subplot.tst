@@ -60,7 +60,7 @@ assert_checkequal(a5.axes_bounds, [0 0.9 0.1 0.1]);
 // https://www.mail-archive.com/users@lists.scilab.org/msg10455.html
 clf reset
 f = gcf();
-title  "The  overall  title"  fontsize  4
+title("The  overall  title", "fontsize", 4);
 subplot(1,2,1)
 plot(1:10)
 assert_checkequal(length(f.children), 2);
@@ -85,7 +85,8 @@ fr2 = uicontrol(f, "style", "frame", "units","normalized", "border", b, ..
                    "position", [0.03 0.03 0.60 0.8]);
 assert_checkequal(f.children.type, ["uicontrol" "uicontrol"]');
 
-subplot(1,2,1)
+a2 = newaxes(fr2);
+subplot(1,2,1);
 e = gce();
 assert_checkequal(e.type, "Axes");
 assert_checkequal(e.parent.type, "uicontrol");
@@ -105,8 +106,8 @@ b(2) = "Frame #3";
 fr3 = uicontrol(f, "style", "frame", "units","normalized", "border", b, ..
                    "position", [0.65 0.03 0.32 0.8]);
 assert_checkequal(f.children.type, ["uicontrol" "uicontrol" "uicontrol"]');
-set("current_entity", fr3);
 
+newaxes(fr3);
 subplot(2,1,1)
 e = gce();
 assert_checkequal(e.type, "Axes");
@@ -122,7 +123,7 @@ assert_checkequal(e.axes_bounds, [0,0.5,1,0.5]);
 plot(2*x, sin(2*x)), title("sin")
 
 // Back to Frame #2
-set("current_entity", fr2);
+sca(a2);
 subplot(2,2,4)
 e = gce();
 assert_checkequal(e.type, "Axes");

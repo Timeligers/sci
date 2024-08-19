@@ -254,7 +254,7 @@
             T = datetime(2022, 12, 1:5)';
             AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
             FlowRate = [50; 52; 53; 55; 60];
-            ts = timeseries(T, AmbientTemperature, FlowRate, 'VariableNames', ["Time", "AmbientTemp", "FlowRate"], "VariableUnits", ["", "C°", "kg/s"])
+            ts = timeseries(T, AmbientTemperature, FlowRate, 'VariableNames', ["Time", "AmbientTemp", "FlowRate"], "VariableUnits", ["", "°C", "kg/s"])
             ts.Properties
         ]]>
         </programlisting>
@@ -289,7 +289,7 @@
             T = datetime(2022, 12, 1:5)';
             AmbientTemperature = [18; 18.5; 20; 20.2; 20.5];
             FlowRate = [50; 52; 53; 55; 60];
-            ts = timeseries(T, AmbientTemperature, FlowRate, 'VariableNames', ["Time", "AmbientTemp", "FlowRate"], "VariableUnits", ["", "C°", "kg/s"])
+            ts = timeseries(T, AmbientTemperature, FlowRate, 'VariableNames', ["Time", "AmbientTemp", "FlowRate"], "VariableUnits", ["", "°C", "kg/s"])
             ts.Properties
 
             ts.Properties.VariableNames = ["Time_in_day", "T_amb", "Qm"];
@@ -333,5 +333,16 @@
                 <link linkend="stackedplot">stackedplot</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    Introduction in Scilab.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

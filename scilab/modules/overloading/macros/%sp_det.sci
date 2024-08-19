@@ -30,8 +30,8 @@ function [res1, res2] = %sp_det(A)
     umf_ludel(hand);
     warning(wstatus)
 
-    dU = clean(diag(U), 0, %eps);
-    r = clean(r, 0, %eps);
+    dU = clean(diag(U));
+    r = clean(r);
     if isreal(A) then
         p = r .* dU;
         tmp = sum(log10(full(abs(p))))

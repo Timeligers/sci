@@ -604,7 +604,7 @@ Function::ReturnValue WrapCFunction::call(typed_list& in, optional_list& opt, in
         GatewayCStruct gcs;
         gcs.name = m_stName;
         out.resize(std::max(1, _iRetCount), NULL);
-        if (m_pCFunc((void*)&gcs, (int)in.size(), (scilabVar*)(in.data()), (int)opt.size(), (scilabOpt)&opt, _iRetCount, (scilabVar*)(out.data())))
+        if (m_pCFunc((scilabEnv)&gcs, (int)in.size(), (scilabVar*)(in.data()), (int)opt.size(), (scilabOpt)&opt, _iRetCount, (scilabVar*)(out.data())))
         {
             retVal = Error;
         }

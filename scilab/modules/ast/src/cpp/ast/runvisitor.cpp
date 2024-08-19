@@ -57,6 +57,7 @@ extern "C"
 #include "storeCommand.h"
 #include "prompt.h"
 #include "scilabRead.h"
+#include "InitScilab.h"
 }
 
 namespace ast
@@ -120,20 +121,9 @@ void RunVisitorT<T>::visitprivate(const SimpleVar & e)
     {
         if (e.isVerbose() && pI->isCallable() == false && ConfigVariable::isPrintOutput())
         {
-            std::wostringstream ostr;
-            ostr << L" " << e.getSymbol().getName() << L"  = ";
-#ifndef NDEBUG
-            ostr << L"(" << pI->getRef() << L")";
-#endif
-            ostr << std::endl;
-            if (ConfigVariable::isPrintCompact() == false)
-            {
-                ostr << std::endl;
-            }
-            scilabWriteW(ostr.str().c_str());
-            std::wostringstream ostrName;
-            ostrName << e.getSymbol().getName();
-            VariableToString(pI, ostrName.str().c_str());
+            std::wstring wstrName = e.getSymbol().getName();
+            scilabWriteW(printVarEqualTypeDimsInfo(pI, wstrName).c_str());
+            VariableToString(pI, wstrName.c_str());
         }
 
         //check if var is recalled in current scope like
@@ -259,18 +249,40 @@ void RunVisitorT<T>::visitprivate(const CellExp & e)
     exps_t::const_iterator row;
     exps_t::const_iterator col;
     int iColMax = 0;
+    int iLineMax = 0;
 
     exps_t lines = e.getLines();
+    iLineMax = static_cast<int>(lines.size());
+
     //check dimmension
     for (row = lines.begin(); row != lines.end(); ++row)
     {
         exps_t cols = (*row)->getAs<MatrixLineExp>()->getColumns();
-        if (iColMax == 0)
+        int iCurrentCols = static_cast<int>(cols.size());
+        for (col = cols.begin(); col != cols.end(); ++col)
         {
-            iColMax = static_cast<int>(cols.size());
+            // remove comments in the columns count
+            if((*col)->isCommentExp())
+            {
+                iCurrentCols--;
+            }
         }
 
-        if (iColMax != static_cast<int>(cols.size()))
+        // only comments in the line,
+        // don't count them and go to the next one
+        if(iCurrentCols == 0)
+        {
+            iLineMax--;
+            continue;
+        }
+
+        // initialise the number of columns
+        if (iColMax == 0)
+        {
+            iColMax = iCurrentCols;
+        }
+
+        if (iColMax != iCurrentCols)
         {
             std::wostringstream os;
             os << _W("inconsistent row/column dimensions\n");
@@ -281,16 +293,14 @@ void RunVisitorT<T>::visitprivate(const CellExp & e)
     }
 
     //alloc result cell
-    types::Cell *pC = new types::Cell(static_cast<int>(lines.size()), iColMax);
-
+    types::Cell *pC = new types::Cell(iLineMax, iColMax);
     int i = 0;
     int j = 0;
-
     //insert items in cell
-    for (i = 0, row = lines.begin(); row != lines.end(); ++row, ++i)
+    for (i = 0, row = lines.begin(); row != lines.end(); ++row)
     {
         exps_t cols = (*row)->getAs<MatrixLineExp>()->getColumns();
-        for (j = 0, col = cols.begin(); col != cols.end(); ++col, ++j)
+        for (j = 0, col = cols.begin(); col != cols.end(); ++col)
         {
             try
             {
@@ -304,17 +314,29 @@ void RunVisitorT<T>::visitprivate(const CellExp & e)
             }
 
             types::InternalType *pIT = getResult();
+            if (pIT == NULL)
+            {
+                continue;
+            }
+
             if (pIT->isImplicitList())
             {
                 types::InternalType * _pIT = pIT->getAs<types::ImplicitList>()->extractFullMatrix();
-                if(_pIT) 
+                if(_pIT)
                 {
                     pIT = _pIT;
                 }
             }
 
-            pC->set(i, j, pIT);
+            pC->set(i, j++, pIT);
             clearResult();
+        }
+
+        // increment row iterator only
+        // when the row is not empty
+        if(j)
+        {
+            i++;
         }
     }
 
@@ -960,12 +982,12 @@ void RunVisitorT<T>::visitprivate(const ReturnExp &e)
     else
     {
         //return(x)
-
-        if (e.getParent() == nullptr || e.getParent()->isAssignExp() == false)
+        if (isLambda() == false && (e.getParent() == nullptr || e.getParent()->isAssignExp() == false))
         {
             CoverageInstance::stopChrono((void*)&e);
             throw InternalError(_W("With input arguments, return / resume expects output arguments.\n"), 999, e.getLocation());
         }
+
         //in case of CallExp, we can return only one value
         int iSaveExpectedSize = getExpectedSize();
         setExpectedSize(1);
@@ -1282,24 +1304,34 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
 
     //get output parameters list
     std::vector<symbol::Variable*>* pRetList = new std::vector<symbol::Variable*>();
-    const exps_t & rets = e.getReturns().getVars();
-    for (const auto ret : rets)
+    if (e.isLambda() == false)
     {
-        pRetList->push_back(ret->getAs<SimpleVar>()->getStack());
+        const exps_t& rets = e.getReturns().getVars();
+        for (const auto ret : rets)
+        {
+            pRetList->push_back(ret->getAs<SimpleVar>()->getStack());
+        }
     }
 
     types::Macro* pMacro = const_cast<ast::FunctionDec&>(e).getMacro();
     if (pMacro == nullptr)
     {
-        pMacro = new types::Macro(e.getSymbol().getName(), *pVarList, *pRetList, const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
+        if (e.isLambda())
+        {
+            pMacro = new types::Macro(*pVarList, const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
+        }
+        else
+        {
+            pMacro = new types::Macro(e.getSymbol().getName(), *pVarList, *pRetList, const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
+            pMacro->IncreaseRef();
+            const_cast<ast::FunctionDec&>(e).setMacro(pMacro);
+        }
+
         pMacro->setLines(e.getLocation().first_line, e.getLocation().last_line);
         if (e.getMacro())
         {
             pMacro->setFileName(e.getMacro()->getFileName());
         }
-
-        pMacro->IncreaseRef();
-        const_cast<ast::FunctionDec&>(e).setMacro(pMacro);
     }
 
     if (ctx->isprotected(symbol::Symbol(pMacro->getName())))
@@ -1311,7 +1343,11 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
         throw InternalError(os.str(), 999, e.getLocation());
     }
 
-    if (ctx->addMacro(pMacro) == false)
+    if (pMacro->isLambda())
+    {
+        setResult(pMacro);
+    }
+    else if (ctx->addMacro(pMacro) == false)
     {
         char pstError[1024];
         char* pstFuncName = wide_string_to_UTF8(e.getSymbol().getName().c_str());

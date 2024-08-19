@@ -132,6 +132,9 @@ function test_run_result = test_run(varargin)
             // Doing the XML export, force the display of the error and diff
             params.show_diff = %t;
             params.show_error = %t;
+
+            // set test_run results file in the xml dir
+            params.output_dir = fullpath(fileparts(params.exportFile));
         end
     end
 
@@ -357,7 +360,7 @@ function status = test_module(_params)
     directories = [];
     for i=1:size(my_types,"*")
         if (_params.testTypes == "all_tests") | (_params.testTypes == my_types(i)) then
-            directory_path = module.path + "/tests/" + my_types(i);
+            directory_path = module.path + filesep() + "tests" + filesep() + my_types(i);
             for j=2:size(name,"*")
                 directory_path = directory_path + filesep() + name(j);
             end
@@ -430,11 +433,23 @@ function status = test_module(_params)
     end
 
     // For the XML export
-    testsuite.name=moduleName
+    [branch info] = getversion();
+    OS = getos();
+    testsuite.name = strcat([moduleName OS info(2)], " ")
     testsuite.time=0
     testsuite.tests=0
     testsuite.errors=0 // unexpected errors / exception on execution
     testsuite.failures=0 // when a test failed
+
+    // For the XML export, all temporary files will be preserved on a directory named after the module
+    if ~isfield(_params, "output_dir") || _params.output_dir == "" then
+        result_path = TMPDIR + filesep();
+    else
+        result_path = params.output_dir;
+    end
+    _params.output_dir = result_path + basename(moduleName) + filesep();
+    remove_output_dir_if_empty = ~isdir(_params.output_dir);
+    mkdir(_params.output_dir)
 
     //don't test only return list of tests.
     if _params.reference == "list" then
@@ -550,6 +565,10 @@ function status = test_module(_params)
     status.test_count     = test_count;
     status.detailled_failures   = detailled_failures;
     status.testsuite   = testsuite;
+
+    if remove_output_dir_if_empty then
+        rmdir(_params.output_dir);
+    end
 endfunction
 
 function status = test_single(_module, _testPath, _testName)
@@ -574,12 +593,18 @@ function status = test_single(_module, _testPath, _testName)
     xcosNeeded    = %F;
 
     //some paths
-    tmp_tst     = pathconvert( TMPDIR + "/" + _testName + ".tst", %F);
-    tmp_dia     = pathconvert( TMPDIR + "/" + _testName + ".dia.tmp", %F);
-    tmp_res     = pathconvert( TMPDIR + "/" + _testName + ".res", %F);
-    tmp_err     = pathconvert( TMPDIR + "/" + _testName + ".err", %F);
-    path_dia    = pathconvert( TMPDIR + "/" + _testName + ".dia", %F);
-    tmp_prof    = pathconvert( TMPDIR + "/" + _testName + ".prof", %F);
+    if isfield(_module, "output_dir") then
+        result_path = _module.output_dir;
+    else
+        result_path = TMPDIR + filesep();
+    end
+
+    tmp_tst     = pathconvert( result_path + _testName + ".tst", %F);
+    tmp_dia     = pathconvert( result_path + _testName + ".dia.tmp", %F);
+    tmp_res     = pathconvert( result_path + _testName + ".res", %F);
+    tmp_err     = pathconvert( result_path + _testName + ".err", %F);
+    path_dia    = pathconvert( result_path + _testName + ".dia", %F);
+    tmp_prof    = pathconvert( result_path + _testName + ".prof", %F);
 
     path_dia_ref  = _testPath + _testName + ".dia.ref";
     // Reference file management OS by OS
@@ -854,6 +879,8 @@ function status = test_single(_module, _testPath, _testName)
         "   lasterror()";
         "end";
         ];
+    else
+        tail = [tail; "errclear();"];
     end
 
     tail = [ tail; "diary(0);" ];
@@ -925,7 +952,7 @@ function status = test_single(_module, _testPath, _testName)
     end
 
     // cleanup previously generated files
-    deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err);
+    deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia);
 
     //create tmp test file
     mputl(sciFile, tmp_tst);
@@ -942,16 +969,23 @@ function status = test_single(_module, _testPath, _testName)
         if params.show_error == %T then
             res = mgetl(tmp_res)
             res(res=="") = []
+            if res <> [] then
+                res = [""
+                       "----- " + tmp_res + " -----"
+                       "    " + res];
+            else
+                res = ""
+            end
             err = mgetl(tmp_err)
             err(err=="") = []
-            status.details = [ status.details; strsubst(strsubst([""
-            "----- " + tmp_res + " -----"
-            "    " + res
-            ""
-            "----- " + tmp_err + " -----"
-            "    " + err
-            ""
-            ], SCI, "SCI"), TMPDIR, "TMPDIR") ];
+            if err <> [] then
+                err = [""
+                       "----- " + tmp_err + " -----"
+                       "    " + err];
+            else
+                err = ""
+            end
+            status.details = [ status.details; strsubst(strsubst([res ; err], SCI, "SCI"), TMPDIR, "TMPDIR") ];
         end
         return;
     end
@@ -963,7 +997,6 @@ function status = test_single(_module, _testPath, _testName)
         if ~isempty(tmp_errfile_info) then
             txt = mgetl(tmp_err);
 
-            
             if ~isempty(txt) then
                 // some Concurrent exception are reported on the console without stacktrace
                 toRemove = grep(txt, "java.util.ConcurrentModificationException");
@@ -989,7 +1022,7 @@ function status = test_single(_module, _testPath, _testName)
                     txt(toRemove) = [];
                 end
             end
-        
+
             if getos() == "Linux" then
                 if ~isempty(txt) then
                     // Ignore JOGL2 debug message
@@ -1041,7 +1074,7 @@ function status = test_single(_module, _testPath, _testName)
                     txt(toRemove) = [];
                 end
             end
-            
+
             if isempty(txt) then
                 deletefile(tmp_err);
             end
@@ -1094,7 +1127,7 @@ function status = test_single(_module, _testPath, _testName)
         status.details = "";
         return;
     end
-    
+
     //Check for execution errors
     if try_catch & grep(dia,"<--Error on the test script file-->") <> [] then
         details = [ launchthecommand(testFile); ..
@@ -1169,7 +1202,7 @@ function status = test_single(_module, _testPath, _testName)
         status.details = details;
         if params.show_error == %t then
             status.details = [ status.details; dia($-min(10, size(dia, "*")-1):$) ]
-        end          
+        end
         return;
     end
 
@@ -1181,7 +1214,7 @@ function status = test_single(_module, _testPath, _testName)
         return;
     end
 
-    
+
     // Check the reference file only if check_ref (i.e. for the whole
     // test sequence) is true and this_check_ref (i.e. for the specific current .tst)
     // is true.
@@ -1194,7 +1227,7 @@ function status = test_single(_module, _testPath, _testName)
             return;
         end
     end
-    
+
     // Comparaison ref <--> dia
 
     if   (reference=="check" & _module.reference=="check") | ..
@@ -1261,7 +1294,7 @@ function status = test_single(_module, _testPath, _testName)
             status.id = 20;
             status.message = "passed: ref created";
 
-            deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err);
+            deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia);
             return;
         else
             // write down the resulting dia file
@@ -1294,13 +1327,13 @@ function status = test_single(_module, _testPath, _testName)
                 end
 
             else
-                deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err);
+                deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia);
                 error(sprintf(gettext("The ref file (%s) doesn''t exist"), path_dia_ref));
             end
         end
     end
     
-    deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err);
+    deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia);
 endfunction
 
 // checkthefile
@@ -1327,7 +1360,7 @@ function msg = checkthefile( filename )
 endfunction
 
 // deletetmpfiles: clean previous tmp files
-function deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err)
+function deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err, path_dia)
     if isfile(tmp_tst) then
         deletefile(tmp_tst);
     end
@@ -1342,6 +1375,10 @@ function deletetmpfiles(tmp_tst, tmp_dia, tmp_res, tmp_err)
 
     if isfile(tmp_err) then
         deletefile(tmp_err);
+    end
+
+    if isfile(path_dia) then
+        deletefile(path_dia);
     end
 endfunction
 
@@ -1481,7 +1518,16 @@ function exportToXUnitFormat(exportToFile, testsuites)
 
         appendIntoFile = %f;
     end
+
+    [branch info] = getversion();
+
     root = xmlElement(doc, "testsuites");
+
+    properties = xmlElement(doc,"properties");
+    branchProperty = xmlElement(doc, "property");
+    branchProperty.attributes.name = "branch";
+    branchProperty.attributes.value = branch;
+    properties.children(1) = branchProperty;
 
     for i=1:size(testsuites, "*") // Export module by module
         module = testsuites(i);
@@ -1494,14 +1540,13 @@ function exportToXUnitFormat(exportToFile, testsuites)
         testsuite.attributes.errors = string(module.errors);
         testsuite.attributes.failures = string(module.failures);
 
-
         if isfield(module, "testcase") then
             for j=1:size(module.testcase,"*") // Export test by test
                 testsuite.children(j) = xmlElement(doc,"testcase");
                 unitTest = module.testcase(j);
                 testsuite.children(j).attributes.name = unitTest.name;
                 testsuite.children(j).attributes.time = string(unitTest.time);
-                testsuite.children(j).attributes.classname = getversion()+"."+module.name;
+                testsuite.children(j).attributes.classname = module.name;
                 if isfield(unitTest,"error") & size(unitTest.error,"*") >= 1 then
                     testsuite.children(j).children(1) = xmlElement(doc,"error");
                     testsuite.children(j).children(1).attributes.type = unitTest.error.type;
@@ -1529,6 +1574,8 @@ function exportToXUnitFormat(exportToFile, testsuites)
                 end
             end
         end
+        
+        testsuite.children(length(testsuite.children)+1) = properties;
 
         if appendIntoFile then
             // We will add the new elements into 'testsuites'
