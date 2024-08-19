@@ -26,7 +26,7 @@ function [binary] = compile_executable(srcFiles, cflags, ldflags)
         CL_EXE =  listfiles(getVsWhereInformation()(1).path + "\VC\Tools\MSVC\*")(1) + "\bin\Host"+arch+"\"+arch+"\cl.exe";
         binary = binary + ".exe";
 
-        CC = CL_EXE + " /out:"+binary;
+        CC = """" + CL_EXE + """ /out:"+binary;
         CFLAGS = [  "/Wall"
                     "/I ""WSCI\modules\call_scilab\includes"""
                     "/I ""WSCI\modules\core\includes"""
