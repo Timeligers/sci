@@ -1966,24 +1966,45 @@ end
 
 function x = getNodeContent(doc, key)
     node = getNode(doc, key)
-    for i = 1:size(node, "*")
-        x($+1) = getNodes(node(i));
+    s = size(node, "*")
+    for i = 1:s
+        x($+1) = getNodes(node(i), i == 1, i == s);
     end
 end
 
-function x = contentToString(content)
+function x = getNodeSynopsis(doc, key)
+    node = getNode(doc, key)
+    x = [];
+    for i = 1:size(node, "*")
+        c = [];
+        for j = 1:size(node(i).content, "*")
+            c1 = stripblanks(strsplit(node(i).content(j), "/\n/"));
+            c = [c c1(:)'];
+        end
+        c(c == "") = [];
+        x(i) = struct("type", "synopsis", "children", [], "string", c);
+    end
+end
+
+function x = contentToString(content, first, last)
     x = [];
     for i = 1:size(content, "*")
         x1 = strsplit(content(i), "/\n/");
         x = [x x1(:)'];
     end
 
-    x(1) = stripblanks(x(1), %t, -1);
+    if first then
+        x(1) = strsubst(x(1), "/^\s{1,}/", "", "r");
+    else
+        x(1) = strsubst(x(1), "/\s{1,}/", " ", "r");
+    end
 
     x(2:$) = strsubst(x(2:$), "/\s{1,}/", " ", "r");
     x(x == "") = [];
-    x(x == " ") = [];
-
+    if last then
+        x(x == " ") = [];
+    end
+    x = strcat(x);
 end
 
 function x = getSeeAlso(doc)
@@ -2008,14 +2029,20 @@ function ret = reduceNode(node)
     end
 end
 
-function ret = getNodes(node)
+function ret = getNodes(node, first, last)
     select node.name
     case {"text" "term" "constant" "link" "ulink" "function" "literal" "varname", "emphasis", "subscript" "superscript" "command" "replaceable" "xref"}
-        ret = struct("type", node.name, "children", [], "string", contentToString(node.content));
+        x = contentToString(node.content, first, last)
+        if x <> [] then
+            ret = struct("type", node.name, "children", [], "string", x);
+        else
+            ret = [];
+        end
     case {"title" "synopsis" "refsection" "refsect1" "refsect2" "refsect3" "refsynopsisdiv" "refpurpose" "refname" "refentry" "refnamediv" "para" "listitem" "varlistentry" "variablelist" "itemizedlist" "simplelist" "member" "orderedlist" "warning" "important" "caution" "tip"}
         c = [];
-        for i = 1:size(node.children, "*")
-            c(1, $+1) = getNodes(node.children(i));
+        s = size(node.children, "*")
+        for i = 1:s
+            c(1, $+1) = getNodes(node.children(i), i == 1, i == s);
         end
 
         ret = struct("type", node.name, "children", c, "string", []);
@@ -2032,20 +2059,24 @@ function generate_inline_help(modules_tree)
     lang = modules_tree.language;
     xmlfiles = getXMLFiles(modules_tree);
 
-    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\Matplot.xml";
-    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\plot2d.xml";
-    //xmlfiles = "E:\plot2d.xml";
-    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\core\help\en_US\configuration\recursionlimit.xml";
-    //xmlfiles = "E:\ws\scilab\dev-main\scilab\modules\differential_equations\help\en_US\bvode.xml";
+    if 1 then
+        xmlfiles = ["E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\Matplot.xml";
+            "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\plot2d.xml";
+            "E:\ws\scilab\dev-main\scilab\modules\core\help\en_US\configuration\recursionlimit.xml";
+            "E:\ws\scilab\dev-main\scilab\modules\differential_equations\help\en_US\bvode.xml";
+            "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\plot.xml";
+            "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\axes_operations\axes_properties.xml"];
+    end
+
     links = [];
     pages = [];
     printf("Progress: |")
     progress = 0;
-    s = size(xmlfiles, 1)
-    for k = 1:s
+    xmlCount = size(xmlfiles, 1)
+    for k = 1:xmlCount
         x = xmlfiles(k, 1);
 
-        if floor(k / s * 100) > progress then
+        if floor(k / xmlCount * 100) > progress then
             progress = progress + 1;
             if modulo(progress, 10) == 0 then
                 printf("-", progress);
@@ -2059,15 +2090,16 @@ function generate_inline_help(modules_tree)
             links(xp(i).content) = first;
         end
 
-        nodes = getNodes(doc.root);
+        nodes = getNodes(doc.root, %T, %F);
         st.refname = getNodeContent(doc, "//ns:refname");
         st.refpurpose = getNodeContent(doc, "//ns:refpurpose");
-        st.synopsis = getNodeContent(doc, "//ns:synopsis");
+        st.synopsis = getNodeSynopsis(doc, "//ns:synopsis");
 
         data = getNode(doc, "//ns:refsection[1]/ns:variablelist/ns:varlistentry");
         x = [];
-        for i = 1:size(data, "*")
-            x = [x;getNodes(data(i))];
+        s = size(data, "*")
+        for i = 1:s
+            x = [x;getNodes(data(i), i == 1, i == s)];
         end
 
         st.varlist = x;

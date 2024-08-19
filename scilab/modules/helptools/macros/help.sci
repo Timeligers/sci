@@ -3,10 +3,11 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function varargout = help(key, lang)
+function varargout = help(key, lang, outputFormat)
     arguments
         key (1, 1) string
         lang (1, 1) string = getlanguage()
+        outputFormat (1, 1) string {mustBeMember(outputFormat, ["raw" "html"])} = "raw"
     end
 
     if ~isdir(fullfile(strsplit(SCI, "share/scilab")(1), "modules", "helptools", "inline")) then
@@ -22,7 +23,11 @@ function varargout = help(key, lang)
         for t = tbx'
             [page, name] = getPage(key, t, lang);
             if page <> [] then
-                formatHelp(page, name, t);
+                if nargout == 0 then
+                    formatHelp(page, name, t, outputFormat);
+                else
+                    varargout(1) = page;
+                end
                 return;
             end
         end
@@ -32,7 +37,7 @@ function varargout = help(key, lang)
     end
 
     if nargout == 0 then
-        formatHelp(page, name);
+        formatHelp(page, name, [], outputFormat);
     else
         varargout(1) = page;
     end
@@ -57,13 +62,13 @@ function [page, name] = getPage(key, domain, lang)
 
     l = %inline_help(domain)(lang).links;
     if ~isfield(l, key) then
-        //try with some permutation for short key (factorial)
+        //try with some permutations for short key (factorial)
         if length(key) <= 8  then
             ret = perms(strsplit(key)');
             ret = strcat(ret, "", "c");
             ret = find(members(fieldnames(%inline_help(domain)(lang).links), ret));
             if ret <> [] then
-                [page, name] = getPage(fieldnames(%inline_help(domain)(lang).links)(ret), domain, lang);
+                [page, name] = getPage(fieldnames(%inline_help(domain)(lang).links)(ret(1)), domain, lang);
                 return;
             end
         end
@@ -82,12 +87,7 @@ function [page, name] = getPage(key, domain, lang)
     page = %inline_help(domain)(lang).pages(link);
 end
 
-function formatHelp(page, key, domain)
-    arguments
-        page
-        key
-        domain = []
-    end
+function formatHelp(page, key, domain, outputFormat)
     if domain <> [] then
         printf(_("From help pages of toolbox `%s`.\n"), domain);
     end
@@ -99,14 +99,14 @@ function formatHelp(page, key, domain)
     if size(page.synopsis, "*") <> 0 then
         printf("\n    Syntax\n")
         for s = page.synopsis'
-            printf("      %s\n", s.children(1).string);
+            printf("      %s\n", s.string');
         end
     end
 
     if size(page.varlist, "*") <> 0 then
         printf("\n    Arguments\n");
         for a = page.varlist'
-            printVarList(a, 0);
+            printVarList(a, 3, outputFormat);
         end
     end
 
@@ -136,11 +136,82 @@ function str = concatdesc(desc)
     end
 end
 
-function str = nodeString(node)
-
+function r = isInlineType(node)
+    r = or(node.type == ["text" "term" "constant" "link" "ulink" "function" "literal" "varname", "emphasis", "subscript" "superscript" "command" "replaceable" "xref"]);
 end
 
-function printVarList(node, indent)
+function printNode(node, indent, outputFormat)
+    select node.type
+    case "variablelist"
+        for l = node.children
+            printNode(l, indent + 1, outputFormat);
+        end
+    case "varlistentry"
+        printVarList(l, indent, outputFormat)
+    case "para"
+        printIndent(indent);
+        for l = node.children
+            if l.type <> "itemizedlist" then
+                printNode(l, 0, outputFormat);
+            else
+                printNode(l, indent + 1, outputFormat);
+            end
+        end
+        printLF(1);
+        printf("\n");
+    case "listitem"
+        s = size(node.children, "*");
+        for i = 1:s
+            l = node.children(i);
+            if l.type <> "para" && l.type <> "warning" && l.type <> "variablelist" && ~isInlineType(l) then
+                printIndent(indent);
+            end
+
+            if i == 1 && isInlineType(l) then
+                printIndent(indent);
+            end
+
+            printNode(l, indent, outputFormat);
+        end
+    case "itemizedlist"
+        printLF(2);
+        printf("\n");
+        printIndent(indent);
+        for i = 1:size(node.children, "*")
+            printf("* ", indent * 2, "");
+            printNode(node.children(i), 0, outputFormat);
+            if i <> size(node.children, "*") then
+                printLF(3);
+                printf("\n");
+                printIndent(indent);
+            end
+        end
+    case "text"
+        //printIndent(indent);
+        printf("%s", node.string);
+    case "link"
+        //printIndent(indent);
+        printf("%s", node.string);
+    case {"literal" "varname" "emphasis"}
+        //printIndent(indent);
+        printf("%s", node.string);
+    case "warning"
+        printLF(4);
+        //printf("\n");
+    else
+        printf("\nnot yet managed: %s\n", node.type);
+    end
+end
+
+function printLF(val)
+    //printf("LF%d", val);
+endfunction
+
+function printIndent(indent)
+    printf("%*s", indent * 2, "");
+endfunction
+
+function printVarList(node, indent, outputFormat)
 
     term = findSt(node.children, "type", "term");
     desc = findSt(node.children, "type", "listitem");
@@ -149,54 +220,16 @@ function printVarList(node, indent)
         return
     end
 
-    printf("      %*s%s", indent * 2, "", term.string);
-    for i = 1:size(desc, "*")
-        a = desc(i);
+    printIndent(indent);
+    printf("%s", term.string);
+    printLF(0);
+    printf("\n");
 
-        select desc.type
-        case "listitem"
-            for l = desc.children
-                disp(l, "");
-            end
-        case "para"
-            disp("para");
-        else
-        end
-        /*
-        if a == [] then
-            printf("\n");
-        elseif typeof(a) == "string" then
-            if size(a, "*") == 1 then
-                if i == 1 then
-                    printf("\n");
-                end
-                printf("      %*s%s\n", (indent + 1) * 2, "", a);
-            else
-                for j = 1:size(a, "*")
-                    if i == 1 then
-                        printf("\n%s\n", a(j));
-                    else
-                        printf("      %*s%s\n", (indent + 2) * 2, "", a(j));
-                    end
-                end
-            end
-        else //struct
-            for b = a
-                printVarList(b, indent + 2);
-            end
-        end
-        */
+    s = size(desc, "*")
+    for i = 1:s
+        a = desc(i);
+        //printf("======%*s", (indent + 1) * 2, "");
+        printNode(a, indent + 1, outputFormat);
+        //printf("LF3\n");
     end
-    /*
-    else
-        if size(node.description, "*") > 1
-            printf("\n");
-            for i = 1:size(node.description, "*")
-                printf("      %*s%s\n", (indent + 1) * 2, "", node.description(i));
-            end
-        else
-            printf(" - %s\n", node.description);
-        end
-    end
-    */
 end
