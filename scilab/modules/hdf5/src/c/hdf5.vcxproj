@@ -94,7 +94,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>H5Topen_vers=2;H5Dcreate_vers=2;H5Aiterate_vers=2;H5Gcreate_vers=2;H5Gopen_vers=2;H5Tget_array_dims_vers=2;H5Acreate_vers=2;H5Eset_auto_vers=2;H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -124,7 +124,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>H5Topen_vers=2;H5Dcreate_vers=2;H5Aiterate_vers=2;H5Gcreate_vers=2;H5Gopen_vers=2;H5Tget_array_dims_vers=2;H5Acreate_vers=2;H5Eset_auto_vers=2;H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -152,7 +152,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>H5Topen_vers=2;H5Dcreate_vers=2;H5Aiterate_vers=2;H5Gcreate_vers=2;H5Gopen_vers=2;H5Tget_array_dims_vers=2;H5Acreate_vers=2;H5Eset_auto_vers=2;H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -187,7 +187,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>.;../../includes;../cpp;../../../../libs/intl;../../../../libs/hdf5/include;../../../output_stream/includes;../../../core/includes;../../../api_scilab/includes;../../../localization/includes;../../../windows_tools/includes;../../../fileio/includes;../../../io/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../dynamic_link/includes;../../../console/includes;../../../graphic_objects/includes;../../../graphics/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>H5Topen_vers=2;H5Dcreate_vers=2;H5Aiterate_vers=2;H5Gcreate_vers=2;H5Gopen_vers=2;H5Tget_array_dims_vers=2;H5Acreate_vers=2;H5Eset_auto_vers=2;H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>H5_NO_DEPRECATED_SYMBOLS;_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;HDF5_SCILAB_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>

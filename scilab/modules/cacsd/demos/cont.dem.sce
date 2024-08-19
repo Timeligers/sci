@@ -14,11 +14,11 @@ function demo_cont()
     case 0
       break
     case 1
-      demoexc('lqg/lqg.dem')
+      demoexc('lqg/lqg.dem.sce')
     case 2
-      demoexc('mixed.dem')
+      demoexc('mixed.dem.sce')
     case 3
-      demoexc('pid.dem')
+      demoexc('pid.dem.sce')
     end
   end
   

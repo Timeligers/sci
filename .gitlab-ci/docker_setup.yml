@@ -18,12 +18,17 @@ builder_linux:
     - .gitlab-ci/docker_setup.sh --builder "${DOCKER_LINUX_BUILDER}" "${DOCKER_TAG}"
     - docker logout "${CI_REGISTRY}"
   rules:
+    # do not rebuild on contributor's fork
+    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+      when: never
     # do not rebuild on scheduled
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     # do not rebuild on tag
     - if: $CI_COMMIT_TAG
-      when: never
+      when: manual
+      variables:
+        DOCKER_TAG: "${CI_COMMIT_TAG}"
     # rebuild on demand
     - changes: &DOCKER_CHANGES
         paths:
@@ -46,12 +51,17 @@ prebuild_linux:
     - .gitlab-ci/docker_setup.sh --prebuild "${DOCKER_LINUX_PREBUILD}" "${DOCKER_TAG}"
     - docker logout "${CI_REGISTRY}"
   rules:
+    # do not rebuild on contributor's fork
+    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+      when: never
     # do not rebuild on scheduled
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     # do not rebuild on tag
     - if: $CI_COMMIT_TAG
-      when: never
+      when: manual
+      variables:
+        DOCKER_TAG: "${CI_COMMIT_TAG}"
     # rebuild on demand
     - changes: *DOCKER_CHANGES
 
@@ -64,12 +74,17 @@ tester_linux:
     - .gitlab-ci/docker_setup.sh --testers --registry "${CI_REGISTRY_IMAGE}" "${DOCKER_TAG}"
     - docker logout "${CI_REGISTRY}"
   rules:
+    # do not rebuild on contributor's fork
+    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+      when: never
     # do not rebuild on scheduled
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     # do not rebuild on tag
     - if: $CI_COMMIT_TAG
-      when: never
+      when: manual
+      variables:
+        DOCKER_TAG: "${CI_COMMIT_TAG}"
     # rebuild on demand
     - changes: *DOCKER_CHANGES
       allow_failure: true

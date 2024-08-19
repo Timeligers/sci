@@ -147,12 +147,6 @@ static unsigned char TerminalGetchar(void)
     unsigned char ch = 0;
     do
     {
-        /* https://gitlab.com/scilab/scilab/-/issues/1052 */
-        if ( ismenu() == 1 )
-        {
-            return 0;
-        }
-
         WaitForSingleObject(Win32InputStream, INFINITE);
         PeekConsoleInput (Win32InputStream, &irBuffer, 1, &n);
 
@@ -425,13 +419,6 @@ char *TerminalGetString(const char *prompt)
 
         if (cur_char <= 0)
         {
-            return NULL;
-        }
-
-        /* https://gitlab.com/scilab/scilab/-/issues/1052 */
-        if (ismenu () == 1)
-        {
-            /* Abort current line */
             return NULL;
         }
 

@@ -40,12 +40,12 @@ data.ml = mlist(["e","x"],1);
 jimport java.lang.String;
 data.j = String.new("Hello world");
 data.x = xmlReadStr("<root><a att=""foo"" rib=""bar""><b>Hello</b></a></root>");
-data.dt = datetime();
-data.DT = [datetime() datetime() datetime()];
+data.dt = datetime(2024, 7, 4);
+data.DT = [datetime(2024, 7, 4) datetime(2024, 7, 4) datetime(2024, 7, 4)];
 data.dura = duration(1);
 data.caldura = caldays(1);
 data.DURA = [duration(1) duration(1) duration(1)];
-data.DT = [datetime() datetime() datetime()];
+data.DT = [datetime(2024, 7, 4) datetime(2024, 7, 4) datetime(2024, 7, 4)];
 data.table = table(["AF"; "NA"], ["Africa"; "North America"]);
 data.ts = timeseries(hours(1:2)', ["AF"; "NA"], ["Africa"; "North America"]);
 data
@@ -339,17 +339,11 @@ Hello world
   url = "Undefined"
   root: (XMLElem)
  ans = [datetime]
-   2024-05-17 16:39:19.235
-   2024-05-17 16:39:19.235
+   2024-07-04
+   2024-07-04
  ans = [1x3 datetime]
-         column 1 to 2
-   2024-05-17 16:39:19.242   2024-05-17 16:39:19.242
-         column 3 to 3
-   2024-05-17 16:39:19.242
-         column 1 to 2
-   2024-05-17 16:39:19.242   2024-05-17 16:39:19.242
-         column 3 to 3
-   2024-05-17 16:39:19.242
+   2024-07-04   2024-07-04   2024-07-04
+   2024-07-04   2024-07-04   2024-07-04
  ans = [duration]
    01:00:00
    01:00:00

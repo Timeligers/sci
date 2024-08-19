@@ -145,7 +145,7 @@ void H5Dataspace::getAccessibleAttribute(const std::string & _name, const int po
     H5Object::getAccessibleAttribute(_name, pos, pvApiCtx);
 }
 
-std::string H5Dataspace::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5Dataspace::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
     hsize_t dims[__SCILAB_HDF5_MAX_DIMS__];

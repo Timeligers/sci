@@ -35,7 +35,7 @@ public:
     virtual std::vector<unsigned int> getDims(const bool b) const;
     virtual std::string getTypeName() const;
 
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const;
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const;
     virtual std::string toString(const unsigned int indentLevel) const;
     virtual std::string getStringDims() const;
 

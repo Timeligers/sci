@@ -168,7 +168,7 @@ break = ".."(".")*
 
 special = "$" | ":" | {break}
 
-string = (([^ \t\'\"\r\n\.]+)|([\'\"]{2}))+
+string = (([^\t\'\"\r\n<>&]*)|([\'\"]{2})|([^\t\'\"\r\n<>&]))+
 
 argstring = ([^ \t,;/\n\r<>&]+) | ("/"[^ \t,;/\n\r<>&]+)
 
@@ -689,8 +689,7 @@ htmlentity = "&"[#a-zA-Z0-9]*";"
                                    handler.handleString("&#0038;");
                                  }
 
-  {string}                       |
-  "."                            {
+  {string}                       {
                                    handler.handleString(yytext());
                                  }
 

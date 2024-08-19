@@ -56,7 +56,7 @@ public :
     void label(const unsigned int size, const unsigned int * dim, const char ** name) const;
 
     virtual void getAccessibleAttribute(const std::string & name, const int pos, void * pvApiCtx) const;
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const;
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const;
     virtual std::string toString(const unsigned int indentLevel) const;
     virtual std::string ls() const;
     virtual void ls(std::vector<std::string> & name, std::vector<std::string> & type) const;
@@ -100,7 +100,7 @@ public :
 
         virtual ~H5CompactLayout() { }
 
-        virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
+        virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
         {
             std::ostringstream os;
             std::string indent = H5Object::getIndentString(indentLevel);
@@ -124,7 +124,7 @@ public :
 
         virtual ~H5ChunkedLayout() { }
 
-        virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
+        virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
         {
             std::ostringstream os;
             std::string indent = H5Object::getIndentString(indentLevel);
@@ -148,7 +148,7 @@ public :
 
         virtual ~H5ContiguousLayout() { }
 
-        virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
+        virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
         {
             std::ostringstream os;
             std::string indent = H5Object::getIndentString(indentLevel);

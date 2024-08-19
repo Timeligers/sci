@@ -1081,7 +1081,7 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
                 AC_SUBST(JHALL)
 
                 # Lucene Apache - core
-                AC_JAVA_CHECK_JAR([lucene-core],[org.apache.lucene.LucenePackage],[Lucene])
+                AC_JAVA_CHECK_JAR([lucene-core],[org.apache.lucene.store.ByteBuffersDirectory],[Lucene])
                 LUCENE=$PACKAGE_JAR_FILE
                 AC_SUBST(LUCENE)
 
@@ -1135,9 +1135,15 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
 
                 ################ Mandatory for graphic_export features #####
                 # XML to PDF/other Translator
-                AC_JAVA_CHECK_JAR([fop],[org.apache.fop.pdf.PDFInfo],[XML to PDF Translator (fop)])
-                FOP=$PACKAGE_JAR_FILE
-                AC_SUBST(FOP)
+                AC_JAVA_CHECK_JAR([fop-core],[org.apache.fop.pdf.PDFInfo],[XML to PDF Translator (fop-core)])
+                FOP_CORE=$PACKAGE_JAR_FILE
+                AC_SUBST(FOP_CORE)
+                AC_JAVA_CHECK_JAR([fop-event],[org.apache.fop.events.Event],[XML to PDF Translator (fop-event)])
+                FOP_EVENT=$PACKAGE_JAR_FILE
+                AC_SUBST(FOP_EVENT)
+                AC_JAVA_CHECK_JAR([fop-util],[org.apache.fop.util.DefaultErrorListener],[XML to PDF Translator (fop)])
+                FOP_UTIL=$PACKAGE_JAR_FILE
+                AC_SUBST(FOP_UTIL)
 
                 AC_ARG_WITH(emf, [AS_HELP_STRING([--without-emf],
                     [disable support for EMF (Windows Metafile) export])])
@@ -1152,6 +1158,11 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
                     FREEHEP_GRAPHICSIO=$PACKAGE_JAR_FILE
                     AC_SUBST(FREEHEP_GRAPHICSIO)
 
+                    # Freehep GraphicsBase
+                    AC_JAVA_CHECK_JAR([freehep-graphicsbase],[org.freehep.graphicsbase.util.Value],[Freehep GraphicsBase])
+                    FREEHEP_GRAPHICSBASE=$PACKAGE_JAR_FILE
+                    AC_SUBST(FREEHEP_GRAPHICSBASE)
+
                     # Freehep GraphicsIO EMF
                     AC_JAVA_CHECK_JAR([freehep-graphicsio-emf],[org.freehep.graphicsio.emf.EMFGraphics2D],[Freehep GraphicsIO EMF])
                     FREEHEP_GRAPHICSIO_EMF=$PACKAGE_JAR_FILE
@@ -1161,11 +1172,6 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
                     AC_JAVA_CHECK_JAR([freehep-io],[org.freehep.util.io.XMLSequence],[Freehep IO])
                     FREEHEP_IO=$PACKAGE_JAR_FILE
                     AC_SUBST(FREEHEP_IO)
-
-                    # Freehep Util
-                    AC_JAVA_CHECK_JAR([freehep-util],[org.freehep.util.StringUtilities],[Freehep Util])
-                    FREEHEP_UTIL=$PACKAGE_JAR_FILE
-                    AC_SUBST(FREEHEP_UTIL)
                 fi
 
                 # xml.apache.org SVG Library (under mandriva for example)
@@ -1225,17 +1231,34 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
                 JLATEXMATH_FOP=$PACKAGE_JAR_FILE
                 AC_SUBST(JLATEXMATH_FOP)
 
-                # Saxon 9 HE
-                AC_JAVA_CHECK_JAR([saxon9he],[net.sf.saxon.TransformerFactoryImpl],[Saxon processor for XSLT, XQuery, and XML Schema])
+                # JLaTeXMath Fonts
+                AC_JAVA_CHECK_JAR([jlatexmath-font-cyrillic],[],[LaTex Rendering - Cyrillic Font])
+                JLATEXMATH_FONT_CYRILLIC=$PACKAGE_JAR_FILE
+                AC_SUBST(JLATEXMATH_FONT_CYRILLIC)
+                AC_JAVA_CHECK_JAR([jlatexmath-font-greek],[],[LaTex Rendering - Greek Font])
+                JLATEXMATH_FONT_GREEK=$PACKAGE_JAR_FILE
+                AC_SUBST(JLATEXMATH_FONT_GREEK)
+
+                # Saxon HE (and dependencies)
+                AC_JAVA_CHECK_JAR([Saxon-HE],[net.sf.saxon.TransformerFactoryImpl],[Saxon processor for XSLT, XQuery, and XML Schema])
                 SAXON=$PACKAGE_JAR_FILE
                 AC_SUBST(SAXON)
+                AC_JAVA_CHECK_JAR([httpcore5],[org.apache.hc.core5.http.ClassicHttpRequest],[Saxon (Apache HttpComponents HTTP/1.1 core components)])
+                HTTPCORE=$PACKAGE_JAR_FILE
+                AC_SUBST(HTTPCORE)
+                AC_JAVA_CHECK_JAR([httpclient5],[org.apache.hc.client5.http.classic.methods.HttpUriRequestBase],[Saxon (Library of components for building client side HTTP services)])
+                HTTPCLIENT=$PACKAGE_JAR_FILE
+                AC_SUBST(HTTPCLIENT)
+                AC_JAVA_CHECK_JAR([xmlresolver],[org.xmlresolver.Resolver],[XML entity/uri resolver])
+                XMLRESOLVER=$PACKAGE_JAR_FILE
+                AC_SUBST(XMLRESOLVER)
 
                 AC_DEFINE([WITH_GUI],[],[With the JAVA stuff (GUI, Console, JOGL...)])
 
         fi
 
         # Checkstyle (code checking)
-        AC_JAVA_CHECK_JAR([checkstyle],[com.puppycrawl.tools.checkstyle.CheckStyleTask],[Checkstyle - code checking],"yes")
+        AC_JAVA_CHECK_JAR([checkstyle],[com.puppycrawl.tools.checkstyle.Checker],[Checkstyle - code checking],"yes")
         CHECKSTYLE=$PACKAGE_JAR_FILE
         AC_SUBST(CHECKSTYLE)
 
@@ -1244,27 +1267,28 @@ interface for JOGL2 - or libGL (OpenGL library) are installed and if the version
         COMMONS_BEANUTILS=$PACKAGE_JAR_FILE
         AC_SUBST(COMMONS_BEANUTILS)
 
+        # Commons collections (dependency of checkstyle)
+        AC_JAVA_CHECK_JAR([commons-collections],[org.apache.commons.collections.FastHashMap],[Commons collections],"yes")
+        COMMONS_COLLECTIONS=$PACKAGE_JAR_FILE
+        AC_SUBST(COMMONS_COLLECTIONS)
+
+        # Guava (dependency of checkstyle)
+        AC_JAVA_CHECK_JAR([guava],[com.google.common.reflect.ClassPath],[Guava],"yes")
+        GUAVA=$PACKAGE_JAR_FILE
+        AC_SUBST(GUAVA)
+
         # antlr (dependency of checkstyle)
-        AC_JAVA_CHECK_JAR([antlr],[antlr.TokenStreamException],[language tool for constructing recognizers],"yes")
+        AC_JAVA_CHECK_JAR([antlr4-runtime],[org.antlr.v4.runtime.CharStream],[Runtime library for ANTLR 4],"yes")
         ANTLR=$PACKAGE_JAR_FILE
         AC_SUBST(ANTLR)
 
         # Junit 4 (java unitary test)
         AC_JAVA_CHECK_JAR([junit4],[org.junit.Assert],[Junit4 - Unit tests],"yes")
         if test -z "$PACKAGE_JAR_FILE"; then
-                AC_JAVA_CHECK_JAR([junit],[org.junit.Assert],[Junit4 -
-Unit tests],"yes")
+                AC_JAVA_CHECK_JAR([junit],[org.junit.Assert],[Junit4 - Unit tests],"yes")
         fi
         JUNIT4=$PACKAGE_JAR_FILE
         AC_SUBST(JUNIT4)
-
-        # hamcrest (junit4 dependency)
-        AC_JAVA_CHECK_JAR([hamcrest-all],[org.hamcrest.core.IsNull],[Hamcrest- library matchers],"yes")
-        if test -z "$PACKAGE_JAR_FILE"; then
-            AC_JAVA_CHECK_JAR([hamcrest/all],[org.hamcrest.core.IsNull],[Hamcrest- library matchers],"yes")
-        fi
-        HAMCREST=$PACKAGE_JAR_FILE
-        AC_SUBST(HAMCREST)
 
         # Cobertura (java code coverage)
         AC_JAVA_CHECK_JAR([cobertura],[net.sourceforge.cobertura.merge.Main],[cobertura - Java code coverage],"yes")
@@ -1282,7 +1306,7 @@ Unit tests],"yes")
         AC_JAVA_CHECK_JAR([ecj],[org.eclipse.jdt.core.compiler.batch.BatchCompiler],[Eclipse Java compiler],"yes")
         ECJ=$PACKAGE_JAR_FILE
         if test -z "$ECJ"; then
-           ECJ='$SCILAB/thirdparty/ecj-3.34.0.jar'
+           ECJ='$SCILAB/thirdparty/ecj-3.37.0.jar'
         fi
         AC_SUBST(ECJ)
 
@@ -1916,9 +1940,6 @@ else
 fi
 AM_CONDITIONAL(DOXYGEN, test $DOXYGEN_ENABLE = yes)
 
-## Valgrind specific code
-PKG_CHECK_EXISTS([valgrind], [PKG_CHECK_MODULES([VALGRIND], [valgrind], [AC_DEFINE([VALGRIND_ENABLE], [], [Enable valgrind specific tweaks])])], [])
-
 ##############################################################
 ## Javasci module
 ##############################################################
@@ -2474,12 +2495,16 @@ fi
 echo ""
 if test ! -z "$JAVAC"; then
 echo "Documentation, graphic export:"
-echo "  FOP (XML => PDF) .... = $FOP"
-echo "  JLaTeXMath Fop ...... = $JLATEXMATH_FOP"
-echo "  Batik (SVG) ......... = $BATIK"
-echo "  Avalon Framework .... = $AVALON_FRAMEWORK"
-echo "  Commons I/O ......... = $COMMONS_IO"
-echo "  XML graphics commons  = $XMLGRAPHICS_COMMONS"
+echo "  FOP Core (XML => PDF) .. = $FOP_CORE"
+echo "  FOP Event (XML => PDF) . = $FOP_EVENT"
+echo "  FOP Util (XML => PDF) .. = $FOP_UTIL"
+echo "  JLaTeXMath Fop ......... = $JLATEXMATH_FOP"
+echo "  JLaTeXMath Font Cyrillic = $JLATEXMATH_FONT_CYRILLIC"
+echo "  JLaTeXMath Font Greek... = $JLATEXMATH_FONT_GREEK"
+echo "  Batik (SVG) ............ = $BATIK"
+echo "  Avalon Framework ....... = $AVALON_FRAMEWORK"
+echo "  Commons I/O ............ = $COMMONS_IO"
+echo "  XML graphics commons ... = $XMLGRAPHICS_COMMONS"
 fi
 
 
@@ -2487,9 +2512,10 @@ echo ""
 echo "Code quality (optional):"
 echo "  Checkstyle .......... = $CHECKSTYLE"
 echo "  Commons-beanutils ... = $COMMONS_BEANUTILS"
+echo "  Commons-collections . = $COMMONS_COLLECTIONS"
+echo "  Guava ............... = $GUAVA"
 echo "  Antlr ............... = $ANTLR"
 echo "  Junit4 .............. = $JUNIT4"
-echo "  Hamcrest ............ = $HAMCREST"
 echo "  Cobertura ........... = $COBERTURA"
 echo "  splint .............. = $SPLINT"
 
@@ -2550,12 +2576,6 @@ echo "  GIWS_BIN ........... = $GIWS_BIN"
 else
 echo "  GIWS generation disabled"
 fi
-
-echo ""
-echo "Valgrind configuration:"
-echo "  VALGRIND_CFLAGS .... = $VALGRIND_CFLAGS"
-echo "  VALGRIND_LIBS ...... = $VALGRIND_LIBS"
-echo ""
 
 echo ""
 echo "Libtool config:"
@@ -2660,6 +2680,8 @@ if test "$SCILAB_BINARY_VERSION" != "$DETECTED_VERSION"; then
             -e "s|SCI_VERSION_WIDE_STRING L\".*\"|SCI_VERSION_WIDE_STRING L\"scilab-branch-$SCILAB_VERSION_MAJOR.$SCILAB_VERSION_MINOR\"|" \
             -e "s|DEFAULT_SCI_VERSION_MESSAGE L\".*\"|DEFAULT_SCI_VERSION_MESSAGE L\"scilab-branch-$SCILAB_VERSION_MAJOR.$SCILAB_VERSION_MINOR\"|" \
             ${SCI_SRCDIR}/modules/core/includes/version.h ${SCI_SRCDIR}/modules/core/includes/version.h.{in,vc}
+    # put the correct text in DOCKER_TAG
+    sed -i -e "s|value: \"$DETECTED_VERSION\"|value: \"$SCILAB_BINARY_VERSION\"" ${SCI_SRCDIR}/../.gitlab-ci.yml
     # update some help pages
     sed -i -e "s|scilab-[[0-9]]\+\(\.[[0-9]]\+\)\+|scilab-$SCILAB_BINARY_VERSION|" $(find ${SCI_SRCDIR} -iname 'banner.xml')
     # update rc files

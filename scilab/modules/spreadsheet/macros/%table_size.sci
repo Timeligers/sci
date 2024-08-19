@@ -14,7 +14,7 @@ function varargout = %table_size(varargin)
     cols = size(varargin(1).vars, "*");
 
     select nargout
-    case 1
+    case {0,1}
         if nargin == 1 then
             varargout(1) = [rows cols];
         else
