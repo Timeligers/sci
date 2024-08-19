@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // In call_scilab, TerminateScilab  did not clear the last error.
 
-exec("SCI/modules/call_scilab/tests/compileHelpers.sce");
+exec("SCI/modules/call_scilab/tests/nonreg_tests/compileHelpers.sce");
 
 // Define Variables as decribed in the Makefile
 // make bug_8830

@@ -17,7 +17,7 @@
 // <-- Short Description -->
 // call_scilab C functions did not check if engine is started.
 
-exec("SCI/modules/call_scilab/tests/compileHelpers.sce");
+exec("SCI/modules/call_scilab/tests/nonreg_tests/compileHelpers.sce");
 
 // Define Variables as decribed in the Makefile
 // make bug_7601

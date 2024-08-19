@@ -16,7 +16,7 @@
 // <-- Short Description -->
 // it was not possible to start/close a Scilab engine at anytime.
 
-exec("SCI/modules/call_scilab/tests/compileHelpers.sce");
+exec("SCI/modules/call_scilab/tests/nonreg_tests/compileHelpers.sce");
 
 // Define Variables as decribed in the Makefile
 // make bug_7602
