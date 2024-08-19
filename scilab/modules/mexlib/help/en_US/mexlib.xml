@@ -21,9 +21,6 @@
     xmlns:ns5="http://www.w3.org/1999/xhtml"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     xmlns:db="http://docbook.org/ns/docbook">
-    <info>
-        <pubdate>$LastChangedDate$</pubdate>
-    </info>
 
     <refnamediv>
         <refname>mexlib</refname>
@@ -135,19 +132,19 @@
             ]]></programlisting>
 
         <programlisting role="example"><![CDATA[
-            
+
             #include "mex.h"
             void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])
-            
+
             {
             mexPrintf("\nThis is an example Mex function.\n");
             int n = 0;
             mxArray* pOut = NULL;
             n = mxGetNumberOfDimensions(prhs[0]);
-            
+
             pOut = mxCreateDoubleScalar((double)n);
             plhs[0] = pOut;
-            
+
             }
 
             ]]></programlisting>
@@ -160,7 +157,7 @@
             --> mexexamp(a)
             This is an example Mex function.
              ans  =
-                
+
              4.
             ]]></programlisting>
     </refsection>
@@ -180,7 +177,7 @@
             </member>
         </simplelist>
     </refsection>
-    
+
     <refsection>
         <title>History</title>
         <revhistory>

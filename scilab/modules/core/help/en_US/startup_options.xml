@@ -141,7 +141,7 @@ evstr(a(i+2))*2
 ]]></screen>
                     </para>
                     <para>
-                      Note here that <literal>>scilab -nw</literal> has been translated into
+                      Note here that <literal>scilab -nw</literal> has been translated into
                       <literal>Wscilex-cli.exe</literal> by the <literal>scilab</literal> batch file,
                       in such a way that the "-nw" option is not returned by <literal>sciargs()</literal>
                       (see further below).

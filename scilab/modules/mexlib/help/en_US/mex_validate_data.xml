@@ -18,10 +18,6 @@
     xmlns:ns5="http://www.w3.org/1999/xhtml"
     xmlns:mml="http://www.w3.org/1998/Math/MathML"
     xmlns:db="http://docbook.org/ns/docbook">
-    <info>
-        <pubdate>$LastChangedDate$</pubdate>
-    </info>
-
     <refnamediv>
         <refname>Validate Data</refname>
         <refpurpose>To determine the type or characteristic of an array data.</refpurpose>

@@ -71,7 +71,7 @@
                         Each validator must be validate to accept the input.
                     </para>
                     <para>
-                        <link linkend="arguments_validators">List of validators</link> 
+                        <link linkend="arguments_validators">List of validators</link>
                     </para>
                 </listitem>
             </varlistentry>

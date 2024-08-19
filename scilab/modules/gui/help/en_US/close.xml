@@ -27,7 +27,7 @@
         <synopsis>
             close
             close(H)
-            close help
+            close doc
             close xcos
             close xcos!
             close editvar
@@ -57,7 +57,7 @@
                 progression bars whose handles or indices are in <varname>H</varname>.
             </para>
             <para>
-                <emphasis role="bold">close help</emphasis> closes the help browser.
+                <emphasis role="bold">close doc</emphasis> closes the help browser.
             </para>
             <para>
                 <emphasis role="bold">close browsevar</emphasis> closes the variable browser.
@@ -111,7 +111,7 @@ close([25 200 111])  // Finished!
         <para/>
         <programlisting role="example"><![CDATA[
 // You are reading this example in the help browser. Now, bye:
-close help
+close doc
      ]]></programlisting>
         <para/>
         <programlisting role="example"><![CDATA[
@@ -161,7 +161,7 @@ close editvar
                             Vector of several figures ids now accepted.
                         </listitem>
                         <listitem>
-                            Extension to <literal>close help</literal>, <literal>close xcos</literal>,
+                            Extension to <literal>close doc</literal>, <literal>close xcos</literal>,
                             <literal>close xcos!</literal>, <literal>close browsevar</literal>,
                             and <literal>close editvar</literal>
                         </listitem>

@@ -19,9 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BFE3C796-D755-4BB2-840A-89A98D2A4AC1}</ProjectGuid>
+    <ProjectGuid>{29DEA97A-B089-42C1-A19F-683C0608B897}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>BuildHelp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -60,33 +61,26 @@
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltojar([],[],'en_US');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltojar([],[],'fr_FR');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltojar([],[],'pt_BR');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltojar([],[],'ja_JP');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltojar([],[],'ru_RU');exit(0);
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltoinline([],[],'en_US');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltoinline([],[],'fr_FR');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltoinline([],[],'pt_BR');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltoinline([],[],'ja_JP');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltoinline([],[],'ru_RU');exit(0);
 exit /B 0
 </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltojar([],[],'en_US');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltojar([],[],'fr_FR');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltojar([],[],'pt_BR');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltojar([],[],'ja_JP');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltojar([],[],'ru_RU');exit(0);
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltoinline([],[],'en_US');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltoinline([],[],'fr_FR');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltoinline([],[],'pt_BR');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltoinline([],[],'ja_JP');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltoinline([],[],'ru_RU');exit(0);
 exit /B 0
 
 </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-
-IF EXIST "$(SolutionDir)modules\helptools\jar" del /q "$(SolutionDir)modules\helptools\jar\scilab_*.jar"  1&gt;NUL 2&gt;NUL
-
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l en_US -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l fr_FR -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l pt_BR -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l ja_JP -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l ru_RU -nouserstartup -noatomsautoload -e clean_help();exit(0);
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(SolutionDir)bin\Scilex.exe" -nb -l en_US -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l fr_FR -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l pt_BR -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l ja_JP -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l ru_RU -nouserstartup -noatomsautoload -e clean_help();exit(0);
 exit /B 0
 </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
@@ -97,34 +91,27 @@ exit /B 0
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -f SCI/modules/helptools/data/configuration/regen_list.sce
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltojar([],[],'en_US');
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltojar([],[],'fr_FR');
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltojar([],[],'pt_BR');
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltojar([],[],'ja_JP');
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltojar([],[],'ru_RU');
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -f SCI/modules/helptools/data/configuration/regen_list.sce
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltoinline([],[],'en_US');
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltoinline([],[],'fr_FR');
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltoinline([],[],'pt_BR');
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltoinline([],[],'ja_JP');
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltoinline([],[],'ru_RU');
 exit /B 0
 </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltojar([],[],'en_US');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltojar([],[],'fr_FR');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltojar([],[],'pt_BR');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltojar([],[],'ja_JP');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltojar([],[],'ru_RU');exit(0);
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltoinline([],[],'en_US');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltoinline([],[],'fr_FR');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltoinline([],[],'pt_BR');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltoinline([],[],'ja_JP');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltoinline([],[],'ru_RU');exit(0);
 exit /B 0
 
 </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-
-IF EXIST "$(SolutionDir)modules\helptools\jar" del /q "$(SolutionDir)modules\helptools\jar\scilab_*.jar"  1&gt;NUL 2&gt;NUL
-
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l en_US -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l fr_FR -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l pt_BR -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l ja_JP -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l ru_RU -nouserstartup -noatomsautoload -e clean_help();exit(0);
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(SolutionDir)bin\Scilex.exe" -nb -l en_US -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l fr_FR -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l pt_BR -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l ja_JP -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l ru_RU -nouserstartup -noatomsautoload -e clean_help();exit(0);
 exit /B 0
 </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
@@ -135,33 +122,26 @@ exit /B 0
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltojar([],[],'en_US');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltojar([],[],'fr_FR');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltojar([],[],'pt_BR');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltojar([],[],'ja_JP');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltojar([],[],'ru_RU');exit(0);
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltoinline([],[],'en_US');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltoinline([],[],'fr_FR');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltoinline([],[],'pt_BR');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltoinline([],[],'ja_JP');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltoinline([],[],'ru_RU');exit(0);
 exit /B 0
 </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltojar([],[],'en_US');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltojar([],[],'fr_FR');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltojar([],[],'pt_BR');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltojar([],[],'ja_JP');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltojar([],[],'ru_RU');exit(0);
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltoinline([],[],'en_US');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltoinline([],[],'fr_FR');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltoinline([],[],'pt_BR');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltoinline([],[],'ja_JP');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltoinline([],[],'ru_RU');exit(0);
 exit /B 0
 
 </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-
-IF EXIST "$(SolutionDir)modules\helptools\jar" del /q "$(SolutionDir)modules\helptools\jar\scilab_*.jar"  1&gt;NUL 2&gt;NUL
-
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l en_US -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l fr_FR -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l pt_BR -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l ja_JP -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l ru_RU -nouserstartup -noatomsautoload -e clean_help();exit(0);
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(SolutionDir)bin\Scilex.exe" -nb -l en_US -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l fr_FR -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l pt_BR -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l ja_JP -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l ru_RU -nouserstartup -noatomsautoload -e clean_help();exit(0);
 exit /B 0
 </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
@@ -172,34 +152,27 @@ exit /B 0
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)$(Configuration)\</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -f SCI/modules/helptools/data/configuration/regen_list.sce
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltojar([],[],'en_US');
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltojar([],[],'fr_FR');
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltojar([],[],'pt_BR');
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltojar([],[],'ja_JP');
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltojar([],[],'ru_RU');
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -f SCI/modules/helptools/data/configuration/regen_list.sce
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltoinline([],[],'en_US');
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltoinline([],[],'fr_FR');
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltoinline([],[],'pt_BR');
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltoinline([],[],'ja_JP');
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltoinline([],[],'ru_RU');
 exit /B 0
 </NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltojar([],[],'en_US');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltojar([],[],'fr_FR');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltojar([],[],'pt_BR');exit(0)
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltojar([],[],'ja_JP');exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltojar([],[],'ru_RU');exit(0);
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l en_US -e xmltoinline([],[],'en_US');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l fr_FR -e xmltoinline([],[],'fr_FR');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l pt_BR -e xmltoinline([],[],'pt_BR');exit(0)
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ja_JP -e xmltoinline([],[],'ja_JP');exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -nouserstartup -noatomsautoload -l ru_RU -e xmltoinline([],[],'ru_RU');exit(0);
 exit /B 0
 
 </NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">IF EXIST "$(SolutionDir)modules\helptools\javaHelp" rmdir /s /q "$(SolutionDir)modules\helptools\javaHelp"
-
-IF EXIST "$(SolutionDir)modules\helptools\jar" del /q "$(SolutionDir)modules\helptools\jar\scilab_*.jar"  1&gt;NUL 2&gt;NUL
-
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l en_US -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l fr_FR -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l pt_BR -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l ja_JP -nouserstartup -noatomsautoload -e clean_help();exit(0);
-"$(SolutionDir)bin\WScilex-cli.exe" -nb -l ru_RU -nouserstartup -noatomsautoload -e clean_help();exit(0);
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(SolutionDir)bin\Scilex.exe" -nb -l en_US -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l fr_FR -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l pt_BR -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l ja_JP -nouserstartup -noatomsautoload -e clean_help();exit(0);
+"$(SolutionDir)bin\Scilex.exe" -nb -l ru_RU -nouserstartup -noatomsautoload -e clean_help();exit(0);
 exit /B 0
 </NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />

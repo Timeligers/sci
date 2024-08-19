@@ -53,7 +53,9 @@
             </varlistentry>
             <varlistentry>
                 <term>"current"</term>
+                <listitem>
                     <para>input keyword retrieving the current calling depth (before reaching the max one).</para>
+                </listitem>
             </varlistentry>
             <varlistentry>
                 <term>currentDepth</term>

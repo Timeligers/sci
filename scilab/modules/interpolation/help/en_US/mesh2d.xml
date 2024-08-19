@@ -12,12 +12,9 @@
  * along with this program. *
  *
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xml:lang="en" 
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xml:lang="en"
 xmlns:scilab="http://www.scilab.org"
 xml:id="mesh2d">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
   <refnamediv>
     <refname>mesh2d</refname>
     <refpurpose>Triangulation of n points in the plane</refpurpose>
@@ -61,14 +58,14 @@ triEdges = mesh2d(x, y, bdy)</synopsis>
   <refsection>
     <title>Description</title>
     <para>
-    <literal>mesh2d</literal> computes a triangulation of <literal>n</literal> points in the plane with coordinates given by vectors<literal>x,y</literal>. It 
+    <literal>mesh2d</literal> computes a triangulation of <literal>n</literal> points in the plane with coordinates given by vectors<literal>x,y</literal>. It
      returns a matrix <literal>triEdges</literal> of size <literal>[3,nbt]</literal> where <literal>triEdges(:,i)</literal> gives the vertices numbers of triangle <literal>#i</literal> and <literal>nbt</literal> is the number of triangles.
   </para>
   <para>
     When <literal>bdy</literal> is given as an input parameter this vector defines the
     boundary and contains the indices of edges belonging to it, grouped by successive connected components. Each component is positively oriented, i.e. successive <literal>bdy(i:i+1)</literal> segments have the interior of the domain to their left. Hence, for a simply connected domain, the boundary is given counterclockwise, and eventual holes are always given clockwise.
-    Each connected component must be closed and is represented by the vector <literal>[i1,..,i_nc]</literal> such that 
-    <literal>i1 == i_nc</literal>. 
+    Each connected component must be closed and is represented by the vector <literal>[i1,..,i_nc]</literal> such that
+    <literal>i1 == i_nc</literal>.
   </para>
   <para>
     When <literal>bdy</literal> is given as an output parameter the boundary is computed prior to the triangulation as the convex hull of input points <literal>x,y</literal> and is returned in <literal>bdy</literal> with the same convention as above, i.e. counterclockwise sucessive vertices numbers.
@@ -94,14 +91,14 @@ triEdges = mesh2d(x, y, bdy)</synopsis>
   </refsection>
   <refsection>
     <title>Examples</title>
-    <programlisting role="example"><![CDATA[ 
+    <programlisting role="example"><![CDATA[
 function displayTri(X, Y, Tr)
   plot(0,0,rect=[-1 -1 2 2])
   [m, n] = size(Tr);
-  xpols = matrix(X(Tr), m, n); 
+  xpols = matrix(X(Tr), m, n);
   ypols = matrix(Y(Tr), m, n);
   xpolys(xpols, ypols, color("blue")*ones(n,1));
-endfunction 
+endfunction
 
 r1 = 1;
 n1 = 20;
@@ -149,10 +146,10 @@ isoview
 function displayTri(X, Y, Tr)
   plot(0, 0, rect=[-1 -1 2 2])
   [m, n] = size(Tr);
-  xpols = matrix(X(Tr), m, n); 
+  xpols = matrix(X(Tr), m, n);
   ypols = matrix(Y(Tr), m, n);
   xpolys(xpols, ypols, color("blue") * ones(n, 1));
-endfunction 
+endfunction
 
 r1 = 1;
 n1 = 20;

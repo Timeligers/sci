@@ -73,6 +73,7 @@ function tbx_build_help(moduletitle, path)
             "function ok = add_help_chapter(helptitle,path,modulemode), ok = %t; end"
             sprintf("exec(""%s"", -1);", f)
             sprintf("xmltojar(""%s"", ""%s"", ""%s"", ""%s"");", path, moduletitle, directory_language, default_language)
+            sprintf("xmltoinline(""%s"", ""%s"", ""%s"", ""%s"");", path, moduletitle, directory_language, default_language)
         ]
 
         mputl(code, tmp);
@@ -88,5 +89,6 @@ function tbx_build_help(moduletitle, path)
     else
         warning(_(".start file was not found, build of help pages using <scilab:image> tag may failed."));
         xmltojar(path, moduletitle, directory_language, default_language);
+        xmltoinline(path, moduletitle, directory_language, default_language);
     end
 endfunction

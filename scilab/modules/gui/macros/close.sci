@@ -48,7 +48,7 @@ function close(h)
             for i = 1:size(h,"*")
                 gui = h(i)
                 select gui
-                case "help"
+                case {"help" "doc"}
                     jimport org.scilab.modules.gui.helpbrowser.ScilabHelpBrowser
                     hb = ScilabHelpBrowser.getHelpBrowserWithoutCreation()
                     if type(hb) <> 1
