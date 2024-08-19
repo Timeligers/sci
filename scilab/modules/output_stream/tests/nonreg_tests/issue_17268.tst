@@ -16,3 +16,4 @@
 A=[0,1;0,0];B=[1;1];C=[1,1];
 S1=syslin('c',A,B,C);
 disp(S1, 1, %t, "toto")
+disp("toto", S1, 1, %t)
