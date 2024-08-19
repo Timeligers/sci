@@ -129,7 +129,7 @@ RUN rm -fr *
 #
 # Build the Scilab builder image with minimal dependencies
 #
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL description="Scilab builder image used by CI/CD runners"
 
 # Fetch system dependencies
