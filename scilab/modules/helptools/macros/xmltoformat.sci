@@ -2059,7 +2059,7 @@ function generate_inline_help(modules_tree)
     lang = modules_tree.language;
     xmlfiles = getXMLFiles(modules_tree);
 
-    if 1 then
+    if 0 then
         xmlfiles = ["E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\Matplot.xml";
             "E:\ws\scilab\dev-main\scilab\modules\graphics\help\en_US\2d_plot\plot2d.xml";
             "E:\ws\scilab\dev-main\scilab\modules\core\help\en_US\configuration\recursionlimit.xml";
