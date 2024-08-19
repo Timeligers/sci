@@ -17,6 +17,7 @@ function [binary] = compile_executable(srcFiles, cflags, ldflags)
     if getos() == "Windows"
         binary = binary + ".exe";
 
+        // cl.exe should be in PATH
         CC = "cl.exe /out:"+binary;
         CFLAGS = [  "/Wall"
                     "/I ""WSCI\modules\call_scilab\includes"""
