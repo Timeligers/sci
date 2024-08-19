@@ -21,9 +21,9 @@ function demo_mixed()
   xtitle('PLANT   and   CONTROLLER')
   mode(2)
 
-  path=get_absolute_file_path('mixed.dem');
+  path=get_absolute_file_path('mixed.dem.sce');
   messagebox(['Mixed Sensitivity Controller Design';
-           'file: '+path+'mixed.dem'],"modal");
+           'file: '+path+'mixed.dem.sce'],"modal");
   mode(1)
   s=poly(0,'s');
   str='[(s-1)/((s-1)^2*(s+2))]';
