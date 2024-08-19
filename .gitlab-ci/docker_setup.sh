@@ -90,14 +90,14 @@ if test -n "${CI_REGISTRY_IMAGE}"; then
   docker build -t "${CI_REGISTRY_IMAGE}/ubuntu-20.04:${DOCKER_TAG}" --build-arg DISTRO=ubuntu:20.04 - <.gitlab-ci/linux-images/Dockerfile.ubuntu
   docker build -t "${CI_REGISTRY_IMAGE}/ubuntu-22.04:${DOCKER_TAG}" --build-arg DISTRO=ubuntu:22.04 - <.gitlab-ci/linux-images/Dockerfile.ubuntu
   docker build -t "${CI_REGISTRY_IMAGE}/ubuntu-23.10:${DOCKER_TAG}" --build-arg DISTRO=ubuntu:23.10 - <.gitlab-ci/linux-images/Dockerfile.ubuntu
-  docker build -t "${CI_REGISTRY_IMAGE}/fedora-39:${DOCKER_TAG}" --build-arg DISTRO=fedora:39 - <.gitlab-ci/linux-images/Dockerfile.fedora
+  docker build -t "${CI_REGISTRY_IMAGE}/fedora-40:${DOCKER_TAG}" --build-arg DISTRO=fedora:40 - <.gitlab-ci/linux-images/Dockerfile.fedora
   docker build -t "${CI_REGISTRY_IMAGE}/debian-12:${DOCKER_TAG}" --build-arg DISTRO=debian:12 - <.gitlab-ci/linux-images/Dockerfile.ubuntu
   
   docker push "${CI_REGISTRY_IMAGE}/ubuntu-18.04:${DOCKER_TAG}"
   docker push "${CI_REGISTRY_IMAGE}/ubuntu-20.04:${DOCKER_TAG}"
   docker push "${CI_REGISTRY_IMAGE}/ubuntu-22.04:${DOCKER_TAG}"
   docker push "${CI_REGISTRY_IMAGE}/ubuntu-23.10:${DOCKER_TAG}"
-  docker push "${CI_REGISTRY_IMAGE}/fedora-39:${DOCKER_TAG}"
+  docker push "${CI_REGISTRY_IMAGE}/fedora-40:${DOCKER_TAG}"
   docker push "${CI_REGISTRY_IMAGE}/debian-12:${DOCKER_TAG}"
 fi
 

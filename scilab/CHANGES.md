@@ -101,7 +101,7 @@ Packaging & Supported Operating Systems
   - Linux (amd64):
     - debian:12
     - ubuntu:18.04, 20.04, 22.04, 23.10
-    - fedora:39
+    - fedora:40
 
 API/ABI modification
 --------------------
