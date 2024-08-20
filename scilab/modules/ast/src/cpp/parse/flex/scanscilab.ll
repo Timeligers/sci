@@ -31,6 +31,7 @@ extern "C"
 }
 
 static std::stack<int> paren_levels;
+static std::stack<int> lambda_levels;
 
 static int comment_level = 0;
 static int last_token = 0;
@@ -105,7 +106,7 @@ utf3              ({utf31}|{utf32}|{utf33}|{utf34})
 utf4              ({utf41}|{utf42}|{utf43})
 
 utf               ({utf2}|{utf3}|{utf4})
-id                ((([a-zA-Z_%!#?]|{utf})([a-zA-Z_0-9!#?$]|{utf})*)|([$]([a-zA-Z_0-9!#?$]|{utf})+))
+id                ((([a-zA-Z_%!?]|{utf})([a-zA-Z_0-9!#?$]|{utf})*)|([$#]([a-zA-Z_0-9!#?$]|{utf})+))
 
 incorrect_number  ({integer}|{number}|{floating_D}|{floating_E}){id}
 
@@ -177,6 +178,9 @@ controlrdivide    ("/."[^0-9])
 controlldivide    ("\\."[^0-9])
 
 assign            "="
+
+arrow             "->"
+sharp             "#"
 
 %%
 <INITIAL>{bom}/.* {
@@ -407,14 +411,34 @@ assign            "="
 
 <INITIAL,MATRIX>{boolnot}        return scan_throw(NOT);
 <INITIAL,MATRIX>{dollar}         return scan_throw(DOLLAR);
+<INITIAL,MATRIX>{arrow} {
+  ParserSingleInstance::pushControlStatus(Parser::WithinLambda);
+  lambda_levels.push(0);
+  return scan_throw(ARROW);
+}
+<INITIAL,MATRIX>{sharp}         return scan_throw(SHARP);
 <INITIAL,MATRIX>{booltrue}       return scan_throw(BOOLTRUE);
 <INITIAL,MATRIX>{boolfalse}      return scan_throw(BOOLFALSE);
 <INITIAL,MATRIX>{booland}        return scan_throw(AND);
 <INITIAL,MATRIX>{boolandand}     return scan_throw(ANDAND);
 <INITIAL,MATRIX>{boolor}         return scan_throw(OR);
 <INITIAL,MATRIX>{booloror}       return scan_throw(OROR);
-<INITIAL>{lparen}                return scan_throw(LPAREN);
-<INITIAL>{rparen}                return scan_throw(RPAREN);
+<INITIAL>{lparen} {
+  if (lambda_levels.size()) {
+    ++lambda_levels.top();
+  }
+  return scan_throw(LPAREN);
+}
+<INITIAL>{rparen} {
+  if (lambda_levels.size()) {
+    --lambda_levels.top();
+    if (lambda_levels.top() == 0) {
+      ParserSingleInstance::popControlStatus();
+      lambda_levels.pop();
+    }
+  }
+  return scan_throw(RPAREN);
+}
 
 <INITIAL,MATRIX>{semicolon}      {
   scan_step();
@@ -435,15 +459,15 @@ assign            "="
   return scan_throw(LBRACE);
 }
 
-{rbrace}                         return scan_throw(RBRACE);
+<INITIAL>{rbrace}                return scan_throw(RBRACE);
 
 <INITIAL,MATRIX>{dotquote}       return scan_throw(DOTQUOTE);
 <INITIAL,MATRIX>{dottimes}       return scan_throw(DOTTIMES);
 <INITIAL,MATRIX>{dotrdivide}     return scan_throw(DOTRDIVIDE);
 <INITIAL,MATRIX>{dotldivide}     return scan_throw(DOTLDIVIDE);
 <INITIAL,MATRIX>{dotpower}       return scan_throw(DOTPOWER);
-{minus}                          return scan_throw(MINUS);
-{plus}                           return scan_throw(PLUS);
+<INITIAL>{minus}                 return scan_throw(MINUS);
+<INITIAL>{plus}                  return scan_throw(PLUS);
 <INITIAL,MATRIX>{times}          return scan_throw(TIMES);
 <INITIAL,MATRIX>{rdivide}        return scan_throw(RDIVIDE);
 <INITIAL,MATRIX>{ldivide}        return scan_throw(LDIVIDE);
@@ -875,7 +899,7 @@ assign            "="
     // Example
     // =======
     // A = [1 +...
-    // 2] 
+    // 2]
     //
     // what is meant by the user [1 +2] ? or [1 + 2]
     // simply ignoring the ... would yield the 1st situation [1, 2]
@@ -1000,10 +1024,10 @@ assign            "="
       yylloc.last_column--;
     }
     // yylloc.first_column is the location of the {newline}
-    // remove the size of the comment to have proper location 
+    // remove the size of the comment to have proper location
     // as for <<EOF>> '//' is not part of the comment location
     yylloc.first_column -= pstBuffer.length();
-    
+
     /*
     ** To forgot comments after lines break
     */

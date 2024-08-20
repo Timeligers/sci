@@ -22,10 +22,10 @@ function demo_pid()
   xtitle('PLANT   and   CONTROLLER')
   mode(2);
 
-  path=get_absolute_file_path('pid.dem');
+  path=get_absolute_file_path('pid.dem.sce');
   s=poly(0,'s');z=poly(0,'z');
   messagebox(['Example of PID Design '
-              'file: '+path+'pid.dem'],"modal");
+              'file: '+path+'pid.dem.sce'],"modal");
 
   n=x_choose(['Continuous time';'Discrete time'],'Select time domain');
   select n
