@@ -30,10 +30,10 @@ function demo_lqg()
   xtitle('PLANT   and   CONTROLLER')
 
 
-  path=get_absolute_file_path('lqg.dem');
+  path=get_absolute_file_path('lqg.dem.sce');
   s=poly(0,'s');z=poly(0,'z');
   messagebox(['Simple example of SISO LQG Design';
-           'Demo is in file '+path+'lqg.dem';
+           'Demo is in file '+path+'lqg.dem.sce';
            'Computes the LQG compensator and plots response'],"modal");
 
   n=x_choose(['Continuous time';'Discrete time'],'Select time domain');
