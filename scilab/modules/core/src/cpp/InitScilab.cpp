@@ -395,8 +395,8 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     if (_pSEI->iNoStart == 0)
     {
         //execute scilab.start
-        std::string stPath = scilab::UTF8::toUTF8(ConfigVariable::getSCIPath());
-        std::string stCMD = "exec(\""+stPath+DIR_SEPARATOR+"etc"+DIR_SEPARATOR+"scilab.start\", -1);";
+        std::wstring wstCMD = L"exec(\"" + ConfigVariable::getSCIPath() + DIR_SEPARATORW + L"etc" + DIR_SEPARATORW + L"scilab.start\", -1);";
+        std::string stCMD = scilab::UTF8::toUTF8(wstCMD);
         int ierr = StaticRunner::execCommand(stCMD);
         if (ierr)
         {
@@ -493,8 +493,8 @@ void StopScilabEngine(ScilabEngineInfo* _pSEI)
     else if (_pSEI->iNoStart == 0)
     {
         //execute scilab.quit
-        std::string stPath = scilab::UTF8::toUTF8(ConfigVariable::getSCIPath());
-        std::string stCMD = "exec(\""+stPath+DIR_SEPARATOR+"etc"+DIR_SEPARATOR+"scilab.quit\", -1);";
+        std::wstring wstCMD = L"exec(\""+ConfigVariable::getSCIPath() + DIR_SEPARATORW + L"etc" + DIR_SEPARATORW + L"scilab.quit\", -1);";
+        std::string stCMD = scilab::UTF8::toUTF8(wstCMD);
         StaticRunner::execCommand(stCMD);
 
         //call all modules.quit

@@ -392,8 +392,8 @@ bool FuncManager::CreateModuleList(void)
 bool FuncManager::ExecuteFile(const std::wstring& _stFile)
 {
     //execute scilab.quit
-    std::string stFile = scilab::UTF8::toUTF8(_stFile);
-    std::string stCMD = "exec('"+stFile+"', -1);";
+    std::wstring wstCMD = L"exec('" + _stFile + L"', -1);";
+    std::string stCMD = scilab::UTF8::toUTF8(wstCMD);
     return StaticRunner_execCommand(stCMD.data());
 }
 
