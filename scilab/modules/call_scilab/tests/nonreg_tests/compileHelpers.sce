@@ -26,7 +26,7 @@ function [binary] = compile_executable(srcFiles, cflags, ldflags)
         CL_EXE =  listfiles(getVsWhereInformation()(1).path + "\VC\Tools\MSVC\*")(1) + "\bin\Host"+arch+"\"+arch+"\cl.exe";
         binary = binary + ".exe";
 
-        CC = """" + CL_EXE + """ /out:"+binary;
+        CC = """" + CL_EXE + """ /out:"""+binary+"""";
         CFLAGS = [  "/Wall"
                     "/I ""WSCI\modules\call_scilab\includes"""
                     "/I ""WSCI\modules\core\includes"""
@@ -38,7 +38,7 @@ function [binary] = compile_executable(srcFiles, cflags, ldflags)
                     "/I ""WSCI\modules\localization\includes"""
                     "/I ""WSCI\modules\output_stream\includes"""
                     "/I ""WSCI\libs\intl"""
-                    "-I."];
+                    "/I ""."""];
         LDFLAGS = [ """WSCI\bin\call_scilab.lib"""
                     """WSCI\bin\core.lib"""
                     """WSCI\bin\api_scilab.lib"""
@@ -82,7 +82,7 @@ function [binary] = compile_executable(srcFiles, cflags, ldflags)
         LDFLAGS = [LDFLAGS ; ldflags];
     end
 
-    command = strcat([CC strcat(srcFiles, " ") strcat(CFLAGS, " ") strcat("-Wl," + LDFLAGS, " ")], " ");
+    command = strcat([CC strcat(srcFiles, " ") strcat(CFLAGS, " ") strcat(LDFLAGS, " ")], " ");
     command = strsubst(command, "SCI", SCI);
     if getos() == "Windows"
         command = strsubst(command, "WSCI", WSCI);
