@@ -26,7 +26,7 @@ function [binary] = compile_executable(srcFiles, cflags, ldflags)
         CL_EXE =  listfiles(getVsWhereInformation()(1).path + "\VC\Tools\MSVC\*")(1) + "\bin\Host"+arch+"\"+arch+"\cl.exe";
         binary = binary + ".exe";
 
-        CC = """" + CL_EXE + """ /out:"""+binary+"""";
+        CC = """" + CL_EXE + """ /Fe:"""+binary+"""";
         CFLAGS = [  "/Wall"
                     "/I ""WSCI\modules\call_scilab\includes"""
                     "/I ""WSCI\modules\core\includes"""
@@ -83,13 +83,13 @@ function [binary] = compile_executable(srcFiles, cflags, ldflags)
     end
 
     command = strcat([CC strcat(srcFiles, " ") strcat(CFLAGS, " ") strcat(LDFLAGS, " ")], " ");
-    command = strsubst(command, "SCI", SCI);
     if getos() == "Windows"
         command = strsubst(command, "WSCI", WSCI);
     end
+    command = strsubst(command, "SCI", SCI);
     disp(command)
     
-    status = host(command)
+    status = host(command);
     if status
         error(msprintf("compile_executable: failed %s", command));
     end
@@ -104,10 +104,15 @@ function [stdout, status, stderr] = run_executable(binary)
         else
             env = ["LD_LIBRARY_PATH="+strcat([SCI+"/modules/call_scilab/.libs" SCI+"/modules/.libs"], ":")]
         end
+    else
+        env = [];
     end
 
     command = strcat([strcat(env, " ") binary], " ");
     disp(command)
-    host(command);
+    
     [stdout, status, stderr] = unix_g(command);
+    if status
+        error(msprintf("run_executable: failed %s", command));
+    end
 endfunction
