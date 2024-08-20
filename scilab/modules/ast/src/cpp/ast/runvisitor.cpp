@@ -57,7 +57,6 @@ extern "C"
 #include "storeCommand.h"
 #include "prompt.h"
 #include "scilabRead.h"
-#include "InitScilab.h"
 }
 
 namespace ast
@@ -408,6 +407,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     }
     catch (std::wstring & err)
     {
+        clearResult();
         CoverageInstance::stopChrono((void*)&e);
         throw InternalError(err.c_str(), 999, e.getTail()->getLocation());
     }
