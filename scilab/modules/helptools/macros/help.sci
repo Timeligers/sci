@@ -189,7 +189,7 @@ function printNode(node, indent, outputFormat)
     case "text"
         //printIndent(indent);
         printf("%s", node.string);
-    case "link"
+    case {"link" "ulink"}
         //printIndent(indent);
         printf("%s", node.string);
     case {"literal" "varname" "emphasis"}
