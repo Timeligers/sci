@@ -113,7 +113,6 @@ if test -n "${TESTERS}"; then
   docker build -t "${CI_REGISTRY_IMAGE}/ubuntu-24.04:${DOCKER_TAG}" --build-arg DISTRO=ubuntu:24.04 - <.gitlab-ci/linux-images/Dockerfile.ubuntu
   docker build -t "${CI_REGISTRY_IMAGE}/fedora-39:${DOCKER_TAG}" --build-arg DISTRO=fedora:39 - <.gitlab-ci/linux-images/Dockerfile.fedora
   docker build -t "${CI_REGISTRY_IMAGE}/fedora-40:${DOCKER_TAG}" --build-arg DISTRO=fedora:40 - <.gitlab-ci/linux-images/Dockerfile.fedora
-  docker build -t "${CI_REGISTRY_IMAGE}/debian-11:${DOCKER_TAG}" --build-arg DISTRO=debian:11 - <.gitlab-ci/linux-images/Dockerfile.ubuntu
   docker build -t "${CI_REGISTRY_IMAGE}/debian-12:${DOCKER_TAG}" --build-arg DISTRO=debian:12 - <.gitlab-ci/linux-images/Dockerfile.ubuntu
   
   docker push "${CI_REGISTRY_IMAGE}/ubuntu-20.04:${DOCKER_TAG}"
@@ -122,7 +121,6 @@ if test -n "${TESTERS}"; then
   docker push "${CI_REGISTRY_IMAGE}/ubuntu-24.04:${DOCKER_TAG}"
   docker push "${CI_REGISTRY_IMAGE}/fedora-39:${DOCKER_TAG}"
   docker push "${CI_REGISTRY_IMAGE}/fedora-40:${DOCKER_TAG}"
-  docker push "${CI_REGISTRY_IMAGE}/debian-11:${DOCKER_TAG}"
   docker push "${CI_REGISTRY_IMAGE}/debian-12:${DOCKER_TAG}"
 fi
 
