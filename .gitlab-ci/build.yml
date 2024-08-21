@@ -141,6 +141,7 @@ linux:
           - ubuntu:24.04
           - fedora:39
           - fedora:40
+          - debian:11
           - debian:12
   rules:
     - changes:
