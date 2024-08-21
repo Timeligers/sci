@@ -81,7 +81,7 @@ H5Object & H5LinksList::getObject(const int pos, const bool checkPos)
     return *obj;
 }
 
-std::string H5LinksList::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5LinksList::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
     const unsigned int size = getSize();

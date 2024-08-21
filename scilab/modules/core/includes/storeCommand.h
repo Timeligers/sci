@@ -25,6 +25,13 @@ enum command_origin_t
     DEBUGGER  // command from debugger
 };
 
+enum parse_state
+{
+    Succeded,
+    Failed,
+    NotAllControlClosed
+};
+
 /**
  * Store a non-prioritary and interruptible command
  *
@@ -72,13 +79,9 @@ int StorePrioritaryCommand(const char *command);
 /**
  * Get the next command to execute
  *
- * @param command           : command wich will be executed
- * @param piInterruptible   : 1 if it is a interruptible command
- * @param piPrioritary      : 1 if it is a prioritary command
- * @param iCmdorigin        : origine of the command
- * @return <ReturnValue>    : 0 if command queue is empty
+ * @return <ReturnValue>    : The runner to execute
  */
-int GetCommand(char** command, int* piPrioritary, int* piInterruptible, enum command_origin_t* iCmdorigin);
+void* GetCommand();
 
 /**
 * check if command queue is empty
@@ -91,13 +94,6 @@ int isEmptyCommandQueue(void);
  * @return 1 if empty , 0 is not empty
  */
 int isEmptyCommandQueuePrioritary(void);
-
-/*
- * Checks if there's something on the
- * commandQueue
- * @return
- */
-int ismenu(void);
 
 
 #endif /* __STORECOMMAND_H__ */
