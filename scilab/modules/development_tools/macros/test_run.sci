@@ -441,13 +441,19 @@ function status = test_module(_params)
     testsuite.errors=0 // unexpected errors / exception on execution
     testsuite.failures=0 // when a test failed
 
-    // For the XML export, all temporary files will be preserved on a directory named after the module
-    if ~isfield(_params, "output_dir") || _params.output_dir == "" then
+    // For the XML export, temporary files will be preserved on specific directory
+    if ~isfield(_params, "output_dir") then
+        // on TMPDIR when unspecified
         result_path = TMPDIR + filesep();
+    elseif _params.output_dir == "" then
+        // on current directory
+        result_path = pwd() + filesep();
     else
-        result_path = params.output_dir;
+        // named after the module
+        [_, d] = fileparts(fullpath(_params.moduleName));
+        result_path = params.output_dir + filesep() + d + filesep();
     end
-    _params.output_dir = result_path + basename(moduleName) + filesep();
+    _params.output_dir = result_path;
     remove_output_dir_if_empty = ~isdir(_params.output_dir);
     mkdir(_params.output_dir)
 
