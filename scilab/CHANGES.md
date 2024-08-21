@@ -99,9 +99,9 @@ Packaging & Supported Operating Systems
     - Intel-based Mac running macOS 10.9+ (run) and 10.14+ (compile)
     - M1-based Mac running macOS 11+ (run, compile).
   - Linux (amd64):
+    - debian:11, 12
     - ubuntu:20.04, 22.04, 23.10, 24.04
     - fedora:39, 40
-    - debian:12
 
 API/ABI modification
 --------------------
