@@ -259,7 +259,7 @@ private :
                 std::wstring* s = get_wstring();
                 exp = new CommentExp(loc, s);
                 //delete s;
-                break; 
+                break;
             }
             case 6:
             {
@@ -551,7 +551,15 @@ private :
                 exp = new ListExp(loc, *_start, *_step, *_end, flag);
                 break;
             }
-
+            case 41:
+            {
+                Location args_loc = get_location();
+                Exp* body = get_exp();
+                exps_t* args_list = get_vars();
+                ArrayListVar* args = new ArrayListVar(args_loc, *args_list);
+                exp = new FunctionDec(loc, *args, *body->getAs<SeqExp>());
+                break;
+            }
             default:
                 std::cerr << "Unknown code " << code << std::endl;
                 exit(2);

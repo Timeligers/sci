@@ -44,6 +44,8 @@ windows_build_mr:
   extends: .windows_build
   needs:
     - windows_set_env
+    - job: windows_build_prereq
+      optional: true
   rules:
     - if: $CI_COMMIT_TAG
       when: never
@@ -106,3 +108,46 @@ linux_build_release:
     - linux_set_env
   rules:
     - if: $CI_COMMIT_TAG
+
+# pass the configure and make on regular distro without prerequirements
+linux:
+  stage: build
+  image: ${DISTRO}
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  variables:
+    GIT_CLEAN_FLAGS: "-fxd"
+  script:
+    - >
+      [ -x /usr/bin/apt ] &&
+      export DEBIAN_FRONTEND=noninteractive &&
+      apt update &&
+      apt upgrade -y &&
+      apt install -y gcc g++ gfortran libxml2-dev libhdf5-dev libmatio-dev libfftw3-dev libncurses-dev libeigen3-dev gettext libblas-dev liblapack-dev libarpack2-dev libsuitesparse-dev libpcre3-dev tcl-dev tk-dev libcurl3-dev libarchive-dev >/dev/null
+    - >
+      [ -x /usr/bin/dnf ] &&
+      dnf update -y &&
+      dnf install -y util-linux &&
+      dnf install -y gcc gcc-c++ gcc-fortran libxml2-devel hdf5-devel matio-devel fftw-devel ncurses-devel eigen3-devel gettext blas-devel lapack-devel arpack-devel suitesparse-devel pcre-devel tcl-devel tk-devel libcurl-devel libarchive-devel >/dev/null
+    - useradd scilab
+    - cd scilab
+    - su -c './configure --without-jdk --without-modelica' scilab
+    - su -c 'make --jobs="$(nproc)" >/dev/null' scilab
+  parallel:
+    matrix:
+      - DISTRO:
+          - ubuntu:20.04
+          - ubuntu:22.04
+          - ubuntu:23.10
+          - ubuntu:24.04
+          - fedora:39
+          - fedora:40
+          - debian:11
+          - debian:12
+  rules:
+    - changes:
+        paths:
+          - scilab/configure
+          - scilab/Makefile.in
+          - scilab/modules/Makefile.in
+          - scilab/modules/*/Makefile.in
+      allow_failure: true

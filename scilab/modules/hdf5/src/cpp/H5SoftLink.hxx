@@ -31,7 +31,7 @@ public:
     virtual ~H5SoftLink() { }
 
     virtual std::string toString(const unsigned int indentLevel) const;
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const;
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const;
     virtual std::string ls() const;
     virtual void printLsInfo(std::ostringstream & os) const;
 

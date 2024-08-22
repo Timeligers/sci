@@ -20,7 +20,7 @@ execstr("buildDoc(1)", "errcatch");
 
 // check that saxon is on the classpath
 CP = javaclasspath();
-if find(strstr(CP, "saxon") <> "") == [] then pause, end
+if find(strstr(CP, "Saxon") <> "") == [] then pause, end
 
 // launching xcos with a file must not produce an error
 execstr("xcos(SCI + ""/modules/xcos/tests/nonreg_tests/bug_7015.zcos"")", "errcatch")

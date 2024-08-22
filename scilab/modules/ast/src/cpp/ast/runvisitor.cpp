@@ -267,7 +267,7 @@ void RunVisitorT<T>::visitprivate(const CellExp & e)
             }
         }
 
-        // only comments in the line, 
+        // only comments in the line,
         // don't count them and go to the next one
         if(iCurrentCols == 0)
         {
@@ -331,7 +331,7 @@ void RunVisitorT<T>::visitprivate(const CellExp & e)
             clearResult();
         }
 
-        // increment row iterator only 
+        // increment row iterator only
         // when the row is not empty
         if(j)
         {
@@ -407,6 +407,7 @@ void RunVisitorT<T>::visitprivate(const FieldExp &e)
     }
     catch (std::wstring & err)
     {
+        clearResult();
         CoverageInstance::stopChrono((void*)&e);
         throw InternalError(err.c_str(), 999, e.getTail()->getLocation());
     }
@@ -981,12 +982,12 @@ void RunVisitorT<T>::visitprivate(const ReturnExp &e)
     else
     {
         //return(x)
-
-        if (e.getParent() == nullptr || e.getParent()->isAssignExp() == false)
+        if (isLambda() == false && (e.getParent() == nullptr || e.getParent()->isAssignExp() == false))
         {
             CoverageInstance::stopChrono((void*)&e);
             throw InternalError(_W("With input arguments, return / resume expects output arguments.\n"), 999, e.getLocation());
         }
+
         //in case of CallExp, we can return only one value
         int iSaveExpectedSize = getExpectedSize();
         setExpectedSize(1);
@@ -1303,23 +1304,34 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
 
     //get output parameters list
     std::vector<symbol::Variable*>* pRetList = new std::vector<symbol::Variable*>();
-    const exps_t & rets = e.getReturns().getVars();
-    for (const auto ret : rets)
+    if (e.isLambda() == false)
     {
-        pRetList->push_back(ret->getAs<SimpleVar>()->getStack());
+        const exps_t& rets = e.getReturns().getVars();
+        for (const auto ret : rets)
+        {
+            pRetList->push_back(ret->getAs<SimpleVar>()->getStack());
+        }
     }
 
     types::Macro* pMacro = const_cast<ast::FunctionDec&>(e).getMacro();
     if (pMacro == nullptr)
     {
-        pMacro = new types::Macro(e.getSymbol().getName(), *pVarList, *pRetList, const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
+        if (e.isLambda())
+        {
+            pMacro = new types::Macro(*pVarList, const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
+        }
+        else
+        {
+            pMacro = new types::Macro(e.getSymbol().getName(), *pVarList, *pRetList, const_cast<SeqExp&>(static_cast<const SeqExp&>(e.getBody())), L"script");
+            pMacro->IncreaseRef();
+            const_cast<ast::FunctionDec&>(e).setMacro(pMacro);
+        }
+
         pMacro->setLines(e.getLocation().first_line, e.getLocation().last_line);
         if (e.getMacro())
         {
             pMacro->setFileName(e.getMacro()->getFileName());
         }
-
-        const_cast<ast::FunctionDec&>(e).setMacro(pMacro);
     }
 
     if (ctx->isprotected(symbol::Symbol(pMacro->getName())))
@@ -1331,7 +1343,11 @@ void RunVisitorT<T>::visitprivate(const FunctionDec & e)
         throw InternalError(os.str(), 999, e.getLocation());
     }
 
-    if (ctx->addMacro(pMacro) == false)
+    if (pMacro->isLambda())
+    {
+        setResult(pMacro);
+    }
+    else if (ctx->addMacro(pMacro) == false)
     {
         char pstError[1024];
         char* pstFuncName = wide_string_to_UTF8(e.getSymbol().getName().c_str());

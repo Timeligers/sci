@@ -17,7 +17,7 @@
 // <-- Short Description -->
 // Parser did not display anything when failing on UTF-8 char
 
-errmsg = ["mclose(1";"^";"Error: syntax error, unexpected end of line, expecting , or )"];
+errmsg = ["mclose(1";"^";"Error: syntax error, unexpected end of line, expecting "","" or )"];
 assert_checkerror("execstr(""mclose(1"")", errmsg);
 
 errmsg = ["mclose(1°";"       ^~~^";"Error: syntax error, unexpected identifier, expecting end of file"];
