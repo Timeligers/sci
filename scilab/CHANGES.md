@@ -45,12 +45,7 @@ In summary, the main new features and additions are:
 
 ### Differential equations
 
-<<<<<<< HEAD
-- Some Scilab modules (`Statistics`, `Elementary functions`, ...) have been updated to use the `arguments` block hence enhancing their performances.
-- Sparse matrix concatenation and product operations have been sped up (See #17183).
-=======
 - __add information about differential equations before and keep this line__
->>>>>>> 1b489a362564773c54081e3cbb5cc28663f1cb3b
 
 ### Sparse matrices
 
