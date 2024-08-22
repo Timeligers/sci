@@ -13,7 +13,7 @@
 // https://gitlab.com/scilab/scilab/-/issues/1248
 //
 // <-- Short Description -->
-// Postcript export export displayed text even if it is ouside the viewing area.
+// Postscript export export displayed text even if it is ouside the viewing area.
 
 
 x=1:.5:100;

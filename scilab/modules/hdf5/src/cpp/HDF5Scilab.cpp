@@ -930,11 +930,6 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
 
 void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** dims, void ** data, bool * mustDelete, bool * mustDeleteContent, const bool flip, int * addr, int rhsPosition, void * pvApiCtx)
 {
-    SciErr err;
-    int row;
-    int col;
-    int _type;
-
     *mustDelete = false;
     *mustDeleteContent = false;
 

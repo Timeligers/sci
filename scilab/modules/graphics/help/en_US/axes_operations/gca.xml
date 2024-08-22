@@ -60,6 +60,9 @@ close(0) //delete a graphics window
         <title>See also</title>
         <simplelist type="inline">
             <member>
+                <link linkend="sca">sca</link>
+            </member>
+            <member>
                 <link linkend="gda">gda</link>
             </member>
             <member>

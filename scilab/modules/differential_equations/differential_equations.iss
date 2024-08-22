@@ -27,6 +27,7 @@ Source: bin\{#DIFFEQU}_f.lib; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\{#DIFFEQU}.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\{#DIFFEQU}_gw.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\{#PATCHSUN}.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\{#PATCHSUN}.lib; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 ;
 Source: modules\{#DIFFEQU}\license.txt; DestDir: {app}\modules\{#DIFFEQU}; Components: {#COMPN_SCILAB}
 ;

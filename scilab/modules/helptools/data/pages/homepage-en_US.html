@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Scilab Help Homepage</title>
     <style type="text/css" media="all">
         @import url("scilab_code.css");
@@ -20,63 +20,91 @@
         <a href="https://gitlab.com/scilab/scilab/-/wikis/home" class="ulink">Wiki</a> |
         <a href="https://gitlab.com/scilab/scilab/-/issues" class="ulink">Issues</a> |
         <a href="https://gitlab.com/scilab/forge/" class="ulink">Forge</a> |
+        <a href="https://scilab.discourse.group/" class="ulink">Discourse</a> |
         <a href="https://www.scilab.org/about/community/mailing-lists" class="ulink">Mailing Lists Archives</a> |
         <a href="https://atoms.scilab.org/" class="ulink">ATOMS</a> |
         <a href="https://fileexchange.scilab.org/" class="ulink">File Exchange</a>
-        <hr>
+        <hr/>
     </div>
     <span class="path"><a href="index.html">Scilab help</a> &gt;&gt; Homepage</span>
-    <br>
-    <br>
+    <br/>
+    <br/>
     <div class="refsection">
-        <h2 class="title">Welcome to Scilab 2023.1.0</h2>
+        <h2 class="title">Welcome to Scilab 2024.1.0</h2>
         <p class="para">
-            Scilab 2023.1.0 is a new stable release of Scilab, the open-source
+            Scilab 2024.1.0 is a new stable release of Scilab, the open-source
             platform for numerical computation.
         </p>
         <p class="para">
-            Here is a tour of the changes since Scilab 6.1.1.
+            Here is a tour of the changes since Scilab 2023.1.0.
         </p>
         <p class="para">
-            To have a tour with the help browser, enter <code>help("2023.1.0")</code>
+            To view it in the help browser, enter <code>help("2024.1.0")</code>
             in the console, and browse related pages.
         </p>
         <h3 class="title">Feature changes and additions</h3>
         <ul>
-            <li>ATOMS:
+            <li>New functions:
                 <ul>
-                    <li><code>atomsInstall()</code> will now try to build a package (containing only Scilab code) locally from sources when no compatible binary version is found.</li>
-                    <li><code>curl</code> is now used as default in <code>atomsDownload()</code> for all OS to handle local file repositories.
+                    <li>Timeseries introduces a large set of functions and features to simplify the management of timed data and data tables in Scilab.</li>
+                    <li><code>cvode()</code>, <code>arkode()</code>, <code>ida()</code> and <code>kinsol()</code> from <a href="https://computing.llnl.gov/projects/sundials">SUNDIALS</a>.</li>
+                    <li><code>compress()</code> and <code>decompress()</code> functions manage compressed archives (ZIP, tar.gz and tar.xz files).</li>
+                    <li><code>angle()</code> computes the argument of complex numbers, in radians.</li>
+                    <li><code>uiimport()</code> GUI facilitating the import data from CSV or TXT file.</li>
+                    <li><code>scilab()</code> runs another Scilab in interactive or batch mode with command line options.</li>
+                    <li><code>colormap()</code> sets and/or gets a figure colormap.</li>
+                    <li><code>bezier()</code> computes the points of a Bezier curve using <code>bernstein()</code> matrix.</li>
+                    <li><code>princomp()</code> now returns the variance percentage and the estimated mean of each variable of input.</li>
+                    <li><a href="https://help.scilab.org/predefined_colormaps">Predefined colormaps</a> function helpers have been added to generate different types of <a href="https://help.scilab.org/colormaps">colormaps</a>.</li>
                 </ul>
             </li>
-            <li>Development Tools:
+            <li>Language changes:
                 <ul>
-                    <li><code>tbx_make(".", "localization")</code> can now update files of translated messages according to new gettext entries in the code.</li>
-                    <li><code>tbx_make(".", "help", lang)</code> builds the documentation restricted to a given language.</li>
-                </ul>
-            </li>
-            <li>Graphics:
-                <ul>
-                    <li><code>edit_curv()</code> UI has been upgraded (copy/paste, deletion of points, ...).</li>
-                    <li><code>auto_stretch</code> property has been added for axes handles.</li>
+                    <li><code>arguments/end</code> keywords added: validate function input arguments in a standard way (using standard error messages) and faster than using Scilab code (<code>type</code>, <code>typeof</code>, ...).
+                    Some helpers have been added for this new block: <code>mustBeSameType</code>, <code>mustBeEqualDimsOrScalar</code>, ...
+                    Some Scilab functions (<code>modulo</code>, <code>pmodulo</code>, ...) and modules (<code>elementary functions</code>, <code>statistics</code>, <code>time</code>, ...) have been updated to use this new block hence enhancing theirs performances.</li>
+                    <li><code>select/case</code> supports multiple cases with <code>cells</code>.</li>
+                    <li>When calling a function or extracting values, it is possible to skip an output argument. If a variable is named <code>_</code> the output value will not be assigned (e.g. <code>[r1, _, r3,...] = func(...)</code>).</li>
                 </ul>
             </li>
             <li>Web Tools:
                 <ul>
-                    <li><code>http_get()</code> function now sets <code>accept-encoding</code> flag.</li>
-                    <li>Optional <code>verbose</code> parameter added to <code>http_get()</code>.</li>
-                    <li><code>toJSON(var, filename, indent)</code> implemented, after <code>toJSON(var, filename)</code>.</li>
-                    <li><code>fromJSON()</code> and <code>toJSON()</code> processing of <code>tab</code> (<code>ascii(9)</code>) is changed.</li>
+                <li>Use <code>curl</code> as default in <code>atomsDownload()</code> for all OS to handle local file repositories.</li>
+                <li><code>url_encode()</code> and <code>url_decode()</code> are added.</li>
+                <li>Headers added as optional input and output argument to <code>http_*</code> functions.</li>
+                <li>Cookie management added to webtools module.</li>
                 </ul>
+            </li>
+            <li>Graphics:
+                <ul>
+                <li>New markers types added for graphic objects:
+                <ul>
+                <li>triangles pointing to data: upward, downward, left, right,</li>
+                <li>horizontal line (minus sign) centered on data,</li>
+                <li>vertical line centered on data.</li>
+                </ul>
+                </li>
+                <li><code>errbar()</code> function uses horiontal line marks.</li>
+                <li><code>subplot()</code> manages <code>frame</code> uicontrols.</li>
+                </ul>
+            </li>
+            <li>Differential equations:
+                <ul>
+                <li>Several features added to <code>cvode()</code>, <code>arkode()</code>, <code>ida()</code> and <code>kinsol()</code> through optional arguments (<code>cvode()</code> and <code>ida()</code> have specific sensitivity features).</li>
+                <li>Absolute and relative numerical tolerances added to <code>intl()</code> input arguments.</li>
+                </ul>
+            </li>
+            <li>Sparse matrices:
+                <ul>
+                <li><a href="https://github.com/CSCsw/ColPack">ColPack</a> graph coloring algorithms for sparse jacobian computation have been integrated.</li>
+                <li>Sparse matrix concatenation and product operations have been speedup (See <a href="https://gitlab.com/scilab/scilab/-/issues/17183">#17183</a>).</li>
+            </ul>
             </li>
             <li>Other Improvements:
                 <ul>
-                    <li>Polynomial exponent display can either use ASCII or Unicode, and is configurable through preferences.</li>
-                    <li><code>for c = h,..., end</code> now accepts an hypermatrix <code>h</code> and iterates over its columns <code>matrix(h, size(h,1),-1)</code>.</li>
-                    <li>When an operation fails due to mismatching sizes of operands, the sizes are now displayed in the message.</li>
-                    <li><code>cat()</code> accepts arrays of different but compatible types according to <code>[,]</code> and <code>[;]</code> rules.</li>
-                    <li>Displaying <code>covWrite("html", dir)</code> results is improved.</li>
-                    <li>MKL version has been updated for Windows version.</li>
+                    <li><code>strsubst()</code> manages group in replacement.</li>
+                    <li><code>string()</code> accepts <code>lists</code>, <code>cells</code> and <code>structs</code>.</li>
+                    <li>Type and Dimensions of variables are now displayed in command line output.</li>
                 </ul>
             </li>
         </ul>
@@ -86,7 +114,7 @@
             Detailed information about those improvements can be found in the <a href="CHANGES.html">CHANGES</a> file.
         </p>
     </div>
-    <hr>
+    <hr/>
     <div class="refsection">
         <h3 class="title">Documentation and help</h3>
         <p class="para">If you are new to Scilab, please use
@@ -98,7 +126,7 @@
             some <a href="https://www.scilab.org/tutorials">documentation
                 and tutorials</a>.</p>
     </div>
-    <hr>
+    <hr/>
     <div class="refsection">
         <h3 class="title">Other resources</h3>
         <p class="para"><a href="https://www.scilab.org/" class="ulink">Scilab Website</a> - Consult Scilab official
@@ -109,12 +137,14 @@
             about Scilab</p>
         <p class="para"><a href="https://gitlab.com/scilab/forge/" class="ulink">Forge</a> - Browse and publish Scilab modules
         </p>
-        <p class="para"><a href="https://www.scilab.org/about/community/mailing-lists" class="ulink">Mailing Lists</a> -
+        <p class="para"><a href="https://scilab.discourse.group/" class="ulink">Discourse</a> -
             Communicate and exchange with the community</p>
+        <p class="para"><a href="https://www.scilab.org/about/community/mailing-lists" class="ulink">Mailing Lists Archives</a> -
+            Consult mailing-lists archives</p>
         <p class="para"><a href="https://atoms.scilab.org/" class="ulink">ATOMS</a> - Browse Scilab packaged modules</p>
         <p class="para"><a href="https://fileexchange.scilab.org/" class="ulink">File Exchange</a> - Exchange your
             scripts, results and files.</p>
-        <br>
+        <br/>
     </div>
 </body>
 

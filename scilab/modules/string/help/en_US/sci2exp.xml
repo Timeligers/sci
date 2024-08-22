@@ -328,6 +328,12 @@ Rp == p
                     <literal>s</literal> or <literal>z</literal>.
                 </revremark>
             </revision>
+            <revision>
+                <revnumber>2024.1.0</revnumber>
+                <revremark>
+                    <literal>sci2exp(c)</literal>, where c is a cell, now returns expression using <literal>{}</literal> instead of <literal>makecell</literal>.
+                </revremark>
+            </revision>
         </revhistory>
     </refsection>
 </refentry>

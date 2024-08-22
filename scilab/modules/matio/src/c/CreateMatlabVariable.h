@@ -140,8 +140,9 @@ int CreateSparseVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * 
  * @return TRUE if the variable has been written without problem
  */
 int CreateDoubleVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * parent, int item_position);
+int CreateFloatVariable(void* pvApiCtx, int iVar, matvar_t* matVariable, int* parent, int item_position);
 
-/*
+    /*
  * Create a Scilab Boolean variable on stack from a Matlab variable
  *
  * @param pvApiCtx Scilab context

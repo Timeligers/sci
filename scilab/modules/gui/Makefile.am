@@ -307,6 +307,7 @@ libscigui_la_iconsdir=$(mydatadir)/
 nobase_libscigui_la_icons_DATA = \
 images/icons/16x16/actions/code-navigator.png \
 images/icons/16x16/actions/color-fill.png \
+images/icons/16x16/actions/deselect_all.png \
 images/icons/16x16/actions/document-new.png \
 images/icons/16x16/actions/document-open.png \
 images/icons/16x16/actions/document-open-sci.png \
@@ -342,6 +343,7 @@ images/icons/16x16/actions/media-playback-stop.png \
 images/icons/16x16/actions/plot.png \
 images/icons/16x16/actions/save-and-execute.png \
 images/icons/16x16/actions/scilab_search.png \
+images/icons/16x16/actions/select_all.png \
 images/icons/16x16/actions/shorte.png \
 images/icons/16x16/actions/short.png \
 images/icons/16x16/actions/SizeColumnsToFit.png \
@@ -380,6 +382,7 @@ images/icons/16x16/mimetypes/text-csv.png \
 images/icons/16x16/mimetypes/text-html.png \
 images/icons/16x16/mimetypes/text-x-generic.png \
 images/icons/16x16/mimetypes/text-xml.png \
+images/icons/16x16/mimetypes/x-office-presentation.png \
 images/icons/16x16/mimetypes/application-mat.png \
 images/icons/16x16/places/folder.png \
 images/icons/16x16/places/folder-saved-search.png \
@@ -418,7 +421,6 @@ images/icons/64x40/mimetypes/application-x-scilab-Sgrayplot.png \
 images/icons/64x40/mimetypes/application-x-scilab-surf.png \
 images/icons/256x256/apps/accessories-text-editor.png \
 images/icons/256x256/apps/puffin.png \
-images/icons/256x256/apps/scilabMacOS.png \
 images/icons/256x256/apps/rrze_table.png \
 images/icons/256x256/apps/system-search.png \
 images/icons/256x256/apps/utilities-system-monitor.png \

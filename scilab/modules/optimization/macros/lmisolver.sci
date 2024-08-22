@@ -198,7 +198,8 @@ function [%Xlist,%OPT]=lmisolver(%Xinit,%evalfunc,%options)
             %kerE=%kerE*%P;
             %m=%rk;
             %P=[];
-
+        else
+            ludel(%ptr);
         end
     end
 

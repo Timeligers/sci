@@ -184,6 +184,9 @@
     <ClCompile Include="..\c\sci_cdfnor.c" />
     <ClCompile Include="..\c\sci_cdfpoi.c" />
     <ClCompile Include="..\c\sci_cdft.c" />
+    <ClCompile Include="sci_mean.cpp" />
+    <ClCompile Include="sci_nanmean.cpp" />
+    <ClCompile Include="sci_nansum.cpp" />
     <ClCompile Include="sci_percent_cov.cpp" />
   </ItemGroup>
   <ItemGroup>

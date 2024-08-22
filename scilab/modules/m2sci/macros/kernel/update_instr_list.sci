@@ -32,7 +32,7 @@ function [instr_list]=update_instr_list(instr_list,instr)
     m2sci_to_insert_b=list()
 
     // Insert converted instruction
-    // instr can be an empty list if a call to 'm2scideclare' or convertion made in m2sci_to_insert_b
+    // instr can be an empty list if a call to 'm2scideclare' or conversion made in m2sci_to_insert_b
     if instr<>list() then
         instr_list($+1)=instr
     end

@@ -47,7 +47,7 @@ public class GoToHomeAction extends CommonCallBack {
     public void callBack() {
         File f = new File(ScilabConstants.USERHOME);
         if (f.exists() && f.isDirectory() && f.canRead()) {
-            InterpreterManagement.requestScilabExec("chdir('" + f.getAbsolutePath() + "')");
+            InterpreterManagement.requestScilabExec("chdir('" + f.getAbsolutePath() + "');");
             FileBrowser.setBaseDir(f.getAbsolutePath());
         }
     }

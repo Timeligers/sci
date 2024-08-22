@@ -33,8 +33,6 @@
 
             [U,S,V]=svd(X)
 
-            [U,S,V]=svd(X,0) (obsolete)
-
             [U,S,V]=svd(X,"e")
 
             [U,S,V,rk]=svd(X [,tol])
@@ -257,6 +255,12 @@ sqrt(spec(X*X'))
                 <revnumber>2023.0.0</revnumber>
                 <revdescription>
                     <para>svd(X, 0) is obsolete, use svd(X, "e") instead.</para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    <para>svd(X, 0) is no more supported, use svd(X, "e") instead.</para>
                 </revdescription>
             </revision>
         </revhistory>

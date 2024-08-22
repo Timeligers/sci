@@ -2547,6 +2547,16 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
           SUNDIALS_MARK_FUNCTION_END(IDA_PROFILER);
           return(IDA_RTFUNC_FAIL);
         }
+        /* SUNDIALS EXTENSION */
+        if (is_sundials_with_extension())
+        {
+          if (ier == ZERODETACHING)    /* Zero detaching */
+          {
+            IDA_mem->ida_irfnd = 1;
+            IDA_mem->ida_tretlast = *tret = IDA_mem->ida_tlo;
+            return(IDA_ZERO_DETACH_RETURN);
+          }
+        }
       }
 
     } /* end of root stop check */
@@ -2711,13 +2721,13 @@ int IDASolve(void *ida_mem, realtype tout, realtype *tret,
       /* SUNDIALS EXTENSION */
       if (is_sundials_with_extension())
       {
-          if (ier == ZERODETACHING)    /* Zero detaching */
-          {
-              IDA_mem->ida_irfnd = 1;
-              istate = IDA_ZERO_DETACH_RETURN;
-              IDA_mem->ida_tretlast = *tret = IDA_mem->ida_tlo;
-              break;
-          }
+        if (ier == ZERODETACHING)    /* Zero detaching */
+        {
+          IDA_mem->ida_irfnd = 1;
+          istate = IDA_ZERO_DETACH_RETURN;
+          IDA_mem->ida_tretlast = *tret = IDA_mem->ida_tlo;
+          break;
+        }
       }
 
       /* If we are at the end of the first step and we still have

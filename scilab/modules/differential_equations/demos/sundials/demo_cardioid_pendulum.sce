@@ -28,7 +28,12 @@ function demo_cardioid_pendulum()
     function term=cbFn(t,y,yp,flag,stats,h)
         term=%f;
         realtime(t)
+        if get("stop") == [] then term=%t; return; end
         try
+            if get("stop") == [] then
+                term=%t;
+                return
+            end
             if is_handle_valid(h) 
                 h.data=[y(1:2) y(3:4)]';    
                 gca().title.text=msprintf("t=%4.1f",t);
@@ -43,8 +48,9 @@ function demo_cardioid_pendulum()
     //load Lagrangian DAE macros
     exec(fullfile(get_absolute_file_path(),"lagrangian_DAE.sce"),-1)
 
-    clf
-    demo_viewCode("demo_cardioid_pendulum.sce")
+    my_handle = scf(100001);
+    clf(my_handle,"reset");
+    demo_viewCode("demo_cardioid_pendulum.sce");
 
     N=200;
     th=linspace(0,2*%pi,N);
@@ -63,7 +69,7 @@ function demo_cardioid_pendulum()
     h=plot(x0([1,3]), x0([2,4]),'-o')
     title("")
     b = uicontrol("string","Stop","Callback_Type",10,"tag","stop",...
-            "callback","delete(findobj(""tag"",""stop""));abort");
+            "callback","delete(gcbo)");
     b.position(3) = 60;
     realtimeinit(1)
     realtime(0)

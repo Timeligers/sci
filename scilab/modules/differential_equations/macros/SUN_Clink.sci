@@ -43,13 +43,24 @@ function _lib = SUN_Clink(names,files_in,p1,p2,p3,p4,p5,p6,p7,p8,p9)
     end
 
     CFLAGS = "";
-        // Source tree version
+    // Source tree version
     if isdir(SCI+"/modules/differential_equations/src/")
         SUNDIALSpath = fullfile(SCI,'modules','differential_equations','src','patched_sundials','include');
         CFLAGS=" -I"+SUNDIALSpath;
     elseif getos() == "Windows"
         SUNDIALSpath = fullfile(SCI,'modules','differential_equations','includes');
         CFLAGS=" -I"+SUNDIALSpath;
+    end
+    
+    LDFLAGS = "";
+    if getos() == "Windows"
+        LDFLAGS=" "+SCI+"\bin\patched_sundials.lib";
+    elseif isfile(SCI+"/modules/differential_equations/.libs/libscisundials"+getdynlibext())
+        // Unix source tree version
+        LDFLAGS=" "+SCI+"/modules/differential_equations/.libs/libscisundials"+getdynlibext();
+    else
+        // Unix binary tree version
+        LDFLAGS=" "+SCI+"/../../lib/scilab/libscisundials"+getdynlibext();
     end
 
     VERBOSE = 1;
@@ -69,7 +80,6 @@ function _lib = SUN_Clink(names,files_in,p1,p2,p3,p4,p5,p6,p7,p8,p9)
         end
         CFLAGS = CFLAGS+" "+cflags
     end
-    LDFLAGS = "";
     if exists("ldflags","local")
         opt(opt=="ldflags") = [];
         if typeof(ldflags) <> "string" || size(ldflags,"*") > 1

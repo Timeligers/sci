@@ -37,6 +37,8 @@ Source: modules\{#PARAMETERS}\macros\buildmacros.sce; DestDir: {app}\modules\{#P
 Source: modules\{#PARAMETERS}\macros\buildmacros.bat; DestDir: {app}\modules\{#PARAMETERS}\macros; Flags: recursesubdirs; Components: {#COMPN_SCILAB}
 Source: modules\{#PARAMETERS}\macros\cleanmacros.bat; DestDir: {app}\modules\{#PARAMETERS}\macros; Flags: recursesubdirs; Components: {#COMPN_SCILAB}
 ;
+Source: modules\{#PARAMETERS}\demos\*.*; DestDir: {app}\modules\{#PARAMETERS}\demos; Flags: recursesubdirs; Components: {#COMPN_SCILAB}
+;
 Source: modules\{#PARAMETERS}\tests\*.*; DestDir: {app}\modules\{#PARAMETERS}\tests; Flags: recursesubdirs; Components: {#COMPN_SCILAB} and {#COMPN_TESTS}
 ;
 ;--------------------------------------------------------------------------------------------------------------

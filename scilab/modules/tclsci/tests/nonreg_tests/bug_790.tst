@@ -6,6 +6,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// <-- NO CHECK REF -->
 // <-- Non-regression test for bug 790 -->
 //
 // <-- GitLab URL -->
@@ -15,7 +16,6 @@
 //    Scilab crashes when you enter findobj().
 //    I know that it is not usefull but, the bug exists.
 
-refMsg = msprintf(gettext("%s: Wrong number of input arguments: %d or %d expected.\n"), "findobj", 1, 2);
-assert_checkerror("findobj()", refMsg)
-assert_checktrue(execstr("findobj(""test"") == []","errcatch")==0);
-assert_checktrue(execstr("findobj(""Param1"",""Param2"") == []","errcatch")==0);
+assert_checktrue(isempty(findobj()));
+assert_checktrue(findobj("test") == []);
+assert_checktrue(findobj("Param1", "Param2") == []);

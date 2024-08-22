@@ -12,7 +12,7 @@
 // https://gitlab.com/scilab/scilab/-/issues/14636
 //
 // <-- Short Description -->
-// A crash occured after read()-ing an empty file
+// A crash occurred after read()-ing an empty file
 
 fd = mopen(TMPDIR+"/empty", "w");
 assert_checkequal(mclose(fd), 0);

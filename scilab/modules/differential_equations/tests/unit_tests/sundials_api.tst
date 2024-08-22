@@ -19,7 +19,7 @@ mputl([
 "ydot[1] = (1-y[0]*y[0])*y[1]-y[0];"
 "return 0;"
 "}"
-],"code.c")
-SUN_Clink("sunRhs","code.c",load=%t);
+],TMPDIR+"/code.c")
+SUN_Clink("sunRhs",TMPDIR+"/code.c",load=%t);
 
 [t,y] = cvode("sunRhs",[0 1],[0;2])

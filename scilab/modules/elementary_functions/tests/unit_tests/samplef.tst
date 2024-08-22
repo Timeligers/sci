@@ -15,7 +15,7 @@
 //==============================================================================
 fname = "samplef";
 
-err_msg_negative = msprintf(_("%s: Wrong value for input argument #%d: Non-negative values expected.\n"), fname, 3);
+err_msg_negative = msprintf(_("%s: Wrong value for input argument #%d: Non negative numbers expected.\n"), fname, 3);
 
 err_msg_size_glob = msprintf(_("%s: Wrong size for input argument #%d and #%d: Same size expected.\n"), fname, 2, 3);
 

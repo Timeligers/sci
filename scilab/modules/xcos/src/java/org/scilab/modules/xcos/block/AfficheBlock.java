@@ -252,4 +252,12 @@ public final class AfficheBlock extends BasicBlock {
             }
         }
     }
+
+    /**
+     * Terminate the timer to ensure Swing resources are released
+     */
+    public static void forceClose()
+    {
+        printTimer.stop();
+    }
 }

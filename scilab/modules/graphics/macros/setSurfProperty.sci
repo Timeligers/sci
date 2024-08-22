@@ -152,7 +152,8 @@ function fail = setSurfProperty(PropertyName, PropertyValue, Surface, X, Y, Z, C
                 Surface.line_style=1;
                 Surface.surface_mode = "on";
             elseif (PropertyValue=="none")
-                Surface.surface_mode = "off";
+                Surface.color_mode = -1; // color_mode < 0 hides the mesh and displays only facets bodies.
+                Surface.surface_mode = "on";
             end
         else
             msg = gettext("%s: Wrong type for input argument #%d: string expected.\n");

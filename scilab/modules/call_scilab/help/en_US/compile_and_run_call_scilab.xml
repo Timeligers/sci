@@ -254,18 +254,6 @@ $ ./myExample
             <member>
                 <link linkend="SendScilabJobs">SendScilabJobs</link>
             </member>
-            <member>
-                <link linkend="DoubleManagement_callscilab">Double Management</link>
-            </member>
-            <member>
-                <link linkend="BooleanManagement_callscilab">Boolean Management</link>
-            </member>
-            <member>
-                <link linkend="ComplexManagement_callscilab">Complex Management</link>
-            </member>
-            <member>
-                <link linkend="StringManagement_callscilab">String Management</link>
-            </member>
         </simplelist>
     </refsection>
 </refentry>

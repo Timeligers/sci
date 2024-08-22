@@ -25,10 +25,11 @@ function [nonan,numb]=thrownan(x)
     //vector (columns  first).
     //
     //
-    [lhs,rhs]=argn(0)
-    if ( rhs<>1 ) then
-        error(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"thrownan",1))
+    
+    arguments
+        x
     end
+    
     tf = ~isnan(x)
     numb=find(bool2s(tf))
     nonan=x(tf)

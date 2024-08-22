@@ -8,6 +8,9 @@
 
 // <-- Non-regression test for bug 4319 -->
 //
+// <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
+//
 // <-- GitLab URL -->
 // https://gitlab.com/scilab/scilab/-/issues/4319
 //
@@ -16,18 +19,18 @@
 //  missing
 //2 states
 A = [-5,-6;
-     6,-4]
+     6,-4];
 //five inputs
 B = [0,-14,17,2,9;
-     2,17,19,-10,-9]
+     2,17,19,-10,-9];
 //three outputs
 C = [0,-17;
      3,-14;
-     8,7]
+     8,7];
 
 D = [1,1,1,3,4;
      1,1,6,0,2;
-     1,1,7,5,5]
+     1,1,7,5,5];
 PP=syslin('c',A,B,C,D);
 gopt=gamitg(PP,[1 1]);
 

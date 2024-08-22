@@ -237,7 +237,7 @@ void DebuggerVisitor::visit(const SeqExp  &e)
         }
 
         // interrupt me to execute a prioritary command
-        while (StaticRunner_isRunnerAvailable() == 1 && StaticRunner_isInterruptibleCommand() == 1)
+        while (isEmptyCommandQueuePrioritary() == 0 && StaticRunner_isInterruptibleCommand() == 1)
         {
             StaticRunner_launch();
         }

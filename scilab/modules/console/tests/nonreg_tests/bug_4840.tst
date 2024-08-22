@@ -23,13 +23,13 @@ rmax = 12
 IMAX = 50;
 JMAX = IMAX;
 for run = 1:rmax
-  tic;
+  timer();
   for i = 1:IMAX
     for j = 1:JMAX
       mprintf("I=%d, J=%d\n",i,j);
     end
   end
-  t = toc();
+  t = timer();
   times = [times t];
 end
 times

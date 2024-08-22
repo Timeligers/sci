@@ -37,7 +37,6 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import javax.swing.text.html.Option;
 
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.commons.ScilabCommons;
@@ -60,6 +59,7 @@ import org.scilab.modules.gui.utils.ClosingOperationsManager;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
 import org.scilab.modules.xcos.actions.ExternalAction;
 import org.scilab.modules.xcos.actions.StopAction;
+import org.scilab.modules.xcos.block.AfficheBlock;
 import org.scilab.modules.xcos.configuration.ConfigurationManager;
 import org.scilab.modules.xcos.configuration.model.DocumentType;
 import org.scilab.modules.xcos.explorer.BrowserTab;
@@ -109,9 +109,10 @@ public final class Xcos {
             // wait the Scilab startup termination
             final Timer t = new Timer(500, null);
             t.addActionListener((e) -> {
+                t.stop();
+                
                 if (ScilabCommons.getStartProcessing() == 1)
                     return;
-                t.stop();
 
                 /* load scicos libraries (macros) */
                 InterpreterManagement.requestScilabExec(LOAD_XCOS_LIBS_LOAD_SCICOS);
@@ -752,12 +753,12 @@ public final class Xcos {
          */
         final Xcos instance = sharedInstance;
 
-        // get all tabs
+        // get all visible tabs
         final List<SwingScilabDockablePanel> tabs = new ArrayList<SwingScilabDockablePanel>();
         for (final Collection<XcosDiagram> diags : instance.diagrams.values()) {
             for (final XcosDiagram diag : diags) {
                 final SwingScilabDockablePanel tab = XcosTab.get(diag);
-                if (tab != null) {
+                if (tab != null && tab.isVisible()) {
                     tabs.add(tab);
                 }
             }
@@ -873,6 +874,8 @@ public final class Xcos {
                 public void run() {
                     closeSession(false);
                     clearInstance();
+
+                    AfficheBlock.forceClose();
                 }
             });
         } catch (final InterruptedException e) {

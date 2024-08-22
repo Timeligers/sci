@@ -54,6 +54,9 @@
     <ClCompile Include="sci_exit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sci_isatty.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="sci_getmd5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

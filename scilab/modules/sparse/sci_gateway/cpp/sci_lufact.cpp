@@ -130,10 +130,10 @@ types::Function::ReturnValue sci_lufact(types::typed_list &in, int _iRetCount, t
             Scierror(999, _("%s: Memory allocation error.\n"), "lufact");
             break;
         case spSINGULAR:
-            Scierror(999, _("%s: Matrix is singular.\n"), "lufact");
+            Sciwarning(_("%s: Warning: Matrix is singular.\n"), "lufact");
             break;
         case spSMALL_PIVOT:
-            Sciwarning(_("%s: Matrix is singular at precision level.\n"), "lufact");
+            Sciwarning(_("%s: Warning: Matrix is singular at precision level.\n"), "lufact");
             break;
         case spOKAY:
             break;
@@ -141,7 +141,8 @@ types::Function::ReturnValue sci_lufact(types::typed_list &in, int _iRetCount, t
             Scierror(77, _("%s: Error during LU factorization.\n"), "lufact");
             break;
     }
-    if (ierr >= spSINGULAR)
+
+    if (ierr != spSINGULAR && ierr > spSMALL_PIVOT)
     {
         delete[] dbl;
         delete[] colPos;

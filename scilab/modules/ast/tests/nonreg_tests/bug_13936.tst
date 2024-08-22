@@ -20,15 +20,15 @@
 k = 10;
 M = rand(1000,1000);
 
-tic;
+timer()
 pM1 = M^k;
-t1 = toc();
+t1 = timer()
 
-tic;
+timer()
 pM2 = eye(M);
 for i = 1:k
     pM2 = M*pM2;
 end
-t2 = toc();
+t2 = timer()
 
 assert_checktrue(t2>t1);

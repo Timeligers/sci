@@ -241,6 +241,7 @@
     <ClCompile Include="sci_error.cpp" />
     <ClCompile Include="sci_exists.cpp" />
     <ClCompile Include="sci_exit.cpp" />
+    <ClCompile Include="sci_isatty.cpp" />
     <ClCompile Include="sci_getmd5.cpp" />
     <ClCompile Include="sci_getmodules.cpp" />
     <ClCompile Include="sci_getos.cpp" />

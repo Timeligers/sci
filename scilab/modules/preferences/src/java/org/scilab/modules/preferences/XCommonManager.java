@@ -385,11 +385,6 @@ public abstract class XCommonManager {
     private static DOMResult generateViewDOM() {
         DOMResult result = new DOMResult();
         
-        // Needed since Java 9, see:
-        // https://www.oracle.com/java/technologies/javase/9-notes.html#JDK-8087303
-        // https://bugs.openjdk.org/browse/JDK-8262285
-        ScilabXMLUtilities.removeEmptyLines(document.getDocumentElement());
-
         DOMSource source = new DOMSource(document);
         try {
             transformer.transform(source, result);

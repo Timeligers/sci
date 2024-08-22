@@ -238,8 +238,11 @@ public final class FileUtils {
                     } else
 
                         // Specific chars
-                        if (ch == '_' || ch == ' ') {
-                            cFunctionName.append('_');
+                        if (ch == '_' || ch == ' ' || ch == '-') {
+                            // do not append consecutive _
+                            if (cFunctionName.length() > 0 && cFunctionName.charAt(cFunctionName.length() - 1) != '_') {
+                                cFunctionName.append('_');
+                            }
                         }
         }
         return cFunctionName.toString();

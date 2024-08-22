@@ -248,7 +248,7 @@ int initMacOSXEnv(ScilabEngineInfo* _pSEI)
     }
 
     /* Start the thread that we will start the JVM on. */
-    pthread_create(&vmthread, &thread_attr,  launchMacOSXEnv, _pSEI);
+    pthread_create(&vmthread, &thread_attr, (void * (*)(void *)) launchMacOSXEnv, _pSEI);
     pthread_attr_destroy(&thread_attr);
 
     /* Create a a sourceContext to be used by our source that makes */

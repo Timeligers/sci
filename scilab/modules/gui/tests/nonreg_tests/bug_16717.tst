@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
-// <-- TEST WITH GRAPHICS -->
+// <-- TEST WITH GRAPHIC -->
 // <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 16717 -->

@@ -42,7 +42,7 @@ types::Function::ReturnValue sci_pause(types::typed_list &in, int _iRetCount, ty
     }
 
     // add pause in list of macro called
-    // to manage line displayed when error occured
+    // to manage line displayed when error occurred
     // or when the "where()" function is called.
     ConfigVariable::macroFirstLine_begin(2);
 

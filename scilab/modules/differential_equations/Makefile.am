@@ -278,6 +278,7 @@ libscisundials_la_SOURCES = \
     src/patched_sundials/src/sunlinsol/spbcgs/sunlinsol_spbcgs.c \
     src/patched_sundials/src/sunlinsol/spfgmr/sunlinsol_spfgmr.c \
     src/patched_sundials/src/sunlinsol/spgmr/sunlinsol_spgmr.c \
+    src/patched_sundials/src/sunlinsol/sptfqmr/sunlinsol_sptfqmr.c \
     src/patched_sundials/src/sunmatrix/band/sunmatrix_band.c \
     src/patched_sundials/src/sunmatrix/dense/sunmatrix_dense.c \
     src/patched_sundials/src/sunmatrix/sparse/sunmatrix_sparse.c \

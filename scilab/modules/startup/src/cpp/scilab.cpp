@@ -56,6 +56,10 @@ extern "C"
 #include "configvariable.hxx"
 #include "exit_status.hxx"
 #include "scilabWrite.hxx"
+#include "timedvisitor.hxx"
+#include "stepvisitor.hxx"
+#include "runner.hxx"
+#include "parser_private.hxx"
 
 #define INTERACTIVE     -1
 
@@ -81,10 +85,11 @@ static void usage(void)
     std::cerr << "      -f File          : Execute the scilab script given in File argument." << std::endl;
     std::cerr << "                         -e and -f arguments are mutually exclusive." << std::endl;
     std::cerr << "      -quit            : Force scilab exit after execution of script from -e or -f argument." << std::endl;
-    std::cerr << "                         Flag ignored if it is not used with -e or -f argument." << std::endl;
+    std::cerr << "                         Flag ignored if it is not used with -e or -f argument and when Scilab is in a pipe." << std::endl;
     std::cerr << "      -l lang          : Change the language of scilab (default : en_US)." << std::endl;
     std::cerr << "      -nw              : Enable console mode." << std::endl;
     std::cerr << "      -nwni            : Enable terminal mode." << std::endl;
+    std::cerr << "      -nogui           : See -nwni." << std::endl;
     std::cerr << "      -ns              : Do not execute etc/scilab.start." << std::endl;
     std::cerr << "      -nouserstartup   : Do not execute user startup files (SCIHOME/scilab.ini|.scilab)." << std::endl;
     std::cerr << "      -noatomsautoload : Do not autoload eligible ATOMS modules." << std::endl;
@@ -124,15 +129,17 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
     std::cerr << "-*- Getting Options -*-" << std::endl;
 #endif
 
+    ParserSingleInstance::disableParseTrace();
+
     for (i = 1; i < argc; ++i)
     {
         if (!strcmp("--parse-trace", argv[i]))
         {
-            _pSEI->iParseTrace = 1;
+            ParserSingleInstance::enableParseTrace();
         }
         else if (!strcmp("--pretty-print", argv[i]))
         {
-            _pSEI->iPrintAst = 1;
+            StaticRunner::setPrintAst(true);
         }
         else if (!strcmp("--help", argv[i]))
         {
@@ -141,35 +148,33 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
         }
         else if (!strcmp("--AST-trace", argv[i]))
         {
-            _pSEI->iDumpAst = 1;
+            StaticRunner::setDumpAst(true);
         }
         else if (!strcmp("--no-exec", argv[i]))
         {
-            _pSEI->iExecAst = 0;
+            StaticRunner::setExecAst(false);
         }
         else if (!strcmp("--context-dump", argv[i]))
         {
-            _pSEI->iDumpStack = 1;
+            StaticRunner::setDumpStack(true);
         }
         else if (!strcmp("--timed", argv[i]))
         {
-            _pSEI->iTimed = 1;
             ConfigVariable::setTimed(true);
         }
         else if (!strcmp("--serialize", argv[i]))
         {
-            _pSEI->iSerialize = 1;
             ConfigVariable::setSerialize(true);
         }
         else if (!strcmp("--AST-timed", argv[i]))
         {
             std::cout << "Timed execution" << std::endl;
-            _pSEI->iAstTimed = 1;
+            ConfigVariable::setDefaultVisitor(new ast::TimedVisitor());
         }
         else if (!strcmp("--parse-file", argv[i]))
         {
             i++;
-            if (argc >= i)
+            if (argc > i)
             {
                 _pSEI->pstParseFile = argv[i];
             }
@@ -181,15 +186,12 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
         else if (!strcmp("-version", argv[i]))
         {
             i++;
-            if (argc >= i)
-            {
-                _pSEI->iShowVersion = 1;
-            }
+            _pSEI->iShowVersion = 1;
         }
         else if (!strcmp("-f", argv[i]))
         {
             i++;
-            if (argc >= i)
+            if (argc > i)
             {
                 _pSEI->pstFile = argv[i];
             }
@@ -197,42 +199,15 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
         else if (!strcmp("-e", argv[i]))
         {
             i++;
-            if (argc >= i)
+            if (argc > i)
             {
                 _pSEI->pstExec = argv[i];
-            }
-        }
-        else if (!strcmp("-O", argv[i]))
-        {
-            i++;
-            if (argc >= i)
-            {
-                _pSEI->pstExec = argv[i];
-                _pSEI->iCodeAction = 0;
-            }
-        }
-        else if (!strcmp("-X", argv[i]))
-        {
-            i++;
-            if (argc >= i)
-            {
-                _pSEI->pstExec = argv[i];
-                _pSEI->iCodeAction = 1;
-            }
-        }
-        else if (!strcmp("-P", argv[i]))
-        {
-            i++;
-            if (argc >= i)
-            {
-                _pSEI->pstExec = argv[i];
-                _pSEI->iCodeAction = 2;
             }
         }
         else if (!strcmp("-l", argv[i]))
         {
             i++;
-            if (argc >= i)
+            if (argc > i)
             {
                 _pSEI->pstLang = argv[i];
             }
@@ -262,6 +237,19 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
             exit(-1);
 #endif
         }
+        else if (!strcmp("-nogui", argv[i]))
+        {
+            _pSEI->iConsoleMode = 1;
+            _pSEI->iNoJvm = 1;
+#ifdef _MSC_VER
+#if WITH_CONSOLE_JAVA
+            MessageBoxA(NULL, "Argument \"-nogui\" is no longer supported.\nSee help page: https://help.scilab.org/scilab \n", "Error", MB_OK | MB_ICONERROR);
+#else
+            printf("Argument \"-nogui\" is no longer supported.\nSee help page: https://help.scilab.org/scilab \n");
+#endif
+            exit(-1);
+#endif
+        }
         else if (!strcmp("-ns", argv[i]))
         {
             _pSEI->iNoStart = 1;
@@ -272,7 +260,7 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
         }
         else if (!strcmp("--exec-verbose", argv[i]))
         {
-            _pSEI->iExecVerbose = 1;
+            ConfigVariable::setDefaultVisitor(new ast::StepVisitor());
         }
         else if (!strcmp("-nocolor", argv[i]))
         {
@@ -321,10 +309,6 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
             }
 
         }
-        else if (!strcmp("-keepconsole", argv[i]))
-        {
-            _pSEI->iKeepConsole = 1;
-        }
         else if (!strcmp("--webmode", argv[i]))
         {
             _pSEI->iWebMode = 1;
@@ -332,11 +316,53 @@ static int get_option(const int argc, char *argv[], ScilabEngineInfo* _pSEI)
         else if (!strcmp("-scihome", argv[i]))
         {
             i++;
-            if (argc >= i)
+            if (argc > i)
             {
                 _pSEI->pstSciHome = argv[i];
             }
         }
+#ifdef _MSC_VER
+        else if (!strcmp("-O", argv[i]))
+        {
+            i++;
+            if (argc > i)
+            {
+                _pSEI->pstExec = argv[i];
+                _pSEI->iCodeAction = 0;
+            }
+        }
+        else if (!strcmp("-X", argv[i]))
+        {
+            i++;
+            if (argc > i)
+            {
+                _pSEI->pstExec = argv[i];
+                _pSEI->iCodeAction = 1;
+            }
+        }
+        else if (!strcmp("-P", argv[i]))
+        {
+            i++;
+            if (argc > i)
+            {
+                _pSEI->pstExec = argv[i];
+                _pSEI->iCodeAction = 2;
+            }
+        }
+        else if (!strcmp("-keepconsole", argv[i]))
+        {
+            _pSEI->iKeepConsole = 1;
+        }
+#endif
+    }
+
+    // ignore -quit if -e or -f are not given
+    _pSEI->iForceQuit = _pSEI->iForceQuit && (_pSEI->pstExec || _pSEI->pstFile);
+    if(_pSEI->iForceQuit)
+    {
+        // by default, dont start the console thread
+        // when scilab is call with -quit
+        _pSEI->iStartConsoleThread = 0;
     }
 
     ConfigVariable::setCommandLineArgs(argc, argv);
@@ -378,7 +404,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLin
     {
         argv[i] = wide_string_to_UTF8(szArglist[i]);
     }
-
+    LocalFree(szArglist);
     setWindowShowMode(iCmdShow);
 
 #else
@@ -401,24 +427,7 @@ int main(int argc, char *argv[])
     setScilabMode(SCILAB_STD);
 #endif
 
-    //#if defined(_WIN32) && !defined(WITHOUT_GUI)
-    //    {
-    //        LPSTR my_argv[256];
-    //        int nArgs = 0;
-    //        LPWSTR *szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
-    //        if (szArglist)
-    //        {
-    //            for (int i = 0; i < nArgs; i++)
-    //            {
-    //                my_argv[i] = wide_string_to_UTF8(szArglist[i]);
-    //            }
-    //            LocalFree(szArglist);
-    //        }
-    //        get_option(nArgs, my_argv, pSEI);
-    //    }
-    //#else
     get_option(argc, argv, pSEI);
-    //#endif
 
     // if WITHOUT_GUI is defined
     // force Terminal IO -> Terminal IO + StartScilabEngine
@@ -491,8 +500,14 @@ int main(int argc, char *argv[])
     if (!isatty(fileno(stdin)) && getScilabMode() != SCILAB_STD)
 #endif
     {
+        ConfigVariable::setisatty(true);
         // We are in a pipe
         setScilabInputMethod(&getPipeLine);
+        // force start the console thread when scilab is 
+        // called through a pipe even if the -quit is given
+        pSEI->iStartConsoleThread = 1;
+        // quit will be generated by the close of the pipeline
+        pSEI->iForceQuit = 0;
     }
 
     if (pSEI->iShowVersion == 1)
@@ -504,24 +519,20 @@ int main(int argc, char *argv[])
     int val = setjmp(ScilabJmpEnv);
     if (!val)
     {
-        iRet = StartScilabEngine(pSEI);
-        if (iRet == 0)
+        val = StartScilabEngine(pSEI);
+        if (val == 0)
         {
-            iRet = RunScilabEngine(pSEI);
+            val = RunScilabEngine(pSEI);
         }
 
         StopScilabEngine(pSEI);
-        FREE(pSEI);
-        return iRet;
     }
     else
     {
         // We probably had a segfault so print error
         std::wcerr << getLastErrorMessage() << std::endl;
-        return val;
     }
 
-#if defined(_WIN32) && !defined(WITHOUT_GUI) && defined(WITH_CONSOLE_JAVA)
-    LocalFree(szArglist);
-#endif
+    FREE(pSEI);
+    return val;
 }

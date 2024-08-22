@@ -110,7 +110,7 @@ int sci_toJSON(scilabEnv env, int nin, scilabVar *in, int nopt, scilabOpt opt, i
             indent = (int)dbl;
 
             //must be a single string
-            if (!scilab_isString(env, in[file_input]) || !isScalar(env, in[file_input]))
+            if (!scilab_isString(env, in[file_input]) || !scilab_isScalar(env, in[file_input]))
             {
                 Scierror(999, "%s: Wrong type for input argument #%d: single string expected.\n", name.data(), file_input + 1);
                 return STATUS_ERROR;

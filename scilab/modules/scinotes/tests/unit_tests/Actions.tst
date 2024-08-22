@@ -10,6 +10,8 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
+// <-- NO CHECK REF -->
+
 f=TMPDIR + "/file_to_correct.sci";
 mputl(["a=''abcdef''									";
        "if a==1";
@@ -31,7 +33,7 @@ good = ["a=""abcdef""";
 	"    if";
 	"        a=""abcdef""""""";
 	"    end";
-	"end"]
+	"end"];
 
 corrected = mgetl(f);
 

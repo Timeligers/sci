@@ -14,7 +14,7 @@
 // https://gitlab.com/scilab/scilab/-/issues/15285
 //
 // <-- Short Description -->
-//resize_matrix does not manage convertion to int64 and uint64
+//resize_matrix does not manage conversion to int64 and uint64
 
 a = rand(2, 3) * 1000;
 ref = zeros(5, 5);

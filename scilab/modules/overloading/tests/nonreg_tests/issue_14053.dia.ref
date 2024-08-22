@@ -12,6 +12,6 @@
 // <-- Short Description -->
 // Display of cell arrays with scalar components has regressed wrt Scilab 5
 {%s %pi;%i "abc"}
- ans  =
+ ans = {2x2 cell}
   %s    3.1415927
   %i    "abc"    

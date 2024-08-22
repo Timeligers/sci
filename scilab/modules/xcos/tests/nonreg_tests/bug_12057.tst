@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- XCOS TEST -->
+// <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 12057 -->
 //
@@ -21,13 +22,13 @@
 assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/bug_12057_cscope.zcos"));
 timer();
 xcos_simulate(scs_m, 4);
-t = timer();
+t = timer()
 
 assert_checktrue(t < 60);
 
 assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/bug_12057_cmscope.zcos"));
 timer();
 xcos_simulate(scs_m, 4);
-t = timer();
+t = timer()
 
 assert_checktrue(t < 60);

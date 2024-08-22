@@ -58,18 +58,23 @@ public:
     void setHTTPHeader();
 
     types::InternalType* getResult(void);
+    types::InternalType* getHeaders(void);
     FILE* getFile();
     void appendData(std::string& part);
+    void appendHeaders(std::string& field,std::string& value);
 
-    static int write_result(char* pcInput, size_t size, size_t nmemb, void* output);
-    static int debug_callback(CURL *handle, curl_infotype type, char *data, size_t size, void *clientp);
+    static size_t write_result(char* pcInput, size_t size, size_t nmemb, void* output);
+    static size_t write_headers(char* pcInput, size_t size, size_t nmemb, void* output);
+    static size_t debug_callback(CURL* handle, curl_infotype type, char* data, size_t size, void* clientp);
 
 private:
     CURL* _curl;
     CURLcode _status;
 
     std::string _data;
+    std::vector<std::pair<std::string, std::string>> _recvHeaders;
     FILE* _fd;
+    bool _follow;
     struct curl_slist* _headers;
     struct curl_httppost* _formpost;
     struct curl_httppost* _lastptr;

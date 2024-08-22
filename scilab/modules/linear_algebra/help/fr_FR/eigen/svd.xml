@@ -22,7 +22,6 @@
         <title>Séquence d'appel</title>
         <synopsis>s=svd(X)
             [U,S,V]=svd(X)
-            [U,S,V]=svd(X,0) (obsolete)
             [U,S,V]=svd(X,"e")
             [U,S,V,rk]=svd(X [,tol])
         </synopsis>
@@ -139,6 +138,12 @@ sqrt(spec(X*X'))
                 <revnumber>2023.0.0</revnumber>
                 <revdescription>
                     <para>svd(X, 0) est obsolète, utilisez svd(X, "e") à la place.</para>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revdescription>
+                    <para>svd(X, 0) n'est plus supporté, utilisez svd(X, "e") à la place.</para>
                 </revdescription>
             </revision>
         </revhistory>

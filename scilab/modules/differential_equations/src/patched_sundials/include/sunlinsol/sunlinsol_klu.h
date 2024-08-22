@@ -30,7 +30,10 @@
 #include <sundials/sundials_matrix.h>
 #include <sundials/sundials_nvector.h>
 #include <sunmatrix/sunmatrix_sparse.h>
-#ifndef _KLU_H
+
+#ifdef KLU_SUITESPARSE
+#include <suitesparse/klu.h>
+#else
 #include <klu.h>
 #endif
 

@@ -8,6 +8,7 @@
 // =============================================================================
 //
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 //
 
 // TODO : use relative error criteria instead of absolute error
@@ -127,9 +128,9 @@ assert_checkequal ( norm(x,"f") , 0.0 );
 n = 100000;
 x = ones(n, 1);
 x(n+1) = 1.e9;
-tic();
+timer();
 for i = 1:1000
     norm(x);
 end
-t = toc();
+t = timer()
 assert_checktrue( t < 4 );

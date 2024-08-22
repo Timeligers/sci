@@ -19,7 +19,8 @@ clf();
 histplot(2, [2 2 2 2 2]);
 a = gca();
 x = a.children(1).children.data;
-y = [%eps; 1; 1; 0; 0; 0; %eps];
-assert_checkalmostequal(y, x(:,2), [], 200 * %eps);
+y = [%eps; 2; 2; 0; 0; 0; %eps];
+// max(y)* 65536 * %eps because of l.122 of hisplot.sci
+assert_checkalmostequal(y, x(:,2), [], max(y)* 65536 * %eps);
 
 

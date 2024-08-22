@@ -13,20 +13,13 @@
 function x=tanhm(a)
     //Matrix wise Hyperbolic tangent
 
-    rhs = argn(2);
-
-    if rhs <> 1 then
-        error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"tanhm",1));
-    end
-    
-    if and(type(a) <> [1, 5]) then
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: Real or complex, sparse or full matrix expected.\n"), "tanhm", 1));
+    arguments
+        a {mustBeA(a, ["double", "sparse"])}
     end
 
     if a==[] then x=[],return,end
 
-    [m,n]=size(a);
-    if m<>n then
+    if ~issquare(a) then
         error(msprintf(gettext("%s: Wrong size for input argument #%d: Square matrix expected.\n"),"tanhm",1));
     end
 

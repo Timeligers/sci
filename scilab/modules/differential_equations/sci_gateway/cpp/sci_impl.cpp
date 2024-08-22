@@ -166,6 +166,13 @@ types::Function::ReturnValue sci_impl(types::typed_list &in, int _iRetCount, typ
         return types::Function::Error;
     }
 
+    // y0 and ydot0 must have the same size
+    if(pDblY0->getSize() != pDblYdot0->getSize())
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d and #%d: Same size expected.\n"), "impl", iPos, iPos + 1);
+        return types::Function::Error;
+    }
+
     // t0
     iPos++;
     if (in[iPos]->isDouble() == false)
@@ -690,7 +697,7 @@ types::Function::ReturnValue sci_impl(types::typed_list &in, int _iRetCount, typ
             if (bCatch)
             {
                 wchar_t szError[bsiz];
-                os_swprintf(szError, bsiz, _W("%s: An error occurred in '%s' subroutine.\n").c_str(), "impl", "lsodi");
+                os_swprintf(szError, bsiz, _W("%ls: An error occurred in '%ls' subroutine.\n").c_str(), L"impl", L"lsodi");
                 os << szError;
                 throw ast::InternalError(os.str());
             }

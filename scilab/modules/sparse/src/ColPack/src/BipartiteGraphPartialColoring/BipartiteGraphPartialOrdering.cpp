@@ -1582,7 +1582,7 @@ namespace ColPack
 				{
 					u = m_vi_Edges[j];
 
-					// now check if the degree of i_SelectedVertex's neighbor isn't unknow to us
+					// now check if the degree of i_SelectedVertex's neighbor isn't unknown to us
 					if ( vi_IncidenceVertexDegree [u] == _UNKNOWN )
 					{
 						// i_SelectedVertex's neighbor's degree is unknown. skip!
@@ -1743,7 +1743,7 @@ namespace ColPack
 				{
 					u = m_vi_Edges[j];
 
-					// now check if the degree of i_SelectedVertex's neighbor isn't unknow to us
+					// now check if the degree of i_SelectedVertex's neighbor isn't unknown to us
 					if ( vi_IncidenceVertexDegree [u] == _UNKNOWN )
 					{
 						// i_SelectedVertex's neighbor's degree is unknown. skip!

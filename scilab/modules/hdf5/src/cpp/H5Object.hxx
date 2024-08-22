@@ -91,14 +91,6 @@ public :
     virtual H5AttributesList & getAttributes();
     virtual hsize_t getAttributesNumber() const;
 
-    virtual H5O_info_t getInfo() const
-    {
-        H5O_info_t info;
-        H5Oget_info(getH5Id(), &info);
-
-        return info;
-    }
-
     virtual bool isFile() const
     {
         return false;
@@ -159,9 +151,11 @@ public :
         return true;
     }
 
-    virtual haddr_t getAddr() const
+    virtual H5O_token_t getAddr() const
     {
-        return getInfo().addr;
+        H5O_info_t info;
+        H5Oget_info(getH5Id(), &info, H5O_INFO_BASIC);
+        return info.token;
     }
 
     virtual const std::string & getName() const
@@ -208,7 +202,7 @@ public :
     }
 
     virtual std::string getCompletePath() const;
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel = 0) const
     {
         return "";
     }

@@ -43,6 +43,7 @@ nobase_icons_DATA = 16x16/apps/scilab.png \
 24x24/mimetypes/application-x-scilab-zcos.png \
 256x256/apps/puffin.png \
 256x256/apps/scilab.png \
+256x256/apps/scilabMacOS.png \
 256x256/apps/scinotes.png \
 256x256/apps/xcos.png \
 256x256/mimetypes/application-x-scilab-bin.png \

@@ -19,6 +19,8 @@
 #include "polynom.hxx"
 #include "string.hxx"
 
+#include "memory"
+
 extern "C"
 {
 #include "sciprint.h"
@@ -128,7 +130,11 @@ types::Function::ReturnValue sci_arl2_ius(types::typed_list &in, int _iRetCount,
     }
 
     pPolyDen->getRank(&iRankDen);
-    pdblDen = pPolyDen->get(0)->get();
+    std::unique_ptr<double[]> ptrDen(new double[iRankDen + 1]);
+    pdblDen = ptrDen.get();
+    C2F(dcopy)(&iRankDen, pPolyDen->get(0)->get(), &iOne, pdblDen, &iOne);
+    pdblDen[iRankDen] = 0;
+
     C2F(idegre)(pdblDen, &iRankDen, &iRankDen);
     int iSize = iRankDen + 1;
     double dblScal = 1.0 / pdblDen[iRankDen];
@@ -355,8 +361,7 @@ types::Function::ReturnValue sci_arl2_ius(types::typed_list &in, int _iRetCount,
         int* piWork = new int[iWorkSize];
 
         int iSizeTemp = std::max(iRankDen, iN) + 1;
-        double* pDblDenTemp = new double[iSizeTemp];
-        memset(pDblDenTemp, 0x00, iSizeTemp * sizeof(double));
+        double* pDblDenTemp = new double[iSizeTemp] {};
         C2F(dcopy)(&iSize, pdblDen, &iOne, pDblDenTemp, &iOne);
 
         C2F(arl2)(pdblY, &iVol1, pdblNum, pDblDenTemp, &iRankDen, &iN, &dErrl2, pdblWork, piWork,

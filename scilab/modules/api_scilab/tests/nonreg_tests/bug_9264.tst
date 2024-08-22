@@ -5,6 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 9264 -->
 //
@@ -25,9 +26,9 @@ if haveacompiler() then
   exec loader.sce;
   
   M = string(rand(200,1000));
-  tic();
+  timer();
   bug9264(M);
-  T = toc();
+  t1 = timer();
   // More than 2 seconds to read a matrix is not normal
-  if T > 2 then pause, end
+  if t1 > 2 then pause, end
 end

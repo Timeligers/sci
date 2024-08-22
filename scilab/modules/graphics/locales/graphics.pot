@@ -3393,43 +3393,43 @@ msgid ""
 msgstr ""
 
 #
-# File: modules/graphics/macros/autumncolormap.sci, line: 24
-# File: modules/graphics/macros/bonecolormap.sci, line: 25
-# File: modules/graphics/macros/coolcolormap.sci, line: 25
-# File: modules/graphics/macros/coppercolormap.sci, line: 25
-# File: modules/graphics/macros/graycolormap.sci, line: 26
-# File: modules/graphics/macros/hotcolormap.sci, line: 25
-# File: modules/graphics/macros/hsvcolormap.sci, line: 23
-# File: modules/graphics/macros/jetcolormap.sci, line: 29
-# File: modules/graphics/macros/oceancolormap.sci, line: 25
-# File: modules/graphics/macros/parulacolormap.sci, line: 28
-# File: modules/graphics/macros/pinkcolormap.sci, line: 25
-# File: modules/graphics/macros/rainbowcolormap.sci, line: 25
-# File: modules/graphics/macros/springcolormap.sci, line: 25
-# File: modules/graphics/macros/summercolormap.sci, line: 25
-# File: modules/graphics/macros/whitecolormap.sci, line: 25
-# File: modules/graphics/macros/wintercolormap.sci, line: 25
+# File: modules/graphics/macros/autumn.sci, line: 24
+# File: modules/graphics/macros/bone.sci, line: 25
+# File: modules/graphics/macros/cool.sci, line: 25
+# File: modules/graphics/macros/copper.sci, line: 25
+# File: modules/graphics/macros/gray.sci, line: 26
+# File: modules/graphics/macros/hot.sci, line: 25
+# File: modules/graphics/macros/hsv.sci, line: 23
+# File: modules/graphics/macros/jet.sci, line: 29
+# File: modules/graphics/macros/ocean.sci, line: 25
+# File: modules/graphics/macros/parula.sci, line: 28
+# File: modules/graphics/macros/pink.sci, line: 25
+# File: modules/graphics/macros/rainbow.sci, line: 25
+# File: modules/graphics/macros/spring.sci, line: 25
+# File: modules/graphics/macros/summer.sci, line: 25
+# File: modules/graphics/macros/white.sci, line: 25
+# File: modules/graphics/macros/winter.sci, line: 25
 #, c-format
 msgid "%s: Wrong type for input argument #%d: a real scalar expected.\n"
 msgstr ""
 
 #
-# File: modules/graphics/macros/autumncolormap.sci, line: 29
-# File: modules/graphics/macros/bonecolormap.sci, line: 30
-# File: modules/graphics/macros/coolcolormap.sci, line: 30
-# File: modules/graphics/macros/coppercolormap.sci, line: 30
-# File: modules/graphics/macros/graycolormap.sci, line: 31
-# File: modules/graphics/macros/hotcolormap.sci, line: 30
-# File: modules/graphics/macros/hsvcolormap.sci, line: 28
-# File: modules/graphics/macros/jetcolormap.sci, line: 34
-# File: modules/graphics/macros/oceancolormap.sci, line: 30
-# File: modules/graphics/macros/parulacolormap.sci, line: 32
-# File: modules/graphics/macros/pinkcolormap.sci, line: 30
-# File: modules/graphics/macros/rainbowcolormap.sci, line: 30
-# File: modules/graphics/macros/springcolormap.sci, line: 30
-# File: modules/graphics/macros/summercolormap.sci, line: 30
-# File: modules/graphics/macros/whitecolormap.sci, line: 30
-# File: modules/graphics/macros/wintercolormap.sci, line: 30
+# File: modules/graphics/macros/autumn.sci, line: 29
+# File: modules/graphics/macros/bone.sci, line: 30
+# File: modules/graphics/macros/cool.sci, line: 30
+# File: modules/graphics/macros/copper.sci, line: 30
+# File: modules/graphics/macros/gray.sci, line: 31
+# File: modules/graphics/macros/hot.sci, line: 30
+# File: modules/graphics/macros/hsv.sci, line: 28
+# File: modules/graphics/macros/jet.sci, line: 34
+# File: modules/graphics/macros/ocean.sci, line: 30
+# File: modules/graphics/macros/parula.sci, line: 32
+# File: modules/graphics/macros/pink.sci, line: 30
+# File: modules/graphics/macros/rainbow.sci, line: 30
+# File: modules/graphics/macros/spring.sci, line: 30
+# File: modules/graphics/macros/summer.sci, line: 30
+# File: modules/graphics/macros/white.sci, line: 30
+# File: modules/graphics/macros/winter.sci, line: 30
 #, c-format
 msgid "%s: Wrong size for input argument #%d: a real scalar expected.\n"
 msgstr ""
@@ -3844,7 +3844,6 @@ msgstr ""
 # File: modules/graphics/macros/paramfplot2d.sci, line: 40
 # File: modules/graphics/macros/plot3d2.sci, line: 27
 # File: modules/graphics/macros/plot3d3.sci, line: 19
-# File: modules/graphics/macros/plotframe.sci, line: 28
 # File: modules/graphics/macros/title.sci, line: 17
 # File: modules/graphics/macros/xlabel.sci, line: 17
 # File: modules/graphics/macros/xsave.sci, line: 14

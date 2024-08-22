@@ -56,17 +56,26 @@ function main_menubar_cb(key)
             tagPath = "//Profile/favoriteDirectories/Directory";
             r = xmlGetValues(tagPath, "path", prefFile);
         catch
+            // clear last error in case where no value is found
+            errclear()
             r = []
         end
+
         try
             tagPath = "//Profile/recentFiles/document";
             r2 = xmlGetValues(tagPath, "path", prefFile);
         catch
+            // clear last error in case where no value is found
+            errclear()
             r2 = []
         end
+
         try
             tagPath = "//Profile/openFiles/document";
             r2 = [r2 ; xmlGetValues(tagPath, "path", prefFile)];
+        catch
+            // clear last error in case where no value is found
+            errclear()
         end
 
         if isempty([r;r2]) then

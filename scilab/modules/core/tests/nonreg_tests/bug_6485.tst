@@ -19,4 +19,4 @@
 
 // <-- CLI SHELL MODE -->
 //
-tic;a=rand(3000,3000);b=a*a';[c,d]=lu(b);inv(a);[u,s,v]=svd(a);toc;
+timer();a=rand(3000,3000);b=a*a';[c,d]=lu(b);inv(a);[u,s,v]=svd(a);timer();

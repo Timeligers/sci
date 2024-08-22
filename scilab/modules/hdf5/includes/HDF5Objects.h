@@ -16,14 +16,8 @@
 #ifndef __HDF5OBJECTS_H__
 #define __HDF5OBJECTS_H__
 
-#define H5_NO_DEPRECATED_SYMBOLS
-#undef H5_USE_16_API
-
-#define H5Eset_auto_vers 2
 #include <hdf5.h>
 #include <hdf5_hl.h>
-
-#undef H5_NO_DEPRECATED_SYMBOLS
 
 //#define __HDF5OBJECTS_DEBUG__
 //#define __HDF5ERROR_PRINT__

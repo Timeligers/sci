@@ -23,7 +23,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>res = strncpy(str1,num)</synopsis>
+        <synopsis>res = strncpy(str1, num)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>

@@ -155,6 +155,10 @@ public final class SaveFile {
             fOut.createNewFile();
             if (backupOut != null) {
                 backupOut.createNewFile();
+                SciNotesOptions.Autosave as = SciNotesOptions.getSciNotesAutosave();
+                if (as.automaticDelete) {
+                    textPane.addToRemove(backupOut);
+                }
             }
         } catch (IOException e) {
             System.err.println(e);

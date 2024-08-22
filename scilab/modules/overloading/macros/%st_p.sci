@@ -13,5 +13,8 @@
 // along with this program.
 
 function %st_p(s)
-    %l_p(s, "st")
+    str = %st_string(s);
+    if ~isempty(str)
+        mprintf("  %s\n", str);
+    end
 endfunction

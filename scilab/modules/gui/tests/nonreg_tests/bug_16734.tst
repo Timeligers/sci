@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
-// <-- TEST WITH GRAPHICS -->
+// <-- TEST WITH GRAPHIC -->
 // <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 16734 -->
@@ -21,10 +21,10 @@ plot();
 gce().children(7).tag = "foo";
 
 N=1000;
-tic();
+timer();
 for i=1:N
     h = findobj("tag","foo");
 end
-t = toc()/N;
+t = timer()/N;
 
 assert_checktrue(t<1e-4)

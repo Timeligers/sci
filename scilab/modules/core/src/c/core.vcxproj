@@ -264,7 +264,6 @@ cd ..
     <ClCompile Include="..\cpp\setformat.cpp" />
     <ClCompile Include="..\cpp\setlines.cpp" />
     <ClCompile Include="..\cpp\storeCommand.cpp" />
-    <ClCompile Include="..\cpp\tasks.cpp" />
     <ClCompile Include="..\cpp\with_module.cpp" />
     <ClCompile Include="..\cpp\backtrace_print.cpp" />
     <ClCompile Include="backtrace.c" />
@@ -370,7 +369,6 @@ cd ..
     <ClInclude Include="..\..\includes\storeCommand.h" />
     <ClInclude Include="..\..\includes\suspendProcess.h" />
     <ClInclude Include="..\..\includes\syncexec.h" />
-    <ClInclude Include="..\..\includes\tasks.hxx" />
     <ClInclude Include="..\..\includes\timer.hxx" />
     <ClInclude Include="..\..\includes\transposeMatrix.h" />
     <ClInclude Include="..\..\includes\version.h" />

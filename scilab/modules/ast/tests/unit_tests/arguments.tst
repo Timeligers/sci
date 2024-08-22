@@ -18,26 +18,26 @@ function checkAllCombination(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, 
         v3 double
         v4 (1,:) double
         v5 {mustBePositive}
-        v6 {mustBeMember(x, "value")}
+        v6 {mustBeMember(v6, "value")}
         v7 (1,:) {mustBePositive}
-        v8 (1,:) {mustBeMember(x, "value")}
+        v8 (1,:) {mustBeMember(v8, "value")}
         v9 double {mustBePositive}
-        v10 double {mustBeMember(x, "value")}
+        v10 double {mustBeMember(v10, "value")}
         v11 (1,:) double {mustBePositive}
-        v12 (1,:) double {mustBeMember(x, "value")}
+        v12 (1,:) double {mustBeMember(v12, "value")}
         // with defaults values
         v13 = 42
         v14 (1,:) = 42
         v15 double = 42
         v16 (1,:) double = 42
         v17 {mustBePositive} = 42
-        v18 {mustBeMember(x, "value")} = 42
+        v18 {mustBeMember(v18, "value")} = 42
         v19 (1,:) {mustBePositive} = 42
-        v20 (1,:) {mustBeMember(x, "value")} = 42
+        v20 (1,:) {mustBeMember(v20, "value")} = 42
         v21 double {mustBePositive} = 42
-        v22 double {mustBeMember(x, "value")} = 42
+        v22 double {mustBeMember(v22, "value")} = 42
         v23 (1,:) double {mustBePositive} = 42
-        v24 (1,:) double {mustBeMember(x, "value")} = 42
+        v24 (1,:) double {mustBeMember(v24, "value")} = 42
         // comment line
     end
 end
@@ -64,17 +64,6 @@ body = [...
 "    arguments"
 "        y"
 "        x"
-"    end"
-"end"];
-
-checkbody(body)
-
-// varargin
-body = [...
-"function test1(x, varargin)"
-"    arguments"
-"        x"
-"        varargin"
 "    end"
 "end"];
 
@@ -384,3 +373,60 @@ test_bool(int64(vref), vref == 1)
 test_bool(uint64(vref), vref == 1)
 test_bool(vref == 1, vref == 1)
 test_bool(string(vref == 1), vref == 1)
+
+//varargin
+function r = test_varargin(a, varargin)
+    arguments
+        a
+        varargin
+    end
+
+    r = nargin;
+endfunction
+
+assert_checkequal(test_varargin(1), 1);
+assert_checkequal(test_varargin(1, 2), 2);
+assert_checkequal(test_varargin(1, 2, 3), 3);
+
+code = [
+    "function test_varargin(a, b, varargin)"
+    "    arguments"
+    "        a"
+    "        b"
+    "    end"
+    "endfunction"
+];
+
+checkbody(code);
+
+code = [
+    "function test_varargin(a, b, varargin)"
+    "    arguments"
+    "        a"
+    "        b"
+    "        varargin (3)"
+    "    end"
+    "endfunction"
+];
+
+checkbody(code);
+
+//overload of size function
+function test_size(a)
+    arguments
+        a (1, :)
+    end
+endfunction
+
+test_size(1/%s);
+test_size(table(1));
+test_size(table([1, 2]));
+
+function test_size(a)
+    arguments
+        a (3)
+    end
+endfunction
+
+test_size(list(1, 2 ,3))
+

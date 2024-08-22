@@ -97,4 +97,10 @@ assert_checkequal(content.user, "user");
 // Badly formatted URL
 assert_checkerror("http_get(''https://plop@ae:www.scilab.org:80'');", [], 999);
 
+// Headers
+[_, _, headers] = http_get("https://www.google.com/");
+assert_checkequal(typeof(headers), "st");
+[_, _, headers] = http_get("google.com", follow=%T);
+assert_checkequal(typeof(headers), "list");
+
 cd(curdir);

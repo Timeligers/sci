@@ -25,5 +25,5 @@ function [] = %_plot3d()
     e=gce();
     e.color_flag = 1;
     f = gcf();
-    f.color_map = jetcolormap(32);
+    f.color_map = jet(32);
 endfunction

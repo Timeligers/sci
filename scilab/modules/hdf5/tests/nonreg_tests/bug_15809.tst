@@ -27,12 +27,12 @@ for i=1:n
     filters_vec($+1) = [G.a G.b;G.c G.d];
 end
 
-tic();
+timer();
 save("TMPDIR/filters_sys.sod", "filters_sys");
-sys = toc();
-tic();
+sys = timer()
+
 save("TMPDIR/filters_vec.sod", "filters_vec");
-vec = toc();
+vec = timer()
 
 assert_checkfalse(sys > 15 * vec);
 

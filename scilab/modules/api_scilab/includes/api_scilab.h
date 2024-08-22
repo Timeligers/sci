@@ -58,9 +58,9 @@
 #define API_EXPORT_PROTO(x) scilab_##x
 #endif
 
-typedef void* scilabEnv;
-typedef int* scilabVar;
-typedef int* scilabOpt;
+typedef struct scilabEnv_t *scilabEnv;
+typedef struct scilabVar_t *scilabVar;
+typedef struct scilabOpt_t *scilabOpt;
 
 
 #include "api_error.h"

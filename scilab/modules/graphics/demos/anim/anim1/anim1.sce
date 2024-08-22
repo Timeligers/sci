@@ -18,7 +18,7 @@ function demo_anim1()
     // set a new colormap
     //-------------------
     cmap= curFig.color_map; //preserve old setting
-    curFig.color_map = hotcolormap(64);
+    curFig.color_map = hot(64);
 
     //The surface definition
     //----------------------

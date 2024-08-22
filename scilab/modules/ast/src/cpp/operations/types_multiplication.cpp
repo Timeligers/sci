@@ -23,6 +23,8 @@
 #include "singlepoly.hxx"
 #include "operations.hxx"
 
+#include <Eigen/Sparse>
+
 extern "C"
 {
 #include "matrix_multiplication.h"
@@ -1155,95 +1157,40 @@ int MultiplyDoubleBySparse(Double* _pDouble, Sparse *_pSparse, GenericType** _pO
         return 1;
     }
 
-    //try to be smart and only compute for non zero values
-
-    //get some information
-    int iNonZeros = static_cast<int>(_pSparse->nonZeros());
-    int* pRows = new int[iNonZeros * 2];
-    _pSparse->outputRowCol(pRows);
-    int* pCols = pRows + iNonZeros;
-    double* pValR = new double[iNonZeros];
-    double* pValI = new double[iNonZeros];
-    _pSparse->outputValues(pValR, pValI);
+    //try to be smart and use Eigen3 library Map and View features
 
     Double* pOut = new Double(_pDouble->getRows(), _pSparse->getCols(), _pDouble->isComplex() | _pSparse->isComplex());
     pOut->setZeros();
+    
+    Eigen::Map<Eigen::MatrixXd> mdblR(_pDouble->get(),_pDouble->getRows(),_pDouble->getCols());
+    Eigen::Map<Eigen::MatrixXd> mdblI(_pDouble->getImg(),_pDouble->getRows(),_pDouble->getCols());
+    Eigen::Map<Eigen::MatrixXd> moutR(pOut->get(),_pDouble->getRows(), _pSparse->getCols());
+    Eigen::Map<Eigen::MatrixXd> moutI(pOut->getImg(),_pDouble->getRows(), _pSparse->getCols());
 
     if (_pDouble->isComplex() == false && _pSparse->isComplex() == false)
     {
-        for (int i = 0 ; i < iNonZeros ; i++)
-        {
-            int iRow = static_cast<int>(pRows[i]) - 1;
-            int iCol = static_cast<int>(pCols[i]) - 1;
-            double dbl = pValR[i];
-
-            for (int j = 0 ; j < _pDouble->getRows() ; j++)
-            {
-                double dblVal = _pDouble->get(j, iRow) * dbl;
-                pOut->set(j, iCol, pOut->get(j, iCol) + dblVal);
-            }
-        }
+        moutR = mdblR * *(_pSparse->matrixReal);
     }
     else if (_pDouble->isComplex() == false && _pSparse->isComplex() == true)
     {
-        //a * (b ci) -> ab ac
-        for (int i = 0 ; i < iNonZeros ; i++)
-        {
-            int iRow = static_cast<int>(pRows[i]) - 1;
-            int iCol = static_cast<int>(pCols[i]) - 1;
-            double dblR = pValR[i];
-            double dblI = pValI[i];
-
-            for (int j = 0 ; j < _pDouble->getRows() ; j++)
-            {
-                double dblValR = _pDouble->get(j, iRow) * dblR;
-                double dblValI = _pDouble->get(j, iRow) * dblI;
-                pOut->set(j, iCol, pOut->get(j, iCol) + dblValR);
-                pOut->setImg(j, iCol, pOut->getImg(j, iCol) + dblValI);
-            }
-        }
+        // a*sparsecomplex(b,c) -> complex(a*b,a*c)
+        moutR =  mdblR * _pSparse->matrixCplx->real();
+        moutI =  mdblR * _pSparse->matrixCplx->imag();      
     }
     else if (_pDouble->isComplex() == true && _pSparse->isComplex() == false)
     {
-        //(a bi) * c -> ac + bc
-        for (int i = 0 ; i < iNonZeros ; i++)
-        {
-            int iRow = static_cast<int>(pRows[i]) - 1;
-            int iCol = static_cast<int>(pCols[i]) - 1;
-            double dblR = pValR[i];
-
-            for (int j = 0 ; j < _pDouble->getRows() ; j++)
-            {
-                double dblValR = _pDouble->get(j, iRow) * dblR;
-                double dblValI = _pDouble->getImg(j, iRow) * dblR;
-                pOut->set(j, iCol, pOut->get(j, iCol) + dblValR);
-                pOut->setImg(j, iCol, pOut->getImg(j, iCol) + dblValI);
-            }
-        }
+        // complex(a,b)*sparse(c) -> complex(a*c,b*c)
+        moutR = mdblR * *(_pSparse->matrixReal);
+        moutI = mdblI * *(_pSparse->matrixReal);
     }
     else if (_pDouble->isComplex() == true && _pSparse->isComplex() == true)
     {
-        for (int i = 0 ; i < iNonZeros ; i++)
-        {
-            int iRow = static_cast<int>(pRows[i]) - 1;
-            int iCol = static_cast<int>(pCols[i]) - 1;
-            double dblR = pValR[i];
-            double dblI = pValI[i];
-
-            for (int j = 0 ; j < _pDouble->getRows() ; j++)
-            {
-                double dblValR = _pDouble->get(j, iRow) * dblR - _pDouble->getImg(j, iRow) * dblI;
-                double dblValI = _pDouble->get(j, iRow) * dblI + _pDouble->getImg(j, iRow) * dblR;
-                pOut->set(j, iCol, pOut->get(j, iCol) + dblValR);
-                pOut->setImg(j, iCol, pOut->getImg(j, iCol) + dblValI);
-            }
-        }
+        // complex(a,b)*sparsecomplex(c,d) -> complex(a*c-b*d,b*c+a*d)
+        moutR = mdblR * _pSparse->matrixCplx->real() - mdblI * _pSparse->matrixCplx->imag();
+        moutI = mdblI * _pSparse->matrixCplx->real() + mdblR * _pSparse->matrixCplx->imag();
     }
 
     *_pOut = pOut;
-    delete[] pRows;
-    delete[] pValR;
-    delete[] pValI;
 
     return 0;
 }
@@ -1299,95 +1246,40 @@ int MultiplySparseByDouble(Sparse *_pSparse, Double*_pDouble, GenericType** _pOu
         return 1;
     }
 
-    //try to be smart and only compute for non zero values
-
-    //get some information
-    int iNonZeros = static_cast<int>(_pSparse->nonZeros());
-    int* pRows = new int[iNonZeros * 2];
-    _pSparse->outputRowCol(pRows);
-    int* pCols = pRows + iNonZeros;
-    double* pValR = new double[iNonZeros];
-    double* pValI = new double[iNonZeros];
-    _pSparse->outputValues(pValR, pValI);
+    //try to be smart and use Eigen3 library Map and View features
 
     Double* pOut = new Double(_pSparse->getRows(), _pDouble->getCols(), _pDouble->isComplex() | _pSparse->isComplex());
     pOut->setZeros();
+    
+    Eigen::Map<Eigen::MatrixXd> mdblR(_pDouble->get(),_pDouble->getRows(),_pDouble->getCols());
+    Eigen::Map<Eigen::MatrixXd> mdblI(_pDouble->getImg(),_pDouble->getRows(),_pDouble->getCols());
+    Eigen::Map<Eigen::MatrixXd> moutR(pOut->get(),_pSparse->getRows(), _pDouble->getCols());
+    Eigen::Map<Eigen::MatrixXd> moutI(pOut->getImg(),_pSparse->getRows(), _pDouble->getCols());
 
     if (_pDouble->isComplex() == false && _pSparse->isComplex() == false)
     {
-        for (int i = 0 ; i < iNonZeros ; i++)
-        {
-            int iRow    = static_cast<int>(pRows[i]) - 1;
-            int iCol    = static_cast<int>(pCols[i]) - 1;
-            double dbl  = pValR[i];
-
-            for (int j = 0 ; j < _pDouble->getCols() ; j++)
-            {
-                double dblVal = _pDouble->get(iCol, j) * dbl;
-                pOut->set(iRow, j, pOut->get(iRow, j) + dblVal);
-            }
-        }
+        moutR = *(_pSparse->matrixReal) * mdblR;
     }
     else if (_pDouble->isComplex() == false && _pSparse->isComplex() == true)
     {
-        //a * (b ci) -> ab ac
-        for (int i = 0 ; i < iNonZeros ; i++)
-        {
-            int iRow = static_cast<int>(pRows[i]) - 1;
-            int iCol = static_cast<int>(pCols[i]) - 1;
-            double dblR = pValR[i];
-            double dblI = pValI[i];
-
-            for (int j = 0 ; j < _pDouble->getCols() ; j++)
-            {
-                double dblValR = _pDouble->get(iCol, j) * dblR;
-                double dblValI = _pDouble->get(iCol, j) * dblI;
-                pOut->set(iRow, j, pOut->get(iRow, j) + dblValR);
-                pOut->setImg(iRow, j, pOut->getImg(iRow, j) + dblValI);
-            }
-        }
+        // sparsecomplex(a,b) * c -> complex(a*c,b*c)
+        moutR = _pSparse->matrixCplx->real() * mdblR;
+        moutI = _pSparse->matrixCplx->imag() * mdblR;        
     }
     else if (_pDouble->isComplex() == true && _pSparse->isComplex() == false)
     {
-        //(a bi) * c -> ac + bc
-        for (int i = 0 ; i < iNonZeros ; i++)
-        {
-            int iRow = static_cast<int>(pRows[i]) - 1;
-            int iCol = static_cast<int>(pCols[i]) - 1;
-            double dblR = pValR[i];
-
-            for (int j = 0 ; j < _pDouble->getCols() ; j++)
-            {
-                double dblValR = _pDouble->get(iCol, j) * dblR;
-                double dblValI = _pDouble->getImg(iCol, j) * dblR;
-                pOut->set(iRow, j, pOut->get(iRow, j) + dblValR);
-                pOut->setImg(iRow, j, pOut->getImg(iRow, j) + dblValI);
-            }
-        }
+        // sparse(a)*complex(b,c) -> complex(a*b,a*c)
+        moutR = *(_pSparse->matrixReal) * mdblR;
+        moutI = *(_pSparse->matrixReal) * mdblI;
     }
     else if (_pDouble->isComplex() == true && _pSparse->isComplex() == true)
     {
-        for (int i = 0 ; i < iNonZeros ; i++)
-        {
-            int iRow = static_cast<int>(pRows[i]) - 1;
-            int iCol = static_cast<int>(pCols[i]) - 1;
-            double dblR = pValR[i];
-            double dblI = pValI[i];
-
-            for (int j = 0 ; j < _pDouble->getCols() ; j++)
-            {
-                double dblValR = _pDouble->get(iCol, j) * dblR - _pDouble->getImg(iCol, j) * dblI;
-                double dblValI = _pDouble->get(iCol, j) * dblI + _pDouble->getImg(iCol, j) * dblR;
-                pOut->set(iRow, j, pOut->get(iRow, j) + dblValR);
-                pOut->setImg(iRow, j, pOut->getImg(iRow, j) + dblValI);
-            }
-        }
+        // sparsecomplex(a,b)*complex(c,d) -> complex(a*c-b*d,b*c+a*d)
+        moutR = _pSparse->matrixCplx->real() * mdblR - _pSparse->matrixCplx->imag()*mdblI;
+        moutI = _pSparse->matrixCplx->real() * mdblI + _pSparse->matrixCplx->imag()*mdblR;
     }
 
     *_pOut = pOut;
-    delete[] pRows;
-    delete[] pValR;
-    delete[] pValI;
 
     return 0;
 }

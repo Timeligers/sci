@@ -74,7 +74,4 @@ HDF5_SCILAB_IMPEXP int getListItemReferences_v1(hid_t _iDatasetId, hobj_ref_t** 
 HDF5_SCILAB_IMPEXP int getListItemDataset_v1(hid_t _iDatasetId, void* _piItemRef, int _iItemPos, hid_t* _piItemDataset);
 
 HDF5_SCILAB_IMPEXP int deleteListItemReferences_v1(hid_t _iDatasetId, void* _piItemRef);
-
-HDF5_SCILAB_IMPEXP  void reset_item_count();
-
 #endif /* !__H5_READDATATOFILE_V1_H__ */

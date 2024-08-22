@@ -552,22 +552,33 @@ private :
 
     void visit(const FunctionDec& e)  /* done */
     {
-        add_ast(29, e);
-        add_Symbol(e.getSymbol());
-        add_location(e.getArgs().getLocation());
-        add_location(e.getReturns().getLocation());
-        add_exp(e.getBody());
-        add_vars(*e.getArgs().getAs<ArrayListVar>());
-        add_vars(*e.getReturns().getAs<ArrayListVar>());
+        if (e.isLambda())
+        {
+            add_ast(41, e);
+            add_location(e.getArgs().getLocation());
+            add_exp(e.getBody());
+            add_vars(*e.getArgs().getAs<ArrayListVar>());
+        }
+        else
+        {
+            add_ast(29, e);
+            add_Symbol(e.getSymbol());
+            add_location(e.getArgs().getLocation());
+            add_location(e.getReturns().getLocation());
+            add_exp(e.getBody());
+            add_vars(*e.getArgs().getAs<ArrayListVar>());
+            add_vars(*e.getReturns().getAs<ArrayListVar>());
+        }
     }
-
-    void visit(const ListExp& e)  /* done */
+    /*
+    void visit(const ListExp& e)
     {
         add_ast(30, e);
         add_exp(e.getStart());
         add_exp(e.getStep());
         add_exp(e.getEnd());
     }
+    */
 
     void visit(const AssignExp& e)
     {
@@ -631,6 +642,16 @@ private :
         add_exps(e.getExps());
     }
 
+    void visit(const ListExp& e)
+    {
+        add_ast(40, e);
+        add_bool(e.hasExplicitStep());
+        add_exp(e.getStart());
+        add_exp(e.getStep());
+        add_exp(e.getEnd());
+    }
+
+    //41 is reserved for lambda function, see FunctionDec
   public:
     SerializeVisitor(Exp* _ast) : ast(_ast), buf(NULL), buflen(0), bufsize(0), saveNodeNumber(true), saveLocation(true) {}
     ~SerializeVisitor()

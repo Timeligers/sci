@@ -38,7 +38,7 @@ public:
     H5EnumData(H5Object & _parent, const hsize_t _totalSize, const hsize_t _dataSize, const hsize_t _ndims, const hsize_t * _dims, T * _data, hid_t enumType, hid_t nativeType, const unsigned int _nmembers, const std::string * _names, const hsize_t _stride, const size_t _offset, const bool _dataOwner) : H5BasicData<T>(_parent, _totalSize, _dataSize, _ndims, _dims, _data, _stride, _offset, _dataOwner), nmembers(_nmembers), names(_names)
     {
         hid_t super = H5Tget_super(enumType);
-        for (unsigned long long i = 0; i < nmembers; ++i)
+        for (unsigned int i = 0; i < nmembers; ++i)
         {
             T value = 0;
             H5Tget_member_value(enumType, i, &value);

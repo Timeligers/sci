@@ -432,6 +432,14 @@ public class SwingScilabEditBox extends JScrollPane implements SwingViewObject, 
     }
 
     /**
+     * Set the tootip text of the EditBox
+     * @param tooltipText the tooltip text
+     */
+    public void setToolTipText(String tooltipText) {
+    	textPane.setToolTipText(tooltipText);
+    }
+    
+    /**
      * Destroy the EditBox
      */
     public void destroy() {

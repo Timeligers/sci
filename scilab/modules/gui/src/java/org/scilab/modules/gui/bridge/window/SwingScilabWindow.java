@@ -22,6 +22,8 @@ package org.scilab.modules.gui.bridge.window;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Point;
+import java.awt.Desktop;
+import java.awt.Taskbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -29,6 +31,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.server.UID;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -110,6 +113,15 @@ public abstract class SwingScilabWindow extends JFrame implements SimpleWindow {
         this.setDims(new Size(DEFAULTWIDTH, DEFAULTHEIGHT));
         this.setTitle("Scilab");
         setIconImage(new ImageIcon(FindIconHelper.findIcon("scilab", "256x256")).getImage());
+
+        if (MAC_OS_X) {
+            Desktop desktop = Desktop.getDesktop();
+            Taskbar taskbar = Taskbar.getTaskbar();
+            taskbar.setIconImage(new ImageIcon(FindIconHelper.findIcon("scilabMacOS", "256x256")).getImage());
+            desktop.setAboutHandler(e->InterpreterManagement.requestScilabExec("about();"));
+            desktop.setPreferencesHandler(e ->InterpreterManagement.requestScilabExec("preferences();"));
+            desktop.setQuitHandler((e,r)->InterpreterManagement.requestScilabExec("exit();"));
+        }
 
         /* defining the Layout */
         super.setLayout(new java.awt.BorderLayout());
@@ -202,6 +214,19 @@ public abstract class SwingScilabWindow extends JFrame implements SimpleWindow {
             return new SwingScilabDockingWindow();
         }
         return new SwingScilabStaticWindow();
+    }
+
+    /** force closing all Scilab windows not using the ClosingOperationsManager */
+    public static void forceClose()
+    {
+        ArrayList<SwingScilabWindow> allWindows = new ArrayList<>(allScilabWindows.values());
+        for(SwingScilabWindow window : allWindows)
+        {
+            if (window.isVisible())
+            {
+                window.close();
+            }
+        }
     }
 
     /**

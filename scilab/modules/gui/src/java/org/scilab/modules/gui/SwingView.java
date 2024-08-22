@@ -431,7 +431,9 @@ public final class SwingView implements GraphicView {
 
                 SwingScilabPanel tab;
                 if (figure.getDockable()) {
-                    tab = new SwingScilabDockablePanel(figureTitle, figureId, figure);
+                    SwingScilabDockablePanel t = new SwingScilabDockablePanel(figureTitle, figureId, figure);
+                    ClosingOperationsManager.addDependencyWithRoot(t);
+                    tab = t;
                 } else {
                     tab = new SwingScilabStaticPanel(figureTitle, figureId, figure);
                 }

@@ -41,8 +41,9 @@ function demo_springboard()
     // nonPositive option allows to keep lambda <= 0, allowing ball takeoff 
     sol = ida(res,[0 T],y0,yd0,yIsAlgebraic=5,suppressAlg=%t,nonPositive=5)
 
-    clf
-    demo_viewCode("springboard.dem.sce")
+    my_handle = scf(100001);
+    clf(my_handle,"reset");
+    demo_viewCode("springboard.dem.sce");
 
     x=linspace(min(sol.y(1,:)),3,100);
     plot(x,f(x),x0(1),x0(2),'o');
@@ -57,6 +58,7 @@ function demo_springboard()
     for t = linspace(0,sol.t($),500)
         realtime(t)
         y = sol(t);
+        if ~is_handle_valid(h) then break; end
         h.data = y(1:2)';
         ht.text = msprintf("$\\lambda = %4.1f$",y(5));
     end

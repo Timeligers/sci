@@ -21,6 +21,8 @@ libdemo_tools_la_gui_DATA = gui/demo_gui.xml
 
 #### demo_tools : images files ####
 libdemo_tools_la_imagesdir=$(mydatadir)/images
-libdemo_tools_la_images_DATA = images/logo_scilab.png
+libdemo_tools_la_images_DATA = \
+images/logo_scilab.png \
+images/scilab-logo.png
 
 include $(top_srcdir)/Makefile.incl.am

@@ -57,7 +57,7 @@ function sd = stdev(x, o, m)
             return
         else
             msg = gettext("%s: Function not defined for given argument #%d type.\nCheck arguments or define function %s for overloading.\n");
-            error(msprintf(msg, "mean", 1, ovname+"()"))
+            error(msprintf(msg, "stdev", 1, ovname+"()"))
         end
     end
 

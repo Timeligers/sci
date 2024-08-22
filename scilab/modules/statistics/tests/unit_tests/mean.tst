@@ -11,6 +11,7 @@
 // <-- NO CHECK REF -->
 // <-- CLI SHELL MODE -->
 
+assert_checkequal(mean([]), %nan);
 assert_checkequal(mean(0), 0);
 assert_checkequal(mean(zeros(3,3)), 0);
 assert_checkequal(mean(zeros(3,3,3)), 0);
@@ -33,6 +34,7 @@ for O = objects
         else
             assert_checktrue(issparse(m));
         end
+
         assert_checkequal(full(m), mean(o, d));
     end
 end

@@ -101,6 +101,12 @@ fromJSON("{test:[a, b], values:[1, 2]")
                     Function introduced.
                 </revremark>
             </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revremark>
+                    Handling of tabs (ascii(9)) changed.
+                </revremark>
+            </revision>
         </revhistory>
     </refsection>
 </refentry>

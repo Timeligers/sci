@@ -87,7 +87,10 @@ GATEWAY_C_SOURCES = \
 	sci_gateway/c/sci_cdfnor.c
 	
 GATEWAY_CPP_SOURCES = \
-	sci_gateway/cpp/sci_percent_cov.cpp
+	sci_gateway/cpp/sci_percent_cov.cpp \
+	sci_gateway/cpp/sci_nansum.cpp \
+	sci_gateway/cpp/sci_mean.cpp \
+	sci_gateway/cpp/sci_nanmean.cpp
 
 libscistatistics_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \

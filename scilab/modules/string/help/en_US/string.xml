@@ -36,8 +36,7 @@
                 <term>x</term>
                 <listitem>
                     <para>
-                        a boolean, complex, real, integer, polynomial matrix,
-                        an implicitlist (like 1:$), a library of functions in Scilab language.
+                        Any Scilab variable type.
                     </para>
                 </listitem>
             </varlistentry>
@@ -150,6 +149,12 @@
                 <revnumber>5.4.0</revnumber>
                 <revremark>
                     Input of implicitlist typeof accepted.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    list, cell and struct accepted.
                 </revremark>
             </revision>
         </revhistory>

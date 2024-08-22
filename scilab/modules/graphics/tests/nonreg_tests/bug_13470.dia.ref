@@ -12,5 +12,5 @@
 // <-- Short Description -->
 //    histplot(0,0,%t) crashed.
 // =============================================================================
-errmsg=msprintf(_("%s: Wrong value for input argument #%d: Must be in the interval %s.\n"),"histc",1,"[1, oo)");
+errmsg=msprintf(_("%s: Wrong value for input argument #%d: Must be in the interval %s.\n"),"histc",2,"[1, oo)");
 assert_checkerror("histplot(0,0,%t)", errmsg);

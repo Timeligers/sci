@@ -83,7 +83,8 @@ void *MyHeapAlloc(size_t dwSize, char *file, int line)
     else
     {
 #ifdef _DEBUG
-        sciprint("MALLOC (2) Error File %s Line %d ", file, line);
+        // MALLOC(0) does not report a warning anymore
+        // sciprint("MALLOC (2) Error File %s Line %d ", file, line);
 #endif
         _try
         {

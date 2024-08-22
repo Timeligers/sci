@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <libxml/xpath.h>
 #include <libxml/xmlreader.h>
+#include <libxml/xmlsave.h>
 #include "getScilabPreference.h"
 #include "GetXmlFileEncoding.h"
 #include "sci_malloc.h"

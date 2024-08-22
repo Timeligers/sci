@@ -21,13 +21,13 @@ N = 5;
 m = grand(M, N, "unf", 0, 10);
 fprintfMat(TMPDIR + "\test_15075.txt", m);
 
-tic();
+timer();
 data1 = read(TMPDIR + "\test_15075.txt", M, N);
-time1 = toc();
+time1 = timer()
 
-tic();
+timer();
 data2 = read(TMPDIR + "\test_15075.txt", -1, N);
-time2 = toc();
+time2 = timer()
 
 assert_checkequal(size(data1), size(data2));
 assert_checkequal(data1, data2);

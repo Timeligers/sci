@@ -162,7 +162,7 @@ types::Function::ReturnValue sci_lsq_splin(types::typed_list &in, int _iRetCount
     }
     else if (ierr == 1 && getWarningMode())
     {
-        sciprint(_("%ls: Warning: Rank deficiency of the least square matrix.\n"), "lsq_splin");
+        sciprint(_("%ls: Warning: Rank deficiency of the least square matrix.\n"), L"lsq_splin");
     }
 
     // *** Return result in Scilab. ***

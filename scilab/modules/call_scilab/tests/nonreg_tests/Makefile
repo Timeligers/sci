@@ -18,7 +18,8 @@ CC=gcc
 EXEC=bug_7601 \
 	bug_7602 \
 	bug_8115 \
-	bug_8830
+	bug_8830 \
+	bug_11394
 
 SRC= $(EXEC:=.c)
 
@@ -41,6 +42,9 @@ bug_8115: bug_8115.o
 	$(CC) -o $@ $^ $(LDFLAGS) -lsciast
 
 bug_8830: bug_8830.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+bug_11394: bug_11394.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 %.o: %.c

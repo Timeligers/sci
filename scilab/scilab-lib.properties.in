@@ -16,7 +16,13 @@ javax.annotation-api.jar=@JAVAX_ANNOTATION@
 
 jaxb-api.jar=@JAXB_API@
 
+jgraphx.jar=@JGRAPHX@
+
 jogl2.jar=@JOGL2@
+
+javafx.base.jar=@JAVAFX_BASE@
+javafx.swing.jar=@JAVAFX_SWING@
+javafx.graphics.jar=@JAVAFX_GRAPHICS@
 
 jhall.jar=@JHALL@
 
@@ -28,19 +34,19 @@ lucene-queryparser.jar=@LUCENE_PARSER@
 
 gluegen2.jar=@GLUEGEN2_RT@
 
-jgraphx.jar=@JGRAPHX@
-
 scirenderer.jar=@SCIRENDERER@
 
 jrosetta-API.jar=@JROSETTA_API@
 
 jrosetta-engine.jar=@JROSETTA_ENGINE@
 
+jlatexmath.jar=@JLATEXMATH@
+
+jlatexmath-fop.jar=@JLATEXMATH_FOP@
+
 checkstyle.jar=@CHECKSTYLE@
 
 junit4.jar=@JUNIT4@
-
-hamcrest-all.jar=@HAMCREST@
 
 cobertura.jar=@COBERTURA@
 
@@ -48,9 +54,11 @@ asm3.jar=@ASM3@
 
 commons-beanutils.jar=@COMMONS_BEANUTILS@
 
-antlr.jar=@ANTLR@
+commons-collections.jar=@COMMONS_COLLECTIONS@
 
-jlatexmath.jar=@JLATEXMATH@
+guava.jar=@GUAVA@
+
+antlr.jar=@ANTLR@
 
 ; To build the export through the Java
 avalon-framework.jar=@AVALON_FRAMEWORK@
@@ -127,7 +135,7 @@ library.ui_data.src.dir=${modules.dir}/ui_data/${library.src.path}
 library.ui_data.name=org.scilab.modules.ui_data.jar
 
 library.graphic_objects.dir=${modules.dir}/graphic_objects/${build.jar.dir}/
-library.graphic_objects.src.dir=${modules.dir}/graphic_export/${library.src.path}
+library.graphic_objects.src.dir=${modules.dir}/graphic_objects/${library.src.path}
 library.graphic_objects.name=org.scilab.modules.graphic_objects.jar
 
 library.graph.dir=${modules.dir}/graph/${build.jar.dir}/

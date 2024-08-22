@@ -29,4 +29,5 @@
     <gateway name="sci_macrovar"            function="macrovar"             type="1" />
     <gateway name="sci_libraryinfo"         function="libraryinfo"          type="1" />
     <gateway name="sci_librarieslist"       function="librarieslist"        type="1" />
+    <gateway name="sci_idempotence"         function="parser_idempotence"   type="1" />
 </module>

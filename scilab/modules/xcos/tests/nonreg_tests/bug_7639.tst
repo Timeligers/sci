@@ -7,6 +7,7 @@
 // =============================================================================
 
 // <-- XCOS TEST -->
+// <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 7639 -->
 //
@@ -47,5 +48,5 @@ assert_checkequal(typeof(superblk), "Block");
 
 // call and check for a message error (the out blk will be empty on error)
 blk = xcosCodeGeneration(superblk);
-assert_checkequal(typeof(blk), "Block");
+assert_checkequal(blk, []);
 assert_checktrue(length(msg) <> 0);

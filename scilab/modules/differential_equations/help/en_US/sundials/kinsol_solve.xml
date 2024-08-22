@@ -161,7 +161,7 @@
             f = kinsol(list(fun,LAP,BDY),ones(n*n,1), jacBand=[n,n], display="iter");
 
             clf
-            gcf().color_map=parulacolormap(128);
+            gcf().color_map=parula(128);
             surf(x,x,matrix(f,n,n))
  ]]></programlisting>
  <scilab:image>
@@ -188,7 +188,7 @@
      f = kinsol(list(fun,LAP,BDY),ones(n*n,1), jacBand=[n,n], display="iter");
 
      clf
-     gcf().color_map=parulacolormap(128);
+     gcf().color_map=parula(128);
      surf(x,y,matrix(f,n,n))
  </scilab:image>
 </para>

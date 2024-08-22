@@ -50,7 +50,6 @@ CORE_CPP_SOURCES = \
     src/cpp/banner.cpp \
     src/cpp/with_module.cpp \
     src/cpp/runner.cpp \
-    src/cpp/tasks.cpp \
     src/cpp/getvariablesname.cpp \
     src/cpp/getmacrosname.cpp \
     src/cpp/getfunctionsname.cpp \
@@ -97,6 +96,7 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_error.cpp \
 	sci_gateway/cpp/sci_exists.cpp \
 	sci_gateway/cpp/sci_exit.cpp \
+	sci_gateway/cpp/sci_isatty.cpp \
 	sci_gateway/cpp/sci_fieldnames.cpp \
 	sci_gateway/cpp/sci_format.cpp \
 	sci_gateway/cpp/sci_funcprot.cpp \

@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include "sciCurl.hxx"
 #include "string.hxx"
+#include "struct.hxx"
+#include "list.hxx"
 #include "json.hxx"
 #include "configvariable.hxx"
 
@@ -32,6 +34,7 @@ SciCurl::SciCurl()
     _status     = CURLE_OK;
     _data       = "";
     _fd         = nullptr;
+    _follow     = false;
     _headers    = nullptr;
     _formpost   = nullptr;
     _lastptr    = nullptr;
@@ -41,6 +44,7 @@ SciCurl::~SciCurl()
 {
     curl_easy_cleanup(_curl);
     _data.clear();
+    _recvHeaders.clear();
 
     if(_headers)
     {
@@ -50,7 +54,6 @@ SciCurl::~SciCurl()
     if(_formpost)
     {
         curl_formfree(_formpost);
-        curl_formfree(_lastptr);
     }
 }
 
@@ -77,6 +80,9 @@ bool SciCurl::init()
     std::string empty;
     curl_easy_setopt(_curl, CURLOPT_ACCEPT_ENCODING, empty.c_str());
 
+    curl_easy_setopt(_curl, CURLOPT_HEADERFUNCTION, write_headers);
+    curl_easy_setopt(_curl, CURLOPT_HEADERDATA, this);
+
     FREE(OperatingSystem);
     FREE(Release);
 
@@ -100,6 +106,7 @@ void SciCurl::ssl(bool verifyPeer)
 
 void SciCurl::follow(int follow)
 {
+    _follow = follow > 0;
     curl_easy_setopt(_curl, CURLOPT_FOLLOWLOCATION, follow);
 }
 
@@ -132,6 +139,42 @@ types::InternalType* SciCurl::getResult()
     }
 
     return res;
+}
+
+types::InternalType* SciCurl::getHeaders()
+{
+    types::InternalType* res = nullptr;
+    types::SingleStruct* pSStr = nullptr;
+    std::vector<types::Struct*> vectStr;
+    for(const auto& p : _recvHeaders)
+    {
+        if(p.first == "new")
+        {
+            types::Struct* pStr = new types::Struct(1, 1);
+            pSStr = pStr->get(0);
+            vectStr.push_back(pStr);
+            continue;
+        }
+
+        wchar_t* field = to_wide_string(p.first.c_str());
+        pSStr->addField(field);
+        pSStr->set(field, new types::String(p.second.c_str()));
+    }
+
+    // when the follow arg is set to true,
+    // returns on group of headers by requests.
+    if(_follow)
+    {
+        types::List* pList = new types::List();
+        for(const auto& str : vectStr)
+        {
+            pList->append(str);
+        }
+
+        return pList;
+    }
+
+    return vectStr[0];
 }
 
 // Proxy is configured in scilab preferences (internet tab)
@@ -355,6 +398,11 @@ FILE* SciCurl::getFile()
     return _fd;
 }
 
+void SciCurl::appendHeaders(std::string& field, std::string& value)
+{
+    _recvHeaders.emplace_back(field, value);
+}
+
 void SciCurl::appendData(std::string& part)
 {
     _data += part;
@@ -393,7 +441,7 @@ void SciCurl::perform(FILE* fd)
 // concat query result
 // manage writing in a file for Windows only
 // and writing in a buffer for all OS.
-int SciCurl::write_result(char* pcInput, size_t size, size_t nmemb, void* output)
+size_t SciCurl::write_result(char* pcInput, size_t size, size_t nmemb, void* output)
 {
     SciCurl* query = (SciCurl*)output;
 
@@ -411,8 +459,40 @@ int SciCurl::write_result(char* pcInput, size_t size, size_t nmemb, void* output
     return static_cast<int>(size*nmemb);
 }
 
+// concat query headers
+size_t SciCurl::write_headers(char* pcInput, size_t size, size_t nmemb, void* output)
+{
+    size_t length = size * nmemb;
+    if(length < 3)
+    {
+        return size*nmemb;
+    }
+
+    SciCurl* query = (SciCurl*)output;
+    std::string d(pcInput, length);
+    std::string::size_type pos = d.find(":");
+
+    if(pos != std::string::npos)
+    {
+        std::string field = d.substr(0, pos);
+        // +2 skip ": "   -2 to remove \r\n
+        std::string value = d.substr(pos + 2, length - (pos + 2) - 2);
+        query->appendHeaders(field, value);
+    }
+    else
+    {
+        // The first header row is for exemple "HTTP/1.1 200 OK"
+        // use it to create a new header group.
+        // Multiple header group can happend in case of following redirection.
+        std::string newHeader("new");
+        query->appendHeaders(newHeader, newHeader);
+    }
+
+    return size*nmemb;
+}
+
 // verbose
-int SciCurl::debug_callback(CURL* handle, curl_infotype type, char* data, size_t size, void* clientp)
+size_t SciCurl::debug_callback(CURL* handle, curl_infotype type, char* data, size_t size, void* clientp)
 {
     const char* fname = (char*) clientp;
 

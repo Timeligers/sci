@@ -10,9 +10,9 @@
 // Checks that this test is skipped because it requires a long time (5 seconds).
 delay = 5;
 j = 2;
-tic();
+timer();
 while ( %t )
-  t = toc();
+  t = timer()
   if ( t > delay ) then
     break
   end

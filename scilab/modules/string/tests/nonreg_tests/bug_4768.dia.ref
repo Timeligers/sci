@@ -17,29 +17,29 @@ v = "世界您好";
 ref_res1 = ["世";"界您好"];
 ref_res3 = ["世界您";"好"];
 r = strsplit(v,1)
- r  = 
+ r = [2x1 string]
   "世"  
   "界您好"
 if r <> ref_res1 then bugmes();quit;end
 r = strsplit(v,3)
- r  = 
+ r = [2x1 string]
   "世界您"
   "好"  
 if r <> ref_res3 then bugmes();quit;end
 //======================================================================================== 
 v = "азеазея";
 ref_res1 = ["а";"зеазея"]
- ref_res1  = 
+ ref_res1 = [2x1 string]
   "а"     
   "зеазея"
 ref_res3 = ["азе";"азея"];
 r = strsplit(v,1)
- r  = 
+ r = [2x1 string]
   "а"     
   "зеазея"
 if r <> ref_res1 then bugmes();quit;end
 r = strsplit(v,3)
- r  = 
+ r = [2x1 string]
   "азе" 
   "азея"
 if r <> ref_res3 then bugmes();quit;end

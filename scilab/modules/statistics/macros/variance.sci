@@ -74,7 +74,7 @@ function [s, m] = variance(x, orien, m)
     transposed = %f // to refer and process as in "r", we priorly transpose any "c" request
     if orien=="r" | orien==1 | orien=="c" | orien==2 | orien=="*"
         if orien=="c" | orien==2 then
-            x = x.'
+            x = x.';
             transposed = %t
             orien = "r"
         end

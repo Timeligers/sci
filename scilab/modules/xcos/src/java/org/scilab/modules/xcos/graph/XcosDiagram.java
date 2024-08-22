@@ -51,7 +51,7 @@ import javax.swing.Timer;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.utils.ScilabGraphConstants;
-import org.scilab.modules.gui.bridge.filechooser.SwingScilabFileChooser;
+import org.scilab.modules.gui.filechooser.FileChooser;
 import org.scilab.modules.gui.bridge.tab.SwingScilabDockablePanel;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.AnswerOption;
@@ -1836,16 +1836,15 @@ public class XcosDiagram extends ScilabGraph {
 
         info(XcosMessages.SAVING_DIAGRAM);
         if (fileName == null) {
-            final SwingScilabFileChooser fc = SaveAsAction.createFileChooser();
+            final FileChooser fc = SaveAsAction.createFileChooser();                
             SaveAsAction.configureFileFilters(fc);
             ConfigurationManager.configureCurrentDirectory(fc);
-
             if (getSavedFile() != null) {
                 // using save-as, the file chooser should have a filename
                 // without extension as default
                 String filename = getSavedFile().getName();
                 filename = filename.substring(0, filename.lastIndexOf('.'));
-                fc.setSelectedFile(new File(filename));
+                fc.setInitialFileName(filename);
             } else {
                 final String title = getTitle();
                 if (title != null) {
@@ -1857,23 +1856,15 @@ public class XcosDiagram extends ScilabGraph {
                     for (char c : regex) {
                         escaped = escaped.replace(c, '-');
                     }
-
-                    fc.setSelectedFile(new File(escaped));
-                }
+                    fc.setInitialFileName(escaped);
+                }             
             }
-
-            int status = fc.showSaveDialog(this.getAsComponent());
-            if (status != JFileChooser.APPROVE_OPTION) {
-                info(XcosMessages.EMPTY_INFO);
-                return isSuccess;
+            fc.displayAndWait();
+            String[] selection = fc.getSelection();
+            if (selection.length==0 || selection[0] == "") {
+                return isSuccess;   
             }
-
-            // change the format if the user choose a save-able file format
-            final XcosFileType selectedFilter = XcosFileType.findFileType(fc.getFileFilter());
-            if (XcosFileType.getAvailableSaveFormats().contains(selectedFilter)) {
-                format = selectedFilter;
-            }
-            writeFile = fc.getSelectedFile();
+            writeFile = new File(selection[0]);             
         }
 
         /* Extension/format update */

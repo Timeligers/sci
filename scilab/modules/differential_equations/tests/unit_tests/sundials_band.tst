@@ -37,18 +37,18 @@ JCONSTSPARSE = -lambda/c/rhoLin/dx/dx*(diag(sparse(2*ones(1,N-1)))-diag(sparse(o
 
 // CVODE
 
-tic;
+timer();
 [t,v] = cvode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,method="BDF");
-t1=toc();
-tic;
+t1=timer()
+
 [t,v] = cvode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacBand=[1,1]);
-t2=toc();
-tic;
+t2=timer()
+
 [t,v] = cvode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacBand=[1,1],jacobian=jac_f_chaleur);
-t3=toc();
-tic;
+t3=timer()
+
 [tb,vb] = cvode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacBand=[1,1],jacobian=JCONSTBAND);
-t4=toc();
+t4=timer()
 [ts,vs] = cvode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacobian=JCONSTSPARSE);
 
 assert_checkalmostequal(vb,vs)
@@ -58,18 +58,18 @@ assert_checktrue(t1/t4>10)
 
 // ARKODE
 
-tic;
+timer();
 [t,v] = arkode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,method="DIRK",atol=1e-9);
-t1=toc();
-tic;
+t1=timer()
+
 [t,v] = arkode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacBand=[1,1],atol=1e-9);
-t2=toc();
-tic;
+t2=timer()
+
 [t,v] = arkode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacBand=[1,1],jacobian=jac_f_chaleur,atol=1e-9);
-t3=toc();
-tic;
+t3=timer()
+
 [tb,vb] = arkode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacBand=[1,1],jacobian=JCONSTBAND,atol=1e-9);
-t4=toc();
+t4=timer()
 [ts,vs] = arkode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacobian=JCONSTSPARSE,atol=1e-9);
 assert_checkalmostequal(vb,vs,1e-6)
 assert_checktrue(t1/t2>10)
@@ -122,8 +122,8 @@ heatcode=[
 "}"
 ]
 
-mputl(heatcode,"heat.c")
-SUN_Clink(["heatRhs";"heatJac"],"heat.c",load=%t);
+mputl(heatcode,TMPDIR+"/heat.c")
+SUN_Clink(["heatRhs";"heatJac"],TMPDIR+"/heat.c",load=%t);
 
 [t,v,info] = cvode(list("heatRhs",[dx,lambda,c,rhoLin]),tspan,v0,jacBand=[1 1]);
 [t1,v1,info1] = cvode(list(f_chaleur,dx,lambda,c,rhoLin,f),tspan,v0,jacBand=[1,1]);

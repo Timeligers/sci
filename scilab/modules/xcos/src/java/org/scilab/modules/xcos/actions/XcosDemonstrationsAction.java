@@ -37,7 +37,7 @@ public final class XcosDemonstrationsAction extends DefaultAction {
     /** Name of the action */
     public static final String NAME = XcosMessages.XCOS_DEMONSTRATIONS;
     /** Icon name of the action */
-    public static final String SMALL_ICON = "applications-system";
+    public static final String SMALL_ICON = "x-office-presentation";
     /** Mnemonic key of the action */
     public static final int MNEMONIC_KEY = 0;
     /** Accelerator key for the action */

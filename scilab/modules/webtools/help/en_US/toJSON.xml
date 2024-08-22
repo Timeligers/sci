@@ -29,8 +29,8 @@
             result = toJSON(var, indent)
 
             toJSON(var, filename)
-            toJSON(var, indent, filename)
             toJSON(var, filename, indent)
+            toJSON(var, indent, filename)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -120,6 +120,12 @@ toJSON(st, 4)
                 <revnumber>6.1</revnumber>
                 <revremark>
                     Function introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2023.0.0</revnumber>
+                <revremark>
+                    Handling of tabs (ascii(9)) changed.
                 </revremark>
             </revision>
         </revhistory>

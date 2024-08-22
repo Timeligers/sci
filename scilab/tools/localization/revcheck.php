@@ -699,7 +699,7 @@ print <<<END_OF_MULTILINE
 <html>
 <head>
 <title>Scilab documentation Revision-check</title>
-<meta http-equiv="Content-Type" content="text/html; charset={$charset}">
+<meta http-equiv="Content-Type" content="text/html; charset={$charset}"/>
 <style type="text/css">
 <!--
 h2,td,a,p,a.ref,th { font-family:Arial,Helvetica,sans-serif; font-size:14px; }

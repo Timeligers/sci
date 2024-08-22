@@ -7,6 +7,12 @@
 
 // <-- TEST WITH GRAPHIC -->
 
+// Since https://bugs.openjdk.org/browse/JDK-8204187,
+// exporting JPG images to clipboard with Alpha channel is no more supported (at least under Windows)
+// This generates a warning/error message but the image is still exported to clipboard
+// See also https://bugs.openjdk.org/browse/JDK-8204188
+// <-- NO CHECK ERROR OUTPUT -->
+
 // <-- Non-regression test for bug 1944 -->
 //
 // <-- GitLab URL -->

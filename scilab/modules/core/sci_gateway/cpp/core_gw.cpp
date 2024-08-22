@@ -32,6 +32,7 @@ int CoreModule::Load()
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"banner", &sci_banner, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"quit", &sci_quit, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"exit", &sci_exit, MODULE_NAME));
+    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"isatty", &sci_isatty, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"exists", &sci_exists, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"isdef", &sci_isdef, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"argn", &sci_argn, MODULE_NAME));

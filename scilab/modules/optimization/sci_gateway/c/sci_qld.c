@@ -385,18 +385,20 @@ int sci_qld(char *fname, void* pvApiCtx)
 
 
     /* LhsVar: [x, lambda, inform] = qld(...) */
-    if (ifail == 0)
+    if (ifail == 0 || nbOutputArgument(pvApiCtx) == 3)
     {
         AssignOutputVariable(pvApiCtx, 1) = next;
         AssignOutputVariable(pvApiCtx, 2) = next + 1;
         if (nbOutputArgument(pvApiCtx) == 3)
         {
             AssignOutputVariable(pvApiCtx, 3) = next + 2;
-            *(inform) = ifail;
+            *(inform) = ifail > 10 ? 10 : ifail; 
         }
         ReturnArguments(pvApiCtx);
+        return 0;
     }
-    else if (ifail == 1)
+    
+    if (ifail == 1)
     {
         Scierror(24, _("%s: Too many iterations (more than %d).\n"), fname, 40 * (n + m));
     }
@@ -412,9 +414,7 @@ int sci_qld(char *fname, void* pvApiCtx)
     {
         Scierror(999, _("%s: The constraints are inconsistent.\n"), fname);
     }
-    else
-    {
-    }
+
     return 0;
 }
 

@@ -20,7 +20,6 @@ funmat = [
   "acosd"
   "acotd"
   "asind"
-  "atand"
   "cosd"
   "cotd"
   "cscd"
@@ -32,6 +31,9 @@ for fname = funmat'
   instr = fname + "(%i)";
   execstr(instr,"errcatch");
   errmsg = lasterror();
-  expected = fname + ": Wrong type for input argument #1: Real matrix expected.";
+  expected = fname + ": Wrong value for input argument #1: Real numbers expected.";
   if ( errmsg <> expected) then pause, end
 end
+
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: Real matrix expected.\n"), "atand", 1);
+assert_checkerror("atand(%i)", refMsg);

@@ -39,7 +39,7 @@ extern "C"
 }
 
 extern types::InternalType* import_data(hid_t dataset);
-extern int export_data(hid_t parent, const std::string& name, types::InternalType* data, hid_t xfer_plist_id);
+extern hid_t export_data(hid_t parent, const std::string& name, types::InternalType* data, hid_t xfer_plist_id);
 
 static int getHandleInt(hid_t dataset, const std::string& prop, int* val)
 {
@@ -188,7 +188,7 @@ static int getHandleDoubleVector(hid_t dataset, const std::string& prop, int* ro
     return 0;
 }
 
-static int getHandleString(hid_t dataset, const std::string& prop, char** val)
+static hid_t getHandleString(hid_t dataset, const std::string& prop, char** val)
 {
     hid_t node = 0;
     node = getDataSetIdFromName(dataset, prop.data());
@@ -220,7 +220,7 @@ static int getHandleString(hid_t dataset, const std::string& prop, char** val)
     return node;
 }
 
-static int getHandleStringVector(hid_t dataset, const std::string& prop, int* row, int* col, char*** vals)
+static hid_t getHandleStringVector(hid_t dataset, const std::string& prop, int* row, int* col, char*** vals)
 {
     hid_t node = 0;
     node = getDataSetIdFromName(dataset, prop.data());
@@ -320,7 +320,7 @@ static void import_userdata(hid_t dataset, int uid)
 static void import_handle_tag(hid_t dataset, int uid)
 {
     char* tag = nullptr;
-    int node = getHandleString(dataset, "tag", &tag);
+    hid_t node = getHandleString(dataset, "tag", &tag);
     setGraphicObjectProperty(uid, __GO_TAG__, tag, jni_string, 1);
     freeStringMatrix(node, &tag);
 }
@@ -401,7 +401,7 @@ static int import_handle_generic(hid_t dataset, int uid, int parent, const Handl
             case jni_string:
             {
                 char* data = nullptr;
-                int node = getHandleString(dataset, name, &data);
+                hid_t node = getHandleString(dataset, name, &data);
                 setGraphicObjectProperty(uid, go, data, jni_string, 1);
                 freeStringMatrix(node, &data);
                 break;
@@ -442,7 +442,7 @@ static int import_handle_generic(hid_t dataset, int uid, int parent, const Handl
             case jni_string_vector:
             {
                 char** vals = nullptr;
-                int node = getHandleStringVector(dataset, name, &row, &col, &vals);
+                hid_t node = getHandleStringVector(dataset, name, &row, &col, &vals);
                 if (vals)
                 {
                     setGraphicObjectProperty(uid, go, vals, jni_string_vector, row * col);
@@ -483,7 +483,7 @@ static int import_handle_border_line(hid_t dataset, int border)
     int status = 0;
     //color
     char* color = nullptr;
-    int nc = getHandleString(dataset, "color", &color);
+    hid_t nc = getHandleString(dataset, "color", &color);
     setGraphicObjectProperty(border, __GO_UI_FRAME_BORDER_COLOR__, color, jni_string, 1);
     freeStringMatrix(nc, &color);
 
@@ -510,7 +510,7 @@ static int import_handle_border_line(hid_t dataset, int border)
 static int import_handle_border_bevel(hid_t dataset, int border)
 {
     char* data = nullptr;
-    int node = 0;
+    hid_t node = 0;
     //type
     int type = 0;
     getHandleInt(dataset, "type", &type);
@@ -569,7 +569,7 @@ static int import_handle_border_etched(hid_t dataset, int border)
 {
     int status = 0;
     char* data = nullptr;
-    int node = 0;
+    hid_t node = 0;
 
     //type
     int type = 0;
@@ -606,7 +606,7 @@ static int import_handle_border_etched(hid_t dataset, int border)
 static int import_handle_border_titled(hid_t dataset, int border)
 {
     char* data = nullptr;
-    int node = 0;
+    hid_t node = 0;
     int status = 0;
 
     //title border
@@ -755,7 +755,7 @@ static int import_handle_border_matte(hid_t dataset, int border)
 
     //color
     char* data = nullptr;
-    int nc = getHandleString(dataset, "color", &data);
+    hid_t nc = getHandleString(dataset, "color", &data);
     setGraphicObjectProperty(border, __GO_UI_FRAME_BORDER_COLOR__, data, jni_string, 1);
     freeStringMatrix(nc, &data);
 
@@ -884,7 +884,7 @@ static int import_handle_uicontrol(hid_t dataset, int parent, int version)
 
     //string
     char** string = nullptr;
-    int node = getHandleStringVector(dataset, "string", &row, &col, &string);
+    hid_t node = getHandleStringVector(dataset, "string", &row, &col, &string);
     setGraphicObjectProperty(uic, __GO_UI_STRING_COLNB__, &col, jni_int, 1);
     setGraphicObjectProperty(uic, __GO_UI_STRING__, string, jni_string_vector, row * col);
     freeStringMatrix(node, string);
@@ -960,7 +960,7 @@ static int import_handle_text(hid_t dataset, int parent, int version)
     //text
     int dims[2];
     char** text = nullptr;
-    int textnode = getHandleStringVector(dataset, "text", &dims[0], &dims[1], &text);
+    hid_t textnode = getHandleStringVector(dataset, "text", &dims[0], &dims[1], &text);
     setGraphicObjectProperty(t, __GO_TEXT_ARRAY_DIMENSIONS__, dims, jni_int_vector, 2);
     setGraphicObjectProperty(t, __GO_TEXT_STRINGS__, text, jni_string_vector, dims[0] * dims[1]);
     freeStringMatrix(textnode, text);
@@ -980,7 +980,7 @@ static int import_handle_legend(hid_t dataset, int parent, int version)
     //text
     int dims[2];
     char** text = nullptr;
-    int textnode = getHandleStringVector(dataset, "text", &dims[0], &dims[1], &text);
+    hid_t textnode = getHandleStringVector(dataset, "text", &dims[0], &dims[1], &text);
     setGraphicObjectProperty(legend, __GO_TEXT_ARRAY_DIMENSIONS__, dims, jni_int_vector, 2);
     setGraphicObjectProperty(legend, __GO_TEXT_STRINGS__, text, jni_string_vector, dims[0] * dims[1]);
     freeStringMatrix(textnode, text);
@@ -1575,7 +1575,7 @@ static int import_handle_label(hid_t dataset, int uid, int version)
     //text
     std::vector<int> dims(2);
     char** data = nullptr;
-    int node = getHandleStringVector(dataset, "text", &dims[0], &dims[1], &data);
+    hid_t node = getHandleStringVector(dataset, "text", &dims[0], &dims[1], &data);
 
     setGraphicObjectProperty(uid, __GO_TEXT_ARRAY_DIMENSIONS__, dims.data(), jni_int_vector, 2);
     setGraphicObjectProperty(uid, __GO_TEXT_STRINGS__, data, jni_string_vector, dims[0] * dims[1]);
@@ -1724,7 +1724,7 @@ static int import_handle_figure(hid_t dataset, int parent, int version)
     int notmenu = menu == 0;
     int info = 0;
     getHandleBool(dataset, "infobar_visible", &info);
-    int notinfo = info = 0;
+    int notinfo = info == 0;
     int tool = 0;
     getHandleBool(dataset, "toolbar_visible", &tool);
     int nottool = tool == 0;
@@ -2935,7 +2935,8 @@ static bool export_handle_polyline_shift(hid_t parent, int uid, const std::strin
         dims[1] = count;
         writeDoubleMatrix6(parent, name.data(), 2, dims, data, xfer_plist_id);
 
-        releaseGraphicObjectProperty(uid, data, jni_double_vector, count);
+        //data from __GO_DATA_MODEL_XXX does not need to be delete
+        //releaseGraphicObjectProperty(uid, data, jni_double_vector, count);
     }
     else
     {

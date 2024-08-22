@@ -75,17 +75,17 @@ public final class PlotAction extends CommonCallBack {
         map.put("pie", 10);
     }
 
-    private static final String COM_PLOT2D = "plot2d(%s)";
-    private static final String COM_MATPLOT = "Matplot(%s)";
-    private static final String COM_GRAYPLOT = "grayplot(1:%s,1:%s,%s)";
-    private static final String COM_SGRAYPLOT = "Sgrayplot(1:%s,1:%s,%s)";
-    private static final String COM_CHAMP = "champ(1:%s,1:%s,real(%s),imag(%s))";
-    private static final String COM_HISTPLOT = "histplot(10,%s)";
-    private static final String COM_MESH = "mesh(%s)";
-    private static final String COM_SURF = "surf(%s)";
-    private static final String COM_BAR3D = "bar3d(%s)";
-    private static final String COM_CONTOUR2D = "contour2d(1:%s,1:%s,%s,10)";
-    private static final String COM_PIE = "L?8625083632641564278=%s;pie(L?8625083632641564278(find(L?8625083632641564278>0&L?8625083632641564278<>%%inf&L?8625083632641564278<>%%nan)))";
+    private static final String COM_PLOT2D = "plot2d(%s);";
+    private static final String COM_MATPLOT = "Matplot(%s);";
+    private static final String COM_GRAYPLOT = "grayplot(1:%s,1:%s,%s);";
+    private static final String COM_SGRAYPLOT = "Sgrayplot(1:%s,1:%s,%s);";
+    private static final String COM_CHAMP = "champ(1:%s,1:%s,real(%s),imag(%s));";
+    private static final String COM_HISTPLOT = "histplot(10,%s);";
+    private static final String COM_MESH = "mesh(%s);";
+    private static final String COM_SURF = "surf(%s);";
+    private static final String COM_BAR3D = "bar3d(%s);";
+    private static final String COM_CONTOUR2D = "contour2d(1:%s,1:%s,%s,10);";
+    private static final String COM_PIE = "L?8625083632641564278=%s;pie(L?8625083632641564278(find(L?8625083632641564278>0&L?8625083632641564278<>%%inf&L?8625083632641564278<>%%nan)));";
 
     private static final String[] COMMANDS = new String[] {COM_PLOT2D, COM_MATPLOT, COM_GRAYPLOT, COM_SGRAYPLOT, COM_CHAMP, COM_HISTPLOT, COM_MESH, COM_SURF, COM_BAR3D, COM_CONTOUR2D, COM_PIE};
     private static final String[] IMG = new String[] {
@@ -178,9 +178,10 @@ public final class PlotAction extends CommonCallBack {
                 colC = Integer.parseInt(((SwingScilabVariableBrowser)editor).getTable().getModel().getValueAt(clickedRow, BrowseVar.NB_COLS_INDEX).toString());
                 data = ((SwingScilabVariableBrowser)editor).getTable().getValueAt(clickedRow, BrowseVar.NAME_COLUMN_INDEX).toString();
             }
-            int type = Integer.parseInt(((SwingScilabVariableBrowser)editor).getTable().getModel().getValueAt(clickedRow, BrowseVar.TYPE_COLUMN_INDEX).toString());
+            int modelRow = ((SwingScilabVariableBrowser)editor).getTable().convertRowIndexToModel(clickedRow);
+            int varType = Integer.parseInt(((SwingScilabVariableBrowser)editor).getTable().getModel().getValueAt(modelRow, BrowseVar.TYPE_COLUMN_INDEX).toString());
 
-            if (!ScilabTypeEnumDescription.getTypeDescriptionFromId(type).equals(EditVar.DOUBLE)) {
+            if (!ScilabTypeEnumDescription.getTypeDescriptionFromId(varType).equals(EditVar.DOUBLE)) {
                 data = "double(" + data + ")";
             }
 

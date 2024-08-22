@@ -42,20 +42,6 @@ public class SciNotesAutosave implements ActionListener {
     private boolean isChecking = false;
     private Object lock = new Object();
 
-    static {
-        Scilab.registerFinalHook(new Runnable() {
-            public void run() {
-                for (File f : toRemove) {
-                    if (f.exists()) {
-                        try {
-                            f.delete();
-                        } catch (Exception e) { }
-                    }
-                }
-            }
-        });
-    }
-
     private Timer timer;
 
     private SciNotesAutosave() {
@@ -201,7 +187,7 @@ public class SciNotesAutosave implements ActionListener {
                                 sep.setLastModified(file.lastModified());
                             } else {
                                 if (as.automaticDelete) {
-                                    toRemove.add(file);
+                                    sep.addToRemove(file);
                                 }
                             }
                         }

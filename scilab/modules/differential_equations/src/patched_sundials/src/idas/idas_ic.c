@@ -22,6 +22,9 @@
 #include "idas_impl.h"
 #include <sundials/sundials_math.h>
 
+/* SUNDIALS EXTENSION */
+#include "sundials/sundials_extension.h"
+
 /*
  * =================================================================
  * IDA Constants
@@ -318,6 +321,14 @@ int IDACalcIC(void *ida_mem, int icopt, realtype tout1)
     }
 
   }   /* End of nwt loop */
+
+  /* SUNDIALS EXTENSION */
+  if (is_sundials_with_extension())
+  {
+      /* in order to return computed new values even if they are not consistent*/
+      N_VScale(ONE, IDA_mem->ida_yy0, IDA_mem->ida_phi[0]);
+      N_VScale(ONE, IDA_mem->ida_yp0, IDA_mem->ida_phi[1]);
+  }
 
   /* Load the optional outputs. */
 

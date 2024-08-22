@@ -7,12 +7,14 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
-a = list("cos", [1.1 2]);
+a = list("cos", [1.1 2], list(3), struct("a", 4));
 b = var2vec(a);
 c = vec2var(b);
 assert_checkequal(type(c), 15);
 assert_checkequal(c(1),    "cos");
+assert_checkequal(c, a);
 
 
 // Error checks

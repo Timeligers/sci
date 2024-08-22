@@ -226,8 +226,8 @@ section=%pi*d^2/4;
 rhoLin=rho*section;
 dx = L/N; x = linspace(dx,L-dx,N-1)';
 v0=zeros(N-1,1);
-tic;[t,v] = arkode(list(f_chaleur,dx,lambda,c,rhoLin),[0 3],v0,rtol=1e-5,atol=1e-7,method="ARK548L2SA_DIRK_8_4_5");t1=toc();
-tic;v2=ode("stiff",v0,0,t,1e-5,1e-7,list(f_chaleur,dx,lambda,c,rhoLin));t2 = toc();
+timer();[t,v] = arkode(list(f_chaleur,dx,lambda,c,rhoLin),[0 3],v0,rtol=1e-5,atol=1e-7,method="ARK548L2SA_DIRK_8_4_5");t1=timer()
+timer();v2=ode("stiff",v0,0,t,1e-5,1e-7,list(f_chaleur,dx,lambda,c,rhoLin));t2 = timer()
 assert_checktrue(max(abs(v-v2)) < 1e-6);
 //assert_checktrue(t1 < t2);
 

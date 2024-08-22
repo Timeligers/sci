@@ -39,18 +39,17 @@ function demo_npend()
             title(msprintf("t=%4.1f",t))
         else
             try
-                h=findobj("tag","chain");
-                if is_handle_valid(h)
-                    realtime(t)
-                    nb=size(h.data,1)-1;
-                    x=y(1:2*nb);
-                    h.data(2:$,:)=[x(1:2:$), x(2:2:$)];
-                    gca().title.text=msprintf("t=%4.1f",t);
-                else
-                term=%t;
-                end
+                realtime(t)
+                data = get("chain", "data");
+                if data == [] then term=%t; return; end
+
+                nb=size(data,1)-1;
+                x=y(1:2*nb);
+                data(2:$,:)=[x(1:2:$), x(2:2:$)];
+                set("chain", "data", data);
+                gca().title.text=msprintf("t=%4.1f",t);
             catch
-                term=%t
+                term = %t
             end
         end
     end

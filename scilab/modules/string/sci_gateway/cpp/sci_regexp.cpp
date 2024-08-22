@@ -102,7 +102,8 @@ types::Function::ReturnValue sci_regexp(types::typed_list &in, int _iRetCount, t
     }
 
     //input is empty
-    if (wcslen(pwstInput) == 0)
+    size_t inputSize = wcslen(pwstInput);
+    if (inputSize == 0)
     {
         types::Double* pStart = new types::Double(0, 0);
         out.push_back(pStart);
@@ -120,11 +121,11 @@ types::Function::ReturnValue sci_regexp(types::typed_list &in, int _iRetCount, t
         return types::Function::OK;
     }
 
-    piStart     = new int[wcslen(pwstInput)];
-    piEnd       = new int[wcslen(pwstInput)];
+    piStart     = new int[inputSize];
+    piEnd       = new int[inputSize];
 
-    pwstCapturedString = (wchar_t***)CALLOC(sizeof(wchar_t**), wcslen(pwstInput));
-    piCapturedStringCount = (int*)CALLOC(sizeof(int), wcslen(pwstInput));
+    pwstCapturedString = (wchar_t***)CALLOC(sizeof(wchar_t**), inputSize);
+    piCapturedStringCount = (int*)CALLOC(sizeof(int), inputSize);
 
     do
     {
@@ -158,7 +159,7 @@ types::Function::ReturnValue sci_regexp(types::typed_list &in, int _iRetCount, t
             return types::Function::Error;
         }
     }
-    while (iPcreStatus == PCRE_FINISHED_OK && iStart != iEnd && wcType != WSTR_ONCE);
+    while (iOccurs < inputSize && iPcreStatus == PCRE_FINISHED_OK && iStart != iEnd && wcType != WSTR_ONCE);
 
     if (iOccurs == 0)
     {

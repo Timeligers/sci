@@ -23,6 +23,8 @@ endfunction
 X = lmisolver(list(zeros(A1)), evalf);
 lmisolver: Construction of canonical representation.
 lmisolver: Basis Construction.
+lufact: Warning: Matrix is singular.
+lufact: Warning: Matrix is singular.
 lmisolver:     FEASIBILITY PHASE.
     primal obj.  dual obj.  dual. gap 
      6.66e-01    -5.03e+02   5.03e+02

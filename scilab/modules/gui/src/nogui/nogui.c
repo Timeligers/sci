@@ -158,7 +158,7 @@ int Xorgetchar(int interrupt)
             return (i);
         }
 
-        if (interrupt && (ismenu() == 1))
+        if (interrupt)
         {
             return (-1);
         }

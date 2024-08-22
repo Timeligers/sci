@@ -11,7 +11,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <rename_vc_extension_files>
-      <CommandLineTemplate>copy "%(RootDir)%(Directory)%(Filename)%(Extension)" "%(RootDir)%(Directory)%(Filename)" 1&gt;NUL</CommandLineTemplate>
+      <CommandLineTemplate>echo F|xcopy /D /Y /I "%(RootDir)%(Directory)%(Filename)%(Extension)" "%(RootDir)%(Directory)%(Filename)" 1&gt;NUL</CommandLineTemplate>
       <Outputs>%(RootDir)%(Directory)%(Filename) </Outputs>
       <ExecutionDescription>Copy %(RootDir)%(Directory)%(Filename)%(Extension) --&gt; %(RootDir)%(Directory)%(Filename)</ExecutionDescription>
     </rename_vc_extension_files>

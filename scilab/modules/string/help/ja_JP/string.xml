@@ -35,7 +35,7 @@
                 <term>x</term>
                 <listitem>
                     <para>
-                        論理値, 複素数, 実数, 整数, 多項式行列, 暗黙の大きさ, またはライブラリ.
+                        Any Scilab variable type.
                     </para>
                 </listitem>
             </varlistentry>
@@ -151,6 +151,12 @@
                 <revnumber>5.4.0</revnumber>
                 <revremark>
                     暗黙の大きさの型が入力引数として管理されます.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    list, cell and struct accepted.
                 </revremark>
             </revision>
         </revhistory>

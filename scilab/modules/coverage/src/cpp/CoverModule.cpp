@@ -143,41 +143,13 @@ const std::vector<std::pair<std::wstring, std::wstring>> CoverModule::getModule(
     const std::wstring _path = std::wstring(L"SCI") + DIR_SEPARATORW + L"modules" + DIR_SEPARATORW;
     const std::wstring path(expandPathVariable(_path));
 
-    if (moduleNames.size() == 1 && moduleNames.back() == L"all")
+    // a list of Scilab libraries
+    std::vector<std::pair<std::wstring, std::wstring>> paths;
+    for (const auto& name : moduleNames)
     {
-        sciprint(_("%s: Argument \"%s\" is obsolete.\n"), _("Warning"), "all");
-        sciprint(_("%s: Please use %s instead.\n"), _("Warning"), "covStart(librarylist())");
-
-        // "all" keyword, parse all the Scilab library files
-        int size = -1;
-        wchar_t** files = findfilesW(path.c_str(), DEFAULT_FILESPEC, &size, FALSE);
-        if (size > 0 && files)
-        {
-            std::vector<std::pair<std::wstring, std::wstring>> paths;
-            for (int i = 0; i < size; ++i)
-            {
-                const std::wstring modulePath = path + files[i];
-                if (isdirW(modulePath.c_str()))
-                {
-                    paths.emplace_back(modulePath, files[i]);
-                }
-            }
-            freeArrayOfWideString(files, size);
-            return paths;
-        }
-
-        return {};
+        paths.emplace_back(path + name, name);
     }
-    else
-    {
-        // a list of Scilab libraries
-        std::vector<std::pair<std::wstring, std::wstring>> paths;
-        for (const auto& name : moduleNames)
-        {
-            paths.emplace_back(path + name, name);
-        }
-        return paths;
-    }
+    return paths;
 }
 
 void CoverModule::getMacros(const std::vector<std::pair<std::wstring, std::wstring>>& paths_mods)

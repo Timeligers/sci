@@ -20,7 +20,7 @@ tar -xJf "${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz" -C $HOME
 
 echo -e "\e[0Ksection_end:$(date +%s):install\r\e[0K"
 
-LOG_PATH=$SCI_VERSION_STRING
+LOG_PATH=$SCI_VERSION_STRING/$ARCH
 [ ! -d "$LOG_PATH" ] && mkdir "$LOG_PATH"
 
 echo -e "\e[0Ksection_start:$(date +%s):test\r\e[0KTesting $TEST"

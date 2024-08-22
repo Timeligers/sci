@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
 // unit tests for nansum function
 // =============================================================================
@@ -15,16 +16,8 @@ refMsg = msprintf(_("%s: Wrong number of input argument(s): %d to %d expected.\n
 assert_checkerror("nansum()", refMsg);
 
 assert_checkfalse(execstr("nansum(""s"")"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: Real or complex, boolean, polynomial matrix expected.\n"), "nansum", 1);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: Must be in %s.\n"), "%_nansum", 1, sci2exp(["double", "boolean", "polynomial", "sparse", "int"]));
 assert_checkerror("nansum(""s"")", refMsg);
-
-assert_checkfalse(execstr("nansum(1, ""p"")"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"), "nansum", 2, """r"", ""c"", ""*"", 1, 2");
-assert_checkerror("nansum(1, ""p"")", refMsg);
-
-assert_checkfalse(execstr("nansum(1, %s)"   ,"errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: string or scalar expected.\n"), "nansum", 2);
-assert_checkerror("nansum(1, %s)", refMsg);
 
 assert_checkequal(nansum([]), 0);
 assert_checkequal(nansum(%nan), 0);

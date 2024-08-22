@@ -21,7 +21,7 @@ function f=%r_p_s(f,s)
     [ms,ns]=size(s)
     if ms==1&ns==1 then
         if m==n then //square matrix exponentiation f^s
-            if s==0 then f=eye(m,n),return,end
+            if s==0 then f=rlist(eye(m,n),eye(m,n),f("dt")),return,end
             if s<0 then f=invr(f),s=-s,end
             f1=f;for k=2:s,f=f*f1;end
         else

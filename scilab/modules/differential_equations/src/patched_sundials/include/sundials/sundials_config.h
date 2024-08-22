@@ -19,6 +19,8 @@
 
 #include "sundials/sundials_export.h"
 
+#include "machine.h" /* from Scilab configure results */
+
 #ifndef SUNDIALS_DEPRECATED_MSG
 #ifdef _MSC_VER
 #define SUNDIALS_DEPRECATED_MSG(msg) __declspec(deprecated(msg))

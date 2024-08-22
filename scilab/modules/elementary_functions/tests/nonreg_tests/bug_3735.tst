@@ -13,7 +13,7 @@
 
 A = ["First Row";"Second Row"];
 B = ["Third Row";"Fourth Row"];
-result = cat(1,A,B)
+result = cat(1,A,B);
 
 if result <> ["First Row";"Second Row";"Third Row";"Fourth Row"] then pause,end
 
