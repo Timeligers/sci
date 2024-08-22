@@ -90,6 +90,7 @@ template<> types::InternalType* dotmul_M_M<types::Double, types::Polynom, types:
 //x .* x
 template<typename T, typename U, typename O> inline static void dotmul(T* l, size_t size, U* r, O* o)
 {
+    #pragma omp for 
     for (size_t i = 0; i < size ; ++i)
     {
         o[i] = (O)l[i] * (O)r[i];
