@@ -1,5 +1,5 @@
 /*
-*  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+*  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2016 - Scilab Enterprises - Antoine ELIAS
 *
 * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -8,9 +8,9 @@
 
 #include "json.hxx"
 
-#include <chrono>
 #include <fstream>
 #include <iomanip>
+#include <map>
 #include <regex>
 #include <sstream>
 #include <string>
@@ -23,6 +23,7 @@ extern "C"
 #include "jsmn.h"
 #include "os_string.h"
 #include "sciprint.h"
+#include <wchar.h>
 }
 
 //
@@ -50,29 +51,34 @@ static unsigned int printType(unsigned char c)
     return (unsigned int)c;
 }
 
-static void string_replace(std::wstring& str, const std::wstring& f, const std::wstring& r)
+static void string_escape(std::wstring& str, wchar_t specialChar, wchar_t readableChar)
 {
     size_t index = 0;
     while (true)
     {
-        index = str.find(f, index);
+        index = str.find(specialChar, index);
         if (index == std::string::npos)
         {
             break;
         }
 
-        str.replace(index, f.size(), r);
-        index += r.size();
+        str[index] = L'\\';
+        str.insert(index+1, 1, readableChar);
+        index += 2;
     }
 }
 
 static std::wstring printType(wchar_t* s)
 {
     std::wstring str = s;
-    string_replace(str, L"\\", L"\\\\");
-    string_replace(str, L"\"", L"\\\"");
-    string_replace(str, L"\t", L"\\\t");
-
+    string_escape(str, L'\\', L'\\');
+    string_escape(str, L'\"', L'\"');
+    string_escape(str, L'/' , L'/' );
+    string_escape(str, L'\b', L'b' );
+    string_escape(str, L'\f', L'f' );
+    string_escape(str, L'\n', L'n' );
+    string_escape(str, L'\r', L'r' );
+    string_escape(str, L'\t', L't' );
     return L"\"" + str + L"\"";
 }
 
@@ -84,12 +90,70 @@ static std::wstring printType(bool b)
 static wchar_t* unescape(const char* str)
 {
     wchar_t* wc = to_wide_string(str);
-    std::wstring w(wc);
-    FREE(wc);
-    string_replace(w, L"\\\t", L"\t");
-    string_replace(w, L"\\\"", L"\"");
-    string_replace(w, L"\\\\", L"\\");
-    return os_wcsdup(w.data());
+    
+    // JSON special characters
+    const std::map<wchar_t, wchar_t> specialChars{
+        {L'\"', L'\"'},
+        {L'/' , L'/' }, 
+        {L'b' , L'\b'}, 
+        {L'f' , L'\f'}, 
+        {L'n' , L'\n'}, 
+        {L'r' , L'\r'}, 
+        {L't' , L'\t'}, 
+        {L'\\', L'\\'}
+    };
+    
+    // the wc string is modified in place thanks to pointer chasing
+    wchar_t* found = wcschr(wc, L'\\');
+    if (found == NULL)
+    {
+        return wc;
+    }
+    // initialize all pointers after the first segment. A segment is in-between two escape char
+    //   * found point to the end of a segment
+    //   * dst is where to write content
+    //   * pre point to the start of a segment
+    //
+    wchar_t* next = found + 1;
+    wchar_t* dst = next;
+    if (*next == L'\0')
+        return wc;
+    auto it = specialChars.find(*next);
+    if (it != specialChars.end())
+    {
+        *found = it->second;
+        found = next + 1;
+    }
+    wchar_t* pre = found;
+    found = wcschr(found, L'\\');
+
+    // iterate on each segment
+    for(; found != NULL; pre = found, found = wcschr(found, L'\\'))
+    {
+        // corner case: we are at the end of the string
+        next = found + 1;
+        if (*next == L'\0')
+            break;
+
+        it = specialChars.find(*next);
+        if (it != specialChars.end())
+        {
+            // move the string content between two escaped char
+            wmemmove(dst, pre, found - pre);
+            // to the escape char of the next segment
+            dst = dst + (found - pre);
+            // set the escaped char
+            *dst = it->second;
+            // to the next segment
+            dst = dst + 1;
+        }
+        found = next + 1;
+    }
+
+    // last segment including the terminating \0
+    wmemmove(dst, pre, wcslen(pre)+1);
+    
+    return wc;
 }
 
 template<typename T>
@@ -195,14 +259,14 @@ static bool export_struct(scilabEnv env, int indent, const std::vector<wchar_t*>
 
     os << L"{";
     os << indentStr2;
-    os << L"\"" << fields[0] << L"\": ";
+    os << printType(fields[0]) << L": ";
     export_data(env, data[0], indent, os);
 
     for (size_t i = 1; i < size; ++i)
     {
         os << L",";
         os << indentStr2;
-        os << L"\"" << fields[i] << L"\": ";
+        os << printType(fields[i]) << L": ";
         export_data(env, data[i], indent, os);
     }
 
@@ -507,7 +571,7 @@ std::string toJSON(scilabEnv env, scilabVar var, int indent)
 std::string toJSON(types::InternalType* it, int indent)
 {
     std::wostringstream os;
-    scilabVar var = (int*)it;
+    scilabVar var = (scilabVar)it;
 
     export_data(nullptr, var, indent, os);
 
@@ -575,7 +639,7 @@ struct JSONVar
             delete c;
         }
 
-        for (auto c : o1)
+        for (const auto& c : o1)
         {
             delete c.second;
         }
@@ -733,9 +797,9 @@ scilabVar createScilabVar(scilabEnv env, const JSONVar* v)
             size_t fsize = v->fields.size();
             std::vector<wchar_t*> fields;
             fields.reserve(fsize);
-            for (auto f : v->fields)
+            for (const auto& f : v->fields)
             {
-                fields.push_back(to_wide_string(f.data()));
+                fields.push_back(unescape(f.data()));
             }
 
             int size = 1;
@@ -756,49 +820,47 @@ scilabVar createScilabVar(scilabEnv env, const JSONVar* v)
                         scilab_setStructMatrix2dData(env, ret, fields[i], 0, 0, var);
                     }
                     break;
-
-                    case 1:
+                }
+                case 1:
+                {
+                    if (v->dims[0] == 1) //single struct [{"toto":42}]
                     {
-                        if (v->dims[0] == 1) //single struct [{"toto":42}]
-                        {
-                            ret = scilab_createStruct(env);
-                            for (size_t i = 0; i < fsize; ++i)
-                            {
-                                scilab_addField(env, ret, fields[i]);
-                                scilabVar var = createScilabVar(env, v->o.at(v->fields[i])[0]);
-                                scilab_setStructMatrix2dData(env, ret, fields[i], 0, 0, var);
-                            }
-                        }
-                        else //row vector [{"toto":1},{"toto":2}]
-                        {
-                            ret = scilab_createStructMatrix2d(env, 1, size);
-                            for (size_t i = 0; i < fsize; ++i)
-                            {
-                                scilab_addField(env, ret, fields[i]);
-                                for (int x = 0; x < size; ++x)
-                                {
-                                    scilabVar var = createScilabVar(env, v->o.at(v->fields[i])[x]);
-                                    scilab_setStructMatrix2dData(env, ret, fields[i], 0, x, var);
-                                }
-                            }
-                        }
-
-                        break;
-                    }
-
-                    default: //2 and more
-                    {
-                        ret = scilab_createStructMatrix(env, (int)v->dims.size(), v->dims.data());
+                        ret = scilab_createStruct(env);
                         for (size_t i = 0; i < fsize; ++i)
                         {
                             scilab_addField(env, ret, fields[i]);
-                            std::vector<int> index(v->dims.size());
+                            scilabVar var = createScilabVar(env, v->o.at(v->fields[i])[0]);
+                            scilab_setStructMatrix2dData(env, ret, fields[i], 0, 0, var);
+                        }
+                    }
+                    else //row vector [{"toto":1},{"toto":2}]
+                    {
+                        ret = scilab_createStructMatrix2d(env, 1, size);
+                        for (size_t i = 0; i < fsize; ++i)
+                        {
+                            scilab_addField(env, ret, fields[i]);
                             for (int x = 0; x < size; ++x)
                             {
-                                getIndexArray(x, v->dims, index);
                                 scilabVar var = createScilabVar(env, v->o.at(v->fields[i])[x]);
-                                scilab_setStructMatrixData(env, ret, fields[i], index.data(), var);
+                                scilab_setStructMatrix2dData(env, ret, fields[i], 0, x, var);
                             }
+                        }
+                    }
+
+                    break;
+                }
+                default: //2 and more
+                {
+                    ret = scilab_createStructMatrix(env, (int)v->dims.size(), v->dims.data());
+                    for (size_t i = 0; i < fsize; ++i)
+                    {
+                        scilab_addField(env, ret, fields[i]);
+                        std::vector<int> index(v->dims.size());
+                        for (int x = 0; x < size; ++x)
+                        {
+                            getIndexArray(x, v->dims, index);
+                            scilabVar var = createScilabVar(env, v->o.at(v->fields[i])[x]);
+                            scilab_setStructMatrixData(env, ret, fields[i], index.data(), var);
                         }
                     }
                 }
@@ -1190,7 +1252,7 @@ JSONVar* import_data(const jsmntok_t* t)
                             }
 
                             //same fields
-                            for (auto c : v->a[i]->fields)
+                            for (const auto& c : v->a[i]->fields)
                             {
                                 if (std::find(fref.begin(), fref.end(), c) == fref.end())
                                 {
@@ -1209,7 +1271,7 @@ JSONVar* import_data(const jsmntok_t* t)
                         {
                             case 1: //row vector
                             {
-                                for (auto f : fref)
+                                for (const auto& f : fref)
                                 {
                                     for (auto d : v->a)
                                     {
@@ -1220,7 +1282,7 @@ JSONVar* import_data(const jsmntok_t* t)
                             }
                             case 2: //matrix
                             {
-                                for (auto f : fref)
+                                for (const auto& f : fref)
                                 {
                                     for (int j = 0; j < v->dims[1]; ++j)
                                     {
@@ -1242,7 +1304,7 @@ JSONVar* import_data(const jsmntok_t* t)
                             }
                             default: //hypermat
                             {
-                                for (auto f : fref)
+                                for (const auto& f : fref)
                                 {
                                     for (auto d : v->a)
                                     {
@@ -1264,6 +1326,11 @@ JSONVar* import_data(const jsmntok_t* t)
                         v->reduced = true;
                         v->kind = JSON_STRUCT;
                         break;
+                    }
+                    default:
+                    {
+                        //heterogeneous -> list
+                        v->kind = JSON_LIST;
                     }
                 }
             }
@@ -1296,16 +1363,22 @@ types::InternalType* fromJSON(const std::string& s)
         return nullptr;
     }
 
-    //reset parser
+    if (r > 1)
+    {
+        // test if its JSON data
+        jsmn_init(&p);
+        jsmntok_t test;
+        jsmn_parse(&p, json.data(), (int)json.size(), &test, 1);
+        if(test.type != JSMN_ARRAY && test.type != JSMN_OBJECT)
+        {
+            return nullptr;
+        }
+    }
+
+    // parse all JSON data
     jsmn_init(&p);
     jsmntok_t* t = new jsmntok_t[r];
     jsmn_parse(&p, json.data(), (int)json.size(), t, r);
-
-    if (r > 1 && t[0].type != JSMN_ARRAY && t[0].type != JSMN_OBJECT)
-    {
-        delete[] t;
-        return nullptr;
-    }
 
     token_offset = 0;
     JSONVar* v = import_data(t);

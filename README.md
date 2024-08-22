@@ -1,8 +1,13 @@
+Scilab
+======
+
+[![Latest Release](https://gitlab.com/scilab/scilab/-/badges/release.svg)](https://gitlab.com/scilab/scilab/-/releases)
+
 ![Scilab desktop preview](scilab/desktop/images/scilab-desktop.png "Scilab desktop")
 
-# What does Scilab do ?
+# What does Scilab do?
 
-Scilab includes hundreds of mathematical functions. It has a high level programming language allowing access to advanced data structures, 2-D and 3-D graphical functions. A large number of functionalities is included in Scilab:
+Scilab includes hundreds of mathematical functions. It has a high-level programming language allowing access to advanced data structures, 2-D and 3-D graphical functions. A large number of functionalities is included in Scilab:
 
 <dl>
   <dt>Maths & Simulation</dt>
@@ -29,9 +34,3 @@ Scilab includes hundreds of mathematical functions. It has a high level programm
   <dt>Xcos - Hybrid dynamic systems modeler and simulator</dt>
   <dd>Modeling mechanical systems, hydraulic circuits, control systems...</dd>
 </dl>
-
-# Latest versions
-
- * [Scilab 6.1.1](https://gitlab.com/scilab/scilab/-/releases/6.1.1)
- * [Scilab 6.0.2](https://gitlab.com/scilab/scilab/-/releases/6.0.2)
- * [Scilab 5.5.2](https://gitlab.com/scilab/scilab/-/releases/5.2.2)

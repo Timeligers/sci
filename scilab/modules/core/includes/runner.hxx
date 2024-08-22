@@ -1,5 +1,5 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
  *  Copyright (C) 2014-2015 - Scilab Enterprises - Cedric Delamarre
  *
@@ -17,11 +17,7 @@
 #ifndef __RUNNER_HXX__
 #define __RUNNER_HXX__
 
-#include <atomic>
-#include <memory>
-
 #include "exp.hxx"
-#include "runvisitor.hxx"
 
 extern "C"
 {
@@ -32,10 +28,10 @@ extern "C"
 class CORE_IMPEXP Runner
 {
 public :
-    Runner(ast::Exp* _theProgram, ast::RunVisitor *_visitor) : m_theProgram(_theProgram), m_visitor(_visitor), m_iCommandOrigin(NONE), m_isInterruptible(true)
+    Runner(ast::Exp* _theProgram) : m_theProgram(_theProgram), m_iCommandOrigin(NONE), m_isInterruptible(true)
     { }
 
-    Runner(ast::Exp* _theProgram, ast::RunVisitor *_visitor, command_origin_t _iCommandOrigin, bool _isInterruptible) : m_theProgram(_theProgram), m_visitor(_visitor), m_iCommandOrigin(_iCommandOrigin), m_isInterruptible(_isInterruptible)
+    Runner(ast::Exp* _theProgram, command_origin_t _iCommandOrigin, bool _isInterruptible) : m_theProgram(_theProgram), m_iCommandOrigin(_iCommandOrigin), m_isInterruptible(_isInterruptible)
     { }
 
     ~Runner()
@@ -43,9 +39,9 @@ public :
         delete m_theProgram;
     }
 
-    ast::RunVisitor *getVisitor()
+    void setProgram(ast::Exp* _p)
     {
-        return m_visitor.get();
+        m_theProgram = _p;
     }
 
     ast::Exp* getProgram()
@@ -58,11 +54,6 @@ public :
         return m_iCommandOrigin;
     }
 
-    void setCommandOrigin(command_origin_t _origin)
-    {
-        m_iCommandOrigin = _origin;
-    }
-
     bool isInterruptible()
     {
         return m_isInterruptible;
@@ -70,41 +61,48 @@ public :
 
 private :
     ast::Exp* m_theProgram;
-    std::unique_ptr<ast::RunVisitor> m_visitor;
     command_origin_t m_iCommandOrigin;
     bool m_isInterruptible;
 };
 
 // static members to manage execution
-class StaticRunner
+class CORE_IMPEXP StaticRunner
 {
 public:
-    static int launch(void);
-    static void setRunner(Runner* _RunMe);
-    static Runner* getRunner(void);
-    static bool isRunnerAvailable(void);
+    static int launch();
+    static bool execCommand(const std::string& _stCMD);
+
+    static void sendExecDoneSignal();
+
     static bool isRunning(void);
     static bool isInterruptibleCommand(void);
-    static command_origin_t getCommandOrigin();
-    static void execAndWait(ast::Exp* _theProgram, ast::RunVisitor *_visitor,
-                            bool _isInterruptible, bool _isPrioritary, command_origin_t _iCommandOrigin);
-    static bool exec(ast::Exp* _theProgram, ast::RunVisitor *_visitor);
-    static void sendExecDoneSignal();
-    static void setCommandOrigin(command_origin_t _origin);
+
+    static void setDumpStack(bool _bValue);
+    static void setExecAst(bool _bValue);
+    static void setDumpAst(bool _bValue);
+    static bool getDumpAst();
+    static void setPrintAst(bool _bValue);
+    static bool getPrintAst();
+    static void printAstTask(ast::Exp *tree);
+    static void dumpAstTask(ast::Exp *tree);
 
 private:
-    static std::atomic<Runner*> m_RunMe;
-    static std::atomic<Runner*> m_CurrentRunner;
+    static void processRunner(Runner* _runner);
+    static void dumpStackTask();
+
+    static Runner* m_CurrentRunner;
+    static bool m_bDumpStack;
+    static bool m_bExecAst;
+    static bool m_bDumpAst;
+    static bool m_bPrintAst;
 };
 
 extern "C"
 {
     void StaticRunner_launch(void);
-    int StaticRunner_isRunnerAvailable(void);
     int StaticRunner_isRunning(void);
     int StaticRunner_isInterruptibleCommand(void);
-    command_origin_t StaticRunner_getCommandOrigin(void);
-    void StaticRunner_setCommandOrigin(command_origin_t _origin);
+    int StaticRunner_execCommand(const char* cmd);
 }
 
 #endif /* !__RUNNER_HXX__ */

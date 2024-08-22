@@ -1,4 +1,4 @@
-# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) 2006 - INRIA - Sylvestre LEDRU
 #
 # This file is distributed under the same license as the Scilab package.
@@ -34,7 +34,6 @@ libscidynamic_link_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/ast/includes/symbol/ \
     -I$(top_srcdir)/modules/ast/includes/system_env/ \
     -I$(top_srcdir)/modules/ast/includes/types/ \
-    -I$(top_srcdir)/modules/ast/includes/analysis/ \
 	-I$(top_srcdir)/modules/io/includes/ \
 	-I$(top_srcdir)/modules/api_scilab/includes/ \
 	-I$(top_srcdir)/modules/output_stream/includes/ \
@@ -43,7 +42,6 @@ libscidynamic_link_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/fileio/includes/ \
 	-I$(top_srcdir)/modules/threads/includes/ \
 	-I$(top_srcdir)/modules/localization/includes/ \
-	$(VALGRIND_CFLAGS) \
 	$(AM_CPPFLAGS)
 
 if MAINTAINER_MODE
@@ -95,6 +93,7 @@ src/scripts/Makefile.am \
 src/scripts/aclocal.m4
 
 libscidynamic_link_la_script_SCRIPTS = src/scripts/compilerDetection.sh \
+src/scripts/compile \
 src/scripts/config.guess \
 src/scripts/config.sub \
 src/scripts/configure \

@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -222,7 +222,6 @@ static getHashTableCouple propertyGetTable[] =
     {"tooltipstring", GetUicontrolTooltipString},
     {"closerequestfcn", get_figure_closerequestfcn_property},
     {"orientation", get_tip_orientation_property},
-    {"z_component", get_tip_z_component_property},
     {"display_components", get_tip_display_components_property},
     {"datatip_display_mode", get_datatip_display_mode_property},
     {"auto_orientation", get_tip_auto_orientation_property},

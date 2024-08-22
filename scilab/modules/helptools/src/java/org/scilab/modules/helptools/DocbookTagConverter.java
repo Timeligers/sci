@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010 - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -43,6 +43,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
@@ -434,6 +435,7 @@ public abstract class DocbookTagConverter extends DefaultHandler implements Conv
                 stack.pop();
                 stack.peek().getStringBuilder().append(str);
             }
+
         }
 
         if (converters != null) {
@@ -547,7 +549,7 @@ public abstract class DocbookTagConverter extends DefaultHandler implements Conv
     private String makeErrorMessage(Exception e) {
         String sId = "";
         if (currentFileName != null) {
-            sId = "SystemID:" + currentFileName;
+            sId = "SystemID: " + currentFileName;
         }
 
         String file;
@@ -558,9 +560,9 @@ public abstract class DocbookTagConverter extends DefaultHandler implements Conv
             file = null;
         }
         if (locator != null) {
-            return "\nCannot parse " + file + ":\n" + e.getMessage() + "\n" + sId + " at line " + locator.getLineNumber();
+            return "\nCannot parse " + file + ":\n" + sId + String.format(":%d:%d", locator.getLineNumber(), locator.getColumnNumber()) + "\n\t" + e.getMessage();
         } else {
-            return "\nCannot parse " + file + ":\n" + e.getMessage() + "\n" + sId;
+            return "\nCannot parse " + file + ":\n" + sId + "\n\t" + e.getMessage();
         }
     }
 
@@ -589,6 +591,14 @@ public abstract class DocbookTagConverter extends DefaultHandler implements Conv
         buf.setLength(i + 1);
 
         return buf;
+    }
+
+    /**
+     * Handle an exception without throwing it
+     * @param e the exception to handle
+     */
+    public void error(SAXParseException e) {
+        exceptionOccurred(e);
     }
 
     /*

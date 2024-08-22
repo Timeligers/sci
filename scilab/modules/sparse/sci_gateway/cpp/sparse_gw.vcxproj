@@ -22,30 +22,30 @@
     <ProjectGuid>{7FC7AEC9-4922-4864-83F1-EAED67981AAC}</ProjectGuid>
     <RootNamespace>sparse_gw</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -81,7 +81,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../src/c;../../includes;../../../../libs/intl;../../../../libs/Eigen/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../localization/includes;../../../dynamic_link/includes;../../../core/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../console/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../src/c;../../includes;../../../../libs/intl;../../../../libs/Eigen/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../localization/includes;../../../dynamic_link/includes;../../../core/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../console/includes;../../../sparse/includes;../../../sparse/src/Colpack/include;../../../sparse/src/Colpack/src/Utilities;../../../sparse/src/ColPack/src/BipartiteGraphBicoloring;../../../sparse/src/ColPack/src/BipartiteGraphPartialColoring;../../../sparse/src/ColPack/src/Recovery;../../../sparse/src/Colpack/src/GeneralGraphColoring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SPARSE_GW_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -109,7 +109,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../src/c;../../includes;../../../../libs/intl;../../../../libs/Eigen/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../localization/includes;../../../dynamic_link/includes;../../../core/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../console/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../src/c;../../includes;../../../../libs/intl;../../../../libs/Eigen/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../localization/includes;../../../dynamic_link/includes;../../../core/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../console/includes;../../../sparse/includes;../../../sparse/src/Colpack/include;../../../sparse/src/Colpack/src/Utilities;../../../sparse/src/ColPack/src/BipartiteGraphBicoloring;../../../sparse/src/ColPack/src/BipartiteGraphPartialColoring;../../../sparse/src/ColPack/src/Recovery;../../../sparse/src/Colpack/src/GeneralGraphColoring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SPARSE_GW_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -135,7 +135,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>../../src/c;../../includes;../../../../libs/intl;../../../../libs/Eigen/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../localization/includes;../../../dynamic_link/includes;../../../core/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../console/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../src/c;../../includes;../../../../libs/intl;../../../../libs/Eigen/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../localization/includes;../../../dynamic_link/includes;../../../core/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../console/includes;../../../sparse/includes;../../../sparse/src/Colpack/include;../../../sparse/src/Colpack/src/Utilities;../../../sparse/src/ColPack/src/BipartiteGraphBicoloring;../../../sparse/src/ColPack/src/BipartiteGraphPartialColoring;../../../sparse/src/ColPack/src/Recovery;../../../sparse/src/Colpack/src/GeneralGraphColoring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SPARSE_GW_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -167,7 +167,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>../../src/c;../../includes;../../../../libs/intl;../../../../libs/Eigen/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../localization/includes;../../../dynamic_link/includes;../../../core/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../console/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../src/c;../../includes;../../../../libs/intl;../../../../libs/Eigen/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../localization/includes;../../../dynamic_link/includes;../../../core/includes;../../../string/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../threads/includes;../../../console/includes;../../../sparse/includes;../../../sparse/src/Colpack/include;../../../sparse/src/Colpack/src/Utilities;../../../sparse/src/ColPack/src/BipartiteGraphBicoloring;../../../sparse/src/ColPack/src/BipartiteGraphPartialColoring;../../../sparse/src/ColPack/src/Recovery;../../../sparse/src/Colpack/src/GeneralGraphColoring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SPARSE_GW_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -205,11 +205,15 @@
     <ClCompile Include="sci_lusolve.cpp" />
     <ClCompile Include="sci_nnz.cpp" />
     <ClCompile Include="sci_ordmmd.cpp" />
+    <ClCompile Include="sci_percent_spCompGeneric_clear.cpp" />
+    <ClCompile Include="sci_percent_spCompGeneric_e.cpp" />
     <ClCompile Include="sci_sfinit.cpp" />
     <ClCompile Include="sci_sp2adj.cpp" />
     <ClCompile Include="sci_sparse.cpp" />
     <ClCompile Include="sci_spchol.cpp" />
     <ClCompile Include="sci_spcompack.cpp" />
+    <ClCompile Include="sci_spCompHessian.cpp" />
+    <ClCompile Include="sci_spCompJacobian.cpp" />
     <ClCompile Include="sci_spget.cpp" />
     <ClCompile Include="sci_spones.cpp" />
     <ClCompile Include="sci_spzeros.cpp" />
@@ -228,6 +232,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\elementary_functions\src\c\elementary_functions.vcxproj">
       <Project>{5b110267-7c18-437c-b87d-dba2b50729e9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\localization\src\localization.vcxproj">
+      <Project>{ecffeb0c-1eda-45ee-9a10-b18143852e17}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\output_stream\src\c\output_stream.vcxproj">
       <Project>{a5911cd7-f8e8-440c-a23e-4843a0636f3a}</Project>

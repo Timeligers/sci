@@ -22,30 +22,30 @@
     <ProjectGuid>{494FA8C9-6C85-4175-BE4C-9A113C7A3278}</ProjectGuid>
     <RootNamespace>xcos</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -94,7 +94,7 @@
     <ClCompile>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../cpp;../jni;../../includes;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../../../../libs/intl;../../../api_scilab/includes;../../../core/includes;../../../localization/includes;../../../jvm/includes;../../../fileio/includes;../../../output_stream/includes;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../scicos/includes;../../../dynamic_link/includes;../../../string/includes;../../../threads/includes;../../../console/includes;../../../scicos_blocks/includes;../../../scicos_blocks/src/jni;../../../../libs/libxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../cpp;../jni;../../includes;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../../../../libs/intl;../../../api_scilab/includes;../../../core/includes;../../../localization/includes;../../../jvm/includes;../../../fileio/includes;../../../output_stream/includes;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../scicos/includes;../../../dynamic_link/includes;../../../string/includes;../../../threads/includes;../../../console/includes;../../../scicos_blocks/includes;../../../scicos_blocks/src/jni;../../../../libs/libxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;XCOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -130,7 +130,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../cpp;../jni;../../includes;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../../../../libs/intl;../../../api_scilab/includes;../../../core/includes;../../../localization/includes;../../../jvm/includes;../../../fileio/includes;../../../output_stream/includes;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../scicos/includes;../../../dynamic_link/includes;../../../string/includes;../../../threads/includes;../../../console/includes;../../../scicos_blocks/includes;../../../scicos_blocks/src/jni;../../../../libs/libxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../cpp;../jni;../../includes;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../../../../libs/intl;../../../api_scilab/includes;../../../core/includes;../../../localization/includes;../../../jvm/includes;../../../fileio/includes;../../../output_stream/includes;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../scicos/includes;../../../dynamic_link/includes;../../../string/includes;../../../threads/includes;../../../console/includes;../../../scicos_blocks/includes;../../../scicos_blocks/src/jni;../../../../libs/libxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;XCOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -167,7 +167,7 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../cpp;../jni;../../includes;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../../../../libs/intl;../../../api_scilab/includes;../../../core/includes;../../../localization/includes;../../../jvm/includes;../../../fileio/includes;../../../output_stream/includes;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../scicos/includes;../../../dynamic_link/includes;../../../string/includes;../../../threads/includes;../../../console/includes;../../../scicos_blocks/includes;../../../scicos_blocks/src/jni;../../../../libs/libxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../cpp;../jni;../../includes;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../../../../libs/intl;../../../api_scilab/includes;../../../core/includes;../../../localization/includes;../../../jvm/includes;../../../fileio/includes;../../../output_stream/includes;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../scicos/includes;../../../dynamic_link/includes;../../../string/includes;../../../threads/includes;../../../console/includes;../../../scicos_blocks/includes;../../../scicos_blocks/src/jni;../../../../libs/libxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;XCOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -212,7 +212,7 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../cpp;../jni;../../includes;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../../../../libs/intl;../../../api_scilab/includes;../../../core/includes;../../../localization/includes;../../../jvm/includes;../../../fileio/includes;../../../output_stream/includes;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../scicos/includes;../../../dynamic_link/includes;../../../string/includes;../../../threads/includes;../../../console/includes;../../../scicos_blocks/includes;../../../scicos_blocks/src/jni;../../../../libs/libxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../cpp;../jni;../../includes;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../../../../libs/intl;../../../api_scilab/includes;../../../core/includes;../../../localization/includes;../../../jvm/includes;../../../fileio/includes;../../../output_stream/includes;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../scicos/includes;../../../dynamic_link/includes;../../../string/includes;../../../threads/includes;../../../console/includes;../../../scicos_blocks/includes;../../../scicos_blocks/src/jni;../../../../libs/libxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;XCOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>

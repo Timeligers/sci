@@ -1,5 +1,5 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2012-2013 - OCAMLPRO INRIA - Fabrice LE FESSANT
  *  Copyright (C) 2014 - Scilab Enterprises - Antoine ELIAS
  *
@@ -470,7 +470,7 @@ private :
                 delete name;
                 break;
             }
-            case 30:
+            case 30: //keep it to compatiblity with old ListExp (without hasExplicitStep flag)
             {
                 Exp* _start = get_exp();
                 Exp* _step = get_exp();
@@ -528,6 +528,36 @@ private :
                 Exp* name = get_exp();
                 exps_t* args = get_exps();
                 exp = new CellCallExp(loc, *name, *args);
+                break;
+            }
+            case 38:
+            {
+                exps_t* exps = get_exps();
+                exp = new ArgumentDec(loc, *(*exps)[0], *(*exps)[1], *(*exps)[2], *(*exps)[3], *(*exps)[4]);
+                break;
+            }
+            case 39:
+            {
+                exps_t* args = get_exps();
+                exp = new ArgumentsExp(loc, *args);
+                break;
+            }
+            case 40: // New ListExp (cf case 30) with hasExplicit flag
+            {
+                bool flag = get_bool();
+                Exp* _start = get_exp();
+                Exp* _step = get_exp();
+                Exp* _end = get_exp();
+                exp = new ListExp(loc, *_start, *_step, *_end, flag);
+                break;
+            }
+            case 41:
+            {
+                Location args_loc = get_location();
+                Exp* body = get_exp();
+                exps_t* args_list = get_vars();
+                ArrayListVar* args = new ArrayListVar(args_loc, *args_list);
+                exp = new FunctionDec(loc, *args, *body->getAs<SeqExp>());
                 break;
             }
             default:

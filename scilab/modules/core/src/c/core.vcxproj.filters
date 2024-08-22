@@ -104,9 +104,6 @@
     <ClCompile Include="..\cpp\InitScilab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cpp\tasks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\cpp\runner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -141,6 +138,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\cpp\hash\crc32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\hash\md5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\hash\sha1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\hash\sha256.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\hash\sha3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\md5_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hasHandleType.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hasUIControlStyle.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -290,9 +308,6 @@
     <ClInclude Include="..\..\includes\syncexec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\includes\tasks.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\includes\timer.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -387,6 +402,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\includes\parsecommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\hasHandleType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\hasUIControlStyle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

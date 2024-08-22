@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2013 - Scilab Enterprises - Adeline CARNIS
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -149,7 +149,7 @@
                 </para>
                 <programlisting role="no-scilab-exec">
                     <![CDATA[
-                   iterations &gt;= maxiter
+                   iterations >= maxiter
                 ]]>
                 </programlisting>
                 <para>
@@ -163,7 +163,7 @@
                 </para>
                 <programlisting role="no-scilab-exec">
                     <![CDATA[
-                   funevals &gt;= maxfunevals
+                   funevals >= maxfunevals
                 ]]>
                 </programlisting>
                 <para>
@@ -186,7 +186,7 @@
                             <para>if the following condition</para>
                             <programlisting role="no-scilab-exec">
                                 <![CDATA[
-                   abs(currentfopt) &lg; tolfunrelative * abs(previousfopt) + tolfunabsolute
+                   abs(currentfopt) < tolfunrelative * abs(previousfopt) + tolfunabsolute
                 ]]>
                             </programlisting>
                             <para>
@@ -221,7 +221,7 @@
                             <para>if the following condition</para>
                             <programlisting role="no-scilab-exec">
                                 <![CDATA[
-                   norm(currentxopt - previousxopt) &lg; tolxrelative * norm(currentxopt) + tolxabsolute
+                   norm(currentxopt - previousxopt) < tolxrelative * norm(currentxopt) + tolxabsolute
                 ]]>
                             </programlisting>
                             <para>

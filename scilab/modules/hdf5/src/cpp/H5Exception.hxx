@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -89,7 +89,7 @@ private:
 
         if (stackSize)
         {
-            herr_t err = H5Ewalk2(stid, H5E_WALK_UPWARD, getStackErrorMsg, &ret);
+            H5Ewalk2(stid, H5E_WALK_UPWARD, getStackErrorMsg, &ret);
             H5Eclear2(stid);
         }
 

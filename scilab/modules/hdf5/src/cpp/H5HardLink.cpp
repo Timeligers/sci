@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -31,7 +31,7 @@ H5Object & H5HardLink::getLinkedObject() const
         throw H5Exception(__LINE__, __FILE__, _("Cannot get the link info"));
     }
 
-    obj = H5Oopen_by_addr(getFile().getH5Id(), info.u.address);
+    obj = H5Oopen_by_token(getFile().getH5Id(), info.u.token);
     if (obj < 0)
     {
         throw H5Exception(__LINE__, __FILE__, _("Cannot get linked object"));
@@ -82,7 +82,7 @@ void H5HardLink::getAccessibleAttribute(const std::string & _name, const int pos
     H5Object::getAccessibleAttribute(_name, pos, pvApiCtx);
 }
 
-std::string H5HardLink::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5HardLink::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
     H5Object & obj = getLinkedObject();

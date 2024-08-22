@@ -23,30 +23,30 @@
     <RootNamespace>coverage</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <ProjectName>coverage</ProjectName>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -82,7 +82,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;../../libs/intl;../../libs/libxml2;..\threads\includes;..\ast\includes\types;..\ast\includes\ast;..\ast\includes\analysis;..\ast\includes\exps;..\ast\includes\operations;..\ast\includes\symbol;..\ast\includes\system_env;..\ast\includes\parse;../core/includes;../localization/includes;../dynamic_link/includes;../output_stream/includes;../string/includes;../console/includes;../fileio/includes;../fileio/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../../libs/intl;../../libs/libxml2;..\threads\includes;..\ast\includes\types;..\ast\includes\ast;..\ast\includes\exps;..\ast\includes\operations;..\ast\includes\symbol;..\ast\includes\system_env;..\ast\includes\parse;../core/includes;../localization/includes;../dynamic_link/includes;../output_stream/includes;../string/includes;../console/includes;../fileio/includes;../fileio/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;COVERAGE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -116,7 +116,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;../../libs/intl;../../libs/libxml2;..\threads\includes;..\ast\includes\types;..\ast\includes\ast;..\ast\includes\analysis;..\ast\includes\exps;..\ast\includes\operations;..\ast\includes\symbol;..\ast\includes\system_env;..\ast\includes\parse;../core/includes;../localization/includes;../dynamic_link/includes;../output_stream/includes;../string/includes;../console/includes;../fileio/includes;../fileio/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../../libs/intl;../../libs/libxml2;..\threads\includes;..\ast\includes\types;..\ast\includes\ast;..\ast\includes\exps;..\ast\includes\operations;..\ast\includes\symbol;..\ast\includes\system_env;..\ast\includes\parse;../core/includes;../localization/includes;../dynamic_link/includes;../output_stream/includes;../string/includes;../console/includes;../fileio/includes;../fileio/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;COVERAGE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -148,7 +148,7 @@
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>includes;../../libs/intl;../../libs/libxml2;..\threads\includes;..\ast\includes\types;..\ast\includes\ast;..\ast\includes\analysis;..\ast\includes\exps;..\ast\includes\operations;..\ast\includes\symbol;..\ast\includes\system_env;..\ast\includes\parse;../core/includes;../localization/includes;../dynamic_link/includes;../output_stream/includes;../string/includes;../console/includes;../fileio/includes;../fileio/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../../libs/intl;../../libs/libxml2;..\threads\includes;..\ast\includes\types;..\ast\includes\ast;..\ast\includes\exps;..\ast\includes\operations;..\ast\includes\symbol;..\ast\includes\system_env;..\ast\includes\parse;../core/includes;../localization/includes;../dynamic_link/includes;../output_stream/includes;../string/includes;../console/includes;../fileio/includes;../fileio/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;COVERAGE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -187,7 +187,7 @@
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>includes;../../libs/intl;../../libs/libxml2;..\threads\includes;..\ast\includes\types;..\ast\includes\ast;..\ast\includes\analysis;..\ast\includes\exps;..\ast\includes\operations;..\ast\includes\symbol;..\ast\includes\system_env;..\ast\includes\parse;../core/includes;../localization/includes;../dynamic_link/includes;../output_stream/includes;../string/includes;../console/includes;../fileio/includes;../fileio/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../../libs/intl;../../libs/libxml2;..\threads\includes;..\ast\includes\types;..\ast\includes\ast;..\ast\includes\exps;..\ast\includes\operations;..\ast\includes\symbol;..\ast\includes\system_env;..\ast\includes\parse;../core/includes;../localization/includes;../dynamic_link/includes;../output_stream/includes;../string/includes;../console/includes;../fileio/includes;../fileio/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;COVERAGE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>

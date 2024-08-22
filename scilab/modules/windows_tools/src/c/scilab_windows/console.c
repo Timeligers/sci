@@ -1,5 +1,5 @@
 /*
-* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) INRIA - Allan CORNET
 *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -154,9 +154,11 @@ void CreateScilabConsole(int ShowBanner)
         printf(line);
         wsprintf(line, "                         %s\n\n", scilabVersionString);
         printf(line);
-        strcpy(line, "                     ESI Group\n");
+        strcpy(line, "                     Dassault Systèmes\n");
         printf(line);
-        strcpy(line, "         Copyright (c) 2017-2022 (ESI Group)\n");
+        strcpy(line, "         Copyright (c) 2022-2024 (Dassault Systèmes)\n");
+        printf(line);
+        strcpy(line, "             Copyright (c) 2017-2022 (ESI Group)\n");
         printf(line);
         strcpy(line, "         Copyright (c) 2011-2017 (Scilab Enterprises)\n");
         printf(line);

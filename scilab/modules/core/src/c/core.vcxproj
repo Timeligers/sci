@@ -22,30 +22,30 @@
     <ProjectGuid>{C6E2BC17-34D8-46E4-85F3-6293CB21ADCD}</ProjectGuid>
     <RootNamespace>core</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -81,7 +81,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/GetWindowsVersion;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c;../../../windows_tools/src/c/scilab_windows;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;../../../preferences/includes;../../../history_manager/includes;../../../threads/includes;../../../external_objects/includes;../../../functions_manager/includes;../../../jvm/includes;../../../gui/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../fftw/includes;../../../ui_data/includes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/GetWindowsVersion;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c;../../../windows_tools/src/c/scilab_windows;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;../../../preferences/includes;../../../history_manager/includes;../../../threads/includes;../../../external_objects/includes;../../../functions_manager/includes;../../../jvm/includes;../../../gui/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../fftw/includes;../../../ui_data/includes</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_DEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -89,14 +89,15 @@
     <PreLinkEvent>
       <Message>Make dependencies</Message>
       <Command>setlocal EnableDelayedExpansion
-cd $(ConfigurationName)
+set PWD=!cd!
+cd ..
 set LIST_OBJ=
-for %%f in (*.obj) do set LIST_OBJ=!LIST_OBJ! %%f
+for /f %%f in ('dir /A-D /S /B *.c *.cpp *.f') do if exist %PWD%\$(ConfigurationName)\%%~nf.obj set LIST_OBJ=!LIST_OBJ! %PWD%\$(ConfigurationName)\%%~nf.obj
+cd %PWD%\$(ConfigurationName)
 "$(SolutionDir)bin\dumpexts" -o $(ProjectName).def $(ProjectName).dll %LIST_OBJ%
 copy $(ProjectName).def+..\core_export.def ..\$(ProjectName).def &gt;nul
 del *.def &gt;nul
 cd ..
-
 </Command>
     </PreLinkEvent>
     <Link>
@@ -121,7 +122,7 @@ cd ..
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/GetWindowsVersion;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c;../../../windows_tools/src/c/scilab_windows;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;../../../preferences/includes;../../../history_manager/includes;../../../threads/includes;../../../external_objects/includes;../../../functions_manager/includes;../../../jvm/includes;../../../gui/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../fftw/includes;../../../ui_data/includes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/GetWindowsVersion;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c;../../../windows_tools/src/c/scilab_windows;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;../../../preferences/includes;../../../history_manager/includes;../../../threads/includes;../../../external_objects/includes;../../../functions_manager/includes;../../../jvm/includes;../../../gui/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../fftw/includes;../../../ui_data/includes</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_DEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -129,14 +130,15 @@ cd ..
     <PreLinkEvent>
       <Message>Make dependencies</Message>
       <Command>setlocal EnableDelayedExpansion
-cd $(ConfigurationName)
+set PWD=!cd!
+cd ..
 set LIST_OBJ=
-for %%f in (*.obj) do set LIST_OBJ=!LIST_OBJ! %%f
+for /f %%f in ('dir /A-D /S /B *.c *.cpp *.f') do if exist %PWD%\$(ConfigurationName)\%%~nf.obj set LIST_OBJ=!LIST_OBJ! %PWD%\$(ConfigurationName)\%%~nf.obj
+cd %PWD%\$(ConfigurationName)
 "$(SolutionDir)bin\dumpexts" -o $(ProjectName).def $(ProjectName).dll %LIST_OBJ%
 copy $(ProjectName).def+..\core_export.def ..\$(ProjectName).def &gt;nul
 del *.def &gt;nul
 cd ..
-
 </Command>
     </PreLinkEvent>
     <Link>
@@ -159,7 +161,7 @@ cd ..
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/GetWindowsVersion;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c;../../../windows_tools/src/c/scilab_windows;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;../../../preferences/includes;../../../history_manager/includes;../../../threads/includes;../../../external_objects/includes;../../../functions_manager/includes;../../../jvm/includes;../../../gui/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../fftw/includes;../../../ui_data/includes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/GetWindowsVersion;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c;../../../windows_tools/src/c/scilab_windows;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;../../../preferences/includes;../../../history_manager/includes;../../../threads/includes;../../../external_objects/includes;../../../functions_manager/includes;../../../jvm/includes;../../../gui/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../fftw/includes;../../../ui_data/includes</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;NDEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -169,14 +171,15 @@ cd ..
     <PreLinkEvent>
       <Message>Make dependencies</Message>
       <Command>setlocal EnableDelayedExpansion
-cd $(ConfigurationName)
+set PWD=!cd!
+cd ..
 set LIST_OBJ=
-for %%f in (*.obj) do set LIST_OBJ=!LIST_OBJ! %%f
+for /f %%f in ('dir /A-D /S /B *.c *.cpp *.f') do if exist %PWD%\$(ConfigurationName)\%%~nf.obj set LIST_OBJ=!LIST_OBJ! %PWD%\$(ConfigurationName)\%%~nf.obj
+cd %PWD%\$(ConfigurationName)
 "$(SolutionDir)bin\dumpexts" -o $(ProjectName).def $(ProjectName).dll %LIST_OBJ%
 copy $(ProjectName).def+..\core_export.def ..\$(ProjectName).def &gt;nul
 del *.def &gt;nul
 cd ..
-
 </Command>
     </PreLinkEvent>
     <Link>
@@ -204,7 +207,7 @@ cd ..
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/GetWindowsVersion;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c;../../../windows_tools/src/c/scilab_windows;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;../../../preferences/includes;../../../history_manager/includes;../../../threads/includes;../../../external_objects/includes;../../../functions_manager/includes;../../../jvm/includes;../../../gui/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../fftw/includes;../../../ui_data/includes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/GetWindowsVersion;../../../../libs/intl;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c;../../../windows_tools/src/c/scilab_windows;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;../../../preferences/includes;../../../history_manager/includes;../../../threads/includes;../../../external_objects/includes;../../../functions_manager/includes;../../../jvm/includes;../../../gui/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;../../../fftw/includes;../../../ui_data/includes</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;NDEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -214,14 +217,15 @@ cd ..
     <PreLinkEvent>
       <Message>Make dependencies</Message>
       <Command>setlocal EnableDelayedExpansion
-cd $(ConfigurationName)
+set PWD=!cd!
+cd ..
 set LIST_OBJ=
-for %%f in (*.obj) do set LIST_OBJ=!LIST_OBJ! %%f
+for /f %%f in ('dir /A-D /S /B *.c *.cpp *.f') do if exist %PWD%\$(ConfigurationName)\%%~nf.obj set LIST_OBJ=!LIST_OBJ! %PWD%\$(ConfigurationName)\%%~nf.obj
+cd %PWD%\$(ConfigurationName)
 "$(SolutionDir)bin\dumpexts" -o $(ProjectName).def $(ProjectName).dll %LIST_OBJ%
 copy $(ProjectName).def+..\core_export.def ..\$(ProjectName).def &gt;nul
 del *.def &gt;nul
 cd ..
-
 </Command>
     </PreLinkEvent>
     <Link>
@@ -260,7 +264,6 @@ cd ..
     <ClCompile Include="..\cpp\setformat.cpp" />
     <ClCompile Include="..\cpp\setlines.cpp" />
     <ClCompile Include="..\cpp\storeCommand.cpp" />
-    <ClCompile Include="..\cpp\tasks.cpp" />
     <ClCompile Include="..\cpp\with_module.cpp" />
     <ClCompile Include="..\cpp\backtrace_print.cpp" />
     <ClCompile Include="backtrace.c" />
@@ -279,8 +282,10 @@ cd ..
     <ClCompile Include="getstaticDebugInfo_Windows.c" />
     <ClCompile Include="getversion.c" />
     <ClCompile Include="GetXmlFileEncoding.c" />
+    <ClCompile Include="hasHandleType.c" />
     <ClCompile Include="hashtable\hashtable.c" />
     <ClCompile Include="hashtable\hashtable_utility.c" />
+    <ClCompile Include="hasUIControlStyle.c" />
     <ClCompile Include="InitializePreferences.c" />
     <ClCompile Include="isanan.c" />
     <ClCompile Include="islittleendian.c" />
@@ -330,9 +335,11 @@ cd ..
     <ClInclude Include="..\..\includes\gw_core.h" />
     <ClInclude Include="..\..\includes\gw_user.h" />
     <ClInclude Include="..\..\includes\gw_user2.h" />
+    <ClInclude Include="..\..\includes\hasHandleType.h" />
     <ClInclude Include="..\..\includes\hashtable.h" />
     <ClInclude Include="..\..\includes\hashtable_private.h" />
     <ClInclude Include="..\..\includes\hashtable_utility.h" />
+    <ClInclude Include="..\..\includes\hasUIControlStyle.h" />
     <ClInclude Include="..\..\includes\inffic.h" />
     <ClInclude Include="..\..\includes\InitializePreferences.h" />
     <ClInclude Include="..\..\includes\initMacOSXEnv.h" />
@@ -362,7 +369,6 @@ cd ..
     <ClInclude Include="..\..\includes\storeCommand.h" />
     <ClInclude Include="..\..\includes\suspendProcess.h" />
     <ClInclude Include="..\..\includes\syncexec.h" />
-    <ClInclude Include="..\..\includes\tasks.hxx" />
     <ClInclude Include="..\..\includes\timer.hxx" />
     <ClInclude Include="..\..\includes\transposeMatrix.h" />
     <ClInclude Include="..\..\includes\version.h" />

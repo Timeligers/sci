@@ -1,4 +1,4 @@
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2007-2010 - INRIA - Serge Steer <serge.steer@inria.fr>
 // Copyright (C) 2017 - Samuel GOUGEON
 //
@@ -119,6 +119,10 @@ function c=legend(varargin)
 
     drawlater()
     c=captions(H,leg)
+    if c == [] then
+        // return immediately (to avoid to return a struct see issue #17275)
+        return
+    end
     if options_codes(kopt)<0 then
         c.background=f.background
     else

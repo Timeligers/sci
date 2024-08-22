@@ -1,4 +1,4 @@
-rem Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+rem Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 rem Copyright (C) 2007 - INRIA - Allan CORNET
 rem Copyright (C) 2017 - ESI-Group - Cedric Delamarre
 rem 

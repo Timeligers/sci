@@ -1,5 +1,5 @@
 ;
-; Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+; Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 ; Copyright (C) INRIA - Allan CORNET
 ; Copyright (C) DIGITEO - 2010 - Allan CORNET
 ;
@@ -23,8 +23,10 @@
 ;
 Source: modules\{#GRAPHICS}\license.txt; DestDir: {app}\modules\{#GRAPHICS}; Components: {#COMPN_GRAPHICS}
 ;
-Source: thirdparty\jlatexmath-1.0.3.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
-Source: thirdparty\jlatexmath-fop-1.0.3.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\jlatexmath-1.0.7.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\jlatexmath-fop-1.0.7.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\jlatexmath-font-cyrillic-1.0.7.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\jlatexmath-font-greek-1.0.7.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
 ;
 Source: bin\{#GRAPHICS}.dll; DestDir: {app}\bin; Components: {#COMPN_GRAPHICS}
 Source: bin\{#GRAPHICS}.lib; DestDir: {app}\bin; Components: {#COMPN_GRAPHICS}
@@ -50,6 +52,9 @@ Source: modules\{#GRAPHICS}\macros\*.bin; DestDir: {app}\modules\{#GRAPHICS}\mac
 Source: modules\{#GRAPHICS}\macros\datatips\lib; DestDir: {app}\modules\{#GRAPHICS}\macros\datatips; Components: {#COMPN_GRAPHICS}
 Source: modules\{#GRAPHICS}\macros\datatips\*.sci; DestDir: {app}\modules\{#GRAPHICS}\macros\datatips; Components: {#COMPN_GRAPHICS}
 Source: modules\{#GRAPHICS}\macros\datatips\*.bin; DestDir: {app}\modules\{#GRAPHICS}\macros\datatips; Components: {#COMPN_GRAPHICS}
+Source: modules\{#GRAPHICS}\macros\colormaps\lib; DestDir: {app}\modules\{#GRAPHICS}\macros\colormaps; Components: {#COMPN_GRAPHICS}
+Source: modules\{#GRAPHICS}\macros\colormaps\*.sci; DestDir: {app}\modules\{#GRAPHICS}\macros\colormaps; Components: {#COMPN_GRAPHICS}
+Source: modules\{#GRAPHICS}\macros\colormaps\*.bin; DestDir: {app}\modules\{#GRAPHICS}\macros\colormaps; Components: {#COMPN_GRAPHICS}
 ;
 Source: modules\{#GRAPHICS}\tcl\*.*; DestDir: {app}\modules\{#GRAPHICS}\tcl; Flags: recursesubdirs; Components: {#COMPN_GRAPHICS}
 ;

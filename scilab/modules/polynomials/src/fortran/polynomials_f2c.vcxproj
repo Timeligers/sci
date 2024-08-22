@@ -104,9 +104,11 @@ lib /DEF:"$(ProjectDir)linpack_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
     <PreLinkEvent>
       <Message>Build $(ProjectName).def</Message>
       <Command>setlocal EnableDelayedExpansion
-cd $(ConfigurationName)
+set PWD=!cd!
+cd ..
 set LIST_OBJ=
-for %%f in (*.obj) do set LIST_OBJ=!LIST_OBJ! %%f
+for /f %%f in ('dir /A-D /S /B *.c *.cpp *.f') do if exist %PWD%\$(ConfigurationName)\%%~nf.obj set LIST_OBJ=!LIST_OBJ! %PWD%\$(ConfigurationName)\%%~nf.obj
+cd %PWD%\$(ConfigurationName)
 "$(SolutionDir)bin\dumpexts" -o $(ProjectName).def $(ProjectName).dll %LIST_OBJ%
 copy $(ProjectName).def ..\$(ProjectName).def &gt;nul
 del *.def &gt;nul
@@ -149,9 +151,11 @@ lib /DEF:"$(ProjectDir)linpack_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
     <PreLinkEvent>
       <Message>Build $(ProjectName).def</Message>
       <Command>setlocal EnableDelayedExpansion
-cd $(ConfigurationName)
+set PWD=!cd!
+cd ..
 set LIST_OBJ=
-for %%f in (*.obj) do set LIST_OBJ=!LIST_OBJ! %%f
+for /f %%f in ('dir /A-D /S /B *.c *.cpp *.f') do if exist %PWD%\$(ConfigurationName)\%%~nf.obj set LIST_OBJ=!LIST_OBJ! %PWD%\$(ConfigurationName)\%%~nf.obj
+cd %PWD%\$(ConfigurationName)
 "$(SolutionDir)bin\dumpexts" -o $(ProjectName).def $(ProjectName).dll %LIST_OBJ%
 copy $(ProjectName).def ..\$(ProjectName).def &gt;nul
 del *.def &gt;nul
@@ -192,9 +196,11 @@ lib /DEF:"$(ProjectDir)linpack_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
     <PreLinkEvent>
       <Message>Build $(ProjectName).def</Message>
       <Command>setlocal EnableDelayedExpansion
-cd $(ConfigurationName)
+set PWD=!cd!
+cd ..
 set LIST_OBJ=
-for %%f in (*.obj) do set LIST_OBJ=!LIST_OBJ! %%f
+for /f %%f in ('dir /A-D /S /B *.c *.cpp *.f') do if exist %PWD%\$(ConfigurationName)\%%~nf.obj set LIST_OBJ=!LIST_OBJ! %PWD%\$(ConfigurationName)\%%~nf.obj
+cd %PWD%\$(ConfigurationName)
 "$(SolutionDir)bin\dumpexts" -o $(ProjectName).def $(ProjectName).dll %LIST_OBJ%
 copy $(ProjectName).def ..\$(ProjectName).def &gt;nul
 del *.def &gt;nul
@@ -240,9 +246,11 @@ lib /DEF:"$(ProjectDir)linpack_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platf
     <PreLinkEvent>
       <Message>Build $(ProjectName).def</Message>
       <Command>setlocal EnableDelayedExpansion
-cd $(ConfigurationName)
+set PWD=!cd!
+cd ..
 set LIST_OBJ=
-for %%f in (*.obj) do set LIST_OBJ=!LIST_OBJ! %%f
+for /f %%f in ('dir /A-D /S /B *.c *.cpp *.f') do if exist %PWD%\$(ConfigurationName)\%%~nf.obj set LIST_OBJ=!LIST_OBJ! %PWD%\$(ConfigurationName)\%%~nf.obj
+cd %PWD%\$(ConfigurationName)
 "$(SolutionDir)bin\dumpexts" -o $(ProjectName).def $(ProjectName).dll %LIST_OBJ%
 copy $(ProjectName).def ..\$(ProjectName).def &gt;nul
 del *.def &gt;nul

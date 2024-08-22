@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010 - DIGITEO - Manuel JULIACHS
  * Copyright (C) 2010 - DIGITEO - Bruno JOFRET
  * Copyright (C) 2013 - 2015 - Scilab Enterprises - Calixte DENIZET

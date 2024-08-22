@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2011 - Digiteo - Cedric DELAMARRE
  *
  *
@@ -99,9 +99,26 @@ types::Function::ReturnValue sci_getrelativefilename(types::typed_list &in, int 
         std::filesystem::path pathAbsDir = std::filesystem::path(wcsAbsDir);
         std::filesystem::path pathAbsFile = std::filesystem::path(wcsAbsFile);
 
+        if (!pathAbsDir.is_absolute()) 
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: absolute directory expected.\n"), "getrelativefilename", 1);
+            FREE(wcsAbsFile);
+            FREE(wcsAbsDir);
+            delete pStrOut;
+            return types::Function::Error;
+        }
+        if (!pathAbsFile.is_absolute())
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: absolute filename expected.\n"), "getrelativefilename", 2);
+            FREE(wcsAbsFile);
+            FREE(wcsAbsDir);
+            delete pStrOut;
+            return types::Function::Error;
+        }
+
         try
         {
-            pStrOut->set(i, std::filesystem::relative(pathAbsFile, pathAbsDir).wstring().c_str());
+            pStrOut->set(i, std::filesystem::proximate(pathAbsFile, pathAbsDir).wstring().c_str());
         }
         catch(const std::filesystem::filesystem_error& error)
         {

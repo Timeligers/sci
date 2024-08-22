@@ -3,11 +3,11 @@
 #
 #
 # This YAML file describe the test stage of the CI. Tests run are defined
-# per platform and split in good, bad and ugly sets. Special rules named
+# per platform and split in basic, intermediate and advanced sets. Special rules named
 # impacted are added for modules modified by Merge Request.
 #
 
-.x64_windows_test:
+.windows_test:
   stage: test
   tags: [x64_windows, scilab]
   script:
@@ -15,34 +15,50 @@
   artifacts:
     when: always
     paths:
-      - "logs_${CI_COMMIT_SHORT_SHA}/${ARCH}_${TEST}.xml"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/test_iss_install_${CI_COMMIT_SHORT_SHA}.log"
+      - "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}/"
     reports:
-      junit: "logs_${CI_COMMIT_SHORT_SHA}/${ARCH}_${TEST}.xml"
+      junit: "${SCI_VERSION_STRING}/${ARCH}-windows/${TEST}.xml"
 
-x64_windows_test_branch_good:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_branch
-    - x64_windows_set_env
+windows_basic:
+  extends: .windows_test
+  needs: &WINDOWS_NEEDS
+    - job: windows_build_release
+      optional: true
+    - job: windows_build_nightly
+      optional: true
+    - job: windows_build_mr
+      optional: true
+    - windows_set_env
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
-  when: manual
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - .gitlab-ci.yml
+        - .gitlab-ci/*
   parallel:
-    matrix: &GOOD_TEST_ANCHOR
+    matrix: &BASIC_TEST_ANCHOR
       - TEST:
           - api_scilab
           - arnoldi
           - ast
           - boolean
-          - cacsd
           - completion
-          - console
           - core
-          - coverage
           - data_structures
+          - development_tools
+          - elementary_functions
           - fftw
           - fileio
           - functions
+          - hdf5
           - history_manager
           - integer
           - parameters
@@ -53,25 +69,26 @@ x64_windows_test_branch_good:
           - webtools
           - xml
 
-x64_windows_test_branch_bad:
-  extends: .x64_windows_test
+windows_intermediate:
+  extends: .windows_test
+  needs: *WINDOWS_NEEDS
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
-  when: manual
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - scilab/modules/$TEST/**/*
   parallel:
-    matrix: &BAD_TEST_ANCHOR
+    matrix: &INTERMEDIATE_TEST_ANCHOR
       - TEST:
+          - cacsd
+          - console
+          - coverage
           - demo_tools
-          - development_tools
           - differential_equations
           - dynamic_link
-          - elementary_functions
-          - external_objects_java
-          - graphic_export
-          - graphic_objects
-          - graphics
-          - gui
-          - hdf5
           - helptools
           - interpolation
           - io
@@ -85,256 +102,160 @@ x64_windows_test_branch_bad:
           - optimization
           - output_stream
           - overloading
-          - parallel
           - randlib
           - renderer
-          - scicos
-          - scicos_blocks
-          - scinotes
           - signal_processing
           - slint
           - sound
           - sparse
           - statistics
-          - tclsci
           - time
           - ui_data
           - umfpack
 
-x64_windows_test_branch_ugly:
-  extends: .x64_windows_test
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
-  when: manual
-  parallel:
-    matrix: &UGLY_TEST_ANCHOR
-      - TEST:
-          - atoms
-          - mpi
-          - windows_tools
-          - xcos
-
-x64_windows_test_nightly_good:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_nightly
-    - x64_windows_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-  parallel:
-    matrix: *GOOD_TEST_ANCHOR
-
-x64_windows_test_nightly_bad:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_nightly
-    - x64_windows_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-  parallel:
-    matrix: *BAD_TEST_ANCHOR
-
-x64_windows_test_nightly_ugly:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_nightly
-    - x64_windows_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-  parallel:
-    matrix: *UGLY_TEST_ANCHOR
-
-x64_windows_test_release_good:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_release
-    - x64_windows_set_env
+windows_advanced:
+  extends: .windows_test
+  needs: *WINDOWS_NEEDS
   rules:
     - if: $CI_COMMIT_TAG
-  parallel:
-    matrix: *GOOD_TEST_ANCHOR
-
-x64_windows_test_release_bad:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_release
-    - x64_windows_set_env
-  rules:
-    - if: $CI_COMMIT_TAG
-  parallel:
-    matrix: *BAD_TEST_ANCHOR
-
-x64_windows_test_release_ugly:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_release
-    - x64_windows_set_env
-  rules:
-    - if: $CI_COMMIT_TAG
-  parallel:
-    matrix: *UGLY_TEST_ANCHOR
-
-impacted_x64_windows_test_good:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_branch
-    - x64_windows_set_env
-  rules: &IMPACTED_RULES
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
       changes:
         - scilab/modules/$TEST/**/*
   parallel:
-    matrix: *GOOD_TEST_ANCHOR
+    matrix: &ADVANCED_TEST_ANCHOR
+      - TEST:
+          - call_scilab
+          - external_objects
+          - external_objects_java
+          - graphic_export
+          - graphic_objects
+          - graphics
+          - gui
+          - preferences
+          - scicos
+          - scicos_blocks
+          - scinotes
+          - tclsci
+          - xcos
 
-impacted_x64_windows_test_bad:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_branch
-    - x64_windows_set_env
-  rules: *IMPACTED_RULES
+windows_only:
+  extends: .windows_test
+  needs: *WINDOWS_NEEDS
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - scilab/modules/$TEST/**/*
   parallel:
-    matrix: *BAD_TEST_ANCHOR
+    matrix:
+      - TEST:
+          - windows_tools
 
-impacted_x64_windows_test_ugly:
-  extends: .x64_windows_test
-  needs:
-    - x64_windows_build_branch
-    - x64_windows_set_env
-  rules: *IMPACTED_RULES
-  parallel:
-    matrix: *UGLY_TEST_ANCHOR
 
-.x86_64-linux-gnu_test:
+.linux_test:
   stage: test
   tags: [x86_64-linux-gnu, docker, scilab]
-  image: $DOCKER_LINUX_BUILDER
+  image: ${CI_REGISTRY_IMAGE}/ubuntu-20.04:${DOCKER_TAG}
   script: bash -e -x .gitlab-ci/test.sh
   artifacts:
     when: always
     paths:
-      - "logs_${CI_COMMIT_SHORT_SHA}/${ARCH}_${TEST}.xml"
+      - "${SCI_VERSION_STRING}/${ARCH}/${TEST}.xml"
+      - "${SCI_VERSION_STRING}/${ARCH}/${TEST}/"
     reports:
-      junit: "logs_${CI_COMMIT_SHORT_SHA}/${ARCH}_${TEST}.xml"
+      junit: "${SCI_VERSION_STRING}/${ARCH}/${TEST}.xml"
 
-.x86_64-linux-gnu_test_branch_good:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_branch
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
-  when: manual
-  parallel:
-    matrix: *GOOD_TEST_ANCHOR
-
-.x86_64-linux-gnu_test_branch_bad:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_branch
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
-  when: manual
-  parallel:
-    matrix: *BAD_TEST_ANCHOR
-
-.x86_64-linux-gnu_test_branch_ugly:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_branch
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
-  when: manual
-  parallel:
-    matrix: *UGLY_TEST_ANCHOR
-
-.x86_64-linux-gnu_test_nightly_good:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_nightly
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-  parallel:
-    matrix: *GOOD_TEST_ANCHOR
-
-.x86_64-linux-gnu_test_nightly_bad:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_nightly
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-  parallel:
-    matrix: *BAD_TEST_ANCHOR
-
-.x86_64-linux-gnu_test_nightly_ugly:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_nightly
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-  parallel:
-    matrix: *UGLY_TEST_ANCHOR
-
-.x86_64-linux-gnu_test_release_good:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_release
-    - x86_64-linux-gnu_set_env
+linux_basic:
+  extends: .linux_test
+  needs: &LINUX_NEEDS
+    - job: linux_build_release
+      optional: true
+    - job: linux_build_nightly
+      optional: true
+    - job: linux_build_mr
+      optional: true
+    - linux_set_env
   rules:
     - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_linux/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - scilab/modules/$TEST/**/*
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - .gitlab-ci.yml
+        - .gitlab-ci/*
   parallel:
-    matrix: *GOOD_TEST_ANCHOR
+    matrix: *BASIC_TEST_ANCHOR
 
-.x86_64-linux-gnu_test_release_bad:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_release
-    - x86_64-linux-gnu_set_env
+linux_intermediate:
+  extends: .linux_test
+  needs: *LINUX_NEEDS
   rules:
     - if: $CI_COMMIT_TAG
-  parallel:
-    matrix: *BAD_TEST_ANCHOR
-
-.x86_64-linux-gnu_test_release_ugly:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_release
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_COMMIT_TAG
-  parallel:
-    matrix: *UGLY_TEST_ANCHOR
-
-.impacted_x86_64-linux-gnu_test_good:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_branch
-    - x86_64-linux-gnu_set_env
-  rules: &IMPACTED_RULES
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_linux/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
       changes:
         - scilab/modules/$TEST/**/*
   parallel:
-    matrix: *GOOD_TEST_ANCHOR
+    matrix: *INTERMEDIATE_TEST_ANCHOR
 
-.impacted_x86_64-linux-gnu_test_bad:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_branch
-    - x86_64-linux-gnu_set_env
-  rules: *IMPACTED_RULES
+linux_advanced:
+  extends: .linux_test
+  needs: *LINUX_NEEDS
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_linux/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - scilab/modules/$TEST/**/*
   parallel:
-    matrix: *BAD_TEST_ANCHOR
+    matrix: *ADVANCED_TEST_ANCHOR
 
-.impacted_x86_64-linux-gnu_test_ugly:
-  extends: .x86_64-linux-gnu_test
-  needs:
-    - x86_64-linux-gnu_build_branch
-    - x86_64-linux-gnu_set_env
-  rules: *IMPACTED_RULES
+
+# ATOMS tests will modify Scilab installation, execute them on a dedicated stage
+# The installer is shared on a common directory for all tests
+windows_atoms:
+  extends: .windows_test
+  stage: test_atoms
+  variables:
+    ARCH: "x64"
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_windows/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - scilab/modules/$TEST/**/*
   parallel:
-    matrix: *UGLY_TEST_ANCHOR
+    matrix:
+      - TEST: [atoms]
+
+linux_atoms:
+  extends: .linux_test
+  stage: test_atoms
+  needs: *LINUX_NEEDS
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all$/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /test::all_linux/
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS !~ /.*test::.*/ || $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - scilab/modules/$TEST/**/*
+  parallel:
+    matrix:
+      - TEST: [atoms]

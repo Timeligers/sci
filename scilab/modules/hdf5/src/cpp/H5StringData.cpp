@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -61,7 +61,7 @@ H5StringData::~H5StringData()
         H5Tset_size(type, H5T_VARIABLE);
         H5Tset_strpad(type, H5T_STR_NULLTERM);
 
-        herr_t err = H5Dvlen_reclaim(type, space, H5P_DEFAULT, _data);
+        herr_t err = H5Treclaim(type, space, H5P_DEFAULT, _data);
         if (err < 0)
         {
             throw H5Exception(__LINE__, __FILE__, _("Cannot free the memory associated with String data"));
@@ -124,8 +124,6 @@ void H5StringData::toScilab(void * pvApiCtx, const int lhsPosition, int * parent
         _data = _tdata;
     }
 
-    std::cout << ndims << std::endl;
-
     if (ndims == 0)
     {
         H5BasicData<char *>::create(pvApiCtx, lhsPosition, 1, 1, _data, parentList, listPosition);
@@ -164,7 +162,7 @@ void H5StringData::toScilab(void * pvApiCtx, const int lhsPosition, int * parent
     }
 }
 
-std::string H5StringData::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5StringData::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     return H5DataConverter::dump(alreadyVisited, indentLevel, (int)ndims, dims, *this);
 }

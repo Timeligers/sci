@@ -1,5 +1,5 @@
 // =============================================================================
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2022 - Dassault Systemes - Cedric DELAMARRE
 //
 //  This file is distributed under the same license as the Scilab package.
@@ -15,7 +15,7 @@
 
 // test scrit
 script=["[linn, mac] = where();", ...
-        "assert_checkequal(linn, [1; 2; 47]);", ...
+        "assert_checkequal(linn, [1; 2; 56]);", ...
         "assert_checkequal(mac, [""exec""; ""issue_16911""; ""exec""]);"];
 
 // create a script file

@@ -1,5 +1,5 @@
 /*
-*  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+*  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
 *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -56,11 +56,10 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
             }
 
             StorePrioritaryCommand("pause");
-            ThreadManagement::WaitForRunMeSignal();
         }
 
         // interrupt me to execute a prioritary command
-        while (StaticRunner_isRunnerAvailable() == 1 && StaticRunner_isInterruptibleCommand() == 1)
+        while (isEmptyCommandQueuePrioritary() == 0 && StaticRunner_isInterruptibleCommand() == 1)
         {
             StaticRunner_launch();
         }
@@ -86,11 +85,10 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
             }
 
             StorePrioritaryCommand("pause");
-            ThreadManagement::WaitForRunMeSignal();
         }
 
         // interrupt me to execute a prioritary command
-        while (StaticRunner_isRunnerAvailable() == 1 && StaticRunner_isInterruptibleCommand() == 1)
+        while (isEmptyCommandQueuePrioritary() == 0 && StaticRunner_isInterruptibleCommand() == 1)
         {
             StaticRunner_launch();
         }
@@ -158,7 +156,9 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
             if (pIT != NULL)
             {
                 bool bImplicitCall = false;
-                if (pIT->isCallable()) //to manage call without ()
+                // to manage call without ()
+                bool isLambda = (*it)->isFunctionDec() && (*it)->getAs<ast::FunctionDec>()->isLambda();
+                if (pIT->isCallable() && isLambda == false)
                 {
                     types::Callable *pCall = pIT->getAs<types::Callable>();
                     types::typed_list out;
@@ -187,11 +187,6 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                     }
                     catch (const InternalError& ie)
                     {
-                        if (ConfigVariable::getLastErrorFunction() == L"")
-                        {
-                            ConfigVariable::setLastErrorFunction(pCall->getName());
-                            ConfigVariable::setLastErrorLine(e.getLocation().first_line);
-                        }
                         CoverageInstance::stopChrono((void*)&e);
                         throw ie;
                     }
@@ -211,25 +206,24 @@ void RunVisitorT<T>::visitprivate(const SeqExp  &e)
                 }
 
                 //don't output Simplevar and empty result
-                if (getResult() != NULL && (!(*it)->isSimpleVar() || bImplicitCall))
+                if (getResult() != NULL)
                 {
-                    //symbol::Context::getInstance()->put(symbol::Symbol(L"ans"), *execMe.getResult());
-                    types::InternalType* pITAns = getResult();
-                    symbol::Context::getInstance()->put(m_pAns, pITAns);
-                    if ((*it)->isVerbose() && ConfigVariable::isPrintOutput())
+                    setLambdaResult(getResult());
+                    if (!(*it)->isSimpleVar() || bImplicitCall)
                     {
-                        //TODO manage multiple returns
-                        scilabWriteW(L" ans  =\n");
-                        if (ConfigVariable::isPrintCompact() == false)
+                        //symbol::Context::getInstance()->put(symbol::Symbol(L"ans"), *execMe.getResult());
+                        types::InternalType* pITAns = getResult();
+                        symbol::Context::getInstance()->put(m_pAns, pITAns);
+                        if ((*it)->isVerbose() && ConfigVariable::isPrintOutput())
                         {
-                            scilabWriteW(L"\n");
+                            //TODO manage multiple returns
+                            std::wostringstream ostrName;
+                            ostrName << L"ans";
+                            scilabWriteW(printVarEqualTypeDimsInfo(pITAns, L"ans").c_str());
+                            VariableToString(pITAns, ostrName.str().c_str());
                         }
-                        std::wostringstream ostrName;
-                        ostrName << L"ans";
-                        VariableToString(pITAns, ostrName.str().c_str());
                     }
                 }
-
                 pIT->killMe();
             }
 

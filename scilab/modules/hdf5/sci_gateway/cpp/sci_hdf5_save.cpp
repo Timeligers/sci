@@ -1,5 +1,5 @@
 /*
-* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
 *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -434,7 +434,6 @@ static hid_t export_list(hid_t parent, const std::string& name, types::List* dat
 
     //create node with list name
     hid_t dset = openList6(parent, name.data(), type);
-
     for (int i = 0; i < size; ++i)
     {
         if (export_data(dset, std::to_string(i).data(), data->get(i), xfer_plist_id) == -1)
@@ -507,7 +506,7 @@ static hid_t export_struct(hid_t parent, const std::string& name, types::Struct*
     hid_t dset = openList6(parent, name.data(), type);
     //store struct dimensions
     std::vector<int> dims = {1, data->getDims()};
-    int ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
+    hid_t ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
     if (ret < 0)
     {
         return -1;
@@ -603,7 +602,7 @@ static hid_t export_poly(hid_t parent, const std::string& name, types::Polynom* 
     hid_t dset = openList6(parent, name.data(), g_SCILAB_CLASS_POLY);
     //store struct dimensions
     std::vector<int> dims = {1, data->getDims()};
-    int ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
+    hid_t ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
     if (ret < 0)
     {
         return -1;
@@ -677,7 +676,7 @@ static hid_t export_sparse(hid_t parent, const std::string& name, types::Sparse*
     hid_t dset = openList6(parent, name.data(), g_SCILAB_CLASS_SPARSE);
     //store sparse dimensions
     std::vector<int> dims = {1, data->getDims()};
-    int ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
+    hid_t ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
     if (ret < 0)
     {
         return -1;
@@ -758,7 +757,7 @@ static hid_t export_boolean_sparse(hid_t parent, const std::string& name, types:
     hid_t dset = openList6(parent, name.data(), g_SCILAB_CLASS_BSPARSE);
     //store sparse dimensions
     std::vector<int> dims = {1, data->getDims()};
-    int ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
+    hid_t ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
     if (ret < 0)
     {
         return -1;
@@ -805,7 +804,7 @@ static hid_t export_cell(hid_t parent, const std::string& name, types::Cell* dat
     hid_t dset = openList6(parent, name.data(), g_SCILAB_CLASS_CELL);
     //store cell dimensions
     std::vector<int> dims = {1, data->getDims()};
-    int ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
+    hid_t ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
     if (ret < 0)
     {
         return -1;
@@ -848,7 +847,7 @@ static hid_t export_handles(hid_t parent, const std::string& name, types::Graphi
     hid_t dset = openList6(parent, name.data(), g_SCILAB_CLASS_HANDLE);
     //store cell dimensions
     std::vector<int> dims = {1, data->getDims()};
-    int ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
+    hid_t ret = writeIntegerMatrix6(dset, "__dims__", H5T_NATIVE_INT32, "32", 2, dims.data(), data->getDimsArray(), xfer_plist_id);
     if (ret < 0)
     {
         return -1;
@@ -890,7 +889,7 @@ static hid_t export_macro(hid_t parent, const std::string& name, types::Macro* d
     int dims[2];
 
     //create a group with macro name
-    hid_t dset = openList6(parent, name.data(), g_SCILAB_CLASS_MACRO);
+    hid_t dset = openList6(parent, name.data(), data->isLambda() ? g_SCILAB_CLASS_LAMBDA : g_SCILAB_CLASS_MACRO);
 
     //inputs
     std::vector<char*> inputNames;
@@ -909,21 +908,50 @@ static hid_t export_macro(hid_t parent, const std::string& name, types::Macro* d
         FREE(in);
     }
 
-    //outputs
-    std::vector<char*> outputNames;
-    auto outputs = data->getOutputs();
-    for (auto & output : *outputs)
+    if (data->isLambda())
     {
-        outputNames.push_back(wide_string_to_UTF8(output->getSymbol().getName().data()));
+        hid_t refs = openList6(dset, "__refs__", g_SCILAB_CLASS_LAMBDA);
+        if (refs < 0)
+        {
+            return -1;
+        }
+
+        // catched variable
+        for (auto&& c : data->getCaptured())
+        {
+            char* cfield = wide_string_to_UTF8(c.first.data());
+
+            types::InternalType* val = c.second;
+            // create ref name
+            std::string refname(cfield);
+            FREE(cfield);
+            // export data in refs group
+            hid_t ref = export_data(refs, refname, val, xfer_plist_id);
+        }
+
+        if (closeList6(refs) == -1)
+        {
+            return -1;
+        }
     }
-
-    dims[0] = 1;
-    dims[1] = static_cast<int>(outputNames.size());
-    writeStringMatrix6(dset, "outputs", 2, dims, outputNames.data(), xfer_plist_id);
-
-    for (auto & in : outputNames)
+    else
     {
-        FREE(in);
+        // outputs
+        std::vector<char*> outputNames;
+        auto outputs = data->getOutputs();
+        for (auto& output : *outputs)
+        {
+            outputNames.push_back(wide_string_to_UTF8(output->getSymbol().getName().data()));
+        }
+
+        dims[0] = 1;
+        dims[1] = static_cast<int>(outputNames.size());
+        writeStringMatrix6(dset, "outputs", 2, dims, outputNames.data(), xfer_plist_id);
+
+        for (auto& in : outputNames)
+        {
+            FREE(in);
+        }
     }
 
     //body

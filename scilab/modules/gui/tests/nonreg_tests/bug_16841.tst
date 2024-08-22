@@ -1,17 +1,17 @@
 // =============================================================================
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2022 - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
-// <-- TEST WITH GRAPHICS -->
+// <-- TEST WITH GRAPHIC -->
 // <-- INTERACTIVE TEST -->
 //
 // <-- Non-regression test for bug 16841 -->
 //
-// <-- Bugzilla URL -->
-// http://bugzilla.scilab.org/16841
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/16841
 //
 // <-- Short Description -->
 // In multiaxes, when the user zooms in a non common data area

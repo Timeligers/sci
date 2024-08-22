@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA
  * Copyright (C) 2009 - DIGITEO - Allan CORNET
  *
@@ -113,7 +113,9 @@ int mopen(const wchar_t* _pstFilename, const wchar_t* _pstMode, int _iSwap, int*
     //Create File object and fill it
     types::File* pFile = new types::File();
     pFile->setFileDesc(pF);
-    pFile->setFilename(get_full_pathW(_pstFilename));
+    wchar_t* wcsFullPath = get_full_pathW(_pstFilename);
+    pFile->setFilename(wcsFullPath);
+    FREE(wcsFullPath);
     pFile->setFileType(2); //hard coded value for file opened by C/C++ fopen functions
     pFile->setFileMode(_pstFinalMode);
     pFile->setFileSwap(_iSwap);

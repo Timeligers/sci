@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -193,11 +193,15 @@ void H5Dataset::label(const unsigned int size, const unsigned int * dim, const c
     }
 }
 
-std::string H5Dataset::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5Dataset::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
-    haddr_t addr = this->getAddr();
-    std::map<haddr_t, std::string>::iterator it = alreadyVisited.find(addr);
+    H5O_token_t addr = this->getAddr();
+    char* strToken = NULL;
+    H5Otoken_to_str(getH5Id(), &addr, &strToken);
+    std::string token(strToken);
+    H5free_memory(strToken);
+    std::map<std::string, std::string>::iterator it = alreadyVisited.find(token);
     if (it != alreadyVisited.end())
     {
         os << H5Object::getIndentString(indentLevel) << "DATASET \"" << getName() << "\" {" << std::endl
@@ -206,10 +210,8 @@ std::string H5Dataset::dump(std::map<haddr_t, std::string> & alreadyVisited, con
 
         return os.str();
     }
-    else
-    {
-        alreadyVisited.insert(std::pair<haddr_t, std::string>(addr, getCompletePath()));
-    }
+
+    alreadyVisited.insert(std::pair<std::string, std::string>(token, getCompletePath()));
 
     const H5Type & type = const_cast<H5Dataset *>(this)->getDataType();
     const H5Dataspace & space = const_cast<H5Dataset *>(this)->getSpace();

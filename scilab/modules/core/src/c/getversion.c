@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010 - DIGITEO - Allan CORNET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -42,6 +42,7 @@
 #define ARM64_STRING L"arm64"
 #define ICC_STRING L"ICC"
 #define VC_STRING L"VC++"
+#define CLANG_STRING L"CLANG"
 #define GCC_STRING L"GCC"
 #define PGI_STRING L"PGI"
 #define SUN_STRING L"SUN"
@@ -320,6 +321,9 @@ wchar_t* getCompilerUsedToBuildScilab(void)
 #ifdef _MSC_VER
     return os_wcsdup(VC_STRING);
 #else
+#ifdef __clang__
+    return os_wcsdup(CLANG_STRING);
+#else
 #ifdef __GNUC__
     return os_wcsdup(GCC_STRING);
 #else
@@ -330,6 +334,7 @@ wchar_t* getCompilerUsedToBuildScilab(void)
     return os_wcsdup(SUN_STRING);
 #else
     return os_wcsdup(UNKNOW_STRING);
+#endif
 #endif
 #endif
 #endif

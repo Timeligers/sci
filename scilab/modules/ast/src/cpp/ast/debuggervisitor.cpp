@@ -1,5 +1,5 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2015 - Scilab Enterprises - Antoine ELIAS
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -237,7 +237,7 @@ void DebuggerVisitor::visit(const SeqExp  &e)
         }
 
         // interrupt me to execute a prioritary command
-        while (StaticRunner_isRunnerAvailable() == 1 && StaticRunner_isInterruptibleCommand() == 1)
+        while (isEmptyCommandQueuePrioritary() == 0 && StaticRunner_isInterruptibleCommand() == 1)
         {
             StaticRunner_launch();
         }
@@ -305,12 +305,6 @@ void DebuggerVisitor::visit(const SeqExp  &e)
                     }
                     catch (const InternalError& ie)
                     {
-                        if (ConfigVariable::getLastErrorFunction() == L"")
-                        {
-                            ConfigVariable::setLastErrorFunction(pCall->getName());
-                            ConfigVariable::setLastErrorLine(e.getLocation().first_line);
-                        }
-
                         throw ie;
                     }
                 }

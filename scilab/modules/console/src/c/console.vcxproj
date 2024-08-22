@@ -22,30 +22,30 @@
     <ProjectGuid>{445D3B85-C9B1-498B-9C88-0A3C2390B1CC}</ProjectGuid>
     <RootNamespace>console</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -86,7 +86,7 @@
     <ClCompile>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../src/c/windows;../jni;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../../../../libs/intl;../../../dynamic_link/includes;../../../core/includes;../../../jvm/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../history_manager/includes;../../../api_scilab/includes;../../../completion/includes;../../../output_stream/includes;../../../threads/includes;../../../windows_tools/includes;../../../ui_data/includes;../../../windows_tools/src/c/scilab_windows;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../src/c/windows;../jni;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../../../../libs/intl;../../../dynamic_link/includes;../../../core/includes;../../../jvm/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../history_manager/includes;../../../api_scilab/includes;../../../completion/includes;../../../output_stream/includes;../../../threads/includes;../../../windows_tools/includes;../../../ui_data/includes;../../../windows_tools/src/c/scilab_windows;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;CONSOLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -124,7 +124,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../src/c/windows;../jni;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../../../../libs/intl;../../../dynamic_link/includes;../../../core/includes;../../../jvm/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../history_manager/includes;../../../api_scilab/includes;../../../completion/includes;../../../output_stream/includes;../../../threads/includes;../../../windows_tools/includes;../../../ui_data/includes;../../../windows_tools/src/c/scilab_windows;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../src/c/windows;../jni;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../../../../libs/intl;../../../dynamic_link/includes;../../../core/includes;../../../jvm/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../history_manager/includes;../../../api_scilab/includes;../../../completion/includes;../../../output_stream/includes;../../../threads/includes;../../../windows_tools/includes;../../../ui_data/includes;../../../windows_tools/src/c/scilab_windows;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;CONSOLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -162,7 +162,7 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../src/c/windows;../jni;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../../../../libs/intl;../../../dynamic_link/includes;../../../core/includes;../../../jvm/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../history_manager/includes;../../../api_scilab/includes;../../../completion/includes;../../../output_stream/includes;../../../threads/includes;../../../windows_tools/includes;../../../ui_data/includes;../../../windows_tools/src/c/scilab_windows;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../src/c/windows;../jni;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../../../../libs/intl;../../../dynamic_link/includes;../../../core/includes;../../../jvm/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../history_manager/includes;../../../api_scilab/includes;../../../completion/includes;../../../output_stream/includes;../../../threads/includes;../../../windows_tools/includes;../../../ui_data/includes;../../../windows_tools/src/c/scilab_windows;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;CONSOLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -208,7 +208,7 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../src/c/windows;../jni;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../../../../libs/intl;../../../dynamic_link/includes;../../../core/includes;../../../jvm/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../history_manager/includes;../../../api_scilab/includes;../../../completion/includes;../../../output_stream/includes;../../../threads/includes;../../../windows_tools/includes;../../../ui_data/includes;../../../windows_tools/src/c/scilab_windows;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../src/c/windows;../jni;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../../../../libs/intl;../../../dynamic_link/includes;../../../core/includes;../../../jvm/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../history_manager/includes;../../../api_scilab/includes;../../../completion/includes;../../../output_stream/includes;../../../threads/includes;../../../windows_tools/includes;../../../ui_data/includes;../../../windows_tools/src/c/scilab_windows;../../../commons/src/jni;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../ast/includes/parse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;CONSOLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>

@@ -1,6 +1,6 @@
 // =============================================================================
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2022 - Stéphane MOTTELET
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2022 - UTC - Stéphane MOTTELET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -10,17 +10,17 @@
 
 // <-- Non-regression test for bug 16822 -->
 //
-// <-- Bugzilla URL -->
-// http://bugzilla.scilab.org/show_bug.cgi?id=16822
+// <-- GitLab URL -->
+// https://gitlab.com/scilab/scilab/-/issues/16822
 //
 // <-- Short Description -->
 // getrelativefilename returns incorrect value in case of same beginning of directory names
 
 
 if getos() == "Windows"
-    relpath = getrelativefilename('scilab\bin', 'scilabX\modules\helptools\readme.txt');
+    relpath = getrelativefilename(TMPDIR + '\scilab\bin', TMPDIR + '\scilabX\modules\helptools\readme.txt');
     assert_checkequal(relpath,"..\..\scilabX\modules\helptools\readme.txt")
 else
-    relpath = getrelativefilename('scilab/bin', 'scilabX/modules/helptools/readme.txt');
+    relpath = getrelativefilename(TMPDIR + '/scilab/bin', TMPDIR + '/scilabX/modules/helptools/readme.txt');
     assert_checkequal(relpath,"../../scilabX/modules/helptools/readme.txt")
 end

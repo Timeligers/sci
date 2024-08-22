@@ -1,5 +1,5 @@
 #
-# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) INRIA   - 2006 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009-2010 - Pierre MARECHAL
 #
@@ -27,8 +27,9 @@ libscigraphics_la_etc_DATA = \
     etc/graphics.quit \
     etc/graphics.start
 
-#### graphics : datatips sub-module ####
-MACROSDIRSEXT = macros/datatips
+#### graphics : datatips and colormaps sub-module ####
+MACROSDIRSEXT = macros/datatips \
+    macros/colormaps
 
 GRAPHICS_C_SOURCES = \
     src/c/GetCommandArg.c \
@@ -406,7 +407,6 @@ GRAPHICS_C_SOURCES = \
     src/c/DllmainGraphics.c
 
 GRAPHICS_CXX_SOURCES = \
-    src/cpp/configgraphicvariable.cpp \
     src/cpp/get_tag_property.cpp \
     src/cpp/set_data_property.cpp \
     src/cpp/ContourOnMesh.cpp
@@ -423,14 +423,12 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_geom3d.c \
     sci_gateway/c/sci_unzoom.c \
     sci_gateway/c/sci_xsegs.c \
-    sci_gateway/c/sci_glue.c \
     sci_gateway/c/sci_xarc.c \
     sci_gateway/c/sci_xpolys.c \
     sci_gateway/c/sci_xstring.c \
     sci_gateway/c/sci_xstringb.c \
     sci_gateway/c/sci_show_window.c \
     sci_gateway/c/sci_param3d1.c \
-    sci_gateway/c/sci_xname.c \
     sci_gateway/c/sci_xpoly.c \
     sci_gateway/c/sci_xchange.c \
     sci_gateway/c/sci_drawaxis.c \
@@ -457,7 +455,6 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_xfarcs.c \
     sci_gateway/c/sci_param3d.c \
     sci_gateway/c/sci_contour2di.c \
-    sci_gateway/c/sci_xdel.c \
     sci_gateway/c/sci_fec.c \
     sci_gateway/c/sci_set.c \
     sci_gateway/c/sci_rubberbox.c \
@@ -471,12 +468,11 @@ GATEWAY_C_SOURCES = \
 
 GATEWAY_CXX_SOURCES = \
     sci_gateway/cpp/sci_get.cpp \
-    sci_gateway/cpp/sci_xget.cpp \
-    sci_gateway/cpp/sci_xset.cpp \
     sci_gateway/cpp/sci_matplot.cpp \
     sci_gateway/cpp/sci_matplot1.cpp \
     sci_gateway/cpp/sci_winsid.cpp \
-    sci_gateway/cpp/sci_contour2dm.cpp
+    sci_gateway/cpp/sci_contour2dm.cpp \
+    sci_gateway/cpp/sci_glue.cpp
 
 libscigraphics_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
@@ -490,7 +486,6 @@ libscigraphics_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/ast/includes/symbol/ \
     -I$(top_srcdir)/modules/ast/includes/system_env/ \
     -I$(top_srcdir)/modules/ast/includes/types/ \
-    -I$(top_srcdir)/modules/ast/includes/analysis/ \
     -I$(top_srcdir)/modules/action_binding/includes/ \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
     -I$(top_srcdir)/modules/elementary_functions/includes/ \
@@ -580,7 +575,6 @@ libscigraphics_disable_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/ast/includes/symbol/ \
     -I$(top_srcdir)/modules/ast/includes/system_env/ \
     -I$(top_srcdir)/modules/ast/includes/types/ \
-    -I$(top_srcdir)/modules/ast/includes/analysis/ \
     -I$(top_srcdir)/libs/hashtable/ \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
     -I$(top_srcdir)/modules/localization/includes/ \

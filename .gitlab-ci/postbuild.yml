@@ -7,60 +7,8 @@
 # optional and generate/build extra documentation from Scilab build.
 #
 
-# # cleanup old builds from runners
-# x86_64-linux-gnu_cleanup_builds:
-#   image: $DOCKER_LINUX_BUILDER
-#   stage: .post
-#   tags: [x86_64-linux-gnu, docker, scilab]
-#   variables:
-#     GIT_STRATEGY: none
-#   script:
-#     - set -e -x
-#     # Remove any previous tarball
-#     - rm -fr scilab-*.tar.xz
-#     # Remove install dir older than 3 days
-#     - |
-#       find . -maxdepth 1 -mtime +2 -name "scilab-*" -type d -print0 |\
-#       while IFS= read -r -d '' i ; do
-#         chmod -R +w "$i" && rm -rf "$i";
-#       done
-#     # Remove TMPDIRs older than 1 day
-#     - |
-#       find /tmp -maxdepth 1 -mtime +0 -name "SCI_TMP*" -type d -print0 |\
-#       while IFS= read -r -d '' i ; do
-#         [ -w "$i" ] && rm -rf "$i";
-#       done
-
-# sign the windows binary
-.x64_windows_sign:
-  stage: postbuild
-  tags: [x64_windows, scilab]
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - REM TODO how to sign ? was
-    - REM call d:\signtool_password.bat
-    - REM "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /f D:\\ESIGroupCERT.pfx /p "%SIGNPASS%" /t http://timestamp.sectigo.com /v %SCI_VERSION_STRING%.bin.%ARCH%.exe
-  artifacts:
-    paths:
-      - $SCI_VERSION_STRING.bin.$ARCH.exe
-x64_windows_sign_nightly:
-  extends: .x64_windows_sign
-  needs:
-    - x64_windows_build_nightly
-    - x64_windows_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-x64_windows_sign_release:
-  extends: .x64_windows_sign
-  needs:
-    - x64_windows_build_release
-    - x64_windows_set_env
-  rules:
-    - if: $CI_COMMIT_TAG
-
 # build javadoc
-.build_javadoc:
+build_javadoc:
   stage: postbuild
   tags: [x86_64-linux-gnu, docker, scilab]
   image: docker.io/openjdk:8-jdk-alpine
@@ -82,7 +30,7 @@ x64_windows_sign_release:
   when: manual
 
 # build Doxygen
-.build_doxygen:
+build_doxygen:
   stage: postbuild
   tags: [x86_64-linux-gnu, docker, scilab]
   image: docker.io/tsgkadot/docker-doxygen
@@ -99,10 +47,10 @@ x64_windows_sign_release:
   when: manual
 
 # build preview of help.scilab.org
-.build_help_web:
+build_help_web:
   stage: postbuild
   tags: [x86_64-linux-gnu, docker, scilab]
-  image: $DOCKER_LINUX_BUILDER
+  image: ${DOCKER_LINUX_BUILDER}:${DOCKER_TAG}
   dependencies: []
   script:
     - cd scilab
@@ -115,15 +63,15 @@ x64_windows_sign_release:
   when: manual
 
 # extract jar content to web
-.publish_help_jar:
+publish_help_jar:
   stage: postbuild
   tags: [x86_64-linux-gnu, docker, scilab]
-  image: $DOCKER_LINUX_BUILDER
+  image: ${DOCKER_LINUX_BUILDER}:${DOCKER_TAG}
   variables:
     GIT_STRATEGY: none
   needs:
-    - x86_64-linux-gnu_build_branch
-    - x86_64-linux-gnu_set_env
+    - linux_build_mr
+    - linux_set_env
   script:
     - echo "help from ${SCI_VERSION_STRING} ${ARCH}"
     - "[ ! -d public ] && mkdir public"
@@ -137,8 +85,55 @@ x64_windows_sign_release:
     - jar xf scilab_images.jar -d images/
     - rm scilab_images.jar
     - sed -i -e "s#jarsci:./#../images/#g" */*.html
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
+  rules: &MR_RULES
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push"
   artifacts:
     paths:
       - public
+
+# start scilab on multiple distro 
+.linux_startup:
+  stage: postbuild
+  tags: [x86_64-linux-gnu, docker, scilab]
+  image: ${CI_REGISTRY_IMAGE}/$DISTRO:${DOCKER_TAG}
+  script:
+    - tar -xJf "${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz" -C $HOME
+    - cd $HOME
+    - export SCIVERBOSE=1
+    - xvfb-run ${SCI_VERSION_STRING}/bin/scilab $MODE -e "disp(getscilabmode()); if getscilabmode() <> 'NWNI' then plot(); end" -quit
+  parallel:
+    matrix:
+      - DISTRO:
+          - "ubuntu-20.04"
+          - "ubuntu-22.04"
+          - "ubuntu-23.10"
+          - "ubuntu-24.04"
+          - "fedora-39"
+          - "fedora-40"
+          - "debian-12"
+        MODE: ["-nwni", "-nw"]
+
+linux_startup_mr:
+  extends: .linux_startup
+  needs:
+    - linux_build_mr
+    - linux_set_env
+  rules: *MR_RULES
+
+linux_startup_nightly:
+  extends: .linux_startup
+  needs:
+    - linux_build_nightly
+    - linux_set_env
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+
+linux_startup_release:
+  extends: .linux_startup
+  needs:
+    - linux_build_release
+    - linux_set_env
+  rules:
+    - if: $CI_COMMIT_TAG

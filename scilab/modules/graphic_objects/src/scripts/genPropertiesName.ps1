@@ -1,4 +1,4 @@
-<# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+<# Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 ## Copyright (C) 2022 - Dassault Systemes - Clement DAVID
 ##
 ## This file is hereby licensed under the terms of the GNU GPL v2.0,
@@ -25,14 +25,14 @@ function Generate-Header {
     )
     
     "/*" > $OutFile
-    " *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab" >> $OutFile
+    " *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab" >> $OutFile
     " *  Copyright (C) 2010-2012 - DIGITEO - Bruno JOFRET" >> $OutFile
     " *  Copyright (C) 2012-2014 - Scilab-Enterprises - Bruno JOFRET" >> $OutFile
     " *" >> $OutFile
     " *  This source file is licensed as described in the file COPYING, which" >> $OutFile
     " *  you should have received as part of this distribution.  The terms" >> $OutFile
     " *  are also available at" >> $OutFile
-    " *  http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt" >> $OutFile
+    " *  https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt" >> $OutFile
     " *" >> $OutFile
     " */" >> $OutFile
     ""  >> $OutFile

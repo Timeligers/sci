@@ -8,18 +8,19 @@
 #
 
 # define x86_64-linux-gnu env variables
-.x86_64-linux-gnu_set_env:
-  image: $DOCKER_LINUX_BUILDER
+linux_set_env:
+  image: ${DOCKER_LINUX_BUILDER}:${DOCKER_TAG}
   stage: prebuild
   tags: [x86_64-linux-gnu, docker, scilab]
   variables:
     GIT_STRATEGY: none
   script:
-    - echo CI_COMMIT_TAG=$CI_COMMIT_TAG
+    - echo BRANCH=$BRANCH
     - echo CI_COMMIT_BRANCH=$CI_COMMIT_BRANCH
     - echo CI_MERGE_REQUEST_TARGET_BRANCH_NAME=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo CI_COMMIT_TAG=$CI_COMMIT_TAG
     # get current build machine architecture
-    - ARCH=$(cc -dumpmachine)
+    - ARCH=$(cc -print-multiarch)
     # define NOW as Gitlab display ISO 8601 timestamp
     - date +"%s" >timestamp
     - NOW=$(cat timestamp)
@@ -29,56 +30,94 @@
       echo SCI_VERSION_TIMESTAMP=$NOW             >>build.env
       cat build.env
     - echo SCI_VERSION_STRING=$SCI_VERSION_STRING
+    # display configured variables
+    - gcc --version
+    - echo JAVA_HOME=$JAVA_HOME
+    - javac -version
   artifacts:
     reports:
       dotenv: build.env
 
 # define x64 windows env
-x64_windows_set_env:
-  # extends: .docker-image-windows
+windows_set_env:
   stage: prebuild
   tags: [x64_windows, shell, scilab]
+  needs: []
   variables:
     GIT_STRATEGY: none
   script:
-    - echo CI_COMMIT_TAG=$env:CI_COMMIT_TAG
+    - echo BRANCH=$env:BRANCH
     - echo CI_COMMIT_BRANCH=$env:CI_COMMIT_BRANCH
     - echo CI_MERGE_REQUEST_TARGET_BRANCH_NAME=$env:CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo CI_COMMIT_TAG=$env:CI_COMMIT_TAG
+    # define NOW as Gitlab display ISO 8601 timestamp
+    - $env:NOW=(Get-Date(Get-Date).ToUniversalTime() -uformat '%s')
+    # export useful variables
     - |
-      [System.Environment]::SetEnvironmentVariable('NOW', [int](Get-Date(Get-Date).ToUniversalTime() -uformat '%s'))
       Set-Content -Path build.env -Value "ARCH=x64","SCI_VERSION_TIMESTAMP=$env:NOW"
       cat build.env
     - echo SCI_VERSION_STRING=$env:SCI_VERSION_STRING
+    # display configured variables
+    - where.exe devenv cl javac
+    - echo VS2022INSTALLDIR=$env:VS2022INSTALLDIR
+    - echo SCILAB_JDK64=$env:SCILAB_JDK64
+    - if ($env:SCILAB_JDK64) { &"$env:SCILAB_JDK64\bin\javac" -version }
+    - echo JAVA_HOME=$env:JAVA_HOME
+    - javac -version
   artifacts:
     reports:
       dotenv: build.env
 
-# patch, copy, modify files before building a release
-prepare_release_files:
-  image: $DOCKER_LINUX_BUILDER
+# rebuild linux dependencies
+linux_build_prereq:
+  image: ${DOCKER_LINUX_PREBUILD}:${DOCKER_TAG}
   stage: prebuild
-  tags: [x86_64-linux-gnu]
-  rules:
-    - if: $CI_COMMIT_TAG
-  script:
-    - echo "FIXME should patch version numbers against tag"
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  needs:
+    - linux_set_env
+  before_script: bash .gitlab-ci/prebuild.sh versions
+  script: bash -x -e .gitlab-ci/prebuild.sh fromscratch
   artifacts:
     paths:
-      - scilab/modules/core/includes/version.h.vc
-      - scilab/modules/core/includes/version.h.in
-
-# check MR has modified CHANGES.md
-CHANGES_has_no_edit:
-  stage: prebuild
-  tags: [scilab]
+      - prerequirements-${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz
+      - $SCI_VERSION_STRING
+    when: always
   rules:
+    # do not rebuild on scheduled
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    # do not rebuild on tag
+    - if: $CI_COMMIT_TAG
+      when: never
+    # rebuild on demand
     - changes:
-        - scilab/CHANGES.md
-      variables:
-        STATUS: 0
-    - allow_failure: true
-      variables:
-        STATUS: 1
-  script:
-    - echo $STATUS
-    - exit $STATUS
+        paths:
+          - .gitlab-ci/prebuild.yml
+          - .gitlab-ci/prebuild.sh
+          - .gitlab-ci/Dockerfile.linux
+          - .gitlab-ci/Dockerfile.linux.prebuild
+
+# update windows dependencies
+windows_build_prereq:
+  stage: prebuild
+  tags: [x64_windows, shell, scilab]
+  needs:
+    - windows_set_env
+  before_script: cmd /C "call .gitlab-ci/prebuild.bat version"
+  script: cmd /C "call .gitlab-ci/prebuild.bat fromscratch"
+  artifacts:
+    paths:
+      - prerequirements-${SCI_VERSION_STRING}-windows_x64.zip
+    when: always
+  rules:
+    # do not rebuild on scheduled
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    # do not rebuild on tag
+    - if: $CI_COMMIT_TAG
+      when: never
+    # rebuild on demand
+    - changes:
+        paths:
+          - .gitlab-ci/prebuild.yml
+          - .gitlab-ci/prebuild.bat

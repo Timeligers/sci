@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -48,7 +48,7 @@ int sci_h5dump(char *fname, int* pvApiCtx)
     char * expandedPath = 0;
     std::string name;
     std::string _expandedPath;
-    std::map<haddr_t, std::string> visited;
+    std::map<std::string, std::string> visited;
     bool mustDelete = true;
     const int nbIn = nbInputArgument(pvApiCtx);
 

@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -81,7 +81,7 @@ H5Object & H5LinksList::getObject(const int pos, const bool checkPos)
     return *obj;
 }
 
-std::string H5LinksList::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5LinksList::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
     const unsigned int size = getSize();

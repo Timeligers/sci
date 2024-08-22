@@ -6,25 +6,57 @@
 #
 # Builder script for building linux version.
 #
-# NOTE: log all commands to log.txt to avoid hitting Gitlab log limit
+# NOTE: log all commands to LOG_PATH to avoid hitting Gitlab log limit
 # NOTE: nproc is used to limit memory usage
 
-LOG_PATH=logs_$CI_COMMIT_SHORT_SHA
+
+echo "defined variables"
+echo "    CI_PROJECT_DIR:        $CI_PROJECT_DIR"
+echo "    ARCH:                  $ARCH"
+echo "    SCI_VERSION_STRING:    $SCI_VERSION_STRING"
+echo "    CI_COMMIT_SHORT_SHA:   $CI_COMMIT_SHORT_SHA"
+echo "    SCI_VERSION_TIMESTAMP: $SCI_VERSION_TIMESTAMP"
+echo "    BRANCH:                $BRANCH"
+echo ""
+
+LOG_PATH=$SCI_VERSION_STRING
 [ ! -d "$LOG_PATH" ] && mkdir "$LOG_PATH"
 
 # checkout pre-requirements
-echo -e "\e[0Ksection_start:$(date +%s):prerequirements\r\e[0KGetting prerequirements"
-curl -k -o prereq.tar.xz https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-6.1-linux_x64.tar.xz
-tar -xvf prereq.tar.xz -C scilab > $LOG_PATH/log_prereq.txt
-# svn checkout \
-#     --username anonymous --password Scilab \
-#     "svn://svn.scilab.org/scilab/${PREREQUIREMENTS_BRANCH}/Dev-Tools/SE/Prerequirements/linux_x64/" scilab \
-#     > $LOG_PATH/log_svn.txt || (tail --lines=100 $LOG_PATH/log_svn.txt; exit 1)
-# # display svn revision
-# tail -n 1 $LOG_PATH/log_svn.txt
-# # revert local modification
-# svn revert -R scilab >> $LOG_PATH/log_svn.txt
+echo -e "\e[0Ksection_start:$(date +%s):prerequirements[collapsed=true]\r\e[0KGetting prerequirements"
+if [ -f "prerequirements-${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz" ]; then
+	# custom build for this commit or tag
+	mv -f "prerequirements-${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz" "prereq.tar.xz"
+elif [ -f "prerequirements-scilab-branch-${BRANCH}.bin.${ARCH}.tar.xz" ]; then
+	# custom build for this branch
+	cp -a "prerequirements-scilab-branch-${BRANCH}.bin.${ARCH}.tar.xz" "prereq.tar.xz"
+else
+	# download prebuild for the MR branch
+	curl -k -o "prereq.tar.xz" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.bin.${ARCH}.tar.xz"
+	if ! xz -qt "prereq.tar.xz"; then
+		# download prebuild for the target branch
+		curl -k -o "prereq.tar.xz" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-${BRANCH}.bin.${ARCH}.tar.xz"
+	fi
+	if ! xz -qt "prereq.tar.xz"; then
+		# fallback to the default branch
+		curl -k -o "prereq.tar.xz" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements/prerequirements-scilab-branch-${CI_DEFAULT_BRANCH}.bin.${ARCH}.tar.xz"
+	fi
+fi
+# cleanup and extract
+git clean -fxd scilab/java scilab/lib scilab/thirdparty scilab/usr scilab/modules/tclsci/tcl
+rm -f scilab/svn-info.txt scilab/version.txt
+tar -xvf prereq.tar.xz -C scilab >"${LOG_PATH}/build_prereq_${CI_COMMIT_SHORT_SHA}.log"
+# display svn revision
+cat scilab/svn-info.txt || cat scilab/version.txt || exit 1
 echo -e "\e[0Ksection_end:$(date +%s):prerequirements\r\e[0K"
+
+# patch thirdparty JARs on WIP Merge-Request
+curl -k -o "thirdparty.zip" "https://oos.eu-west-2.outscale.com/scilab-releases-dev/prerequirements-sources/thirdparty-scilab-branch-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}.zip"
+if unzip -qt "thirdparty.zip"; then
+	rm -rf scilab/thirdparty/
+	mkdir scilab/thirdparty/
+	unzip -o thirdparty.zip -d scilab/thirdparty/
+fi
 
 # patch version numbers
 sed -i \
@@ -33,65 +65,79 @@ sed -i \
  -e "s/SCI_VERSION_REVISION .*/SCI_VERSION_REVISION \"${CI_COMMIT_SHA}\"/" \
  -e "s/SCI_VERSION_TIMESTAMP .*/SCI_VERSION_TIMESTAMP ${SCI_VERSION_TIMESTAMP}/" \
  scilab/modules/core/includes/version.h.in
+echo SCIVERSION="${SCI_VERSION_STRING}" >scilab/Version.incl
 
 # predefined env
-LD_LIBRARY_PATH=$(pwd)/usr/lib/ && export LD_LIBRARY_PATH
-DISPLAY=:0.0 && export DISPLAY
-
-# FIXME: workaround to only have minimal dependencies set
-# otherwise, libcurl will require libopenssl which will likely be system dependent
-export SCILIBS_LDFLAGS="-Wl,--allow-shlib-undefined"
+CCACHE_DIR="${CI_PROJECT_DIR}/ccache"
+export CCACHE_DIR
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pwd)/scilab/usr/lib/"
+export LD_LIBRARY_PATH
 
 # configure (with reconfigure for up to date info)
 echo -e "\e[0Ksection_start:$(date +%s):configure[collapsed=true]\r\e[0KConfigure"
 cd scilab ||exit 1
-aclocal  >  ../$LOG_PATH/log.txt
-autoconf >> ../$LOG_PATH/log.txt
-automake >> ../$LOG_PATH/log.txt
-./configure --prefix='' |tee -a ../$LOG_PATH/log.txt
+./configure --prefix='' | tee -a "../${LOG_PATH}/build_configure_${CI_COMMIT_SHORT_SHA}.log"
+CONFIGURE_STATUS="${PIPESTATUS[0]}"
+cp -a config.log "../${LOG_PATH}/build_config.log_${CI_COMMIT_SHORT_SHA}.log"
+if [ "${CONFIGURE_STATUS}" -ne 0 ]; then
+	exit "${CONFIGURE_STATUS}"
+fi
 echo -e "\e[0Ksection_end:$(date +%s):configure\r\e[0K"
 
 # make 
 echo -e "\e[0Ksection_start:$(date +%s):make\r\e[0KMake"
-make --jobs="$(nproc)" all &>>../$LOG_PATH/log.txt ||(tail --lines=100 ../$LOG_PATH/log.txt; exit 1)
-make doc &>../$LOG_PATH/log_doc.txt ||(tail --lines=100 ../$LOG_PATH/log_doc.txt; exit 1)
+make --jobs="$(nproc)" all &>>"../${LOG_PATH}/build_make_${CI_COMMIT_SHORT_SHA}.log" ||(tail --lines=100 "../${LOG_PATH}/build_make_${CI_COMMIT_SHORT_SHA}.log"; exit 1)
+make doc &>"../${LOG_PATH}/build_doc_${CI_COMMIT_SHORT_SHA}.log" ||(tail --lines=100 "../$LOG_PATH/build_doc_${CI_COMMIT_SHORT_SHA}.log"; exit 1)
 echo -e "\e[0Ksection_end:$(date +%s):make\r\e[0K"
 
 # install to tmpdir
 echo -e "\e[0Ksection_start:$(date +%s):install\r\e[0KInstall"
-make install DESTDIR="/${SCI_VERSION_STRING}" &>>../$LOG_PATH/log_install.txt ||(tail --lines=100 ../$LOG_PATH/log_install.txt; exit 1)
+make install DESTDIR="/tmp/${SCI_VERSION_STRING}" &>>"../${LOG_PATH}/build_install_${CI_COMMIT_SHORT_SHA}.log" ||(tail --lines=100 "../$LOG_PATH/build_install_${CI_COMMIT_SHORT_SHA}.log"; exit 1)
 echo -e "\e[0Ksection_end:$(date +%s):install\r\e[0K"
 
 echo -e "\e[0Ksection_start:$(date +%s):patch[collapsed=true]\r\e[0KPatch binary"
 # copy extra files
-cp -a ACKNOWLEDGEMENTS "/${SCI_VERSION_STRING}/"
-cp -a CHANGES.md "/${SCI_VERSION_STRING}/"
-cp -a COPYING "/${SCI_VERSION_STRING}/"
-cp -a README.md "/${SCI_VERSION_STRING}/"
+cp -a ACKNOWLEDGEMENTS "/tmp/${SCI_VERSION_STRING}/"
+cp -a CHANGES.md "/tmp/${SCI_VERSION_STRING}/"
+cp -a COPYING "/tmp/${SCI_VERSION_STRING}/"
+cp -a README.md "/tmp/${SCI_VERSION_STRING}/"
 
 # copy thirdparties
-cp -a lib/thirdparty "/${SCI_VERSION_STRING}/lib/"
-cp -a thirdparty "/${SCI_VERSION_STRING}/"
-cp -a java/jdk*-jre "/${SCI_VERSION_STRING}/thirdparty/java"
+cp -a lib/thirdparty "/tmp/${SCI_VERSION_STRING}/lib/"
+cp -a thirdparty "/tmp/${SCI_VERSION_STRING}/"
+cp -r java/jre/ "/tmp/${SCI_VERSION_STRING}/thirdparty/java"
+cp -a modules/tclsci/tcl "/tmp/${SCI_VERSION_STRING}/share/scilab/modules/tclsci/"
+
+# copy gcc libs from docker customs build gcc if available
+cp -a /usr/local/lib/libsci*  "/tmp/${SCI_VERSION_STRING}/lib/thirdparty/redist"
 
 # Update the classpath
-sed -i "s#$(pwd)#\$SCILAB/../../#g" "/${SCI_VERSION_STRING}/share/scilab/etc/classpath.xml"
+sed -i "s#$(pwd)#\$SCILAB/../../#g" "/tmp/${SCI_VERSION_STRING}/share/scilab/etc/classpath.xml"
 
 # Update the rpath and ELF NEEDED
-cd "/${SCI_VERSION_STRING}/" ||exit
+cd "/tmp/${SCI_VERSION_STRING}/" ||exit
+export PATH="${CI_PROJECT_DIR}/scilab/usr/bin/:$PATH"
+
+# shellcheck disable=SC2016
 patchelf --set-rpath '$ORIGIN:$ORIGIN/../lib/scilab:$ORIGIN/../lib/thirdparty:$ORIGIN/../lib/thirdparty/redist' \
-					bin/scilab-cli-bin bin/scilab-bin
-find lib/scilab/*.so* -type f -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/../thirdparty:$ORIGIN/../thirdparty/redist' {} \;
-readelf -d bin/scilab-cli-bin |awk '/NEEDED/{gsub(/\[/,""); gsub(/\]/,""); print "patchelf --add-needed "$NF" lib/scilab/libscilab-cli.so"}' |sh -
-readelf -d bin/scilab-bin |awk '/NEEDED/{gsub(/\[/,""); gsub(/\]/,""); print "patchelf --add-needed "$NF" lib/scilab/libscilab.so"}' |sh -
+	bin/scilab-cli-bin bin/scilab-bin
+# shellcheck disable=SC2016
+find lib/scilab/*.so* -type f -exec patchelf \
+	--set-rpath '$ORIGIN:$ORIGIN/../thirdparty:$ORIGIN/../thirdparty/redist' \
+	{} \;
+
 cd "${CI_PROJECT_DIR}" ||exit
 
 echo -e "\e[0Ksection_end:$(date +%s):patch\r\e[0K"
 
 # package as a tar xz file
 echo -e "\e[0Ksection_start:$(date +%s):package\r\e[0KPackage"
-tar -cJf "${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz" -C "/" "${SCI_VERSION_STRING}"
+XZ_OPT="-9T0" && [ "${CI_PIPELINE_SOURCE}" = "merge_request_event" ] && XZ_OPT="-0T0"
+export XZ_OPT
+tar -cJf "${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz" -C "/tmp" "${SCI_VERSION_STRING}"
 echo -e "\e[0Ksection_end:$(date +%s):package\r\e[0K"
 
 # error if artifact does not exist
 du -h "${SCI_VERSION_STRING}.bin.${ARCH}.tar.xz"
+ccache -s
+

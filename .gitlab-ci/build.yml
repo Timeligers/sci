@@ -9,89 +9,145 @@
 #
 
 # build scilab using a windows runner
-.x64_windows_build:
+.windows_build:
   stage: build
-  tags: [x64_windows, scilab, shell]
+  tags: [x64_windows, scilab, shell, build]
   before_script:
+    # The first time create base folders
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH"
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH\$SCI_VERSION_STRING\"
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH\$SCI_VERSION_STRING\scihome\"
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH\$SCI_VERSION_STRING\log\"
+    - New-Item -ItemType Directory -Force -Path "$SCILAB_COMMON_PATH\$SCI_VERSION_STRING\test\"
+
+    # $null is used to reset the command status $?
     - echo "cleaning $CI_PROJECT_DIR"
-    # Remove TMPDIRs older than 1 day
-    - Get-ChildItem -Path "$env:TMP\SCI_TMP*" | Where-Object {($_.LastWriteTime -lt (Get-Date).AddDays(-1))} | Remove-Item -Recurse
-    # Remove logs dir older than 3 day
-    - Get-ChildItem -Path "logs_*" | Where-Object {($_.LastWriteTime -lt (Get-Date).AddDays(-3))} | Remove-Item -Recurse
-    # Remove installer and install dir older than 3 day
-    - Get-ChildItem -Path "scilab-*/unins000.exe" | Where-Object {($_.LastWriteTime -lt (Get-Date).AddDays(-3))} | foreach { Start-Process $_ -ArgumentList /SILENT,/SP- -NoNewWindow -Wait }
-    - Get-ChildItem -Path "scilab-*" | Where-Object {($_.LastWriteTime -lt (Get-Date).AddDays(-3))} | Remove-Item -Recurse
+    # kill all Scilab older than 4 hours (CI job fails before)
+    - $scilab_to_kill=(Get-Process *scilex* | Where StartTime -lt (Get-Date).AddHours(-4))
+    - if($scilab_to_kill.length) { $scilab_to_kill.kill() }
+    # Uninstall Scilab older than 2 day
+    - Get-ChildItem -Path "$SCILAB_COMMON_PATH\*\install\unins000.exe" -Erroraction 'Continue' | Where-Object {($_.LastWriteTime -lt (Get-Date).AddHours(-48))} | foreach { Start-Process $_ -ArgumentList /VERYSILENT,SP-,/SUPPRESSMSGBOXES,/FORCECLOSEAPPLICATIONS  -NoNewWindow -Wait -Erroraction 'Continue'} ; $null
+    # Remove folder older than 3 day
+    - Get-ChildItem -Path "$SCILAB_COMMON_PATH\*" -Erroraction 'Continue' | Where-Object {($_.LastWriteTime -lt (Get-Date).AddHours(-72))} | Remove-Item -Recurse -Erroraction 'Continue'; $null
+    # Remove TMPDIR older than 3 day
+    - Get-ChildItem -Path "$env:TEMP/SCI_TMP*" -ErrorAction 'Continue' | Where-Object {($_.LastWriteTime -lt (Get-Date).AddHours(-72))} | Remove-Item -Recurse -ErrorAction 'Continue'; $null
+
   script:
     - cmd /C "call .gitlab-ci\build.bat"
   artifacts:
     paths:
-      - logs_$CI_COMMIT_SHORT_SHA
-      - scilab/modules/core/includes/version.h
+      - $SCI_VERSION_STRING
       - $SCI_VERSION_STRING.bin.$ARCH.exe
     when: always
-# build an preview/branched version
-x64_windows_build_branch:
-  extends: .x64_windows_build
+# build an MR version
+windows_build_mr:
+  extends: .windows_build
   needs:
-    - CHANGES_has_no_edit
-    - x64_windows_set_env
+    - windows_set_env
+    - job: windows_build_prereq
+      optional: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push"
 # build a nightly version
-x64_windows_build_nightly:
-  extends: .x64_windows_build
+windows_build_nightly:
+  extends: .windows_build
   needs:
-    - x64_windows_set_env
+    - windows_set_env
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
+    - if: $CI_PIPELINE_SOURCE == "schedule"
 # build a release version
-x64_windows_build_release:
-  extends: .x64_windows_build
+windows_build_release:
+  extends: .windows_build
   needs:
-    - prepare_release_files
-    - x64_windows_set_env
+    - windows_set_env
   rules:
     - if: $CI_COMMIT_TAG
 
 # build scilab using a linux runner
-.x86_64-linux-gnu_build:
+.linux_build:
   stage: build
-  image: $DOCKER_LINUX_BUILDER
-  tags: [x86_64-linux-gnu, docker, scilab]
+  image: ${DOCKER_LINUX_BUILDER}:${DOCKER_TAG}
+  tags: [x86_64-linux-gnu, docker, scilab, build]
   before_script:
     - echo -e "\e[0Ksection_start:$(date +%s):cleanup\r\e[0KCleaning $CI_PROJECT_DIR"
     # Remove logs older than 3 days
-    - find logs_*   -mtime +3 -delete || true
+    - find logs_*  -mtime +3 -delete || true
     # Remove installer older than 3 days
-    - find scilab-* -mtime +3 -delete || true
+    - find ../../scilab-* -mtime +3 -delete || true
     - echo -e "\e[0Ksection_end:$(date +%s):cleanup\r\e[0K"
   script: bash -x -e .gitlab-ci/build.sh
   artifacts:
     paths:
-      - logs_$CI_COMMIT_SHORT_SHA
-      - scilab/modules/core/includes/version.h
+      - $SCI_VERSION_STRING
       - $SCI_VERSION_STRING.bin.$ARCH.tar.xz
     when: always
-# build an preview/branched version
-.x86_64-linux-gnu_build_branch:
-  extends: .x86_64-linux-gnu_build
+# build an MR version
+linux_build_mr:
+  extends: .linux_build
   needs:
-    - CHANGES_has_no_edit
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_PIPELINE_SOURCE == 'push'
-# build a nightly
-.x86_64-linux-gnu_build_nightly:
-  extends: .x86_64-linux-gnu_build
-  needs:
-    - x86_64-linux-gnu_set_env
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-# build a release
-.x86_64-linux-gnu_build_release:
-  extends: .x86_64-linux-gnu_build
-  needs:
-    - prepare_release_files
-    - x86_64-linux-gnu_set_env
+    - linux_set_env
+    - job: linux_build_prereq
+      optional: true
   rules:
     - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "push"
+# build a nightly
+linux_build_nightly:
+  extends: .linux_build
+  needs:
+    - linux_set_env
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+# build a release
+linux_build_release:
+  extends: .linux_build
+  needs:
+    - linux_set_env
+  rules:
+    - if: $CI_COMMIT_TAG
+
+# pass the configure and make on regular distro without prerequirements
+linux:
+  stage: build
+  image: ${DISTRO}
+  tags: [x86_64-linux-gnu, docker, scilab, build]
+  variables:
+    GIT_CLEAN_FLAGS: "-fxd"
+  script:
+    - >
+      [ -x /usr/bin/apt ] &&
+      export DEBIAN_FRONTEND=noninteractive &&
+      apt update &&
+      apt upgrade -y &&
+      apt install -y gcc g++ gfortran libxml2-dev libhdf5-dev libmatio-dev libfftw3-dev libncurses-dev libeigen3-dev gettext libblas-dev liblapack-dev libarpack2-dev libsuitesparse-dev libpcre3-dev tcl-dev tk-dev libcurl3-dev libarchive-dev >/dev/null
+    - >
+      [ -x /usr/bin/dnf ] &&
+      dnf update -y &&
+      dnf install -y util-linux &&
+      dnf install -y gcc gcc-c++ gcc-fortran libxml2-devel hdf5-devel matio-devel fftw-devel ncurses-devel eigen3-devel gettext blas-devel lapack-devel arpack-devel suitesparse-devel pcre-devel tcl-devel tk-devel libcurl-devel libarchive-devel >/dev/null
+    - useradd scilab
+    - cd scilab
+    - su -c './configure --without-jdk --without-modelica' scilab
+    - su -c 'make --jobs="$(nproc)" >/dev/null' scilab
+  parallel:
+    matrix:
+      - DISTRO:
+          - ubuntu:20.04
+          - ubuntu:22.04
+          - ubuntu:23.10
+          - ubuntu:24.04
+          - fedora:39
+          - fedora:40
+          - debian:11
+          - debian:12
+  rules:
+    - changes:
+        paths:
+          - scilab/configure
+          - scilab/Makefile.in
+          - scilab/modules/Makefile.in
+          - scilab/modules/*/Makefile.in
+      allow_failure: true

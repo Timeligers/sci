@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007-2008 - INRIA
  * Copyright (C) 2008-2008 - Bruno JOFRET
  *
@@ -23,6 +23,13 @@ enum command_origin_t
     CONSOLE,  // command from console
     TCLSCI,   // command from tclsci using ScilabEval interpreter
     DEBUGGER  // command from debugger
+};
+
+enum parse_state
+{
+    Succeded,
+    Failed,
+    NotAllControlClosed
 };
 
 /**
@@ -72,13 +79,9 @@ int StorePrioritaryCommand(const char *command);
 /**
  * Get the next command to execute
  *
- * @param command           : command wich will be executed
- * @param piInterruptible   : 1 if it is a interruptible command
- * @param piPrioritary      : 1 if it is a prioritary command
- * @param iCmdorigin        : origine of the command
- * @return <ReturnValue>    : 0 if command queue is empty
+ * @return <ReturnValue>    : The runner to execute
  */
-int GetCommand(char** command, int* piPrioritary, int* piInterruptible, enum command_origin_t* iCmdorigin);
+void* GetCommand();
 
 /**
 * check if command queue is empty
@@ -86,12 +89,11 @@ int GetCommand(char** command, int* piPrioritary, int* piInterruptible, enum com
 */
 int isEmptyCommandQueue(void);
 
-/*
- * Checks if there's something on the
- * commandQueue
- * @return
+/**
+ * check if command queue prioritary is empty
+ * @return 1 if empty , 0 is not empty
  */
-int ismenu(void);
+int isEmptyCommandQueuePrioritary(void);
 
 
 #endif /* __STORECOMMAND_H__ */

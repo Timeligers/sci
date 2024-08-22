@@ -1,16 +1,18 @@
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-# Copyright (C) Dassault Systemes - 2022 - Clement DAVID
+# Copyright (C) Dassault Systemes - 2022-2024 - Clement DAVID
 # Copyright (C) Dassault Systemes - 2022 - Cedric DELAMARRE
 
 stages:
   # refresh the Docker image
-  - docker_create
+  - docker_setup
   # define common env variables used to build and tests
   - prebuild
   # build scilab
   - build
   # run the tests
   - test
+  # run the ATOMS tests on a dedicated stage / Scilab install
+  - test_atoms
   # extract some content
   - postbuild
   # publish and make it available to the community
@@ -20,64 +22,90 @@ stages:
 
 variables:
   GIT_STRATEGY:
-    value: "fetch"
+    value: "clone"
     description: "fastest strategy as it re-uses the local working copy"
   GIT_CLEAN_FLAGS:
-    value: "none"
+    value: "-fxd"
     description: "do clean build, each job should clean previous artifacts at startup"
   GIT_DEPTH:
     value: "1"
     description: "speedup cloning, only fetch the latest commit"
-  PREREQUIREMENTS_BRANCH:
-    value: "branches/6.1"
-    description: "Scilab prerequirements branch name or trunk"
+  BRANCH:
+    value: "${CI_COMMIT_BRANCH}${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+    description: "Scilab branch name to build"
+  SCI_VERSION_STRING:
+    value: "scilab-branch-${BRANCH}-${CI_COMMIT_SHORT_SHA}"
+    description: "Scilab version string to set"
   DOCKER_LINUX_BUILDER:
-    value: "registry.gitlab.com/scilab/scilab/linux-builder"
-    description: "Docker image used to build Scilab on Linux"
+    value: "${CI_REGISTRY_IMAGE}/linux-builder"
+    description: "Docker image to build Scilab on Linux"
+  DOCKER_LINUX_PREBUILD:
+    value: "${CI_REGISTRY_IMAGE}/linux-prebuild"
+    description: "Docker image to build Scilab prerequirements on Linux"
   DOCKER_WINDOWS_BUILDER:
-    value: "registry.gitlab.com/scilab/scilab/windows-builder"
-    description: "Docker image used to build Scilab on Windows"
-
+    value: "${CI_REGISTRY_IMAGE}/windows-builder"
+    description: "Docker image to build Scilab on Windows"
+  DOCKER_TAG:
+    value: "2025.0.0"
+    description: "Docker tag to publish image on"
+  SCILAB_COMMON_PATH:
+    value: "${CI_PROJECT_DIR}\\..\\..\\..\\..\\scilab"
+    description: "common windows path for persistency"
 workflow:
   rules:
-    # Run on contributor's fork
+    # do not run on branches with opened merge request
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    # run on contributor's fork with a specific version string
     - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
+      variables:
+        GIT_STRATEGY: "fetch"
+        GIT_CLEAN_FLAGS: "none"
+        BRANCH: "${CI_DEFAULT_BRANCH}"
+        SCI_VERSION_STRING: "${CI_PROJECT_PATH_SLUG}-${BRANCH}-${CI_COMMIT_SHORT_SHA}"
+        DOCKER_LINUX_BUILDER: "registry.gitlab.com/scilab/scilab/linux-builder"
+        DOCKER_LINUX_PREBUILD: "registry.gitlab.com/scilab/scilab/linux-prebuild"
+        DOCKER_WINDOWS_BUILDER: "registry.gitlab.com/scilab/scilab/windows-builder"
+    # Scheduled pipeline
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    # Release, use the default branch and prebuild docker images
+    - if: $CI_COMMIT_TAG
+      variables:
+        BRANCH: "${CI_DEFAULT_BRANCH}"
+        SCI_VERSION_STRING: "scilab-${CI_COMMIT_TAG}"
+        DOCKER_LINUX_BUILDER: "${CI_REGISTRY_IMAGE}/linux-builder"
+        DOCKER_LINUX_PREBUILD: "${CI_REGISTRY_IMAGE}/linux-prebuild"
+        DOCKER_WINDOWS_BUILDER: "${CI_REGISTRY_IMAGE}/windows-builder"
+    # on merge request with env. modification, set specific docker image tag
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes: &DOCKER_CHANGES
         paths:
+          - .gitlab-ci.yml
+          - .gitlab-ci/docker_setup.yml
+          - .gitlab-ci/docker_setup.sh
           - .gitlab-ci/Dockerfile*
+          - .gitlab-ci/linux-images/Dockerfile*
       variables:
-        SCI_VERSION_STRING: "$CI_PROJECT_PATH_SLUG-${CI_COMMIT_SHORT_SHA}"
-        DOCKER_LINUX_BUILDER: "$CI_REGISTRY_IMAGE/linux-builder:$CI_COMMIT_BRANCH"
-        DOCKER_WINDOWS_BUILDER: "$CI_REGISTRY_IMAGE/windows-builder:$CI_COMMIT_BRANCH"
-    - if: $CI_PROJECT_PATH_SLUG !~ /scilab-scilab/
-      variables:
-        SCI_VERSION_STRING: "$CI_PROJECT_PATH_SLUG-${CI_COMMIT_SHORT_SHA}"
-    # run on merge request and set specific docker image tag
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes: *DOCKER_CHANGES
-      variables:
+        GIT_STRATEGY: "fetch"
+        GIT_CLEAN_FLAGS: "-fX **.bin **/lib"
+        BRANCH: "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
         SCI_VERSION_STRING: "scilab-mr${CI_MERGE_REQUEST_IID}-${CI_COMMIT_SHORT_SHA}"
-        DOCKER_LINUX_BUILDER: "$CI_REGISTRY_IMAGE/linux-builder:$CI_MERGE_REQUEST_ID"
-        DOCKER_WINDOWS_BUILDER: "$CI_REGISTRY_IMAGE/windows-builder:$CI_MERGE_REQUEST_ID"
+        DOCKER_LINUX_BUILDER: "${CI_REGISTRY_IMAGE}/linux-builder"
+        DOCKER_LINUX_PREBUILD: "${CI_REGISTRY_IMAGE}/linux-prebuild"
+        DOCKER_WINDOWS_BUILDER: "${CI_REGISTRY_IMAGE}/windows-builder"
+        DOCKER_TAG: "mr${CI_MERGE_REQUEST_IID}"
     # run on merge request
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       variables:
+        GIT_STRATEGY: "fetch"
+        GIT_CLEAN_FLAGS: "-fX **.bin **/lib"
         SCI_VERSION_STRING: "scilab-mr${CI_MERGE_REQUEST_IID}-${CI_COMMIT_SHORT_SHA}"
-    # Scheduled pipeline
-    - if: $CI_PIPELINE_SOURCE == 'schedule'
-      variables:
-        SCI_VERSION_STRING: "scilab-branch-${CI_COMMIT_BRANCH}-${CI_COMMIT_SHORT_SHA}"
-        GIT_STRATEGY: clone
-        GIT_CLEAN_FLAGS: -fxd
-    # Release
-    - if: $CI_COMMIT_TAG
-      variables:
-        SCI_VERSION_STRING: "scilab-${CI_COMMIT_TAG}"
-        GIT_STRATEGY: clone
-        GIT_CLEAN_FLAGS: -fxd
-    # Update default Docker image on merge
-    - if: $CI_MERGE_REQUEST_APPROVED
+    # update docker images after a MR merge
+    - if: $CI_PIPELINE_SOURCE == "push"
       changes: *DOCKER_CHANGES
+    # Run on other cases (web, api, etc..), default variables may be modified
+    - if: $CI_PIPELINE_SOURCE != "push"
+      when: always
 
 default:
   artifacts:

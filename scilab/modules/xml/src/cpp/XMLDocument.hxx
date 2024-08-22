@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -20,6 +20,7 @@
 #include <list>
 #include <cstring>
 #include <string>
+#include <libxml/xmlerror.h>
 
 #include "dynlib_xml_scilab.h"
 
@@ -175,7 +176,11 @@ private:
      * Error function used when the XPath query is compiled/
      * @see http://xmlsoft.org/html/libxml-xmlerror.html#xmlStructuredErrorFunc
      */
+    #if LIBXML_VERSION > 21200
+    static void errorXPathFunction(void *ctx, const xmlError * error);
+    #else
     static void errorXPathFunction(void *ctx, xmlError * error);
+    #endif
 
     /**
      * Reads and parses a document given in a file.

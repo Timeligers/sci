@@ -22,30 +22,30 @@
     <ProjectGuid>{8CCDD3C2-B025-4A12-A986-1AA28D7C0C33}</ProjectGuid>
     <RootNamespace>graphics</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -82,7 +82,7 @@
     <ClCompile>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;includes/handleDrawing;src/cpp;src/c;src/c/getHandleProperty;../../libs/intl;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../output_stream/includes;../fileio/includes;../gui/includes;../core/includes;../localization/includes;../renderer/includes;../jvm/includes;../action_binding/includes;../graphic_export/includes;../string/includes;../windows_tools/includes;../api_scilab/includes;../elementary_functions/includes;../graphic_objects/includes;../ast/includes/types;../ast/includes/ast;../ast/includes/analysis;../ast/includes/exps;../ast/includes/operations;../ast/includes/symbol;../ast/includes/system_env;../threads/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;includes/handleDrawing;src/cpp;src/c;src/c/getHandleProperty;../../libs/intl;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../output_stream/includes;../fileio/includes;../gui/includes;../core/includes;../localization/includes;../renderer/includes;../jvm/includes;../action_binding/includes;../graphic_export/includes;../string/includes;../windows_tools/includes;../api_scilab/includes;../elementary_functions/includes;../graphic_objects/includes;../ast/includes/types;../ast/includes/ast;../ast/includes/exps;../ast/includes/operations;../ast/includes/symbol;../ast/includes/system_env;../threads/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>FORDLL;_DEBUG;_WINDOWS;_USRDLL;GRAPHICS_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -117,7 +117,7 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;includes/handleDrawing;src/cpp;src/c;src/c/getHandleProperty;../../libs/intl;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../output_stream/includes;../fileio/includes;../gui/includes;../core/includes;../localization/includes;../renderer/includes;../jvm/includes;../action_binding/includes;../graphic_export/includes;../string/includes;../windows_tools/includes;../api_scilab/includes;../elementary_functions/includes;../graphic_objects/includes;../ast/includes/types;../ast/includes/ast;../ast/includes/analysis;../ast/includes/exps;../ast/includes/operations;../ast/includes/symbol;../ast/includes/system_env;../threads/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;includes/handleDrawing;src/cpp;src/c;src/c/getHandleProperty;../../libs/intl;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../output_stream/includes;../fileio/includes;../gui/includes;../core/includes;../localization/includes;../renderer/includes;../jvm/includes;../action_binding/includes;../graphic_export/includes;../string/includes;../windows_tools/includes;../api_scilab/includes;../elementary_functions/includes;../graphic_objects/includes;../ast/includes/types;../ast/includes/ast;../ast/includes/exps;../ast/includes/operations;../ast/includes/symbol;../ast/includes/system_env;../threads/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>FORDLL;_DEBUG;_WINDOWS;_USRDLL;GRAPHICS_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -152,7 +152,7 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>includes;includes/handleDrawing;src/cpp;src/c;src/c/getHandleProperty;../../libs/intl;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../output_stream/includes;../fileio/includes;../gui/includes;../core/includes;../localization/includes;../renderer/includes;../jvm/includes;../action_binding/includes;../graphic_export/includes;../string/includes;../windows_tools/includes;../api_scilab/includes;../elementary_functions/includes;../graphic_objects/includes;../ast/includes/types;../ast/includes/ast;../ast/includes/analysis;../ast/includes/exps;../ast/includes/operations;../ast/includes/symbol;../ast/includes/system_env;../threads/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;includes/handleDrawing;src/cpp;src/c;src/c/getHandleProperty;../../libs/intl;$(SCILAB_JDK32)/include;$(SCILAB_JDK32)/include/win32;../output_stream/includes;../fileio/includes;../gui/includes;../core/includes;../localization/includes;../renderer/includes;../jvm/includes;../action_binding/includes;../graphic_export/includes;../string/includes;../windows_tools/includes;../api_scilab/includes;../elementary_functions/includes;../graphic_objects/includes;../ast/includes/types;../ast/includes/ast;../ast/includes/exps;../ast/includes/operations;../ast/includes/symbol;../ast/includes/system_env;../threads/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>FORDLL;NDEBUG;_WINDOWS;_USRDLL;GRAPHICS_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -198,7 +198,7 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>includes;includes/handleDrawing;src/cpp;src/c;src/c/getHandleProperty;../../libs/intl;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../output_stream/includes;../fileio/includes;../gui/includes;../core/includes;../localization/includes;../renderer/includes;../jvm/includes;../action_binding/includes;../graphic_export/includes;../string/includes;../windows_tools/includes;../api_scilab/includes;../elementary_functions/includes;../graphic_objects/includes;../ast/includes/types;../ast/includes/ast;../ast/includes/analysis;../ast/includes/exps;../ast/includes/operations;../ast/includes/symbol;../ast/includes/system_env;../threads/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;includes/handleDrawing;src/cpp;src/c;src/c/getHandleProperty;../../libs/intl;$(SCILAB_JDK64)/include;$(SCILAB_JDK64)/include/win32;../output_stream/includes;../fileio/includes;../gui/includes;../core/includes;../localization/includes;../renderer/includes;../jvm/includes;../action_binding/includes;../graphic_export/includes;../string/includes;../windows_tools/includes;../api_scilab/includes;../elementary_functions/includes;../graphic_objects/includes;../ast/includes/types;../ast/includes/ast;../ast/includes/exps;../ast/includes/operations;../ast/includes/symbol;../ast/includes/system_env;../threads/includes;../dynamic_link/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>FORDLL;NDEBUG;_WINDOWS;_USRDLL;GRAPHICS_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -238,12 +238,10 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sci_gateway\cpp\sci_get.cpp" />
+    <ClCompile Include="sci_gateway\cpp\sci_glue.cpp" />
     <ClCompile Include="sci_gateway\cpp\sci_matplot.cpp" />
     <ClCompile Include="sci_gateway\cpp\sci_matplot1.cpp" />
     <ClCompile Include="sci_gateway\cpp\sci_winsid.cpp" />
-    <ClCompile Include="sci_gateway\cpp\sci_xget.cpp" />
-    <ClCompile Include="sci_gateway\cpp\sci_xset.cpp" />
-    <ClCompile Include="src\cpp\configgraphicvariable.cpp" />
     <ClCompile Include="sci_gateway\cpp\sci_contour2dm.cpp" />
     <ClCompile Include="sci_gateway\c\sci_addcolor.c" />
     <ClCompile Include="sci_gateway\c\sci_color.c" />
@@ -494,7 +492,6 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     <ClCompile Include="sci_gateway\c\sci_drawnow.c" />
     <ClCompile Include="sci_gateway\c\sci_fec.c" />
     <ClCompile Include="sci_gateway\c\sci_geom3d.c" />
-    <ClCompile Include="sci_gateway\c\sci_glue.c" />
     <ClCompile Include="sci_gateway\c\sci_grayplot.c" />
     <ClCompile Include="sci_gateway\c\sci_is_handle_valid.c" />
     <ClCompile Include="sci_gateway\c\sci_Legend.c" />
@@ -518,7 +515,6 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     <ClCompile Include="sci_gateway\c\sci_xarrows.c" />
     <ClCompile Include="sci_gateway\c\sci_xchange.c" />
     <ClCompile Include="sci_gateway\c\sci_xclick.c" />
-    <ClCompile Include="sci_gateway\c\sci_xdel.c" />
     <ClCompile Include="sci_gateway\c\sci_xfarcs.c" />
     <ClCompile Include="sci_gateway\c\sci_xfpoly.c" />
     <ClCompile Include="sci_gateway\c\sci_xfpolys.c" />
@@ -526,7 +522,6 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     <ClCompile Include="sci_gateway\c\sci_xgraduate.c" />
     <ClCompile Include="sci_gateway\c\sci_xgrid.c" />
     <ClCompile Include="sci_gateway\c\sci_xlfont.c" />
-    <ClCompile Include="sci_gateway\c\sci_xname.c" />
     <ClCompile Include="sci_gateway\c\sci_xpoly.c" />
     <ClCompile Include="sci_gateway\c\sci_xpolys.c" />
     <ClCompile Include="sci_gateway\c\sci_xrect.c" />
@@ -686,7 +681,6 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     <ClInclude Include="includes\BasicAlgos.h" />
     <ClInclude Include="includes\BuildObjects.h" />
     <ClInclude Include="includes\Champ.h" />
-    <ClInclude Include="src\cpp\configgraphicvariable.hxx" />
     <ClInclude Include="includes\Light.h" />
     <ClInclude Include="includes\name2rgb.h" />
     <ClInclude Include="src\cpp\ContourOnMesh.hxx" />
