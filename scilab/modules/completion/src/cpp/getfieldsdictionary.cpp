@@ -1,14 +1,8 @@
 /*
-<<<<<<< HEAD
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2010-2011 - Calixte DENIZET
-=======
 * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2010-2011 - Calixte DENIZET
 *
->>>>>>> 1b489a362564773c54081e3cbb5cc28663f1cb3b
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
- * Copyright (C) 2021 Stéphane MOTTELET
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
  * pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -22,14 +16,7 @@
 #include "context.hxx"
 #include "struct.hxx"
 #include "tlist.hxx"
-<<<<<<< HEAD
-#include "overload.hxx"
-#include "string.hxx"
-#include "callable.hxx"
-#include "types_tools.hxx"
-=======
 #include "user.hxx"
->>>>>>> 1b489a362564773c54081e3cbb5cc28663f1cb3b
 
 extern "C"
 {
@@ -121,54 +108,6 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
             pstData = pFields->get();
             break;
         }
-<<<<<<< HEAD
-
-        iSize = pFields->getSize();
-
-        pstData = pFields->get();
-    }
-    else if (pIT->isTList() || pIT->isMList())
-    {
-        types::typed_list in,out;
-        types::Callable::ReturnValue ret;
-        types::TList* pL = pIT->getAs<types::TList>();
-
-        pL->IncreaseRef();
-        in.push_back(pL);
-
-        try
-        {
-            ret = Overload::call(L"%" + pL->getShortTypeStr() + L"_fieldsdictionary", in, 1, out);
-            pL->DecreaseRef();
-            if (out.size() != 1 || out[0]->isString() == false)
-            {
-              throw ast::InternalError("");
-            }
-            pFields = out[0]->getAs<types::String>();
-            iSize = pFields->getSize();
-            pstData = pFields->get();
-            iXlist = 0;
-        }
-        catch (ast::InternalError & /*se*/)
-        {
-          pL->DecreaseRef();
-          pFields = pL->getFieldNames();
-
-          //bypass the value, is the (t/m)list type
-          iSize = pFields->getSize() - 1;
-          if (iSize == 0)
-          {
-              return NULL;
-          }
-
-          pstData = pFields->get();
-          iXlist = 1;
-        }
-    }
-    else
-    {
-        return NULL;
-=======
         case types::InternalType::ScilabTList:
         case types::InternalType::ScilabMList:
         {
@@ -207,7 +146,6 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
         }
         default:
             return NULL;
->>>>>>> 1b489a362564773c54081e3cbb5cc28663f1cb3b
     }
 
     int iLast = 0;
