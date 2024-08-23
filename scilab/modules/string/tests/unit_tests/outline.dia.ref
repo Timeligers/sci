@@ -2,6 +2,7 @@
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2024 - UTC - Stephane MOTTELET
 //
+// <-- TEST WITH GRAPHIC -->
 data.d0 = [];
 data.d = 1;
 data.D = rand(5, 5);
@@ -40,14 +41,23 @@ data.ml = mlist(["e","x"],1);
 jimport java.lang.String;
 data.j = String.new("Hello world");
 data.x = xmlReadStr("<root><a att=""foo"" rib=""bar""><b>Hello</b></a></root>");
-data.dt = datetime(2024, 7, 4);
-data.DT = [datetime(2024, 7, 4) datetime(2024, 7, 4) datetime(2024, 7, 4)];
+data.dt = datetime();
+data.DT = [datetime() datetime() datetime()];
 data.dura = duration(1);
 data.caldura = caldays(1);
 data.DURA = [duration(1) duration(1) duration(1)];
-data.DT = [datetime(2024, 7, 4) datetime(2024, 7, 4) datetime(2024, 7, 4)];
+data.DT = [datetime() datetime() datetime()];
 data.table = table(["AF"; "NA"], ["Africa"; "North America"]);
 data.ts = timeseries(hours(1:2)', ["AF"; "NA"], ["Africa"; "North America"]);
+data.fig = gcf();
+data.ax = gca();
+grayplot(1:10,1:10,rand(10,10))
+data.gp = gce();
+x = 1:10;
+X = ndgrid(x);
+[fx, fy] =  (rand(X)-0.5, rand(X)-0.5);
+champ(x, x, fx, fy);
+data.champ = gce();
 data
  data = [struct] with fields:
   d0 = []
@@ -101,6 +111,10 @@ data
   DURA: [1x3 duration]
   table: [2x2 table]
   ts: [2x2 timeseries]
+  fig: [Figure]
+  ax: [Axes]
+  gp: [Grayplot]
+  champ: [Champ]
 data.tlist1 = tlist(["t1", "x"], 1);
 data.mlist1 = mlist(["t1", "x"], 2);
 data.tlist2 = tlist(["t2", "x"], 1);
@@ -339,11 +353,17 @@ Hello world
   url = "Undefined"
   root: (XMLElem)
  ans = [datetime]
-   2024-07-04
-   2024-07-04
+   2024-08-23 13:56:54.122
+   2024-08-23 13:56:54.122
  ans = [1x3 datetime]
-   2024-07-04   2024-07-04   2024-07-04
-   2024-07-04   2024-07-04   2024-07-04
+         column 1 to 2
+   2024-08-23 13:56:54.128   2024-08-23 13:56:54.128
+         column 3 to 3
+   2024-08-23 13:56:54.129
+         column 1 to 2
+   2024-08-23 13:56:54.128   2024-08-23 13:56:54.128
+         column 3 to 3
+   2024-08-23 13:56:54.129
  ans = [duration]
    01:00:00
    01:00:00
@@ -375,6 +395,276 @@ Hello world
                                   
    01:00:00   AF     Africa       
    02:00:00   NA     North America
+ ans = [Figure] with properties:
+  children: [Axes]
+  figure_position = [200,200]
+  figure_size = [626,588]
+  axes_size = [610,460]
+  auto_resize = "on"
+  viewport = [0,0]
+  figure_name = "Graphic window number %d"
+  figure_id = 0
+  info_message = ""
+  color_map: [32x3 double]
+  pixel_drawing_mode = "copy"
+  anti_aliasing = "off"
+  immediate_drawing = "on"
+  background = -2
+  visible = "on"
+  rotation_style = "unary"
+  event_handler = ""
+  event_handler_enable = "off"
+  user_data = []
+  resizefcn = ""
+  closerequestfcn = ""
+  resize = "on"
+  toolbar = "figure"
+  toolbar_visible = "on"
+  menubar = "figure"
+  menubar_visible = "on"
+  infobar_visible = "on"
+  dockable = "on"
+  layout = "none"
+  layout_options: (OptNoLayout tlist)
+  default_axes = "on"
+  icon = ""
+  tag = ""
+  [Figure] with properties:
+  children: [Axes]
+  figure_position = [200,200]
+  figure_size = [626,588]
+  axes_size = [610,460]
+  auto_resize = "on"
+  viewport = [0,0]
+  figure_name = "Graphic window number %d"
+  figure_id = 0
+  info_message = ""
+  color_map: [32x3 double]
+  pixel_drawing_mode = "copy"
+  anti_aliasing = "off"
+  immediate_drawing = "on"
+  background = -2
+  visible = "on"
+  rotation_style = "unary"
+  event_handler = ""
+  event_handler_enable = "off"
+  user_data = []
+  resizefcn = ""
+  closerequestfcn = ""
+  resize = "on"
+  toolbar = "figure"
+  toolbar_visible = "on"
+  menubar = "figure"
+  menubar_visible = "on"
+  infobar_visible = "on"
+  dockable = "on"
+  layout = "none"
+  layout_options: (OptNoLayout tlist)
+  default_axes = "on"
+  icon = ""
+  tag = ""
+ ans = [Axes] with properties:
+  parent: [Figure]
+  children: [5x1 handle]
+  
+  visible = "on"
+  axes_visible = ["on","on","on"]
+  axes_reverse = ["off","off","off"]
+  grid = [-1,-1]
+  grid_position = "background"
+  grid_thickness = [1,1]
+  grid_style = [7,7]
+  x_location = "bottom"
+  y_location = "left"
+  title: [Label]
+  x_label: [Label]
+  y_label: [Label]
+  z_label: [Label]
+  auto_ticks = ["on","on","on"]
+  x_ticks: (ticks tlist) with fields:
+      locations = [0;1;2;3;4;5;6;7;8;9;10;11;12]
+      labels: [13x1 string]
+  y_ticks: (ticks tlist) with fields:
+      locations = [0;1;2;3;4;5;6;7;8;9;10;11;12]
+      labels: [13x1 string]
+  z_ticks: (ticks tlist) with fields:
+      locations = []
+      labels = []
+  ticks_format = ["","",""]
+  ticks_st = [1,1,1;0,0,0]
+  box = "on"
+  filled = "on"
+  sub_ticks = [1,1]
+  font_style = 6
+  font_size = 1
+  font_color = -1
+  fractional_font = "off"
+  
+  isoview = "off"
+  cube_scaling = "off"
+  view = "2d"
+  rotation_angles = [0,270]
+  log_flags = "nnn"
+  tight_limits = ["off","off","off"]
+  data_bounds: [2x2 double]
+  zoom_box = []
+  margins = [0.125,0.125,0.125,0.125]
+  auto_margins = "on"
+  axes_bounds = [0,0,1,1]
+  
+  auto_clear = "off"
+  auto_scale = "on"
+  auto_stretch = "on"
+  
+  hidden_axis_color = 4
+  hiddencolor = 4
+  line_mode = "on"
+  line_style = 1
+  thickness = 1
+  mark_mode = "off"
+  mark_style = 0
+  mark_size_unit = "tabulated"
+  mark_size = 0
+  mark_foreground = -1
+  mark_background = -2
+  foreground = -1
+  background = -2
+  arc_drawing_method = "lines"
+  clip_state = "clipgrf"
+  clip_box = []
+  user_data = []
+  tag = ""
+  [Axes] with properties:
+  parent: [Figure]
+  children: [5x1 handle]
+  
+  visible = "on"
+  axes_visible = ["on","on","on"]
+  axes_reverse = ["off","off","off"]
+  grid = [-1,-1]
+  grid_position = "background"
+  grid_thickness = [1,1]
+  grid_style = [7,7]
+  x_location = "bottom"
+  y_location = "left"
+  title: [Label]
+  x_label: [Label]
+  y_label: [Label]
+  z_label: [Label]
+  auto_ticks = ["on","on","on"]
+  x_ticks: (ticks tlist) with fields:
+      locations = [0;1;2;3;4;5;6;7;8;9;10;11;12]
+      labels: [13x1 string]
+  y_ticks: (ticks tlist) with fields:
+      locations = [0;1;2;3;4;5;6;7;8;9;10;11;12]
+      labels: [13x1 string]
+  z_ticks: (ticks tlist) with fields:
+      locations = []
+      labels = []
+  ticks_format = ["","",""]
+  ticks_st = [1,1,1;0,0,0]
+  box = "on"
+  filled = "on"
+  sub_ticks = [1,1]
+  font_style = 6
+  font_size = 1
+  font_color = -1
+  fractional_font = "off"
+  
+  isoview = "off"
+  cube_scaling = "off"
+  view = "2d"
+  rotation_angles = [0,270]
+  log_flags = "nnn"
+  tight_limits = ["off","off","off"]
+  data_bounds: [2x2 double]
+  zoom_box = []
+  margins = [0.125,0.125,0.125,0.125]
+  auto_margins = "on"
+  axes_bounds = [0,0,1,1]
+  
+  auto_clear = "off"
+  auto_scale = "on"
+  auto_stretch = "on"
+  
+  hidden_axis_color = 4
+  hiddencolor = 4
+  line_mode = "on"
+  line_style = 1
+  thickness = 1
+  mark_mode = "off"
+  mark_style = 0
+  mark_size_unit = "tabulated"
+  mark_size = 0
+  mark_foreground = -1
+  mark_background = -2
+  foreground = -1
+  background = -2
+  arc_drawing_method = "lines"
+  clip_state = "clipgrf"
+  clip_box = []
+  user_data = []
+  tag = ""
+ ans = [Grayplot] with properties:
+  parent: [Axes]
+  children = []
+  visible = "on"
+  data: (grayplotdata tlist) with fields:
+      x = [1;2;3;4;5;6;7;8;9;10]
+      y = [1;2;3;4;5;6;7;8;9;10]
+      z: [10x10 double]
+  data_mapping = "scaled"
+  clip_state = "clipgrf"
+  clip_box = []
+  user_data = []
+  tag = ""
+  [Grayplot] with properties:
+  parent: [Axes]
+  children = []
+  visible = "on"
+  data: (grayplotdata tlist) with fields:
+      x = [1;2;3;4;5;6;7;8;9;10]
+      y = [1;2;3;4;5;6;7;8;9;10]
+      z: [10x10 double]
+  data_mapping = "scaled"
+  clip_state = "clipgrf"
+  clip_box = []
+  user_data = []
+  tag = ""
+ ans = [Champ] with properties:
+  parent: [Axes]
+  children = []
+  visible = "on"
+  data: (champdata tlist) with fields:
+      x = [1;2;3;4;5;6;7;8;9;10]
+      y = [1;2;3;4;5;6;7;8;9;10]
+      fx: [10x10 double]
+      fy: [10x10 double]
+  line_style = 1
+  thickness = 1
+  colored = "off"
+  arrow_size = 1
+  clip_state = "clipgrf"
+  clip_box = []
+  user_data = []
+  tag = ""
+  [Champ] with properties:
+  parent: [Axes]
+  children = []
+  visible = "on"
+  data: (champdata tlist) with fields:
+      x = [1;2;3;4;5;6;7;8;9;10]
+      y = [1;2;3;4;5;6;7;8;9;10]
+      fx: [10x10 double]
+      fy: [10x10 double]
+  line_style = 1
+  thickness = 1
+  colored = "off"
+  arrow_size = 1
+  clip_state = "clipgrf"
+  clip_box = []
+  user_data = []
+  tag = ""
  ans = (t1 tlist) with fields:
   "test"
   "test"
