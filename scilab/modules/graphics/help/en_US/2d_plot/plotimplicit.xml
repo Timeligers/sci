@@ -144,12 +144,6 @@
                     possible intersections).
                     <para/>
                 </listitem>
-                <listitem>
-                    Before returning, <literal>plotimplicit</literal> bundles all plotted curves
-                    into a graphical compound addressable as <literal>gce().children</literal>.
-                    If no solution exists, <literal>gce()</literal> is set to <literal>gca()</literal>.
-                    <para/>
-                </listitem>
             </itemizedlist>
         </note>
     </refsection>

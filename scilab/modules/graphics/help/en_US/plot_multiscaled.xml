@@ -87,8 +87,8 @@ xf = 32:50;
 atf = drawaxis(dir='u', tics="v", x=(xf-32)/1.8, y=999.96, val=msprintf("%d\n",xf') )
 c = color("magenta");
 set(atf, "tics_color",c, "labels_font_color",c)
-xstring(5,999.99,"Temperature [°F]")
-set(gce(), "clip_state", "off", "text_box_mode", "centered","font_foreground",c);
+e = xstring(5,999.99,"Temperature [°F]")
+set(e, "clip_state", "off", "text_box_mode", "centered","font_foreground",c);
 gcf().axes_size = [610 510];
      ]]></programlisting>
         <scilab:image>
@@ -112,8 +112,8 @@ gcf().axes_size = [610 510];
             atf = drawaxis(dir='u', tics="v", x=(xf-32)/1.8, y=999.96, val=msprintf("%d\n",xf') )
             c = color("magenta");
             set(atf, "tics_color",c, "labels_font_color",c)
-            xstring(5,999.99,"Temperature [°F]")
-            set(gce(), "clip_state", "off", "text_box_mode", "centered","font_foreground",c);
+            e = xstring(5,999.99,"Temperature [°F]")
+            set(e, "clip_state", "off", "text_box_mode", "centered","font_foreground",c);
             title("Water density","fontsize",3)
             gcf().axes_size = [610 510];
         </scilab:image>
@@ -264,7 +264,7 @@ c = color("blue");
 ax2 = newaxes();
 set(ax2, "filled", "off", "foreground", c, "font_color", c);
 plot2d(x, y3, logflag="nl", style=c)
-gce().children.thickness = 2;
+e.children.thickness = 2;
 ax2.axes_visible(1) = "off";
 ax2.y_location = "middle";
 
@@ -272,9 +272,9 @@ ax2.y_location = "middle";
 c = color("red");
 ax3 = newaxes();
 set(ax3, "filled", "off", "foreground", c, "font_color", c);
-plot2d(x,y2,style=c);
+e=plot2d(x,y2,style=c);
 ylabel(_("Scale #3"),"color",[1 0 0])
-gce().children.thickness = 2;
+e.children.thickness = 2;
 ax3.axes_visible(1) = "off";
 ax3.y_location = "right";
      ]]></programlisting>
@@ -298,8 +298,8 @@ ax3.y_location = "right";
             c = color("blue");
             ax2 = newaxes();
             set(ax2, "filled", "off", "foreground", c, "font_color", c);
-            plot2d(x, y3, logflag="nl", style=c)
-            gce().children.thickness = 2;
+            e=plot2d(x, y3, logflag="nl", style=c)
+            e.children.thickness = 2;
             ax2.axes_visible(1) = "off";
             ax2.y_location = "middle";
 
@@ -307,9 +307,9 @@ ax3.y_location = "right";
             c = color("red");
             ax3 = newaxes();
             set(ax3, "filled", "off", "foreground", c, "font_color", c);
-            plot2d(x,y2,style=c);
+            e=plot2d(x,y2,style=c);
             ylabel("Scale #3", "color",[1 0 0])
-            gce().children.thickness = 2;
+            e.children.thickness = 2;
             ax3.axes_visible(1) = "off";
             ax3.y_location = "right";
         </scilab:image>
