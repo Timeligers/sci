@@ -1,8 +1,8 @@
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008 - INRIA - Vincent COUVERT
 // Copyright (C) 2008 - DIGITEO - Vincent COUVERT
 // Copyright (C) 2012 - 2016 - Scilab Enterprises
-// Copyright (C) 2020 - 2021 - Stéphane MOTTELET
+// Copyright (C) 2020 - 2021 - UTC - Stéphane MOTTELET
 //
 // This file is hereby licensed under the terms of the GNU GPL v2.0,
 // pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -39,6 +39,17 @@ function h =  findobj(varargin)
                 h = get(varargin(2));
                 return
             end
+
+            if strcmp(varargin(1), "figure_id", "i") == 0 then
+                figureIds = winsid();
+                idx = find(figureIds == varargin(2))
+                if idx <> [] then
+                    currentFig = gcf();
+                    h = scf(figureIds(idx));
+                    scf(currentFig);
+                    return
+                end
+            end
         end
 
         // Get all opened figures
@@ -46,6 +57,7 @@ function h =  findobj(varargin)
         if isempty(figureIds) then
             return
         end
+
         // Iterate over all figures
         currFigure = gcf();
         for figureindex = 1:size(figureIds,2)
@@ -66,14 +78,14 @@ endfunction
 
 function hFound = findMatchingChild(handles, testString, depth)
     hFound = []
-    for index = 1:size(handles,1)
+    for index = 1:size(handles,"*")
         h = handles(index);
         [bResult, ierr] = evstr(testString);
         if ierr==0 & bResult then
             hFound = [hFound; handles(index)];
         end
         if depth > 0
-            [children,ierr] = evstr("get(handles(index), ""children"");"); // Does the child have a children property
+            children = get(handles(index), "children"); // Does the child have a children property
             if get(handles(index),"type") == "Axes" // Title and Label entities of Axes are children
                 children = [children
                             get(handles(index),"Title")

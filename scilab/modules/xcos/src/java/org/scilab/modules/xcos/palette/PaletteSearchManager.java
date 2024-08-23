@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2015 - Marcos CARDINOT
  * Copyright (C) 2017 - Scilab Enterprises - Clement DAVID
  *
@@ -7,7 +7,7 @@
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
  * are also available at
- * http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
+ * https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
  *
  */
 
@@ -36,7 +36,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.store.ByteBuffersDirectory;
 import org.scilab.modules.xcos.palette.model.PaletteBlock;
 import org.scilab.modules.xcos.palette.model.PaletteNode;
 import org.scilab.modules.xcos.palette.model.PreLoaded;
@@ -64,7 +64,7 @@ public final class PaletteSearchManager {
     /** Default constructor */
     public PaletteSearchManager() {
         try {
-            indexedDirectory = new RAMDirectory();
+            indexedDirectory = new ByteBuffersDirectory();
             analyzer = new StandardAnalyzer();
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             config.setOpenMode(OpenMode.CREATE);

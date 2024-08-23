@@ -10,3 +10,5 @@ LIB_PATH = $(SCI)/../../lib/scilab/
 all:
 	javac -cp $(CLASSPATH) Example1.java
 	java -cp $(CLASSPATH):. -DSCI=$(SCI) -Djava.library.path=$(LIB_PATH) Example1
+	javac -cp $(CLASSPATH) Example2.java
+	java -cp $(CLASSPATH):. -DSCI=$(SCI) -Djava.library.path=$(LIB_PATH) Example2

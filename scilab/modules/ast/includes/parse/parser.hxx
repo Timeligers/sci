@@ -1,5 +1,5 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2008-2008 - INRIA - Bruno JOFRET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -57,6 +57,7 @@ public:
     enum ControlStatus
     {
         AllControlClosed,
+        WithinArguments,
         WithinFor,
         WithinWhile,
         WithinIf,
@@ -65,6 +66,7 @@ public:
         WithinTry,
         WithinCatch,
         WithinFunction,
+        WithinLambda,
         WithinSelect,
         WithinSwitch,
         WithinCase,
@@ -85,16 +87,6 @@ public:
     /** \brief parse the given file command */
     void parse(const char *command);
     void parse(const wchar_t *command);
-
-    /** \brief enable Bison trace mode */
-    void setParseTrace(bool parseTrace)
-    {
-        _parse_trace = parseTrace;
-    }
-    bool getParseTrace(void)
-    {
-        return _parse_trace;
-    }
 
     /** Setters / Getters
         \{ */

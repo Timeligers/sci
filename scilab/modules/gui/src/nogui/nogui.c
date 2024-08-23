@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Allan CORNET
  * Copyright (C) 2007 - INRIA - Sylvestre LEDRU
  * Copyright (C) 2010 - DIGITEO - Sylvestre LEDRU
@@ -158,7 +158,7 @@ int Xorgetchar(int interrupt)
             return (i);
         }
 
-        if (interrupt && (ismenu() == 1))
+        if (interrupt)
         {
             return (-1);
         }
@@ -179,6 +179,16 @@ void main_sci (char *startup, int lstartup, int memory)
 void InitXsession(void)
 {
     Scierror(999, _("Scilab '%s' module not installed.\n"), "GUI");
+}
+
+int getUIStyle(long handle)
+{
+    return 0;
+}
+
+int getHandleType(long handle)
+{
+    return 0;
 }
 /*--------------------------------------------------------------------------*/
 #endif /* not  _MSC_VER */

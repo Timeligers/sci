@@ -22,30 +22,30 @@
     <ProjectGuid>{51240B08-5E4E-439B-B745-C870D5B513BF}</ProjectGuid>
     <RootNamespace>sparse</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -81,7 +81,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../core/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../dynamic_link/src/c;../../../localization/includes;../../../core/src/c;../../../../libs/intl;../../../sparse/includes;../../../api_scilab/includes;../../../ast/includes/operations;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../../core/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../dynamic_link/src/c;../../../localization/includes;../../../core/src/c;../../../../libs/intl;../../../sparse/includes;../../../sparse/src/ColPack/include;../../../sparse/src/ColPack/src/Utilities;../../../sparse/src/ColPack/src/Recovery;../../../sparse/src/ColPack/src/GeneralGraphColoring;../../../sparse/src/ColPack/src/BipartiteGraphPartialColoring;../../../sparse/src/ColPack/src/BipartiteGraphBicoloring;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../api_scilab/includes;../../../ast/includes/types;../../../console/includes;../../../threads/includes;../../../string/includes;../../../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;SPARSE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -108,7 +108,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../core/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../dynamic_link/src/c;../../../localization/includes;../../../core/src/c;../../../../libs/intl;../../../sparse/includes;../../../api_scilab/includes;../../../ast/includes/operations;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../../core/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../dynamic_link/src/c;../../../localization/includes;../../../core/src/c;../../../../libs/intl;../../../sparse/includes;../../../sparse/src/ColPack/include;../../../sparse/src/ColPack/src/Utilities;../../../sparse/src/ColPack/src/Recovery;../../../sparse/src/ColPack/src/GeneralGraphColoring;../../../sparse/src/ColPack/src/BipartiteGraphPartialColoring;../../../sparse/src/ColPack/src/BipartiteGraphBicoloring;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../api_scilab/includes;../../../ast/includes/types;../../../console/includes;../../../threads/includes;../../../string/includes;../../../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;SPARSE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -133,7 +133,7 @@
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../core/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../dynamic_link/src/c;../../../localization/includes;../../../core/src/c;../../../../libs/intl;../../../sparse/includes;../../../api_scilab/includes;../../../ast/includes/operations;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../../core/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../dynamic_link/src/c;../../../localization/includes;../../../core/src/c;../../../../libs/intl;../../../sparse/includes;../../../sparse/src/ColPack/include;../../../sparse/src/ColPack/src/Utilities;../../../sparse/src/ColPack/src/Recovery;../../../sparse/src/ColPack/src/GeneralGraphColoring;../../../sparse/src/ColPack/src/BipartiteGraphPartialColoring;../../../sparse/src/ColPack/src/BipartiteGraphBicoloring;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../api_scilab/includes;../../../ast/includes/types;../../../console/includes;../../../threads/includes;../../../string/includes;../../../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;SPARSE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -165,7 +165,7 @@
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../core/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../dynamic_link/src/c;../../../localization/includes;../../../core/src/c;../../../../libs/intl;../../../sparse/includes;../../../api_scilab/includes;../../../ast/includes/operations;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../../includes;../../../core/includes;../../../elementary_functions/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../dynamic_link/src/c;../../../localization/includes;../../../core/src/c;../../../../libs/intl;../../../sparse/includes;../../../sparse/src/ColPack/include;../../../sparse/src/ColPack/src/Utilities;../../../sparse/src/ColPack/src/Recovery;../../../sparse/src/ColPack/src/GeneralGraphColoring;../../../sparse/src/ColPack/src/BipartiteGraphPartialColoring;../../../sparse/src/ColPack/src/BipartiteGraphBicoloring;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/parse;../../../ast/includes/symbol;../../../ast/includes/system_env;../../../api_scilab/includes;../../../ast/includes/types;../../../console/includes;../../../threads/includes;../../../string/includes;../../../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;SPARSE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -191,6 +191,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphBicoloring.cpp" />
+    <ClCompile Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphBicoloringInterface.cpp" />
+    <ClCompile Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphCore.cpp" />
+    <ClCompile Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphInputOutput.cpp" />
+    <ClCompile Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphOrdering.cpp" />
+    <ClCompile Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphVertexCover.cpp" />
+    <ClCompile Include="..\ColPack\src\BipartiteGraphPartialColoring\BipartiteGraphPartialColoring.cpp" />
+    <ClCompile Include="..\ColPack\src\BipartiteGraphPartialColoring\BipartiteGraphPartialColoringInterface.cpp" />
+    <ClCompile Include="..\ColPack\src\BipartiteGraphPartialColoring\BipartiteGraphPartialOrdering.cpp" />
+    <ClCompile Include="..\ColPack\src\GeneralGraphColoring\GraphColoring.cpp" />
+    <ClCompile Include="..\ColPack\src\GeneralGraphColoring\GraphColoringInterface.cpp" />
+    <ClCompile Include="..\ColPack\src\GeneralGraphColoring\GraphCore.cpp" />
+    <ClCompile Include="..\ColPack\src\GeneralGraphColoring\GraphInputOutput.cpp" />
+    <ClCompile Include="..\ColPack\src\GeneralGraphColoring\GraphOrdering.cpp" />
+    <ClCompile Include="..\ColPack\src\Recovery\HessianRecovery.cpp" />
+    <ClCompile Include="..\ColPack\src\Recovery\JacobianRecovery1D.cpp" />
+    <ClCompile Include="..\ColPack\src\Recovery\JacobianRecovery2D.cpp" />
+    <ClCompile Include="..\ColPack\src\Recovery\RecoveryCore.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\command_line_parameter_processor.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\CoutLock.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\current_time.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\DisjointSets.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\extra.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\File.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\MatrixDeallocation.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\mmio.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\Pause.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\stat.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\StringTokenizer.cpp" />
+    <ClCompile Include="..\ColPack\src\Utilities\Timer.cpp" />
+    <ClCompile Include="..\cpp\spCompGeneric.cpp" />
+    <ClCompile Include="..\cpp\spCompHessian.cpp" />
+    <ClCompile Include="..\cpp\spCompJacobian.cpp" />
     <ClCompile Include="DllmainSparse.c" />
     <ClCompile Include="lu.c" />
     <ClCompile Include="spAllocate.c" />
@@ -204,6 +237,38 @@
   <ItemGroup>
     <ClInclude Include="..\..\includes\dynlib_sparse.h" />
     <ClInclude Include="..\..\includes\gw_sparse.h" />
+    <ClInclude Include="..\ColPack\include\ColPackHeaders.h" />
+    <ClInclude Include="..\ColPack\include\Definitions.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphBicoloring.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphBicoloringInterface.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphCore.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphInputOutput.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphOrdering.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphBicoloring\BipartiteGraphVertexCover.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphPartialColoring\BipartiteGraphPartialColoring.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphPartialColoring\BipartiteGraphPartialColoringInterface.h" />
+    <ClInclude Include="..\ColPack\src\BipartiteGraphPartialColoring\BipartiteGraphPartialOrdering.h" />
+    <ClInclude Include="..\ColPack\src\GeneralGraphColoring\GraphColoring.h" />
+    <ClInclude Include="..\ColPack\src\GeneralGraphColoring\GraphColoringInterface.h" />
+    <ClInclude Include="..\ColPack\src\GeneralGraphColoring\GraphCore.h" />
+    <ClInclude Include="..\ColPack\src\GeneralGraphColoring\GraphInputOutput.h" />
+    <ClInclude Include="..\ColPack\src\GeneralGraphColoring\GraphOrdering.h" />
+    <ClInclude Include="..\ColPack\src\Recovery\HessianRecovery.h" />
+    <ClInclude Include="..\ColPack\src\Recovery\JacobianRecovery1D.h" />
+    <ClInclude Include="..\ColPack\src\Recovery\JacobianRecovery2D.h" />
+    <ClInclude Include="..\ColPack\src\Recovery\RecoveryCore.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\command_line_parameter_processor.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\CoutLock.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\current_time.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\DisjointSets.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\extra.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\File.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\MatrixDeallocation.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\mmio.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\Pause.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\stat.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\StringTokenizer.h" />
+    <ClInclude Include="..\ColPack\src\Utilities\Timer.h" />
     <ClInclude Include="lu.h" />
     <ClInclude Include="..\..\includes\sp.h" />
     <ClInclude Include="spAllocate.h" />
@@ -231,6 +296,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\api_scilab\api_scilab.vcxproj">
       <Project>{43c5bab1-1dca-4743-a183-77e0d42fe7d0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ast\ast.vcxproj">
+      <Project>{0d3fa25b-8116-44ec-a45e-260789daa3d9}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\elementary_functions\src\c\elementary_functions.vcxproj">
       <Project>{5b110267-7c18-437c-b87d-dba2b50729e9}</Project>

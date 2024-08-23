@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -270,13 +270,13 @@ herr_t H5Group::getLsInfo(hid_t g_id, const char * name, const H5L_info_t * info
             opdata.type->push_back("external");
             break;
         case H5L_TYPE_HARD:
-            obj = H5Oopen_by_addr(g_id, info->u.address);
+            obj = H5Oopen_by_token(g_id, info->u.token);
             if (obj < 0)
             {
                 return (herr_t) - 1;
             }
 
-            err = H5Oget_info(obj, &oinfo);
+            err = H5Oget_info(obj, &oinfo, H5O_INFO_BASIC);
             H5Oclose(obj);
             if (err < 0)
             {
@@ -344,7 +344,7 @@ herr_t H5Group::printLsInfo(hid_t g_id, const char * name, const H5L_info_t * in
             break;
         case H5L_TYPE_HARD:
             obj = H5Oopen(g_id, name, H5P_DEFAULT);
-            err = H5Oget_info(obj, &oinfo);
+            err = H5Oget_info(obj, &oinfo, H5O_INFO_BASIC);
             H5Oclose(obj);
 
             if (err < 0)
@@ -385,11 +385,15 @@ void H5Group::printLsInfo(std::ostringstream & os) const
     os << str << "Group" << std::endl;
 }
 
-std::string H5Group::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5Group::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
-    haddr_t addr = this->getAddr();
-    std::map<haddr_t, std::string>::iterator it = alreadyVisited.find(addr);
+    H5O_token_t addr = this->getAddr();
+    char* strToken = NULL;
+    H5Otoken_to_str(getH5Id(), &addr, &strToken);
+    std::string token(strToken);
+    H5free_memory(strToken);
+    std::map<std::string, std::string>::iterator it = alreadyVisited.find(token);
     if (it != alreadyVisited.end())
     {
         os << H5Object::getIndentString(indentLevel) << "GROUP \"" << getName() << "\" {" << std::endl
@@ -398,10 +402,9 @@ std::string H5Group::dump(std::map<haddr_t, std::string> & alreadyVisited, const
 
         return os.str();
     }
-    else
-    {
-        alreadyVisited.insert(std::pair<haddr_t, std::string>(addr, getCompletePath()));
-    }
+
+    alreadyVisited.insert(std::pair<std::string, std::string>(token, getCompletePath()));
+
 
     H5AttributesList & attrs = const_cast<H5Group *>(this)->getAttributes();
     H5NamedObjectsList<H5SoftLink> & softlinks = const_cast<H5Group *>(this)->getSoftLinks();

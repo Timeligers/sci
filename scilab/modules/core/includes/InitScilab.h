@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2013 - Scilab Enterprises - Antoine ELIAS
  * Copyright (C) 2013 - Scilab Enterprises - Cedric DELAMARRE
  *
@@ -17,8 +17,6 @@
 #ifndef __INITSCILAB_H__
 #define __INITSCILAB_H__
 
-#include "storeCommand.h" // command_origin_t
-
 typedef struct
 {
     char* pstParseFile;
@@ -26,31 +24,19 @@ typedef struct
     char* pstExec;
     char* pstLang;
     char* pstSciHome;
-    void* pExpTree;
-    int iParseTrace;
-    int iPrintAst;
-    int iExecAst;
-    int iDumpAst;
-    int iDumpStack;
-    int iTimed;
-    int iAstTimed;
-    int iExecVerbose;
     int iConsoleMode;
     int iNoJvm;
     int iNoStart;
     int iShowVersion;
-    int iSerialize;
-    int iKeepConsole;
     int iNoBanner;
-    int iMultiLine;
-    int isInterruptible;
-    int isPrioritary;
     int iStartConsoleThread;
     int iForceQuit;
     int iTimeoutDelay;
-    int iCodeAction;
     int iWebMode;
-    enum command_origin_t iCommandOrigin;
+#ifdef _MSC_VER
+    int iCodeAction;
+    int iKeepConsole;
+#endif
 } ScilabEngineInfo;
 
 ScilabEngineInfo* InitScilabEngineInfo();
@@ -58,7 +44,6 @@ ScilabEngineInfo* InitScilabEngineInfo();
 int StartScilabEngine(ScilabEngineInfo* _pSEI);
 int RunScilabEngine(ScilabEngineInfo* _pSEI);
 int ExecExternalCommand(ScilabEngineInfo* _pSEI);
-
 void StopScilabEngine(ScilabEngineInfo* _pSEI);
 
 #endif /* !__INITSCILAB_H__ */

@@ -1,5 +1,5 @@
 dnl
-dnl Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+dnl Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 dnl Copyright (C) DIGITEO - 2010 - Sylvestre Ledru
 dnl Copyright (C) Scilab Enterprises - 2015 - Clement David
 dnl 
@@ -241,32 +241,47 @@ AC_DEFUN([AC_JAVA_CHECK_JAR], [
    
     jar_resolved="$(find $DEFAULT_JAR_DIR -maxdepth 1 \( -type f -name '$1.jar' -or -name 'lib$1.jar' -or -name 'lib$1-java.jar' -or -name '$1*.jar' \) 2>/dev/null |tr '\n' ':')."
 
-    if test ! -f conftestSharedChecker.class ; then
-	AC_JAVA_COMPILE_CHECKER_CLASS()
-    fi
+    m4_if([$2], [], [ # No class name given, just check that the jar exists
+        if test "$jar_resolved" = "."; then
+            if test "$4" = "yes"; then
+                AC_MSG_WARN([Could not find the Java package/jar $1 used by $3])
+            else
+                AC_MSG_ERROR([Could not find the Java package/jar $1 used by $3])
+            fi
+        else
+            PACKAGE_JAR_FILE="$(echo $jar_resolved | awk -F':' '{print $ 1}')"
+            AC_MSG_RESULT([ $PACKAGE_JAR_FILE ])
+            # append the found file to the classpath to manage jar dependency
+            ac_java_classpath="$ac_java_classpath:$PACKAGE_JAR_FILE"
+        fi
+    ], [
+        if test ! -f conftestSharedChecker.class ; then
+            AC_JAVA_COMPILE_CHECKER_CLASS()
+        fi
 
-    CLASSPATH=$ac_java_classpath
-    export CLASSPATH
-    echo "CLASSPATH="$CLASSPATH >&AS_MESSAGE_LOG_FD
-    cmd="$JAVA conftestSharedChecker \"$1\" \"$2\" \"$jar_resolved\" \"$5\" \"$6\" \"$7\""
-    if (echo $cmd >&AS_MESSAGE_LOG_FD ; eval $cmd >conftestSharedChecker.java.output 2>&AS_MESSAGE_LOG_FD); then
-        read PACKAGE_JAR_FILE PACKAGE_JAR_VERSION << EOF
+        CLASSPATH=$ac_java_classpath
+        export CLASSPATH
+        echo "CLASSPATH="$CLASSPATH >&AS_MESSAGE_LOG_FD
+        cmd="$JAVA conftestSharedChecker \"$1\" \"$2\" \"$jar_resolved\" \"$5\" \"$6\" \"$7\""
+        if (echo $cmd >&AS_MESSAGE_LOG_FD ; eval $cmd >conftestSharedChecker.java.output 2>&AS_MESSAGE_LOG_FD); then
+            read PACKAGE_JAR_FILE PACKAGE_JAR_VERSION << EOF
 $(tail -n 1 conftestSharedChecker.java.output)
 EOF
-        AC_MSG_RESULT([ $PACKAGE_JAR_FILE $PACKAGE_JAR_VERSION ])
-        echo "yes" >&AS_MESSAGE_LOG_FD
-        # append the found file to the classpath to manage jar dependency
-        ac_java_classpath="$ac_java_classpath:$PACKAGE_JAR_FILE"
-    else
-      AC_MSG_RESULT([no])
-      if test "$4" = "yes"; then
-         AC_MSG_WARN([Could not find or use the Java package/jar $1 used by $3 (looking for package $2)])
-      else
-          AC_MSG_ERROR([Could not find or use the Java package/jar $1 used by $3 (looking for package $2)])
-      fi
-    fi
-    if test -f conftestSharedChecker.java.output; then
-        rm conftestSharedChecker.java.output
-    fi
+            AC_MSG_RESULT([ $PACKAGE_JAR_FILE $PACKAGE_JAR_VERSION ])
+            echo "yes" >&AS_MESSAGE_LOG_FD
+            # append the found file to the classpath to manage jar dependency
+            ac_java_classpath="$ac_java_classpath:$PACKAGE_JAR_FILE"
+        else
+            AC_MSG_RESULT([no])
+            if test "$4" = "yes"; then
+                AC_MSG_WARN([Could not find or use the Java package/jar $1 used by $3 (looking for package $2)])
+            else
+                AC_MSG_ERROR([Could not find or use the Java package/jar $1 used by $3 (looking for package $2)])
+            fi
+        fi
+        if test -f conftestSharedChecker.java.output; then
+            rm conftestSharedChecker.java.output
+        fi
+    ])
 ])
 

@@ -1,5 +1,5 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2008 - INRIA - Sylvestre LEDRU
  *  Copyright (C) 2011 - Scilab Enterprises - Sylvestre LEDRU
  *
@@ -274,9 +274,10 @@ extern "C"
             }
             Scierror(999, _("%s: Error while building documentation: %s.\n"), fname, ex.getJavaDescription().c_str());
             Scierror(999, _("%s: Execution Java stack: %s.\n"), fname, ex.getJavaStackTrace().c_str());
+#ifndef _MSC_VER
             Scierror(999,
-                     _
-                     ("If Scilab is started in a chroot, you might want to try to set the two environment variables: SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1\n"));
+                     _("If Scilab is started in a chroot, you might want to try to set the two environment variables: SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1\n"));
+#endif
             return FALSE;
         }
 

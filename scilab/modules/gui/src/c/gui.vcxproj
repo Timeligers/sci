@@ -22,30 +22,30 @@
     <ProjectGuid>{45CA5B12-7601-4968-AE16-16069FD1A152}</ProjectGuid>
     <RootNamespace>gui</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -85,7 +85,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../jni;../cpp;../../includes;../../../../libs/intl;$(SCILAB_JDK32)/include/win32;$(SCILAB_JDK32)/include;../../../core/includes;../../../fileio/includes;../../../graphics/includes;../../../graphic_export/includes;../../../graphics/src/c/getHandleProperty;../../../renderer/src/cpp;../../../renderer/src/jni;../../../localization/includes;../../../jvm/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../string/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../renderer/includes;../../../api_scilab/includes;../../../commons/src/jni;../../../graphic_objects/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../jni;../cpp;../../includes;../../../../libs/intl;$(SCILAB_JDK32)/include/win32;$(SCILAB_JDK32)/include;../../../core/includes;../../../fileio/includes;../../../graphics/includes;../../../graphic_export/includes;../../../graphics/src/c/getHandleProperty;../../../renderer/src/cpp;../../../renderer/src/jni;../../../localization/includes;../../../jvm/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../string/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../renderer/includes;../../../api_scilab/includes;../../../commons/src/jni;../../../graphic_objects/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;GUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -113,7 +113,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../jni;../cpp;../../includes;../../../../libs/intl;$(SCILAB_JDK64)/include/win32;$(SCILAB_JDK64)/include;../../../core/includes;../../../fileio/includes;../../../graphics/includes;../../../graphic_export/includes;../../../graphics/src/c/getHandleProperty;../../../renderer/src/cpp;../../../renderer/src/jni;../../../localization/includes;../../../jvm/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../string/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../renderer/includes;../../../api_scilab/includes;../../../commons/src/jni;../../../graphic_objects/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../jni;../cpp;../../includes;../../../../libs/intl;$(SCILAB_JDK64)/include/win32;$(SCILAB_JDK64)/include;../../../core/includes;../../../fileio/includes;../../../graphics/includes;../../../graphic_export/includes;../../../graphics/src/c/getHandleProperty;../../../renderer/src/cpp;../../../renderer/src/jni;../../../localization/includes;../../../jvm/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../string/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../renderer/includes;../../../api_scilab/includes;../../../commons/src/jni;../../../graphic_objects/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;GUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -139,7 +139,7 @@
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../jni;../cpp;../../includes;../../../../libs/intl;$(SCILAB_JDK32)/include/win32;$(SCILAB_JDK32)/include;../../../core/includes;../../../fileio/includes;../../../graphics/includes;../../../graphic_export/includes;../../../graphics/src/c/getHandleProperty;../../../renderer/src/cpp;../../../renderer/src/jni;../../../localization/includes;../../../jvm/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../string/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../renderer/includes;../../../api_scilab/includes;../../../commons/src/jni;../../../graphic_objects/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../jni;../cpp;../../includes;../../../../libs/intl;$(SCILAB_JDK32)/include/win32;$(SCILAB_JDK32)/include;../../../core/includes;../../../fileio/includes;../../../graphics/includes;../../../graphic_export/includes;../../../graphics/src/c/getHandleProperty;../../../renderer/src/cpp;../../../renderer/src/jni;../../../localization/includes;../../../jvm/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../string/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../renderer/includes;../../../api_scilab/includes;../../../commons/src/jni;../../../graphic_objects/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;GUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -172,7 +172,7 @@
     <ClCompile>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.;../jni;../cpp;../../includes;../../../../libs/intl;$(SCILAB_JDK64)/include/win32;$(SCILAB_JDK64)/include;../../../core/includes;../../../fileio/includes;../../../graphics/includes;../../../graphic_export/includes;../../../graphics/src/c/getHandleProperty;../../../renderer/src/cpp;../../../renderer/src/jni;../../../localization/includes;../../../jvm/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../string/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../renderer/includes;../../../api_scilab/includes;../../../commons/src/jni;../../../graphic_objects/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/analysis;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;../jni;../cpp;../../includes;../../../../libs/intl;$(SCILAB_JDK64)/include/win32;$(SCILAB_JDK64)/include;../../../core/includes;../../../fileio/includes;../../../graphics/includes;../../../graphic_export/includes;../../../graphics/src/c/getHandleProperty;../../../renderer/src/cpp;../../../renderer/src/jni;../../../localization/includes;../../../jvm/includes;../../../output_stream/includes;../../../dynamic_link/includes;../../../string/includes;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../renderer/includes;../../../api_scilab/includes;../../../commons/src/jni;../../../graphic_objects/includes;../../../ast/includes/types;../../../ast/includes/ast;../../../ast/includes/exps;../../../ast/includes/operations;../../../ast/includes/symbol;../../../ast/includes/system_env;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;GUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -205,7 +205,6 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatip_set_interp.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatip_set_orient.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatip_set_style.cpp" />
-    <ClCompile Include="..\..\sci_gateway\cpp\sci_datatip_toggle.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_datatip_manager_mode.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_displaytree.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_helpbrowser.cpp" />
@@ -256,6 +255,7 @@
     <ClCompile Include="..\cpp\displaytree.cpp" />
     <ClCompile Include="DllmainGUI.c" />
     <ClCompile Include="..\cpp\exportUserInterface.cpp" />
+    <ClCompile Include="getHandleType.c" />
     <ClCompile Include="getMainWindowTitle.c" />
     <ClCompile Include="..\cpp\GetScreenProperty.cpp" />
     <ClCompile Include="..\cpp\GetUicontrolBackgroundColor.cpp" />
@@ -280,6 +280,7 @@
     <ClCompile Include="..\cpp\GetUimenuLabel.cpp" />
     <ClCompile Include="..\cpp\GetUiobjectEnable.cpp" />
     <ClCompile Include="..\cpp\GetUiobjectForegroundColor.cpp" />
+    <ClCompile Include="getUIStyle.c" />
     <ClCompile Include="iconifyMainWindow.c" />
     <ClCompile Include="..\cpp\InitUIMenu.cpp" />
     <ClCompile Include="..\jni\Juigetfile.cpp" />
@@ -294,7 +295,6 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_getinstalledlookandfeels.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_getlookandfeel.cpp" />
     <ClCompile Include="..\..\sci_gateway\c\sci_messagebox.c" />
-    <ClCompile Include="..\..\sci_gateway\c\sci_mpopup.c" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_printfigure.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_printsetupbox.cpp" />
     <ClCompile Include="..\..\sci_gateway\c\sci_progressionbar.c" />
@@ -421,8 +421,10 @@
     <ClInclude Include="..\..\includes\ContextMenu.h" />
     <ClInclude Include="..\..\includes\dynlib_gui.h" />
     <ClInclude Include="..\..\includes\exportUserInterface.hxx" />
+    <ClInclude Include="..\..\includes\getHandleType.h" />
     <ClInclude Include="..\..\includes\GetScreenProperty.h" />
     <ClInclude Include="..\..\includes\GetUicontrol.h" />
+    <ClInclude Include="..\..\includes\getUIStyle.h" />
     <ClInclude Include="..\..\includes\gui_gw.hxx" />
     <ClInclude Include="..\..\includes\SetUicontrol.h" />
     <ClInclude Include="..\..\includes\GraphicWindow.h" />
@@ -447,7 +449,6 @@
     <ClInclude Include="..\cpp\CallHelpBrowser.hxx" />
     <ClInclude Include="..\cpp\CallJxclick.hxx" />
     <ClInclude Include="..\cpp\CallJxgetmouse.hxx" />
-    <ClInclude Include="..\cpp\CallMainWindow.hxx" />
     <ClInclude Include="..\cpp\CallMessageBox.hxx" />
     <ClInclude Include="..\cpp\ContextMenu.hxx" />
     <ClInclude Include="..\cpp\displaytree.hxx" />

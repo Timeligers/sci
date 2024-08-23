@@ -1,5 +1,5 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2010-2010 - DIGITEO - Antoine ELIAS
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -45,6 +45,7 @@ public:
         _expected_result = -1;
         _resultVect.push_back(nullptr);
         _result = nullptr;
+        _isLambda = false;
         m_bSingleResult = true;
         m_pAns = symbol::Context::getInstance()->getOrCreate(symbol::Symbol(L"ans"));
     }
@@ -212,6 +213,31 @@ public:
         return m_bSingleResult;
     }
 
+    inline void setLambda(bool lambda)
+    {
+        _isLambda = lambda;
+    }
+
+    inline bool isLambda()
+    {
+        return _isLambda;
+    }
+
+    inline void setLambdaResult(types::InternalType* result)
+    {
+        _lambaResult = result;
+    }
+
+    inline types::InternalType* getLambdaResult()
+    {
+        return _lambaResult;
+    }
+
+    inline void clearLambdaResult()
+    {
+        _lambaResult = nullptr;
+    }
+
     void cleanIn(const types::typed_list & in, const types::typed_list & out)
     {
         // Check if in contains entries which are in out too.
@@ -301,8 +327,10 @@ public:
     | Attributes.  |
     `-------------*/
 protected:
-    std::vector<types::InternalType*>    _resultVect;
-    types::InternalType*    _result;
+    std::vector<types::InternalType*> _resultVect;
+    types::InternalType* _result;
+    bool _isLambda;
+    types::InternalType* _lambaResult;
     bool m_bSingleResult;
     int _expected_result;
     symbol::Variable* m_pAns;
@@ -354,6 +382,7 @@ public :
 
     void visitprivate(const CellExp &e);
     void visitprivate(const FieldExp &e);
+    void visitprivate(const ArgumentsExp &e);
     void visitprivate(const IfExp &e);
     void visitprivate(const WhileExp &e);
     void visitprivate(const ForExp  &e);
@@ -362,6 +391,7 @@ public :
     void visitprivate(const SeqExp  &e);
     void visitprivate(const NotExp &e);
     void visitprivate(const TransposeExp &e);
+    void visitprivate(const ArgumentDec &e);
     void visitprivate(const FunctionDec &e);
     void visitprivate(const ListExp &e);
     void visitprivate(const AssignExp &e);
@@ -370,11 +400,6 @@ public :
     void visitprivate(const MatrixExp &e);
     void visitprivate(const CallExp &e);
     void visitprivate(const CellCallExp &e);
-    void visitprivate(const OptimizedExp &e);
-    void visitprivate(const MemfillExp &e);
-    void visitprivate(const DAXPYExp &e);
-    void visitprivate(const IntSelectExp &e);
-    void visitprivate(const StringSelectExp &e);
     void visitprivate(const TryCatchExp &e);
 
     void visitprivate(const StringExp & e);

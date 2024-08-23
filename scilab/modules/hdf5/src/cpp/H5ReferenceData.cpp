@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -42,14 +42,6 @@ const char ** H5ReferenceData::getReferencesName() const
     for (int i = 0; i < totalSize; i++)
     {
         void * ref = &(((void **)cdata)[i]);
-        hid_t obj = H5Rdereference(file,
-    #if H5_VERSION_GE(1,10,0)
-                                   H5P_DATASET_ACCESS_DEFAULT,
-    #endif
-                                   datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
-        H5O_info_t info;
-        H5Oget_info(obj, &info);
-        H5Oclose(obj);
         ssize_t size = H5Rget_name(file, datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref, 0, 0);
         char * name = new char[size + 1];
         H5Rget_name(file, datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref, name, size + 1);
@@ -89,9 +81,7 @@ H5Object & H5ReferenceData::getData(const unsigned int size, const unsigned int 
     file = getFile().getH5Id();
     ref = &(((void **)cdata)[0]);
     obj = H5Rdereference(file,
-#if H5_VERSION_GE(1,10,0)
                          H5P_DATASET_ACCESS_DEFAULT,
-#endif
                          datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
     if (obj < 0)
     {
@@ -104,7 +94,7 @@ H5Object & H5ReferenceData::getData(const unsigned int size, const unsigned int 
     _name = std::string(name);
     delete[] name;
 
-    H5Oget_info(obj, &info);
+    H5Oget_info(obj, &info, H5O_INFO_BASIC);
     switch (info.type)
     {
         case H5O_TYPE_GROUP:
@@ -135,9 +125,7 @@ H5Object ** H5ReferenceData::getReferencesObject() const
     {
         void * ref = &(((void **)cdata)[i]);
         hid_t obj = H5Rdereference(file,
-    #if H5_VERSION_GE(1,10,0)
                                    H5P_DATASET_ACCESS_DEFAULT,
-    #endif
                                    datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
         objs[i] = &H5Object::getObject(getParent(), obj);
     }
@@ -183,7 +171,7 @@ std::string H5ReferenceData::toString(const unsigned int indentLevel) const
     return os.str();
 }
 
-std::string H5ReferenceData::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5ReferenceData::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     return H5DataConverter::dump(alreadyVisited, indentLevel, (int)ndims, dims, *this);
 }
@@ -194,9 +182,7 @@ void H5ReferenceData::printData(std::ostream & os, const unsigned int pos, const
     void ** ref = &(((void **)cdata)[0]);
     hid_t file = getFile().getH5Id();
     hid_t obj = H5Rdereference(file,
-#if H5_VERSION_GE(1,10,0)
                                H5P_DATASET_ACCESS_DEFAULT,
-#endif
                                datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
     if (obj < 0)
     {
@@ -215,7 +201,7 @@ void H5ReferenceData::printData(std::ostream & os, const unsigned int pos, const
 
         if (datasetReference == H5R_OBJECT)
         {
-            H5Oget_info(obj, &info);
+            H5Oget_info(obj, &info, H5O_INFO_BASIC);
             H5Oclose(obj);
 
             switch (info.type)

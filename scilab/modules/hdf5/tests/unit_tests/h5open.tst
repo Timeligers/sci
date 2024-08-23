@@ -1,11 +1,12 @@
 // =============================================================================
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 //
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
 msgerr = msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "h5open", 1, 5);
 assert_checkerror("h5open()",msgerr,77);
@@ -13,7 +14,7 @@ msgerr = msprintf(gettext("%s: Wrong type for input argument #%d: string expecte
 assert_checkerror("h5open(42)",msgerr,999);
 
 a = h5open(TMPDIR + "/x.sod");
-assert_checkequal(a.root.Name,"/")
+assert_checkequal(a.root.Name,"/");
 h5close(a);
 x = 1:10;
 save(TMPDIR + "/x.sod", "x");

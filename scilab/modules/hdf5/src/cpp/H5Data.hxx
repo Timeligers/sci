@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -114,7 +114,7 @@ protected:
 
         if (flip)
         {
-            for (int i = 0; i < ndims; i++)
+            for (int i = 0; i < (int)ndims; i++)
             {
                 _dims[i] = (int)dims[ndims - 1 - i];
             }

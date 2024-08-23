@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Allan CORNET , Cong WU
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -24,7 +24,11 @@
 #include "function.hxx"
 #include "overload.hxx"
 #include "string.hxx"
+#include "polynom.hxx"
+#include "implicitlist.hxx"
 #include "string_gw.hxx"
+
+#include <limits>
 
 extern "C"
 {
@@ -64,40 +68,119 @@ types::Function::ReturnValue sci_part(types::typed_list& in, int _iRetCount, typ
     }
 
     types::String* pS = in[0]->getAs<types::String>();
+    std::vector<int> index;
 
-    if (in[1]->isDouble() == false)
+    auto evaluate_poly = [](types::String* pS, types::Polynom* pP)
     {
-        std::wstring wstFuncName = L"%" + in[1]->getShortTypeStr() + L"_part";
-        return Overload::call(wstFuncName, in, _iRetCount, out);
-    }
+        if(!pP->isScalar())
+            return std::numeric_limits<double>::quiet_NaN();
+        if(pP->getVariableName() != L"$")
+            return std::numeric_limits<double>::signaling_NaN();
 
-    types::Double* pD = in[1]->getAs<types::Double>();
-    if (pD->isVector() == false && pD->isEmpty() == false)
-    {
-        //non vector
-        Scierror(999, _("%s: Wrong size for input argument #%d: A vector expected.\n"), "part", 2);
-        return types::Function::Error;
-    }
+        types::SinglePoly* pSP = pP->get(0);
 
-    size_t i_len = pD->getSize();
-    std::vector<int> index(i_len);
-    for (int i = 0; i < i_len; i++)
-    {
-        int idx = static_cast<int>(pD->get()[i]);
-        if (idx < 1)
+        int dollar = (int) wcslen(pS->get(0));
+        double* coefs = pSP->get();
+        const int size = pSP->getSize();
+        double acc = coefs[0];
+        for (int i = 1; i < size; i++)
         {
-            Scierror(36, _("%s: Wrong values for input argument #%d: Must be >= 1.\n"), "part", 2);
+            acc += coefs[i] * dollar;
+        }
+
+        return acc;
+    };
+
+    // corner case: for '$' on a single string we don't need to call the overload
+    if (in[1]->isPoly() && pS->isScalar())
+    {
+        types::Polynom* pP = in[1]->getAs<types::Polynom>();
+        double acc = evaluate_poly(pS, pP);
+        if (acc > 0) // handle negative values, %inf and %nan
+        {
+            index.push_back((int) acc);
+        }
+    }
+
+    // corner case: for '1:$' on a single string we don't need to call the overload
+    if (index.empty() && in[1]->isImplicitList() && pS->isScalar())
+    {
+        types::ImplicitList* pIL = in[1]->getAs<types::ImplicitList>();
+        if (pIL->getStartType() == types::InternalType::ScilabPolynom)
+        {
+            types::Polynom* pP = pIL->getStart()->getAs<types::Polynom>();
+            double acc = evaluate_poly(pS, pP);
+            if (acc > 0) // handle negative values, %inf and %nan
+            {
+                pIL->setStart(new types::Double(acc));
+            }
+        }
+        if (pIL->getStepType() == types::InternalType::ScilabPolynom)
+        {
+            types::Polynom* pP = pIL->getStep()->getAs<types::Polynom>();
+            double acc = evaluate_poly(pS, pP);
+            if (acc > 0) // handle negative values, %inf and %nan
+            {
+                pIL->setStep(new types::Double(acc));
+            }
+        }
+        if (pIL->getEndType() == types::InternalType::ScilabPolynom)
+        {
+            types::Polynom* pP = pIL->getEnd()->getAs<types::Polynom>();
+            double acc = evaluate_poly(pS, pP);
+            if (acc > 0) // handle negative values, %inf and %nan
+            {
+                pIL->setEnd(new types::Double(acc));
+            }
+        }
+
+        if (pIL->compute())
+        {
+            types::Double* temp = new types::Double(0);
+            for (int i = 0; i < pIL->getSize(); i++)
+            {
+                pIL->extractValueAsDouble(i, temp);
+                index.push_back((int) temp->get(0));
+            }
+            temp->killMe();
+        }
+    }
+    
+    if (index.empty() && in[1]->isDouble())
+    {
+        types::Double* pD = in[1]->getAs<types::Double>();
+        if (pD->isVector() == false && pD->isEmpty() == false)
+        {
+            //non vector
+            Scierror(999, _("%s: Wrong size for input argument #%d: A vector expected.\n"), "part", 2);
             return types::Function::Error;
         }
 
-        index[i] = idx;
+        int i_len = pD->getSize();
+        index.reserve(i_len);
+        for (int i = 0; i < i_len; i++)
+        {
+            int idx = static_cast<int>(pD->get()[i]);
+            if (idx < 1)
+            {
+                Scierror(36, _("%s: Wrong values for input argument #%d: Must be >= 1.\n"), "part", 2);
+                return types::Function::Error;
+            }
+
+            index.push_back(idx);
+        }
+    }
+    else if (index.empty())
+    {
+        std::wstring wstFuncName = L"%" + in[1]->getShortTypeStr() + L"_part";
+        return Overload::call(wstFuncName, in, _iRetCount, out);
     }
 
     types::String* pOut = new types::String(pS->getRows(), pS->getCols());
     std::wstring string_in;
 
     // allocate the output strings
-    std::wstring string_out(i_len, L' ');
+    std::wstring string_out(index.size(), L' ');
     for (int i = 0; i < pS->getSize(); ++i)
     {
         pOut->set(i, string_out.data());
@@ -108,11 +191,18 @@ types::Function::ReturnValue sci_part(types::typed_list& in, int _iRetCount, typ
     {
         wchar_t* wcs_in = pS->get()[i];
         wchar_t* wcs_out = pOut->get()[i];
+        
+        // typesafe int checking
         size_t s_len = wcslen(wcs_in);
-
-        for (int j = 0; j < i_len; ++j)
+        int wcs_len = (int) s_len;
+        if (s_len > (size_t) std::numeric_limits<int>::max()) [[unlikely]]
         {
-            if (index[j] > s_len)
+            wcs_len = std::numeric_limits<int>::max();
+        }
+
+        for (size_t j = 0; j < index.size(); ++j)
+        {
+            if (index[j] > wcs_len) [[unlikely]]
             {
                 continue;
             }

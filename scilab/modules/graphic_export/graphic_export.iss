@@ -1,5 +1,5 @@
 ;
-; Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+; Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 ; Copyright (C) INRIA - 2008 - Allan CORNET
 ; Copyright (C) DIGITEO - 2010 - Allan CORNET
 ;
@@ -25,11 +25,11 @@
 Source: bin\sci{#GRAPHIC_EXPORT}.dll; DestDir: {app}\bin; Components: {#COMPN_GRAPHICS}
 Source: bin\no{#GRAPHIC_EXPORT}.dll; DestDir: {app}\bin; DestName: sci{#GRAPHIC_EXPORT}.dll; Components: not ({#COMPN_GRAPHICS})
 ;
-Source: thirdparty\freehep-io.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
-Source: thirdparty\freehep-util.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
-Source: thirdparty\freehep-graphics2d.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
-Source: thirdparty\freehep-graphicsio-emf.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
-Source: thirdparty\freehep-graphicsio.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\freehep-io-2.2.2.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\freehep-graphics2d-2.4.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\freehep-graphicsbase-2.4.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\freehep-graphicsio-emf-2.4.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
+Source: thirdparty\freehep-graphicsio-2.4.jar;DestDir: {app}\thirdparty; Components: {#COMPN_GRAPHICS}
 ;
 Source: modules\{#GRAPHIC_EXPORT}\jar\org.scilab.modules.{#GRAPHIC_EXPORT}.jar;DestDir: {app}\modules\{#GRAPHIC_EXPORT}\jar; Components: {#COMPN_GRAPHICS}
 ;

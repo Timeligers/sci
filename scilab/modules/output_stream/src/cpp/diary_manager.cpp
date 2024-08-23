@@ -1,5 +1,5 @@
 /*
-* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2009 - DIGITEO - Allan CORNET
 *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -270,6 +270,11 @@ int diaryWrite(const wchar_t *wstr, BOOL bInput)
 {
     if (SCIDIARY)
     {
+        if (wstr == nullptr)
+        {
+            return 1;
+        }
+
         if (bInput)
         {
             SCIDIARY->write(std::wstring(wstr), true);
@@ -287,6 +292,11 @@ int diaryWriteln(const wchar_t *wstr, BOOL bInput)
 {
     if (SCIDIARY)
     {
+        if (wstr == nullptr)
+        {
+            return 1;
+        }
+        
         if (bInput)
         {
             SCIDIARY->writeln(std::wstring(wstr), true);

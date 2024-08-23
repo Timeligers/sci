@@ -1,5 +1,5 @@
 /*
-*  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+*  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2010 - DIGITEO - Allan CORNET
 *  Copyright (C) 2012 - Scilab Enterprises - Antoine ELIAS
 *  Copyright (C) 2013 - Scilab Enterprises - Calixte DENIZET
@@ -42,7 +42,7 @@ void HDF5cleanup(void)
     */
 
     H5_term_library();
-}
+ }
 /*--------------------------------------------------------------------------*/
 void HDF5ErrorCleanup()
 {
@@ -186,7 +186,9 @@ int isHDF5File(const char* _pstFilename)
     }
     FREE(pathdest);
 
-    iRet = H5Fis_hdf5(filename);
+    hid_t fapl = H5Pcreate(H5P_FILE_ACCESS);
+    H5Pset_fclose_degree(fapl, H5F_CLOSE_STRONG);
+    iRet = H5Fis_accessible(filename, fapl);
     if (iRet == 0)
     {
         HDF5ErrorCleanup();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - Rainer von Seggern
  * Copyright (C) 2008 - Bruno Pincon
  * Copyright (C) 2009 - INRIA - Michael Baudin
@@ -392,6 +392,7 @@ function y = G(x, p)
   y = [f1; f2]
 endfunction
 
+x = [1; 2; 3];
 p = 1;
 [J, H] = numderivative(list(G, p), x)
 ]]>

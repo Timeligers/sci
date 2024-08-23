@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -34,7 +34,7 @@ unsigned int H5AttributesList::getSize() const
     else
     {
         H5O_info_t info;
-        herr_t err = H5Oget_info(parent.getH5Id(), &info);
+        herr_t err = H5Oget_info(parent.getH5Id(), &info, H5O_INFO_NUM_ATTRS);
 
         if (err < 0)
         {
@@ -99,7 +99,7 @@ H5Attribute & H5AttributesList::getObject(const int pos, const bool checkPos)
     return *new H5Attribute(parent, attr, name);
 }
 
-std::string H5AttributesList::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5AttributesList::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
     unsigned int size = getSize();

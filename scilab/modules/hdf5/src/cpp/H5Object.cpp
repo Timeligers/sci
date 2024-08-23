@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -63,7 +63,7 @@ hid_t H5Object::getH5Id() const
 hsize_t H5Object::getAttributesNumber() const
 {
     H5O_info_t info;
-    H5Oget_info(getH5Id(), &info);
+    H5Oget_info(getH5Id(), &info, H5O_INFO_NUM_ATTRS);
 
     return info.num_attrs;
 }
@@ -231,7 +231,7 @@ void H5Object::getNames(const H5Object & obj, std::vector<std::string> & names, 
 H5Object & H5Object::getObject(H5Object & parent, hid_t obj)
 {
     H5O_info_t info;
-    herr_t err = H5Oget_info(obj, &info);
+    herr_t err = H5Oget_info(obj, &info, H5O_INFO_BASIC);
     ssize_t size;
     char * name = 0;
     std::string _name;
@@ -285,7 +285,7 @@ H5Object & H5Object::getObject(H5Object & parent, const std::string & name)
             return *new H5Attribute(parent, name);
         }
 
-        err = H5Oget_info_by_name(loc, name.c_str(), &info, H5P_DEFAULT);
+        err = H5Oget_info_by_name(loc, name.c_str(), &info, H5O_INFO_BASIC, H5P_DEFAULT);
 
         if (err < 0)
         {
@@ -345,7 +345,7 @@ H5Object & H5Object::getObject(H5Object & parent, const std::string & name, cons
             throw H5Exception(__LINE__, __FILE__, _("Invalid name: %s."), name.c_str());
         }
 
-        err = H5Oget_info_by_name(loc, name.c_str(), &info, H5P_DEFAULT);
+        err = H5Oget_info_by_name(loc, name.c_str(), &info, H5O_INFO_BASIC, H5P_DEFAULT);
         if (err < 0)
         {
             throw H5Exception(__LINE__, __FILE__, _("Invalid name: %s."), name.c_str());
@@ -450,7 +450,7 @@ herr_t H5Object::iterateGetInfo(hid_t g_id, const char * name, const H5L_info_t 
         return (herr_t)0;
     }
 
-    err = H5Oget_info(obj, &oinfo);
+    err = H5Oget_info(obj, &oinfo, H5O_INFO_BASIC);
     H5Oclose(obj);
 
     if (err < 0)
@@ -527,7 +527,7 @@ herr_t H5Object::countIterator(hid_t g_id, const char * name, const H5L_info_t *
 
     if (info->type == H5L_TYPE_HARD)
     {
-        obj = H5Oopen_by_addr(g_id, info->u.address);
+        obj = H5Oopen_by_token(g_id, info->u.token);
     }
     else if (opdata.followLink)
     {
@@ -548,7 +548,7 @@ herr_t H5Object::countIterator(hid_t g_id, const char * name, const H5L_info_t *
         return (herr_t)0;
     }
 
-    err = H5Oget_info(obj, &oinfo);
+    err = H5Oget_info(obj, &oinfo, H5O_INFO_BASIC);
     H5Oclose(obj);
     if (err < 0)
     {
@@ -609,7 +609,7 @@ herr_t H5Object::filterIterator(hid_t g_id, const char * name, const H5L_info_t 
 
     if (info->type == H5L_TYPE_HARD)
     {
-        obj = H5Oopen_by_addr(g_id, info->u.address);
+        obj = H5Oopen_by_token(g_id, info->u.token);
     }
     else
     {
@@ -633,7 +633,7 @@ herr_t H5Object::filterIterator(hid_t g_id, const char * name, const H5L_info_t 
         }
     }
 
-    err = H5Oget_info(obj, &oinfo);
+    err = H5Oget_info(obj, &oinfo, H5O_INFO_BASIC);
     H5Oclose(obj);
     if (err < 0)
     {

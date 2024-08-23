@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -41,7 +41,7 @@ void H5File::init(const hid_t fapl)
     switch (flags)
     {
         case RDONLY:
-            if (!FileExist(const_cast<char *>(filename.c_str())) || H5Fis_hdf5(filename.c_str()) <= 0)
+            if (!FileExist(const_cast<char *>(filename.c_str())) || H5Fis_accessible(filename.c_str(), fapl) <= 0)
             {
                 throw H5Exception(__LINE__, __FILE__, _("Invalid hdf5 file: %s."), filename.c_str());
             }
@@ -55,7 +55,7 @@ void H5File::init(const hid_t fapl)
             opened = true;
             break;
         case RDWR:
-            if (!FileExist(const_cast<char *>(filename.c_str())) || H5Fis_hdf5(filename.c_str()) <= 0)
+            if (!FileExist(const_cast<char *>(filename.c_str())) || H5Fis_accessible(filename.c_str(), fapl) <= 0)
             {
                 throw H5Exception(__LINE__, __FILE__, _("Invalid hdf5 file: %s."), filename.c_str());
             }
@@ -86,7 +86,7 @@ void H5File::init(const hid_t fapl)
         case APPEND:
             if (FileExist(const_cast<char *>(filename.c_str())))
             {
-                if (H5Fis_hdf5(filename.c_str()) > 0)
+                if (H5Fis_accessible(filename.c_str(), fapl) > 0)
                 {
                     file = H5Fopen(filename.c_str(), H5F_ACC_RDWR, fapl);
                     if (file < 0)
@@ -399,7 +399,7 @@ void H5File::getAccessibleAttribute(const std::string & _name, const int pos, vo
     throw H5Exception(__LINE__, __FILE__, _("Invalid field %s."), _name.c_str());
 }
 
-std::string H5File::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5File::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
     H5Object & _root = const_cast<H5File *>(this)->getRoot();

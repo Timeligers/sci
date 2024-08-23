@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -106,7 +106,7 @@ void H5Attribute::getAccessibleAttribute(const std::string & _name, const int po
     H5Object::getAccessibleAttribute(_name, pos, pvApiCtx);
 }
 
-std::string H5Attribute::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5Attribute::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::ostringstream os;
     const H5Type & type = const_cast<H5Attribute *>(this)->getDataType();

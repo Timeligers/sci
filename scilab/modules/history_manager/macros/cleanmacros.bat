@@ -1,5 +1,5 @@
 
-rem Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+rem Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 rem Copyright (C) 2008 - INRIA
 rem
 rem Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -11,7 +11,7 @@ rem and continues to be available under such terms.
 rem For more information, see the COPYING file which you should have received
 rem along with this program.
 
-rem Scilab ( http://mwww.scilab.org/ ) - This file is part of Scilab
+rem Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 rem Copyright (C) 2007-2008 - INRIA - Allan CORNET
 rem
 rem Copyright (C) 2012 - 2016 - Scilab Enterprises

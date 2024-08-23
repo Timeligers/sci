@@ -4,7 +4,6 @@ LIBRARY    core.dll
 EXPORTS
 StoreCommandWithFlags
 StaticRunner_launch
-StaticRunner_getCommandOrigin
 MyHeapAlloc
 MyHeapFree
 freeArrayOfString

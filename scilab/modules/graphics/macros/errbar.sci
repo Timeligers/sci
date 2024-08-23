@@ -1,4 +1,5 @@
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+
+// Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) INRIA
 // Copyright (C) 2012 - 2016 - Scilab Enterprises
 //
@@ -32,20 +33,21 @@ function varargout = errbar(x,y,em,ep)
         errbar(x,y,0.05*ones(x),0.03*ones(x));
         return;
     else
+        if lhs > 1 then
+            error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "errbar", 1));
+        end
         if rhs<4 then
             error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "errbar", 4));
         end
     end
 
-    if rhs > 1 then
-        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "errbar", 1));
-    end
-
+    show_window();
     [n1,n2] = size(x);
     y1      = matrix(y-em,1,n1*n2);
     x1      = matrix(x,1,n1*n2);
     y2      = matrix(y+ep,1,n1*n2);
-    e = xsegs([x1;x1],[y1;y2]);
+    xsegs([x1;x1],[y1;y2]);
+    gce().mark_style=19;
     my_axe  = gca();
     my_axe.clip_state = "clipgrf";
 

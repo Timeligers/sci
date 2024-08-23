@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA - Vincent COUVERT
  * Copyright (C) 2010 - DIGITEO - Yann COLLETTE
  * Copyright (C) 2015 - Scilab Enterprises - Sylvain GENIN
@@ -127,12 +127,13 @@ types::InternalType* CreateMatlabTreeVariable(matvar_t *matVariable)
         case MAT_C_CHAR: /* 4 */
         {
             types::String* pString = new types::String(piDims[0], 1);
+            int dataSize = matVariable->data_size;
             for(int i = 0; i < piDims[0]; ++i)
             {
                 char* pChar = (char*)MALLOC(sizeof(char) * (piDims[1] + 1));
                 for(int j = 0; j < piDims[1]; ++j)
                 {
-                    pChar[j] = ((char*)matVariable->data)[j * piDims[0] + i];
+                    pChar[j] = ((char*)matVariable->data)[j * piDims[0] * dataSize + (i * dataSize)];
                 }
                 pChar[piDims[1]] = '\0';
                 pString->set(i, pChar);
@@ -255,11 +256,26 @@ types::InternalType* CreateMatlabTreeVariable(matvar_t *matVariable)
         break;
         case MAT_C_UINT8: /* 9 */
         {
-            types::UInt8* pUInt8 = new types::UInt8(iRank, piDims);
+            if (matVariable->isLogical)
+            {
+                types::Bool* pBool = new types::Bool(iRank, piDims);
 
-            pUInt8->set((unsigned char*)matVariable->data);
+                int iSize = pBool->getSize();
+                for (int i = 0; i < iSize; i++)
+                {
+                    pBool->set(i, ((unsigned char*)matVariable->data)[i]);
+                }
 
-            pOut = pUInt8;
+                pOut = pBool;
+            }
+            else
+            {
+                types::UInt8* pUInt8 = new types::UInt8(iRank, piDims);
+
+                pUInt8->set((unsigned char*)matVariable->data);
+
+                pOut = pUInt8;
+            }
         }
         break;
         case MAT_C_INT16: /* 10 */
@@ -273,11 +289,26 @@ types::InternalType* CreateMatlabTreeVariable(matvar_t *matVariable)
         break;
         case MAT_C_UINT16: /* 11 */
         {
-            types::UInt16* pUInt16 = new types::UInt16(iRank, piDims);
+            if (matVariable->isLogical)
+            {
+                types::Bool* pBool = new types::Bool(iRank, piDims);
 
-            pUInt16->set((unsigned short*)matVariable->data);
+                int iSize = pBool->getSize();
+                for (int i = 0; i < iSize; i++)
+                {
+                    pBool->set(i, ((unsigned short*)matVariable->data)[i]);
+                }
 
-            pOut = pUInt16;
+                pOut = pBool;
+            }
+            else
+            {
+                types::UInt16* pUInt16 = new types::UInt16(iRank, piDims);
+
+                pUInt16->set((unsigned short*)matVariable->data);
+
+                pOut = pUInt16;
+            }
         }
         break;
         case MAT_C_INT32: /* 12 */
@@ -291,11 +322,26 @@ types::InternalType* CreateMatlabTreeVariable(matvar_t *matVariable)
         break;
         case MAT_C_UINT32: /* 13 */
         {
-            types::UInt32* pUInt32 = new types::UInt32(iRank, piDims);
+            if (matVariable->isLogical)
+            {
+                types::Bool* pBool = new types::Bool(iRank, piDims);
 
-            pUInt32->set((unsigned int*)matVariable->data);
+                int iSize = pBool->getSize();
+                for (int i = 0; i < iSize; i++)
+                {
+                    pBool->set(i, ((unsigned int*)matVariable->data)[i]);
+                }
 
-            pOut = pUInt32;
+                pOut = pBool;
+            }
+            else
+            {
+                types::UInt32* pUInt32 = new types::UInt32(iRank, piDims);
+
+                pUInt32->set((unsigned int*)matVariable->data);
+
+                pOut = pUInt32;
+            }
         }
         break;
 #ifdef __SCILAB_INT64__

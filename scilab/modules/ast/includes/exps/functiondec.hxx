@@ -1,5 +1,5 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2008-2008 - DIGITEO - Bruno JOFRET
  *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -57,6 +57,7 @@ public:
         : Dec (location),
           _name (name),
           _stack(nullptr),
+          _bIsLambda(false),
           macro(nullptr)
     {
         args.setParent(this);
@@ -68,6 +69,25 @@ public:
 
         body.setReturnable();
     }
+
+    FunctionDec (const Location& location,
+                 Exp& args,
+                 SeqExp& body)
+        : Dec (location),
+          _name (symbol::Symbol(L"")),
+          _stack(nullptr),
+          _bIsLambda(true),
+          macro(nullptr)
+    {
+        args.setParent(this);
+        body.setParent(this);
+        _exps.push_back(&args);
+        _exps.push_back(nullptr);
+        _exps.push_back(body.getAs<Exp>());
+
+        body.setReturnable();
+    }
+
 
     virtual ~FunctionDec ()
     {
@@ -83,7 +103,16 @@ public:
 
     virtual FunctionDec* clone()
     {
-        FunctionDec* cloned = new FunctionDec(getLocation(), getSymbol(), *getArgs().clone(), *getReturns().clone(), *getBody().clone()->getAs<SeqExp>());
+        FunctionDec* cloned = nullptr;
+        if (isLambda())
+        {
+            cloned = new FunctionDec(getLocation(), *getArgs().clone(), *getBody().clone()->getAs<SeqExp>());
+        }
+        else
+        {
+            cloned = new FunctionDec(getLocation(), getSymbol(), *getArgs().clone(), *getReturns().clone(), *getBody().clone()->getAs<SeqExp>());
+        }
+
         cloned->setVerbose(isVerbose());
         return cloned;
     }
@@ -109,6 +138,16 @@ public:
 
     // \name Accessors.
 public:
+    bool isLambda(void)
+    {
+        return _bIsLambda;
+    }
+
+    bool isLambda(void) const
+    {
+        return _bIsLambda;
+    }
+
     const symbol::Symbol & getSymbol(void) const
     {
         return _name;
@@ -190,6 +229,7 @@ public:
 protected:
     symbol::Symbol _name;
     symbol::Variable * _stack;
+    bool _bIsLambda;
     types::Macro * macro;
 };
 
