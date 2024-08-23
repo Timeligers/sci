@@ -124,7 +124,7 @@
 
     ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot2d();
 

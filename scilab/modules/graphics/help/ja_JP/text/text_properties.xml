@@ -318,7 +318,7 @@ mathml = "<mrow><mfrac><mrow> <mi>d</mi> <mi>y</mi> </mrow>" + ..
          "</mrow>";
 t.text = ["SCILAB","can write LaTeX :","$\frac{abc}{xyz}$";"or","MathML :",mathml] ;
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             a=get("current_axes");
             a.data_bounds=[0,0;1,1];
             a.axes_visible = 'on' ;

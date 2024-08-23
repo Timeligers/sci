@@ -134,7 +134,7 @@ xarcs(arcs,[1,2,3])
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot2d(0,0,-1,"031"," ",[-1,-1,1,1])
 

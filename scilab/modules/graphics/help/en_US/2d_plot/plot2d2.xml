@@ -69,7 +69,7 @@
 // the last segment is not drawn
 plot2d2([1:4],[1:4],1,"111","step function",[0,0,5,5])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             plot2d2([1:4],[1:4],1,"111","step function",[0,0,5,5])
         </scilab:image>
         <programlisting role="example"><![CDATA[
@@ -78,7 +78,7 @@ x=[0:0.1:2*%pi]';
 clf()
 plot2d2(x,[sin(x) sin(2*x) sin(3*x)])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d2(x,[sin(x) sin(2*x) sin(3*x)])
         </scilab:image>
@@ -88,7 +88,7 @@ clf();
 h = plot2d(x,[sin(x) sin(2*x) sin(3*x)])
 h.children.polyline_style=2;
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             h = plot2d(x,[sin(x) sin(2*x) sin(3*x)])
             h.children.polyline_style=2;

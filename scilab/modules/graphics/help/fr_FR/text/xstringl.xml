@@ -195,7 +195,7 @@ txt.font_style = 0;
 txt.font_color = 2;
 ]]>
         </programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             <![CDATA[
 plot2d([0, 6],[0, 6], 0);
 str=["$\underleftrightarrow{\tiny{Scilab}}$"; "$\underleftrightarrow{\scriptsize{Scilab}}$";

@@ -122,7 +122,7 @@ gce().background = 2;
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             // isoview scaling
 

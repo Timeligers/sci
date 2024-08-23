@@ -91,7 +91,7 @@ mathml="<mrow>      <mfrac>        <mrow>          <mi>d</mi>          <mi>y</mi
 
 xtitle( 'My surface is blue', 'X axis', '$Y axis$', mathml );
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             plot3d() ;
             xtitle( 'My surface is blue', 'X axis', 'Y axis', 'Z axis' ) ;
         </scilab:image>

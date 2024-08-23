@@ -84,7 +84,7 @@
 
     datatipCreate(p,[0.65,0.3]);
     ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=linspace(0,1,9)';
             y=x.^3;
             clf();

@@ -387,7 +387,7 @@ x=[0:0.1:2*%pi]';
 //simple plot
 plot2d(sin(x));
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(sin(x));
         </scilab:image>
@@ -397,7 +397,7 @@ x=[0:0.1:2*%pi]';
 plot2d(x,sin(x));
 //multiple plot
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x));
         </scilab:image>
@@ -406,7 +406,7 @@ clf();
 x=[0:0.1:2*%pi]';
 plot2d(x,[sin(x) sin(2*x) sin(3*x)])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(x,[sin(x) sin(2*x) sin(3*x)])
         </scilab:image>
@@ -416,7 +416,7 @@ clf();
 x=[0:0.1:2*%pi]';
 plot2d(x,[sin(x) sin(2*x) sin(3*x)],rect=[0,0,6,0.5]);
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(x,[sin(x) sin(2*x) sin(3*x)],rect=[0,0,6,0.5]);
         </scilab:image>
@@ -427,7 +427,7 @@ x=[0:0.1:2*%pi]';
 plot2d(x,[sin(x) sin(2*x) sin(3*x)],..
        [1,2,3],leg="L1@L2@L3",nax=[2,10,2,10],rect=[0,-2,2*%pi,2]);
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(x,[sin(x) sin(2*x) sin(3*x)],..
             [1,2,3],leg="L1@L2@L3",nax=[2,10,2,10],rect=[0,-2,2*%pi,2]);
@@ -438,7 +438,7 @@ clf();
 x=[0:0.1:2*%pi]';
 plot2d(x,sin(x),1,frameflag= 4);
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x),1,frameflag= 4);
         </scilab:image>
@@ -448,7 +448,7 @@ clf();
 x=[0:0.1:2*%pi]';
 plot2d(x,sin(x),1,frameflag= 6);
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x),1,frameflag= 6);
         </scilab:image>
@@ -460,7 +460,7 @@ plot2d(x,sin(x),-1);
 plot2d(x,2*sin(x),12);
 plot2d(2*x,cos(x),3);
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x),-1);
             plot2d(x,2*sin(x),12);
@@ -474,7 +474,7 @@ plot2d(x,sin(x),leg="sin(x)");
 a=gca(); // Handle on axes entity
 a.y_location ="right";
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x),leg="sin(x)");
             a=gca(); // Handle on axes entity
@@ -500,7 +500,7 @@ a.y_location ="right";
             leg.line_mode = "on";
             isoview("off")
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             // axis centered at (0,0)
             clf();
             x = [0:0.1:2*%pi]';

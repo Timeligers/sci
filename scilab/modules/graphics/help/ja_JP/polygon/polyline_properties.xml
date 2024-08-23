@@ -110,7 +110,7 @@
                         (破線, 一点鎖線, 長一点鎖線, 大鎖線, 大長一点鎖線, 点線, 2重点線, 長空白点線, 大空白点線)
                         の選択を意味します. 以下の例を参照ください.
                     </para>
-                    <scilab:image>
+                    <scilab:image localized="no">
                         plot2d([1 10], [1 1]'*(1:10), 2*ones(1,10));
                         a = gca();
                         a.children.children.line_style = (1:10)';
@@ -527,7 +527,7 @@ p.mark_style=9;
 d=p.data;d(1,:)=[0 0];p.data=d;
 a.rotation_angles=[0 45];
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             a=get("current_axes")
             a.data_bounds=[-2,-2;2,2];
             xpoly(sin(2*%pi*(0:5)/5),cos(2*%pi*(0:5)/5),"lines",0)
@@ -546,7 +546,7 @@ p.mark_mode="off";
 p.polyline_style=3;
 p.line_style=4;
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             xpoly(sin(2*%pi*(0:5)/5),cos(2*%pi*(0:5)/5),"lines",0)
             p=get("hdl");
             p.data=[(-2:0.1:2)' sin((-2:0.1:2)*%pi)']

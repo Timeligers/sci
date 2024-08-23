@@ -54,7 +54,7 @@ arcs=[-1.0 0.0 0.5; // abscisse du coin superieur gauche
        180*64 360*64 90*64]; // angle 2
 xfarcs(arcs,[1,2,3])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             plot2d(0,0,-1,"031"," ",[-1,-1,1,1])
             arcs=[-1.0 0.0 0.5;
             1.0 0.0 0.5;

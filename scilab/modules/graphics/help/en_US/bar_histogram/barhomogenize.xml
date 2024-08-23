@@ -117,7 +117,7 @@
             bar(x,y1,'yellow');bar(x,y2);
             barhomogenize('stacked',1);
 ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             gcf().axes_size = [800 270];
             subplot(1,3,1)
             xtitle('ex1: creation of 1 yellow bar and 3 bars')
@@ -180,7 +180,7 @@
             //barhomogenize('stacked',0.5);
             //barhomogenize('stacked',1);
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             gcf().axes_size = [800 270];
             // Second example : creation of 1 red bar (i.e 1 polyline with polyline_style=6)
             //  and 2 polylines with type=1 (calling plot function)

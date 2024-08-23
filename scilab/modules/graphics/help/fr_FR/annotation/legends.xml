@@ -140,7 +140,7 @@ gca().line_style = 4;
 plot2d(t,sin(t),style=3);
 legends(["sin(t)";"cos(t)"],[[5;2],[3;4]], with_box=%f, opt="?")
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             t=0:0.1:2*%pi;
             plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);
             legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3],opt="lr")
@@ -172,7 +172,7 @@ t=0:0.1:2*%pi;
 plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);
 legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3], opt=2, font_size=1 )
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             subplot(221)
             t=0:0.1:2*%pi;
             plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);

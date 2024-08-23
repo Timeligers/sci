@@ -37,7 +37,7 @@ a.x_ticks = tlist(["ticks", "locations", "labels"], (0:6)', [mathml;"1";"$\sin(x
             missing). Few TeX commands, like <literal>\over are supported.</literal>
         </para>
         <para>Since Scilab 5.2.1, greek, cyrillic and complete unicode for latin alphabets characters are handled in the Scilab graphics</para>
-        <scilab:image>
+        <scilab:image localized="no">
             xtitle('$\big\sum_{n=1}^{+\infty}\frac1{n^2}=\frac{\pi^2}{6}$')
         </scilab:image>
         <programlisting role="example"><![CDATA[
@@ -98,7 +98,7 @@ xtitle('$\newcommand{\myfrac}[2]{\frac{\mathfrak{#1}}{\mathcal{#2}}}\myfrac{A}{B
             take up to a few seconds to load. However, next uses are much
             faster.
         </para>
-        <scilab:image><![CDATA[
+        <scilab:image localized="no"><![CDATA[
 str="<mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mo></mo><mfenced open=""{"" close=""}"">" + ..
 "<mrow><mfrac><mrow><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac></mrow><mrow><mfrac><mrow>" +  ..
 "<mi>c</mi></mrow><mrow><mi>d</mi></mrow></mfrac></mrow></mfrac></mrow></mfenced></mrow>"

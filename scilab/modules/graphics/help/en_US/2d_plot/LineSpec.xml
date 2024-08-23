@@ -371,7 +371,7 @@ clf();
 x=1:0.1:10; // Init.
 plot(x,sin(x),'r-.>') // plots a dash-dotted line with a right-pointing triangle centered on each points.
  ]]></programlisting>
-        <scilab:image>x=1:0.1:10; // Init.
+        <scilab:image localized="no">x=1:0.1:10; // Init.
             plot(x,sin(x),'r.-&gt;')
             t=0:%pi/20:2*%pi;
             plot(t,sin(t),'ro-.',t,cos(t),'cya+',t,abs(sin(t)),'--mo')
@@ -382,7 +382,7 @@ x=1:0.1:10;
 // If you specify a marker without a line style, only the marker is drawn
 plot(x,sin(x),'d')
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=1:0.1:10;
             plot(x,sin(x),'d')
         </scilab:image>
@@ -396,7 +396,7 @@ subplot(312);plot(x,sin(x),'b.-');
 subplot(313);plot(x,sin(x),'b-.');// The point belongs to information about line style (not marker!)
 
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x = 1:0.5:10;
             subplot(311);plot(x,sin(x),'.b-');
             subplot(312);plot(x,sin(x),'b.-');
@@ -408,7 +408,7 @@ clf();
 t=0:%pi/20:2*%pi;
 plot(t,sin(t),'ro-.',t,cos(t),'cya+',t,abs(sin(t)),'--mo')
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             t=0:%pi/20:2*%pi;
             plot(t,sin(t),'ro-.',t,cos(t),'cya+',t,abs(sin(t)),'--mo')
         </scilab:image>

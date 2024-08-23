@@ -30,7 +30,7 @@
             <link linkend="light">light</link> 関数により作成でき,
             <link linkend="delete">delete</link> 関数により削除されます.
         </para>
-        <scilab:image>
+        <scilab:image localized="no">
             plot3d();
             l = light();
             s = gce();

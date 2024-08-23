@@ -343,7 +343,7 @@ subplot(2,2,4), plot("ll", x, G), title("loglog : plot(""ll"", x, y)");    gca()
 
 sda();
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             gda().grid = [1 1]*color("grey70");
             title(gda(), "", "fontsize", 3, "color", "lightseagreen", "fontname", "helvetica bold");
 
@@ -379,7 +379,7 @@ subplot(1,2,2)
 plot(x, sin(x))
 xlabel("Specified abscissae")
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             // Default abscissae = indices
             subplot(1,2,1)
             plot(sin(0:0.1:2*%pi))
@@ -402,7 +402,7 @@ clf
 x = [0:0.1:2*%pi]';
 plot(x, [sin(x) sin(2*x) sin(3*x)])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x=[0:0.1:2*%pi]';
             plot(x,[sin(x) sin(2*x) sin(3*x)])
 
@@ -444,7 +444,7 @@ subplot(2,2,4)
 plot(x, list(myPow,1:5))
 title("plot(x, list(myPow,1:5))", "fontsize",3)
  ]]></programlisting>
-        <scilab:image><![CDATA[
+        <scilab:image localized="no"><![CDATA[
             subplot(2,2,1)         // sin() is a builtin
             plot(1:0.1:10, sin)    // <=> plot(1:0.1:10, sin(1:0.1:10))
             title("plot(x,sin)", "fontsize",3)
@@ -518,7 +518,7 @@ gcf().children.children([1 3]).font_size=3;  // legends
    ----------  -----------
    -7 -6s +s²  28 -11s +s²
 ]]></screen>
-        <scilab:image><![CDATA[
+        <scilab:image localized="no"><![CDATA[
             s = %s;
 
             // Polynomials
@@ -554,7 +554,7 @@ gauss = 1.5*exp(-(t/2-1).^2)-1;
 
 plot(t,sin,'ro', t,cos,'g+-', t,gauss,':b')
  ]]></programlisting>
-        <scilab:image><![CDATA[
+        <scilab:image localized="no"><![CDATA[
             t = -%pi:%pi/20:2*%pi;
             // sin() : in Red, with O marks, without line
             // cos() : in Green, with + marks, with a solid line
@@ -582,7 +582,7 @@ plot([t ;t],[sin(t) ;cos(t)],'marker','d','markerFaceColor','green','markerEdgeC
 // Targeting a defined axes
 plot(ax3, t, sin)
  ]]></programlisting>
-        <scilab:image><![CDATA[
+        <scilab:image localized="no"><![CDATA[
             clf
             subplot(1,3,3)
             ax3 = gca();         // We will draw here later
@@ -619,7 +619,7 @@ subplot(222); plot(x , y , "o-");    // x is transposed
 subplot(223); plot(x', y', "o-");    // y is transposed
 subplot(224); plot(x , y', "o-");    // x and y are transposed
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x = [5 6 7 8]
             y = [1   1   1   1   8
                  2   3   4   5   9
@@ -654,7 +654,7 @@ subplot(236), plot(t', t',"o-"), title("plot(t'', t'')", "fontsize",3)
 
 for i=1:6, gcf().children(i).data_bounds([1 3]) = 0.5; end
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             clf
             t = [1   1   1   1
                  2   3   4   5
@@ -693,7 +693,7 @@ subplot(224), plot(X',y', "o-"), title("plot(X'', col)  (row = col'')",  "fontsi
 
 for i = 1:4, gcf().children(i).data_bounds([1 3]) = 0.5; end
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             clf
             X = [1   1   1   1
                  2   3   4   5
@@ -731,7 +731,7 @@ poly1.thickness = 3;   // ...and the thickness of a curve.
 poly1.clip_state='off' // clipping control
 isoview off
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x = [0:0.1:2*%pi]';
             plot(x-4,sin(x),x+2,cos(x))
             a = gca();

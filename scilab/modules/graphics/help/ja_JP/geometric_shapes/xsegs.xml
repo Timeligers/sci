@@ -178,7 +178,7 @@ xsegs(xv,yv,1:10)
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=2*%pi*(0:9)/10;
 
@@ -204,7 +204,7 @@ xsegs([5, -2],[4 , -1]) //  X(5,4) から Y(-2, -1) に線を引く
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot2d([-10,10],[-10,10],[-1,-1],"022")
 
@@ -256,7 +256,7 @@ e.arrow_size = 0.4;
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             a=gca();
 

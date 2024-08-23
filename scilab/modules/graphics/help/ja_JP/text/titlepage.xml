@@ -88,7 +88,7 @@ titlepage("This is the title of the page");
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             titlepage("This is the title of the page");
 

@@ -128,7 +128,7 @@ addcolor(name2rgb('grey')/255);
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot3d();
 

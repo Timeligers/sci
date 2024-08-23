@@ -128,7 +128,7 @@ plot2d2([1:4],[1:4],1,"111","step function",[0,0,5,5]
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot2d2([1:4],[1:4],1,"111","step function",[0,0,5,5])
 
@@ -146,7 +146,7 @@ plot2d2(x,[sin(x) sin(2*x) sin(3*x)])
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=[0:0.1:2*%pi]';
 
@@ -172,7 +172,7 @@ e.children(3).polyline_style=2;
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=[0:0.1:2*%pi]';
 

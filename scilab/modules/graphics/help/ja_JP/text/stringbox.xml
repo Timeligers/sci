@@ -246,7 +246,7 @@ end;
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             axes = gca() ;
 

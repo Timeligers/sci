@@ -594,7 +594,7 @@ plot3d1(t,t,z)
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             t=[0:0.3:2*%pi]';
 
@@ -618,7 +618,7 @@ plot3d1(xx,yy,zz)
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             t=[0:0.3:2*%pi]';
 
@@ -644,7 +644,7 @@ plot3d1([xx xx],[yy yy],[zz 4+zz])
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             t=[0:0.3:2*%pi]';
 
@@ -664,7 +664,7 @@ plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[2,2,3])
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[2,2,3])
 
@@ -680,7 +680,7 @@ plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[-2,2,3])
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[-2,2,3])
 
@@ -712,7 +712,7 @@ plot3d1(xx,yy,zz) // 2つのグラフィックは同じ
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             deff("[x,y,z]=sph(alp,tet)",["x=r*cos(alp).*cos(tet)+orig(1)*ones(tet)";..
 

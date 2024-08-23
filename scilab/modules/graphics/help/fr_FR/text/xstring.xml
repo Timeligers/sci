@@ -99,7 +99,7 @@ gce().font_size = 3;          // changement de la taille de police
 xstring(0.1,0.6,"a")
 gce().font_size = 24;  // un grand alpha
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             plot2d([0;1],[0;1],0)
             xstring(0.5,0.5,["$\overbrace{Scilab}$" "n''est ";"pas" "$\underbrace{Matlab}$"])
         </scilab:image>

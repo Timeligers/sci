@@ -164,7 +164,7 @@ p1.foreground=color(255,128,128);
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=linspace(-2*%pi,2*%pi,100)';
 

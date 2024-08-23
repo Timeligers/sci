@@ -282,7 +282,7 @@ legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3],opt="lr")
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             t=0:0.1:2*%pi;
 
@@ -356,7 +356,7 @@ legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3], opt=2, font_size=1 )
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             subplot(221)
 

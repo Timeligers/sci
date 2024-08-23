@@ -64,7 +64,7 @@
     curve_handles.visible='off';
     curve_handles.visible='on';
     ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             plot2d();
             xarrows([3;2.72],[1.6;0.96],3,2);
             xstring(3,1.6,'sin(t)')

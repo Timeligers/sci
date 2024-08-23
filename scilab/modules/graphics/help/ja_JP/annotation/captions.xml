@@ -332,7 +332,7 @@ hl.fill_mode='on';
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             t=0:0.1:2*%pi;
 

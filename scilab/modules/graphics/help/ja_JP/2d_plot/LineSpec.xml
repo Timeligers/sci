@@ -662,7 +662,7 @@ plot(x,sin(x),'r.->') // 右向き三角形が各点の中心についた一点�
 
  ]]></programlisting>
 
-        <scilab:image>x=1:0.1:10; // Init.
+        <scilab:image localized="no">x=1:0.1:10; // Init.
 
             plot(x,sin(x),'r.-&gt;')
 
@@ -684,7 +684,7 @@ plot(x,sin(x),'d')
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=1:0.1:10;
 
@@ -712,7 +712,7 @@ subplot(313);plot(x,sin(x),'b-.');// 線種別に関する情報が属する点 
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x = 1:0.5:10;
 
@@ -736,7 +736,7 @@ plot(t,sin(t),'ro-.',t,cos(t),'cya+',t,abs(sin(t)),'--mo')
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             t=0:%pi/20:2*%pi;
 

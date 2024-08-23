@@ -126,7 +126,7 @@ plot2d(0,0,-1,"010"," ",[-1,-1,1,1])  // draw an empty bounded axes
 xpoly(x, y)
 set(gce(), "foreground", color("red"), "closed", "on");
     ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
           x = sin(2*%pi*(0:4)/5);
           y = cos(2*%pi*(0:4)/5);
           plot2d(0,0,-1,"010"," ",[-1,-1,1,1])
@@ -155,7 +155,7 @@ set(gce(), "foreground", color("red"), "closed", "on");
 
     ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
 

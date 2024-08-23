@@ -129,7 +129,7 @@
             title("$\LARGE \left|1/(s^2+s+1)\right|\mbox{ for }s=i\omega$")
             xlabel("$\LARGE \omega$")
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             w=logspace(-2,2,1000);
             s=%i*w;
             g=1../(s.^2+s+1);

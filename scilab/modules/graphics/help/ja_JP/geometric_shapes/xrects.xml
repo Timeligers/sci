@@ -144,7 +144,7 @@ xnumb(x,15*ones(x),cols)
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot2d([-100,500],[-50,50],[-1,-1],"022")
 

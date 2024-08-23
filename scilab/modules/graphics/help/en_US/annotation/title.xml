@@ -265,7 +265,7 @@ title rotation 90
 // We can do all these modifications with just the below instruction:
 title('my title','color','blue','edgecolor','red','fontsize',3,'rotation',90,'position',[0.3 0.8]);
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             plot2d([], [], 0, "011", " ", [0 0 1 1])
             title 'my title'  color blue  edgecolor red  fontsize 3  rotation 90
             title('position', [0.3 0.8])

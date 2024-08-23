@@ -172,7 +172,7 @@ title("rect=[-5,-6,9,6], strf=""011"", .colored=""on""", "fontsize",3)
 
 gcf().axes_size = [740 680];
     ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x = -4:6;
             X = ndgrid(x);
             [fx, fy] =  (rand(X)-0.5, rand(X)-0.5);
@@ -223,7 +223,7 @@ h.colored = "on";
 gcf().color_map = jet(100);
 colorbar
 ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x = -1.2:0.11:0.7;
             y = -1:0.11:0.5;
             [X, Y] = ndgrid(x, y);

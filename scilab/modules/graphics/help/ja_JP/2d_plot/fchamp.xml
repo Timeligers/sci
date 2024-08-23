@@ -242,7 +242,7 @@ fchamp(derpol,0,xf,yf)
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             deff("[xdot] = derpol(t,x)",..
 
@@ -280,7 +280,7 @@ fchamp(derpol,0,xf,yf,1,[-2,-2,2,2],"011")
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             deff("[xdot] = derpol(t,x)",..
 

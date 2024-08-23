@@ -154,7 +154,7 @@ pie([1 2 5]);
 
 
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             pie([1 2 5]);
 
@@ -176,7 +176,7 @@ pie([5 9 4 6 3],[0 1 0 1 0]);
 
 
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             pie([5 9 4 6 3],[0 1 0 1 0]);
 
@@ -194,7 +194,7 @@ pie([3 4 6 2],[0 1 0 0],["part1","part2","part3","part4"]);
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             pie([3 4 6 2],[0 1 0 0],["part1","part2","part3","part4"]);
 

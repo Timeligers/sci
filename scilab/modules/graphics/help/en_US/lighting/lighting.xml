@@ -45,7 +45,7 @@
             The final surface color is given by the  light model equation applied to the product
             of the surface and light colors. Following there is the light model equation:
         </para>
-        <scilab:image>
+        <scilab:image localized="no">
             set(gca(), "font_style", 1, "font_size", 4);
             xstring(0.0, 0.4, '$Color = Ambient_{term} + Diffuse_{term} + Specular_{term} \\ Ambient_{term} = L_{ambient}*S_{ambient} \\ Diffuse_{term} = L_{diffuse}*S_{diffuse}*(L_{direction} \cdot S_{normal}) \\ Specular_{term} = L_{specular}*S_{specular}*(S_{normal} \cdot (L_{direction}+View_{direction}) ))^{S_{shininess}}$');
             f=gcf();
@@ -72,13 +72,13 @@
             Following one can compare the surface with and without lighting:
         </para>
         <para>
-            <scilab:image>
+            <scilab:image localized="no">
                 plot3d();
                 l = light();
             </scilab:image>
         </para>
         <para>
-            <scilab:image>
+            <scilab:image localized="no">
                 plot3d();
             </scilab:image>
         </para>

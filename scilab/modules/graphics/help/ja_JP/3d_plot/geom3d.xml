@@ -130,7 +130,7 @@ fplot3d(t,t,surface,35,45,"X@Y@Z")
 
  ]]></programlisting>
 
-        <scilab:image>deff("[z]=surface(x,y)","z=sin(x)*cos(y)")
+        <scilab:image localized="no">deff("[z]=surface(x,y)","z=sin(x)*cos(y)")
 
             t=%pi*(-10:10)/10;
 
@@ -214,7 +214,7 @@ xtitle(my_plot_desc," "," "," ");
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
 
 

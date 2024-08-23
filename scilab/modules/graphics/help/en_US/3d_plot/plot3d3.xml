@@ -267,7 +267,7 @@ e=plot3d3(X,Y,Z);
 e.visible='off';
 e.visible='on'; // back to the mesh view
  ]]></programlisting>
-        <scilab:image>u = linspace(-%pi/2,%pi/2,40);
+        <scilab:image localized="no">u = linspace(-%pi/2,%pi/2,40);
             v = linspace(0,2*%pi,20);
             X = cos(u)'*cos(v);
             Y = cos(u)'*sin(v);

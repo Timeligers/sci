@@ -305,7 +305,7 @@ t=[0:0.3:2*%pi]';
 z=sin(t)*cos(t');
 plot3d1(t,t,z)
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             t=[0:0.3:2*%pi]';
             z=sin(t)*cos(t');
             plot3d1(t,t,z)
@@ -317,7 +317,7 @@ z=sin(t)*cos(t');
 [xx,yy,zz]=genfac3d(t,t,z);
 plot3d1(xx,yy,zz)
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             t=[0:0.3:2*%pi]';
             z=sin(t)*cos(t');
             [xx,yy,zz]=genfac3d(t,t,z);
@@ -330,7 +330,7 @@ z=sin(t)*cos(t');
 [xx,yy,zz]=genfac3d(t,t,z);
 plot3d1([xx xx],[yy yy],[zz 4+zz])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             t=[0:0.3:2*%pi]';
             z=sin(t)*cos(t');
             [xx,yy,zz]=genfac3d(t,t,z);
@@ -340,7 +340,7 @@ plot3d1([xx xx],[yy yy],[zz 4+zz])
 // esboço simples com ponto de vista e legendas
 plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[2,2,3])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[2,2,3])
         </scilab:image>
 
@@ -348,7 +348,7 @@ plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[2,2,3])
 // mesmo esboço sem grid
 plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[-2,2,3])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             plot3d1(1:10,1:20,10*rand(10,20),35,45,"X@Y@Z",[-2,2,3])
         </scilab:image>
         <programlisting role="example"><![CDATA[
@@ -364,7 +364,7 @@ e.color_flag=1;
 scf(2);
 plot3d1(xx,yy,zz) // os dois gráficos são similares
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             deff("[x,y,z]=sph(alp,tet)",["x=r*cos(alp).*cos(tet)+orig(1)*ones(tet)";..
             "y=r*cos(alp).*sin(tet)+orig(2)*ones(tet)";..
             "z=r*sin(alp)+orig(3)*ones(tet)"]);

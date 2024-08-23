@@ -141,7 +141,7 @@ subplot(1,2,2)
   xtitle("fec example (without the mesh)")
 show_window()
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x = [0 1 0 -1];
             y = [0 0 1  1];
             T = [1 1 2 3 1;
@@ -175,7 +175,7 @@ fec(x,y,T,z,strf="040", zminmax=[-0.5 0.5], mesh=%t)
 xtitle("fec example : using zminmax argument")
 show_window()
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             x = [0 1 0 -1];
             y = [0 0 1  1];
             T = [1 1 2 3 1;
@@ -219,7 +219,7 @@ subplot(2,2,4)
   xtitle("fec : using zminmax and colout =[0 -1]")
 show_window()
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             // define a mini triangulation (4 vertices, 2 triangles)
             x = [0 1 0 -1];
             y = [0 0 1  1];
@@ -271,7 +271,7 @@ subplot(1,2,2)
   xtitle("fec using the jet colormap")
 show_window()
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             // define a mini triangulation (4 vertices, 2 triangles)
             x = [0 1 0 -1];
             y = [0 0 1  1];
@@ -308,7 +308,7 @@ colorbar(-1,1);
 fec(x,y,T,z,mesh=%t)
 xtitle("fec using the hot colormap, composed by one quadrangle")
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             // define a mapping with one quadrangle (4 vertices, 1 quadrangle)
             x = [1 2 2 1];
             y = [1 1 2 2];

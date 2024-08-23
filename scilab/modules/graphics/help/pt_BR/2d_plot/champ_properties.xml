@@ -188,7 +188,7 @@ c.arrow_size=-1;
 c.data // exibindo um tlist do tipo "scichampdata"
 a.data_bounds=[-5,-5;5,5];
  ]]></programlisting>
-        <scilab:image><![CDATA[
+        <scilab:image localized="no"><![CDATA[
         a=get("current_axes");
         a.data_bounds=[-10,-10;10,10];
         champ(-5:5,-5:5,rand(11,11),rand(11,11));

@@ -205,7 +205,7 @@ isoview off
 isoview(gcf(),"off")
 isoview([a1 a2 a3], "on")
              ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             t = [0:0.1:2*%pi]';
             clf
             f = gcf();

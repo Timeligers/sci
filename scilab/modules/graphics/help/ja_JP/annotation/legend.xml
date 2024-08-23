@@ -358,7 +358,7 @@ hl=legend(['cos(t)';'cos(2*t)';'cos(3*t)']);
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
 
 

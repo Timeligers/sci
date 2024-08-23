@@ -362,7 +362,7 @@ scatter3d(x, y, z, r.^2*80, mcolors, options(:));
 gcf().children.grid = [1 1 1]*color("grey50");
 gcf().children.rotation_angles = [83 -20];
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             // Data: points on an hemisphere
             azimuth = 0:12:359;
             latitude = 3:12:89;
@@ -418,7 +418,7 @@ scatter3d(x, y, z,...
 // Tune the 3D orientation of all axes
 gcf().children.rotation_angles = [65 35];
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             // Data
             z = linspace(0, 25, 150);
             x = z .* cos(z);
@@ -467,7 +467,7 @@ Axes = gcf().children;
 Axes.rotation_angles = [60,45];
 Axes.grid = [1 1 1]*color("grey50");
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             // Data
             n = 20;
             [x, y] = meshgrid(linspace(-2, 2, n));
@@ -531,7 +531,7 @@ Axes = gcf().children;
 Axes.rotation_angles = [82, -40];
 Axes.grid = [1 1 1]*color("grey60");
  ]]></programlisting>
-        <scilab:image><![CDATA[
+        <scilab:image localized="no"><![CDATA[
             // Data: points on an hemisphere
             azimuth = 0:12:359;
             latitude = 3:12:89;

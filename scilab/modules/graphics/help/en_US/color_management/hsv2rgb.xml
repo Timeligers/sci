@@ -117,7 +117,7 @@ for v = 0:0.1:1
   sleep(10)
 end
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             t=[0:0.3:2*%pi]'; z=sin(t)*cos(t');
             plot3d1(t,t,z)
             f=gcf();

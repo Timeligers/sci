@@ -163,7 +163,7 @@ plot2d(x(im)',y(jm)',-9,"000")
         <programlisting role="example"><![CDATA[
 contour2d(1:10,1:10,rand(10,10),5,rect=[0,0,11,11])
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             contour2d(1:10,1:10,rand(10,10),5,rect=[0,0,11,11]);
         </scilab:image>
         <programlisting role="example"><![CDATA[
@@ -171,7 +171,7 @@ clf()
 // 等高線の出力形式を変更
 contour2d(1:10,1:10,rand(10,10),5,rect=[0,0,11,11],fpf="%.2f")
   ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             contour2d(1:10,1:10,rand(10,10),5,rect=[0,0,11,11],fpf="%.2f")
         </scilab:image>
         <programlisting role="example"><![CDATA[

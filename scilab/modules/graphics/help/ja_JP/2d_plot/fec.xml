@@ -398,7 +398,7 @@ show_window()
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x = [0 1 0 -1];
 
@@ -466,7 +466,7 @@ show_window()
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x = [0 1 0 -1];
 
@@ -556,7 +556,7 @@ show_window()
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             // define a mini triangulation (4 vertices, 2 triangles)
 
@@ -660,7 +660,7 @@ show_window()
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             // define a mini triangulation (4 vertices, 2 triangles)
 

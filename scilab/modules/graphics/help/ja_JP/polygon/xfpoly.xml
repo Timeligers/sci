@@ -188,7 +188,7 @@ xfpoly(x,y,3);
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=sin(2*%pi*(0:4)/5);
 

@@ -218,7 +218,7 @@ xstring(0.1,0.6,"a") //大きなアルファ
 gce().font_size = 24;
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot2d([0;1],[0;1],0)
 

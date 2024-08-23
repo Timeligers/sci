@@ -146,7 +146,7 @@ move(p,t);
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot3d();
 

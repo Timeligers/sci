@@ -306,7 +306,7 @@
 
         <title>例</title>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             plot3d();
 

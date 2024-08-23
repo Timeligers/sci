@@ -117,7 +117,7 @@ else
   disp('You missed it.')
 end;
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             axes = gca() ;
             axes.axes_visible = 'on' ;
             axes.data_bounds = [ 1, 1 ; 10, 10 ] ;

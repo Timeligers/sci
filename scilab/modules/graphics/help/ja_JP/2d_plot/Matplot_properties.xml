@@ -279,7 +279,7 @@ Matplot(1:nbcolors)
 e = gce(); // カレントのエンティティを取得
 e.data = e.data($:-1:1) // 逆順
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             nbcolors = size(gcf().color_map, 1);
             Matplot(1:nbcolors)
             e = gce();

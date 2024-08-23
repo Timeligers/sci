@@ -63,7 +63,7 @@
     <refsection role="examples">
         <title>例</title>
         Demo: plot2d4();
-        <scilab:image>plot2d4();</scilab:image>
+        <scilab:image localized="no">plot2d4();</scilab:image>
         <programlisting role="example"><![CDATA[
 // plot2dを用いた場合と比較
 clf
@@ -76,7 +76,7 @@ plot2d(x,[sin(x) sin(2*x) sin(3*x)])
 e = gce();
 e.children.polyline_style=4;
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             subplot(2,1,1)
             x = [0:0.1:2*%pi]';
             plot2d4(x,[sin(x) sin(2*x) sin(3*x)])

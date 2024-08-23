@@ -148,7 +148,7 @@ xgrid(5, 1, 7)
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=[0:0.1:2*%pi]';
 

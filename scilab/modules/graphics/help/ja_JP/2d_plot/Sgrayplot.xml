@@ -560,7 +560,7 @@ Sgrayplot(x,y,m, strf="011", rect=[-20,-20,20,20])
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=-10:10; y=-10:10;m =rand(21,21);
 
@@ -588,7 +588,7 @@ Sgrayplot(t,t,m, strf="041")
 
 ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             t=-%pi:0.1:%pi; m=sin(t)'*cos(t);
 
@@ -640,7 +640,7 @@ end
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             n = 30;
 

@@ -92,7 +92,7 @@
             subplot(2,2,4)
             bar3d()
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             subplot(221)
             plot2d()
             subplot(222)
@@ -127,7 +127,7 @@
             param3d()
             xtitle("","","","")
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             clf
             subplot(1,2,2)
             Matplot1()

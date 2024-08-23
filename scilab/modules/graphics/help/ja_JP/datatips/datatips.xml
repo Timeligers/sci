@@ -161,7 +161,7 @@
 
      ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             // this examples show how to manage tips by program
 
@@ -231,7 +231,7 @@
 
      ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x1=linspace(0,1.5,100)';
 

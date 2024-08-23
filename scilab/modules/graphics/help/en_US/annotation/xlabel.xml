@@ -282,7 +282,7 @@ ylabel(ax1, "fontsize", 4)
 // Now ax1 is the current axes:
 ylabel color orange  rotation -90
 ]]>     </programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             t = linspace(-2*%pi, 2*%pi, 30);
             plot2d([], [], 0, "011", " ", [0 0 1 1])
 

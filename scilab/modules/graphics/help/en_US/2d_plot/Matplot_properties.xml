@@ -366,7 +366,7 @@ nbcolors = size(gcf().color_map, 1);
 h = Matplot(1:nbcolors)
 h.data = h.data($:-1:1) // reverse order
  ]]></programlisting>
-        <scilab:image>
+        <scilab:image localized="no">
             nbcolors = size(gcf().color_map, 1);
             h = Matplot(1:nbcolors)
             h.data = h.data($:-1:1);

@@ -409,7 +409,7 @@
                                     desenhados também. Se a propriedade for
                                     <literal>"on"</literal> , a caixa toda é desenhada.
                                 </para>
-                                <scilab:image><![CDATA[
+                                <scilab:image localized="no"><![CDATA[
                                     box = ["on" "back_half" "hidden_axes" "off"];
                                     for i = 1:4
                                         subplot(1,4,i)
@@ -544,7 +544,7 @@
                                                 <tr><td>90 </td><td>: (O,x) to left</td></tr>
                                                 <tr><td>180 </td><td>: (O,x) to top</td></tr>
                                             </table>
-                                            <scilab:image><![CDATA[
+                                            <scilab:image localized="no"><![CDATA[
                                             // gca().rotation_angles:
                                             // Azimuth:
                                             // --------
@@ -574,7 +574,7 @@
                                                 <tr><td>90</td><td>= Equator (x,y)</td><td> view from side</td></tr>
                                                 <tr><td>180</td><td>= South pole (O,-z)</td><td> view from below</td></tr>
                                             </table>
-                                            <scilab:image><![CDATA[
+                                            <scilab:image localized="no"><![CDATA[
                                             // gca().rotation_angles:
                                             // polar angle
                                             // -----------
@@ -610,7 +610,7 @@
                                     <literal>'l'</literal> para escala
                                     <emphasis role="bold">l</emphasis>ogarítmica.
                                 </para>
-                                <scilab:image><![CDATA[
+                                <scilab:image localized="no"><![CDATA[
                                     x = linspace(0,10,100)(2:$);
                                     m = ["nn" "ln" "nl" "ll"];
                                     clf

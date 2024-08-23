@@ -180,7 +180,7 @@ gca().clip_state = "off";
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x = 2*%pi*(0:7)/8
 
@@ -218,7 +218,7 @@ xarrows([xi;xf],[yi;yf],[zi;zf],0.7, 32*rand(1,N))
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             N = 100;
 

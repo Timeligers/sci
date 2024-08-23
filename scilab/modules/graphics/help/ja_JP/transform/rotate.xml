@@ -144,7 +144,7 @@ end
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             xsetech([0,0,1,1],[-1,-1,1,1])
 

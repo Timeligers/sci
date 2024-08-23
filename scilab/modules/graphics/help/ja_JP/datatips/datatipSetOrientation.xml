@@ -152,7 +152,7 @@
 
     ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             x=linspace(-20,20,1000);
 

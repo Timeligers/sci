@@ -160,7 +160,7 @@ plot3d(xx,yy,zz)
 
  ]]></programlisting>
 
-        <scilab:image>
+        <scilab:image localized="no">
 
             t=[0:0.3:2*%pi]';
 
