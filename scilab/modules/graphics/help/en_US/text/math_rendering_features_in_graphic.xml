@@ -13,11 +13,11 @@
             is triggered by the presence of special characters:
         </para>
         <para>When the string contains a positive even number of "$" (dollar symbol), then the LaTeX rendering engine
-            is used. This includes the case of a single math formula (a string starting and ending by a dollar, the legacy behavior), 
-            or the case of a string mixing formulas (between two dollars) and regular text. In that case the regular text is rendered with
+            is used. This includes the case of a single math formula (a string starting and ending by a dollar), 
+            or the case of a string mixing math formulas (between two dollars) and regular text. In that case the regular text is rendered with
             upright style and with the same font family as the one used in the math formulas.
         </para>
-        <para>When the string start with a "&lt;" and ends with "&gt;" and has a valid syntax then the MathML rendering engine is used.
+        <para>When the string starts with a "&lt;" and ends with "&gt;" and has a valid syntax then the MathML rendering engine is used.
         </para>
         <para>On the first use (these libraries are loading on the fly only when
             needed), note that the MathML engine is slower to load than LaTeX.
