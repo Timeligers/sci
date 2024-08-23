@@ -52,10 +52,15 @@ data.DT = [datetime() datetime() datetime()];
 data.table = table(["AF"; "NA"], ["Africa"; "North America"]);
 data.ts = timeseries(hours(1:2)', ["AF"; "NA"], ["Africa"; "North America"]);
 
-grayplot(1:10,1:10,rand(10,10))
-data.gp = gce();
 data.fig = gcf();
 data.ax = gca();
+grayplot(1:10,1:10,rand(10,10))
+data.gp = gce();
+x = 1:10;
+X = ndgrid(x);
+[fx, fy] =  (rand(X)-0.5, rand(X)-0.5);
+champ(x, x, fx, fy);
+data.champ = gce();
 
 data
 
