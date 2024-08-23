@@ -30,6 +30,10 @@ linux_set_env:
       echo SCI_VERSION_TIMESTAMP=$NOW             >>build.env
       cat build.env
     - echo SCI_VERSION_STRING=$SCI_VERSION_STRING
+    # display configured variables
+    - gcc --version
+    - echo JAVA_HOME=$JAVA_HOME
+    - javac -version
   artifacts:
     reports:
       dotenv: build.env
@@ -53,6 +57,13 @@ windows_set_env:
       Set-Content -Path build.env -Value "ARCH=x64","SCI_VERSION_TIMESTAMP=$env:NOW"
       cat build.env
     - echo SCI_VERSION_STRING=$env:SCI_VERSION_STRING
+    # display configured variables
+    - where.exe devenv cl javac
+    - echo VS2022INSTALLDIR=$env:VS2022INSTALLDIR
+    - echo SCILAB_JDK64=$env:SCILAB_JDK64
+    - if ($env:SCILAB_JDK64) { &"$env:SCILAB_JDK64\bin\javac" -version }
+    - echo JAVA_HOME=$env:JAVA_HOME
+    - javac -version
   artifacts:
     reports:
       dotenv: build.env
@@ -85,3 +96,28 @@ linux_build_prereq:
           - .gitlab-ci/prebuild.sh
           - .gitlab-ci/Dockerfile.linux
           - .gitlab-ci/Dockerfile.linux.prebuild
+
+# update windows dependencies
+windows_build_prereq:
+  stage: prebuild
+  tags: [x64_windows, shell, scilab]
+  needs:
+    - windows_set_env
+  before_script: cmd /C "call .gitlab-ci/prebuild.bat version"
+  script: cmd /C "call .gitlab-ci/prebuild.bat fromscratch"
+  artifacts:
+    paths:
+      - prerequirements-${SCI_VERSION_STRING}-windows_x64.zip
+    when: always
+  rules:
+    # do not rebuild on scheduled
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    # do not rebuild on tag
+    - if: $CI_COMMIT_TAG
+      when: never
+    # rebuild on demand
+    - changes:
+        paths:
+          - .gitlab-ci/prebuild.yml
+          - .gitlab-ci/prebuild.bat

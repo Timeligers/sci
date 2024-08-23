@@ -11,7 +11,7 @@
 // are done in state space form
 
 //2.4.1 (Kwakernaak)
-
+s = poly(0, "s");
 H=[1 (s-1)/((s-2)*(s-3));
    1 (s-1)/((s-2)*(s-3))];
 r=[1 1];
@@ -20,6 +20,7 @@ r=[1 1];
 
 H(:,2)=H(:,2)*(s+1);
 
+H = syslin("c", H);
 [sk,mu]=h_inf(H,r,0,1,20);
 
 //transform back
@@ -79,6 +80,7 @@ r=[1 1];
 //sk=clean(sk,0,0.00001);
 
 //compare (228)
+H = syslin("c", H);
 
 [sk,mu]=h_inf(H,r,0,10,20);
 
@@ -118,7 +120,7 @@ r=[2 2];
 
 G=[(1+s*sqrt(2)+s*s)/(s*s) 1/(s*s);
    0 1;
-   (1+s*sqrT(2)+s*s)/(s*s) 1/(s*s)]
+   (1+s*sqrt(2)+s*s)/(s*s) 1/(s*s)]
 
 r=[1,1]
 
@@ -156,6 +158,8 @@ k=((s-2)*(s-3))/((s+2)*(s+3))
 
 G(1,:)=k*G(1,:)
 
+G = syslin("c", G);
+
 [sk,mu]=h_inf(G,r,0,5,20)
 
 //compare (42) in Matlab report
@@ -183,7 +187,7 @@ H=[q 0;
 G(1:2,:)=H*G(1:2,:);
 
 //Stabilizability and detectability assumptions are now verified
-
+G = syslin("c", G);
 [sk,mu]=h_inf(G,r,0,1,30);
 
 // the parasitic (?) root -83.60 (Kwakernaak) or -84.53 (Francis) is not
@@ -200,6 +204,7 @@ G=[(s+1)/s 0 1/s 0;
    0 0 0 1;
 (s+1)/s 0 1/s 0;
 0 (s+0.5)/(s-1) 0 1/(s-1)];
+G = syslin("c", G);
 
 r=[2 2]
 
@@ -229,7 +234,7 @@ D=[0.7357 0.4156 0.0;
 
 r=[1 1];
 
-p=syslin('c',a,b,c,d);
+p=syslin('c', A, B, C, D);
 
 //[sk,mu]=h_inf(P,r,0,10,20);
 
@@ -241,7 +246,7 @@ A=[20 -100;1 0];
 B=[1;0];
 C=[1,-0.1];
 Gss=syslin('c',A,B,C);
-[Pss,r]=normlqg(Gss);    //The standard plant
+[Pss, r] = lqg2stan(Gss, eye(3,3), eye(3,3)); //The standard plant
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -266,7 +271,7 @@ C=[1 0 0 0 0;
 Dt=1.d-5*eye(3,3);
 D=0*Dt;
 
-Gss=syslin('c',At,b,c,D);
+Gss=syslin('c',At,B,C,D);
 
 //gtf=ss2tf(Gss);gtf=clean(gtf,1.d-10);
 
@@ -326,7 +331,7 @@ A=[-2.2567e-02  -36.617  -18.897  -32.090  3.2509  -7.6257e-1;
 B=0*ones(6,2);B(5,1)=30;B(6,2)=30;
 C=0*ones(2,6);C(1,2)=1;C(2,4)=1;
 D=0*ones(2,2);
-G=syslin('c',a,b,c);r=syssize(G);
+G=syslin('c',A,B,C);r=syssize(G);
 W1=[(s+0.01)/(1+0.01*s)  0;0    (s+0.01)/(0.01*s+1)], 
 tau=0.0005;
 W2=[1000/(s*s)   0;0    1000/(s*s*(s*tau+1))],
@@ -345,9 +350,10 @@ P=[w1, -w1*G;
 r=[1,1];
 Pss=tf2ss(P);
 P12=Pss(1:2,2);P21=Pss(3,1);P22=Pss(3,2);
-sl=p21;
-sm=[s*eye()-sl(2),sl(3);sl(4),-sl(5)];
+sl=P21;
+sm=[s*eye(sl(2))-sl(2),sl(3);sl(4),-sl(5)];
 detr(sm)       //Poles of G --> Transmission zeros of P21
+P = syslin("c", P);
 [sk,mu]=h_inf(P,r,0,1,20);   //Fails
 
 Ptmp=P;fil=(1+s*s)/(1+s)/(1+s);Ptmp(:,2)=Ptmp(:,2)*fil;
@@ -399,7 +405,7 @@ P=syslin('c',A,B,C,D);
 // K=[(9.7574+0.2790*s)/(0.023419+s), 0.1346]
 // with P1=minreal(P) (state dimension 5 instead of 8 for P)
 // get same gamma but a controller of order (4,3)
-w=[-1.05033595281261e+00 1 0  -2.72165256144227e+03 0 0 0 0 0 0 0 0 0 0;
+W=[-1.05033595281261e+00 1 0  -2.72165256144227e+03 0 0 0 0 0 0 0 0 0 0;
    -1.39973553704802e+02 0 0  -2.94468368703638e+06 0 0 0 0 0 0 0 0 0 0;
    0 0  -2.100e+02  -2.250e+04 0 0 0 0 0   3.80748204520352e-01 0 0 0 1;
    0 0 1 0 0 0 0 0 0 0 0 0 0 0;
@@ -422,7 +428,7 @@ r=[2,1];
 
 [K,mu]=h_inf(P,r,0,1,40);
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/////////////////////////////////////////////////////////////////
 
 //Automotive fuel control
 eps=0.001;
@@ -437,18 +443,18 @@ G=[w1,-w1*P;
    1, -P];
 W1ss=tf2ss(w1);
 Pss=tf2ss(P);
-W2P=W2*P;
+W2P=w2*P;
 //calcul de cw2;
-www=clean((s*eye()-Pss(2))**(-1)*bp);
+www=clean((s*eye(Pss(2))-Pss(2))**(-1)*Pss(3));
 mat=[horner(www,-1),horner(www,1),horner(www,10),horner(www,20)];
-ww=clean(w2p-1);
+ww=clean(W2P-1);
 f=[horner(ww,-1),horner(ww,1),horner(ww,10),horner(ww,20)];
 cw2=f/mat;
 W2pss=syslin('c',Pss(2),Pss(3),cw2,1);
 
 AGss=[W1ss(2),W1ss(3)*Pss(4);0*eye(4,2),Pss(2)];
 BGss=[-W1ss(3),0*ones(2,1);0*ones(4,1),Pss(3)];
-CGss=[-W1ss(4),0*ones(1,4);0*ones(1,2),w2pss(4);0*ones(1,2),-pss(4)];
+CGss=[-W1ss(4),0*ones(1,4);0*ones(1,2),W2pss(4);0*ones(1,2),-Pss(4)];
 DGss=[0,0;0,1;1,0];
 Gss=syslin('c',AGss,BGss,CGss,DGss);
 r=[1,1];
@@ -458,7 +464,7 @@ r=[1,1];
 
 ////////////SERE
 s=poly(0,'s')
-G=-4.714841d-3*(s**2+0.0218517*s+1.793965)*(s**2-0.3057194*s+4.752967);
+g=-4.714841d-3*(s**2+0.0218517*s+1.793965)*(s**2-0.3057194*s+4.752967);
 g=g*(s**2+0.4002371*s+4.812033)*(s-4.911808);
 g=g/((s**2)*(s**2+0.0221061*s+1.833885)*(s**2+7.392301d-3*s+3.18453));
 g=g/(s**2+2.716316d-2*s+4.624171);
@@ -468,4 +474,5 @@ w2=2*s/(s+100);
 P=[w1,-w1*g;
    0 , w2;
    1, -g];
+P = syslin("c", P);
 [sk,mu]=h_inf(P,[1,1],1,1,1);

@@ -51,7 +51,7 @@ public:
 
     virtual std::string toString(const unsigned int indentLevel) const;
 
-    virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const;
+    virtual std::string dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const;
 
     virtual void printData(std::ostream & os, const unsigned int pos, const unsigned int indentLevel) const;
 

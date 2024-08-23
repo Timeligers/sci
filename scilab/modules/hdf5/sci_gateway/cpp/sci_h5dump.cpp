@@ -48,7 +48,7 @@ int sci_h5dump(char *fname, int* pvApiCtx)
     char * expandedPath = 0;
     std::string name;
     std::string _expandedPath;
-    std::map<haddr_t, std::string> visited;
+    std::map<std::string, std::string> visited;
     bool mustDelete = true;
     const int nbIn = nbInputArgument(pvApiCtx);
 

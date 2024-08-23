@@ -855,7 +855,7 @@ void H5Type::getAccessibleAttribute(const std::string & _name, const int pos, vo
     H5Object::getAccessibleAttribute(_name, pos, pvApiCtx);
 }
 
-std::string H5Type::dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
+std::string H5Type::dump(std::map<std::string, std::string> & alreadyVisited, const unsigned int indentLevel) const
 {
     std::string sorder, ssign;
     std::ostringstream os;

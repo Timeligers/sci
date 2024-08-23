@@ -21,8 +21,8 @@
     <refsynopsisdiv>
         <title>Syntax</title>
         <synopsis><![CDATA[
-        cmap = <colormapfunction>() // Replace <colormapfunction> by the name of a function described below
-        cmap = <colormapfunction>(n)
+        cmap = $colormapfunction$() // Replace $colormapfunction$ by the name of a function described below
+        cmap = $colormapfunction$(n)
         ]]></synopsis>
     </refsynopsisdiv>
     <refsection>

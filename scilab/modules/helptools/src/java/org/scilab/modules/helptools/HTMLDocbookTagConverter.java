@@ -925,10 +925,10 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
      */
     public String handleLiterallayout(final Map<String, String> attributes, final String contents) throws SAXException {
 
-        //replace \n by <br>
-        String s = contents.replace("\n", "<BR>");
-        //replace spaces by &nbsp;
-        s = s.replace(" ", "&nbsp;");
+        //replace \n by <br/>
+        String s = contents.replace("\n", "<br/>");
+        //replace spaces by &#xA0;
+        s = s.replace(" ", "&#xA0;");
 
         return encloseContents("code", new String[] {"class", "literallayout", "dir", "ltr"}, s);
     }
@@ -1246,7 +1246,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
      */
     public String handleScreen(final Map<String, String> attributes, final String contents) throws SAXException {
         String id = attributes.get("id");
-        String str = encloseContents("div", "screen", encloseContents("pre", contents.replace("<", "&lt;")));
+        String str = encloseContents("div", "screen", encloseContents("pre", contents.replace("&", "&#x26;").replace("<", "&lt;")));
         if (id != null) {
             return "<a name=\"" + id + "\"></a>" + str;
         } else {
@@ -1416,6 +1416,8 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
         if (link == null) {
             throw new SAXException("No url attribute in tag ulink");
         }
+
+        link = link.replace("&", "&amp;");
 
         return encloseContents("a", new String[] {"href", link, "class", "ulink"}, contents);
     }

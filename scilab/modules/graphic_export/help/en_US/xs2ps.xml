@@ -77,7 +77,7 @@
         <programlisting role="example"><![CDATA[
 scf(0);
 plot2d();
-// Postcript export
+// Postscript export
 filename='foo.ps';
 xs2ps(0,filename);
  ]]></programlisting>
