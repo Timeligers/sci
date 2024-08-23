@@ -236,9 +236,7 @@ function fields = %h_fieldnames(h)
             "parent"
             "children"
             "visible"
-            "data.x"
-            "data.y"
-            "data.z"
+            "data"
             "data_mapping"
             "clip_state"
             "clip_box"
@@ -302,10 +300,7 @@ function fields = %h_fieldnames(h)
             "parent"
             "children"
             "visible"
-            "data.x"
-            "data.y"
-            "data.fx"
-            "data.fy"
+            "data"
             "line_style"
             "thickness"
             "colored"
@@ -536,6 +531,8 @@ function fields = %h_fieldnames(h)
             "Children"
             ]
         case "uicontrol"
+            fields=[];
+
             fields($ + 1)="Parent"
             fields($ + 1)="Children"
             fields($ + 1)="Style"
@@ -634,9 +631,8 @@ function fields = %h_fieldnames(h)
             "user_data"
             "tag"]
         end
-    end
-    if showHiddenProperties
-        fields= ["UID"; fields];
+        if showHiddenProperties
+            fields= ["UID"; fields];
+        end
     end
 endfunction
-
