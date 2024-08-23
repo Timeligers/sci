@@ -335,6 +335,11 @@ bool SciCurl::setCookies()
     return true;
 }
 
+int SciCurl::setTimeOut(double second)
+{
+    return curl_easy_setopt(_curl, CURLOPT_TIMEOUT_MS, (long)(second * 1000));
+}
+
 void SciCurl::addFileToForm(const char* name, const char* file)
 {
     curl_formadd(&_formpost,
