@@ -21,6 +21,7 @@
 #include "callable.hxx"
 #include "types_tools.hxx"
 #include "user.hxx"
+#include "graphichandle.hxx"
 
 
 extern "C"
@@ -36,6 +37,7 @@ extern "C"
 #include "freeArrayOfString.h"
 #include "charEncoding.h"
 #include "getfields.h"
+#include "HandleManagement.h"
 }
 
 static int isInitialized = 0;
@@ -103,17 +105,21 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
             types::typed_list in,out;
             types::Callable::ReturnValue ret;
 
+            if (getObjectFromHandle((long)pIT->getAs<types::GraphicHandle>()->get(0)) == 0)
+            {
+                return NULL;
+            }
+
             pIT->IncreaseRef();
             in.push_back(pIT);
             ret = Overload::call(L"%h_fieldnames", in, 1, out);
             pIT->DecreaseRef();
-            if (ret == types::Callable::OK_NoResult)
+            if (ret == types::Callable::OK_NoResult || out.size() != 1 || out[0]->isString() == false)
             {
-                return NULL;
+                return NULL;    
             }
             pFields = out[0]->getAs<types::String>();
             iSize = pFields->getSize();
-            pstData = pFields->get();
             iXlist = 0;
             break;            
         }
@@ -127,7 +133,6 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
             }
 
             iSize = pFields->getSize();
-            pstData = pFields->get();
             break;
         }
         case types::InternalType::ScilabTList:
@@ -140,7 +145,7 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
             in.push_back(pIT);
             ret = Overload::generateNameAndCall(L"fieldnames", in, 1, out, false, false);
             pIT->DecreaseRef();
-            if (ret == types::Callable::OK_NoResult)
+            if (ret == types::Callable::OK_NoResult || out.size() != 1 || out[0]->isString() == false)
             {
                 pFields = pIT->getAs<types::TList>()->getFieldNames();
 
@@ -150,19 +155,12 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
                 {
                     return NULL;
                 }
-
-                pstData = pFields->get();
                 iXlist = 1;                
             }
             else
             {
-                if (out.size() != 1 || out[0]->isString() == false)
-                {
-                    return NULL;
-                }
                 pFields = out[0]->getAs<types::String>();
                 iSize = pFields->getSize();
-                pstData = pFields->get();
                 iXlist = 0;
             }
             break;
@@ -182,13 +180,13 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
             }
 
             iSize = pFields->getSize();
-
-            pstData = pFields->get();
             break;
         }
         default:
             return NULL;
     }
+
+    pstData = pFields->get();
 
     int iLast = 0;
     char** _fields = (char**)MALLOC(sizeof(char*) * (iSize + 1));

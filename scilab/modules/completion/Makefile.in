@@ -734,6 +734,7 @@ libscicompletion_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
 	-I$(top_srcdir)/modules/localization/includes/ \
 	-I$(top_srcdir)/modules/graphics/includes/ \
+	-I$(top_srcdir)/modules/graphic_objects/includes/ \
     -I$(top_srcdir)/modules/fileio/includes/ \
     -I$(top_srcdir)/modules/string/includes/ \
     -I$(top_srcdir)/modules/xml/includes/ \
