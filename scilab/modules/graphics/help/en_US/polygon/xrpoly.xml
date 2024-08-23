@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xrpoly(orig,n,r,[theta])</synopsis>
+        <synopsis>xrpoly(orig,n,r,[theta])
+            h = xrpoly(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -47,6 +48,13 @@
                 <term>theta</term>
                 <listitem>
                     <para>real, angle in radian; 0 is the default value.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Polyline object.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

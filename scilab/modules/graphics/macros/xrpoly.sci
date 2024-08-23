@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function []=xrpoly(orig,n,r,theta)
+function varargout = xrpoly(orig,n,r,theta)
     // permet de tracer un polygone regulier
     //
     // orig : centre du polygone
@@ -25,9 +25,19 @@ function []=xrpoly(orig,n,r,theta)
     case 4 then b=[cos(theta) sin(theta); -sin(theta) cos(theta)];
     else error(msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected."), "xrpoly", 3, 4));
     end;
+    if lhs > 1 then
+        msg = gettext("%s: Wrong number of output argument(s): at most %d expected.\n")
+        error(msprintf(msg, "xrpoly", 1));
+    end
+
+
     //
     ang=2*%pi/n
     pt=(0:n)'*ang;xy=r*[cos(pt),sin(pt)]
     xy=ones(n+1,1)*matrix(orig,1,2)+xy*b;
-    xpoly(xy(:,1),xy(:,2),"lines",1);
+    h=xpoly(xy(:,1),xy(:,2),"lines",1);
+
+    if argn(1) == 1
+        varargout(1) = h;
+    end
 endfunction

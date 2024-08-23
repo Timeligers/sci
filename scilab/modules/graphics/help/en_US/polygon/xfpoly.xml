@@ -92,7 +92,7 @@ gca().foreground = 5;
 h = xfpoly(x,y);
 h.fill_mode='off'; // shows only the contour
 
-delete(e);
+delete(h);
 
 // Create a new polygon filled with color 3
 // and its contour drawn with the current color
