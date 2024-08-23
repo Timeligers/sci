@@ -147,7 +147,7 @@ const std::string XMLValidationRelaxNG::toString() const
     std::ostringstream oss;
 
     oss << "  type = \"XML Relax NG\"" << std::endl;
-    oss << "  No public information" << std::endl;
+    oss << "  No public information";
     return oss.str();
 }
 }
