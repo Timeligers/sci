@@ -18,7 +18,7 @@
 function z=ff(x,y),z=(2*x^2*y+y^2)/(x^2+2*y^2);endfunction
 x=-7:0.4:7;
 z=feval(x,x,ff);z(10 :15,17:22)=%nan;
-f=gcf();f.color_map=hotcolormap(128);// choix de table de couleur
+f=gcf();f.color_map=hot(128);// choix de table de couleur
 
 clf();surf(x,x,z)  
 

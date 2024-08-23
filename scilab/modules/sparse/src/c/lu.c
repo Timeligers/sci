@@ -128,13 +128,12 @@ void C2F(lufact1)(double *val, int *lln, int *col, int *n, int *nel,
 
     spGetNumRank(fmat, nrank);
 
-    if (error)
+    *ierr = error;
+    if (error != spSINGULAR && error > spSMALL_PIVOT)
     {
-        *ierr = error;
         removeluptr(*fmatindex);
         *fmatindex = 0;
         spDestroy(fmat);
-        return;
     }
 }
 

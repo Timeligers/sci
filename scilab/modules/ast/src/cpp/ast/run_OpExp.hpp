@@ -486,7 +486,7 @@ types::InternalType* RunVisitorT<T>::callOverloadOpExp(OpExp::Oper _oper, types:
         }
 
         _paramR->DecreaseRef();
-        return out[0];
+        return out.size() ? out[0] : nullptr;
     }
 
     _paramL->IncreaseRef();

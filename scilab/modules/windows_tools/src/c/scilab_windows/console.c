@@ -156,7 +156,7 @@ void CreateScilabConsole(int ShowBanner)
         printf(line);
         strcpy(line, "                     Dassault Systèmes\n");
         printf(line);
-        strcpy(line, "         Copyright (c) 2022-2023 (Dassault Systèmes)\n");
+        strcpy(line, "         Copyright (c) 2022-2024 (Dassault Systèmes)\n");
         printf(line);
         strcpy(line, "             Copyright (c) 2017-2022 (ESI Group)\n");
         printf(line);

@@ -21,15 +21,9 @@
 namespace ast
 {
 
-/** \name Visit Matrix Expressions nodes.
- ** \{ */
-void PrintVisitor::visit (const MatrixExp &e)
-{
+void PrintVisitor::printMatrixOrCellBody(const ast::exps_t& lines) {
     ast::exps_t::const_iterator	i, j;
-    *ostr << SCI_OPEN_MATRIX;
-    ++indent;
     bool is_last_matrix_line = false;
-    ast::exps_t lines = e.getLines();
     for (i = lines.begin() ; i != lines.end() ; )
     {
         bool addIndent = false;
@@ -72,6 +66,15 @@ void PrintVisitor::visit (const MatrixExp &e)
 
         ++i;
     }
+}
+
+/** \name Visit Matrix Expressions nodes.
+ ** \{ */
+void PrintVisitor::visit (const MatrixExp &e)
+{
+    *ostr << SCI_OPEN_MATRIX;
+    ++indent;
+    this->printMatrixOrCellBody(e.getLines());
     *ostr << SCI_CLOSE_MATRIX;
     --indent;
 }
@@ -113,27 +116,9 @@ void PrintVisitor::visit (const MatrixLineExp &e)
  ** \{ */
 void PrintVisitor::visit (const CellExp &e)
 {
-    ast::exps_t::const_iterator	i, j;
-
     *ostr << SCI_OPEN_CELL;
     ++indent;
-    ast::exps_t lines = e.getLines();
-    for (i = lines.begin() ; i != lines.end() ; )
-    {
-        if (displayOriginal)
-        {
-            (*i)->getOriginal()->accept(*this);
-        }
-        else
-        {
-            (*i)->accept(*this);
-        }
-        if (++i != lines.end())
-        {
-            *ostr << SCI_LINE_SEPARATOR << std::endl;
-            this->apply_indent();
-        }
-    }
+    this->printMatrixOrCellBody(e.getLines());
     *ostr << SCI_CLOSE_CELL;
     --indent;
 }
@@ -1066,9 +1051,36 @@ void PrintVisitor::visit (const VarDec  &e)
     }
 }
 
-void PrintVisitor::visit (const FunctionDec  &e)
+void PrintVisitor::visit (const FunctionDec &e)
 {
-    *ostr << SCI_FUNCTION << " ";
+    if (e.isLambda())
+    {
+        // Lambda
+        *ostr << SCI_LAMBDA << SCI_OPEN_ARGS;
+        if (displayOriginal)
+        {
+            e.getArgs().getOriginal()->accept(*this);
+        }
+        else
+        {
+            e.getArgs().accept(*this);
+        }
+        *ostr << SCI_CLOSE_ARGS << L" -> " << SCI_OPEN_LAMBDA << std::endl;
+
+        if (displayOriginal)
+        {
+            e.getBody().getOriginal()->accept(*this);
+        }
+        else
+        {
+            e.getBody().accept(*this);
+        }
+
+        *ostr << SCI_CLOSE_LAMBDA;
+        return;
+    }
+
+    *ostr << SCI_FUNCTION << L" ";
 
     // First ask if there are some return values.
     if (e.getReturns().getAs<ArrayListVar>()->getVars().size() > 1)
@@ -1090,10 +1102,10 @@ void PrintVisitor::visit (const FunctionDec  &e)
         *ostr << SCI_CLOSE_RETURNS;
     }
 
-    *ostr << " ";
+    *ostr << L" ";
     if (e.getReturns().getAs<ArrayListVar>()->getVars().size() > 0)
     {
-        *ostr << SCI_ASSIGN << " ";
+        *ostr << SCI_ASSIGN << L" ";
     }
 
     // Then get the function name

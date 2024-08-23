@@ -11,15 +11,15 @@ c For more information, see the COPYING file which you should have received
 c along with this program.
       function readinter(lunit,fmt)
 c     interface for "file" gateway
-        integer lunit, read_inter
+        integer lunit, readinter
         character*(*) fmt
 c
         read(lunit, fmt, err=20, end=30)
 c
-        read_inter = 0
+        readinter = 0
         return
-        read_inter = 2
-   20   return
-        read_inter = 1
-   30   return
+   20   readinter = 2
+        return
+   30   readinter = 1
+        return
       end

@@ -19,14 +19,14 @@
 
 cat(1,1,1);         // To load the function
 m = rand(250,250);
-tic();
+timer();
 r = cat(3, m, m);
-tnew = toc();
+tnew = timer()
 assert_checkequal(r(:,:,2), m);
 
 path = "SCI/modules/elementary_functions/tests/nonreg_tests/bug_8297_cat_old.sci";
 exec(path,-1);
-tic();
+timer();
 r = cat_old(3, m, m);
-told = toc();
+told = timer()
 assert_checktrue(told/tnew > 200);

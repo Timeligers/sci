@@ -25,8 +25,8 @@
     <refsynopsisdiv>
         <title>Syntax</title>
         <synopsis>
-            [result, status] = http_delete(url)
-            [result, status] = http_delete(url, &lt;opt_args>)
+            [result, status, headers] = http_delete(url)
+            [result, status, headers] = http_delete(url, &lt;opt_args>)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -126,7 +126,7 @@
                 <listitem>
                     <para>
                         Result is a string which contains the server answer or
-                        a scilab variable if the answer is in JSON format.
+                        a Scilab variable if the answer is in JSON format.
                     </para>
                 </listitem>
             </varlistentry>
@@ -135,6 +135,16 @@
                 <listitem>
                     <para>
                         HTTP response code.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>headers</term>
+                <listitem>
+                    <para>
+                        struct: HTTP headers of the request result.
+                        <warning>When the optional argument <literal>follow</literal> is set to <literal>%t</literal>,
+                        all headers are returned in a list that contains one struct per request made to follow redirections.</warning>
                     </para>
                 </listitem>
             </varlistentry>
@@ -218,6 +228,12 @@
                 <revnumber>6.1</revnumber>
                 <revremark>
                     Function introduced.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.1</revnumber>
+                <revremark>
+                    <literal>headers</literal> output argument added.
                 </revremark>
             </revision>
         </revhistory>

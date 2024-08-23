@@ -184,6 +184,7 @@ public class ScilabAboutBox {
             ackScrollPane = new JScrollPane();
             ackText = new JTextPane();
             ackText.setContentType("text/plain; charset=utf-8");
+            ackText.setEditable(false);
 
             setLayout(new BorderLayout());
 

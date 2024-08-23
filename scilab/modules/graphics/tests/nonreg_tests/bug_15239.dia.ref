@@ -17,12 +17,10 @@ c = get(0);
 c.userdata = [1 2 ; 3 4];
 c.tag = "myConsoleName";
 c
- c  = 
-Handle of type "Console" with properties:
-=========================================
-Children: []
-ShowHiddenHandles = "off"
-ShowHiddenProperties = "off"
-UseDeprecatedSkin = "off"
-user_data = [1,2;3,4]
-tag = "myConsoleName"
+ c = [Console] with properties:
+  Children = []
+  ShowHiddenHandles = "off"
+  ShowHiddenProperties = "off"
+  UseDeprecatedSkin = "off"
+  user_data = [1,2;3,4]
+  tag = "myConsoleName"

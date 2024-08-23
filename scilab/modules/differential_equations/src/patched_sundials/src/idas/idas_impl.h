@@ -1191,7 +1191,7 @@ int IDASensResDQ(int Ns, realtype t,
 #define MSGAM_BAD_SENSI    "At least one backward problem requires sensitivities, but they were not stored for interpolation."
 #define MSGAM_BAD_ITASKB   "Illegal value for itaskB. Legal values are IDA_NORMAL and IDA_ONE_STEP."
 #define MSGAM_BAD_TBOUT    "The final time tBout is outside the interval over which the forward problem was solved."
-#define MSGAM_BACK_ERROR   "Error occured while integrating backward problem # %d"
+#define MSGAM_BACK_ERROR   "Error occurred while integrating backward problem # %d"
 #define MSGAM_BAD_TINTERP  "Bad t = %g for interpolation."
 #define MSGAM_BAD_T        "Bad t for interpolation."
 #define MSGAM_WRONG_INTERP "This function cannot be called for the specified interp type."

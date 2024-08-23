@@ -22,12 +22,6 @@
         <refname>gettext</refname>
         <refpurpose>индексирует или/и переводит некоторые индексированные сообщения на английском языке</refpurpose>
     </refnamediv>
-    <refnamediv xml:id="_">
-        <refname>_</refname>
-        <refpurpose>
-            Псевдоним gettext().
-        </refpurpose>
-    </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
         <synopsis>

@@ -26,7 +26,7 @@
             <language code="ja_JP" desc="_(Japanese)"/>
             <language code="uk_UA" desc="_(Ukrainian)"/>
         </languages>
-        <java-heap-memory heap-size="512"/>
+        <java-heap-memory heap-size="0"/>
         <startup title="_(Start-up directory)" use="current" default="" previous=""/>
     </body>
     <confirmation-dialogs title="_(Confirmation dialogs)">
@@ -263,7 +263,7 @@
     </shortcuts>
     <documentation title="_(Help and demos)">
       <body>
-        <demos demoGUIisDockable="checked"/>
+        <demos demoGUIisDockable="unchecked"/>
         <help redirectMatlab2Scilab="unchecked"/>
       </body>
     </documentation>

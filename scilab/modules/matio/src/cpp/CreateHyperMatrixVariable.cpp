@@ -41,7 +41,6 @@ int CreateHyperMatrixVariable(void *pvApiCtx, int iVar, int type, int *iscomplex
     switch (type)
     {
         case MAT_C_DOUBLE: /* 6 */
-        case MAT_C_SINGLE: /* 7 */
         {
             types::Double* pDbl = new types::Double(rank[0], dims, (bool)(iscomplex[0] != 0));
             if (iscomplex[0])
@@ -55,6 +54,43 @@ int CreateHyperMatrixVariable(void *pvApiCtx, int iVar, int type, int *iscomplex
             else
             {
                 pDbl->set((double*)matVariable->data);
+            }
+
+            out[rhs - 1] = pDbl;
+        }
+        break;
+        case MAT_C_SINGLE: /* 7 */
+        {
+            types::Double* pDbl = NULL;
+            
+            if (iscomplex[0])
+            {
+                double* pdblR = NULL;
+                double* pdblI = NULL;
+                pDbl = new types::Double(rank[0], dims, &pdblR, &pdblI);
+                mat_complex_split_t* mat5ComplexData = NULL;
+                mat5ComplexData = (mat_complex_split_t*)matVariable->data;
+
+                if (pdblR && pdblI)
+                {
+                    for (int i = 0; i < pDbl->getSize(); ++i)
+                    {
+                        pdblR[i] = (double)((float*)mat5ComplexData->Re)[i];
+                        pdblI[i] = (double)((float*)mat5ComplexData->Im)[i];
+                    }
+                }
+            }
+            else
+            {
+                double* pdblR = NULL;
+                pDbl = new types::Double(rank[0], dims, &pdblR);
+                if (pdblR)
+                {
+                    for (int i = 0; i < pDbl->getSize(); ++i)
+                    {
+                        pdblR[i] = (double)((float*)matVariable->data)[i];
+                    }
+                }
             }
 
             out[rhs - 1] = pDbl;

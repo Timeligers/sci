@@ -114,7 +114,7 @@ protected:
 
         if (flip)
         {
-            for (int i = 0; i < ndims; i++)
+            for (int i = 0; i < (int)ndims; i++)
             {
                 _dims[i] = (int)dims[ndims - 1 - i];
             }

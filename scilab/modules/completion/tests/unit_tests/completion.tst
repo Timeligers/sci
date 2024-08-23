@@ -122,7 +122,7 @@ assert_checkequal(r, ["FUNCTION_COMPLETION"; "function_completion"]);
 // Filter argument
 
 r = completion("ho");
-assert_checkequal(r, ["home"; "horizontalalignment"; "horner"; "host"; "hotcolormap"; "householder"]);
+assert_checkequal(r, ["home"; "horizontalalignment"; "horner"; "host"; "hot"; "hotcolormap"; "hours"; "householder"]);
 
 r = completion("ho", "functions");
 assert_checkequal(r, "host");
@@ -131,7 +131,7 @@ r = completion("ho", "commands");
 assert_checkequal(r, []);
 
 r = completion("ho", "macros");
-assert_checkequal(r, ["horner"; "hotcolormap"; "householder"]);
+assert_checkequal(r, ["horner"; "hot"; "hotcolormap"; "hours"; "householder"]);
 
 r = completion("ho", "variables");
 assert_checkequal(r, "home");
@@ -170,7 +170,7 @@ assert_checkequal(r, []);
 assert_checkequal(functions, ["host"]);
 assert_checkequal(commands, []);
 assert_checkequal(variables, ["home"]);
-assert_checkequal(macros, ["horner"; "hotcolormap"; "householder"]);
+assert_checkequal(macros, ["horner"; "hot"; "hotcolormap"; "hours"; "householder"]);
 assert_checkequal(graphic_properties, ["horizontalalignment"]);
 assert_checkequal(files, []);
 

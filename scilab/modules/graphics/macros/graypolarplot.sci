@@ -20,7 +20,7 @@ function graypolarplot(theta,rho,z,varargin)
         z = 30+round(theta'*(1+rho.^2))
         clf()
         f = gcf()
-        f.color_map = hotcolormap(128)
+        f.color_map = hot(128)
         f.background= 128
         a = gca()
         a.background = 128

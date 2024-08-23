@@ -27,11 +27,13 @@ function [r]=mvcorrel(x)
     //Donnees et Statistique, Editions Technip, Paris, 1990.
     //
     //
-    [lhs,rhs]=argn(0)
-    if rhs <> 1 then error(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"mvcorrel",1)), end
+    arguments
+        x
+    end
+    
     if x==[] then s=%nan; return, end
-    [lx cx]=size(x)
-    if lx==1 then r=zeros(lx,cx), return, end
+    lx = size(x, 1)
+    if lx == 1 then r=zeros(x), return, end
     xbar=sum(x,"r")/lx
     r=x-ones(lx,1)*xbar
     std=(sum(r .^2,"r")) .^ .5

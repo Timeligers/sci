@@ -16,6 +16,7 @@
 #include "configvariable.hxx"
 #include "threadmanagement.hxx"
 #include "runner.hxx"
+#include "scilabexception.hxx"
 
 extern "C"
 {
@@ -62,9 +63,6 @@ int TCL_EvalScilabCmd(ClientData clientData, Tcl_Interp * theinterp, int objc, C
             // execute all commands before return to scilab prompt
             while (isEmptyCommandQueue() == false)
             {
-                // Wake up Runner waiting for my execution ends
-                ThreadManagement::SendAwakeRunnerSignal();
-                ThreadManagement::WaitForRunMeSignal();
                 try
                 {
                     StaticRunner_launch();
@@ -84,33 +82,6 @@ int TCL_EvalScilabCmd(ClientData clientData, Tcl_Interp * theinterp, int objc, C
             command_origin_t iCmdOrigin = NONE;
             isInterruptible = ( (argv[3] != (char *)0) && (strncmp(argv[3], "seq", 3) == 0) ) ? 0 : 1;
             StoreCommandWithFlags(pstCommand, 1/*is prioritary*/, isInterruptible, TCLSCI/*command origin*/);
-
-            // execute all commands stored before my TCL command
-            // then execute the TCL command before return to the scilab prompt
-            do
-            {
-                ThreadManagement::WaitForRunMeSignal();
-
-                // get the origin of the command
-                iCmdOrigin = StaticRunner_getCommandOrigin();
-                try
-                {
-                    StaticRunner_launch();
-                }
-                catch (const ast::InternalAbort& /*ia*/)
-                {
-                    return TCL_OK;
-                }
-                catch (const ast::ScilabException& /*e*/)
-                {
-                    return TCL_ERROR;
-                }
-
-                // Wake up Runner waiting for my execution ends
-                ThreadManagement::SendAwakeRunnerSignal();
-            }
-            // if the last command executed is not the TCL command, execute the next command.
-            while (iCmdOrigin != TCLSCI);
         }
         else
         {

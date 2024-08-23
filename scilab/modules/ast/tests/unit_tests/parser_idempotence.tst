@@ -1,37 +1,83 @@
 // =============================================================================
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2023 - Dassault Systemes - Bruno JOFRET
+// Copyright (C) 2023 - 3DS - Antoine ELIAS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// <-- CLI SHELL MODE -->
 // <-- NO CHECK REF -->
-// <-- LONG TIME EXECUTION -->
 
-// This tests runs all idempotence test on all Scilab macroFiles
-// Do not activate CLI SHELL MODE for this test since we want to check all Scilab macros
-// To be used when modifying the parser.
-// Run this test using: test_run("ast", "parser_idempotence", "enable_lt")
 
-function create_module_test(moduleName);
-    template = mgetl("SCI/modules/ast/tests/unit_tests/parser_idempotence.template");
-    template = strsubst(template, "<MODULENAME>", moduleName)
+function files = getsubfiles(path, ext)
+	files = [];
+	folders = ls(path + filesep() + "*");
+	for i = 1:size(folders, "*")
+		if isdir(folders(i)) then
+			files = [files; getsubfiles(folders(i), ext)];
+		end
+	end
 
-    testDir = fullfile(SCI, "modules", moduleName, "tests", "unit_tests")
-    if ~isdir(testDir) then // Create test directory if it does not exist
-        mkdir(fullfile(SCI, "modules", moduleName, "tests"), "unit_tests")
-    end
-
-    mputl(template, fullfile(testDir, "parser_idempotence_" + moduleName + ".tst"))
+	files = [files; ls(path + filesep() + ext)];
 endfunction
 
-exec("SCI/modules/ast/tests/unit_tests/parser_idempotence.sci", -1);
-allModules = gsort(ls("SCI/modules/"), "r", "i");
-for moduleName = allModules'
-    if isdir(fullfile(SCI, "modules", moduleName)) then
-        if isfile(fullfile(SCI, "modules", moduleName, "macros", "lib")) then // This module has macros
-            create_module_test(moduleName) // Deloying template
-            assert_checktrue(test_run(moduleName, "parser_idempotence_" + moduleName)); // Run test
-        end
-    end
-end
+function files = getfiles(subpath, ext)
+	//modules = getmodules();
+	modules = ls(fullfile(SCI, "modules"));
+	path = sprintf(strsubst(fullfile(SCI, "modules", "%s", subpath), "\", "\\") + "\n", modules);
+	
+	
+	files = getsubfiles(path, ext);
+
+	files(grep(files, "parser_idempotence.tst")) = [];
+
+	toremove = [];
+	for i = 1:size(files, "*")
+		txt = mgetl(files(i));
+		if grep(txt, "<-- " + "INTERACTIVE TEST" + " -->") <> [] then
+			toremove = [toremove;i];
+		elseif grep(txt, "<-- " + "NOT FIXED" + " -->") <> [] then
+			toremove = [toremove;i];
+		end
+	end
+
+	files(toremove) = [];
+endfunction
+
+totalsize = 0;
+// macros
+files = getfiles("macros", "*.sci");
+parser_idempotence(files);
+totalsize = totalsize + size(files, "*");
+
+// start
+files = getfiles("etc", "*.start");
+parser_idempotence(files);
+totalsize = totalsize + size(files, "*");
+
+// quit
+files = getfiles("etc", "*.quit");
+parser_idempotence(files);
+totalsize = totalsize + size(files, "*");
+
+// demos
+files = getfiles("demos", "*.sci");
+parser_idempotence(files);
+totalsize = totalsize + size(files, "*");
+
+// demos
+files = getfiles("demos", "*.sce");
+//parser_idempotence(files);
+totalsize = totalsize + size(files, "*");
+
+// unit_tests
+files = getfiles("tests" + filesep() + "unit_tests", "*.tst");
+parser_idempotence(files);
+totalsize = totalsize + size(files, "*");
+
+// nonreg_tests
+files = getfiles("tests" + filesep() + "nonreg_tests", "*.tst");
+parser_idempotence(files);
+totalsize = totalsize + size(files, "*");
+
+disp(totalsize);

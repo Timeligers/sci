@@ -143,6 +143,8 @@ Scilab a better software.
     - Bug fixes
     - Misc patches for macOS
     - macOS version build
+    - SUNDIALS solvers interface
+    - ColPack interface
 
 * Bruno Pinçon
     - UMFPACK interface

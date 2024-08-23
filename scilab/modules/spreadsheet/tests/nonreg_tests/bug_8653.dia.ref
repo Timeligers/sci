@@ -6,7 +6,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // 
-// <-- JAVA NOT MANDATORY -->
+// <-- CLI SHELL MODE -->
 //
 // <-- Non-regression test for bug 8653 -->
 //

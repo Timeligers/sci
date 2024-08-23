@@ -37,14 +37,13 @@ CC_OPTIONS = $(CC_COMMON) -W3 -Gd $(CC__OPTIMISATION_MODE) /Fo"$(DIR_OBJ)/" /Fd"
 CC_LDFLAGS = 
 #==================================================
 # Fortran Compiler 
-# default usage is to use f2c 
 #==================================================
-USE_F2C=YES
+USE_F2C=NO
 # detect intel fortran compiler
 !IF "$(IFORT_COMPILER23)" == ""
-!ELSEIF "$(IFORT_COMPILER22)" == ""
-!ELSE
-USE_F2C=NO
+!IF "$(IFORT_COMPILER22)" == ""
+USE_F2C=YES
+!ENDIF
 !ENDIF
 
 #==================================================

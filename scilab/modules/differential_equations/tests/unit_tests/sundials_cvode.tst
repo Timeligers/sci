@@ -222,12 +222,12 @@ rhoLin=rho*section;
 dx = L/N; x = linspace(dx,L-dx,N-1)';
 v0=zeros(N-1,1);
 t=[0 logspace(0,3,19)]; // vecteur des temps
-tic;
+timer();
 [t,v] = cvode(list(f_chaleur,dx,lambda,c,rhoLin),t,v0,method="BDF",rtol=1e-5,atol=1e-7);
-t1=toc();
-tic;
+t1=timer()
+
 v2=ode("stiff",v0,0,t,1e-5,1e-7,list(f_chaleur,dx,lambda,c,rhoLin));
-t2 = toc();
+t2 = timer()
 assert_checktrue(max(abs(v-v2)) < 1e-6);
 //assert_checktrue(t2>t1);
 

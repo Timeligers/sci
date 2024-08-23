@@ -197,7 +197,7 @@ void KINSOLManager::parseOptions(types::optional_list &opt)
         }
         else
         {
-            sprintf(errorMsg, _("%s: %ls are unkown or invalid (in this context) solver options.\n"), getSolverName().c_str(),wstr.str().c_str());
+            sprintf(errorMsg, _("%s: %ls are unknown or invalid (in this context) solver options.\n"), getSolverName().c_str(),wstr.str().c_str());
         }
         throw ast::InternalError(errorMsg);
     }

@@ -6,7 +6,6 @@
 
 function subdemolist = demo_gateway()
     demopath = get_absolute_file_path("sundials.dem.gateway.sce");
-    add_demo("Sundials", demopath + "sundials.dem.gateway.sce");
 
     subdemolist = ["Minimal surface", "minimal.dem.sce"
                   "Lorenz attractor", "lorenz.dem.sce"

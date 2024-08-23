@@ -167,7 +167,7 @@ function [tree]=sci_eye(tree)
         else
             tree.name="ones"
         end
-        tree.lhs(1).type=Type(Boolean,Real)
+        tree.lhs(1).type=Type(Boolean,Boolean)
         tree=Operation("==",list(tree,Cste(1)),tree.lhs)
     end
 endfunction

@@ -32,6 +32,7 @@
                             <para>A struct with options field names and corresponding values. Specifying the options with a struct allows to use the same
                                 options set in different solver calls. Values are overriden by separately setting individual options.</para>
                                 <programlisting role="example"><![CDATA[
+                                    OPT = struct();
                                     OPT.display = "iter";
                                     OPT.tol = 1e-6;
                                     OPT.stepTol = 1e-8;

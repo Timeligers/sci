@@ -637,19 +637,6 @@
                     <para>Структурная градуировка оси</para>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term>
-                    <link linkend="plotframe">plotframe</link>
-                </term>
-                <listitem>
-                    <para>
-                        Рисование рамки с масштабированием и сетками
-                        <warning>
-                            Эта функция устарела.
-                        </warning>
-                    </para>
-                </listitem>
-            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -746,7 +733,7 @@
             </varlistentry>
             <varlistentry>
                 <term>
-                    <link linkend="graycolormap">graycolormap</link>
+                    <link linkend="gray">gray</link>
                 </term>
                 <listitem>
                     <para>Линейная серая цветовая карта</para>
@@ -754,7 +741,7 @@
             </varlistentry>
             <varlistentry>
                 <term>
-                    <link linkend="hotcolormap">hotcolormap</link>
+                    <link linkend="hot">hot</link>
                 </term>
                 <listitem>
                     <para>Цветовая карта от красного до жёлтого</para>

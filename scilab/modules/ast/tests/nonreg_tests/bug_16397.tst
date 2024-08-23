@@ -16,11 +16,11 @@
 // display of long real vectors in the console is slow
 
 x=rand(1e4,1);
-tic;
+timer();
 disp(x)
-t1 = toc();
-tic;
+t1 = timer()
+
 disp([x,x])
-t2 = toc();
+t2 = timer()
 
 assert_checktrue(t2 > t1);

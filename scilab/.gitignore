@@ -2,6 +2,7 @@
 # Prerequirements
 #
 bin/xml2-config
+version.txt
 
 #
 # Linux objects files

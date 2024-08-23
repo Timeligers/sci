@@ -127,12 +127,13 @@ types::InternalType* CreateMatlabTreeVariable(matvar_t *matVariable)
         case MAT_C_CHAR: /* 4 */
         {
             types::String* pString = new types::String(piDims[0], 1);
+            int dataSize = matVariable->data_size;
             for(int i = 0; i < piDims[0]; ++i)
             {
                 char* pChar = (char*)MALLOC(sizeof(char) * (piDims[1] + 1));
                 for(int j = 0; j < piDims[1]; ++j)
                 {
-                    pChar[j] = ((char*)matVariable->data)[j * piDims[0] + i];
+                    pChar[j] = ((char*)matVariable->data)[j * piDims[0] * dataSize + (i * dataSize)];
                 }
                 pChar[piDims[1]] = '\0';
                 pString->set(i, pChar);

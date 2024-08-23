@@ -593,7 +593,7 @@ types::Function::ReturnValue sci_bvode(types::typed_list &in, int _iRetCount, ty
         DifferentialEquation::removeDifferentialEquationFunctions();
 
         wchar_t szError[bsiz];
-        os_swprintf(szError, bsiz, _W("%s: An error occurred in '%s' subroutine.\n").c_str(), "bvode", "bvode");
+        os_swprintf(szError, bsiz, _W("%ls: An error occurred in '%ls' subroutine.\n").c_str(), L"bvode", L"bvode");
         os << szError;
         throw ast::InternalError(os.str());
     }

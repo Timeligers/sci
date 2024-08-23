@@ -37,24 +37,23 @@ function demo_ourworldindata()
         // load the data
         my_handle.info_message = "Downloading data";
         if ~isfile("TMPDIR/owid-covid-data.csv") then
-            http_get("https://covid.ourworldindata.org/data/owid-covid-data.csv", "TMPDIR/owid-covid-data.csv");
+            http_get("https://covid.ourworldindata.org/data/owid-covid-data.csv", "TMPDIR/owid-covid-data.csv", follow=%t);
         end
         
         // reformat data as vectors stored in a single struct
         my_handle.info_message = "Reformat the data";
         fields = ["icu_patients_per_million" "excess_mortality_cumulative_per_million" "hosp_patients_per_million"]
-        if ~isdef("data") then
-            [S, header] = csvRead("TMPDIR/owid-covid-data.csv", ',', [], 'string', [], [], [], 1);
-            header = strsplit(header, ',')';
 
-            data = struct();
-            for c=unique(S(:, 3))'
-                mask = S(:,3) == c;
-                data(c).date = datenum(csvTextScan(S(mask, "date" == header), "-"));
-                for f=fields
-                    data(c)(f) = strtod(S(mask, f == header));
-                    data(c)(f)(isnan(data(c)(f))) = 0;
-                end
+        [S, header] = csvRead("TMPDIR/owid-covid-data.csv", ',', [], 'string', [], [], [], 1);
+        header = strsplit(header, ',')';
+
+        data = struct();
+        for c=unique(S(:, 3))'
+            mask = S(:,3) == c;
+            data(c).date = datenum(csvTextScan(S(mask, "date" == header), "-"));
+            for f=fields
+                data(c)(f) = strtod(S(mask, f == header));
+                data(c)(f)(isnan(data(c)(f))) = 0;
             end
         end
         my_handle.info_message = "Setup UI";
@@ -65,7 +64,14 @@ function demo_ourworldindata()
         selected_countries = countries(selected);
 
         // change colormap
-        my_handle.color_map = grand(1, "prm", hsvcolormap(size(countries, 1)));
+        my_handle.color_map =[0 0 1;
+            0 0.5 0;
+            1 0 0;
+            0 0.75 0.75;
+            .75 0 .75;
+            .75 .75 0;
+            .25 .25 .25;
+            0 0 0];
         // insert axes
         cframe = uicontrol(my_handle, "style", "frame", 'constraints', createConstraints('border', 'center'));
         a = newaxes(cframe);
@@ -95,6 +101,7 @@ function demo_ourworldindata()
     
     // plot the selected countries
     my_handle.info_message = "Plotting";
+    nbCol = size(my_handle.color_map,1);
     sca(a);
     indicators = findobj('groupname', "indicator");
     indicator = indicators.string(indicators.value <> 0);
@@ -105,10 +112,10 @@ function demo_ourworldindata()
         
         t = t(kv);
         v = n(kv);
-
-        plot2d(t, v, i);
+        plot2d(t, v, modulo(i-1,nbCol)+1);
         [?, j] = max(v);
         xstring(t(j), v(j), countries(i));
+        gce().clip_state = "off";
     end
     
     my_handle.info_message = "";

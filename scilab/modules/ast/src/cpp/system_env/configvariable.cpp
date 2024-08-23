@@ -21,6 +21,7 @@
 #include "macrofile.hxx"
 #include "threadId.hxx"
 #include "threadmanagement.hxx"
+
 #include <iomanip>
 #include <list>
 #include <vector>
@@ -1531,7 +1532,7 @@ int ConfigVariable::isScilabCommand()
 
 //debugger information
 bool ConfigVariable::m_bEnabledebug = false;
-std::unique_ptr<ast::ConstVisitor> ConfigVariable::m_defaultvisitor(nullptr);
+std::unique_ptr<ast::ConstVisitor> ConfigVariable::m_defaultvisitor(new ast::ExecVisitor());
 
 bool ConfigVariable::getEnableDebug()
 {
@@ -1642,4 +1643,16 @@ bool ConfigVariable::getWebMode()
 void ConfigVariable::setWebMode(bool _mode)
 {
     webMode = _mode;
+}
+
+// stdin redirected
+bool ConfigVariable::m_isatty = false;
+bool ConfigVariable::isatty()
+{
+    return m_isatty;
+}
+
+void ConfigVariable::setisatty(bool _isatty)
+{
+    m_isatty = _isatty;
 }

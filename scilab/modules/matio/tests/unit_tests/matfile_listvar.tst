@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
 filename=TMPDIR+"/test_matfile.mat";
 
@@ -27,8 +28,8 @@ assert_checkequal(name(4), "D");
 
 assert_checkequal(types(1), 9);
 assert_checkequal(types(2), 9);
-assert_checkequal(types(3), 2);
-assert_checkequal(types(4), 2);
+assert_checkequal(types(3), 16);
+assert_checkequal(types(4), 16);
 
 assert_checkequal(classes(1), 6);
 assert_checkequal(classes(2), 5);

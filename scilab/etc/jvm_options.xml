@@ -19,6 +19,9 @@ $SCILAB : scilab path (SCI in Scilab)
     <option value="-Djava.library.path="/>
     <option value="-Djava.class.path=$SCILAB/modules/jvm/jar/org.scilab.modules.jvm.jar"/>
     <option value="-Djava.system.class.loader=org.scilab.modules.jvm.ScilabClassLoader"/>
+    <!-- Use of Scilab class loader requires to disable class data sharing to hide a "Archived non-system classes are disabled" warning at startup -->
+    <!-- See https://gitlab.com/scilab/scilab/-/issues/17144 -->
+    <option value="-Xshare:off"/>
 
     <!-- Needed for Linux version startup -->
     <option value="--add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED" os="linux"/>
@@ -37,7 +40,9 @@ $SCILAB : scilab path (SCI in Scilab)
     <option value="-Djava.util.logging.config.file=$SCILAB/etc/logging.properties"/>
 
     <!-- Set Java Heap space to 256mb -->
+    <!--
     <option value="-Xmx256m"/>
+    -->
     <!-- Avoid jvm to handle sigint (& other signals)  -->
     <option value="-Xrs"/>
     <!--option value="-Djogl.debug=all"/-->
@@ -49,6 +54,11 @@ $SCILAB : scilab path (SCI in Scilab)
 
     <option value="-Dawt.useSystemAAFontSettings=on" os="linux"/>
     <option value="-Dapple.laf.useScreenMenuBar=true" os="macosx"/>
+
+    <!-- without this option TempFileCache leaves some files in TMPDIR, see https://gitlab.com/scilab/scilab/-/issues/17220 -->
+    <!-- you can log its behavior with <option value="-Djogamp.debug.TempFileCache=true" /> -->
+    <!-- workaround https://jogamp.org/bugzilla/show_bug.cgi?id=563 -->
+    <option value="-Djogamp.gluegen.UseTempJarCache=false"/>
     
     <!-- DISABLE Just In Time java compiler -->
     <!--

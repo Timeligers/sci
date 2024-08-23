@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- TEST WITH GRAPHIC -->
+// <-- NO CHECK REF -->
 
 // <-- Non-regression test for bug 2850 -->
 //
@@ -20,6 +21,7 @@
 clf();
 u=rand(2,10000);
 v=rand(2,10000);
-tic();
+timer();
 xpolys(u,v);
-toc();
+t1 = timer()
+if t1 > 10 then pause, end;

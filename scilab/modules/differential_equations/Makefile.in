@@ -130,12 +130,11 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/libxml2.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/macosx.m4 $(top_srcdir)/m4/mpi.m4 \
-	$(top_srcdir)/m4/ocaml.m4 $(top_srcdir)/m4/pcre.m4 \
-	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/m4/relocatable.m4 \
-	$(top_srcdir)/m4/swig.m4 $(top_srcdir)/m4/symlinks.m4 \
-	$(top_srcdir)/m4/tcltk.m4 $(top_srcdir)/m4/umfpack.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/mpi.m4 $(top_srcdir)/m4/ocaml.m4 \
+	$(top_srcdir)/m4/pcre.m4 $(top_srcdir)/m4/pkg.m4 \
+	$(top_srcdir)/m4/relocatable.m4 $(top_srcdir)/m4/swig.m4 \
+	$(top_srcdir)/m4/symlinks.m4 $(top_srcdir)/m4/tcltk.m4 \
+	$(top_srcdir)/m4/umfpack.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am \
@@ -368,6 +367,7 @@ am_libscisundials_la_OBJECTS =  \
 	src/patched_sundials/src/sunlinsol/spbcgs/libscisundials_la-sunlinsol_spbcgs.lo \
 	src/patched_sundials/src/sunlinsol/spfgmr/libscisundials_la-sunlinsol_spfgmr.lo \
 	src/patched_sundials/src/sunlinsol/spgmr/libscisundials_la-sunlinsol_spgmr.lo \
+	src/patched_sundials/src/sunlinsol/sptfqmr/libscisundials_la-sunlinsol_sptfqmr.lo \
 	src/patched_sundials/src/sunmatrix/band/libscisundials_la-sunmatrix_band.lo \
 	src/patched_sundials/src/sunmatrix/dense/libscisundials_la-sunmatrix_dense.lo \
 	src/patched_sundials/src/sunmatrix/sparse/libscisundials_la-sunmatrix_sparse.lo \
@@ -516,6 +516,7 @@ am__depfiles_remade = sci_gateway/cpp/$(DEPDIR)/libscidifferential_equations_la-
 	src/patched_sundials/src/sunlinsol/spbcgs/$(DEPDIR)/libscisundials_la-sunlinsol_spbcgs.Plo \
 	src/patched_sundials/src/sunlinsol/spfgmr/$(DEPDIR)/libscisundials_la-sunlinsol_spfgmr.Plo \
 	src/patched_sundials/src/sunlinsol/spgmr/$(DEPDIR)/libscisundials_la-sunlinsol_spgmr.Plo \
+	src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/libscisundials_la-sunlinsol_sptfqmr.Plo \
 	src/patched_sundials/src/sunmatrix/band/$(DEPDIR)/libscisundials_la-sunmatrix_band.Plo \
 	src/patched_sundials/src/sunmatrix/dense/$(DEPDIR)/libscisundials_la-sunmatrix_dense.Plo \
 	src/patched_sundials/src/sunmatrix/sparse/$(DEPDIR)/libscisundials_la-sunmatrix_sparse.Plo \
@@ -640,6 +641,7 @@ CFLAGS = @CFLAGS@
 CHECKSTYLE = @CHECKSTYLE@
 COBERTURA = @COBERTURA@
 COMMONS_BEANUTILS = @COMMONS_BEANUTILS@
+COMMONS_COLLECTIONS = @COMMONS_COLLECTIONS@
 COMMONS_IO = @COMMONS_IO@
 COMMONS_LOGGING = @COMMONS_LOGGING@
 CPP = @CPP@
@@ -678,12 +680,14 @@ FGREP = @FGREP@
 FILECMD = @FILECMD@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
-FOP = @FOP@
+FOP_CORE = @FOP_CORE@
+FOP_EVENT = @FOP_EVENT@
+FOP_UTIL = @FOP_UTIL@
 FREEHEP_GRAPHICS2D = @FREEHEP_GRAPHICS2D@
+FREEHEP_GRAPHICSBASE = @FREEHEP_GRAPHICSBASE@
 FREEHEP_GRAPHICSIO = @FREEHEP_GRAPHICSIO@
 FREEHEP_GRAPHICSIO_EMF = @FREEHEP_GRAPHICSIO_EMF@
 FREEHEP_IO = @FREEHEP_IO@
-FREEHEP_UTIL = @FREEHEP_UTIL@
 GENHTML = @GENHTML@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GIWS_BIN = @GIWS_BIN@
@@ -692,12 +696,14 @@ GMSGFMT = @GMSGFMT@
 GMSGFMT_015 = @GMSGFMT_015@
 GRAPHICS_ENABLE = @GRAPHICS_ENABLE@
 GREP = @GREP@
+GUAVA = @GUAVA@
 GUI_ENABLE = @GUI_ENABLE@
-HAMCREST = @HAMCREST@
 HAVE_CXX17 = @HAVE_CXX17@
 HDF5_CFLAGS = @HDF5_CFLAGS@
 HDF5_LIBS = @HDF5_LIBS@
 HELP_ENABLE = @HELP_ENABLE@
+HTTPCLIENT = @HTTPCLIENT@
+HTTPCORE = @HTTPCORE@
 INKSCAPE = @INKSCAPE@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -714,6 +720,9 @@ JAVA = @JAVA@
 JAVAC = @JAVAC@
 JAVAC_DEBUG = @JAVAC_DEBUG@
 JAVADOC = @JAVADOC@
+JAVAFX_BASE = @JAVAFX_BASE@
+JAVAFX_GRAPHICS = @JAVAFX_GRAPHICS@
+JAVAFX_SWING = @JAVAFX_SWING@
 JAVASCI_ENABLE = @JAVASCI_ENABLE@
 JAVAX_ANNOTATION = @JAVAX_ANNOTATION@
 JAVA_ENABLE = @JAVA_ENABLE@
@@ -729,6 +738,8 @@ JEUCLID_CORE = @JEUCLID_CORE@
 JGRAPHX = @JGRAPHX@
 JHALL = @JHALL@
 JLATEXMATH = @JLATEXMATH@
+JLATEXMATH_FONT_CYRILLIC = @JLATEXMATH_FONT_CYRILLIC@
+JLATEXMATH_FONT_GREEK = @JLATEXMATH_FONT_GREEK@
 JLATEXMATH_FOP = @JLATEXMATH_FOP@
 JOGL2 = @JOGL2@
 JROSETTA_API = @JROSETTA_API@
@@ -819,6 +830,7 @@ PYTHON = @PYTHON@
 RANLIB = @RANLIB@
 RELOCATABLE = @RELOCATABLE@
 RT_LIB = @RT_LIB@
+SAXON = @SAXON@
 SCILAB_BINARY_VERSION = @SCILAB_BINARY_VERSION@
 SCILAB_LIBRARY_VERSION = @SCILAB_LIBRARY_VERSION@
 SCILAB_VERSION_MAINTENANCE = @SCILAB_VERSION_MAINTENANCE@
@@ -848,8 +860,6 @@ UMFPACK_CFLAGS = @UMFPACK_CFLAGS@
 UMFPACK_ENABLE = @UMFPACK_ENABLE@
 UMFPACK_LIBS = @UMFPACK_LIBS@
 USE_NLS = @USE_NLS@
-VALGRIND_CFLAGS = @VALGRIND_CFLAGS@
-VALGRIND_LIBS = @VALGRIND_LIBS@
 VERSION = @VERSION@
 WITH_OCAML = @WITH_OCAML@
 WITH_TKSCI = @WITH_TKSCI@
@@ -859,6 +869,7 @@ XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
 XMKMF = @XMKMF@
 XMLGRAPHICS_COMMONS = @XMLGRAPHICS_COMMONS@
+XMLRESOLVER = @XMLRESOLVER@
 XML_APIS_EXT = @XML_APIS_EXT@
 XML_CONFIG = @XML_CONFIG@
 XML_FLAGS = @XML_FLAGS@
@@ -1201,6 +1212,7 @@ libscisundials_la_SOURCES = \
     src/patched_sundials/src/sunlinsol/spbcgs/sunlinsol_spbcgs.c \
     src/patched_sundials/src/sunlinsol/spfgmr/sunlinsol_spfgmr.c \
     src/patched_sundials/src/sunlinsol/spgmr/sunlinsol_spgmr.c \
+    src/patched_sundials/src/sunlinsol/sptfqmr/sunlinsol_sptfqmr.c \
     src/patched_sundials/src/sunmatrix/band/sunmatrix_band.c \
     src/patched_sundials/src/sunmatrix/dense/sunmatrix_dense.c \
     src/patched_sundials/src/sunmatrix/sparse/sunmatrix_sparse.c \
@@ -2063,6 +2075,15 @@ src/patched_sundials/src/sunlinsol/spgmr/$(DEPDIR)/$(am__dirstamp):
 src/patched_sundials/src/sunlinsol/spgmr/libscisundials_la-sunlinsol_spgmr.lo:  \
 	src/patched_sundials/src/sunlinsol/spgmr/$(am__dirstamp) \
 	src/patched_sundials/src/sunlinsol/spgmr/$(DEPDIR)/$(am__dirstamp)
+src/patched_sundials/src/sunlinsol/sptfqmr/$(am__dirstamp):
+	@$(MKDIR_P) src/patched_sundials/src/sunlinsol/sptfqmr
+	@: > src/patched_sundials/src/sunlinsol/sptfqmr/$(am__dirstamp)
+src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)
+	@: > src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/$(am__dirstamp)
+src/patched_sundials/src/sunlinsol/sptfqmr/libscisundials_la-sunlinsol_sptfqmr.lo:  \
+	src/patched_sundials/src/sunlinsol/sptfqmr/$(am__dirstamp) \
+	src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/$(am__dirstamp)
 src/patched_sundials/src/sunmatrix/band/$(am__dirstamp):
 	@$(MKDIR_P) src/patched_sundials/src/sunmatrix/band
 	@: > src/patched_sundials/src/sunmatrix/band/$(am__dirstamp)
@@ -2164,6 +2185,8 @@ mostlyclean-compile:
 	-rm -f src/patched_sundials/src/sunlinsol/spfgmr/*.lo
 	-rm -f src/patched_sundials/src/sunlinsol/spgmr/*.$(OBJEXT)
 	-rm -f src/patched_sundials/src/sunlinsol/spgmr/*.lo
+	-rm -f src/patched_sundials/src/sunlinsol/sptfqmr/*.$(OBJEXT)
+	-rm -f src/patched_sundials/src/sunlinsol/sptfqmr/*.lo
 	-rm -f src/patched_sundials/src/sunmatrix/band/*.$(OBJEXT)
 	-rm -f src/patched_sundials/src/sunmatrix/band/*.lo
 	-rm -f src/patched_sundials/src/sunmatrix/dense/*.$(OBJEXT)
@@ -2306,6 +2329,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/patched_sundials/src/sunlinsol/spbcgs/$(DEPDIR)/libscisundials_la-sunlinsol_spbcgs.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/patched_sundials/src/sunlinsol/spfgmr/$(DEPDIR)/libscisundials_la-sunlinsol_spfgmr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/patched_sundials/src/sunlinsol/spgmr/$(DEPDIR)/libscisundials_la-sunlinsol_spgmr.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/libscisundials_la-sunlinsol_sptfqmr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/patched_sundials/src/sunmatrix/band/$(DEPDIR)/libscisundials_la-sunmatrix_band.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/patched_sundials/src/sunmatrix/dense/$(DEPDIR)/libscisundials_la-sunmatrix_dense.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/patched_sundials/src/sunmatrix/sparse/$(DEPDIR)/libscisundials_la-sunmatrix_sparse.Plo@am__quote@ # am--include-marker
@@ -3001,6 +3025,13 @@ src/patched_sundials/src/sunlinsol/spgmr/libscisundials_la-sunlinsol_spgmr.lo: s
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/patched_sundials/src/sunlinsol/spgmr/libscisundials_la-sunlinsol_spgmr.lo `test -f 'src/patched_sundials/src/sunlinsol/spgmr/sunlinsol_spgmr.c' || echo '$(srcdir)/'`src/patched_sundials/src/sunlinsol/spgmr/sunlinsol_spgmr.c
 
+src/patched_sundials/src/sunlinsol/sptfqmr/libscisundials_la-sunlinsol_sptfqmr.lo: src/patched_sundials/src/sunlinsol/sptfqmr/sunlinsol_sptfqmr.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/patched_sundials/src/sunlinsol/sptfqmr/libscisundials_la-sunlinsol_sptfqmr.lo -MD -MP -MF src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/libscisundials_la-sunlinsol_sptfqmr.Tpo -c -o src/patched_sundials/src/sunlinsol/sptfqmr/libscisundials_la-sunlinsol_sptfqmr.lo `test -f 'src/patched_sundials/src/sunlinsol/sptfqmr/sunlinsol_sptfqmr.c' || echo '$(srcdir)/'`src/patched_sundials/src/sunlinsol/sptfqmr/sunlinsol_sptfqmr.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/libscisundials_la-sunlinsol_sptfqmr.Tpo src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/libscisundials_la-sunlinsol_sptfqmr.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/patched_sundials/src/sunlinsol/sptfqmr/sunlinsol_sptfqmr.c' object='src/patched_sundials/src/sunlinsol/sptfqmr/libscisundials_la-sunlinsol_sptfqmr.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/patched_sundials/src/sunlinsol/sptfqmr/libscisundials_la-sunlinsol_sptfqmr.lo `test -f 'src/patched_sundials/src/sunlinsol/sptfqmr/sunlinsol_sptfqmr.c' || echo '$(srcdir)/'`src/patched_sundials/src/sunlinsol/sptfqmr/sunlinsol_sptfqmr.c
+
 src/patched_sundials/src/sunmatrix/band/libscisundials_la-sunmatrix_band.lo: src/patched_sundials/src/sunmatrix/band/sunmatrix_band.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisundials_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/patched_sundials/src/sunmatrix/band/libscisundials_la-sunmatrix_band.lo -MD -MP -MF src/patched_sundials/src/sunmatrix/band/$(DEPDIR)/libscisundials_la-sunmatrix_band.Tpo -c -o src/patched_sundials/src/sunmatrix/band/libscisundials_la-sunmatrix_band.lo `test -f 'src/patched_sundials/src/sunmatrix/band/sunmatrix_band.c' || echo '$(srcdir)/'`src/patched_sundials/src/sunmatrix/band/sunmatrix_band.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/patched_sundials/src/sunmatrix/band/$(DEPDIR)/libscisundials_la-sunmatrix_band.Tpo src/patched_sundials/src/sunmatrix/band/$(DEPDIR)/libscisundials_la-sunmatrix_band.Plo
@@ -3326,6 +3357,7 @@ clean-libtool:
 	-rm -rf src/patched_sundials/src/sunlinsol/spbcgs/.libs src/patched_sundials/src/sunlinsol/spbcgs/_libs
 	-rm -rf src/patched_sundials/src/sunlinsol/spfgmr/.libs src/patched_sundials/src/sunlinsol/spfgmr/_libs
 	-rm -rf src/patched_sundials/src/sunlinsol/spgmr/.libs src/patched_sundials/src/sunlinsol/spgmr/_libs
+	-rm -rf src/patched_sundials/src/sunlinsol/sptfqmr/.libs src/patched_sundials/src/sunlinsol/sptfqmr/_libs
 	-rm -rf src/patched_sundials/src/sunmatrix/band/.libs src/patched_sundials/src/sunmatrix/band/_libs
 	-rm -rf src/patched_sundials/src/sunmatrix/dense/.libs src/patched_sundials/src/sunmatrix/dense/_libs
 	-rm -rf src/patched_sundials/src/sunmatrix/sparse/.libs src/patched_sundials/src/sunmatrix/sparse/_libs
@@ -3640,6 +3672,8 @@ distclean-generic:
 	-rm -f src/patched_sundials/src/sunlinsol/spfgmr/$(am__dirstamp)
 	-rm -f src/patched_sundials/src/sunlinsol/spgmr/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/patched_sundials/src/sunlinsol/spgmr/$(am__dirstamp)
+	-rm -f src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/patched_sundials/src/sunlinsol/sptfqmr/$(am__dirstamp)
 	-rm -f src/patched_sundials/src/sunmatrix/band/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/patched_sundials/src/sunmatrix/band/$(am__dirstamp)
 	-rm -f src/patched_sundials/src/sunmatrix/dense/$(DEPDIR)/$(am__dirstamp)
@@ -3788,6 +3822,7 @@ distclean: distclean-am
 	-rm -f src/patched_sundials/src/sunlinsol/spbcgs/$(DEPDIR)/libscisundials_la-sunlinsol_spbcgs.Plo
 	-rm -f src/patched_sundials/src/sunlinsol/spfgmr/$(DEPDIR)/libscisundials_la-sunlinsol_spfgmr.Plo
 	-rm -f src/patched_sundials/src/sunlinsol/spgmr/$(DEPDIR)/libscisundials_la-sunlinsol_spgmr.Plo
+	-rm -f src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/libscisundials_la-sunlinsol_sptfqmr.Plo
 	-rm -f src/patched_sundials/src/sunmatrix/band/$(DEPDIR)/libscisundials_la-sunmatrix_band.Plo
 	-rm -f src/patched_sundials/src/sunmatrix/dense/$(DEPDIR)/libscisundials_la-sunmatrix_dense.Plo
 	-rm -f src/patched_sundials/src/sunmatrix/sparse/$(DEPDIR)/libscisundials_la-sunmatrix_sparse.Plo
@@ -3972,6 +4007,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f src/patched_sundials/src/sunlinsol/spbcgs/$(DEPDIR)/libscisundials_la-sunlinsol_spbcgs.Plo
 	-rm -f src/patched_sundials/src/sunlinsol/spfgmr/$(DEPDIR)/libscisundials_la-sunlinsol_spfgmr.Plo
 	-rm -f src/patched_sundials/src/sunlinsol/spgmr/$(DEPDIR)/libscisundials_la-sunlinsol_spgmr.Plo
+	-rm -f src/patched_sundials/src/sunlinsol/sptfqmr/$(DEPDIR)/libscisundials_la-sunlinsol_sptfqmr.Plo
 	-rm -f src/patched_sundials/src/sunmatrix/band/$(DEPDIR)/libscisundials_la-sunmatrix_band.Plo
 	-rm -f src/patched_sundials/src/sunmatrix/dense/$(DEPDIR)/libscisundials_la-sunmatrix_dense.Plo
 	-rm -f src/patched_sundials/src/sunmatrix/sparse/$(DEPDIR)/libscisundials_la-sunmatrix_sparse.Plo

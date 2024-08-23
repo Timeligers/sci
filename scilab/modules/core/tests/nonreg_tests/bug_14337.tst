@@ -27,7 +27,8 @@ assert_checkequal(ierr, 0);
 
 expected = [
 "";
-" ans  =";
+"";
+" ans = ";
 "";
 "   2.";
 ""

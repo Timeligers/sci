@@ -19,8 +19,8 @@
 #include <wchar.h>
 #include "dynlib_string.h"
 
-// because of string 'd' and 'D' have been removed from the convertion of wcstod,
-// this function will allow the convertion of strings which use theses characteres
+// because of string 'd' and 'D' have been removed from the conversion of wcstod,
+// this function will allow the conversion of strings which use theses characteres
 // to keep compatibility
 STRING_IMPEXP double os_wcstod(wchar_t *_pwstData, wchar_t** _pswtState);
 

@@ -19,8 +19,8 @@
           xml:id="regexp" xml:lang="pt">
     <refnamediv>
         <refname>regexp</refname>
-        <refpurpose>acha um string que corresponde ao string de expressão
-            regular
+        <refpurpose>
+            em uma string, localize (e extraia) substrings correspondentes a uma expressão regular
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>

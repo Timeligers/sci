@@ -1283,26 +1283,43 @@ Index: patched_sundials/src/idas/idas.c
  /*
   * Control constants for sensitivity DQ
   * ------------------------------------
-@@ -2701,6 +2708,18 @@ int IDASolve(void *ida_mem, realtype tou
+@@ -2540,6 +2547,16 @@ int IDASolve(void *ida_mem, realtype tou
+           SUNDIALS_MARK_FUNCTION_END(IDA_PROFILER);
+           return(IDA_RTFUNC_FAIL);
+         }
++        /* SUNDIALS EXTENSION */
++        if (is_sundials_with_extension())
++        {
++          if (ier == ZERODETACHING)    /* Zero detaching */
++          {
++            IDA_mem->ida_irfnd = 1;
++            IDA_mem->ida_tretlast = *tret = IDA_mem->ida_tlo;
++            return(IDA_ZERO_DETACH_RETURN);
++          }
++        }
+       }
+ 
+     } /* end of root stop check */
+@@ -2701,6 +2718,18 @@ int IDASolve(void *ida_mem, realtype tou
          break;
        }
  
 +      /* SUNDIALS EXTENSION */
 +      if (is_sundials_with_extension())
 +      {
-+          if (ier == ZERODETACHING)    /* Zero detaching */
-+          {
-+              IDA_mem->ida_irfnd = 1;
-+              istate = IDA_ZERO_DETACH_RETURN;
-+              IDA_mem->ida_tretlast = *tret = IDA_mem->ida_tlo;
-+              break;
-+          }
++        if (ier == ZERODETACHING)    /* Zero detaching */
++        {
++          IDA_mem->ida_irfnd = 1;
++          istate = IDA_ZERO_DETACH_RETURN;
++          IDA_mem->ida_tretlast = *tret = IDA_mem->ida_tlo;
++          break;
++        }
 +      }
 +
        /* If we are at the end of the first step and we still have
         * some event functions that are inactive, issue a warning
         * as this may indicate a user error in the implementation
-@@ -7245,7 +7264,7 @@ static realtype IDAQuadSensWrmsNormUpdat
+@@ -7245,7 +7274,7 @@ static realtype IDAQuadSensWrmsNormUpdat
   *  IDA_SUCCESS     = 0 otherwise.
   */
  
@@ -1311,7 +1328,7 @@ Index: patched_sundials/src/idas/idas.c
  {
    int i, retval;
    realtype smallh, hratio, tplus;
-@@ -7314,7 +7333,7 @@ static int IDARcheck1(IDAMem IDA_mem)
+@@ -7314,7 +7343,7 @@ static int IDARcheck1(IDAMem IDA_mem)
   *     IDA_SUCCESS     = 0 otherwise.
   */
  
@@ -1320,7 +1337,7 @@ Index: patched_sundials/src/idas/idas.c
  {
    int i, retval;
    realtype smallh, hratio, tplus;
-@@ -7388,7 +7407,7 @@ static int IDARcheck2(IDAMem IDA_mem)
+@@ -7388,7 +7417,7 @@ static int IDARcheck2(IDAMem IDA_mem)
   *     IDA_SUCCESS     = 0 otherwise.
   */
  
@@ -1329,7 +1346,7 @@ Index: patched_sundials/src/idas/idas.c
  {
    int i, ier, retval;
  
-@@ -7510,7 +7529,7 @@ static int IDARcheck3(IDAMem IDA_mem)
+@@ -7510,7 +7539,7 @@ static int IDARcheck3(IDAMem IDA_mem)
   *
   */
  
@@ -1338,7 +1355,7 @@ Index: patched_sundials/src/idas/idas.c
  {
    realtype alph, tmid, gfrac, maxfrac, fracint, fracsub;
    int i, retval, imax, side, sideprev;
-@@ -8105,3 +8124,461 @@ void IDAErrHandler(int error_code, const
+@@ -8105,3 +8134,461 @@ void IDAErrHandler(int error_code, const
  
    return;
  }
@@ -1821,3 +1838,22 @@ Index: patched_sundials/src/sundials/sundials_math.c
 +    return(floor(x));
 +#endif
 +}
+Index: patched_sundials/src/idas/idas_ic.c
+===================================================================
+--- patched_sundials.orig/src/idas/idas_ic.c
++++ patched_sundials/src/idas/idas_ic.c
+@@ -319,6 +319,14 @@ int IDACalcIC(void *ida_mem, int icopt,
+ 
+   }   /* End of nwt loop */
+ 
++  /* SUNDIALS EXTENSION */
++  if (is_sundials_with_extension())
++  {
++      /* in order to return computed new values even if they are not consistent*/
++      N_VScale(ONE, IDA_mem->ida_yy0, IDA_mem->ida_phi[0]);
++      N_VScale(ONE, IDA_mem->ida_yp0, IDA_mem->ida_phi[1]);
++  }
++
+   /* Load the optional outputs. */
+ 
+   if(icopt == IDA_YA_YDP_INIT)   IDA_mem->ida_hused = hic;

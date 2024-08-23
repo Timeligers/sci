@@ -543,10 +543,12 @@ public :
     static void decreaseRecursion();
 private:
     static bool webMode;
+    static bool m_isatty;
 public:
     static bool getWebMode();
     static void setWebMode(bool);
-
+    static bool isatty();
+    static void setisatty(bool);
 };
 
 #endif /* !__CONFIGVARIABLE_HXX__ */

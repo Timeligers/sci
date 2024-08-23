@@ -751,7 +751,7 @@ msgstr ""
 #
 # File: modules/api_scilab/src/cpp/api_stack_optional.cpp, line: 61
 #, c-format
-msgid "%ls: Unrecognized optional arguments %ls.\n"
+msgid "%s: Unrecognized optional arguments %s.\n"
 msgstr ""
 
 #

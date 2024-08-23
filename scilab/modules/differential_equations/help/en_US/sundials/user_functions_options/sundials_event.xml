@@ -67,7 +67,7 @@
                 events, <literal>ye</literal> an array with solution at each event time
                 (<literal>ype</literal> gives the derivative of the solution in the case of a DAE)
                 and <literal>ie</literal> is a matrix with as many lines as the number of event functions and as many columns
-                of events having occured. Typically <literal>info.ie(i,j)</literal> will be 1 or -1 when event function <literal>i</literal>
+                of events having occurred. Typically <literal>info.ie(i,j)</literal> will be 1 or -1 when event function <literal>i</literal>
                 vanishes at time <literal>info.te(j)</literal> with corresponding sign of its derivative (two event functions can vanish
                 at the same time).
            General information about the different ways of providing a user function (and 

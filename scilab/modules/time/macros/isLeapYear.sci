@@ -17,15 +17,12 @@
 // Si l'année est divisible par 400 => Année bissextile
 // =============================================================================
 
-function Rep=isLeapYear(year)
+function res = isLeapYear(y)
 
-    lhs=argn(1);
-    rhs=argn(2);
-
-    if rhs==1 & type(year)==1 then
-        Rep = ((modulo(year,100)<>0) & (modulo(year,4)==0)) | (modulo(year,400)== 0);
-    else
-        error(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"isLeapYear",1));
+    arguments
+        y {mustBeA(y, "double")}
     end
+
+    res = ((modulo(y, 100) <> 0) & (modulo(y, 4) == 0)) | (modulo(y, 400) == 0);
 
 endfunction

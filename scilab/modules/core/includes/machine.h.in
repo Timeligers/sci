@@ -49,6 +49,9 @@
 /* uses G95 fortran */
 #undef G95_FORTRAN
 
+/* Define to 1 if you have the <archive.h> header file. */
+#undef HAVE_ARCHIVE_H
+
 /* Define to 1 if you have the `atexit' function. */
 #undef HAVE_ATEXIT
 
@@ -163,6 +166,9 @@
 
 /* Define to 1 if you have the `iswprint' function. */
 #undef HAVE_ISWPRINT
+
+/* Define to 1 if you have the `archive' library (-larchive). */
+#undef HAVE_LIBARCHIVE
 
 /* Define to 1 if you have the `curl' library (-lcurl). */
 #undef HAVE_LIBCURL
@@ -426,6 +432,18 @@
 /* Define to the value of ${prefix}, as a string. */
 #undef INSTALLPREFIX
 
+/* If it is KLU/Suitesparse or KLU standalone */
+#undef KLU_SUITESPARSE
+
+/* LIBARCHIVE flags */
+#undef LIBARCHIVE_CFLAGS
+
+/* LIBARCHIVE library */
+#undef LIBARCHIVE_LIBS
+
+/* LIBARCHIVE version */
+#undef LIBARCHIVE_VERSION
+
 /* libXML2 flags */
 #undef LIBXML_FLAGS
 
@@ -495,9 +513,6 @@
 /* If it is UMFPACK/Suitesparse or UMFPACK standalone */
 #undef UMFPACK_SUITESPARSE
 
-/* Enable valgrind specific tweaks */
-#undef VALGRIND_ENABLE
-
 /* Version number of package */
 #undef VERSION
 
@@ -512,6 +527,9 @@
 
 /* With the HDF5 library */
 #undef WITH_HDF5
+
+/* With the KLU library */
+#undef WITH_KLU
 
 /* With the MATIO library */
 #undef WITH_MATIO

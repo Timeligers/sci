@@ -22,13 +22,7 @@ function f=%r_p_s(f,s)
     if ms==1&ns==1 then
         if m==n then //square matrix exponentiation f^s
             if s==0 then f=rlist(eye(m,n),eye(m,n),f("dt")),return,end
-            if s<0 then
-                num=f("num")
-                if or(abs(coeff(num(:)))*ones(max(0,max(degree(num)))+1,1)==0) then
-                    error(_("Division by zero"))
-                end
-                f=invr(f),s=-s,
-            end
+            if s<0 then f=invr(f),s=-s,end
             f1=f;for k=2:s,f=f*f1;end
         else
         msg = _("%s: Argument #%d: Square matrix expected.\n")

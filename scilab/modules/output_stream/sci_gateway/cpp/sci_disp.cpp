@@ -18,6 +18,8 @@
 #include "function.hxx"
 #include "scilabWrite.hxx"
 #include "types_tools.hxx"
+#include "visitor_common.hxx"
+#include "configvariable.hxx"
 
 extern "C"
 {
@@ -35,7 +37,31 @@ types::Function::ReturnValue sci_disp(types::typed_list &in, int _iRetCount, typ
 
     for (auto it : in)
     {
-        scilabForcedWriteW(L"\n");
+        std::wostringstream ostr;
+ 
+        if (ConfigVariable::isPrintCompact() == false)
+        {
+            ostr << std::endl;
+        }
+        
+        //show more information that only data
+        std::vector<std::wstring> whitelist = {L"handle", L"struct", L"sparse", L"boolean sparse", L"XMLDoc", L"_EObj", L"lss", L"zpk"};
+
+        std::wstring type = it->getTypeStr();
+        if (std::find(whitelist.begin(), whitelist.end(), type) != whitelist.end())
+        {
+            std::wstring wStrOutline = printTypeDimsInfo(it);
+            if (wStrOutline != L"")
+            {
+                ostr << L"  " << wStrOutline.c_str() << std::endl;
+                if (ConfigVariable::isPrintCompact() == false)
+                {
+                    ostr << std::endl;
+                }
+            }
+        }
+
+        scilabForcedWriteW(ostr.str().c_str());
         if (VariableToString(it, SPACES_LIST) == types::Function::Error)
         {
             return types::Function::Error;

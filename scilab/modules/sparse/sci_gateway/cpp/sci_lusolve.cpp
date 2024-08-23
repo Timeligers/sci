@@ -100,25 +100,28 @@ types::Function::ReturnValue sci_lusolve(types::typed_list &in, int _iRetCount, 
         C2F(lufact1)(dbl, itemsRow, colPos, &m1, &nonZeros, &fmatindex, &abstol, &reltol, &nrank, &ierr);
         switch (ierr)
         {
+            case spOKAY:
+                break;
+            case spSMALL_PIVOT:
+                Sciwarning(_("%s: Warning: Matrix is singular at precision level.\n"), "lusolve");
+                break;
             case spZERO_DIAG:
                 Scierror(999, _("%s: A zero was encountered on the diagonal the matrix.\n"), "lusolve");
+                break;
+            case spSINGULAR:
+                Sciwarning(_("%s: Warning: Matrix is singular.\n"), "lusolve");
                 break;
             case spNO_MEMORY:
                 Scierror(999, _("%s: Memory allocation error.\n"), "lusolve");
                 break;
-            case spSINGULAR:
-                Scierror(999, _("%s: Matrix is singular.\n"), "lusolve");
-                break;
-            case spSMALL_PIVOT:
-                Sciwarning(_("%s: Matrix is singular at precision level.\n"), "lusolve");
-                break;
-            case spOKAY:
+            case spPANIC:
+                Scierror(77, _("%s: Error during LU factorization.\n"), "lusolve");
                 break;
             default:
                 Scierror(77, _("%s: Error during LU factorization.\n"), "lusolve");
                 break;
         }
-        if (ierr >= spSINGULAR)
+        if (ierr != spSINGULAR && ierr > spSMALL_PIVOT)
         {
             delete[] dbl;
             delete[] colPos;

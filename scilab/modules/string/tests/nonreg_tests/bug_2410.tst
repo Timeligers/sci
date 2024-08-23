@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
 // <-- Non-regression test for bug 2410 -->
 //
@@ -15,7 +16,7 @@
 // <-- Short Description -->
 //    string(boolean array) is incredibly slow
 
-tic();
+timer();
 string(zeros(1,10000)==1);
-a = toc();
+a = timer()
 if a > 0.1 then pause,end

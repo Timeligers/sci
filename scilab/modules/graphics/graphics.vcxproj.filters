@@ -1139,9 +1139,6 @@
     <ClCompile Include="src\c\getHandleProperty\get_image_type_property.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\configgraphicvariable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sci_gateway\c\sci_light.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1325,12 +1322,6 @@
     <ClCompile Include="sci_gateway\cpp\sci_winsid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sci_gateway\cpp\sci_xget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sci_gateway\cpp\sci_xset.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sci_gateway\cpp\sci_glue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1475,9 +1466,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\c\loadTextRenderingAPI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\configgraphicvariable.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\Light.h">

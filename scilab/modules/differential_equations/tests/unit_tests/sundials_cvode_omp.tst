@@ -46,8 +46,8 @@ if with_openmp
     "    }"
     "    return 0;"
     "}"
-    ],"code.c");
-    SUN_Clink("f","code.c",load=%t,cflags="-O3 -fopenmp");
+    ],TMPDIR+"/code.c");
+    SUN_Clink("f",TMPDIR+"/code.c",load=%t,cflags="-O3 -fopenmp");
     
     n = 80; //n should be even n = 80 yields 80^3=512000 states 
     n2 = n*n;
@@ -59,7 +59,7 @@ if with_openmp
         rtol=1e-3,atol=1e-3,nbThreads=NUM_THREADS);
     
     // don't pass -fopenmp => ignore pragma directive in source
-    SUN_Clink("f","code.c",load=%t,cflags="-O3");
+    SUN_Clink("f",TMPDIR+"/code.c",load=%t,cflags="-O3");
     
     [t,f,info2]=cvode(list("f",[n dx]),0.5,f0,t0=0,method="BDF",linearSolver="CG",...
         rtol=1e-3,atol=1e-3);

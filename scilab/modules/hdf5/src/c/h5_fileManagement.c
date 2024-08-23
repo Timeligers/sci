@@ -186,7 +186,9 @@ int isHDF5File(const char* _pstFilename)
     }
     FREE(pathdest);
 
-    iRet = H5Fis_hdf5(filename);
+    hid_t fapl = H5Pcreate(H5P_FILE_ACCESS);
+    H5Pset_fclose_degree(fapl, H5F_CLOSE_STRONG);
+    iRet = H5Fis_accessible(filename, fapl);
     if (iRet == 0)
     {
         HDF5ErrorCleanup();

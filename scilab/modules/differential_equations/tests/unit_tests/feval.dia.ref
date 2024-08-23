@@ -38,8 +38,8 @@ function y = fcninput(fcnname, x)
   y = feval(x,fcnname)
 endfunction
 fcninput(plip,1:10)
- ans  =
+ ans = [1x10 double]
   -2.  -4.  -4.  -2.   2.   8.   16.   26.   38.   52.
 fcninput(plop,1:10)
- ans  =
+ ans = [1x10 double]
    1.   3.   5.   7.   9.   11.   13.   15.   17.   19.

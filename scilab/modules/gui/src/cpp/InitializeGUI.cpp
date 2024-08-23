@@ -40,11 +40,9 @@ BOOL InitializeGUI()
         {
             org_scilab_modules_gui_bridge::CallScilabBridge::registerSwingView(getScilabJavaVM());
         }
-
-        return TRUE;
     }
 
-    return FALSE;
+    return TRUE;
 }
 
 /*--------------------------------------------------------------------------*/

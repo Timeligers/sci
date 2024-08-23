@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- TEST WITH GRAPHIC -->
+// <-- NO CHECK REF -->
 
 // <-- Non-regression test for bug 3056 -->
 //
@@ -62,7 +63,7 @@ fn_1 = list();
 gn_1 = list();
 [f_tmp, df_tmp, ind] = myf(x0,1);
 fn_1($+1) = f_tmp;
-gn_1($+1) = df_tmp
+gn_1($+1) = df_tmp;
 
 to_record = %f;
 

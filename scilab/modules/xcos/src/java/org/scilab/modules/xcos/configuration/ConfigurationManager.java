@@ -67,6 +67,7 @@ import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosConstants;
 import org.scilab.modules.xcos.utils.XcosMessages;
 import org.xml.sax.SAXException;
+import org.scilab.modules.gui.filechooser.FileChooser;
 
 /**
  * Entry point to manage the configuration
@@ -573,7 +574,7 @@ public final class ConfigurationManager {
      * @param fc
      *            any file chooser
      */
-    public static void configureCurrentDirectory(JFileChooser fc) {
+    public static void configureCurrentDirectory(Object fc) {
         final ConfigurationManager manager = ConfigurationManager.getInstance();
         final Iterator<DocumentType> recentFiles = manager.getSettings().getRecent().iterator();
 
@@ -585,8 +586,13 @@ public final class ConfigurationManager {
             } catch (URISyntaxException e) {
             }
         }
-
-        fc.setCurrentDirectory(lastFile);
+        if (lastFile != null) {
+            if (fc instanceof JFileChooser) {
+                ((JFileChooser) fc).setCurrentDirectory(lastFile);
+            } else if (fc instanceof FileChooser) {
+                ((FileChooser) fc).setInitialDirectory(lastFile.getPath());                
+            }
+        }
     }
 
     /*

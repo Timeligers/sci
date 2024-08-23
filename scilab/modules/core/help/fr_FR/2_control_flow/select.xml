@@ -22,15 +22,17 @@
         <title>Séquence d'appel</title>
         <synopsis>
             select variable
-            case valeur1 then
-                instructions 1
-            case valeur2 then
-                instructions 2
-                ...
-            case valeurn then
-                instructions n
+            case value1 then
+                instructions 1
+            case value2 then
+                instructions 2
+                ...
+            case valuen then
+                instructions n
+            case {valueC1 valueC2 valueCN}
+                intructions C
            [else
-                instructions]
+                instructions]
             end
         </synopsis>
     </refsynopsisdiv>
@@ -54,6 +56,15 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
+                <term>valueC1, ..., valueCN</term>
+                <listitem>
+                    <para>
+                        comme <literal>value1, ..., valuen</literal> mais un OU est appliqué sur chaque <literal>variable == valueCx</literal>.
+                        Utile pour grouper les cases ayant le même bloc d'instruction.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
                 <term>instructions</term>
                 <listitem>
                     <para>
@@ -64,82 +75,27 @@
         </variablelist>
     </refsection>
     <refsection>
-        <title>Description</title>
-        <para>
-            Mot-clé utilisé dans une structure <literal>select ... case</literal>, à utiliser de la façon suivante :
-        </para>
-        <para>
-            Notes :
-        </para>
-        <itemizedlist>
-            <listitem>
-                <para>
-                    La seule contrainte est que chaque mot-clé <literal>then</literal> soit sur la même ligne que le <literal>case</literal> correspondant.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    Le mot-clé <literal>then</literal> peut être remplacé par un passage à la ligne ou une virgule.
-                    Les <literal>instructions1</literal> sont exécutées si <literal>expr1=expr</literal>, etc.
-                </para>
-            </listitem>
-        </itemizedlist>
-        <para>
-            En accord avec les conventions de codage pour le langage de programmation Scilab, il est recommandé de :
-        </para>
-        <itemizedlist>
-            <listitem>
-                <para>
-                    Commencer chaque instruction sur une nouvelle ligne.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    Ne pas écrire plus d'une instruction simple par ligne.
-                </para>
-            </listitem>
-            <listitem>
-                <para>
-                    Séparer les instructions composées sur plusieurs lignes.
-                </para>
-            </listitem>
-        </itemizedlist>
-        <para>
-            Par exemple, utiliser :
-        </para>
-        <programlisting role=""><![CDATA[
-A = 2
-select A
-case 1 then
-    disp(1)
-case 2 then
-    disp(2)
-else
-    disp(3)
-end
-]]></programlisting>
-        <para>
-            plutôt que
-        </para>
-        <programlisting role=""><![CDATA[
-A = 2;select A case 1 then disp(1); case 2 then disp(2); else  disp(3); end
-]]></programlisting>
-    </refsection>
-    <refsection>
         <title>Exemples</title>
         <programlisting role="example"><![CDATA[
-while %t do
-  n=round(10*rand(1,1))
-  select n
-  case 0 then
-    disp(0)
-  case 1 then
-    disp(1)
-  else
-    break
-  end
-end
- ]]></programlisting>
+            function select_example(n)
+                select n
+                case 0 then
+                    disp(0)
+                case 1 then
+                    disp(1)
+                case {2 3}
+                    disp({2 3})
+                else
+                    disp("default")
+                end
+            endfunction
+        
+            select_example(0); // 0
+            select_example(1); // 1
+            select_example(2); // {2 3}
+            select_example(3); // {2 3}
+            select_example(4); // "default"
+        ]]></programlisting>
     </refsection>
     <refsection role="see also">
         <title>Voir aussi</title>
@@ -168,6 +124,16 @@ end
                         </listitem>
                         <listitem>
                             Le nombre de caractères constituant le corps d'une instruction conditionnelle (<literal>if</literal>, <literal>while</literal>, <literal>for</literal>, ou <literal>select/case</literal>) n'est plus limité à 16k.
+                        </listitem>
+                    </itemizedlist>
+                </revdescription>
+            </revision>
+            <revision>
+                <revnumber>2024.0</revnumber>
+                <revdescription>
+                    <itemizedlist>
+                        <listitem>
+                            Ajout du case groupé représenté par une cell <literal>case {2 3}</literal> pour correspondre à 2 ou 3.
                         </listitem>
                     </itemizedlist>
                 </revdescription>

@@ -136,7 +136,7 @@ tv = ["a" "bc" "def" "ghij"];
 tm = ["a" "bc" "def" ; "ghij" "klm" "no"];
 th = cat(3,tv,tv);
 // v4: row, matrix, hypermatrix => column (right-padded with spaces)
-// TODO: Add tests with UTF8 (after fixing https://gitlab.com/scilab/scilab/-/issues/15570 )
+// TODO: Add tests with UTF8
 // Issues for Text columns in v7: https://gitlab.com/scilab/scilab/-/issues/15569
 
 // CELLS ARRAYS
@@ -154,7 +154,6 @@ ceWithSparse = {1.1, int8(-5); sprand(10,10,0.1), "abc"};
 // STRUCTURES
 // ==========
 // v4  not accepted
-// https://gitlab.com/scilab/scilab/-/issues/15730
 s0 = struct();
 s0f.r = struct();
 ss.r = %pi;             // Scalar structure
@@ -162,7 +161,7 @@ sv(1,2).r = rand(1,3);  // Vector of structures
 sm(2,3).r = %e;         // Matrix of structures
 sm(2,3).bm = bm;        // With booleans
 struc = struct("age",30, "type","software");
-// TODO: add more complex cases after fixing https://gitlab.com/scilab/scilab/-/issues/15730
+// TODO: add more complex cases
 // Case from https://gitlab.com/scilab/scilab/-/issues/6372 : only with v7.3
 savgg_mes.x_values = struct("quantity", struct("label","Hz"), ..
                            "values", [], ..
@@ -203,14 +202,10 @@ ver = ["-v4" "-v6" "-v7" "-v7.3"];
 // List of known problems ==> skipped
 pbs = [ "s0"       "*"        // crash for all versions
         "s0f"      "*"        // crash for all versions
-        "struc"    "-v7.3"    // check arguments or define function %st_string for overloading.
-        "savgg_mes" "-v7.3"   // check arguments or define function %st_string for overloading.
         "ceWithSparse" "*"    // loadmatfile bug https://gitlab.com/scilab/scilab/-/issues/15731
         "int64m"   "*"        // No int64 support in Scilab
         "int64s"   "*"        // No int64 support in Scilab
         "int64v"   "*"        // No int64 support in Scilab
-        "structS"  "-v7"      // loadmatfile bug https://gitlab.com/scilab/scilab/-/issues/16256
-        "structS"  "-v7.3"    // loadmatfile bug https://gitlab.com/scilab/scilab/-/issues/16256
         "th"       "-v4"      // Saved _or_ loaded as a column vector instead of row
         "th"       "-v6"      // GetCharMatVar: 2D array of strings saving is not implemented.
         "th"       "-v7"      // GetCharMatVar: 2D array of strings saving is not implemented.
@@ -223,13 +218,15 @@ pbs = [ "s0"       "*"        // crash for all versions
         "tv"       "-v7.3"    // GetCharMatVar: Row array of strings saving is not implemented.
         "ts"       "-v7.3"    // Only first char is loaded (ts = "B" after loadmatfile)
         "spbm"     "*"        // Random issues: wrong number of non-zero values and/or wrong index for non-zeros values.
+        "spbs"     "-v4"      // matio issue with sparse nnz = 0
+        "spds"     "-v4"      // matio issue with sparse nnz = 0
+        "structS"   "-v7"     // problem at save with compression since matio 1.5.12 (test 15730 also disabled)
+        "structCol" "-v7"     // problem at save with compression since matio 1.5.12 (test 15730 also disabled)
+        "structRow" "-v7"     // problem at save with compression since matio 1.5.12 (test 15730 also disabled)
+        "structMat" "-v7"     // problem at save with compression since matio 1.5.12 (test 15730 also disabled)
       ];
 // Cases with exclusive versions to be tested
-only = ["savgg_mes"  "-v7.3"
-        "structRow" "-v7.3"
-        "structCol" "-v7.3"
-        "structMat" "-v7.3"
-    ];
+only = [];
 
 for n = varnames'
     onlyVersion = only(find(only(:,1)==n),2);

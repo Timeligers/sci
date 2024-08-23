@@ -76,7 +76,7 @@ public:
         // Unary plus
         /** \brief "+" */ unaryPlus,
 
-        /** unknow operator*/ unknown
+        /** unknown operator*/ unknown
     };
 
     /** \name Ctor & dtor.

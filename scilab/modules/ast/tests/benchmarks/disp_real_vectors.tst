@@ -13,12 +13,11 @@
 x=rand(1e4,1);
 
 // <-- BENCH START -->
-tic;
+timer();
 disp(x)
-t1 = toc();
-tic;
+t1 = timer();
 disp([x,x])
-t2 = toc();
+t2 = timer();
 t2/t1
 
 // <-- BENCH END -->

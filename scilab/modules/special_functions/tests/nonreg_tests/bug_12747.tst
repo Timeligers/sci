@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
 // <-- Non-regression test for bug 12747 -->
 //
@@ -21,5 +22,5 @@ res = legendre(2,2,-1);
 assert_checkequal(res, 0);
 
 res = legendre(0, 0:2, [1 -1]);
-expected = [1 1;0 0;0 0]
+expected = [1 1;0 0;0 0];
 assert_checkequal(res, expected);

@@ -203,7 +203,7 @@ Sgrayplot(x,y,m);
 a=get("current_axes");
 f=a.children.children(1)
 f.data(:,3)=(1:size(f.data,1))';
-a.parent.color_map=hotcolormap(64);
+a.parent.color_map=hot(64);
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

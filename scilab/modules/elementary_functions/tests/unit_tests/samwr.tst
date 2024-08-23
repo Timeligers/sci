@@ -13,7 +13,7 @@
 // checking error messages
 //==============================================================================
 fname = "samwr";
-err_msg_glob = msprintf(_("%s: Wrong number of input argument: %d expected.\n"), fname, 3);
+err_msg_glob = msprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), fname, 3);
 err_msg_sizam = msprintf(_("%s: Wrong value of input argument #%d: Lower than or equal to size of input argument #%d expected.\n"), fname, 1, 3);
 
 //========================================

@@ -34,7 +34,7 @@
             <varlistentry>
                 <term>x</term>
                 <listitem>
-                    <para>matriz de reais ou função</para>
+                    <para>Any Scilab variable type.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -145,6 +145,12 @@
                 <revnumber>5.4.0</revnumber>
                 <revremark>
                     implicitlist typeof input accepted.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2024.0.0</revnumber>
+                <revremark>
+                    list, cell and struct accepted.
                 </revremark>
             </revision>
         </revhistory>

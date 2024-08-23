@@ -25,10 +25,6 @@ function f=%p_p_s(p,s)
     if ms==1&ns==1 then
         if m==n then //square matrix exponentiation p^s
             if s<0 then
-                if or(abs(coeff(p(:)))*ones(max(0,max(degree(p)))+1,1)==0) then
-                    msg = _("%s: Division by zero...")
-                    error(msprintf(msg, fname))
-                end
                 f=invr(p),
                 s=-s;
                 f1=f;for k=2:s,f=f*f1;end

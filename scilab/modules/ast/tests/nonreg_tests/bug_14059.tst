@@ -5,6 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 //
 // <-- Non-regression test for bug 14059 -->
 //
@@ -17,15 +18,15 @@
 // with patch it take < 0.1 second on the same machine.
 
 r=rand(1,1000000);
-tic();r(r<0.5) = [];t = toc();
+timer();r(r<0.5) = [];t = timer()
 assert_checktrue(t < 1);
 
 r=rand(1,1000000);
-tic();r(r<0.1) = [];t = toc();
+timer();r(r<0.1) = [];t = timer()
 assert_checktrue(t < 1);
 
 r=rand(1,1000000);
-tic();r(r<0.9) = [];t = toc();
+timer();r(r<0.9) = [];t = timer()
 assert_checktrue(t < 1);
 
 

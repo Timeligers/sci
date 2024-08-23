@@ -676,6 +676,13 @@ public class CallScilabBridge {
     }
 
     /**
+     * Open a Browser on Discourse
+     */
+    public static void openDiscourse() {
+        WebBrowser.openUrl("https://scilab.discourse.group/");
+    }
+
+    /**
      * Open a Browser on Dassault Systèmes
      */
     public static void open3DS() {

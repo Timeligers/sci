@@ -28,8 +28,8 @@ char* getPipeLine(void)
     int eof = (fgets(buffer, bsiz, stdin) == NULL);
     if (eof)
     {
-        //send command to quit to Scilab
-        return os_strdup("quit");
+        //send command to quit Scilab
+        return os_strdup("[_,__err__]=lasterror();exit(__err__);");
     }
 
     //remove trailing \n

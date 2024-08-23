@@ -47,6 +47,7 @@ function demo_ball()
     realtime(0)
     for t = linspace(0,sol.t($),500)
         realtime(t)
+        if ~is_handle_valid(h) then break; end
         y = sol(t);
         h.data = y(1:2)';
         ht.text = msprintf("$\\lambda = %4.1f$",y(5));

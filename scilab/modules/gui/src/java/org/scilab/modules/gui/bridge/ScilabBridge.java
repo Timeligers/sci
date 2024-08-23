@@ -2329,6 +2329,15 @@ public class ScilabBridge {
     }
 
     /**
+     * Set the initial file name
+     * @param fileChooser the file chooser we want to set the initial filename of
+     * @param path the initial file name
+     */
+    public static void setInitialFileName(FileChooser fileChooser, String path) {
+        ScilabFileChooserBridge.setInitialFileName(fileChooser, path);
+    }
+
+    /**
      * Display this chooser and wait for user selection
      * @param fileChooser the file chooser we want to display
      */
@@ -2404,6 +2413,18 @@ public class ScilabBridge {
      */
     public static void setUiDialogType(FileChooser fileChooser, int dialogType) {
         ScilabFileChooserBridge.setUiDialogType(fileChooser, dialogType);
+    }
+
+    public static void addMask(FileChooser fileChooser, String[] theMask, String[] theFileMaskDescription) {
+         ScilabFileChooserBridge.addMask(fileChooser, theMask, theFileMaskDescription);
+    }
+    
+    public static void setAcceptAllFileFilterUsed(FileChooser fileChooser, boolean flag) {
+        ScilabFileChooserBridge.setAcceptAllFileFilterUsed(fileChooser, flag);
+    }
+    
+    public static void invalidate(FileChooser fileChooser) {
+        ScilabFileChooserBridge.invalidate(fileChooser);
     }
 
     /*********************/

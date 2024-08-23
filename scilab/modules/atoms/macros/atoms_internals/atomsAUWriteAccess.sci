@@ -28,7 +28,6 @@ function res = atomsAUWriteAccess()
     atoms_install_directory = atomsPath("install","allusers");
 
     // Physical test
-
     if ~ isdir(atoms_system_directory) then
         mkdir(SCI + "/.scilab");
         rmdir(SCI + "/.scilab");
@@ -37,17 +36,18 @@ function res = atomsAUWriteAccess()
         end
     end
 
-    if execstr("mputl(""dummy"",atoms_system_directory+""dummy"");","errcatch") == 0 then
+    filename = "dummy"+string(getpid());
+    if execstr("mputl(filename,atoms_system_directory+filename);","errcatch") == 0 then
         res = %T;
-        mdelete(atoms_system_directory+"dummy");
+        mdelete(atoms_system_directory+filename);
     else
         return;
     end
 
-    if execstr("mputl(""dummy"",atoms_install_directory+""dummy"");","errcatch") <> 0 then
+    if execstr("mputl(filename,atoms_install_directory+filename);","errcatch") <> 0 then
         res = %F;
     else
-        mdelete(atoms_install_directory+"dummy");
+        mdelete(atoms_install_directory+filename);
     end
 
 endfunction

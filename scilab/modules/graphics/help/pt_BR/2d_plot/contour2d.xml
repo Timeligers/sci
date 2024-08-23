@@ -154,7 +154,7 @@ z = cos(x')*cos(x);
 clf(); f=gcf();
 // truque 1: fpf=" " isto faz com que alguns números de níveis não sejam
 //          impressos sobre as curvas de nível
-f.color_map=jetcolormap(7);
+f.color_map=jet(7);
 // truque 2: para fazer com que se possa colocar a legenda à direita sem
 //          sem interferir com as curvas de nível use rect com um valor xmax
 //          grande o suficiente

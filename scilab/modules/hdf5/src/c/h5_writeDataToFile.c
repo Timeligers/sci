@@ -13,8 +13,6 @@
 *
 */
 
-#define H5_USE_16_API
-
 #include <hdf5.h>
 #include <sci_malloc.h>
 #include <math.h>
@@ -2089,7 +2087,7 @@ int deleteHDF5Var(hid_t _iFile, const char* _pstName)
 }
 
 /*Scilab 6*/
-int writeDoubleMatrix6(hid_t parent, const char* name, int dims, int* pdims, double* data, hid_t xfer_plist_id)
+hid_t writeDoubleMatrix6(hid_t parent, const char* name, int dims, int* pdims, double* data, hid_t xfer_plist_id)
 {
     hid_t space = 0;
     hid_t dset = 0;
@@ -2182,7 +2180,7 @@ int writeDoubleMatrix6(hid_t parent, const char* name, int dims, int* pdims, dou
     return dset;
 }
 
-HDF5_SCILAB_IMPEXP int writeDoubleComplexMatrix6(hid_t parent, const char* name, int dims, int* pdims, double* real, double* img, hid_t xfer_plist_id)
+HDF5_SCILAB_IMPEXP hid_t writeDoubleComplexMatrix6(hid_t parent, const char* name, int dims, int* pdims, double* real, double* img, hid_t xfer_plist_id)
 {
     hid_t space = 0;
     hid_t dset = 0;
@@ -2265,7 +2263,7 @@ HDF5_SCILAB_IMPEXP int writeDoubleComplexMatrix6(hid_t parent, const char* name,
     return dset;
 }
 
-int writeStringMatrix6(hid_t parent, const char* name, int dims, int* pdims, char** data, hid_t xfer_plist_id)
+hid_t writeStringMatrix6(hid_t parent, const char* name, int dims, int* pdims, char** data, hid_t xfer_plist_id)
 {
     int iSize = 0;
     hsize_t* piDims = NULL;
@@ -2364,7 +2362,7 @@ int writeStringMatrix6(hid_t parent, const char* name, int dims, int* pdims, cha
     return dset;
 }
 
-int writeBooleanMatrix6(hid_t parent, const char* name, int dims, int* pdims, int* data, hid_t xfer_plist_id)
+hid_t writeBooleanMatrix6(hid_t parent, const char* name, int dims, int* pdims, int* data, hid_t xfer_plist_id)
 {
     int iSize = 0;
     hsize_t* piDims = NULL;
@@ -2431,7 +2429,7 @@ int writeBooleanMatrix6(hid_t parent, const char* name, int dims, int* pdims, in
     return dset;
 }
 
-int writeIntegerMatrix6(hid_t parent, const char* name, hid_t type, const char* prec, int dims, int* pdims, void* data, hid_t xfer_plist_id)
+hid_t writeIntegerMatrix6(hid_t parent, const char* name, hid_t type, const char* prec, int dims, int* pdims, void* data, hid_t xfer_plist_id)
 {
     hsize_t* piDims = NULL;
     herr_t status = 0;
@@ -2543,7 +2541,7 @@ hid_t openList6(hid_t parent, const char *name, const char* type)
     return group;
 }
 
-int closeList6(hid_t lst)
+hid_t closeList6(hid_t lst)
 {
     if (H5Gclose(lst) < 0)
     {
@@ -2553,7 +2551,7 @@ int closeList6(hid_t lst)
     return 0;
 }
 
-int addItemStruct6(hid_t dataset, hobj_ref_t * refs, int pos, const char *name)
+herr_t addItemStruct6(hid_t dataset, hobj_ref_t* refs, int pos, const char* name)
 {
     herr_t status = H5Rcreate(&refs[pos], dataset, name, H5R_OBJECT, -1);
     if (status < 0)
@@ -2564,7 +2562,7 @@ int addItemStruct6(hid_t dataset, hobj_ref_t * refs, int pos, const char *name)
     return status;
 }
 
-int writeStructField6(hid_t parent, const char* name, int dims, int* pdims, hobj_ref_t * refs, hid_t xfer_plist_id)
+hid_t writeStructField6(hid_t parent, const char* name, int dims, int* pdims, hobj_ref_t* refs, hid_t xfer_plist_id)
 {
     hid_t space = 0;
     hid_t dset = 0;
@@ -2625,7 +2623,7 @@ int writeStructField6(hid_t parent, const char* name, int dims, int* pdims, hobj
     return dset;
 }
 
-int writeVoid6(hid_t parent, const char* name, hid_t xfer_plist_id)
+hid_t writeVoid6(hid_t parent, const char* name, hid_t xfer_plist_id)
 {
     hsize_t piDims[1] = {1};
     herr_t status = 0;
@@ -2687,7 +2685,7 @@ int writeVoid6(hid_t parent, const char* name, hid_t xfer_plist_id)
     return 0;
 }
 
-int writeUndefined6(hid_t parent, const char* name, hid_t xfer_plist_id)
+hid_t writeUndefined6(hid_t parent, const char* name, hid_t xfer_plist_id)
 {
     hsize_t piDims[1] = {1};
     herr_t status = 0;

@@ -17,7 +17,7 @@
 // fromJSON: avoid parsing all data to know if its in JSON format.
 
 path = get_absolute_file_path();
-try, tic();fromJSON(path+"issue_17094.txt", "file"); catch, t=toc();end
+try, timer();fromJSON(path+"issue_17094.txt", "file"); catch, t=timer() end
 
 // check the function hasn't parsed all data
 // before returning that data is not a JSON format.

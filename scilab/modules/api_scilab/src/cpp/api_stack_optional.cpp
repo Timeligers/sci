@@ -12,6 +12,8 @@
  * along with this program.
  */
 
+#include "UTF8.hxx"
+
 #include "function.hxx"
 #include "gatewaystruct.hxx"
 #include "alltypes.hxx"
@@ -58,7 +60,7 @@ int getOptionals(void* _pvCtx, char* pstFuncName, rhs_opts opts[])
 
         if (index < 0)
         {
-            sciprint(_("%ls: Unrecognized optional arguments %ls.\n"), pStr->m_pstName, o.first.c_str());
+            sciprint(_("%s: Unrecognized optional arguments %s.\n"), pStr->m_pstName, scilab::UTF8::toUTF8(o.first).c_str());
             printOptionalNames(_pvCtx, opts);
             return 0;
         }

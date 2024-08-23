@@ -7,6 +7,7 @@
 // ============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
 assert_checkfalse(execstr("umf_lufact()"   ,"errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong number of input argument(s): %d expected.\n"), "umf_lufact", 1);
@@ -43,14 +44,15 @@ umf_ludel(Lup)
 Lup = umf_lufact(A);
 b = rand(size(A,1),1); // a random rhs
 // use umf_lusolve for solving Ax=b
-x = umf_lusolve(Lup,b);
-firstNorm=norm(A*x - b);
+x1 = umf_lusolve(Lup,b);
+firstNorm=norm(A*x1 - b);
 
 // now the same thing with iterative refiment
-x = umf_lusolve(Lup,b,"Ax=b",A);
-secondNorm=norm(A*x - b);
+// it should output a better or the same solution
+x2 = umf_lusolve(Lup,b,"Ax=b",A);
+secondNorm=norm(A*x2 - b);
 
-assert_checktrue(firstNorm > secondNorm);
+assert_checktrue(firstNorm >= secondNorm);
 
 // don't forget to clear memory
 umf_ludel(Lup)

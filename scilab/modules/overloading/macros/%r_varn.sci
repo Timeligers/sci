@@ -10,9 +10,16 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function  rep = %r_varn(p, varname)
+function rep = %r_varn(p, varname)
     if argn(2)==1 then
-        rep = varn(p("num"));
+        if type(p.num) == 2 then
+            rep = varn(p.num);
+        elseif type(p.den) == 2 then
+            rep = varn(p.den);
+        else
+            // fallback, will probably error with undefined overload
+            rep = varn(p.num);
+        end
     else
         rep = rlist(varn(p.num, varname), varn(p.den, varname), p.dt);
     end

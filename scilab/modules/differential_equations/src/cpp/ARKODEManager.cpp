@@ -11,6 +11,8 @@
  *
  */
 
+#include "UTF8.hxx"
+
 #include "ARKODEManager.hxx"
 #include "SUNDIALSBridge.hxx"
 #include "odeparameters.hxx"
@@ -281,7 +283,7 @@ void ARKODEManager::getButcherTabInPlist(types::optional_list &opt, const wchar_
         ButcherTab = ARKodeButcherTable_Create(iStages, q, p, pdblc, pdblA, pdblb, pdbld);
         if (ButcherTab == NULL)
         {
-            sprintf(errorMsg, _("%s: wrong value for parameter \"%ls\": incoherent tableau.\n"), getSolverName().c_str(), _pwstLabel);
+            sprintf(errorMsg, _("%s: wrong value for parameter \"%s\": incoherent tableau.\n"), getSolverName().c_str(), scilab::UTF8::toUTF8(_pwstLabel).c_str());
             throw ast::InternalError(errorMsg);
         }
         int iRes = ARKodeButcherTable_CheckOrder(ButcherTab, &q, &p, NULL);
@@ -289,7 +291,7 @@ void ARKODEManager::getButcherTabInPlist(types::optional_list &opt, const wchar_
         {
             if ((ButcherTab->q >= 6 && q==6) || (ButcherTab->p >= 6 && p==6))
             {
-                sciprint(_("%ls: parameter \"%ls\": sufficient conditions not met for order > 6\n"), getSolverName().c_str(), _pwstLabel);                
+                sciprint(_("%s: parameter \"%s\": sufficient conditions not met for order > 6.\n"), getSolverName().c_str(), scilab::UTF8::toUTF8(_pwstLabel).c_str());
             }
             else
             {

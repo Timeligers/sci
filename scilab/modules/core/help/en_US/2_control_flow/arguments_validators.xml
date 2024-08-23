@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2008 - INRIA
- *
- * Copyright (C) 2012 - 2016 - Scilab Enterprises
- *
- * This file is hereby licensed under the terms of the GNU GPL v2.0,
- * pursuant to article 5.3.4 of the CeCILL v.2.1.
- * This file was originally licensed under the terms of the CeCILL v2.1,
- * and continues to be available under such terms.
- * For more information, see the COPYING file which you should have received
- * along with this program.
- *
+ * Copyright (C) 2023 - 3DS - Antoine ELIAS
  -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="arguments_validators">
     <refnamediv>
@@ -38,9 +28,21 @@
                 </td>
             </tr>
             <tr>
-                <td xml:id="mustBeEqualDims">mustBeEqualDims(value1, value2)</td>
-                <td><literal>value1</literal> and <literal>value2</literal> must be of the dimensions</td>
-                <td><code>mustBeEqualDims(x, y)</code></td>
+                <td xml:id="mustBeEqualDims">
+                    mustBeEqualDims(value1, value2)
+                    <para></para>
+                    mustBeEqualDims(value1, value2, dims)
+                </td>
+                <td>
+                    <literal>value1</literal> and <literal>value2</literal> must be of the same dimensions
+                    <para></para>
+                    <literal>value1</literal> and <literal>value2</literal> must be of the same dimensions on <literal>dims</literal>
+                </td>
+                <td>
+                    <code>mustBeEqualDims(x, y)</code>
+                    <para></para>
+                    <code>mustBeEqualDims(x, y, [2, 3])</code>
+                </td>
             </tr>
             <tr>
                 <td xml:id="mustBeFile">mustBeFile(value)</td>
@@ -186,6 +188,11 @@
                 <td xml:id="mustBeVector">mustBeVector(value)</td>
                 <td><literal>value</literal> must be a vector</td>
                 <td><code>mustBeVector(x)</code></td>
+            </tr>
+            <tr>
+                <td xml:id="mustBeSquare">mustBeSquare(value)</td>
+                <td><literal>value</literal> must be a square matrix</td>
+                <td><code>mustBeSquare(x)</code></td>
             </tr>
         </informaltable>
     </refsection>

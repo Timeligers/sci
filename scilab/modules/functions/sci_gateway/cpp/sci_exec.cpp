@@ -78,6 +78,8 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
     types::Macro* pMacro = NULL;
     bool bSilentError   = ConfigVariable::isSilentError();
     Parser parser;
+    std::wstring stack;
+    std::wstring error;
 
     wchar_t* pwstFile = NULL;
     char* pstFile = NULL;
@@ -85,6 +87,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
     std::string stFile;
     std::ifstream* file = NULL;
     std::wstring wstFile;
+    std::wstring lastExecFile = ConfigVariable::getExecutedFile();
 
     if (ConfigVariable::getStartProcessing() == false)
     {
@@ -191,7 +194,19 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
             if (bErrCatch)
             {
                 out.push_back(new types::Double(999));
-                //to lock last error information
+                if (_iRetCount > 1)
+                {
+                    out.push_back(new types::String(parser.getErrorMessage()));
+                }
+
+                if (_iRetCount > 2)
+                {
+                    std::wostringstream ostr;
+                    ConfigVariable::whereErrorToString(ostr);
+                    out.push_back(new types::String(ostr.str().c_str()));
+                }
+
+                // to lock last error information
                 ConfigVariable::setLastErrorCall();
                 // when the parser can not open file the error is already set in lasterror.
                 if (wcscmp(parser.getErrorMessage(), L""))
@@ -336,6 +351,7 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
         closeFile(file, iID, wstFile, pExp);
         ConfigVariable::macroFirstLine_end();
         ConfigVariable::setPromptMode(oldVal);
+        ConfigVariable::setExecutedFile(lastExecFile);
         ConfigVariable::setSilentError(bSilentError);
         throw ia;
     }
@@ -346,10 +362,16 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
             closeFile(file, iID, wstFile, pExp);
             ConfigVariable::macroFirstLine_end();
             ConfigVariable::setPromptMode(oldVal);
-            ConfigVariable::setExecutedFile(L"");
+            ConfigVariable::setExecutedFile(lastExecFile);
             ConfigVariable::setSilentError(bSilentError);
             throw ie;
         }
+
+        std::wostringstream ostr;
+        ConfigVariable::whereErrorToString(ostr);
+        stack = ostr.str();
+
+        error = ie.GetErrorMessage();
 
         ConfigVariable::resetWhereError();
         iErr = ConfigVariable::getLastErrorNumber();
@@ -358,12 +380,40 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
     //restore previous prompt mode
     ConfigVariable::macroFirstLine_end();
     ConfigVariable::setPromptMode(oldVal);
+    ConfigVariable::setExecutedFile(lastExecFile);
     ConfigVariable::setSilentError(bSilentError);
     if (bErrCatch)
     {
         out.push_back(new types::Double(iErr));
+        if (_iRetCount > 1)
+        {
+            if (iErr)
+            {
+                out.push_back(new types::String(error.c_str()));
+            }
+            else
+            {
+                out.push_back(new types::String(L""));
+            }
+        }
+
+        if (_iRetCount > 2)
+        {
+            if (iErr)
+            {
+                out.push_back(new types::String(stack.c_str()));
+            }
+            else
+            {
+                out.push_back(new types::String(L""));
+            }
+        }
+
         //to lock last error information
         ConfigVariable::setLastErrorCall();
+
+        // allow print
+        ConfigVariable::resetError();
     }
 
     closeFile(file, iID, wstFile, pExp);

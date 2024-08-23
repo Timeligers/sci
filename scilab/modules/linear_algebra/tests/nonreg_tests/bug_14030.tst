@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- NO CHECK REF -->
 
 // <-- Non-regression test for bug 14030 -->
 //
@@ -21,7 +22,7 @@ H=[1.    1.    1.    0.;
 1.    0.    1.    1.;
 0.    1.    2.   -1];
 
-ww=spec(H)
+ww=spec(H);
 
 function [flg]=sel(x,y)
     flg=%f

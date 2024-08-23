@@ -702,11 +702,8 @@ void TreeVisitor::visit(const CallExp &e)
 
     // operator
     operation->append(new types::String(L"ext"));
-    types::List* lst = new types::List();
-    lst->append(operation);
-    operation->killMe();
 
-    l = lst;
+    l = operation;
 }
 
 void TreeVisitor::visit(const ForExp &e)
@@ -1160,33 +1157,32 @@ types::List* TreeVisitor::matrixOrCellExp(const exps_t& lines, TreeVisitor& me, 
 {
     types::List* sub = createOperation();
     types::List* ope = new types::List();
-
+    ast::exps_t::const_iterator	i, j;
+    
     int idx = 0;
-    for (auto it : lines)
+    for (i = lines.begin() ; i != lines.end() ; )
     {
-        it->accept(me);
-
+        (*i)->accept(me);
+        
         if (idx >= 2)
         {
             sub->append(ope);
             ope->killMe();
             sub->append(new types::String(what.data()));
-
-            //create a new operation
-            //put previous stage in lhs and
-            //result in rhs
-            types::List* subcolcatOperation = createOperation();
-            types::List* subcolcatOperands = new types::List();
-            subcolcatOperands->append(sub);
+            // create a new operation
+            // put previous stage in lhs and
+            // result in rhs
+            types::List* lst = createOperation();
+            types::List* l2 = new types::List();
+            l2->append(sub);
             sub->killMe();
-            //add EOL
-            //subcolcatOperands->append(getEOL());
             types::InternalType* tmp = me.getList();
-            subcolcatOperands->append(tmp);
+            l2->append(tmp);
             tmp->killMe();
 
-            ope = subcolcatOperands;
-            sub = subcolcatOperation;
+            // lst->append(tmp);
+            ope = l2;
+            sub = lst;
         }
         else
         {
@@ -1194,9 +1190,15 @@ types::List* TreeVisitor::matrixOrCellExp(const exps_t& lines, TreeVisitor& me, 
             ope->append(tmp);
             tmp->killMe();
         }
-
+        j = i;
+        ++i;
+        if (i != lines.end() && (*i)->getLocation().first_line != (*j)->getLocation().first_line)
+        {
+            ope->append(me.getEOL());
+        }
         ++idx;
     }
+
     sub->append(ope);
     ope->killMe();
     sub->append(new types::String(what.data()));

@@ -36,29 +36,29 @@ function demo_ecdc()
     
         // load the data
         my_handle.info_message = "Downloading data";
-        if ~isdef("data") then
-            data = http_get("https://opendata.ecdc.europa.eu/covid19/nationalcasedeath/json/");
 
-            // reformat data as vectors stored in a single struct, this is not needed if your data have always the same fields.
-            my_handle.info_message = "Reformat the data";
-            default_values.country = "";
-            default_values.country_code = "";
-            default_values.continent = "";
-            default_values.population = 0;
-            default_values.indicator = "";
-            default_values.weekly_count = 0;
-            default_values.year_week = "";
-            default_values.cumulative_count = 0;
-            default_values.source = "";
-            default_values.note = "";
-            vars = fieldnames(default_values);
-            execstr(vars + "(1:length(data)) =  default_values(""" + vars + """)");
-            for i=1:length(data)
-                fields = intersect(fieldnames(data(i)), vars)';
-                execstr(fields + "(i) = data(i)." + fields);
-            end
-            execstr("data = struct("+strcat(""""+vars+""", "+vars, ', ') + ")");
+        data = http_get("https://opendata.ecdc.europa.eu/covid19/nationalcasedeath/json/");
+
+        // reformat data as vectors stored in a single struct, this is not needed if your data have always the same fields.
+        my_handle.info_message = "Reformat the data";
+        default_values.country = "";
+        default_values.country_code = "";
+        default_values.continent = "";
+        default_values.population = 0;
+        default_values.indicator = "";
+        default_values.weekly_count = 0;
+        default_values.year_week = "";
+        default_values.cumulative_count = 0;
+        default_values.source = "";
+        default_values.note = "";
+        vars = fieldnames(default_values);
+        execstr(vars + "(1:length(data)) =  default_values(""" + vars + """)");
+        for i=1:length(data)
+            fields = intersect(fieldnames(data(i)), vars)';
+            execstr(fields + "(i) = data(i)." + fields);
         end
+        execstr("data = struct("+strcat(""""+vars+""", "+vars, ', ') + ")");
+
         my_handle.info_message = "Setup UI";
 
         // define variables
@@ -66,6 +66,15 @@ function demo_ecdc()
         selected = 1:min(5, size(countries, 1));
         selected_countries = countries(selected);
 
+        // change colormap
+        my_handle.color_map =[0 0 1;
+            0 0.5 0;
+            1 0 0;
+            0 0.75 0.75;
+            .75 0 .75;
+            .75 .75 0;
+            .25 .25 .25;
+            0 0 0];
         // insert axes
         cframe = uicontrol(my_handle, "style", "frame", 'constraints', createConstraints('border', 'center'));
         a = newaxes(cframe);
@@ -96,7 +105,9 @@ function demo_ecdc()
     
     // plot the selected countries
     my_handle.info_message = "Plotting";
+    nbCol = size(my_handle.color_map,1);
     sca(a);
+    
     for i=selected
         indicators = findobj('groupname', "indicator");
         mask = data.country == countries(i) & data.indicator == indicators.string(indicators.value <> 0);
@@ -108,8 +119,9 @@ function demo_ecdc()
         t = t(kv);
         s = cumsum(n(kv)) ./ data.population(mask);
 
-        plot2d(t, s, i);
+        plot2d(t, s, modulo(i-1,nbCol)+1);
         xstring(t($), s($), countries(i));
+        gce().clip_state = "off"
     end
     
     my_handle.info_message = "";

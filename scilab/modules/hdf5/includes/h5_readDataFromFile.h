@@ -80,8 +80,6 @@ HDF5_SCILAB_IMPEXP int getListItemDataset(hid_t _iDatasetId, void* _piItemRef, i
 
 HDF5_SCILAB_IMPEXP int deleteListItemReferences(hid_t _iDatasetId, void* _piItemRef);
 
-HDF5_SCILAB_IMPEXP  void reset_item_count();
-
 //Scilab 6
 HDF5_SCILAB_IMPEXP int getVariableNames6(hid_t _iFile, char **names);
 HDF5_SCILAB_IMPEXP char* getScilabTypeFromDataSet6(hid_t dataset);

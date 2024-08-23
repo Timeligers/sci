@@ -28,11 +28,13 @@ function [m]=nanmedian(x,orient)
     //row of x.
     //
     //
-    [lhs,rhs]=argn(0)
-    if rhs<1|rhs>2 then  error(msprintf(gettext("%s: Wrong number of input argument: %d to %d expected.\n"),"nanmedian",1,2)), end
-    if type(x)<>1 then error(msprintf(gettext("%s: Wrong type for input arguments #%d: Numerical expected.\n"),"nanmedian",1)) , end
+    arguments
+        x {mustBeA(x, "double")}
+        orient (1, 1) {mustBeA(orient, ["double", "string"]), mustBeMember(orient, {1, 2, "r", "c", "*"})} = "*"
+    end
+
     if x==[] then m=[], return,end
-    if rhs==1 then
+    if orient == "*" then
         p=perctl(x(~isnan(x)),50)
         if p==[] then p=%nan,end
         m=p(1)
@@ -45,12 +47,10 @@ function [m]=nanmedian(x,orient)
         end
     elseif orient=="c"|orient==2 then
         m=[]
-        for i=x' do
+        for i=x'
             p=perctl(i(~isnan(i)),50)
             if p==[] then p=%nan,end
             m=[m;p(1)];
         end
-    else
-        error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', %d or %d expected.\n"),"nanmedian",3,"r","c",1,2))
     end
 endfunction

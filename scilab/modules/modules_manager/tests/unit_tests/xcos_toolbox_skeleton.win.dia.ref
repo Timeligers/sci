@@ -49,6 +49,13 @@ Building gateway...
 Generating loader_gateway.sce...
 Generating cleaner_gateway.sce...
 Building help...
+Start Xcos toolbox skeleton
+	Load macros
+	Load palette
+	Load simulations functions
+	Load gateways
+	Load help
+	Load demos
 Building the master document:
 	TMPDIR\xcos_toolbox_skeleton\help\en_US
 Building the manual file [javaHelp] in TMPDIR\xcos_toolbox_skeleton\help\en_US.

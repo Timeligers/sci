@@ -11,7 +11,6 @@
 // along with this program.
 function s=%sp_string(A)
     [ij,v,mn]=spget(A);
-    s = msprintf("(%d,%d) sparse matrix",mn(1),mn(2))
-    s = [s; "("+string(ij(:,1)) + "," + string(ij(:,2))+")    " + string(v)]
+    s = ["("+string(ij(:,1)) + "," + string(ij(:,2))+")    " + string(v)]
 endfunction
 

@@ -14,15 +14,7 @@
  */
 #ifndef __CSIGNAL_H__
 #define __CSIGNAL_H__
-#include <signal.h>
 #include "machine.h"
-
-/**
- * TODO : comment
- * @param sig
- */
-void controlC_handler (int sig);
-
 
 /**
  * Set the CTRL+C behaviour (stop the current execution

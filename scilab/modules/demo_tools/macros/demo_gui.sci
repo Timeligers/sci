@@ -71,7 +71,7 @@ function demo_gui()
     // We load the preset GUI
     demo_fig = loadGui(File);
     demo_fig.figure_name = _("Demonstrations");
-
+    demo_fig.icon = "x-office-presentation";
 
     // Parameters
     // =========================================================================

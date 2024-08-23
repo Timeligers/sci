@@ -22,7 +22,7 @@ z=[0 1 1]';
 triangles=[1 1 2 3 1];
 clf
 n=4;
-gcf().color_map = jetcolormap(n)
+gcf().color_map = jet(n)
 fec(x,y,triangles,z);
 // hide axes because different stacking between Windows and others
 gca().axes_visible="off"

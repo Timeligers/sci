@@ -6,8 +6,8 @@
 // =============================================================================
 //
 // <-- XCOS TEST -->
-//
 // <-- CLI SHELL MODE -->
+//
 scicos_log("TRACE");
 loadXcosLibs
 // Loading a Superblock containing an mlist as subdiagram

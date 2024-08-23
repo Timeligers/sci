@@ -28,7 +28,6 @@ if ~atomsIsInstalled("toolbox_1") then pause, end
 // Restart scilab
 // Have a look to the error
 
-
 // Some cleaning
 atomsRemove("toolbox_1");
 atomsRepositorySetOfl(mgetl(SCI+"/modules/atoms/tests/unit_tests/repositories.orig"));

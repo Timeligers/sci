@@ -274,12 +274,17 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                     delete[] piRank;
                 }
 
-                types::InternalType *pNewSize = AddElementToVariable(NULL, poRow, std::max(pGTResult->getRows(),pGT->getRows()), pGTResult->getCols() + pGT->getCols());
-                types::InternalType* p = AddElementToVariable(pNewSize, pGT, 0, pGTResult->getCols());
-                if (p != pNewSize)
+                types::InternalType* p = NULL;
+                if (!pGT->isSparse() && !pGT->isSparseBool())
                 {
-                    pNewSize->killMe();
+                    types::InternalType *pNewSize = AddElementToVariable(NULL, poRow, std::max(pGTResult->getRows(),pGT->getRows()), pGTResult->getCols() + pGT->getCols());
+                    p = AddElementToVariable(pNewSize, pGT, 0, pGTResult->getCols());
+                    if (p != pNewSize)
+                    {
+                        pNewSize->killMe();
+                    }
                 }
+            
                 // call overload
                 if (p == NULL)
                 {
@@ -390,11 +395,15 @@ void RunVisitorT<T>::visitprivate(const MatrixExp &e)
                 pGTResult = poResult->getAs<types::GenericType>();
             }
 
-            types::InternalType* pNewSize = AddElementToVariable(NULL, poResult, pGTResult->getRows() + pGT->getRows(), std::max(pGT->getCols(),pGTResult->getCols()));
-            types::InternalType* p = AddElementToVariable(pNewSize, pGT, pGTResult->getRows(), 0);
-            if (p != pNewSize)
+            types::InternalType* p = NULL;
+            if (!pGT->isSparse() && !pGT->isSparseBool())
             {
-                pNewSize->killMe();
+                types::InternalType* pNewSize = AddElementToVariable(NULL, poResult, pGTResult->getRows() + pGT->getRows(), std::max(pGT->getCols(),pGTResult->getCols()));
+                p = AddElementToVariable(pNewSize, pGT, pGTResult->getRows(), 0);                
+                if (p != pNewSize)
+                {
+                    pNewSize->killMe();
+                }
             }
 
             // call overload

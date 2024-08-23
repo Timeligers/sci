@@ -1377,7 +1377,7 @@ int cvSensRhs1InternalDQ(int Ns, realtype t,
 #define MSGCV_BAD_SENSI   "At least one backward problem requires sensitivities, but they were not stored for interpolation."
 #define MSGCV_BAD_ITASKB  "Illegal value for itaskB. Legal values are CV_NORMAL and CV_ONE_STEP."
 #define MSGCV_BAD_TBOUT   "The final time tBout is outside the interval over which the forward problem was solved."
-#define MSGCV_BACK_ERROR  "Error occured while integrating backward problem # %d"
+#define MSGCV_BACK_ERROR  "Error occurred while integrating backward problem # %d"
 #define MSGCV_BAD_TINTERP "Bad t = %g for interpolation."
 #define MSGCV_WRONG_INTERP "This function cannot be called for the specified interp type."
 

@@ -46,7 +46,7 @@ public class GoToSCIAction extends CommonCallBack {
     public void callBack() {
         File f = new File(System.getenv("SCI"));
         if (f.exists() && f.isDirectory() && f.canRead()) {
-            InterpreterManagement.requestScilabExec("chdir('" + f.getAbsolutePath() + "')");
+            InterpreterManagement.requestScilabExec("chdir('" + f.getAbsolutePath() + "');");
             FileBrowser.setBaseDir(f.getAbsolutePath());
         }
     }

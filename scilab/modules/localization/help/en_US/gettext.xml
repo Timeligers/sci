@@ -22,12 +22,6 @@
         <refname>gettext</refname>
         <refpurpose>indexes or/and translates some indexed english messages</refpurpose>
     </refnamediv>
-    <refnamediv xml:id="_">
-        <refname>_</refname>
-        <refpurpose>
-            Alias of gettext().
-        </refpurpose>
-    </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
         <synopsis>

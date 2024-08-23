@@ -39,7 +39,7 @@ angle(A)
                 </td>
                 <td>
                     <programlisting role="no-scilab-exec"><![CDATA[
-atan(imag(A),real(A))
+angle(A)
                  ]]></programlisting>
                 </td>
             </tr>

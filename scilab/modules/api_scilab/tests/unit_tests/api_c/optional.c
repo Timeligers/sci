@@ -37,7 +37,7 @@ int sci_optional_args(char* fname, void *pvApiCtx)
 
     if (getOptionals(pvApiCtx, fname, opts) == 0)
     {
-        Scierror(999, "foo: error occured in getOptionals().");
+        Scierror(999, "foo: error occurred in getOptionals().");
         return 1;
     }
 

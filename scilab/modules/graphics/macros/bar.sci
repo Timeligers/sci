@@ -188,14 +188,13 @@ function  bar(varargin)
     // ========
     curFig = gcf()
     immediate_drawing = curFig.immediate_drawing
-    wmode = warning("query")
-    warning("off")
+
     if COLOR~=[]
         plot(X,Y, "color",COLOR)
     else
         plot(X,Y)
     end
-    warning(wmode)
+
     curFig.immediate_drawing = "off"
 
     bar_number=size(Y,2)

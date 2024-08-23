@@ -24,32 +24,26 @@ function y = median(x,orient)
 
     // CHECKING ARGUMENTS
     // ==================
-    [lhs, rhs] = argn(0);
-
-    if rhs == 0 then
-        msg = _("%s: Wrong number of input argument(s): %d or %d expected.\n")
-        error(msprintf(msg, "median", 1, 2))
+    arguments
+        x
+        orient (1, 1) {mustBeA(orient, ["double", "string"])} = "*"
     end
 
-    if rhs<2 then
+    if orient=="r" then
+        orient = 1
+    elseif orient=="c" then
+        orient = 2
+    elseif orient=="*" then
         orient = 0
-    else
-        if orient=="r" then
+    elseif orient=="m" then
+        orient = find(size(x)>1,1)
+        if orient==[] then
             orient = 1
-        elseif orient=="c" then
-            orient = 2
-        elseif orient=="*" then
-            orient = 0
-        elseif orient=="m" then
-            orient = find(size(x)>1,1)
-            if orient==[] then
-                orient = 1
-            end
-        else
-            if type(orient)<>1|size(orient,"*")<>1|~isreal(orient)|orient<=0 then
-                msg = _("%s: Wrong value for input argument #%d: ''%s'', ''%s'',''%s'' or a positive number expected.\n")
-                error(msprintf(msg, "median",2,"r","c","m"))
-            end
+        end
+    else
+        if type(orient)<>1|~isreal(orient)|orient<=0 then
+            msg = _("%s: Wrong value for input argument #%d: ''%s'', ''%s'',''%s'' or a positive number expected.\n")
+            error(msprintf(msg, "median",2,"r","c","m"))
         end
     end
 
