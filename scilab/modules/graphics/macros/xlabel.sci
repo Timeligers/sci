@@ -18,7 +18,7 @@ function varargout = xlabel(varargin)
     end
 
     if argn(1) > 1 then
-        msg = gettext("%s: Wrong number of input argument(s): at most %d expected.\n")
+        msg = gettext("%s: Wrong number of output argument(s): at most %d expected.\n")
         error(msprintf(msg, "xlabel", 1));
     end
 

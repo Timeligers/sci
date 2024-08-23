@@ -500,8 +500,7 @@ Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0
     0.0000    0.0012    0.0183    0.1099    0.2684    0.2683    0.1107    0.0190    0.0014    0.0000];
 
 close(winsid()) // destroy all existing figures
-surf(Z,Z+5) // colors array specified
-e=gce();
+e=surf(Z,Z+5) // colors array specified
 e.cdata_mapping='direct' // default is 'scaled' relative to the colormap
 e.color_flag=3; // interpolated shading mode. The default is 4 ('flat' mode) for surf
  ]]></programlisting>
@@ -519,8 +518,7 @@ e.color_flag=3; // interpolated shading mode. The default is 4 ('flat' mode) for
             0.0000    0.0012    0.0183    0.1099    0.2684    0.2683    0.1107    0.0190    0.0014    0.0000];
 
             close(winsid()) // destroy all existing figures
-            surf(Z,Z+5) // colors array specified
-            e=gce();
+            e=surf(Z,Z+5) // colors array specified
             e.cdata_mapping='direct' // default is 'scaled' relative to the colormap
             e.color_flag=3; // interpolated shading mode. The default is 4 ('flat' mode) for surf
         </scilab:image>

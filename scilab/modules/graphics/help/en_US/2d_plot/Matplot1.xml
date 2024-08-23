@@ -110,8 +110,7 @@ ax.box = 'on'; //draw a box
 o = ones(n, n);
 a = 3 * tril(o, -n) + 2*o;
 a = a + a';
-Matplot1(a, [0, 2, 7, 9])
-mp = gce();
+mp = Matplot1(a, [0, 2, 7, 9])
 for k = (-n + 1):n,
   a = 3 * tril(o, k) + 2 * o;
   a = a + a';

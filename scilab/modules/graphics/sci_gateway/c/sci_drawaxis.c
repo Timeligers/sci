@@ -62,6 +62,7 @@ int sci_drawaxis(char *fname, void* pvApiCtx)
         { -1, NULL, -1, 0, 0, NULL}
     };
 
+    SciErr sciErr;
     int iSubwinUID = 0;
     int minrhs = -1, maxrhs = 0, minlhs = 0, maxlhs = 1, nopt = 0;
     char dir = 'l', *format = NULL, tics = 'v', **val = NULL;

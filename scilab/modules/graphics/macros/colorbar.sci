@@ -11,7 +11,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function colorbar(umin, umax, colminmax, fmt)
+function varargout = colorbar(umin, umax, colminmax, fmt)
 
     //  PURPOSE
     //     Draw a colorbar for a plot3d, fec, Sgrayplot, etc...
@@ -42,6 +42,11 @@ function colorbar(umin, umax, colminmax, fmt)
     if rhs > 4 then
         msg = gettext("%s: Wrong number of input arguments: %d to %d expected.\n")
         error(msprintf(msg, "colorbar", 0, 4));
+    end
+
+    if lhs > 1 then
+        msg = gettext("%s: Wrong number of output argument(s): at most %d expected.\n")
+        error(msprintf(msg, "colorbar", 1));
     end
 
     // TYPE OF THE ASSOCIATED PLOT
@@ -322,4 +327,10 @@ function colorbar(umin, umax, colminmax, fmt)
 
     // setting gce()
     set("current_entity", a_cb)
+
+    if argn(1) == 1
+        varargout(1) = a_cb
+    end
+    
+
 endfunction

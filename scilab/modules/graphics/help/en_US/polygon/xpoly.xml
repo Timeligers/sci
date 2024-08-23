@@ -85,8 +85,8 @@ set(h, "foreground", color("red"), "closed", "on");
           x = sin(2*%pi*(0:4)/5);
           y = cos(2*%pi*(0:4)/5);
           plot2d(0,0,-1,"010"," ",[-1,-1,1,1])
-          xpoly(x, y)
-          set(gce(), "foreground", color("red"), "closed", "on");
+          h = xpoly(x, y)
+          set(h, "foreground", color("red"), "closed", "on");
           gcf().axes_size = [300 300];
         </scilab:image>
         <programlisting role="example"><![CDATA[

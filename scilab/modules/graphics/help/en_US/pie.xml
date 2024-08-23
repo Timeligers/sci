@@ -61,7 +61,7 @@
                       </itemizedlist>
                       Use <literal>h</literal> to modify properties
                       of a specific or all Text or Polyline entites after they are created. For a list of
-                      properties, see <link linkend="text_properties">text_properties</link> or <link linkend="Polyline_properties">Polyline_properties</link>.
+                      properties, see <link linkend="text_properties">text_properties</link> or <link linkend="polyline_properties">polyline_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

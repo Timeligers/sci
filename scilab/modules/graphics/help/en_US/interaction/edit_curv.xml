@@ -326,8 +326,7 @@
         <literal>edit_curv()</literal>:
         <programlisting role="example"><![CDATA[
 clf
-plot(1:6)
-curve = gce().children;
+curve = plot(1:6)
 set(curve, "line_style",8, "foreground",color("red"), "thickness",2)
 xtitle("Template", "X axis", "Y axis")
 [x,y] = edit_curv(curve, "y");

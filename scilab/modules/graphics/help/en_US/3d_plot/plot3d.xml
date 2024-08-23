@@ -290,7 +290,7 @@
             <varlistentry>
                 <term>h</term>
                 <listitem>
-                    <para>This optional output contains a handle to the created Plot3d or Fac3d entity. Use <literal>h</literal> to modify its properties
+                    <para>This optional output contains a handle to the created Plot3d or Surface entity. Use <literal>h</literal> to modify its properties
                       For a list of properties, see <link linkend="surface_properties">surface_properties</link>.
                     </para>
                 </listitem>

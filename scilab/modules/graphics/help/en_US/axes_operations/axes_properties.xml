@@ -631,8 +631,8 @@
                                             i = 1
                                             for a = [0 30 60 90 120]
                                                 subplot(1,5,i)
-                                                plot3d()
-                                                gce().color_mode = -2;
+                                                e=plot3d()
+                                                e.color_mode = -2;
                                                 gca().rotation_angles = [a 300];
                                             //    gca().margins = [0.17 0.17 0.25 0.15];
                                             //    gca().box = "on";

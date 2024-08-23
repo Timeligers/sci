@@ -77,8 +77,8 @@
     x=linspace(0,1,9)';
     y=x.^3;
     clf();
-    plot(x,y);
-    e=gce();p=e.children(1);//get the handle on the polyline
+    // get the handle on the polyline
+    p=plot(x,y);
     p.mark_mode="on";p.mark_style=2;p.mark_size=12;
     t=datatipCreate(p,5);
 
@@ -87,8 +87,9 @@
         <scilab:image>
             x=linspace(0,1,9)';
             y=x.^3;
-            plot(x,y);
-            e=gce();p=e.children(1);//get the handle on the polyline
+            clf();
+            // get the handle on the polyline
+            p=plot(x,y);
             p.mark_mode="on";p.mark_style=2;p.mark_size=12;
             t=datatipCreate(p,5);
 

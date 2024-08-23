@@ -57,10 +57,9 @@
     x1=linspace(0,1,100)';
     y1=x1.^3;
     clf();
-    plot(x1,y1,x1,sinc(10*x1));
-    e=gce();
-    p1=e.children(1);//sinc(10*x1)
-    p2=e.children(2); //x1^3
+    e=plot(x1,y1,x1,sinc(10*x1));
+    p1=e(1)//sinc(10*x1)
+    p2=e(2); //x1^3
     t=datatipCreate(p1,50);
     datatipSetOrientation(t,"lower right")
     t=datatipCreate(p1,[0.8 0.5]);
@@ -80,10 +79,9 @@
             x1=linspace(0,1,100)';
             y1=x1.^3;
             clf();
-            plot(x1,y1,x1,sinc(10*x1));
-            e=gce();
-            p1=e.children(1);//sinc(10*x1)
-            p2=e.children(2); //x1^3
+            e=plot(x1,y1,x1,sinc(10*x1));
+            p1=e(1);//sinc(10*x1)
+            p2=e(2); //x1^3
             t=datatipCreate(p1,50);
             datatipSetOrientation(t,"lower right")
             t=datatipCreate(p1,[0.8 0.5]);
@@ -102,10 +100,9 @@
     x1=linspace(0,1.5,100)';
     y1=x1.^3;
     clf();
-    param3d(x1.*cos(10*x1),x1.*sin(10*x1),x1);
+    p=param3d(x1.*cos(10*x1),x1.*sin(10*x1),x1);
     ax=gca();ax.box='off';
     ax.rotation_angles=[76 31];
-    p=gce();
     t=datatipCreate(p,50);
     datatipSetOrientation(t,"lower right")
     datatipCreate(p,[0,-1.10,1.10]);
@@ -113,10 +110,9 @@
         <scilab:image>
             x1=linspace(0,1.5,100)';
             y1=x1.^3;
-            param3d(x1.*cos(10*x1),x1.*sin(10*x1),x1);
+            p=param3d(x1.*cos(10*x1),x1.*sin(10*x1),x1);
             ax=gca();ax.box='off';
             ax.rotation_angles=[76 31];
-            p=gce();
             t=datatipCreate(p,50);
             datatipSetOrientation(t,"lower right")
             datatipCreate(p,[0,-1.10,1.10]);

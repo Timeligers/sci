@@ -219,9 +219,8 @@ nodes = [0  50; ... //1
 z = [0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 2, 2, 2];
 
 nb_mesh = [(1:size(m, 1))', m, (1:size(m, 1))'];
-fec(nodes(:, 1), nodes(:, 2), nb_mesh, z, mesh=%t);
-e=gce();
-e.children.foreground = -2;
+e = fec(nodes(:, 1), nodes(:, 2), nb_mesh, z, mesh=%t);
+e.foreground = -2;
 
 // Contour2dm
 [xc, yc] = contour2dm(nodes(:,1), nodes(:,2), nb_mesh, z, linspace(0,3,4));
@@ -229,8 +228,7 @@ k=1;n=yc(k);c=1;
 N = size(xc, '*');
 while k <= N & k+yc(k)<=N
     n=yc(k);
-    plot2d(xc(k+(1:n)),yc(k+(1:n)));
-    e=gce();
+    e = plot2d(xc(k+(1:n)),yc(k+(1:n)));
     e.children.foreground = -1;
     c=c+1;
     k=k+n+1;
@@ -281,9 +279,8 @@ f.color_map = jet(1024);
             z = [0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 2, 2, 2];
 
             nb_mesh = [(1:size(m, 1))', m, (1:size(m, 1))'];
-            fec(nodes(:, 1), nodes(:, 2), nb_mesh, z, mesh=%t);
-            e=gce();
-            e.children.foreground = -2;
+            e = fec(nodes(:, 1), nodes(:, 2), nb_mesh, z, mesh=%t);
+            e.foreground = -2;
 
             // Contour2dm
             [xc, yc] = contour2dm(nodes(:,1), nodes(:,2), nb_mesh, z, linspace(0,3,4));
@@ -291,9 +288,8 @@ f.color_map = jet(1024);
             N = size(xc, '*');
             while k &lt;= N &amp; k+yc(k) &lt;= N
             n=yc(k);
-            plot2d(xc(k+(1:n)),yc(k+(1:n)));
-            e=gce();
-            e.children.foreground = -1;
+            e=plot2d(xc(k+(1:n)),yc(k+(1:n)));
+            e.foreground = -1;
             c=c+1;
             k=k+n+1;
             end

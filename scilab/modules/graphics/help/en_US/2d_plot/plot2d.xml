@@ -167,7 +167,7 @@
                     </para>
                     <para>
                         After plotting, the handle of the block of legends can be
-                        retrieved with <literal>gca().children(2)</literal>.
+                        retrieved with <literal>findobj(gca(),"type","Legend")</literal>.
                         <link linkend="captions">captions</link>,
                         <link linkend="legend">legend</link> or
                         <link linkend="legends">legends</link> can also be used
@@ -285,6 +285,16 @@
             <tr align="center">
                 <th>9</th><td>"off"</td><td>["on" "on"]</td>  <td></td>     <td>(default setting)</td></tr>
         </table>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output is a vector containing the handles of
+                      the created Compound entity with Polyline entities as childrem. Use <literal>h</literal> to modify properties
+                      of a specific or all Polyline entities after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -471,46 +481,41 @@ a.y_location ="right";
             a.y_location ="right";
         </scilab:image>
         <programlisting role="example"><![CDATA[
-
-// axis centered at (0,0)
-clf();
-x=[0:0.1:2*%pi]';
-plot2d(x-4,sin(x),1,leg="sin(x)");
-a=gca(); // Handle on axes entity
-a.x_location = "origin";
-a.y_location = "origin";
-// Some operations on entities created by plot2d ...
-isoview
-a=gca();
-a.children // list the children of the axes.
-// There are a compound made of two polylines and a legend
-poly1= a.children(1).children(1); //store polyline handle into poly1
-poly1.foreground = 4; // another way to change the style...
-poly1.thickness = 3;  // ...and the thickness of a curve.
-poly1.clip_state='off'; // clipping control
-leg = a.children(2); // store legend handle into leg
-leg.font_style = 9;
-leg.line_mode = "on";
-isoview off
- ]]></programlisting>
-        <scilab:image>
             // axis centered at (0,0)
             clf();
-            x=[0:0.1:2*%pi]';
-            plot2d(x-4,sin(x),1,leg="sin(x)");
-            a=gca(); // Handle on axes entity
+            x = [0:0.1:2*%pi]';
+            poly1 = plot2d(x-4,sin(x),1,leg="sin(x)");
+            a = gca(); // Handle on axes entity
             a.x_location = "origin";
             a.y_location = "origin";
             // Some operations on entities created by plot2d ...
             isoview()
-            a=gca();
-            a.children // list the children of the axes.
-            // There are a compound made of two polylines and a legend
-            poly1= a.children(1).children(1); //store polyline handle into poly1
+            a = gca();
             poly1.foreground = 4; // another way to change the style...
             poly1.thickness = 3;  // ...and the thickness of a curve.
             poly1.clip_state='off'; // clipping control
-            leg = a.children(2); // store legend handle into leg
+            // find the legend
+            leg = findobj(gca(),"type","Legend");
+            leg.font_style = 9;
+            leg.line_mode = "on";
+            isoview("off")
+ ]]></programlisting>
+        <scilab:image>
+            // axis centered at (0,0)
+            clf();
+            x = [0:0.1:2*%pi]';
+            poly1 = plot2d(x-4,sin(x),1,leg="sin(x)").children;
+            a = gca(); // Handle on axes entity
+            a.x_location = "origin";
+            a.y_location = "origin";
+            // Some operations on entities created by plot2d ...
+            isoview()
+            a = gca();
+            poly1.foreground = 4; // another way to change the style...
+            poly1.thickness = 3;  // ...and the thickness of a curve.
+            poly1.clip_state='off'; // clipping control
+            // find the legend
+            leg = findobj(gca(),"type","Legend");
             leg.font_style = 9;
             leg.line_mode = "on";
             isoview("off")

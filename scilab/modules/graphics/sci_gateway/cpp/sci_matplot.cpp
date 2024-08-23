@@ -377,6 +377,11 @@ types::Function::ReturnValue sci_matplot(types::typed_list &in, types::optional_
     ObjmatplotImage(l1, &m1, &n1, strf, rect, nax, flagNax, plottype);
     internal_cleanup(strf, nax, frameflag, axesflag);
 
+    if (_iRetCount == 1)
+    {
+        out.push_back(new types::GraphicHandle(getHandle(getCurrentObject())));
+    }
+
     return types::Function::OK;
 }
 /*--------------------------------------------------------------------------*/
@@ -401,12 +406,5 @@ static void internal_cleanup(char* strf, int* nax, int* frameflag, int* axesflag
     {
         delete[] axesflag;
     }
-
-    if (_iRetCount == 1)
-    {
-        out.push_back(new types::GraphicHandle(getHandle(getCurrentObject())));
-    }
-
-    return types::Function::OK;
 }
 /*--------------------------------------------------------------------------*/

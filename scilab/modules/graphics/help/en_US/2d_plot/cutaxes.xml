@@ -510,10 +510,10 @@ x = linspace(-15,15,400);
 clf
 subplot(1,2,1)
 gcf().axes_size = [720 360];
-plot2d(x, sinc(x).^2)
+h = plot2d(x, sinc(x).^2)
 ax0 = gca();
 
-d = datatipCreate(gce().children, [7.7 0.02]);
+d = datatipCreate(h.children, [7.7 0.02]);
 xtitle("$\LARGE sinc^2$", "Abscissae [a.u.]", "Amplitude")
 grey = color("grey60");
 set(d, "mark_size",4, "foreground",grey, "font_foreground",grey, "orientation",8);
@@ -527,9 +527,9 @@ is_handle_valid(ax0)  // %T: the initial axes still exists
             clf
             subplot(1,2,1)
             gcf().axes_size = [720 360];
-            plot2d(x, sinc(x).^2)
+            h = plot2d(x, sinc(x).^2)
             ax0 = gca();
-            d = datatipCreate(gce().children, [7.7 0.02]);
+            d = datatipCreate(h.children, [7.7 0.02]);
             xtitle("$\LARGE sinc^2$", "Abscissae [a.u.]", "Amplitude")
             grey = color("grey60");
             set(d, "mark_size",4, "foreground",grey, "font_foreground",grey, "orientation",8);

@@ -732,7 +732,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
 
     FREE(propertiesValuesIndices);
 
-    if ((nbOutputArgument(pvApiCtx) ==1)
+    if (nbOutputArgument(pvApiCtx) == 1)
     {
         /* Create return variable */
         if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, GraphicHandle))

@@ -64,8 +64,8 @@
     x=linspace(0,1,100)';
     y=x.^3;
     clf()
-    plot(x,y);
-    e=gce();p=e.children(1);//get the handle on the polyline
+    // get the handle on the polyline
+    p=plot(x,y);
     t1=datatipCreate(p,80);
     datatipCreate(p,40);
     datatipRemove(p,2);
@@ -75,8 +75,8 @@
             x=linspace(0,1,100)';
             y=x.^3;
             clf()
-            plot(x,y);
-            e=gce();p=e.children(1);//get the handle on the polyline
+            // get the handle on the polyline
+            p=plot(x,y);
             t1=datatipCreate(p,80);
             datatipCreate(p,40);
             datatipRemove(p,2);

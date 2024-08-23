@@ -33,6 +33,14 @@
                     <para>four real values defining the rectangle.</para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                  <para>This optional output contains a handle to the created <literal>Rectangle</literal> entity. For a list of
+                      properties, see <link linkend="rectangle_properties">rectangle_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -47,13 +55,13 @@
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
 plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
-xfrect(-1,1,2,2)
-gce().background = color("green");
+e=xfrect(-1,1,2,2)
+e.background = color("green");
  ]]></programlisting>
         <scilab:image>
             plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
-            xfrect(-1,1,2,2)
-            gce().background = color("green");
+            e=xfrect(-1,1,2,2)
+            e.background = color("green");
         </scilab:image>
     </refsection>
     <refsection role="see also">
