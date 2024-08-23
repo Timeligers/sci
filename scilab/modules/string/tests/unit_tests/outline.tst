@@ -52,7 +52,7 @@ data.DT = [datetime(2024, 7, 4) datetime(2024, 7, 4) datetime(2024, 7, 4)];
 data.table = table(["AF"; "NA"], ["Africa"; "North America"]);
 data.ts = timeseries(hours(1:2)', ["AF"; "NA"], ["Africa"; "North America"]);
 
-data.fig = gcf();
+// data.fig = gcf(); // figure_size is not always the same
 data.ax = gca();
 grayplot(1:10,1:10,rand(10,10))
 data.gp = gce();
@@ -61,8 +61,6 @@ X = ndgrid(x);
 [fx, fy] =  (rand(X)-0.5, rand(X)-0.5);
 champ(x, x, fx, fy);
 data.champ = gce();
-
-data
 
 data.tlist1 = tlist(["t1", "x"], 1);
 data.mlist1 = mlist(["t1", "x"], 2);
@@ -78,3 +76,5 @@ for i = fieldnames(data)'
 	data(i)
 	disp(data(i))
 end
+
+data
