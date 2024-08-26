@@ -39,7 +39,7 @@ function  varargout = bar(varargin)
     end
 
     if argn(1) > 1 then
-        msg = gettext("%s: Wrong number of input argument(s): at most %d expected.\n")
+        msg = gettext("%s: Wrong number of output argument(s): at most %d expected.\n")
         error(msprintf(msg, fname, 1));
     end
 
@@ -195,9 +195,9 @@ function  varargout = bar(varargin)
     immediate_drawing = curFig.immediate_drawing
 
     if COLOR~=[]
-         e = plot(X,Y, "color",COLOR)
+        plot(X,Y, "color",COLOR)
     else
-        e = plot(X,Y)
+        plot(X,Y)
     end
 
     curFig.immediate_drawing = "off"
@@ -226,11 +226,10 @@ function  varargout = bar(varargin)
     bar_number= bar_number
 
     a = gca()
-
+    e = gce();
     a.sub_ticks(1) = 0; // bar (barh => a.sub_ticks(2) = 0;)
 
     for i=bar_number:-1:1
-
         ei = e.children(i);
 
         // Perform x_shift

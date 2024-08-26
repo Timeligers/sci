@@ -19,7 +19,7 @@ function varargout = plot3d3(x,y,z,vect,theta,alpha,leg,flags,ebox)
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "plot3d3", 3) );
     end;
 
-    if rhs > 1 then
+    if lhs > 1 then
         error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "plot3d3", 1));
     end
 

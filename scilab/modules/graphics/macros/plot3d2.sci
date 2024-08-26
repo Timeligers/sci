@@ -27,8 +27,8 @@ function varargout = plot3d2(x,y,z,vect,theta,alpha,leg,flag,ebox)
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "plot3d2", 3))
     end
 
-    if rhs > 1 then
-        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "fplot3d", 1));
+    if lhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "plot3d2", 1));
     end
 
     isvect=1

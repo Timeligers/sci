@@ -75,6 +75,8 @@ int sci_xfpolys(char *fname, void *pvApiCtx)
 
     int iType = 0;
     int *piType = &iType;
+    long long* outindex = NULL;
+    int* piChildrenUID = 0;
 
     CheckInputArgument(pvApiCtx, 2, 3);
     CheckOutputArgument(pvApiCtx, 0, 1);
@@ -268,11 +270,20 @@ int sci_xfpolys(char *fname, void *pvApiCtx)
 
     if (nbOutputArgument(pvApiCtx) == 1)
     {
-        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        // return vector of handles sorted in natural order
+        sciErr = allocMatrixOfHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, n1, 1, &outindex);
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             Scierror(999, _("%s: Memory allocation error.\n"), fname);
             return 1;
+        }
+        // Retrieve all children UID.
+        getGraphicObjectProperty(iCompoundUID, __GO_CHILDREN__, jni_int_vector, (void **) &piChildrenUID);
+
+        for (i = 0 ; i < n1 ; ++i)
+        {
+            outindex[i] = getHandle(piChildrenUID[n1-i-1]);
         }
         AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
     }

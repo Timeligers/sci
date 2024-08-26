@@ -210,7 +210,7 @@ function  varargout = barh(varargin)
 
     for i=bar_number:-1:1
 
-        ei = e.children(i)
+        ei = e(i)
 
         // Perform x_shift
         if modulo(bar_number,2)==0 then

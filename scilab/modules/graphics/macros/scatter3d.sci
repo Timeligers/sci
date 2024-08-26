@@ -459,13 +459,10 @@ function varargout = scatter3d(varargin)
     f.immediate_drawing = "off";
 
     if isempty(Z) then
-        plot(axesHandle, X,Y);
-        currentEntity = gce();
-        polyLine = currentEntity.children;
+        polyLine = plot(axesHandle, X,Y);
     else
         set("current_axes", axesHandle);
-        param3d(X,Y,Z);
-        polyLine = gce();
+        polyLine = param3d(X,Y,Z);
     end
 
     if polyLine.Type <> "Polyline" then

@@ -47,6 +47,9 @@ int sci_xfarcs(char *fname, void *pvApiCtx)
 
     long hdl = 0;
     int iCurrentSubWin = 0;
+    int iCompoundUID = 0;
+    long long* outindex = NULL;
+    int* piChildrenUID = 0;
 
     int i = 0;
 
@@ -138,18 +141,25 @@ int sci_xfarcs(char *fname, void *pvApiCtx)
     }
 
     /** Construct Compound and make it current object **/
-    {
-        int o = createCompoundSeq(iCurrentSubWin, n1);
-        setCurrentObject(o);
-    }
+    iCompoundUID = createCompoundSeq(iCurrentSubWin, n1);
+    setCurrentObject(iCompoundUID);
 
     if (nbOutputArgument(pvApiCtx) == 1)
     {
-        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        // return vector of handles sorted in natural order
+        sciErr = allocMatrixOfHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, n1, 1, &outindex);
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             Scierror(999, _("%s: Memory allocation error.\n"), fname);
             return 1;
+        }
+        // Retrieve all children UID.
+        getGraphicObjectProperty(iCompoundUID, __GO_CHILDREN__, jni_int_vector, (void **) &piChildrenUID);
+
+        for (i = 0 ; i < n1 ; ++i)
+        {
+            outindex[i] = getHandle(piChildrenUID[n1-i-1]);
         }
         AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
     }

@@ -128,9 +128,7 @@ function [c] = getcolor(Title,cini)
     end
 
     k1 = min(max(cini,1),N);
-    xrects(rects(eye(),k1),-k1);
-    e = gce();
-    rector = e.children;
+    rector = xrects(rects(eye(),k1),-k1);
     rector.thickness = 4;
     rector.foreground = color(255*(1-cmap(k1,1)),255*(1-cmap(k1,2)),255*(1-cmap(k1,3)));
 

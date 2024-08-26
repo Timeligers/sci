@@ -93,7 +93,7 @@ function  barhomogenize(varargin)
         hbarlist=searchbarhandle(a.children(i),hbarlist)
     end
 
-
+pause
     nbarhandle=size(hbarlist,"*")
     if hbarlist<>[] then
         X=hbarlist(1).data(:,1)

@@ -305,17 +305,17 @@ function varargout = colorbar(umin, umax, colminmax, fmt)
     a_cb.margins=[0 0.75 0 0];
 
     //draw the colorbar
-    Matplot((colminmax(2):-1:colminmax(1))')
+    h = Matplot((colminmax(2):-1:colminmax(1))')
     a_cb.y_location = "right";
     a_cb.tight_limits = "on";
 
     if Type~="Matplot" then
         du = (umax-umin)
-        gce().rect = [0.5 umin 1.5 umax];
+        h.rect = [0.5 umin 1.5 umax];
         a_cb.data_bounds  = [0.5, 1.5, umin-du/500, umax+du/500];
     else
         s = ((umax-umin)==(colminmax(2)-colminmax(1)))*0.5
-        gce().rect = [0.5 umin-s 1.5 umax+s];
+        h.rect = [0.5 umin-s 1.5 umax+s];
         a_cb.data_bounds  = [0.5 1.5 umin-s umax+s];
     end
 

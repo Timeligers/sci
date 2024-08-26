@@ -125,25 +125,22 @@ function comet(varargin)
         axes.data_bounds=[min(axes.data_bounds(1,:), [min(x) min(y)]);
         max(axes.data_bounds(2,:), [max(x) max(y)])];
     end
-    //create the head, body and tail polylines
+    //create the _head, _body and _tail polylines
     drawlater()
-    tail=[];body=[];head=[];
+    _tail=[];_body=[];_head=[];
     for l=1:m
-        xpoly([],[]);
-        tail(l)=gce();
-        tail(l).foreground=c(l);
+        _tail(l) = xpoly([],[]);
+        _tail(l).foreground=c(l);
+ 
+        _body(l) = xpoly([],[]);
+        _body(l).foreground=c(l);
+        _body(l).thickness=2;
 
-        xpoly([],[]);
-        body(l)=gce();
-        body(l).foreground=c(l);
-        body(l).thickness=2;
-
-        xpoly([],[],"marks");
-        head(l)=gce();
-        head(l).mark_size_unit="point";
-        head(l).mark_size=6;
-        head(l).mark_style=9;
-        head(l).mark_foreground=c(l);
+        _head(l) = xpoly([],[],"marks");
+        _head(l).mark_size_unit="point";
+        _head(l).mark_size=6;
+        _head(l).mark_style=9;
+        _head(l).mark_foreground=c(l);
     end
     show_window();
 
@@ -152,15 +149,14 @@ function comet(varargin)
         //animation loop
         k = round(p*n);
         step=ceil(n/200); //used to speed up the drawing
-
         for i=1:n
             for l=1:m
-                head(l).data=[x(i,l),y(i,l)];
+                _head(l).data=[x(i,l),y(i,l)];
                 if i<=k then
-                    body(l).data= [body(l).data;[x(i,l),y(i,l)]];
+                    _body(l).data= [_body(l).data;[x(i,l),y(i,l)]];
                 else
-                    body(l).data= [body(l).data(2:$,:);[x(i,l),y(i,l)]];
-                    tail(l).data=[ tail(l).data;[x(i-k+1,l),y(i-k+1,l)]];
+                    _body(l).data= [_body(l).data(2:$,:);[x(i,l),y(i,l)]];
+                    _tail(l).data=[ _tail(l).data;[x(i-k+1,l),y(i-k+1,l)]];
                 end
             end
             if modulo(i,step)==0 then
@@ -172,8 +168,8 @@ function comet(varargin)
         fig.immediate_drawing = "off"
         for i=1:k
             for l=1:m
-                body(l).data= body(l).data(2:$,:);
-                tail(l).data=[tail(l).data;[x(n-k+i,l),y(n-k+i,l)]];
+                _body(l).data= _body(l).data(2:$,:);
+                _tail(l).data=[_tail(l).data;[x(n-k+i,l),y(n-k+i,l)]];
             end
             if modulo(i,step)==0 then
                 fig.immediate_drawing = "on"
@@ -181,7 +177,7 @@ function comet(varargin)
             end
         end
         fig.immediate_drawing = "on"
-        delete(body)
+        delete(_body)
     endfunction
     //not to generate an error message if the window is closed
     exec(anim, "errcatch", -1);

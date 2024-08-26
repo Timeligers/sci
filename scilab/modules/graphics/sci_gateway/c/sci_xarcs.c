@@ -28,6 +28,7 @@
 #include "Scierror.h"
 
 #include "CurrentObject.h"
+#include "HandleManagement.h"
 
 #include "graphicObjectProperties.h"
 #include "createGraphicObject.h"
@@ -51,8 +52,11 @@ int sci_xarcs(char *fname, void *pvApiCtx)
     double angle2 = 0.0;
 
     int iCurrentSubWinUID = 0;
+    int iCompoundUID = 0;
     int iCurrentSubWinForeground = 0;
     int *piCurrentSubWinForeground = &iCurrentSubWinForeground;
+    long long* outindex = NULL;
+    int* piChildrenUID = 0;
 
     CheckInputArgument(pvApiCtx, 1, 2);
     CheckOutputArgument(pvApiCtx, 0, 1);
@@ -151,19 +155,26 @@ int sci_xarcs(char *fname, void *pvApiCtx)
                (l1 + (6 * i) + 2), (l1 + (6 * i) + 3), (int*)(l2 + i), NULL, FALSE, TRUE, &hdl);
     }
 
-    /* construct Compound and make it current object */
-    {
-        int o = createCompoundSeq(iCurrentSubWinUID, n1);
-        setCurrentObject(o);
-    }
+    /** Construct Compound and make it current object **/
+    iCompoundUID = createCompoundSeq(iCurrentSubWinUID, n1);
+    setCurrentObject(iCompoundUID);
 
     if (nbOutputArgument(pvApiCtx) == 1)
     {
-        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        // return vector of handles sorted in natural order
+        sciErr = allocMatrixOfHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, n1, 1, &outindex);
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             Scierror(999, _("%s: Memory allocation error.\n"), fname);
             return 1;
+        }
+        // Retrieve all children UID.
+        getGraphicObjectProperty(iCompoundUID, __GO_CHILDREN__, jni_int_vector, (void **) &piChildrenUID);
+
+        for (i = 0 ; i < n1 ; ++i)
+        {
+            outindex[i] = getHandle(piChildrenUID[n1-i-1]);
         }
         AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
     }

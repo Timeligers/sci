@@ -128,7 +128,7 @@ function [nbDecomp] = computeNeededDecompos(theta)
 
 endfunction
 // ---------------------------------------------------------------------------
-function e = drawGrayplot(theta, rho, z)
+function gPlot = drawGrayplot(theta, rho, z)
     // draw only the colored part of the grayplot
 
     // the aim of the function is to draw a set of curved facets
@@ -193,8 +193,7 @@ function e = drawGrayplot(theta, rho, z)
     zCoords = zeros(4, nbQuadFacets);
 
     // disable line draing and hidden color
-    e = plot3d(xCoords, yCoords, list(zCoords,colors));
-    gPlot = gce();
+    gPlot = plot3d(xCoords, yCoords, list(zCoords,colors));
     gPlot.color_mode  = -1; // no wireframe
     gPlot.hiddencolor = 0; // no hidden color
     gPlot.color_flag  = 2; // average color on each facets

@@ -23,7 +23,6 @@ function [] = %_xstringb()
     axes = gca();
     axes.axes_visible = "on";
     str = ["Scilab","is";"not","Esilab"];
-    xstringb(0.1,0.1,str,0.5,0.5,"fill");
-    txt = gce();
+    txt = xstringb(0.1,0.1,str,0.5,0.5,"fill");
     txt.box = "on";
 endfunction

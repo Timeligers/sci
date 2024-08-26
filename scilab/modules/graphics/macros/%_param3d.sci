@@ -18,9 +18,9 @@ function [] = %_param3d()
     t = (0:0.1:5*%pi)';
     r = (max(t)-t)/10;
     s = gca().axes_bounds; delete(gca()); xsetech(s)  // clears the current axes
-    param3d1(r.*sin(t), r.*cos(t), list(t/10, -10), 28, 61,"axis X@axis Y@axis Z",[4,4])
-    gce().mark_foreground = color("magenta")
-    gce().line_mode = "on";
+    e = param3d1(r.*sin(t), r.*cos(t), list(t/10, -10), 28, 61,"axis X@axis Y@axis Z",[4,4])
+    e.mark_foreground = color("magenta")
+    e.line_mode = "on";
 
     gca().foreground = color("grey60");
     gca().sub_ticks = [4 4 4];
