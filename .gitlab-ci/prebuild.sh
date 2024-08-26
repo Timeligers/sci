@@ -58,7 +58,7 @@ export PATH="/usr/local/bin:$INSTALLUSRDIR/bin:$PATH"
 JDK_VERSION=17.0.7+7
 JRE_VERSION=17.0.7_7
 ANT_VERSION=1.10.5
-OPENBLAS_VERSION=0.3.27
+OPENBLAS_VERSION=0.3.28
 ARPACK_VERSION=3.9.1
 CURL_VERSION=7.64.1
 EIGEN_VERSION=3.3.2
@@ -491,7 +491,7 @@ build_openblas() {
 
     tar -xzf "$DOWNLOADDIR/OpenBLAS-$OPENBLAS_VERSION.tar.gz"
     cd OpenBLAS-$OPENBLAS_VERSION || exit 1
-    make -j"$(nproc)" DYNAMIC_ARCH=1 NO_AVX2=1 NO_STATIC=1 NO_LAPACKE=1
+    make -j"$(nproc)" DYNAMIC_ARCH=1 NO_AVX2=1 NO_STATIC=1 NO_LAPACKE=1 TARGET=NEHALEM
 
     # install openblas for runtime usage
     cp libopenblas.so "$INSTALLUSRDIR/lib/libopenblas.so.$OPENBLAS_VERSION"
