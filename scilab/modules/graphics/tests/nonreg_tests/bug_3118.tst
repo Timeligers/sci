@@ -6,7 +6,7 @@
 // =============================================================================
 
 // <-- TEST WITH GRAPHIC -->
-// <-- NO_CHECK_REF -->
+// <-- NO CHECK REF -->
 
 // <-- Non-regression test for bug 3118 -->
 //
