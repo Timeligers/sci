@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=sqrt(x)</synopsis>
+        <synopsis>y = sqrt(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

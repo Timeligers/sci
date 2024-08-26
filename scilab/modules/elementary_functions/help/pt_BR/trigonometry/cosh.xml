@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>[t]=cosh(x)</synopsis>
+        <synopsis>t = cosh(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>

@@ -20,10 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>y=prod(x)
-            y=prod(x,orientation)
-            y=prod(x,outtype)
-            y=prod(x,orientation,outtype)
+        <synopsis>y = prod(x)
+            y = prod(x, orientation)
+            y = prod(x, outtype)
+            y = prod(x, orientation, outtype)
         </synopsis>
     </refsynopsisdiv>
     <refsection>

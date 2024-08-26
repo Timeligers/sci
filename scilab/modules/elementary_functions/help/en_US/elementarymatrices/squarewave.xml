@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>x=squarewave(t [,percent])</synopsis>
+        <synopsis>
+            x = squarewave(t)
+            x = squarewave(t, percent)
+        </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
         <title>Arguments</title>

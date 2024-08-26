@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[Y]=pertrans(X)</synopsis>
+        <synopsis>Y = pertrans(X)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

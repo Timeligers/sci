@@ -29,7 +29,7 @@
 
         <title>呼び出し手順</title>
 
-        <synopsis>[t] = cotg(x)</synopsis>
+        <synopsis>t = cotg(x)</synopsis>
 
     </refsynopsisdiv>
 

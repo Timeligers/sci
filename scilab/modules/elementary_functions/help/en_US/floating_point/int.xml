@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=int(X)</synopsis>
+        <synopsis>y = int(X)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

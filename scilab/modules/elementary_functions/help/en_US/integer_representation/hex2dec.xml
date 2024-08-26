@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>d=hex2dec(h)</synopsis>
+        <synopsis>d = hex2dec(h)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

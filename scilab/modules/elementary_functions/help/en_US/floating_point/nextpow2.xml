@@ -19,11 +19,11 @@
           xmlns:scilab="http://www.scilab.org" xml:id="nextpow2" xml:lang="en">
     <refnamediv>
         <refname>nextpow2</refname>
-        <refpurpose>next higher power of 2.</refpurpose>
+        <refpurpose>next higher power of 2</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>t=nextpow2(x)</synopsis>
+        <synopsis>t = nextpow2(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

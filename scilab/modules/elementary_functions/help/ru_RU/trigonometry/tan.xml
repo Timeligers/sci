@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[t]=tan(x)</synopsis>
+        <synopsis>t = tan(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

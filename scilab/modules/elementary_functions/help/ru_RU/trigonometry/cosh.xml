@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[t] = cosh(x)</synopsis>
+        <synopsis>t = cosh(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

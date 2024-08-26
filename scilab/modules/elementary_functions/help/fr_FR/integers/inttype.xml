@@ -7,7 +7,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>[i]=inttype(x)</synopsis>
+        <synopsis>i = inttype(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>

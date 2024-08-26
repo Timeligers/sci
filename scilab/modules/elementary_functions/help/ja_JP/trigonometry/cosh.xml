@@ -29,7 +29,7 @@
 
         <title>呼出し手順</title>
 
-        <synopsis>[t] = cosh(x)</synopsis>
+        <synopsis>t = cosh(x)</synopsis>
 
     </refsynopsisdiv>
 

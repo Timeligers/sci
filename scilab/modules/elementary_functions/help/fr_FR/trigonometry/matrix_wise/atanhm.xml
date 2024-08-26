@@ -8,7 +8,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>t=atanhm(x)</synopsis>
+        <synopsis>t = atanhm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>

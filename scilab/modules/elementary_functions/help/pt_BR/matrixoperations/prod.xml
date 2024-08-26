@@ -20,10 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>y=prod(x)
-            y=prod(x,'r') ou y=prod(x,1)
-            y=prod(x,'c') ou y=prod(x,2)
-            y=prod(x,'m')
+        <synopsis>y = prod(x)
+            y = prod(x, 'r')   ou  y = prod(x, 1)
+            y = prod(x, 'c')   ou  y = prod(x, 2)
+            y = prod(x, 'm')
         </synopsis>
     </refsynopsisdiv>
     <refsection>

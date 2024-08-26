@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>[t]=cotg(x)</synopsis>
+        <synopsis>t = cotg(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>

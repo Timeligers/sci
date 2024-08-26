@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>d=oct2dec(o)</synopsis>
+        <synopsis>d = oct2dec(o)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

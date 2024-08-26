@@ -23,7 +23,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>C = cross(A,B)</synopsis>
+        <synopsis>C = cross(A, B)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

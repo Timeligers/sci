@@ -25,7 +25,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>t=isempty(x)</synopsis>
+        <synopsis>t = isempty(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

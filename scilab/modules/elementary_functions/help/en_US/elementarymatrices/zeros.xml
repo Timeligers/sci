@@ -2,8 +2,8 @@
 <!--
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
- *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2023 - Samuel GOUGEON
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
  * pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -19,72 +19,56 @@
           xmlns:scilab="http://www.scilab.org" xml:id="zeros" xml:lang="en">
     <refnamediv>
         <refname>zeros</refname>
-        <refpurpose>null matrix</refpurpose>
+        <refpurpose>null array: array made of 0 or of %F</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=zeros(m1,m2,...)
-            y=zeros(x)
-            y=zeros()
+        <synopsis>
+            y = zeros(m1, m2,...)
+            y = zeros(x)
+            y = zeros(…, type)
+            y = zeros()
         </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
         <variablelist>
             <varlistentry>
-                <term>x,y</term>
+                <term>x, y</term>
                 <listitem>
-                    <para>matrices</para>
+                    <para>arrays of same sizes.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>m1, m2,..</term>
                 <listitem>
-                    <para>integers</para>
+                    <para>integers > 0: sizes of <varname>y</varname>.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>type</term>
                 <listitem>
-                    <para>optional character string: 'double', 'boolean','int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32', 'int64', or 'uint64'.</para>
+                    <para>
+                        optional character string: 'double', 'boolean','int8', 'uint8', 'int16',
+                        'uint16', 'int32', 'uint32', 'int64', or 'uint64':
+                        chosen <literal>typeof(y)</literal>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
         <title>Description</title>
-        <para>Returns a null matrix.  By default the returned matrix is of double precision floating point type but a given type can be precised in the <term>type</term> argument.</para>
+        <para>
+            Returns a null array. By default, the returned array is of real type.
+            A given type can be specified with the <varname>type</varname> argument.
+        </para>
         <variablelist>
             <varlistentry>
                 <term>zeros(m1,m2,..,mn)</term>
                 <listitem>
                     <para>
-                        creates a <literal>(m1,m2,..,mn)</literal> null matrix.
-                    </para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>zeros(m1,m2,..,mn,type)</term>
-                <listitem>
-                    <para>
-                        returns a <literal>(m1,m2,..,mn)</literal> null matrix with type given by <literal>type</literal>. In the case of boolean type the matrix is filled with <literal>%F</literal> value. 
-                    </para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>zeros(x)</term>
-                <listitem>
-                    <para>returns a null matrix with the same size as
-                        <literal>x</literal>.
-                    </para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>zeros(m1,m2,..,mn,type)</term>
-                <listitem>
-                    <para>
-                        returns a null matrix with the same size as <literal>x</literal>
-                        and type given by <literal>type</literal>. In the case of boolean type the matrix is filled with <literal>%F</literal> value. 
+                        creates a null array of sizes <literal>(m1,m2,..,mn)</literal>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -92,33 +76,40 @@
                 <term>zeros(x)</term>
                 <listitem>
                     <para>
-                        is also valid for <literal>x</literal> a
+                        returns a null array with the same sizes as <varname>x</varname>.
+                    </para>
+                    <warning>
+                        <literal>zeros(3)</literal> is <literal>zeros(x)</literal>
+                        with <literal>x=3</literal>. It is NOT a 3x3 matrix!
+                    </warning>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>zeros(…, type)</term>
+                <listitem>
+                    <para>
+                        forces the returned array to be of the given <varmane>type</varmane>. In
+                        the case of boolean type, the array is filled with <literal>%F</literal> values.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>zeros(x)</term>
+                <listitem>
+                    <para>
+                        is also valid for <varname>x</varname> a
                         <literal>syslin</literal> list.
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
-    </refsection>
-    <refsection>
-        <title>Remarks</title>
-        <itemizedlist>
-            <listitem>
-                <para>
-                    Note that <literal>zeros(3)</literal> is <literal>zeros(a)</literal>
-                    with <literal>a=3</literal> i.e it is NOT a 3x3 matrix!
-                </para>
-            </listitem>
-            <listitem>
-                <para>zeros() is equivalent to zeros(1,1).</para>
-            </listitem>
-            <listitem>
-                <para>
-                    <literal>zeros(3,-3)</literal> and <literal>zeros(-3,-3)</literal> both return an empty matrix.
-                </para>
-            </listitem>
-        </itemizedlist>
+        <para><literal>zeros()</literal> is equivalent to zeros(1,1).</para>
+        <para>
+            Both <literal>zeros(3,-3)</literal> and <literal>zeros(-3,-3)</literal>
+            return an empty matrix.
+        </para>
         <note>
-           <literal>repmat(1, sizes)</literal> can be used to generate an array of zeros with
+           <literal>repmat(0, sizes)</literal> can be used to generate an array of zeros with
            <literal>sizes=[m1 m2 ..]</literal> given as a vector.
         </note>
     </refsection>
@@ -126,13 +117,76 @@
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
 zeros(3)
+
 zeros(3,3)
-zeros(3,3,"uint8")
+z = zeros(3,3,"uint8")
+typeof(z)
+
 zeros(3,3,"boolean")
+
 zeros(2,3,2)
 
-repmat(1, [2 4 2])
- ]]></programlisting>
+m = ["a" "bc" "d" "efg" ; "h" "" "ijk" "lmn"]
+zeros(m)
+
+repmat(0, [2 4 2])
+     ]]></programlisting>
+        <screen><![CDATA[
+--> zeros(3)
+ ans  =
+   0.
+
+--> zeros(3,3)
+ ans  =
+   0.   0.   0.
+   0.   0.   0.
+   0.   0.   0.
+
+--> z = zeros(3,3,"uint8")
+ z  =
+  0  0  0
+  0  0  0
+  0  0  0
+
+--> typeof(z)
+ ans  =
+  "uint8"
+
+--> zeros(3,3,"boolean")
+ ans  =
+  F F F
+  F F F
+  F F F
+
+
+--> zeros(2,3,2)
+ ans  =
+(:,:,1)
+   0.   0.   0.
+   0.   0.   0.
+(:,:,2)
+   0.   0.   0.
+   0.   0.   0.
+
+--> m = ["a" "bc" "d" "efg" ; "h" "" "ijk" "lmn"]
+ m  =
+  "a"  "bc"  "d"    "efg"
+  "h"  ""    "ijk"  "lmn"
+
+--> zeros(m)
+ ans  =
+   0.   0.   0.   0.
+   0.   0.   0.   0.
+
+--> repmat(0, [2 4 2])
+ ans  =
+(:,:,1)
+   0.   0.   0.   0.
+   0.   0.   0.   0.
+(:,:,2)
+   0.   0.   0.   0.
+   0.   0.   0.   0.
+]]></screen>
     </refsection>
     <refsection role="see also">
         <title>See also</title>
@@ -150,5 +204,16 @@ repmat(1, [2 4 2])
                 <link linkend="signed_zero">-0</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    option <literal>type</literal> added.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

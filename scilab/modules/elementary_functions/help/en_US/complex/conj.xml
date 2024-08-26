@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>[y] = conj(x)</synopsis>
+        <synopsis>y = conj(x)</synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
         <title>Arguments</title>

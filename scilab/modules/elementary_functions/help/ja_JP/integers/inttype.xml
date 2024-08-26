@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>呼び出し手順</title>
-        <synopsis>[i]=inttype(x)</synopsis>
+        <synopsis>i = inttype(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>パラメータ</title>

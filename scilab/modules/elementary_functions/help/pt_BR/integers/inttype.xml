@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>[i]=inttype(x)</synopsis>
+        <synopsis>i = inttype(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>

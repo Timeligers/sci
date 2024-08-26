@@ -8,7 +8,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[y] = testmatrix(name, n)</synopsis>
+        <synopsis>y = testmatrix(name, n)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

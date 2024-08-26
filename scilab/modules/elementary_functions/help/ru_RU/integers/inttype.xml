@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[i] = inttype(x)</synopsis>
+        <synopsis>i = inttype(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

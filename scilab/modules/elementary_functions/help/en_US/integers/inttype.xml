@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>[i] = inttype(x)</synopsis>
+        <synopsis>i = inttype(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[t] = cothm(x)</synopsis>
+        <synopsis>t = cothm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

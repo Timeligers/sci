@@ -23,12 +23,12 @@
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
         <synopsis>
-            [nb [,loc]] = members(N, H)
-            [nb [,loc]] = members(N, H, "last")
-            [nb [,loc]] = members(N, H, "rows"|"cols")
-            [nb [,loc]] = members(N, H, "rows"|"cols", "last")
-            [nb [,loc]] = members(N, H, "rows"|"cols", "shuffle")
-            [nb [,loc]] = members(N, H, "rows"|"cols", "shuffle", "last")
+            [nb, loc] = members(N, H)
+            [nb, loc] = members(N, H, "last")
+            [nb, loc] = members(N, H, "rows"|"cols")
+            [nb, loc] = members(N, H, "rows"|"cols", "last")
+            [nb, loc] = members(N, H, "rows"|"cols", "shuffle")
+            [nb, loc] = members(N, H, "rows"|"cols", "shuffle", "last")
         </synopsis>
     </refsynopsisdiv>
     <refsection>

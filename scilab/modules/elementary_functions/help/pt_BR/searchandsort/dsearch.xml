@@ -8,7 +8,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>[ind, occ, info] = dsearch(X, val [, ch ])</synopsis>
+        <synopsis>
+            [ind, occ, info] = dsearch(X, val)
+            [ind, occ, info] = dsearch(X, val, ch)
+        </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>

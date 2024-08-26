@@ -6,7 +6,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>[y]=testmatrix(name,n)</synopsis>
+        <synopsis>y = testmatrix(name, n)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>

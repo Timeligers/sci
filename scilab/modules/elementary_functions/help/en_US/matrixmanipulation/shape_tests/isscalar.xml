@@ -22,7 +22,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>t=isscalar(x)</synopsis>
+        <synopsis>t = isscalar(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

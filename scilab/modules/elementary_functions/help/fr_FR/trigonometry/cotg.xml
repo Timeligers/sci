@@ -6,7 +6,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>[t]=cotg(x)</synopsis>
+        <synopsis>t = cotg(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>

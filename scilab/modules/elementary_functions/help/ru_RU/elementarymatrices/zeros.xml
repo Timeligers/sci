@@ -2,8 +2,8 @@
 <!--
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
- *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2023 - Samuel GOUGEON
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
  * pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -19,29 +19,38 @@
           xmlns:scilab="http://www.scilab.org" xml:id="zeros" xml:lang="ru">
     <refnamediv>
         <refname>zeros</refname>
-        <refpurpose>матрица, составленная из нулей</refpurpose>
+        <refpurpose>Нулевой массив: массив, заполненный 0 или %F</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
         <synopsis>
-            y=zeros()
-            y=zeros(x)
-            y=zeros(m1,m2,..)
+            y = zeros(m1, m2,...)
+            y = zeros(x)
+            y = zeros(…, type)
+            y = zeros()
         </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>
         <variablelist>
             <varlistentry>
-                <term>x,y</term>
+                <term>x, y</term>
                 <listitem>
-                    <para>матрицы</para>
+                    <para>векторы, матрицы, гиперматрицы одного размера.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>m1, m2, ...</term>
                 <listitem>
-                    <para>целые числа</para>
+                    <para>целые числа > 0: размеры массива <varname>y</varname>.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>type</term>
+                <listitem>
+                    <para>optional character string: 'double', 'boolean', 'int8', 'uint8', 'int16',
+                        'uint16', 'int32', 'uint32', 'int64', or 'uint64': chosen <literal>typeof(y)</literal>
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -53,41 +62,38 @@
         </para>
         <variablelist>
             <varlistentry>
-                <term>zeros(m1,m2)</term>
-                <listitem>
-                    <para>
-                        для создания матрицы размерами <literal>(m1,m2)</literal>.
-                    </para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
                 <term>zeros(m1,m2,..,mn)</term>
                 <listitem>
                     <para>
-                        создаёт матрицу размерами <literal>(m1,m2,...,mn)</literal>, заполненную нулями.
+                        создаёт массив размерами <literal>(m1,m2,...,mn)</literal>, заполненную нулями.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>zeros(A)</term>
+                <term>zeros(x)</term>
                 <listitem>
                     <para>
-                        для создания матрицы того же размера, что и <literal>A</literal>.
+                        для создания матрицы того же размера, что и <literal>x</literal>.
                     </para>
+                <warning>
+                    <literal>zeros(3)</literal> соответствует <literal>zeros(x)</literal>,
+                    где <literal>x=3</literal>. То есть это матрица размером НЕ 3x3!
+                </warning>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>zeros(3)</term>
+                <term>zeros(…, type)</term>
                 <listitem>
                     <para>
-                        соответствует <literal>zeros(a)</literal>, где <literal>a=3</literal>. То есть это матрица размером НЕ 3x3!
+                        forces the returned array to be of the given <varmane>type</varmane>. In
+                        the case of boolean type, the array is filled with <literal>%F</literal> values.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>zeros()</term>
                 <listitem>
-                    <para>возвращает единственный ноль</para>
+                    <para>возвращает единственный ноль.</para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -105,11 +111,76 @@
         <title>Примеры</title>
         <programlisting role="example"><![CDATA[
 zeros(3)
+
 zeros(3,3)
+z = zeros(3,3,"uint8")
+typeof(z)
+
+zeros(3,3,"boolean")
+
 zeros(2,3,2)
 
+m = ["a" "bc" "d" "efg" ; "h" "" "ijk" "lmn"]
+zeros(m)
+
 repmat(0, [2 4 2])
- ]]></programlisting>
+     ]]></programlisting>
+        <screen><![CDATA[
+--> zeros(3)
+ ans  =
+   0.
+
+--> zeros(3,3)
+ ans  =
+   0.   0.   0.
+   0.   0.   0.
+   0.   0.   0.
+
+--> z = zeros(3,3,"uint8")
+ z  =
+  0  0  0
+  0  0  0
+  0  0  0
+
+--> typeof(z)
+ ans  =
+  "uint8"
+
+--> zeros(3,3,"boolean")
+ ans  =
+  F F F
+  F F F
+  F F F
+
+
+--> zeros(2,3,2)
+ ans  =
+(:,:,1)
+   0.   0.   0.
+   0.   0.   0.
+(:,:,2)
+   0.   0.   0.
+   0.   0.   0.
+
+--> m = ["a" "bc" "d" "efg" ; "h" "" "ijk" "lmn"]
+ m  =
+  "a"  "bc"  "d"    "efg"
+  "h"  ""    "ijk"  "lmn"
+
+--> zeros(m)
+ ans  =
+   0.   0.   0.   0.
+   0.   0.   0.   0.
+
+--> repmat(0, [2 4 2])
+ ans  =
+(:,:,1)
+   0.   0.   0.   0.
+   0.   0.   0.   0.
+(:,:,2)
+   0.   0.   0.   0.
+   0.   0.   0.   0.
+]]></screen>
     </refsection>
     <refsection role="see also">
         <title>Смотрите также</title>
@@ -127,5 +198,16 @@ repmat(0, [2 4 2])
                 <link linkend="signed_zero">-0</link>
             </member>
         </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    option <literal>type</literal> added.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

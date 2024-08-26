@@ -22,7 +22,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>[t]=cothm(x)</synopsis>
+        <synopsis>t = cothm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Descrição</title>

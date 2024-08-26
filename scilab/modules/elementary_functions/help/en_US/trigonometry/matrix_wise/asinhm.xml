@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>t=asinhm(x)</synopsis>
+        <synopsis>t = asinhm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

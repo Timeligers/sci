@@ -22,7 +22,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>t=acosd(x)</synopsis>
+        <synopsis>t = acosd(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>

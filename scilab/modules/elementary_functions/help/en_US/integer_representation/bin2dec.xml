@@ -24,7 +24,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=bin2dec(str)</synopsis>
+        <synopsis>y = bin2dec(str)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

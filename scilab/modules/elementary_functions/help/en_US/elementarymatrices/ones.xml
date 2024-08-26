@@ -2,8 +2,8 @@
 <!--
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
- *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2023 - Samuel GOUGEON
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
  * pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -19,72 +19,70 @@
           xmlns:scilab="http://www.scilab.org" xml:id="ones" xml:lang="en">
     <refnamediv>
         <refname>ones</refname>
-        <refpurpose>matrix made of ones</refpurpose>
+        <refpurpose>array made of ones or of %T</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=ones(m1,m2,...)
-            y=ones(x)
-            y=ones()
+        <synopsis>
+            y = ones(m1, m2,...)
+            y = ones(x)
+            y = ones(…, type)
+            y = ones()
         </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
         <variablelist>
             <varlistentry>
-                <term>x,y</term>
+                <term>x, y</term>
                 <listitem>
-                    <para>matrices</para>
+                    <para>arrays of same sizes</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>m1, m2,..</term>
                 <listitem>
-                    <para>integers</para>
+                    <para>integers > 0: sizes of <varname>y</varname>.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>type</term>
                 <listitem>
-                    <para>optional character string: 'double', 'boolean', 'int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32', 'int64', or 'uint64'.</para>
+                    <para>optional character string: 'double', 'boolean', 'int8', 'uint8', 'int16',
+                        'uint16', 'int32', 'uint32', 'int64', or 'uint64': chosen <literal>typeof(y)</literal>
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
         <title>Description</title>
-        <para>Returns a matrix made of ones.  By default the returned matrix is of double precision floating point type but a given type can be precised in the <term>type</term>argument.</para>
+        <para>
+            Returns an array made of ones. By default, the returned array is of real type.
+            A given type can be specified with the <varname>type</varname> argument.
+        </para>
         <variablelist>
             <varlistentry>
-                <term>ones(m1,m2,..,mn)</term>
+                <term>ones(m1, m2, ..,mn)</term>
                 <listitem>
                     <para>
-                        creates a <literal>(m1,m2,..,mn)</literal> matrix full of
-                        ones.
-                    </para>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term>ones(m1,m2,..,mn,type)</term>
-                <listitem>
-                    <para>
-                        returns a <literal>(m1,m2,..,mn)</literal> matrix made of ones with type given by <literal>type</literal>. In the case of boolean type the matrix is filled with <literal>%T</literal> value. 
+                        creates a <literal>(m1,m2,..,mn)</literal> array full of ones.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>ones(x)</term>
                 <listitem>
-                    <para>returns a matrix full of ones with the same size as
-                        <literal>x</literal>.
+                    <para>returns an array full of ones with the same size as <varname>x</varname>.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>ones(x,type)</term>
+                <term>ones(…, type)</term>
                 <listitem>
-                    <para>returns a matrix full of ones with the same size as
-                        <literal>x</literal> and type given by <literal>type</literal>. In the case of boolean type the matrix is filled with <literal>%T</literal> value. 
+                    <para>
+                        forces the returned array to be of the given <varmane>type</varmane>. In
+                        the case of boolean type, the array is filled with <literal>%T</literal> values.
                     </para>
                 </listitem>
             </varlistentry>
@@ -92,8 +90,7 @@
                 <term>ones(x)</term>
                 <listitem>
                     <para>
-                        is also valid for <literal>x</literal> a
-                        <literal>syslin</literal> list.
+                        is also valid for <varname>x</varname> a <literal>syslin</literal> list.
                     </para>
                 </listitem>
             </varlistentry>
@@ -104,8 +101,8 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    Note that <literal>ones(3)</literal> is <literal>ones(a)</literal>
-                    with <literal>a=3</literal> i.e it is NOT a 3x3 matrix!
+                    Note that <literal>ones(3)</literal> is <literal>ones(x)</literal>
+                    with <literal>x=3</literal> i.e it is NOT a 3x3 matrix!
                 </para>
             </listitem>
             <listitem>
@@ -126,13 +123,65 @@
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
 ones(3)
+
 ones(3,3)
-ones(3,3,"uint8")
-ones(3,3,"boolean")
+r = ones(3,3,'uint8')
+typeof(r)
+ones(3,3,'boolean')
+
 ones(2,3,2)
 
+m = ["a" "bc" "d" "efg" ; "h" "" "ijk" "lmn"]
+ones(m)
+
 repmat(1, [2 4 2])
- ]]></programlisting>
+     ]]></programlisting>
+        <screen><![CDATA[
+--> ones(3)
+ ans  =
+   1.
+
+--> ones(3,3)
+ ans  =
+   1.   1.   1.
+   1.   1.   1.
+   1.   1.   1.
+
+--> r = ones(3,3,'uint8')
+ r  =
+  1  1  1
+  1  1  1
+  1  1  1
+
+--> typeof(r)
+ ans  =
+  "uint8"
+
+--> ones(3,3,'boolean')
+ ans  =
+  T T T
+  T T T
+  T T T
+
+--> ones(2,3,2)
+ ans  =
+(:,:,1)
+   1.   1.   1.
+   1.   1.   1.
+(:,:,2)
+   1.   1.   1.
+   1.   1.   1.
+
+--> m = ["a" "bc" "d" "efg" ; "h" "" "ijk" "lmn"]
+ m  =
+  "a"  "bc"  "d"    "efg"
+  "h"  ""    "ijk"  "lmn"
+
+--> ones(m)
+ ans  =
+   1.   1.   1.   1.
+   1.   1.   1.   1.
+]]></screen>
     </refsection>
     <refsection role="see also">
         <title>See also</title>
@@ -146,6 +195,20 @@ repmat(1, [2 4 2])
             <member>
                 <link linkend="repmat">repmat</link>
             </member>
+            <member>
+                <link linkend="spones">spones</link>
+            </member>
         </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    option <literal>type</literal> added.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

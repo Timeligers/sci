@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[y]=factor(x)</synopsis>
+        <synopsis>y = factor(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

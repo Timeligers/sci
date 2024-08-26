@@ -23,7 +23,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>t=issquare(x)</synopsis>
+        <synopsis>t = issquare(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

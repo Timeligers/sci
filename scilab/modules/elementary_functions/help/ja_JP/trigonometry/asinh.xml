@@ -29,7 +29,7 @@
 
         <title>呼び出し手順</title>
 
-        <synopsis>[t]=asinh(x)</synopsis>
+        <synopsis>t = asinh(x)</synopsis>
 
     </refsynopsisdiv>
 

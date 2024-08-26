@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>r=isnan(x)</synopsis>
+        <synopsis>r = isnan(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

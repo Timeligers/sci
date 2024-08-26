@@ -6,7 +6,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>t=acosm(x)</synopsis>
+        <synopsis>t = acosm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>

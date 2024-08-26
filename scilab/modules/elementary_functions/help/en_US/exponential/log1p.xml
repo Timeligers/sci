@@ -8,7 +8,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=log1p(x)</synopsis>
+        <synopsis>y = log1p(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

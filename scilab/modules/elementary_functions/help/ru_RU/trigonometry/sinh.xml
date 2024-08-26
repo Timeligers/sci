@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[t] = sinh(x)</synopsis>
+        <synopsis>t = sinh(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

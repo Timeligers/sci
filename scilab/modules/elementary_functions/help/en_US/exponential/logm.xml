@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=logm(x)</synopsis>
+        <synopsis>y = logm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>[t] = tanm(x)</synopsis>
+        <synopsis>t = tanm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

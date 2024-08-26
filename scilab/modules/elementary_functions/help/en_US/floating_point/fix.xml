@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=fix(x)</synopsis>
+        <synopsis>y = fix(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

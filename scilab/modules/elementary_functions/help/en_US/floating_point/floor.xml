@@ -24,7 +24,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=floor(x)</synopsis>
+        <synopsis>y = floor(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

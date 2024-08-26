@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>[t] = cotg(x)</synopsis>
+        <synopsis>t = cotg(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>[y]=cos(x)</synopsis>
+        <synopsis>y = cos(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>

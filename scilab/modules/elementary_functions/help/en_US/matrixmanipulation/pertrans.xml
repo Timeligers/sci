@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>[Y] = pertrans(X)</synopsis>
+        <synopsis>Y = pertrans(X)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

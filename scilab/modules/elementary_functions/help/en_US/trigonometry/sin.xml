@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>[t] = sin(x)</synopsis>
+        <synopsis>t = sin(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

@@ -8,7 +8,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>logspace(d1,d2, [n])</synopsis>
+        <synopsis>
+            logspace(d1, d2)
+            logspace(d1, d2, n)
+        </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>

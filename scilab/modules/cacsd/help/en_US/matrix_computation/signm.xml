@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>X=signm(A)</synopsis>
+        <synopsis>X = signm(A)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

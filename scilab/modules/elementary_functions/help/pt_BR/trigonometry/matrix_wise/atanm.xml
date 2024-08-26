@@ -22,7 +22,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>[t]=atanm(x)</synopsis>
+        <synopsis>t = atanm(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>

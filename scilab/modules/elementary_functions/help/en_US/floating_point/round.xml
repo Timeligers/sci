@@ -21,7 +21,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>y=round(x)</synopsis>
+        <synopsis>y = round(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

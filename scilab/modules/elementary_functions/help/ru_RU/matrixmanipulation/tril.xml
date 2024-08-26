@@ -2,8 +2,8 @@
 <!--
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
- *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2023 - Samuel GOUGEON
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
  * pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>tril(x [,k])</synopsis>
+        <synopsis>
+            tril(x)
+            tril(x, k)
+        </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>
@@ -29,14 +32,17 @@
                 <term>x</term>
                 <listitem>
                     <para>
-                        матрица (вещественных, комплексных, полиномиальных, рациональных значений)
+                        квадратная или прямоугольная матрица логических, целых, вещественных,
+                        комплексных, полиномов, полиномиальных дробей или текста.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>k</term>
                 <listitem>
-                    <para>целое число (по умолчанию 0)</para>
+                    <para>
+                        целое число: индекс опорной диагонали (по умолчанию 0 для главной диагонали).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -44,18 +50,118 @@
     <refsection>
         <title>Описание</title>
         <para>
-            Нижняя треугольная часть матрицы. <literal>tril(x,k)</literal> сделана из элементов
-            ниже k-той диагонали: k&gt;0 (верхняя диагональ) и k&lt;0 (диагонали ниже главной
-            диагонали).
+            Нижняя треугольная часть матрицы.
+        </para>
+        <para>
+            <emphasis role="bold">tril(x)</emphasis> устанавливает в <literal>0, %F</literal> или
+            <literal>""</literal> все члены <varname>x</varname> над главной диагональю,
+            и сохраняет все остальные элементы.
+        </para>
+        <para>
+            <emphasis role="bold">tril(x, k)</emphasis> делает то же самое, относительно диагонали
+            #<varname>k</varname>: <literal>k > 0</literal> для верхней диагонали,
+            и <literal>k &lt; 0</literal> для нижней диагонали.
         </para>
     </refsection>
     <refsection>
         <title>Примеры</title>
         <programlisting role="example"><![CDATA[
-s=poly(0,'s');
-tril([s,s;s,1])
-tril([1/s,1/s;1/s,1])
- ]]></programlisting>
+m = uint8([3,4,2,1,2;9,5,1,9,0;9,7,6,8,1;4,6,4,5,8])
+tril(m)
+tril(m, 1)
+tril(m, -1)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> m = uint8([3,4,2,1,2;9,5,1,9,0;9,7,6,8,1;4,6,4,5,8])
+ m  =
+  3  4  2  1  2
+  9  5  1  9  0
+  9  7  6  8  1
+  4  6  4  5  8
+
+--> tril(m)
+ ans  =
+  3  0  0  0  0
+  9  5  0  0  0
+  9  7  6  0  0
+  4  6  4  5  0
+
+--> tril(m, 1)
+ ans  =
+  3  4  0  0  0
+  9  5  1  0  0
+  9  7  6  8  0
+  4  6  4  5  8
+
+--> tril(m, -1)
+ ans  =
+  0  0  0  0  0
+  9  0  0  0  0
+  9  7  0  0  0
+  4  6  4  0  0
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+b = ones(4,5, "boolean")
+tril(b)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> b = ones(4,5, "boolean")
+ b  =
+  T T T T T
+  T T T T T
+  T T T T T
+  T T T T T
+
+--> tril(b)
+ ans  =
+  T F F F F
+  T T F F F
+  T T T F F
+  T T T T F
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+t = matrix(strsplit("a":"y"),5,5)
+tril(t)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> t = matrix(strsplit("a":"y"),5,5)
+ t  =
+  "a"  "f"  "k"  "p"  "u"
+  "b"  "g"  "l"  "q"  "v"
+  "c"  "h"  "m"  "r"  "w"
+  "d"  "i"  "n"  "s"  "x"
+  "e"  "j"  "o"  "t"  "y"
+--> tril(t)
+ ans  =
+  "a"  ""   ""   ""   ""
+  "b"  "g"  ""   ""   ""
+  "c"  "h"  "m"  ""   ""
+  "d"  "i"  "n"  "s"  ""
+  "e"  "j"  "o"  "t"  "y"]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+p = %s^[6,8,0,5,8;8,5,3,5,8;1,4,0,5,5;4,6,9,8,7;0,2,6,5,1]
+tril(p)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> p = %s^[6,8,0,5,8;8,5,3,5,8;1,4,0,5,5;4,6,9,8,7;0,2,6,5,1]
+ p  =
+  s^6  s^8  1    s^5  s^8
+  s^8  s^5  s^3  s^5  s^8
+  s    s^4  1    s^5  s^5
+  s^4  s^6  s^9  s^8  s^7
+  1    s^2  s^6  s^5  s
+
+--> tril(p)
+ ans  =
+  s^6  0    0    0    0
+  s^8  s^5  0    0    0
+  s    s^4  1    0    0
+  s^4  s^6  s^9  s^8  0
+  1    s^2  s^6  s^5  s
+]]></screen>
     </refsection>
     <refsection role="see also">
         <title>Смотрите также</title>

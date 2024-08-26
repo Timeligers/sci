@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>t=isrow(x)</synopsis>
+        <synopsis>t = isrow(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

@@ -2,8 +2,8 @@
 <!--
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
- *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2023 - Samuel GOUGEON
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
  * pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -24,24 +24,34 @@
     <refsynopsisdiv>
         <title>Синтаксис</title>
         <synopsis>
-            y=ones(m1,m2,...)
-            y=ones(x)
-            y=ones()
+            y = ones(m1, m2,...)
+            y = ones(x)
+            y = ones(…, type)
+            y = ones()
         </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>
         <variablelist>
             <varlistentry>
-                <term>x,y</term>
+                <term>x, y</term>
                 <listitem>
-                    <para>матрицы</para>
+                    <para>векторы, матрицы, гиперматрицы одного размера.</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>m1, m2,...</term>
                 <listitem>
-                    <para>целые числа</para>
+                    <para>целые числа > 0: размеры массива <varname>y</varname>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>type</term>
+                <listitem>
+                    <para>optional character string: 'double', 'boolean', 'int8', 'uint8', 'int16',
+                        'uint16', 'int32', 'uint32', 'int64', or 'uint64': chosen <literal>typeof(y)</literal>
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -50,14 +60,6 @@
         <title>Описание</title>
         <para>Возвращает матрицу, составленную из единиц.</para>
         <variablelist>
-            <varlistentry>
-                <term>ones(m1,m2)</term>
-                <listitem>
-                    <para>
-                        возвращает матрицу размером <literal>(m1,m2)</literal>, заполненную единицами.
-                    </para>
-                </listitem>
-            </varlistentry>
             <varlistentry>
                 <term>ones(m1,m2,..,mn)</term>
                 <listitem>
@@ -70,7 +72,16 @@
                 <term>ones(x)</term>
                 <listitem>
                     <para>
-                        возвращает матрицу того же размера, что и <literal>x</literal>, заполненную единицами.
+                        возвращает матрицу того же размера, что и <varname>x</varname>, заполненную единицами.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>ones(…, type)</term>
+                <listitem>
+                    <para>
+                        forces the returned array to be of the given <varmane>type</varmane>. In
+                        the case of boolean type, the array is filled with <literal>%T</literal> value.
                     </para>
                 </listitem>
             </varlistentry>
@@ -78,17 +89,17 @@
                 <term>ones(x)</term>
                 <listitem>
                     <para>
-                        является корректной для <literal>x</literal>, которая является списком
+                        является корректной для <varname>x</varname>, которая является списком
                         <literal>syslin</literal>.
                     </para>
                 </listitem>
             </varlistentry>
         </variablelist>
-        <para>
-            Заметьте, что <literal>ones(3)</literal> это <literal>ones(a)</literal>, где
-            <literal>a=3</literal>, т. е. это матрица размером НЕ 3x3!
-        </para>
-      <para><literal>ones()</literal> эквивалентно <literal>ones(1,1)</literal>.</para>
+        <para><literal>ones()</literal> эквивалентно <literal>ones(1,1)</literal>.</para>
+        <warning>
+            Заметьте, что <literal>ones(3)</literal> это <literal>ones(x)</literal>, где
+            <literal>x=3</literal>, т. е. это матрица размером НЕ 3x3!
+        </warning>
         <note>
            <literal>repmat(1, sizes)</literal> может использоваться для формироваания массива из единиц
            с <literal>sizes=[m1 m2 ..]</literal>, заданным в виде вектора.
@@ -98,11 +109,65 @@
         <title>Примеры</title>
         <programlisting role="example"><![CDATA[
 ones(3)
+
 ones(3,3)
+r = ones(3,3,'uint8')
+typeof(r)
+ones(3,3,'boolean')
+
 ones(2,3,2)
 
+m = ["a" "bc" "d" "efg" ; "h" "" "ijk" "lmn"]
+ones(m)
+
 repmat(1, [2 4 2])
- ]]></programlisting>
+     ]]></programlisting>
+        <screen><![CDATA[
+--> ones(3)
+ ans  =
+   1.
+
+--> ones(3,3)
+ ans  =
+   1.   1.   1.
+   1.   1.   1.
+   1.   1.   1.
+
+--> r = ones(3,3,'uint8')
+ r  =
+  1  1  1
+  1  1  1
+  1  1  1
+
+--> typeof(r)
+ ans  =
+  "uint8"
+
+--> ones(3,3,'boolean')
+ ans  =
+  T T T
+  T T T
+  T T T
+
+--> ones(2,3,2)
+ ans  =
+(:,:,1)
+   1.   1.   1.
+   1.   1.   1.
+(:,:,2)
+   1.   1.   1.
+   1.   1.   1.
+
+--> m = ["a" "bc" "d" "efg" ; "h" "" "ijk" "lmn"]
+ m  =
+  "a"  "bc"  "d"    "efg"
+  "h"  ""    "ijk"  "lmn"
+
+--> ones(m)
+ ans  =
+   1.   1.   1.   1.
+   1.   1.   1.   1.
+]]></screen>
     </refsection>
     <refsection role="see also">
         <title>Смотрите также</title>
@@ -113,6 +178,23 @@ repmat(1, [2 4 2])
             <member>
                 <link linkend="zeros">zeros</link>
             </member>
+            <member>
+                <link linkend="repmat">repmat</link>
+            </member>
+            <member>
+                <link linkend="spones">spones</link>
+            </member>
         </simplelist>
+    </refsection>
+    <refsection role="history">
+        <title>История</title>
+        <revhistory>
+            <revision>
+                <revnumber>6.1.0</revnumber>
+                <revdescription>
+                    option <literal>type</literal> added.
+                </revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>

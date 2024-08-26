@@ -25,8 +25,8 @@
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
         <synopsis>
-            [i_bin [,counts [,outside]]] = dsearch(X, bins )
-            [i_bin [,counts [,outside]]] = dsearch(X, bins , pm )
+            [i_bin, counts, outside] = dsearch(X, bins)
+            [i_bin, counts, outside] = dsearch(X, bins, pm)
         </synopsis>
     </refsynopsisdiv>
     <refsection>

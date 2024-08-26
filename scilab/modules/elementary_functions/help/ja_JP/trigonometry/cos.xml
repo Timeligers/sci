@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>呼び出し手順</title>
-        <synopsis>[y]=cos(x)</synopsis>
+        <synopsis>y = cos(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>引数</title>

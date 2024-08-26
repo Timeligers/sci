@@ -2,8 +2,8 @@
 <!--
  * Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
- *
  * Copyright (C) 2012 - 2016 - Scilab Enterprises
+ * Copyright (C) 2023 - Samuel GOUGEON
  *
  * This file is hereby licensed under the terms of the GNU GPL v2.0,
  * pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>tril(x [,k])</synopsis>
+        <synopsis>
+            tril(x)
+            tril(x, k)
+        </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -28,34 +31,137 @@
             <varlistentry>
                 <term>x</term>
                 <listitem>
-                    <para>matriz (de reais, complexos, polinômios ou razões de
-                        polinômios)
+                    <para>
+                        matriz de booleanos, inteiros, reais, complexos,
+                        polinômios, frações polinomiais, ou texto.
                     </para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>k</term>
                 <listitem>
-                    <para>inteiro (valor padrão 0)</para>
+                    <para>
+                        inteiro. índice da diagonal de referência (0 por padrão, para a
+                        diagonal principal).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
         <title>Descrição</title>
-        <para>Parte triangular inferior de uma matriz.
-            <literal>tril(x,k)</literal> é formada pelas entradas abaixo da k-ésima
-            diagonal : k&gt;0 (acima da diagonal superior) e k&lt;0 (diagonais abaixo
-            da diagonal principal).
+        <para>
+            Parte triangular inferior de uma matriz.
+        </para>
+        <para>
+            <emphasis role="bold">tril(x)</emphasis> define todos os termos de
+            <varname>x</varname> acima da sua diagonal principal para <literal>0, %F</literal> ou <literal>""</literal>, e retém todos os outros.
+        </para>
+        <para>
+            <emphasis role="bold">tril(x, k)</emphasis> faz o mesmo, relativamente à diagonal
+            n°<varname>k</varname>: <literal>k > 0</literal> para uma diagonal superior,
+            e <literal>k &lt; 0</literal> para uma diagonal inferior.
         </para>
     </refsection>
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[
-s=poly(0,'s');
-tril([s,s;s,1])
-tril([1/s,1/s;1/s,1])
- ]]></programlisting>
+m = uint8([3,4,2,1,2;9,5,1,9,0;9,7,6,8,1;4,6,4,5,8])
+tril(m)
+tril(m, 1)
+tril(m, -1)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> m = uint8([3,4,2,1,2;9,5,1,9,0;9,7,6,8,1;4,6,4,5,8])
+ m  =
+  3  4  2  1  2
+  9  5  1  9  0
+  9  7  6  8  1
+  4  6  4  5  8
+
+--> tril(m)
+ ans  =
+  3  0  0  0  0
+  9  5  0  0  0
+  9  7  6  0  0
+  4  6  4  5  0
+
+--> tril(m, 1)
+ ans  =
+  3  4  0  0  0
+  9  5  1  0  0
+  9  7  6  8  0
+  4  6  4  5  8
+
+--> tril(m, -1)
+ ans  =
+  0  0  0  0  0
+  9  0  0  0  0
+  9  7  0  0  0
+  4  6  4  0  0
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+b = ones(4,5, "boolean")
+tril(b)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> b = ones(4,5, "boolean")
+ b  =
+  T T T T T
+  T T T T T
+  T T T T T
+  T T T T T
+
+--> tril(b)
+ ans  =
+  T F F F F
+  T T F F F
+  T T T F F
+  T T T T F
+]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+t = matrix(strsplit("a":"y"),5,5)
+tril(t)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> t = matrix(strsplit("a":"y"),5,5)
+ t  =
+  "a"  "f"  "k"  "p"  "u"
+  "b"  "g"  "l"  "q"  "v"
+  "c"  "h"  "m"  "r"  "w"
+  "d"  "i"  "n"  "s"  "x"
+  "e"  "j"  "o"  "t"  "y"
+--> tril(t)
+ ans  =
+  "a"  ""   ""   ""   ""
+  "b"  "g"  ""   ""   ""
+  "c"  "h"  "m"  ""   ""
+  "d"  "i"  "n"  "s"  ""
+  "e"  "j"  "o"  "t"  "y"]]></screen>
+        <para/>
+        <programlisting role="example"><![CDATA[
+p = %s^[6,8,0,5,8;8,5,3,5,8;1,4,0,5,5;4,6,9,8,7;0,2,6,5,1]
+tril(p)
+     ]]></programlisting>
+        <screen><![CDATA[
+--> p = %s^[6,8,0,5,8;8,5,3,5,8;1,4,0,5,5;4,6,9,8,7;0,2,6,5,1]
+ p  =
+  s^6  s^8  1    s^5  s^8
+  s^8  s^5  s^3  s^5  s^8
+  s    s^4  1    s^5  s^5
+  s^4  s^6  s^9  s^8  s^7
+  1    s^2  s^6  s^5  s
+
+--> tril(p)
+ ans  =
+  s^6  0    0    0    0
+  s^8  s^5  0    0    0
+  s    s^4  1    0    0
+  s^4  s^6  s^9  s^8  0
+  1    s^2  s^6  s^5  s
+]]></screen>
     </refsection>
     <refsection role="see also">
         <title>Ver Também</title>

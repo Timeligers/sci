@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>t=isvector(x)</synopsis>
+        <synopsis>t = isvector(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

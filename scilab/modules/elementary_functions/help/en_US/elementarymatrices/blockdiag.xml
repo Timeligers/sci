@@ -26,7 +26,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>r = blockdiag(a1,a2,...,an)</synopsis>
+        <synopsis>r = blockdiag(a1, a2, ..., an)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>

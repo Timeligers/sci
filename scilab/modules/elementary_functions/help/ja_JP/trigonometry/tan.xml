@@ -20,7 +20,7 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>呼び出し手順</title>
-        <synopsis>[t] = tan(x)</synopsis>
+        <synopsis>t = tan(x)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>引数</title>
