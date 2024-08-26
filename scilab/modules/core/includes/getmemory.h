@@ -49,4 +49,10 @@ int getfreememory(void);
 int getmemorysize(void);
 
 
+/**
+ * Return the size of memory used by Scilab in megabytes
+ * @return the size of memory
+ */
+int getscilabmemory(void);
+
 /*--------------------------------------------------------------------------*/

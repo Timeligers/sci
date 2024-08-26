@@ -33,17 +33,22 @@ types::Function::ReturnValue sci_getmemory(types::typed_list &in, int _iRetCount
         return types::Function::Error;
     }
 
-    if (_iRetCount > 2)
+    if (_iRetCount > 3)
     {
-        Scierror(77, _("%s: Wrong number of output argument(s): %d expected."), "getmemory", 2);
+        Scierror(77, _("%s: Wrong number of output argument(s): %d expected."), "getmemory", 3);
         return types::Function::Error;
     }
 
     out.push_back(new types::Double((double)getfreememory()));
 
-    if (_iRetCount == 2)
+    if (_iRetCount >= 2)
     {
         out.push_back(new types::Double((double)getmemorysize()));
+    }
+
+    if (_iRetCount == 3)
+    {
+        out.push_back(new types::Double((double)getscilabmemory()));
     }
 
     return types::Function::OK;

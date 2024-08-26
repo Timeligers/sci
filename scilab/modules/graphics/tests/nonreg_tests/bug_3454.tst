@@ -16,12 +16,17 @@
 // figure.axes_size and figure.figure_size might not be updated immediately.
 //
 
+exec("SCI/modules/graphics/tests/unit_tests/checkUpdatedPropertyValue.sci", -1);
+
 // Test 1 : axes_size, auto_resize = "on"
 // ===========================
 
 // Create a default figure
 my_figure = scf();
-clf(my_figure,"reset");
+clf(my_figure,"reset"); // Forces 'figure_size' _BUT NOT_ 'axes_size'
+
+// Check that figure has the right size (default one)
+checkUpdatedPropertyValue(my_figure, "figure_size", gdf().figure_size)
 
 // Get default values
 my_default_figure_size = my_figure.figure_size;
@@ -30,8 +35,9 @@ my_default_axes_size   = my_figure.axes_size;
 // auto_resize = "on"
 my_figure.auto_resize = "on";
 my_figure.axes_size = my_default_axes_size + 200;
-if or( my_figure.axes_size   <> (my_default_axes_size   + 200) ) then pause; end
-if or( my_figure.figure_size <> (my_default_figure_size + 200) ) then pause; end
+
+checkUpdatedPropertyValue(my_figure, "figure_size", my_default_figure_size + 200);
+checkUpdatedPropertyValue(my_figure, "axes_size", my_default_axes_size + 200);
 
 // Delete
 delete(my_figure);
@@ -42,7 +48,10 @@ delete(my_figure);
 
 // Create a default figure
 my_figure = scf();
-clf(my_figure,"reset");
+clf(my_figure,"reset"); // Forces 'figure_size' _BUT NOT_ 'axes_size'
+
+// Check that figure has the right size (default one)
+checkUpdatedPropertyValue(my_figure, "figure_size", gdf().figure_size)
 
 // Get default values
 my_default_figure_size = my_figure.figure_size;
@@ -51,8 +60,9 @@ my_default_axes_size   = my_figure.axes_size;
 // auto_resize = "on"
 my_figure.auto_resize = "off";
 my_figure.axes_size = my_default_axes_size + 200;
-if or( my_figure.axes_size   <> (my_default_axes_size   + 200) ) then pause; end
-if or( my_figure.figure_size <> my_default_figure_size) then pause; end
+
+checkUpdatedPropertyValue(my_figure, "figure_size", my_default_figure_size);
+checkUpdatedPropertyValue(my_figure, "axes_size", my_default_axes_size + 200);
 
 // Delete
 delete(my_figure);
@@ -63,7 +73,10 @@ delete(my_figure);
 
 // Create a default figure
 my_figure = scf();
-clf(my_figure,"reset");
+clf(my_figure,"reset"); // Forces 'figure_size' _BUT NOT_ 'axes_size'
+
+// Check that figure has the right size (default one)
+checkUpdatedPropertyValue(my_figure, "figure_size", gdf().figure_size)
 
 // Get default values
 my_default_figure_size = my_figure.figure_size;
@@ -72,9 +85,9 @@ my_default_axes_size   = my_figure.axes_size;
 // auto_resize = "on"
 my_figure.auto_resize = "on";
 my_figure.figure_size = my_default_figure_size + 200;
-sleep(200);//Wait for MVC update
-if or( my_figure.figure_size <> (my_default_figure_size + 200) ) then pause; end
-if or( my_figure.axes_size   <> (my_default_axes_size   + 200) ) then pause; end
+
+checkUpdatedPropertyValue(my_figure, "figure_size", my_default_figure_size + 200);
+checkUpdatedPropertyValue(my_figure, "axes_size", my_default_axes_size + 200);
 
 // Delete
 delete(my_figure);
@@ -85,7 +98,10 @@ delete(my_figure);
 
 // Create a default figure
 my_figure = scf();
-clf(my_figure,"reset");
+clf(my_figure,"reset"); // Forces 'figure_size' _BUT NOT_ 'axes_size'
+
+// Check that figure has the right size (default one)
+checkUpdatedPropertyValue(my_figure, "figure_size", gdf().figure_size)
 
 // Get default values
 my_default_figure_size = my_figure.figure_size;
@@ -94,8 +110,9 @@ my_default_axes_size   = my_figure.axes_size;
 // auto_resize = "on"
 my_figure.auto_resize = "off";
 my_figure.figure_size = my_default_figure_size + 200;
-if or( my_figure.figure_size <> (my_default_figure_size + 200) ) then pause; end
-if or( my_figure.axes_size   <> my_default_axes_size ) then pause; end
+
+checkUpdatedPropertyValue(my_figure, "figure_size", my_default_figure_size + 200);
+checkUpdatedPropertyValue(my_figure, "axes_size", my_default_axes_size);
 
 // Delete
 delete(my_figure);

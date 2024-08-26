@@ -18,7 +18,7 @@
 // Due to a memleak in get(f, "color_map"), addcolor() & color()
 
 nbIter = 1000; // Number of execution of code to create a huge/detectable memleak
-tolerance = 100; // Margin for memleak detection
+tolerance = 10; // Margin for memleak detection
 
 // Allocate a huge color_map (make memleak detection easier)
 nbColors = 2^17;
@@ -27,25 +27,25 @@ f = gcf();
 f.color_map = jet(nbColors);
 
 // get(f, "color_map") case
-freememBefore = getmemory();
+[?, ?, freememBefore] = getmemory();
 for i=1:nbIter
     f.color_map;
 end
-freememAfter = getmemory();
+[?, ?, freememAfter] = getmemory();
 assert_checktrue((freememBefore - freememAfter) < (cmapSize * tolerance))
 
 // addcolor() case
-freememBefore = getmemory();
+[?, ?, freememBefore] = getmemory();
 for i=1:nbIter
     addcolor([0 0 0]);
 end
-freememAfter = getmemory();
+[?, ?, freememAfter] = getmemory();
 assert_checktrue((freememBefore - freememAfter) < (cmapSize * tolerance))
 
 // color() case
-freememBefore = getmemory();
+[?, ?, freememBefore] = getmemory();
 for i=1:nbIter
     color(0, 0, 0);
 end
-freememAfter = getmemory();
+[?, ?, freememAfter] = getmemory();
 assert_checktrue((freememBefore - freememAfter) < (cmapSize * tolerance))

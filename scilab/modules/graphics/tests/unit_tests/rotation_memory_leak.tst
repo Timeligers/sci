@@ -15,14 +15,14 @@ for k=1:10 // 10 times to be sure Java GC runs
     plot3d();
     a = gca();
 
-    beginFreeMemory = getmemory();
+    [?, ?, beginFreeMemory] = getmemory();
 
     // rotate for a long time and find if there are memory leaks
     for i = 1:3600,
         a.rotation_angles(2) = i;
     end
 
-    endFreeMemory = getmemory();
+    [?, ?, endFreeMemory] = getmemory();
 
     // not much should have been allocated.
     memoryIncrease(k) = beginFreeMemory - endFreeMemory;

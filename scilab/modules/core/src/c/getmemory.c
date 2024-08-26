@@ -30,6 +30,7 @@
 
 #ifdef _MSC_VER
 #include <windows.h>
+#include <Psapi.h>
 #endif
 
 #if defined(__NetBSD__) || defined(__DragonFly__)
@@ -261,3 +262,15 @@ int getmemorysize()
 #endif
 }
 /*--------------------------------------------------------------------------*/
+int getscilabmemory()
+{
+#if defined(_MSC_VER)
+    {
+        PROCESS_MEMORY_COUNTERS pmc;
+        GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(PROCESS_MEMORY_COUNTERS));
+        return (int)(pmc.WorkingSetSize / kooctet);
+    }
+#else
+    return 0; // TODO
+#endif
+}
