@@ -47,7 +47,14 @@
                 <term>filename</term>
                 <listitem>
                     <para>
-                        A string or a matrix of string which contains file(s) to upload on server.
+                        A string or a matrix of string which contains local file(s) to upload on server.
+                        The file on the server will have the same name as the local one.
+                    </para>
+                    <para>
+                        A structure with fields "file" and "name".
+                        The field "file" contains the local file to upload on server.
+                        The field "name" contains a string used to set filename on the server.
+                        When "name" is an empty string, the local filename is used on the server.
                     </para>
                 </listitem>
             </varlistentry>
@@ -57,6 +64,8 @@
                     <para>
                         A string which contains the file variable name expected by the server.
                         This value must be given by the documentation of the API you are using.
+                        When a scalar string is given, the same variable name is used for all uploaded files.
+                        A matrix of string of the same size than <literal>filename</literal> argument can be given to set a specific variable name by file to upload.
                     </para>
                 </listitem>
             </varlistentry>
