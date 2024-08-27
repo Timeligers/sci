@@ -340,13 +340,25 @@ int SciCurl::setTimeOut(double second)
     return curl_easy_setopt(_curl, CURLOPT_TIMEOUT_MS, (long)(second * 1000));
 }
 
-void SciCurl::addFileToForm(const char* name, const char* file)
+void SciCurl::addFileToForm(const std::string& name, const std::string& file, const std::string& filename)
 {
-    curl_formadd(&_formpost,
-                &_lastptr,
-                CURLFORM_COPYNAME, name,
-                CURLFORM_FILE, file,
-                CURLFORM_END);
+    if (filename.empty())
+    {
+        curl_formadd(&_formpost,
+                     &_lastptr,
+                     CURLFORM_COPYNAME, name,
+                     CURLFORM_FILE, file,
+                     CURLFORM_END);
+    }
+    else
+    {
+        curl_formadd(&_formpost,
+                     &_lastptr,
+                     CURLFORM_COPYNAME, name,
+                     CURLFORM_FILE, file,
+                     CURLFORM_FILENAME, filename,
+                     CURLFORM_END);
+    }
 }
 
 void SciCurl::addContentToForm(const char* name, const char* data)
