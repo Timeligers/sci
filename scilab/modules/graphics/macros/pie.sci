@@ -126,7 +126,8 @@ function varargout = pie(varargin)
         xi($+1) = cos(teta_2);
         yi($+1) = sin(teta_2);
 
-        partEntity(i) = unglue(xfpolys(xi,yi))
+        xfpolys(xi,yi)
+        partEntity(i) = unglue(gce())
 
         if or(i == iesp) then
             partEntity(i).x_shift = ones(1,size(xi,"*")) * (1/10) * cos((teta_2+teta_1)/2);
