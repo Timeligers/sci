@@ -83,7 +83,7 @@ deff('z=f(x,y)','z=x^4-y^4')
 x=-3:0.2:3 ;y=x ;
 clf() ;fplot3d(x,y,f,alpha=5,theta=31)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             deff('z=f(x,y)','z=x^4-y^4')
             x=-3:0.2:3 ;y=x ;
             clf() ;fplot3d(x,y,f,alpha=5,theta=31)

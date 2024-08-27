@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xstringb(x,y,str,w,h,[option])</synopsis>
+        <synopsis>xstringb(x,y,str,w,h,[option])
+            hdl = xstringb(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -41,6 +42,14 @@
                 <term>option</term>
                 <listitem>
                     <para>string</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Text</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="text_properties">text_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

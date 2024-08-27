@@ -11,6 +11,7 @@
         <synopsis>
             xsegs(xv,yv,[style])
             xsegs(xv,yv,zv,[style])
+            hdl = xsegs(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -36,6 +37,15 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Segs</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="segs_properties">segs_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+
         </variablelist>
     </refsection>
     <refsection>
@@ -70,7 +80,7 @@ yv=[cos(x);9*cos(x)];
 plot2d([-10,10],[-10,10],[-1,-1],"022")
 xsegs(xv,yv,1:10)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=2*%pi*(0:9)/10;
             xv=[sin(x);9*sin(x)];
             yv=[cos(x);9*cos(x)];
@@ -83,7 +93,7 @@ plot2d([-10,10],[-10,10],[-1,-1],"022")
 xsegs([9, -9],[9 , -9]) // Dessine une ligne de X(9,9) à Y(-9, -9)
 xsegs([5, -2],[4 , -1]) // Dessine une ligne de X(5,4) à Y(-2, -1)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             plot2d([-10,10],[-10,10],[-1,-1],"022")
             xsegs([9, -9],[9 , -9]) // Draw the line from X(9,9) to Y(-9, -9)
             xsegs([5, -2],[4 , -1]) // Draw the line from X(5,4) to Y(-2, -1)
@@ -100,16 +110,15 @@ alpha=2*%pi*(0:119)/40;
 xv=[sin(alpha)/2;sin(alpha)/3];
 yv=[cos(alpha)/2;cos(alpha)/3];
 zv=[alpha/8;alpha/8];
-xsegs(xv,yv,zv,1:120);
+e=xsegs(xv,yv,zv,1:120);
 // On ajuste les data_bounds
 a.data_bounds = [min(xv) min(yv) min(zv); ...
                  max(xv) max(yv) max(zv)];
 // On peut ajouter une flèche sur chaque segments
-e = gce();
 e.arrow_size = 0.4;
 
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             a=gca();
             a.view="3d";
             f=gcf();
@@ -118,10 +127,9 @@ e.arrow_size = 0.4;
             xv=[sin(alpha)/2;sin(alpha)/3];
             yv=[cos(alpha)/2;cos(alpha)/3];
             zv=[alpha/8;alpha/8];
-            xsegs(xv,yv,zv,1:120);
+            e=xsegs(xv,yv,zv,1:120);
             a.data_bounds = [min(xv) min(yv) min(zv); ...
             max(xv) max(yv) max(zv)];
-            e = gce();
             e.arrow_size = 0.4;
         </scilab:image>
     </refsection>

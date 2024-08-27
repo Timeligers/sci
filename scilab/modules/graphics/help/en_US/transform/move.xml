@@ -74,7 +74,7 @@ p=a.children(1);
 t=[1,0,-1.25];
 move(p,t);
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             plot3d();
             a=gca();
             p=a.children(1);

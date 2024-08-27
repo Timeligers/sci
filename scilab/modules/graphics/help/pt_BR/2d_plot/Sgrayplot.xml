@@ -24,6 +24,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>Sgrayplot(x,y,z,&lt;opt_args&gt;)
             Sgrayplot(x,y,z [,strf, rect, nax, zminmax, colminmax, mesh, colout])
+            hdl = Sgrayplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -255,6 +256,14 @@
                 <listitem>
                     <para>
                         ver <link linkend="fec">fec</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Fec</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="fec_properties">fec_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

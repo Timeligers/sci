@@ -94,7 +94,7 @@
                 colordef("black")
                 plot()
                  ]]></programlisting>
-                <scilab:image localized="no">
+                <scilab:image>
                 colordef("black")
                 plot()
                 title("colordef(""black"")")
@@ -106,7 +106,7 @@
                 colordef("white")
                 plot()
                  ]]></programlisting>
-                <scilab:image localized="no">
+                <scilab:image>
                 colordef("white")
                 plot()
                 title("colordef(""white"")")
@@ -118,7 +118,7 @@
                 colordef("default")
                 plot()
                  ]]></programlisting>
-                <scilab:image localized="no">
+                <scilab:image>
                 colordef("default")
                 plot()
                 title("colordef(""default"")")

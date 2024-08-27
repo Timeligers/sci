@@ -25,6 +25,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>Matplot(a,[strf,rect,nax])
             Matplot(a,&lt;opt_args&gt;)
+            hdl = Matplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -86,6 +87,14 @@
                                     esboço. O valor é um inteiro entre 0 e 5. Corresponde ao
                                     caractere <literal>z</literal> de <literal>strf</literal>. Ver
                                     abaixo.
+                                </para>
+                            </listitem>
+                        </varlistentry>
+                        <varlistentry>
+                            <term>hdl</term>
+                            <listitem>
+                                <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Matplot</literal> criado pela função. Ele pode ser usado para
+                                modificador de propriedade (veja <link linkend="Matplot_properties">Matplot_properties</link>).
                                 </para>
                             </listitem>
                         </varlistentry>
@@ -319,7 +328,7 @@
         <programlisting role="example"><![CDATA[
 Matplot([1 2 3;4 5 6])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             Matplot([1 2 3;4 5 6])
         </scilab:image>
         <programlisting role="example"><![CDATA[
@@ -328,7 +337,7 @@ clf()
 nbcolors = size(gcf().color_map, 1);
 Matplot(1:nbcolors)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             nbcol = size(gcf().color_map, 1);
             Matplot(1:nbcol)
         </scilab:image>

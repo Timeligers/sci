@@ -412,7 +412,7 @@ c1(3).thickness = 2;              //    .. et trait plus épais
 // Mise en mode logarithmique de la 3ème partie de l'axe fragmenté X
 a(3).log_flags = "lnn";
         ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
                 x = [-7.5:0.5:200]';
                 y =  exp(x/30).*(1+0.5*sin(x));
 
@@ -461,7 +461,7 @@ title "Comportement singulier en r=0"
 ylabel Ordonnées
 xlabel(a(2), "Rayon r")
          ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
                 x = logspace(-2,2,500)';
                 y = sin(10*log(x)).*(x.^0.3);
 
@@ -501,7 +501,7 @@ legend(["Courbe 1" "Courbe 2"], "in_upper_left");
 // a($).grid(1) = -1;         // supprime la grille verticale commune
 // a(1:$-1).grid(:,2) = -1;   // supprime les grilles horizontales
          ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
             x = [-8:0.2:100]';
             y =  exp(x/14).*(1+0.5*sin(x));
             intervals = [0.01 10 ; 10 max(y)];
@@ -531,10 +531,10 @@ x = linspace(-15,15,400);
 clf
 subplot(1,2,1)
 gcf().axes_size = [720 360];
-plot2d(x, sinc(x).^2)
+e = plot2d(x, sinc(x).^2)
 ax0 = gca();
 
-d = datatipCreate(gce().children, [7.7 0.02]);
+d = datatipCreate(e.children, [7.7 0.02]);
 xtitle("$\LARGE sinc^2$", "Abscissae [a.u.]", "Amplitude")
 grey = color("grey60");
 set(d, "mark_size",4, "foreground",grey, "font_foreground",grey, "orientation",8);
@@ -543,14 +543,14 @@ subplot(1,2,2)
 Axes = cutaxes(ax0, "y",[0 0.1 ; 0.1 1], "widths","-");
 is_handle_valid(ax0)  // %T: le repère graphique initial subsiste
          ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
             x = linspace(-15,15,400);
             clf
             subplot(1,2,1)
             gcf().axes_size = [720 360];
-            plot2d(x, sinc(x).^2)
+            h = plot2d(x, sinc(x).^2)
             ax0 = gca();
-            d = datatipCreate(gce().children, [7.7 0.02]);
+            d = datatipCreate(h.children, [7.7 0.02]);
             xtitle("$\LARGE sinc^2$", "Abscissae [a.u.]", "Amplitude")
             grey = color("grey60");
             set(d, "mark_size",4, "foreground",grey, "font_foreground",grey, "orientation",8);
@@ -573,7 +573,7 @@ ax0 = gca();
 Axes = cutaxes(ax0, "y",[0 0.1 ; 0.1 1], "widths","-");
 is_handle_valid(ax0)  // %F: le repère graphique initial a été supprimé
          ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
             x = linspace(-15,15,400);
             clf
             subplot(1,2,1)
@@ -600,7 +600,7 @@ subplot(1,2,2)
 intervals = [-0.03 -0.02; -0.013 -0.007 ; 0 0.01];
 axes = cutaxes(x0, "y",intervals, "ticksmode","alt", "widths","isoscaled");
      ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             gcf().axes_size = [925 455];
             subplot(1,2,1)
             Matplot1();

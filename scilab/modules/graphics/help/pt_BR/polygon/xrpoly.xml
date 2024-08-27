@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xrpoly(orig,n,r,[theta])</synopsis>
+        <synopsis>xrpoly(orig,n,r,[theta])
+            hdl = xrpoly(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -47,6 +48,14 @@
                 <term>theta</term>
                 <listitem>
                     <para>escalar real, ângulo em radianos; 0 é o valor padrão.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Polyline</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="polyline_properties">polyline_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

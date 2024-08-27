@@ -150,7 +150,7 @@ while k <= N & k+yc(k)<=N
   k=k+n+1;
 end
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             m = [6 5 4; ...
             6 2 5; ...
             6 4 1; ...
@@ -237,7 +237,7 @@ end
 // To be clearer, let us change the color_map
 f.color_map = jet(1024);
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             f=scf();
             f.color_map = jet(3);
             m = [1  2  3; ...

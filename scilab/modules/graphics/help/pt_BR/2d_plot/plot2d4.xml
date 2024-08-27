@@ -22,7 +22,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>plot2d4([logflag,] x,y,[style,strf,leg,rect,nax])
             plot2d4(y)
-            plot2d4(x,y &lt;,opt_args&gt;)
+            hdl = plot2d4(x,y &lt;,opt_args&gt;)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -61,7 +61,7 @@
     <refsection role="examples">
         <title>Exemplos</title>
         Demo: plot2d4();
-        <scilab:image localized="no">plot2d4();</scilab:image>
+        <scilab:image>plot2d4();</scilab:image>
         Exemplos:
         <programlisting role="example"><![CDATA[
 // compare o seguinte com plot2d + .polyline_style=4
@@ -71,18 +71,16 @@ x = [0:0.1:2*%pi]';
 plot2d4(x,[sin(x) sin(2*x) sin(3*x)])
 
 subplot(2,1,2)
-plot2d(x,[sin(x) sin(2*x) sin(3*x)])
-e = gce();
+e = plot2d(x,[sin(x) sin(2*x) sin(3*x)])
 e.children.polyline_style=4;
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             subplot(2,1,1)
             x = [0:0.1:2*%pi]';
             plot2d4(x,[sin(x) sin(2*x) sin(3*x)])
 
             subplot(2,1,2)
-            plot2d(x,[sin(x) sin(2*x) sin(3*x)])
-            e = gce();
+            e = plot2d(x,[sin(x) sin(2*x) sin(3*x)])
             e.children.polyline_style=4;
         </scilab:image>
     </refsection>

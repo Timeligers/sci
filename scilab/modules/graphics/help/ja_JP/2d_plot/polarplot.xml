@@ -25,6 +25,7 @@
         <title>呼び出し手順</title>
         <synopsis>polarplot(theta,rho,[style,strf,leg,rect])
             polarplot(theta,rho,&lt;opt_args&gt;)
+            h = polarplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -272,7 +273,7 @@ t = 0:.01:2*%pi;
 clf
 polarplot(sin(7*t),cos(8*t))
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             t= 0:.01:2*%pi;
             polarplot(sin(7*t),cos(8*t))
         </scilab:image>
@@ -284,7 +285,7 @@ t = 0:.01:2*%pi;
 clf
 polarplot([sin(7*t') sin(6*t')],[cos(8*t') cos(8*t')],[1,2])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             t= 0:.01:2*%pi;
             clf();polarplot([sin(7*t') sin(6*t')],[cos(8*t') cos(8*t')],[1,2])
         </scilab:image>
@@ -295,7 +296,7 @@ polarplot([sin(7*t') sin(6*t')],[cos(8*t') cos(8*t')],[1,2])
 t = 0:0.01:2*%pi;
 polarplot(t, -1 + sin(t));
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             t = 0:0.01:2*%pi;
             polarplot(t, -1 + sin(t));
         </scilab:image>
@@ -309,7 +310,7 @@ rho = 1+0.2*cos(theta.^2);
 polarplot(theta, rho, style=5)
 gca().data_bounds = [-1.2,-1.2 ; 1.2,01.2];
 ]]></programlisting>
-      <scilab:image localized="no">
+      <scilab:image>
         theta=[0:0.02:2*%pi]';
         rho=1+0.2*cos(theta.^2)
         polarplot(theta,rho,style=5)

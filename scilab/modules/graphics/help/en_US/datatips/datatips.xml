@@ -53,7 +53,7 @@
     <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
-    // this examples show how to manage tips by program
+    // these examples show how to manage tips by program
     x1=linspace(0,1,100)';
     y1=x1.^3;
     clf();
@@ -72,10 +72,9 @@
         str = msprintf('sinc\n%s', sci2exp(round(pt*10)/10))
     endfunction
     datatipSetDisplay(t,"myfmt")
-
      ]]></programlisting>
-        <scilab:image localized="no">
-            // this examples show how to manage tips by program
+        <scilab:image>
+            // these examples show how to manage tips by program
             x1=linspace(0,1,100)';
             y1=x1.^3;
             clf();
@@ -107,7 +106,7 @@
     datatipSetOrientation(t,"lower right")
     datatipCreate(p,[0,-1.10,1.10]);
      ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x1=linspace(0,1.5,100)';
             y1=x1.^3;
             p=param3d(x1.*cos(10*x1),x1.*sin(10*x1),x1);

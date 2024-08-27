@@ -118,7 +118,7 @@ _____________
     </refsection>
     <refsection>
         <title>Examples</title>
-        <scilab:image localized="no">Sfgrayplot();</scilab:image>
+        <scilab:image>Sfgrayplot();</scilab:image>
         <programlisting role="example"><![CDATA[
 // example #1: plot 4 surfaces
 function z=surf1(x,y), z=x*y, endfunction
@@ -149,7 +149,7 @@ subplot(2,2,4)
 drawnow();
 show_window()
  ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
 function z=surf1(x,y), z=x*y, endfunction
 function z=surf2(x,y), z=x^2-y^2, endfunction
 function z=surf3(x,y), z=x^3+y^2, endfunction
@@ -192,7 +192,7 @@ xtitle("f(x,y) = x^3+y^2")
 drawnow();
 show_window()
  ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
 function z=surf3(x,y), z=x^3+y^2, endfunction
 clf()
 x = linspace(-1,1,60);

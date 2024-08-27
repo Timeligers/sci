@@ -34,7 +34,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">plot2d();</scilab:image>
+                        <scilab:image>plot2d();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -48,7 +48,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">plot2d2();</scilab:image>
+                        <scilab:image>plot2d2();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -62,7 +62,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">plot2d3();</scilab:image>
+                        <scilab:image>plot2d3();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -76,7 +76,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">plot2d4();</scilab:image>
+                        <scilab:image>plot2d4();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -90,7 +90,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">champ();</scilab:image>
+                        <scilab:image>champ();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -106,7 +106,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">fchamp();</scilab:image>
+                        <scilab:image>fchamp();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -132,7 +132,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">grayplot();</scilab:image>
+                        <scilab:image>grayplot();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -148,7 +148,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">fgrayplot();</scilab:image>
+                        <scilab:image>fgrayplot();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -164,7 +164,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">Sgrayplot();</scilab:image>
+                        <scilab:image>Sgrayplot();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -181,7 +181,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">Sfgrayplot();</scilab:image>
+                        <scilab:image>Sfgrayplot();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -195,7 +195,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">x=[0:0.1:2*%pi]'; plot2d(sin(x));xgrid(5)</scilab:image>
+                        <scilab:image>x=[0:0.1:2*%pi]'; plot2d(sin(x));xgrid(5)</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -209,7 +209,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">errbar();</scilab:image>
+                        <scilab:image>errbar();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -223,7 +223,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">histplot();</scilab:image>
+                        <scilab:image>histplot();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -237,7 +237,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">Matplot();</scilab:image>
+                        <scilab:image>Matplot();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -256,7 +256,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">plot3d();</scilab:image>
+                        <scilab:image>plot3d();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -272,7 +272,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">plot3d1();</scilab:image>
+                        <scilab:image>plot3d1();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -286,7 +286,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">fplot3d();</scilab:image>
+                        <scilab:image>fplot3d();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -303,7 +303,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">fplot3d1();</scilab:image>
+                        <scilab:image>fplot3d1();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -317,7 +317,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">param3d();</scilab:image>
+                        <scilab:image>param3d();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -331,7 +331,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">param3d1();</scilab:image>
+                        <scilab:image>param3d1();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -345,7 +345,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">contour();</scilab:image>
+                        <scilab:image>contour();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -361,7 +361,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">bar3d();</scilab:image>
+                        <scilab:image>bar3d();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -375,7 +375,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">genfac3d();</scilab:image>
+                        <scilab:image>genfac3d();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -389,7 +389,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">p1=linspace(0,2*%pi,10);
+                        <scilab:image>p1=linspace(0,2*%pi,10);
                             p2=linspace(0,2*%pi,10);
                             deff("[x,y,z]=scp(p1,p2)",["x=p1.*sin(p1).*cos(p2)";..
                             "y=p1.*cos(p1).*cos(p2)";..
@@ -412,7 +412,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">deff("[z]=surface(x,y)","z=sin(x)*cos(y)")
+                        <scilab:image>deff("[z]=surface(x,y)","z=sin(x)*cos(y)")
                             t=%pi*(-10:10)/10;
                             // 3D plot of the surface
                             fplot3d(t,t,surface,35,45,"X@Y@Z")
@@ -588,7 +588,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">xstringb();</scilab:image>
+                        <scilab:image>xstringb();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -602,7 +602,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">xtitle();</scilab:image>
+                        <scilab:image>xtitle();</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>
@@ -1037,7 +1037,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">s=poly(0,'s')
+                        <scilab:image>s=poly(0,'s')
                             h=syslin('c',(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01))
                             clf();bode(h,0.01,100);
                         </scilab:image>
@@ -1073,7 +1073,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">s=poly(0,'s')
+                        <scilab:image>s=poly(0,'s')
                             h=syslin('c',(s^2+2*0.9*10*s+100)/(s^2+2*0.3*10.1*s+102.01));
                             h1=h*syslin('c',(s^2+2*0.1*15.1*s+228.01)/(s^2+2*0.9*15*s+225))
                             nyquist(h1)
@@ -1156,7 +1156,7 @@
                         <emphasis role="bold">Пример:</emphasis>
                     </para>
                     <para>
-                        <scilab:image localized="no">sgrid(0:0.2:1,[0.2 0.6 1 1.7 2])</scilab:image>
+                        <scilab:image>sgrid(0:0.2:1,[0.2 0.6 1 1.7 2])</scilab:image>
                     </para>
                 </listitem>
             </varlistentry>

@@ -23,6 +23,7 @@
         <synopsis>
             Matplot(a,[strf,rect,nax])
             Matplot(a,&lt;opt_args&gt;)
+            h = Matplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -88,7 +89,15 @@
                                 </para>
                             </listitem>
                         </varlistentry>
-                    </variablelist>
+                        <varlistentry>
+                            <term>h</term>
+                            <listitem>
+                                <para>このオプションの出力には、作成された Matplot エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                                プロパティのリストについては、<link linkend="Matplot_properties">Matplot_properties</link> を参照してください。
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                </variablelist>
                 </listitem>
             </varlistentry>
             <varlistentry>
@@ -310,7 +319,7 @@
         <programlisting role="example"><![CDATA[
 Matplot([1 2 3 ; 4 5 6])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             Matplot([1 2 3;4 5 6])
         </scilab:image>
         <programlisting role="example"><![CDATA[
@@ -319,7 +328,7 @@ clf()
 nbcol = size(gcf().color_map, 1);
 Matplot(1:nbcol)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             nbcol = size(gcf().color_map, 1);
             Matplot(1:nbcol)
         </scilab:image>

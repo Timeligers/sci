@@ -20,8 +20,9 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>hl=legend([h,] string1,string2, ... [,pos] [,boxed])
-            hl=legend([h,] strings [,pos] [,boxed])
+        <synopsis>legend([h,] string1,string2, ... [,pos] [,boxed])
+            legend([h,] strings [,pos] [,boxed])
+            hdl = legend(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -158,6 +159,14 @@
                 <listitem>
                     <para>um manipulador, pontos no Compound contendo todas as
                         legendas.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Legend</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="legend_properties">legend_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

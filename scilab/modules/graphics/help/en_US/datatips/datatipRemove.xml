@@ -71,7 +71,7 @@
     datatipRemove(p,2);
     datatipRemove(t1);
     ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=linspace(0,1,100)';
             y=x.^3;
             clf()

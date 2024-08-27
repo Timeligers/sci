@@ -107,10 +107,9 @@ stringbox( axes.x_label )
 
 // imprimindo um string
 str = [ "Scilab", "não" , "é", "Skylab" ] ;
-xstring( 4, 9, str ) ;
+e = xstring( 4, 9, str ) ;
 
 //modificando o texto
-e = gce() ;
 e.font_angle = 90 ;
 e.font_size    = 6  ;
 e.font_style   = 7 ;

@@ -161,7 +161,7 @@
             xgrid(color("grey"),1,7)
             isoview
      ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             plotimplicit "x^2 + y^2 = 1"
             xgrid(color("grey"),1,7)
             isoview
@@ -193,7 +193,7 @@
             title("$\text{built-in:  } besselj(x,y) = 0$", "fontsize",4)
             xgrid(color("grey"),1,7)
     ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             clf
             // 1) With a function in Scilab language (macro)
             function z = F(x, y)
@@ -233,7 +233,7 @@
             title("$3x^2 e^x - x y^2 +  {{e^y}\over{(y^2 + 1)}} - 1 = 0$", "fontsize",4)
             xgrid(color("grey"),1,7)
      ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             expression = "3*x^2*exp(x) - x*y^2 +  exp(y)/(y^2 + 1) = 1"
             h = plotimplicit(expression, , -10:0.1:10, "r--")
 
@@ -266,7 +266,7 @@ hl = legend([h1(1) h2(1)],[t1 t2]);
 hl.font_size = 3;
 xgrid(color("grey"),1,7)
     ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             clf
             h1 = plotimplicit("x*sin(x) = y^2*cos(y)", [-2,2])
 

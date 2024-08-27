@@ -93,10 +93,9 @@ stringbox( axes.x_label )
 
 // draw a string
 str = [ "Scilab", "is" , "not", "Skylab" ] ;
-xstring( 4, 9, str ) ;
+e = xstring( 4, 9, str ) ;
 
 //modify the text
-e = gce() ;
 e.font_angle = 90 ;
 e.font_size    = 6  ;
 e.font_style   = 7 ;
@@ -117,7 +116,7 @@ else
   disp('You missed it.')
 end;
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             axes = gca() ;
             axes.axes_visible = 'on' ;
             axes.data_bounds = [ 1, 1 ; 10, 10 ] ;

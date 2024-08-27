@@ -370,7 +370,7 @@ c(1 < y.*y + x.*x) = 5;
 
 scatter(x, y, [], c, "fill");
  ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
 // results between -1 and 1
 t = linspace(0, 25, 200);
 simResults = grand(200, 2, 'unf', -1, 1);
@@ -424,7 +424,7 @@ scatter(x, y, mAreas, "markerBackground", "yellow")
 tit = "scatter(x, y, mAreas,""markerBackground"", ""yellow"")";
 title(tit, "fontsize",1)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             n = 130;
             x = rand(1,n);
             y = rand(1,n);
@@ -478,7 +478,7 @@ subplot(1,2,2)
 scatter(x, y, mAreas, "wheat", "fill", "smallOnTop", "markerEdgeColor", "red")
 title("""SmallOnTop"" option", "fontsize",3)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             n = 170;
             x = rand(1,n);
             y = rand(1,n);
@@ -513,7 +513,7 @@ scatter(x, y, s, c);    // create 2D scatter plot
 subplot(1,2,2)
 scatter(x, y, s, c, "fill");
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x = linspace(0, 2, 200);
             y = exp(-x).*cos(10*x) + 0.2*rand(1,length(x));
 
@@ -549,7 +549,7 @@ scatter(x, y, 60, "red", "+");  // Marker's symbol
 subplot(2,2,4)
 scatter(x, y, 60, "green", 14); // Marker's index
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x = rand(1, 200);
             y = rand(1, 200);
 
@@ -587,7 +587,7 @@ bg = ones(1,n) * p.mark_background;
 bg(k) = color("orange");
 p.mark_background = bg;
      ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             n = 150;
             x = rand(1,n);
             y = rand(1,n);

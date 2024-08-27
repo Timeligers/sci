@@ -380,7 +380,7 @@ a1.data_bounds = [1 0;10 100]; //change the Axes bounds
 scf(10); // create a new figure with figure_id=10
 plot3d() // the drawing are sent to figure 10
 scf(f);  // makes the previous figure the current one
-plot2d(x,x^3)  //the drawing are sent to the initial figure
+plot2d(x,x.^3)  //the drawing are sent to the initial figure
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

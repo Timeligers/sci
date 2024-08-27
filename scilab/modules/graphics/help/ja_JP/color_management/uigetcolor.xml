@@ -11,12 +11,10 @@
         <title>呼び出し手順</title>
         <synopsis>
             uigetcolor()
-
             RGB = uigetcolor()
             RGB = uigetcolor(defaultRGB)
             RGB = uigetcolor(defaultRed, defaultGreen, defaultBlue)
             RGB = uigetcolor(title, ..)
-
             [R, G, B] = uigetcolor()
             [R, G, B] = uigetcolor(defaultRGB)
             [R, G, B] = uigetcolor(defaultRed, defaultGreen, defaultBlue)

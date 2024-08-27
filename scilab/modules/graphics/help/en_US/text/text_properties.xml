@@ -347,15 +347,11 @@ mathml = "<mrow><mfrac><mrow> <mi>d</mi> <mi>y</mi> </mrow>" + ..
          "</mrow>";
 t.text=["SCILAB","can write LaTeX :","$\frac{abc}{xyz}$";"or","MathML :",mathml] ;
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             a=get("current_axes");
             a.data_bounds=[0,0;1,1];
             a.axes_visible = 'on' ;
-
-            xstring(0,0,"Scilab is not esilaB",0,0)
-
-            t=get("hdl")
-
+            t=xstring(0,0,"Scilab is not esilaB",0,0)
             t.font_foreground=6;
             t.font_size=5;
             t.font_style=5;

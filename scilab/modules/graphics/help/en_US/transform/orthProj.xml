@@ -105,7 +105,7 @@
     e=xpoly([pt(1);ptp(1)],[pt(2);ptp(2)])
     e.polyline_style=4;e.arrow_size_factor = 1.5;
     ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=linspace(0,1,30)';
             y=sin(4*x.^3)/2;
             clf(), isoview()

@@ -79,7 +79,6 @@ y = (0:0.33:145.78)';
 clf();
 subplot(1,2,1)
 plot2d(y)
-
 subplot(1,2,2)
 [ymn,ymx,np] = graduate(min(y), max(y))
 rect = [1, ymn, prod(size(y)),ymx];

@@ -132,7 +132,7 @@
             legend(leg)
             title("$\LARGE \left|s^2/(s^2+\alpha s+1)\right|\mbox{ for }s=i\omega$")
             xlabel("$\LARGE \omega$") ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             w=logspace(-2,2,1000);
             s=%i*w;
             g=[];

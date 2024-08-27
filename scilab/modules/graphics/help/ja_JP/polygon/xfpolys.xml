@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>呼び出し手順</title>
-        <synopsis>xfpolys(xpols,ypols,[fill])</synopsis>
+        <synopsis>xfpolys(xpols,ypols,[fill])
+            h = xfpolys(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>引数</title>
@@ -101,6 +102,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>このオプションの出力には、作成された Polyline エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                    プロパティのリストについては、<link linkend="polyline_properties">polyline_properties</link> を参照してください。
+                </para>
+            </listitem>
+        </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -116,7 +125,7 @@ xpols=xpols+[0,60,120,180].*.ones(x1);
 ypols=[y1 y1 y1 y1];
 xfpolys(xpols,ypols,[-1,0,1,2])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             a=gca();
             a.data_bounds=[0,-10;210,40];
             a.foreground=color('red');
@@ -143,7 +152,7 @@ cols= [c c($:-1:1) c([3 4 1 2]) c]
 f.color_map=jet(max(cols));
 xfpolys(xpols,ypols,cols)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             f=gcf();
             a=gca();
             a.data_bounds=[0,-10;40,30];
@@ -190,7 +199,7 @@ f=gcf();
 f.color_map=gray(max(C));
 xfpolys(X,Y,C)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             clf()
             f=gcf();
             x11=[0;20;20;0];

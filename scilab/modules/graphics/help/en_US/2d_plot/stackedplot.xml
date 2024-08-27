@@ -160,7 +160,7 @@
             stackedplot(ts);
         ]]>
         </programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
             n = 100;
             t = datetime(2000, 1, 1) + caldays(1:n)';
             y = floor(10 * rand(n, 3)) + 10;
@@ -182,7 +182,7 @@
             stackedplot(ts1, ts2);
         ]]>
         </programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             n = 100;
             t = seconds(1:n)';
             y1 = floor(10 * rand(n, 3)) + 10;
@@ -208,7 +208,7 @@
             stackedplot(ts1, ts2, "CombineMatchingNames", %f);
         ]]>
         </programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
         t = datetime(2022, 1, 1):datetime(2022, 8, 31);
         n = size(t, "*");
         y1 = floor(10 * rand(n, 2)) + 10;
@@ -238,7 +238,7 @@
             stackedplot(ts1, ts2, {"Result_1", ["Result_2", "Result_3"]});
         ]]>
         </programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             t = datetime(2022, 1, 1):datetime(2022, 8, 31);
             n = size(t, "*");
             y1 = floor(10 * rand(n, 3)) + 10;
@@ -267,7 +267,7 @@
             stackedplot(ts1, ts2, {"Result_1", ["Result_2", "Result_3"]}, "LegendLabels", ["t1", "t2"], "DisplayLabels", ["res1", "res2 - res3"]);
         ]]>
         </programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             t = datetime(2022, 1, 1):datetime(2022, 8, 31);
             n = size(t, "*");
             y1 = floor(10 * rand(n, 3)) + 10;

@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xarc(x,y,w,h,a1,a2)</synopsis>
+        <synopsis>xarc(x,y,w,h,a1,a2)
+            hdl = xarc(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -35,6 +36,14 @@
                 <term>a1,a2</term>
                 <listitem>
                     <para>valores reais definindo um setor </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Arc</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="arc_properties">arc_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

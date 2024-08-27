@@ -82,9 +82,9 @@
         <programlisting role="example"><![CDATA[
 x=linspace(-2*%pi,2*%pi,100)';
 // utilizando cores existentes
-plot2d(x,[sin(x),cos(x)],style=[color("red"),color("green")]);
+e=plot2d(x,[sin(x),cos(x)],style=[color("red"),color("green")]);
 // novas cores adicionadas ao mapa de core
-e=gce(); p1=e.children(1); p2=e.children(2);
+p1=e.children(1); p2=e.children(2);
 p1.foreground=color("purple"); p2.foreground=color("navy blue");
 // utilizando valores RGB
 p1.foreground=color(255,128,128);

@@ -27,6 +27,7 @@
             plot3d(xf,yf,list(zf,colors),[theta,alpha,leg,flag,ebox])
             plot3d(xf,yf,list(zf,colors),&lt;opt_args&gt;)
             plot3d(z)
+            h = plot3d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -286,6 +287,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>このオプションの出力には、作成された Fac3d エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                    プロパティのリストについては、<link linkend="surface_properties">fec_properties</link> を参照してください。
+                </para>
+            </listitem>
+        </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -357,7 +366,7 @@
     </refsection>
     <refsection>
         <title>例</title>
-        <scilab:image localized="no">
+        <scilab:image>
             t=[0:0.3:2*%pi]';
             z=sin(t)*cos(t');
             plot3d(t,t,z)
@@ -397,12 +406,10 @@ r=0.3;orig=[1.5 0 0];
 [xx1,yy1,zz1]=eval3dp(sph,linspace(-%pi/2,%pi/2,40),linspace(0,%pi*2,20));
 cc=(xx+zz+2)*32;cc1=(xx1-orig(1)+zz1/r+2)*32;
 clf();plot3d1([xx xx1],[yy yy1],list([zz,zz1],[cc cc1]),theta=70,alpha=80,flag=[5,6,3])
-
 close()
 t=[0:0.3:2*%pi]'; z=sin(t)*cos(t');
 [xx,yy,zz]=genfac3d(t,t,z);
-plot3d([xx xx],[yy yy],list([zz zz+4],[4*ones(1,400) 5*ones(1,400)]))
-e=gce();
+e = plot3d([xx xx],[yy yy],list([zz zz+4],[4*ones(1,400) 5*ones(1,400)]))
 f=e.data;
 TL = tlist(["3d" "x" "y" "z" "color"],f.x,f.y,f.z,6*rand(f.z)); // ランダムな色の行列
 e.data = TL;
@@ -416,8 +423,8 @@ e.color_flag=1 // 高度 (z座標)に比例する色インデックス
 e.color_flag=2; // デフォルトモードに戻る
 e.color_flag= 3; // 補間陰影モード (デフォルト色の青に基づく)
 clf()
-plot3d([xx xx],[yy yy],list([zz zz+4],[4*ones(1,400) 5*ones(1,400)]))
-h=gce(); //カレントのエンティティ(ここでは曲面)のハンドルを取得
+//カレントのエンティティ(ここでは曲面)のハンドルを取得
+h = plot3d([xx xx],[yy yy],list([zz zz+4],[4*ones(1,400) 5*ones(1,400)]))
 a=gca(); //カレントの軸を取得
 a.rotation_angles=[40,70];
 a.grid=[1 1 1]; //グリッドを作成
@@ -446,7 +453,6 @@ h.color_flag=3; // 補間陰影モード
 // - パッチの数を大きさとするベクトル: パッチの色
 // - 大きさがパッチの点の数 x パッチの数の行列
 //   : 各パッチの各点の色
-
 // 例 1: 3角形パッチの集合
 x = [0 0;
      0 1;
@@ -459,14 +465,10 @@ z = [1 1;
      1 1];
 	 
 tcolor = [2 3]';
-
 subplot(2,2,1);
-
 plot3d(x,y,list(z,tcolor));
 xtitle('A triangle set of patches');
-
 // 例2: 3角形および4角形パッチが混在
-
 xquad = [5, 0;
          10,0;
          15,5;
@@ -483,14 +485,11 @@ ytri = [ 0,10,20, 5,10;
         10,20,20,15,20;
          0, 0,15,10,20];
 ztri = zeros(3,5);
-
 subplot(2,2,3);
 plot3d(xquad,yquad,zquad);
 plot3d(xtri,ytri,ztri);
 xtitle('Mixing triangle and quadrangle set of patches');
-
 // 例3: いくつかのうさぎ
-
 rabxtri = [ 5,  5, 2.5,  7.5, 10;
             5, 15, 5,   10,   10;
            15, 15, 5,   10,   15];
@@ -528,7 +527,6 @@ plot3d(rabxquad,rabyquad,list(rabzquad,rabquadcolor));
 h = gcf();
 h.children(1).background = 1;
 xtitle('A psychedelic rabbit set of patches');
-
 subplot(2,2,4);
 plot3d(rabxtri, rabytri, list(rabztri,rabtricolor_byface));
 plot3d(rabxquad,rabyquad,list(rabzquad,rabquadcolor_byface));
@@ -541,10 +539,8 @@ xtitle('A standard rabbit set of patches');
         </para>
         <programlisting role="example"><![CDATA[
 // 頂点 / 面の例: 3次元の例
-
 // 各パッチを構成するユニークな点の一覧を有する頂点のリスト
 // 2つのパッチに共通な点は頂点のリストで反復されません
-
 vertex = [0 1 1;
           0 2 2;
           1 2 3;
@@ -553,17 +549,14 @@ vertex = [0 1 1;
 face = [1 2 3;
         1 3 4];
 tcolor = [2 3]';
-
 // x, y, z のリストで表された頂点/面を変換する際に使用される式
 xvf = matrix(vertex(face,1),size(face,1),length(vertex(face,1))/size(face,1))';
 yvf = matrix(vertex(face,2),size(face,1),length(vertex(face,1))/size(face,1))';
 zvf = matrix(vertex(face,3),size(face,1),length(vertex(face,1))/size(face,1))';
-
 scf();
 subplot(2,1,1);
 plot3d(xvf,yvf,list(zvf,tcolor));
 xtitle('A triangle set of patches - vertex / face mode - 3d');
-
 // 2次元のテスト
 // 0 Z 値を有する3次元表現を使用した後, 2次元表現に切り替えます
 // 頂点/面の例: 3次元の例
@@ -573,16 +566,13 @@ vertex = [0 1;
           0 2;
           1 2;
           1 1];
-
 // 頂点のリストはどの点がパッチを構成するかを示します.
 face = [1 2 3;
         1 3 4];
-
 // x, y, z のリストで表された頂点/面を変換する際に使用される式
 xvf = matrix(vertex(face,1),size(face,1),length(vertex(face,1))/size(face,1))';
 yvf = matrix(vertex(face,2),size(face,1),length(vertex(face,1))/size(face,1))';
 zvf = matrix(zeros(vertex(face,2)),size(face,1),length(vertex(face,1))/size(face,1))';
-
 subplot(2,1,2);
 plot3d(xvf,yvf,list(zvf,tcolor));
 xtitle('A triangle set of patches - vertex / face mode - 2D');

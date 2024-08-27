@@ -73,7 +73,7 @@
     datatipSetOrientation(d1,"lower left");
     datatipSetOrientation(d2,"lower right");
     ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=linspace(-20,20,1000);
             e=plot(x,sinc(x),x,sinc(x.^2));
             d1=datatipCreate(e(1),500);

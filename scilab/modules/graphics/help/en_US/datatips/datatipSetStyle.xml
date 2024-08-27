@@ -94,7 +94,7 @@
     datatipSetOrientation(d2,"lower left");
 
     ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=linspace(-20,20,1000);
             clf();e = plot(x,sinc(x),x,sinc(x.^2));
             d1=datatipCreate(e(1),540);

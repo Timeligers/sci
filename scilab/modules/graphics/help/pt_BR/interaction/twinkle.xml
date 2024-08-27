@@ -76,8 +76,7 @@ twinkle(3)  // twinkles it only three times
 
 clf
 x = linspace(-2*%pi,2*%pi,100)';
-plot2d(x,[sin(x),cos(x)]);
-e = gce();
+e = plot2d(x,[sin(x),cos(x)]);
 p1 = e.children(1);
 p2 = e.children(2);
 twinkle(p1)     // fazendo piscar o esboço de cos

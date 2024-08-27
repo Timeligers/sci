@@ -297,7 +297,7 @@ TL = tlist(["3d" "x" "y" "z" "color"],f_data.x,f_data.y,f_data.z,10*(f_data.z)+1
 e.data=TL;
 e.color_flag=2;
  ]]></programlisting>
-        <scilab:image localized="no">u = linspace(-%pi/2,%pi/2,40);
+        <scilab:image>u = linspace(-%pi/2,%pi/2,40);
             v = linspace(0,2*%pi,20);
             X = cos(u)'*cos(v);
             Y = cos(u)'*sin(v);

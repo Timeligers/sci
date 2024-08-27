@@ -391,7 +391,7 @@ c1(3).thickness = 2;              //    .. and thicker
 // Setting X-axis of the third section in log:
 a(3).log_flags = "lnn";
         ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
                 x = [-7.5:0.5:200]';
                 y =  exp(x/30).*(1+0.5*sin(x));
 
@@ -439,7 +439,7 @@ title "Radial singularity on 0"
 ylabel Ordinates
 xlabel(a(2), "Radius")
          ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
                 x = logspace(-2,2,500)';
                 y = sin(10*log(x)).*(x.^0.3);
 
@@ -479,7 +479,7 @@ legend(["Curve 1" "Curve 2"], "in_upper_left");
 // a($).grid(1) = -1;       // removes the vertical shared grid
 // a(1:$-1).grid(:,2)= -1;  // removes the horizontal grids
      ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             x = [-8:0.2:100]';
             y =  exp(x/14).*(1+0.5*sin(x));
             intervals = [0.01 10 ; 10 max(y)];
@@ -522,7 +522,7 @@ subplot(1,2,2)
 Axes = cutaxes(ax0, "y",[0 0.1 ; 0.1 1], "widths","-");
 is_handle_valid(ax0)  // %T: the initial axes still exists
      ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             x = linspace(-15,15,400);
             clf
             subplot(1,2,1)
@@ -551,7 +551,7 @@ ax0 = gca();
 Axes = cutaxes(ax0, "y",[0 0.1 ; 0.1 1], "widths","-");
 is_handle_valid(ax0)  // %F: the initial axes has been deleted
      ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             x = linspace(-15,15,400);
             clf
             subplot(1,2,1)
@@ -577,7 +577,7 @@ subplot(1,2,2)
 intervals = [-0.03 -0.02; -0.013 -0.007 ; 0 0.01];
 axes = cutaxes(x0, "y",intervals, "ticksmode","alt", "widths","isoscaled");
      ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             gcf().axes_size = [925 455];
             subplot(1,2,1)
             Matplot1();

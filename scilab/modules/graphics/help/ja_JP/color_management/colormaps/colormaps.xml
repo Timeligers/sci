@@ -62,7 +62,6 @@
         <scilab:image localized="true">
             cm = ["autumn" "bone" "cool" "copper" "gray" "hot" "hsv" "jet" "ocean" ..
                   "parula" "pink" "rainbow" "spring" "summer" "white" "winter"];
-
             ncm = size(cm,"*");
             indices = [];
             cmap = [];
@@ -75,15 +74,12 @@
             clf
             f.color_map = cmap;
             Matplot(indices)
-
             xgrid([color("grey50") -1]);
             gca().grid_position = "foreground";
-
             title(_("Available swatches: #colormap(100)"), "fontsize", 4);
             xlabel(_("Colors indices in [1,100]"), "fontsize", 3);
             gca().y_ticks = tlist(["ticks" "locations" "labels"],16:-1:1,cm);
             set(gca(), "font_size", 2, "sub_ticks",[4 0], "margins", [0.12 0.05 0.08 0.08]);
-
             gcf().axes_size = [650 650];
         </scilab:image>
     </refsection>

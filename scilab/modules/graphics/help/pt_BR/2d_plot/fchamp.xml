@@ -22,6 +22,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>fchamp(f,t,xr,yr,[arfact,rect,strf])
             fchamp(f,t,xr,yr,&lt;opt_args&gt;)
+            hdl = fchamp(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -91,6 +92,14 @@
                 <listitem>
                     <para>
                         argumentos opcionais, ver <literal>champ</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Champ</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="champ_properties">champ_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

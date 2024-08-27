@@ -58,7 +58,6 @@ a.y_location="middle";
 a.tight_limits="on";
 a.thickness=2;
 a.grid=[-1 24];
-
 subplot(221);
 plot2d(x-2,sin(x))
 subplot(222);

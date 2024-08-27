@@ -27,6 +27,7 @@
           xstring(x, y, str)
           xstring(x, y, str, angle)
           xstring(x, y, str, angle, box)
+          hdl = xstring(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -56,6 +57,14 @@
                 <term>box</term>
                 <listitem>
                     <para>inteio, o valor padrão é 0</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Text</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="text_properties">text_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

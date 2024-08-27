@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xfarc(x,y,w,h,a1,a2)</synopsis>
+        <synopsis>xfarc(x,y,w,h,a1,a2)
+            hdl = xfarc(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -37,6 +38,15 @@
                     <para>valores reais definindo um vetor</para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Arc</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="arc_properties">arc_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+
         </variablelist>
     </refsection>
     <refsection>
@@ -57,8 +67,8 @@
 // escala de isovisualização
 plot2d(0,0,-1,"031"," ",[-2,-2,2,2])
 xfarc(-0.5,0.5,1,1,0,90*64)
-xfarc(0.5,0.5,1,1,0,360*64)
-gce().background = 2;
+e=xfarc(0.5,0.5,1,1,0,360*64)
+e.background = 2;
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

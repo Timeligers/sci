@@ -164,7 +164,7 @@ plot2d(x(im)',y(jm)',-9,"000")
         <programlisting role="example"><![CDATA[
 contour2d(1:10,1:10,rand(10,10),5,rect=[0,0,11,11])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             contour2d(1:10,1:10,rand(10,10),5,rect=[0,0,11,11]);
         </scilab:image>
         <programlisting role="example"><![CDATA[
@@ -172,7 +172,7 @@ clf()
 // changing the format of the printing of the levels
 contour2d(1:10,1:10,rand(10,10),5,rect=[0,0,11,11],fpf="%.2f")
   ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             contour2d(1:10,1:10,rand(10,10),5,rect=[0,0,11,11],fpf="%.2f")
         </scilab:image>
         <programlisting role="example"><![CDATA[

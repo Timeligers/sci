@@ -57,13 +57,13 @@
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
 plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
-hdl = xrect(-1,1,2,2)
-hdl.foreground = color("red");
+e = xrect(-1,1,2,2)
+e.foreground = color("red");
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
-            hdl = xrect(-1,1,2,2)
-            hdl.foreground = color("red");
+            e=xrect(-1,1,2,2)
+            e.foreground = color("red");
         </scilab:image>
 
     </refsection>

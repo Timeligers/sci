@@ -422,7 +422,7 @@
                                     X, Y および Z 軸も描画されます.
                                     プロパティが<literal>"on"</literal>の場合,箱全体が描画されます.
                                 </para>
-                                <scilab:image localized="no"><![CDATA[
+                                <scilab:image><![CDATA[
                                     box = ["on" "back_half" "hidden_axes" "off"];
                                     for i = 1:4
                                         subplot(1,4,i)
@@ -551,7 +551,7 @@
                                                 <tr><td>90 </td><td>: (O,x) to left</td></tr>
                                                 <tr><td>180 </td><td>: (O,x) to top</td></tr>
                                             </table>
-                                            <scilab:image localized="no"><![CDATA[
+                                            <scilab:image><![CDATA[
                                             // gca().rotation_angles:
                                             // Azimuth:
                                             // --------
@@ -581,7 +581,7 @@
                                                 <tr><td>90</td><td>= Equator (x,y)</td><td> view from side</td></tr>
                                                 <tr><td>180</td><td>= South pole (O,-z)</td><td> view from below</td></tr>
                                             </table>
-                                            <scilab:image localized="no"><![CDATA[
+                                            <scilab:image><![CDATA[
                                             // gca().rotation_angles:
                                             // polar angle
                                             // -----------
@@ -614,7 +614,7 @@
                                     値には,線形スケールの場合に<literal>'n'</literal>,
                                     対数スケールの場合に <literal>'l'</literal>を指定します.
                                 </para>
-                                <scilab:image localized="no"><![CDATA[
+                                <scilab:image><![CDATA[
                                     x = linspace(0,10,100)(2:$);
                                     m = ["nn" "ln" "nl" "ll"];
                                     clf
@@ -1166,11 +1166,9 @@ da.foreground = 7;
 x=(0:0.1:2*%pi)';
 plot2d(x,[sin(x),sin(2*x),sin(3*x)],style=[1,2,3],rect=[0,-2,2*%pi,2]);
 sda() // デフォルトの軸モデルに戻す
-
 // LaTeX / MathML 目盛の例:
 plot2d();
 a=gca();
-
 mathml = "<mrow><mfrac><mrow><mi>d</mi>  <mi>y</mi></mrow><mrow>  <mi>d</mi>  <mi>x</mi></mrow></mfrac> <mo>=</mo>" + ...
     "<mfrac><mn>1</mn><msup> <mi>y</mi>  <mn>2</mn></msup> </mfrac> </mrow>";
 // LaTeX 式のみ

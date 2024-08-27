@@ -8,7 +8,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>xpoly(xv,yv [,dtype [,close]])</synopsis>
+        <synopsis>xpoly(xv,yv [,dtype [,close]])
+            hdl = xpoly(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -35,6 +36,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Polyline</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="polyline_properties">polyline_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -57,17 +66,17 @@ x = sin(2*%pi*(0:4)/5);
 y = cos(2*%pi*(0:4)/5);
 
 plot2d(0,0,-1,"010"," ",[-1,-1,1,1])  // trace un repère graphique borné vide
-xpoly(x, y)
-set(gce(), "foreground", color("red"), "closed", "on");
+e = xpoly(x, y)
+set(e, "foreground", color("red"), "closed", "on");
  ]]></programlisting>
-        <scilab:image localized="no">
-          x = sin(2*%pi*(0:4)/5);
-          y = cos(2*%pi*(0:4)/5);
-          plot2d(0,0,-1,"010"," ",[-1,-1,1,1])
-          xpoly(x, y)
-          set(gce(), "foreground", color("red"), "closed", "on");
-          gcf().axes_size = [300 300];
-        </scilab:image>
+ <scilab:image>
+   x = sin(2*%pi*(0:4)/5);
+   y = cos(2*%pi*(0:4)/5);
+   plot2d(0,0,-1,"010"," ",[-1,-1,1,1])
+   e = xpoly(x, y)
+   set(e, "foreground", color("red"), "closed", "on");
+   gcf().axes_size = [300 300];
+ </scilab:image>
         <programlisting role="example"><![CDATA[
 // Avec des marqueurs
 plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
@@ -78,15 +87,14 @@ xpoly(x,y,"marks")
 e=gce();
 set(e,"mark_style",2);
 ]]></programlisting>
-        <scilab:image localized="no">
-            plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
-            t=[0:4]*2*%pi/5;
-            x=5+5*cos(t);
-            y=5+5*sin(t);
-            xpoly(x,y,"marks")
-            e=gce();
-            set(e,"mark_style",2);
-        </scilab:image>
+<scilab:image>
+    plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
+    t=[0:4]*2*%pi/5;
+    x=5+5*cos(t);
+    y=5+5*sin(t);
+    e=xpoly(x,y,"marks");
+    set(e,"mark_style",2);
+</scilab:image>
     </refsection>
     <refsection role="see also">
         <title>Voir aussi</title>

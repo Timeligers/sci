@@ -8,7 +8,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>fec(x,y,triangles,func,[strf,leg,rect,nax,zminmax,colminmax])</synopsis>
+        <synopsis>fec(x,y,triangles,func,[strf,leg,rect,nax,zminmax,colminmax])
+            h = fec(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -96,6 +97,14 @@
                     <para>un booléen, valeur par défaut %f (doit être %t pour afficher le maillage)</para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Fec</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="fec_properties">fec_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -141,7 +150,7 @@ subplot(1,2,2)
   xtitle("fec example (without the mesh)")
 show_window()
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x = [0 1 0 -1];
             y = [0 0 1  1];
             T = [1 1 2 3 1;
@@ -175,7 +184,7 @@ fec(x,y,T,z,strf="040", zminmax=[-0.5 0.5], mesh=%t)
 xtitle("fec example : using zminmax argument")
 show_window()
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x = [0 1 0 -1];
             y = [0 0 1  1];
             T = [1 1 2 3 1;
@@ -219,7 +228,7 @@ subplot(2,2,4)
   xtitle("fec : using zminmax and colout =[0 -1]")
 show_window()
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             // define a mini triangulation (4 vertices, 2 triangles)
             x = [0 1 0 -1];
             y = [0 0 1  1];
@@ -271,7 +280,7 @@ subplot(1,2,2)
   xtitle("fec using the jet colormap")
 show_window()
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             // define a mini triangulation (4 vertices, 2 triangles)
             x = [0 1 0 -1];
             y = [0 0 1  1];
@@ -308,7 +317,7 @@ colorbar(-1,1);
 fec(x,y,T,z,mesh=%t)
 xtitle("fec using the hot colormap, composed by one quadrangle")
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             // define a mapping with one quadrangle (4 vertices, 1 quadrangle)
             x = [1 2 2 1];
             y = [1 1 2 2];

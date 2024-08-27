@@ -77,7 +77,7 @@ x=[0:0.1:2*%pi]';
 plot2d(sin(x))
 xgrid(5, 1, 7)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(sin(x))
             xgrid(5, 1, 7)

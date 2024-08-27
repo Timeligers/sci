@@ -8,6 +8,7 @@
         <title>Séquence d'appel</title>
         <synopsis>fgrayplot(x,y,f,[strf,rect,nax])
             fgrayplot(x,y,f,&lt;opt_args&gt;)
+            h = fgrayplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -43,6 +44,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Grayplot</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="grayplot_properties">grayplot_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -63,7 +72,7 @@ t=-1:0.1:1;
 deff("[z]=my_surface(x,y)","z=x**2+y**2")
 fgrayplot(t,t,my_surface,rect=[-2,-2,2,2])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             t=-1:0.1:1;
             deff("[z]=my_surface(x,y)","z=x**2+y**2")
             fgrayplot(t,t,my_surface,rect=[-2,-2,2,2])

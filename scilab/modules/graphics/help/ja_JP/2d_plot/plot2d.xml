@@ -36,6 +36,7 @@
             plot2d(.., y, style, strf, leg, rect)
             plot2d(.., y, style, strf, leg, rect, nax)
             plot2d(.., y, key1=value1, key2=value2, ..)
+            h = plot2d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -310,6 +311,16 @@
         </table>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>このオプションの出力は、次のハンドルを含むベクトルです。
+                        ポリライン エンティティを子として持つ作成された <literal>Compound</literal> エンティティ。 <literal>h</literal> を使用してプロパティを変更します
+                        作成後の特定またはすべてのポリライン エンティティの。のリストについては、
+                        プロパティについては、<link linkend="polyline_properties">polyline_properties</link> を参照してください。
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection role="description">
@@ -373,7 +384,6 @@
             プロットをカスタマイズするために引数<literal>&lt;opt_args&gt;</literal> を
             使用することができます.
         </para>
-
         <para>
             デモを参照するにはコマンド <literal>plot2d()</literal> を使用してください.
         </para>
@@ -407,7 +417,7 @@ x=[0:0.1:2*%pi]';
 //簡単なプロット
 plot2d(sin(x));
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(sin(x));
         </scilab:image>
@@ -417,7 +427,7 @@ x=[0:0.1:2*%pi]';
 plot2d(x,sin(x));
 //複数のプロット
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x));
         </scilab:image>
@@ -426,7 +436,7 @@ clf();
 x=[0:0.1:2*%pi]';
 plot2d(x,[sin(x) sin(2*x) sin(3*x)])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(x,[sin(x) sin(2*x) sin(3*x)])
         </scilab:image>
@@ -435,7 +445,7 @@ plot2d(x,[sin(x) sin(2*x) sin(3*x)])
 clf();
 plot2d(x,[sin(x) sin(2*x) sin(3*x)],rect=[0,0,6,0.5]);
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(x,[sin(x) sin(2*x) sin(3*x)],rect=[0,0,6,0.5]);
         </scilab:image>
@@ -445,7 +455,7 @@ clf();
 plot2d(x,[sin(x) sin(2*x) sin(3*x)],..
        [1,2,3],leg="L1@L2@L3",nax=[2,10,2,10],rect=[0,-2,2*%pi,2]);
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(x,[sin(x) sin(2*x) sin(3*x)],..
             [1,2,3],leg="L1@L2@L3",nax=[2,10,2,10],rect=[0,-2,2*%pi,2]);
@@ -455,7 +465,7 @@ plot2d(x,[sin(x) sin(2*x) sin(3*x)],..
 clf();
 plot2d(x,sin(x),1,frameflag= 4);
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x),1,frameflag= 4);
         </scilab:image>
@@ -464,7 +474,7 @@ plot2d(x,sin(x),1,frameflag= 4);
 clf();
 plot2d(x,sin(x),1,frameflag= 6);
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x),1,frameflag= 6);
         </scilab:image>
@@ -475,7 +485,7 @@ plot2d(x,sin(x),-1);
 plot2d(x,2*sin(x),12);
 plot2d(2*x,cos(x),3);
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x),-1);
             plot2d(x,2*sin(x),12);
@@ -488,7 +498,7 @@ plot2d(x,sin(x),leg="sin(x)");
 a=gca(); // 軸エンティティのハンドル
 a.y_location ="right";
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot2d(x,sin(x),leg="sin(x)");
             a=gca(); // Handle on axes entity
@@ -515,24 +525,22 @@ leg.font_style = 9;
 leg.line_mode = "on";
 isoview off
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             // axis centered at (0,0)
             clf();
-            x=[0:0.1:2*%pi]';
-            plot2d(x-4,sin(x),1,leg="sin(x)");
-            a=gca(); // Handle on axes entity
+            x = [0:0.1:2*%pi]';
+            poly1 = plot2d(x-4,sin(x),1,leg="sin(x)").children;
+            a = gca(); // Handle on axes entity
             a.x_location = "origin";
             a.y_location = "origin";
             // Some operations on entities created by plot2d ...
             isoview()
-            a=gca();
-            a.children // list the children of the axes.
-            // There are a compound made of two polylines and a legend
-            poly1= a.children(1).children(1); //store polyline handle into poly1
+            a = gca();
             poly1.foreground = 4; // another way to change the style...
             poly1.thickness = 3;  // ...and the thickness of a curve.
             poly1.clip_state='off'; // clipping control
-            leg = a.children(2); // store legend handle into leg
+            // find the legend
+            leg = findobj(gca(),"type","Legend");
             leg.font_style = 9;
             leg.line_mode = "on";
             isoview("off")

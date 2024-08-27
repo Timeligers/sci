@@ -556,14 +556,11 @@ h.color_flag=2;
 h.data.color=[1+modulo(1:400,64),1+modulo(1:400,64)];
 //影付き
 h.color_flag=3;
-
 scf(2); // 2番目のウインドウを作成し,surfコマンドを使用
 subplot(211)
 surf(z,'cdata_mapping','direct','facecol','interp')
-
 subplot(212)
-surf(t,t,z,'edgeco','b','marker','d','markersiz',9,'markeredg','red','markerfac','k')
-e=gce();
+e = surf(t,t,z,'edgeco','b','marker','d','markersiz',9,'markeredg','red','markerfac','k')
 e.color_flag=1 // 高度 (z座標)に比例する色インデックス
 e.color_flag=2; // デフォルトモードに戻す
 e.color_flag= 3; // 補間影モード (data.colorフィールドが指定されていないため,デフォルトの青色に基づく)

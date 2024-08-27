@@ -66,16 +66,13 @@
 //-----------------//
 
 // criando um retângulo
-xrect( 0.5, 0.5,0.5,0.5) ;
-rect = gce() ;
+rect = xrect( 0.5, 0.5,0.5,0.5) ;
 
 // criando um círculo
-xarc( 0.5, 0.5, 0.5, 0.5, 0, 64 * 360 ) ;
-circle = gce() ;
+circle = xarc( 0.5, 0.5, 0.5, 0.5, 0, 64 * 360 ) ;
 
 // criando uma seta
-xpoly([0,1],[0,1]) ;
-arrow = gce() ;
+arrow = xpoly([0,1],[0,1]) ;
 arrow.polyline_style = 4 ;
 arrow.arrow_size_factor = 4 ;
 

@@ -155,13 +155,12 @@
                 例 #1: ガウス乱数標本の種々のヒストグラム
                 <programlisting role="example"><![CDATA[
 d = rand(1,10000,'normal');  // ガウス乱数標本
-
 clf(); histplot(20, d);
 clf(); histplot(20, d, normalization=%f);
 clf(); histplot(20, d, leg='rand(1,10000,''normal'')', style=5);
 clf(); histplot(20, d, leg='rand(1,10000,''normal'')', style=16, rect=[-3,0,3,0.5]);
 ]]></programlisting>
-                <scilab:image localized="no">
+                <scilab:image>
                     d=rand(1,10000,'normal');
                     clf();histplot(20,d,leg='rand(1,10000,''normal'')',style=16, rect=[-3,0,3,0.5]);
                 </scilab:image>
@@ -171,12 +170,10 @@ clf(); histplot(20, d, leg='rand(1,10000,''normal'')', style=16, rect=[-3,0,3,0.
                 <programlisting role="example"><![CDATA[
 d = grand(1000,1,"bin", 6, 0.5);
 c = linspace(-0.5,6.5,8);
-
 clf()
 subplot(2,1,1)
 histplot(c, d, style=2);
 xtitle("normalized histogram")
-
 subplot(2,1,2)
 histplot(c, d, normalization=%f, style=5);
 xtitle("non normalized histogram")
@@ -199,7 +196,6 @@ xtitle("non normalized histogram")
 lambda = 2;
 X = grand(100000,1,"exp", 1/lambda);
 Xmax = max(X);
-
 clf()
 histplot(40, X, style=2);
 x = linspace(0,max(Xmax),100)';
@@ -222,7 +218,6 @@ legend(["exponential random sample histogram" "exact density curve"]);
                 <programlisting role="example"><![CDATA[
 n = 10;
 data = rand(1,1000,"normal");
-
 clf(); histplot(n, data, style=12, polygon=%t);
 legend(["normalized histogram" "frequency polygon chart"],"lower_caption");
 ]]></programlisting>

@@ -93,7 +93,7 @@ bar3d()
         <programlisting role="example"><![CDATA[
 bar3d(grand(10, 10, "nor", 0, 10))
  ]]></programlisting>
-        <scilab:image localized="no">bar3d(grand(10, 10, "nor", 0, 10))</scilab:image>
+        <scilab:image>bar3d(grand(10, 10, "nor", 0, 10))</scilab:image>
         <programlisting role="example"><![CDATA[
 Z = zeros(100,5);
 A = abs(rand(40,5));
@@ -103,7 +103,7 @@ clf
 bar3d(Z)
 isoview off
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             Z = zeros(100,5);
             A = abs(rand(40,5));
             Z(1:40,:) = A;
@@ -122,7 +122,7 @@ clf
 bar3d(Z)
 isoview off
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             Z = zeros(100,5);
             A = abs(rand(40,5));
             Z(1:40,:) = A;
@@ -142,7 +142,7 @@ scf();
 bar3d(Z);
 isoview off
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             Z = zeros(100,5);
             A = abs(rand(40,5));
             Z(1:40,:) = A;

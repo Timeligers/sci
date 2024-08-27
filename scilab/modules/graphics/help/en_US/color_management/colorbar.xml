@@ -268,7 +268,7 @@ colbar3.y_location = "left";
         <para>
             ➞ Customized color bar style:
         </para>
-        <scilab:image localized="no">clf reset                           // clears and resets the figure
+        <scilab:image>clf reset                           // clears and resets the figure
 gcf().color_map = jet(100); // sets its color map
 
 // Axes on the left
@@ -360,7 +360,7 @@ colorbar(3,7, [3 7])
 //  - integer values ticked at the middle of colors blocks
 //  - other .5 values ticked at the blocks separations
             ]]></programlisting>
-            <scilab:image localized="no">
+            <scilab:image>
 clf reset   // Default colormap used
 gcf().axes_size = [770 620];
 // 1) Matplot: implicit minU, maxU, colminmax = [umin umax]
@@ -410,7 +410,7 @@ colorbar
 // * Nice subticks, at blocks middles & blocks limits
 // * The contours levels must be at the right levels on the color bar
             ]]></programlisting>
-            <scilab:image localized="no">
+            <scilab:image>
 x = linspace(0,1,81);
 z = cos(2*%pi*x)'*sin(2*%pi*x);
 n = 10;
@@ -446,7 +446,7 @@ Sgrayplot(x, x, z, zminmax = [-0.6 0.8], colminmax = [5 11]);
 contour(x,x,z,[-0.6 -0.4 -0.2 0.2 0.4 0.6]);
 colorbar(-0.6, 0.8,[5 11]);
             ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
 x = linspace(0,1,81);
 z = cos(2*%pi*x)'*sin(2*%pi*x);
 n = 8;
@@ -513,7 +513,7 @@ subplot(2,2,4)
 plotSphere();
 colorbar(,,[1 $/2]);  // graduations on [-0.3, 0]
             ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
 function [zz, zz1] = plotSphere()
     r = 0.3;
     orig = [1.5 0 0];
@@ -584,7 +584,7 @@ colorbar(,,[0.6 1]);
 
 gcf().children([2 4]).rotation_angles = [55 45];
                 ]]></programlisting>
-            <scilab:image localized="no"><![CDATA[
+            <scilab:image><![CDATA[
 function plotSample()
     t=[-4:0.1:4];
     e = plot3d(t,t,sin(t)'*cos(t));

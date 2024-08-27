@@ -295,10 +295,8 @@
 a = get("current_axes");
 a.data_bounds = [0,0;1,1];
 a.axes_visible = 'on' ;
-
-xstring(0.5,0.5,"Scilab is not esilaB",0,0)
-
-t = gce()   //新規に作成されたオブジェクトのハンドルを取得
+//新規に作成されたオブジェクトのハンドルを取得
+t = xstring(0.5,0.5,"Scilab is not esilaB",0,0)
 t.font_foreground = 6; // フォントプロパティを変更
 t.font_size  = 5;
 t.font_style = 5;
@@ -308,7 +306,6 @@ t.text_box = [0,0] ;
 t.text_box_mode = 'centered' ; // テキストの中心を [0.5,0.5]に設定.
 t.alignment = 'center' ;
 t.box = 'on' ; // テキストの周囲にボックスを描画
-
 // Using LaTeX and MathML:
 mathml = "<mrow><mfrac><mrow> <mi>d</mi> <mi>y</mi> </mrow>" + ..
                       "<mrow> <mi>d</mi> <mi>x</mi> </mrow>" + ..
@@ -318,12 +315,11 @@ mathml = "<mrow><mfrac><mrow> <mi>d</mi> <mi>y</mi> </mrow>" + ..
          "</mrow>";
 t.text = ["SCILAB","can write LaTeX :","$\frac{abc}{xyz}$";"or","MathML :",mathml] ;
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             a=get("current_axes");
             a.data_bounds=[0,0;1,1];
             a.axes_visible = 'on' ;
-            xstring(0,0,"Scilab is not esilaB",0,0)
-            t=get("hdl")
+            t=xstring(0,0,"Scilab is not esilaB",0,0)
             t.font_foreground=6;
             t.font_size=5;
             t.font_style=5;

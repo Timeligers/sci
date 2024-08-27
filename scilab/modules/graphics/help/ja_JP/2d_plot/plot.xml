@@ -37,6 +37,7 @@
             plot(x1,func1,LineSpec1, x2,y2,LineSpec2,...xN,funcN,LineSpecN, GlobalProperty1, ..GlobalPropertyM)
             plot(logflag,...)
             plot(axes_handle,...)
+            h = plot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -160,6 +161,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>このオプションの出力には、作成された Polyline エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                    プロパティのリストについては、<link linkend="polyline_properties">fec_properties</link> を参照してください。
+                </para>
+            </listitem>
+        </varlistentry>
         </variablelist>
     </refsection>
     <refsection role="description">
@@ -346,25 +355,20 @@
         <programlisting role="example"><![CDATA[
 gda().grid = [1 1]*color("grey70");
 title(gda(), "fontsize", 3, "color", "lightseagreen", "fontname", "helvetica bold");
-
 x = linspace(1e-1,100,1000);
 xm = 35;
 dx = 17;
 G = exp(-((x-xm)/dx).^2/2)*30;
-
 scf(1); clf
-
 subplot(2,2,1), plot(x, G),       title("plot(x, y)")
 subplot(2,2,2), plot("ln", x, G), title("semilog-x : plot(""ln"", x, y)"); gca().sub_ticks(1) = 8;
 subplot(2,2,3), plot("nl", x, G), title("semilog-y : plot(""nl"", x, y)"); gca().sub_ticks(2) = 8;
 subplot(2,2,4), plot("ll", x, G), title("loglog : plot(""ll"", x, y)");    gca().sub_ticks = [8 8];
-
 sda();
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             gda().grid = [1 1]*color("grey70");
             title(gda(), "", "fontsize", 3, "color", "lightseagreen", "fontname", "helvetica bold");
-
             x = linspace(1e-1,100,1000);
             xm = 35;
             dx = 17;
@@ -377,7 +381,6 @@ sda();
             gca().sub_ticks(2) = 8;
             subplot(2,2,4), plot("ll", x, G), title("loglog : plot(""ll"", x, y)")
             gca().sub_ticks = [8 8];
-
             gcf().axes_size = [750 520];
             sda();
         </scilab:image>
@@ -390,25 +393,22 @@ sda();
 subplot(1,2,1)
 plot(sin(0:0.1:2*%pi))
 xlabel("x indices")
-
 // With explicit abscissae:
 x = [0:0.1:2*%pi]';
 subplot(1,2,2)
 plot(x, sin(x))
 xlabel("Specified abscissae")
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             // Default abscissae = indices
             subplot(1,2,1)
             plot(sin(0:0.1:2*%pi))
             xlabel("x indices")
-
             // With explicit abscissae:
             x = [0:0.1:2*%pi]';
             subplot(1,2,2)
             plot(x, sin(x))
             xlabel("Specified abscissae")
-
             gcf().axes_size = [700 350];
         </scilab:image>
         <para/>
@@ -421,10 +421,9 @@ clf
 x = [0:0.1:2*%pi]';
 plot(x, [sin(x) sin(2*x) sin(3*x)])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=[0:0.1:2*%pi]';
             plot(x,[sin(x) sin(2*x) sin(3*x)])
-
             gcf().axes_size = [700 350];
         </scilab:image>
         <para/>
@@ -438,18 +437,15 @@ clf
 subplot(2,2,1)         // sin() is a builtin
 plot(1:0.1:10, sin)    // <=> plot(1:0.1:10, sin(1:0.1:10))
 title("plot(x, sin)", "fontsize",3)
-
 // with a macro:
 deff('y = myFun(x)','y = x + rand(x)')
 subplot(2,2,2)
 plot(-3:0.1:5, myFun)
 title("plot(x, myFun)", "fontsize",3)
-
 // With functions with parameters:
 subplot(2,2,3)
 plot(1:0.05:7, list(delip, -0.4))  // <=> plot(1:0.05:7, delip(1:0.05:7,-0.4) )
 title("plot(x, list(delip,-0.4))", "fontsize",3)
-
 function Y = myPow(x,p)
     [X,P] = ndgrid(x,p);
     Y = X.^P;
@@ -463,22 +459,19 @@ subplot(2,2,4)
 plot(x, list(myPow,1:5))
 title("plot(x, list(myPow,1:5))", "fontsize",3)
  ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             subplot(2,2,1)         // sin() is a builtin
             plot(1:0.1:10, sin)    // <=> plot(1:0.1:10, sin(1:0.1:10))
             title("plot(x,sin)", "fontsize",3)
-
             // with a macro:
             deff('y = myFun(x)','y = x + rand(x)')
             subplot(2,2,2)
             plot(-3:0.1:5, myFun)
             title("plot(x, myFun)", "fontsize",3)
-
             // With functions with parameters:
             subplot(2,2,3)
             plot(1:0.05:7, list(delip, -0.4))  // <=> plot(1:0.05:7, delip(1:0.05:7,-0.4) )
             title("plot(x, list(delip,-0.4))", "fontsize",3)
-
             function Y = myPow(x,p)
                 [X,P] = ndgrid(x,p);
                 Y = X.^P;
@@ -491,7 +484,6 @@ title("plot(x, list(myPow,1:5))", "fontsize",3)
             subplot(2,2,4)
             plot(x, list(myPow,1:5))
             title("plot(x, list(myPow,1:5))", "fontsize",3)
-
             gcf().axes_size = [730 500];
         ]]></scilab:image>
         <para/>
@@ -504,21 +496,18 @@ title("plot(x, list(myPow,1:5))", "fontsize",3)
         <programlisting role="example"><![CDATA[
 clf
 s = %s;
-
 // Polynomials
 x = -0.5:0.02:3;
 p = s*[2 ; (s-2) ; (s-1)*(s-2)]
 subplot(1,2,1)
 plot(x, p)
 legend(prettyprint(p,"latex","",%t), 2);
-
 // Rationals
 x = -0.5:0.02:2;
 r = (s-1)*s/(s-7)./[s+1, s-4]
 subplot(1,2,2)
 plot(x, r)
 legend(prettyprint(r,"latex","",%t), 2);
-
 gcf().children.grid = color("grey70")*[1 1]; // grids
 gcf().children.children([1 3]).font_size=3;  // legends
  ]]></programlisting>
@@ -528,7 +517,6 @@ gcf().children.children([1 3]).font_size=3;  // legends
   2s
   -2s +s²
   2s -3s² +s³
-
 ../..
 --> r = (s-1)*s/(s-7)./[s+1, s-4]
  r  =
@@ -536,23 +524,20 @@ gcf().children.children([1 3]).font_size=3;  // legends
    ----------  -----------
    -7 -6s +s²  28 -11s +s²
 ]]></screen>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             s = %s;
-
             // Polynomials
             x = -0.5:0.02:3;
             p = s*[2 ; (s-2) ; (s-1)*(s-2)]
             subplot(1,2,1)
             plot(x, p)
             legend(prettyprint(p,"latex","",%t), 2);
-
             // Rationals
             x = -0.5:0.02:2;
             r = (s-1)*s/(s-7)./[s+1, s-4]
             subplot(1,2,2)
             plot(x, r)
             legend(prettyprint(r,"latex","",%t), 2);
-
             gcf().children.grid = color("grey70")*[1 1]; // grids
             gcf().children.children([1 3]).font_size=3;  // legends
             gcf().axes_size = [650 400];
@@ -570,18 +555,15 @@ t = -%pi:%pi/20:2*%pi;
 // cos() : in Green, with + marks, with a solid line
 // gaussian: in Blue, without marks, with dotted line
 gauss = 1.5*exp(-(t/2-1).^2)-1;
-
 plot(t,sin,'ro', t,cos,'g+-', t,gauss,':b')
  ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             t = -%pi:%pi/20:2*%pi;
             // sin() : in Red, with O marks, without line
             // cos() : in Green, with + marks, with a solid line
             // gaussian: in Blue, without marks, with dotted line
             gauss = 1.5*exp(-(t/2-1).^2)-1;
-
             plot(t,sin,'ro', t,cos,'g+-', t,gauss,':b')
-
             gcf().axes_size = [800 400];
         ]]>
         </scilab:image>
@@ -599,11 +581,10 @@ xsetech([0 0 0.7 1]) // Defines the first Axes area
 t = -3:%pi/20:7;
 // Tuning markers properties
 plot([t ;t],[sin(t) ;cos(t)],'marker','d','markerFaceColor','green','markerEdgeColor','yel')
-
 // Targeting a defined axes
 plot(ax3, t, sin)
  ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
             clf
             subplot(1,3,3)
             ax3 = gca();         // We will draw here later
@@ -611,10 +592,8 @@ plot(ax3, t, sin)
             t = -3:%pi/20:7;
             // Tuning markers properties
             plot([t ;t],[sin(t) ;cos(t)],'marker','d','markerFaceColor','green','markerEdgeColor','yel')
-
             // Targeting a defined axes
             plot(ax3, t, sin)
-
             gcf().axes_size = [800 400];
         ]]>
         </scilab:image>
@@ -632,7 +611,6 @@ y = [1   1   1   1   8
      2   3   4   5   9
      3   4   5   6  10
      4   5   6   7  12];
-
 // Only one matching possibility case: how to make 4 identical plots in 4 manners...
 // x is 1x4 (vector) and y is 4x5 (non square matrix)
 subplot(221); plot(x', y , "o-");    // OK as is
@@ -640,13 +618,12 @@ subplot(222); plot(x , y , "o-");    // x is transposed
 subplot(223); plot(x', y', "o-");    // y is transposed
 subplot(224); plot(x , y', "o-");    // x and y are transposed
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x = [5 6 7 8]
             y = [1   1   1   1   8
                  2   3   4   5   9
                  3   4   5   6  10
                  4   5   6   7  12];
-
             // Only one matching possibility case: how to make 4 identical plots in 4 manners...
             // x is 1x4 (vector) and y is 4x5 (non square matrix)
             subplot(221); plot(x', y , "o-");    // OK as is
@@ -663,36 +640,27 @@ t = [1   1   1   1
      2   3   4   5
      3   4   5   6
      4   5   6   7];
-
 subplot(231), plot(t,"o-") , title("plot(t)",  "fontsize",3)
 subplot(234), plot(t',"o-"), title("plot(t'')", "fontsize",3)
-
 subplot(232), plot(t,t,"o-") , title("plot(t, t)",  "fontsize",3)
 subplot(233), plot(t,t',"o-"), title("plot(t,t'')", "fontsize",3)
-
 subplot(235), plot(t', t,"o-"),  title("plot(t'', t)",   "fontsize",3)
 subplot(236), plot(t', t',"o-"), title("plot(t'', t'')", "fontsize",3)
-
 for i=1:6, gcf().children(i).data_bounds([1 3]) = 0.5; end
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             clf
             t = [1   1   1   1
                  2   3   4   5
                  3   4   5   6
                  4   5   6   7];
-
             subplot(231), plot(t,"o-") , title("plot(t)",  "fontsize",3)
             subplot(234), plot(t',"o-"), title("plot(t'')", "fontsize",3)
-
             subplot(232), plot(t,t,"o-") , title("plot(t, t)",  "fontsize",3)
             subplot(233), plot(t,t',"o-"), title("plot(t,t'')", "fontsize",3)
-
             subplot(235), plot(t', t,"o-"),  title("plot(t'', t)",   "fontsize",3)
             subplot(236), plot(t', t',"o-"), title("plot(t'', t'')", "fontsize",3)
-
             for i=1:6, gcf().children(i).data_bounds([1 3]) = 0.5; end
-
             gcf().axes_size = [800 450];
         </scilab:image>
         <para/>
@@ -706,29 +674,25 @@ X = [1   1   1   1
      3   4   5   6
      4   5   6   7];
 y = [1 2 3 4];
-
 subplot(221), plot(X, y,  "o-"), title("plot(X, row)",  "fontsize",3)
         // equivalent to plot(t, [1 1 1 1; 2 2 2 2; 3 3 3 3; 4 4 4 4])
 subplot(223), plot(X, y', "o-"), title("plot(X, col)  (row = col'')",  "fontsize",3)
 subplot(222), plot(X',y,  "o-"), title("plot(X'', row)",  "fontsize",3)
 subplot(224), plot(X',y', "o-"), title("plot(X'', col)  (row = col'')",  "fontsize",3)
-
 for i = 1:4, gcf().children(i).data_bounds([1 3]) = 0.5; end
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             clf
             X = [1   1   1   1
                  2   3   4   5
                  3   4   5   6
                  4   5   6   7];
             y = [1 2 3 4];
-
             subplot(221), plot(X, y,  "o-"), title("plot(X, row)",  "fontsize",3)
                     // equivalent to plot(t, [1 1 1 1; 2 2 2 2; 3 3 3 3; 4 4 4 4])
             subplot(223), plot(X, y', "o-"), title("plot(X, col)  (row = col'')",  "fontsize",3)
             subplot(222), plot(X',y,  "o-"), title("plot(X'', row)",  "fontsize",3)
             subplot(224), plot(X',y', "o-"), title("plot(X'', col)  (row = col'')",  "fontsize",3)
-
             for i = 1:4, gcf().children(i).data_bounds([1 3]) = 0.5; end
         </scilab:image>
         <para/>
@@ -739,13 +703,11 @@ for i = 1:4, gcf().children(i).data_bounds([1 3]) = 0.5; end
         <programlisting role="example"><![CDATA[
 x=[0:0.1:2*%pi]';
 plot(x-4,sin(x),x+2,cos(x))
-
 // (0,0)を中心とする軸
 a=gca(); // 軸エンティティのハンドル
 a.x_location = "origin";
 a.y_location = "origin";
 isoview on
-
 // plotにより作成されたエンティティに複数の処理を行う
 a.children // 軸の子のリスト : ここでは,2個のエンティティの複合子オブジェクト
 poly1= a.children.children(2); //線分群のハンドルをpoly1 に保存
@@ -754,20 +716,19 @@ poly1.thickness = 3;  // ...曲線の太さ.
 poly1.clip_state='off' // 制御をクリップ
 isoview off
  ]]></programlisting>
-        <scilab:image localized="no">
-            x = [0:0.1:2*%pi]';
-            plot(x-4,sin(x),x+2,cos(x))
-            a = gca();
-            a.x_location = "origin";
-            a.y_location = "origin";
-            isoview on
-            a.children
-            poly1 = a.children.children(2);
-            poly1.foreground = 4;
-            poly1.thickness = 3;
-            poly1.clip_state='off'
-            isoview off
-        </scilab:image>
+ <scilab:image>
+         x = [0:0.1:2*%pi]';
+         h = plot(x-4,sin(x),x+2,cos(x))
+         a = gca();
+         a.x_location = "origin";
+         a.y_location = "origin";
+         isoview on
+         poly1 = h(1);
+         poly1.foreground = 4;
+         poly1.thickness = 3;
+         poly1.clip_state='off'
+         isoview off
+ </scilab:image>
     </refsection>
     <refsection role="see also">
         <title>参照</title>

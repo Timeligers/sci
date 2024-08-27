@@ -22,7 +22,7 @@
         <title>Syntax</title>
         <synopsis>
           xarc(x,y,w,h,a1,a2)
-          hdl = xarc(...)
+          h = xarc(...)
       </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -41,7 +41,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>hdl</term>
+                <term>h</term>
                 <listitem>
                     <para>This optional output contains a handle to the created Arc entity. Use <literal>h</literal> to modify its properties.
                      For a list of properties, see <link linkend="arc_properties">arc_properties</link>.
@@ -71,7 +71,7 @@ xarc(-1,1,2,2,0,90*64)
 xarc(-1.5,1.5,3,3,0,360*64)
 gca().children(1:2).foreground = color("green");
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             plot2d(0,0,-1,"031"," ",[-2,-2,2,2])
             xarc(-1,1,2,2,0,90*64)
             xarc(-1.5,1.5,3,3,0,360*64)
@@ -89,7 +89,7 @@ gca().children(1:2).foreground = color("green");
   xstring(-0.5,0.9,'B')//label B
   xstring(-0.5,-1,'C')//label C
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
 
             rect=[-1,-1,1,1]
             plot2d(0,0,0,rect=rect,frameflag=3,axesflag=5)

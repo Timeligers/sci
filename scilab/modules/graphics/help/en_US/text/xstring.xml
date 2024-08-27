@@ -124,7 +124,7 @@ h.font_size = 3;          // change the font size
 h = xstring(0.1,0.6,"a")    //big alpha
 h.font_size = 24;
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             plot2d([0;1],[0;1],0)
             xstring(0.5,0.5,["$\overbrace{Scilab}$" "n''est ";"pas" "$\underbrace{Matlab}$"])
         </scilab:image>

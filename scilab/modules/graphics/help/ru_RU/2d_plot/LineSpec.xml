@@ -336,7 +336,7 @@ clf();
 x=1:0.1:10; // Инициализация.
 plot(x,sin(x),'r-.>') // строит штрихпунктирную линию с треугольниками, указывающими вправо, центрованными на каждой точке
  ]]></programlisting>
-        <scilab:image localized="no">x=1:0.1:10; // Init.
+        <scilab:image>x=1:0.1:10; // Init.
             plot(x,sin(x),'r.-&gt;')
             t=0:%pi/20:2*%pi;
             plot(t,sin(t),'ro-.',t,cos(t),'cya+',t,abs(sin(t)),'--mo')
@@ -347,7 +347,7 @@ x=1:0.1:10;
 // Если вы укажете маркер без стиля линии, то только маркеры будут нарисованы
 plot(x,sin(x),'d')
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=1:0.1:10;
             plot(x,sin(x),'d')
         </scilab:image>
@@ -360,7 +360,7 @@ subplot(311);plot(x,sin(x),'.b-');
 subplot(312);plot(x,sin(x),'b.-');
 subplot(313);plot(x,sin(x),'b-.');// Точка принадлежит информации о стиле линии (не маркера!)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x = 1:0.5:10;
             subplot(311);plot(x,sin(x),'.b-');
             subplot(312);plot(x,sin(x),'b.-');
@@ -372,7 +372,7 @@ clf();
 t=0:%pi/20:2*%pi;
 plot(t,sin(t),'ro-.',t,cos(t),'cya+',t,abs(sin(t)),'--mo')
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             t=0:%pi/20:2*%pi;
             plot(t,sin(t),'ro-.',t,cos(t),'cya+',t,abs(sin(t)),'--mo')
         </scilab:image>

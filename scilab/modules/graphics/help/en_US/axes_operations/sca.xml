@@ -61,7 +61,7 @@ legend(['acosh','asinh'])
 sca(a2); //make second axes current
 legend('sinh')
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
 
             clf()
             a1=newaxes();

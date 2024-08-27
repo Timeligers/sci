@@ -24,6 +24,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>plot3d2(X,Y,Z [,vect,theta,alpha,leg,flag,ebox])
             plot3d2(X,Y,Z, &lt;opt_args&gt;)
+            hdl = plot3d2(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -261,6 +262,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Fac3d</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="surface_properties">surfaceproperties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -290,9 +299,8 @@ v = linspace(0,2*%pi,20);
 X = cos(u)'*cos(v);
 Y = cos(u)'*sin(v);
 Z = sin(u)'*ones(v);
-plot3d2(X,Y,Z);
+e=plot3d2(X,Y,Z);
 // apenas no novo modo de gráficos
-e=gce();
 e.color_mode=4; // mudando a cor
 f_data=e.data;
 TL = tlist(["3d" "x" "y" "z" "color"],f_data.x,f_data.y,f_data.z,10*(f_data.z)+1);

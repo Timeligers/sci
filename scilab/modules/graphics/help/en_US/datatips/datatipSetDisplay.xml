@@ -73,7 +73,7 @@
     endfunction
     datatipSetDisplay(d21,"mydisplay")
     ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             x=linspace(-1,1,1000);
             clf()
             e = plot(x,sinc(20*x),x,1-x.^2);

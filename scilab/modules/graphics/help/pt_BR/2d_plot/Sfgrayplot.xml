@@ -24,6 +24,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>Sfgrayplot(x,y,f,&lt;opt_args&gt;)
             Sfgrayplot(x,y,f [,strf, rect, nax, zminmax, colminmax, mesh, colout])
+            hdl = Sfgrayplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -70,6 +71,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Fec</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="fec_properties">fec_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection role="description">
@@ -104,7 +113,7 @@ _____________
     </refsection>
     <refsection role="examples">
         <title>Exemplos</title>
-        <scilab:image localized="no">Sfgrayplot();</scilab:image>
+        <scilab:image>Sfgrayplot();</scilab:image>
         <programlisting role="example"><![CDATA[
 // exemplo #1: esboço de 4 superfícies
 function z=surf1(x,y), z=x*y, endfunction
@@ -135,7 +144,7 @@ subplot(2,2,4)
 drawnow();
 show_window()
  ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
 function z=surf1(x,y), z=x*y, endfunction
 function z=surf2(x,y), z=x^2-y^2, endfunction
 function z=surf3(x,y), z=x^3+y^2, endfunction
@@ -178,7 +187,7 @@ xtitle("f(x,y) = x^3+y^2")
 drawnow();
 show_window()
  ]]></programlisting>
-        <scilab:image localized="no"><![CDATA[
+        <scilab:image><![CDATA[
 function z=surf3(x,y), z=x^3+y^2, endfunction
 clf()
 x = linspace(-1,1,60);

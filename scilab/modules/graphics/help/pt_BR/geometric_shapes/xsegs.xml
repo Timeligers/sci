@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xsegs(xv,yv,[style])</synopsis>
+        <synopsis>xsegs(xv,yv,[style])
+            hdl = xsegs(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -41,6 +42,14 @@
                         utilizada. Se <literal>style</literal> for um vetor, então
                         <literal>style(i)</literal> fornece a cor a ser utilizada no
                         segmento <literal>i</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Segs</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="segs_properties">segs_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>
@@ -98,10 +107,9 @@ alpha=2*%pi*(0:119)/40;
 xv=[sin(alpha)/2;sin(alpha)/3];
 yv=[cos(alpha)/2;cos(alpha)/3];
 zv=[alpha/8;alpha/8];
-xsegs(xv,yv,zv,1:120);
+e=xsegs(xv,yv,zv,1:120);
 a.data_bounds = [min(xv) min(yv) min(zv); ...
                  max(xv) max(yv) max(zv)];
-e = gce();
 e.arrow_size = 0.4;
 
  ]]></programlisting>

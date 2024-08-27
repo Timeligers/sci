@@ -275,7 +275,7 @@ gcf().color_map = jet(100);
 set(gcf(), "axes_size", [800 350], "rotation_style","multiple");
 gca().rotation_angles = [40 -60];
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             function z = mySurf(x,y,a,b)
                 if ~isdef("a","l"), a = 1, end
                 if ~isdef("b","l"), b = 1, end
@@ -316,7 +316,7 @@ surf(Z,'facecol','red','edgecol','blu');
 
 gcf().axes_size = [850 400];
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
 Z= [0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168   -0.0008   -0.0000
     0.0005    0.0089    0.0259   -0.3673   -1.8670   -2.4736   -1.0866   -0.1602   -0.0067    0.0000
     0.0004    0.0214    0.1739   -0.3147   -4.0919   -6.4101   -2.7589   -0.2779    0.0131    0.0020
@@ -376,7 +376,7 @@ Z= [0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168
 scf(3)
 surf(X,Y,Z)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
         // X and Y initialisation
         // NB: here, X has the same lines and Y the same columns
         X=[-3.0000   -2.3333   -1.6667   -1.0000   -0.3333    0.3333    1.0000    1.6667    2.3333    3.0000
@@ -434,7 +434,7 @@ surf(X, Y, Z)
 gcf().color_map = cool(50);
 gca().rotation_angles=[195 -155];
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             theta = 0:15:360;
             r = 25:5:100;
             [R,T] = ndgrid(r,theta);
@@ -469,7 +469,7 @@ Z =[0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168
 
 surf(X,Y,Z)
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
 X = [-3.0000  -2.3333  -1.6667  -1.0000  -0.3333   0.3333   1.0000   1.6667   2.3333   3.0000];
 Y = X;
 Z =[0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168   -0.0008   -0.0000
@@ -504,7 +504,7 @@ e=surf(Z,Z+5) // colors array specified
 e.cdata_mapping='direct' // default is 'scaled' relative to the colormap
 e.color_flag=3; // interpolated shading mode. The default is 4 ('flat' mode) for surf
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             //LineSpec and GlobalProperty examples:
             Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168   -0.0008   -0.0000
             0.0005    0.0089    0.0259   -0.3673   -1.8670   -2.4736   -1.0866   -0.1602   -0.0067    0.0000
@@ -560,7 +560,7 @@ scf(2)
 surf(X,Y,Z,'colorda',ones(10,10),'edgeco','cya','marker','penta','markersiz',20,'markeredg','yel','ydata',56:65)
  ]]></programlisting>
 
-        <scilab:image localized="no">
+        <scilab:image>
             X = [ -3.0000   -2.3333   -1.6667   -1.0000   -0.3333    0.3333    1.0000    1.6667    2.3333    3.0000
             -3.0000   -2.3333   -1.6667   -1.0000   -0.3333    0.3333    1.0000    1.6667    2.3333    3.0000
             -3.0000   -2.3333   -1.6667   -1.0000   -0.3333    0.3333    1.0000    1.6667    2.3333    3.0000
@@ -610,7 +610,7 @@ Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0
     0.0000    0.0012    0.0183    0.1099    0.2684    0.2683    0.1107    0.0190    0.0014    0.0000];
 surf(Z,'cdatamapping','direct')
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168   -0.0008   -0.0000
             0.0005    0.0089    0.0259   -0.3673   -1.8670   -2.4736   -1.0866   -0.1602   -0.0067    0.0000
             0.0004    0.0214    0.1739   -0.3147   -4.0919   -6.4101   -2.7589   -0.2779    0.0131    0.0020
@@ -638,7 +638,7 @@ Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0
 surf(Z,'facecol','interp') // interpolated shading mode (color_flag == 3)
  ]]></programlisting>
 
-        <scilab:image localized="no">
+        <scilab:image>
             Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168   -0.0008   -0.0000
             0.0005    0.0089    0.0259   -0.3673   -1.8670   -2.4736   -1.0866   -0.1602   -0.0067    0.0000
             0.0004    0.0214    0.1739   -0.3147   -4.0919   -6.4101   -2.7589   -0.2779    0.0131    0.0020
@@ -667,7 +667,7 @@ scf(10)
 axfig10=gca();
 surf(axfig10,Z,'ydat',[100:109],'marker','d','markerfac','green','markeredg','yel') // draw onto the axe of figure 10
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             Z= [   0.0001    0.0013    0.0053   -0.0299   -0.1809   -0.2465   -0.1100   -0.0168   -0.0008   -0.0000
             0.0005    0.0089    0.0259   -0.3673   -1.8670   -2.4736   -1.0866   -0.1602   -0.0067    0.0000
             0.0004    0.0214    0.1739   -0.3147   -4.0919   -6.4101   -2.7589   -0.2779    0.0131    0.0020

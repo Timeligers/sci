@@ -91,7 +91,7 @@ e = xstring(5,999.99,"Temperature [°F]")
 set(e, "clip_state", "off", "text_box_mode", "centered","font_foreground",c);
 gcf().axes_size = [610 510];
      ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             t = linspace(0,10,100);
             tf = t*1.8+32;
             d = -6.863e-3*t.^2 + 0.05463*t + 999.84;
@@ -151,7 +151,7 @@ a2.margins(3) = 0.20;
 xlabel("Wave frequency [Hz]", "fontsize",2)
 title("Black Body spectrum : Planck law (T = 5700 K)", "fontsize",3)
      ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             function r = Planck(T, lambda)
                 h = 6.626e-34;        // Planck constant    [J.s]
                 c = 298792458;        // light speed [m/s]
@@ -212,7 +212,7 @@ ax2.axes_reverse(2) = "on";
 ylabel("$[H^+]\text{ concentration }(mol.L^{-1})$","fontsize",3)
 ax2.y_label.font_angle = 90;
      ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             pH1= 1.5;       // v1 = 10 mL of acid solution
             pH2 = 12.5;     // v2 mL of basic solution
             v2 = logspace(0,4,200);
@@ -278,7 +278,7 @@ e.children.thickness = 2;
 ax3.axes_visible(1) = "off";
 ax3.y_location = "right";
      ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             // Preparing data
             x  = linspace(1,30,200);
             y2 = exp(x/6).*(sin(x)+1.5);

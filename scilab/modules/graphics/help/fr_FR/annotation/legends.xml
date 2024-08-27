@@ -10,6 +10,7 @@
         <title>Séquence d'appel</title>
         <synopsis>legends(strings,style,&lt;opt_args&gt;)
             legends(strings,style,xy)
+            h = legends(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -107,6 +108,14 @@
                                 </para>
                             </listitem>
                         </varlistentry>
+                        <varlistentry>
+                            <term>h</term>
+                            <listitem>
+                                <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Legend</literal> créé par la fonction. Il peut être utilisé pour
+                                modifier ses propriétés (voir <link linkend="legend_properties">legend_properties</link>).
+                                </para>
+                            </listitem>
+                        </varlistentry>
                     </variablelist>
                 </listitem>
             </varlistentry>
@@ -140,7 +149,7 @@ gca().line_style = 4;
 plot2d(t,sin(t),style=3);
 legends(["sin(t)";"cos(t)"],[[5;2],[3;4]], with_box=%f, opt="?")
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             t=0:0.1:2*%pi;
             plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);
             legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3],opt="lr")
@@ -172,7 +181,7 @@ t=0:0.1:2*%pi;
 plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);
 legends(['cos(t)';'cos(2*t)';'cos(3*t)'],[-1,2 3], opt=2, font_size=1 )
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             subplot(221)
             t=0:0.1:2*%pi;
             plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-1,2 3]);

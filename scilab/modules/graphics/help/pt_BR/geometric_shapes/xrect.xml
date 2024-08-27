@@ -21,7 +21,7 @@
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
         <synopsis>xrect(x,y,w,h)
-            xrect(rect) // rect =[x,y,w,h]
+            hdl = xrect(rect) // rect =[x,y,w,h]
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -31,6 +31,14 @@
                 <term>x,y,w,h</term>
                 <listitem>
                     <para>quatro valores reais definindo o retângulo</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Rectangle</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="rectangle_properties">rectangle_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

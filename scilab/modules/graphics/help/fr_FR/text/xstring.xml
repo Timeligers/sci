@@ -13,6 +13,7 @@
           xstring(x, y, str)
           xstring(x, y, str, angle)
           xstring(x, y, str, angle, box)
+          hdl = xstring(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -43,6 +44,14 @@
                 <term>box  </term>
                 <listitem>
                     <para>vecteur ou scalaire entier, 0 par défaut.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Text</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="text_properties">text_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -94,12 +103,12 @@ xstring(0.1,1.6,alphabet,0,1) // alphabet dans une boîte
 xstring(0.1,1.4,alphabet,20)  // angle
 set(gca(), "font_style", 1, "font_size", 1); // police "symbol"
 xstring(0.1,0.1,alphabet)
-xstring(0.1,0.3,alphabet)
-gce().font_size = 3;          // changement de la taille de police
-xstring(0.1,0.6,"a")
-gce().font_size = 24;  // un grand alpha
+e=xstring(0.1,0.3,alphabet)
+e.font_size = 3;          // changement de la taille de police
+e=xstring(0.1,0.6,"a")
+efont_size = 24;  // un grand alpha
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             plot2d([0;1],[0;1],0)
             xstring(0.5,0.5,["$\overbrace{Scilab}$" "n''est ";"pas" "$\underbrace{Matlab}$"])
         </scilab:image>

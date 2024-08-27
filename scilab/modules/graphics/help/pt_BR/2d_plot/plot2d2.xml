@@ -23,6 +23,7 @@
         <synopsis>plot2d2([x],y)
             plot2d2([x],y,&lt;opt_args&gt;)
             plot2d2([logflag],x,y,[style,strf,leg,rect,nax])
+            hdl = plot2d2(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -34,6 +35,16 @@
                     <para>
                         ver <literal>plot2d</literal> para uma descrição dos
                         parâmetros.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Esta saída opcional é um vetor contendo os identificadores de
+                      a entidade Compound criada com entidades Polyline como filhos. Use <literal>hdl</literal> para modificar propriedades
+                      de uma entidade específica ou de todas as polilinhas após serem criadas. Para uma lista de
+                      propriedades, consulte <link linkend="polyline_properties">polyline_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -69,8 +80,7 @@ clf()
 plot2d2(x,[sin(x) sin(2*x) sin(3*x)])
   // apenas no novo modo gráfico
 clf();
-plot2d(x,[sin(x) sin(2*x) sin(3*x)])
-e=gce();
+e=plot2d(x,[sin(x) sin(2*x) sin(3*x)])
 e.children(1).polyline_style=2;
 e.children(2).polyline_style=2;
 e.children(3).polyline_style=2;

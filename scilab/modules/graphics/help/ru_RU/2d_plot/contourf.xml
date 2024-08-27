@@ -137,7 +137,7 @@ plot2d(x(im)',y(jm)',-9,"000")
         <programlisting role="example"><![CDATA[
 contourf(1:10,1:10,rand(10,10),5,1:5,"011"," ",[0,0,11,11])
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             contourf(1:10,1:10,rand(10,10),5,1:5,"011"," ",[0,0,11,11])
         </scilab:image>
         <programlisting role="example"><![CDATA[
@@ -166,7 +166,7 @@ gcf().color_map = h;
 clf();
 contourf([],[],z,[-6:-1,-logspace(-5,0,10),logspace(-5,0,10),1:8]);
  ]]></programlisting>
-        <scilab:image localized="no">
+        <scilab:image>
             function z=peaks(x,y)
             x1=x(:).*.ones(1,size(y,'*'));
             y1=y(:)'.*.ones(size(x,'*'),1);
