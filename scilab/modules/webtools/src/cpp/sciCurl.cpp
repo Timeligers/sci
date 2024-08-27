@@ -346,17 +346,17 @@ void SciCurl::addFileToForm(const std::string& name, const std::string& file, co
     {
         curl_formadd(&_formpost,
                      &_lastptr,
-                     CURLFORM_COPYNAME, name,
-                     CURLFORM_FILE, file,
+                     CURLFORM_COPYNAME, name.c_str(),
+                     CURLFORM_FILE, file.c_str(),
                      CURLFORM_END);
     }
     else
     {
         curl_formadd(&_formpost,
                      &_lastptr,
-                     CURLFORM_COPYNAME, name,
-                     CURLFORM_FILE, file,
-                     CURLFORM_FILENAME, filename,
+                     CURLFORM_COPYNAME, name.c_str(),
+                     CURLFORM_FILE, file.c_str(),
+                     CURLFORM_FILENAME, filename.c_str(),
                      CURLFORM_END);
     }
 }

@@ -101,7 +101,7 @@ types::Function::ReturnValue sci_http_upload(types::typed_list &in, types::optio
 
             wchar_t* pwcFile = getFullFilenameW(pITFile->getAs<types::String>()->get(i));
             char* pcFile = wide_string_to_UTF8(pwcFile);
-            char* pcName = wide_string_to_UTF8(pITFile->getAs<types::String>()->get(i));
+            char* pcName = wide_string_to_UTF8(pITName->getAs<types::String>()->get(i));
             files.push_back({pcFile, pcName});
             FREE(pwcFile);
             FREE(pcFile);
