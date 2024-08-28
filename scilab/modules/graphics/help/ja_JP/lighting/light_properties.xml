@@ -149,7 +149,8 @@
         <title>例</title>
         <programlisting role="example"><![CDATA[
         // 点光源
-        plot3d;s=gce();l=light();
+        s=plot3d();
+        l=light();
         for i=0:1000
             sleep(5);
             x = 2*cos(i*%pi/180);
