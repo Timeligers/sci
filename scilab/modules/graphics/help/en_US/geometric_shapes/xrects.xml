@@ -43,9 +43,9 @@
             <varlistentry>
                 <term>hdl</term>
                 <listitem>
-                    <para>This optional output contains a handle to a Compound object whose children
-                      are the created Rectangle objects. Use <literal>hdl</literal> to modify properties
-                      of a specific or all Reactangle objects after they are created. For a list of
+                    <para>This optional output is a vector containing the handles of
+                      the created <literal>Rectangle</literal> entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all entities after they are created. For a list of
                       properties, see <link linkend="rectangle_properties">rectangle_properties</link>.
                     </para>
                 </listitem>

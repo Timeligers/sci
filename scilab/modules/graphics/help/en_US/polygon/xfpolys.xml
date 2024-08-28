@@ -22,7 +22,7 @@
         <title>Syntax</title>
         <synopsis>
           xfpolys(xpols,ypols,[fill])
-          h = xfpolys(...)
+          hdl = xfpolys(...)
       </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -101,11 +101,11 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>h</term>
+                <term>hdl</term>
                 <listitem>
-                    <para>This optional output contains a handle to a Compound object whose children
-                      are the created Polyline objects. Use <literal>h</literal> to modify properties
-                      of a specific or all Polyline objects after they are created. For a list of
+                    <para>This optional output is a vector containing the handles of
+                      the created <literal>Polyline</literal> entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all entities after they are created. For a list of
                       properties, see <link linkend="polyline_properties">polyline_properties</link>.
                     </para>
                 </listitem>
