@@ -30,6 +30,7 @@
             bar3d(mtx, &lt;opt_args&gt;)
             bar3d(list(mtx,x,y), [theta, alpha, leg, flag, ebox])
             bar3d(list(mtx,x,y), &lt;opt_args&gt;)
+            hdl = bar3d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -76,6 +77,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>このオプションの出力には、作成された Fac3d エンティティへのハンドルが含まれます。 <literal>hdl</literal> を使用してプロパティを変更します。
+                    プロパティのリストについては、<link linkend="surface_properties">surface_properties</link> を参照してください。
+                </para>
+            </listitem>
+        </varlistentry>
         </variablelist>
     </refsection>
     <refsection>

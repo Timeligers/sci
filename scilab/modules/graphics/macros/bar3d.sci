@@ -12,7 +12,7 @@
 // along with this program.
 
 
-function bar3d(f,theta,alpha,leg,flags,ebox)
+function varargout = bar3d(f,theta,alpha,leg,flags,ebox)
     //!
     nep=8
 
@@ -23,6 +23,9 @@ function bar3d(f,theta,alpha,leg,flags,ebox)
 
     def=list(theta,alpha,leg,flags);
     [lhs,rhs]=argn(0)
+    if lhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "bar3d", 1));
+    end
     if rhs<=0 then  //demo
         towns = ["Agen" "Bastia" "Chamonix" "Cognac" "Hyères" "Le Mans" "Le Puy" ..
         "Lille" "Lorient" "Mende" ]
@@ -42,7 +45,7 @@ function bar3d(f,theta,alpha,leg,flags,ebox)
         6.6 6.7 8.6 10.3 13.6 16.2 18.1 18.0 16.0 13.0 9.4 7.0 12.0
         0.6 1.3 3.7 5.5 9.6 13.1 16.2 16.0 12.8 8.8 3.8 1.8 7.8
         ];
-        bar3d(T)
+        e=bar3d(T)
         ax = gca()
         ax.y_ticks = tlist(["ticks" "locations" "labels"], (0:12)+0.5, months)
         ax.x_ticks = tlist(["ticks" "locations" "labels"], (0:9)+0.5, towns)
@@ -50,7 +53,9 @@ function bar3d(f,theta,alpha,leg,flags,ebox)
         xtitle(_("Average monthly temperatures in french cities"),"","")
         ax.title.font_size = 3
         ax.rotation_angles = [28 19]
-        return;
+        if lhs == 1
+            varargout(1) = e;
+        end
     end
     if typeof(f)=="list" then
         [f,x,y]=f(1:3);
@@ -93,6 +98,10 @@ function bar3d(f,theta,alpha,leg,flags,ebox)
     zz=matrix(f,1,nl*nc).*.[c,d,b,b,a,a];
 
     if ~isdef("ebox","local") then ebox = bnds; else "ebox = ebox"; end;
-    plot3d(xx,yy,zz,def(1),def(2),def(3),def(4),ebox)
+    e=plot3d(xx,yy,zz,def(1),def(2),def(3),def(4),ebox);
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 
 endfunction

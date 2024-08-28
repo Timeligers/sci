@@ -30,6 +30,7 @@
             bar3d(mtx,&lt;opt_args&gt;)
             bar3d(list(mtx,x,y),[theta,alpha,leg,flag,ebox])
             bar3d(list(mtx,x,y),&lt;opt_args&gt;)
+            hdl = bar3d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -75,6 +76,14 @@
                 <listitem>
                     <para>
                         voir <link linkend="plot3d">plot3d</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Fac3d</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="surface_properties">surface_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

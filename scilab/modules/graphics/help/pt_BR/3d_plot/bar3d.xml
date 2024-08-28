@@ -30,6 +30,7 @@
             bar3d(mtx,&lt;opt_args&gt;)
             bar3d(list(mtx,x,y),[theta,alpha,leg,flag,ebox])
             bar3d(list(mtx,x,y),&lt;opt_args&gt;)
+            hdl = bar3d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -60,6 +61,14 @@
                 <listitem>
                     <para>
                         ver <literal>plot3d</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Fac3d</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="surface_properties">surface_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>
