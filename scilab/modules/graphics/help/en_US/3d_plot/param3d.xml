@@ -412,7 +412,7 @@ Y = [Yo(1,:) ; Yo ; Yo($,:)];
 Z = [zmin*ones(1,nc) ; Zo ; zmin*ones(1,nc)];
     // Rendering
 e=param3d1(X, Y, Z, 150, 85, flag=[2,4])
-e.children.fill_mode = "on";
+e.fill_mode = "on";
 
 // grey box for all axes:
 gcf().children.foreground = color("grey70");
@@ -448,7 +448,7 @@ gcf().children.foreground = color("grey70");
         Z = [zmin*ones(1,nc) ; Zo ; zmin*ones(1,nc)];
             // Rendering
         e=param3d1(X, Y, Z, 150, 87, flag=[2,4])
-        e.children.fill_mode = "on";
+        e.fill_mode = "on";
 
         // grey box for all axes:
         gcf().children.foreground = color("grey70");
