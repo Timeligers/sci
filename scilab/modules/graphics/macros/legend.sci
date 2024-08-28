@@ -123,7 +123,8 @@ function varargout=legend(varargin)
 
 
     drawlater()
-    c=captions(H,leg)
+    // captions() uses natural order (not inversed children order)
+    c=captions(H($:-1:1),leg)
     if c == [] then
         if argn(1) == 1
             varargout(1) = c;

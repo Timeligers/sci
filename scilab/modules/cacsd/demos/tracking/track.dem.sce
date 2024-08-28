@@ -61,9 +61,8 @@ Bigsyst=dscr(syslin("c",BigA,BigB,BigC,BigD,BigX0),dt);
 
 
 z=flts(uu(instants),Bigsyst);
-plot2d([instants',instants'],..
+curves = plot2d([instants',instants'],..
 [totrack(1,:)',z(1,:)'], axesflag=1);
-curves = gce();
-captions(curves.children,["Signal to track","Computed signal"],"upper_caption");
+captions(curves,["Signal to track","Computed signal"],"upper_caption");
 xtitle("tracking");
 messagebox(_("The end"), _("Tracking"), "modal");
