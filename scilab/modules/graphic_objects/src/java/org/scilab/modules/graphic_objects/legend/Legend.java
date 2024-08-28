@@ -343,9 +343,8 @@ public class Legend extends ClippableTextObject {
     public String[] getValidTextStrings() {
         ArrayList <String> validStrings = new ArrayList<String>(0);
 
-        /* Text strings are stored in reverse order relative to links. */
         for (int i = 0; i < links.size(); i++) {
-            GraphicObject object = GraphicController.getController().getObjectFromId(links.get(links.size() - i - 1));
+            GraphicObject object = GraphicController.getController().getObjectFromId(links.get(i));
 
             if (object != null) {
                 validStrings.add(text[i].getText());

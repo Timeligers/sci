@@ -77,14 +77,13 @@ function varargout=legend(varargin)
         if tmpH.type=="Axes" then
             A = tmpH;
         end
-        tmpH=tmpH($:-1:1);
         H=[getvalidchildren(tmpH);H];
         k0 = k0+1;
     end
 
     if H==[] then
         //walk subtree to get all proper children
-        H=getvalidchildren(A)
+        H=getvalidchildren(A)($:-1:1)
     end
 
     if H==[] then
@@ -124,7 +123,8 @@ function varargout=legend(varargin)
 
     drawlater()
     // captions() uses natural order (not inversed children order)
-    c=captions(H($:-1:1),leg)
+
+    c=captions(H,leg)
     if c == [] then
         if argn(1) == 1
             varargout(1) = c;

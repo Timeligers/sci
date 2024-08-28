@@ -460,8 +460,8 @@ public class LegendDrawer {
         barVertexData[12] = barVertexData[4];
         barVertexData[13] = barVertexData[9];
 
-        for (Integer link : links) {
-            Polyline currentLine = (Polyline) GraphicController.getController().getObjectFromId(link);
+        for (int i=links.length-1; i>=0; i--) {
+            Polyline currentLine = (Polyline) GraphicController.getController().getObjectFromId(links[i]);
 
             drawLegendItem(legend, drawingTools, colorMap, currentLine, barVertexData, lineVertexData);
 
@@ -738,11 +738,10 @@ public class LegendDrawer {
         for (int i = 0; i < links.length; i++) {
             Polyline currentLine = (Polyline) GraphicController.getController().getObjectFromId(links[i]);
 
-            /* Text strings are stored in reverse order relative to links. */
             if (currentLine != null) {
                 newLinks.add(links[i]);
 
-                newStrings[nbValidLinks - i1 - 1] = new String(strings[strings.length - i - 1]);
+                newStrings[i1] = new String(strings[i]);
                 i1++;
             }
         }

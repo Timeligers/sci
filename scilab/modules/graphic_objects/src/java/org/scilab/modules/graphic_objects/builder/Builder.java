@@ -734,13 +734,12 @@ public final class Builder {
         leg.setTextStrings(text);
 
         /*
-         * Links are ordered from most recent to least recent, as their
-         * referred-to Polylines in the latter's parent Compound object.
+         * Links are ordered in the same order as handles
          */
 
         ArrayList<Integer> links = new ArrayList<Integer>();
-        for (int i = count - 1; i >= 0; i--) {
-            links.add(count - i - 1, handles[i]);
+        for (int i = 0; i < count; i++) {
+            links.add(handles[i]);
         }
 
         leg.setLinks(links);
