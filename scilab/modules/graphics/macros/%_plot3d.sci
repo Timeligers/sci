@@ -18,11 +18,18 @@
 // used when calling plot3d without any parameter.
 //
 
-function [] = %_plot3d()
+function varargout = %_plot3d()
+    if argn(1) > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "plot3d", 1));
+    end
     x = %pi * [-1:0.05:1]';
     z = sin(x)*cos(x)';
     e = plot3d(x, x, z, 70, 70);
     e.color_flag = 1;
     f = gcf();
     f.color_map = jet(32);
+    if argn(1) == 1
+        varargout(1) = e;
+    end
+
 endfunction
