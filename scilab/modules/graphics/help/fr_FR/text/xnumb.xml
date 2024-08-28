@@ -6,7 +6,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>xnumb(x,y,nums,[box,angle])</synopsis>
+        <synopsis>xnumb(x,y,nums,[box,angle])
+            hdl = xnumb(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -30,6 +31,14 @@
                 <listitem>
                     <para>
                         vecteur optionnel de même taille que <literal>x</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé un vecteur d'objets graphiques de type <literal>Text</literal> créés par la fonction. Il peut être utilisé pour
+                    modifier leur propriétés (voir <link linkend="text_properties">text_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

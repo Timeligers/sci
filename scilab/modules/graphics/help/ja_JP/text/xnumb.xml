@@ -21,7 +21,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>呼び出し手順</title>
-        <synopsis>xnumb(x, y, nums, [box, angle])</synopsis>
+        <synopsis>xnumb(x, y, nums, [box, angle])
+            hdl = xnumb(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>引数</title>
@@ -46,6 +47,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>このオプションの出力には、作成された Text エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                    プロパティのリストについては、<link linkend="text_properties">text_properties</link> を参照してください。
+                </para>
+            </listitem>
+        </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
