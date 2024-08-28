@@ -78,8 +78,7 @@ xstring(r(1), r(2), str);
 str = ["Scilab" "n''est "; "pas" "Matlab"];
 r2 = xstringl(0.2, 0.2, str, 5, 7);
 xrects([r2(1) r2(2)+r2(4) r2(3) r2(4)]');
-xstring(r2(1), r2(2), str)
-txt = gce();
+txt = xstring(r2(1), r2(2), str)
 txt.font_size = 7;
 txt.font_style = 5;
  ]]>
@@ -95,8 +94,7 @@ xstring(r(1), r(2), str);
 str = ["Scilab" "n''est "; "pas" "Matlab"];
 r2 = xstringl(0.2, 0.2, str, 5, 8);
 xrects([r2(1) r2(2)+r2(4) r2(3) r2(4)]');
-xstring(r2(1), r2(2), str)
-txt = gce();
+txt = xstring(r2(1), r2(2), str)
 txt.font_size = 8;
 txt.font_style = 5;
  ]]>
@@ -127,8 +125,7 @@ mathml = "<mrow>" +..
 str=["SCILAB", "peut écrire du LaTeX :", "$\frac{abc}{xyz}$"; "ou", "du MathML :", mathml];
 r2 = xstringl(0.2, 0.4, str, 10, 4);
 xrects([r2(1) r2(2)+r2(4) r2(3) r2(4)]');
-xstring(r2(1), r2(2), str);
-txt = gce();
+txt = xstring(r2(1), r2(2), str);
 txt.font_size = 4;
 txt.font_style = 10;
  ]]>
@@ -159,8 +156,7 @@ mathml = "<mrow>" +..
 str=["SCILAB", "peut écrire du LaTeX :", "$\frac{abc}{xyz}$"; "ou", "du MathML :", mathml];
 r2 = xstringl(0.2, 0.4, str, 10, 4);
 xrects([r2(1) r2(2)+r2(4) r2(3) r2(4)]');
-xstring(r2(1), r2(2), str);
-txt = gce();
+txt = xstring(r2(1), r2(2), str);
 txt.font_size = 4;
 txt.font_style = 10;
  ]]>
@@ -175,8 +171,7 @@ str=["$\underleftrightarrow{\tiny{Scilab}}$"; "$\underleftrightarrow{\scriptsize
      "$\underleftrightarrow{\huge{Scilab}}$"; "$\underleftrightarrow{\Huge{Scilab}}$"];
 r = xstringl(0.5, 0.5, str, 5, 3);
 xrects([r(1); r(2)+r(4); r(3); r(4)]);
-xstring(r(1), r(2), str);
-txt = gce();
+txt = xstring(r(1), r(2), str);
 txt.font_size = 3;
 txt.font_style = 5;
 txt.font_color = 2;

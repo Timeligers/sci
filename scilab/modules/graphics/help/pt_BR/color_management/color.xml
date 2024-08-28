@@ -77,17 +77,16 @@
             de fundo e de primeiro plano em esboços.
         </para>
     </refsection>
-    <refsection>
+    <refsection>0
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[
 x=linspace(-2*%pi,2*%pi,100)';
 // utilizando cores existentes
 e=plot2d(x,[sin(x),cos(x)],style=[color("red"),color("green")]);
 // novas cores adicionadas ao mapa de core
-p1=e.children(1); p2=e.children(2);
-p1.foreground=color("purple"); p2.foreground=color("navy blue");
+e(1).foreground=color("purple"); e(2).foreground=color("navy blue");
 // utilizando valores RGB
-p1.foreground=color(255,128,128);
+e(1).foreground=color(255,128,128);
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

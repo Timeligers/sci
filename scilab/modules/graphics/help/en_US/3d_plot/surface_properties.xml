@@ -543,8 +543,8 @@
 //create a figure
 t=[0:0.3:2*%pi]'; z=sin(t)*cos(t');
 [xx,yy,zz]=genfac3d(t,t,z);
-plot3d([xx xx],[yy yy],list([zz zz+4],[4*ones(1,400) 5*ones(1,400)]))
-h=get("hdl") //get handle on current entity (here the surface)
+// draw and get handle on the surface entity
+h=plot3d([xx xx],[yy yy],list([zz zz+4],[4*ones(1,400) 5*ones(1,400)]))
 a=gca(); //get current axes
 a.rotation_angles=[40,70];
 a.grid=[1 1 1];

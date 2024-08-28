@@ -359,15 +359,15 @@ f = scf()
 a = f.children // the handle on the Axes child
 x = (1:10)';
 e = plot2d(x,[x.^2 x.^1.5])
-// e is a Compound of 2 polylines
+// e is a vector of 2 polylines
 
-p1 = e.children(1)  //the last drawn polyline properties
-p1.foreground = 5;  // change the polyline color
-e.children.thickness = 5; // change the thickness of the two polylines
+p2 = e(2)  //the last drawn polyline properties
+p2.foreground = 5;  // change the polyline color
+e.thickness = 5; // change the thickness of the two polylines
 
-delete(e.children(2))
+delete(e(1))
 
-move(e.children,[0,30]) //translate the polyline
+move(e,[0,30]) //translate the polyline
 
 a.axes_bounds = [0 0 0.5 0.5];
 

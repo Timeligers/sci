@@ -25,7 +25,7 @@
         <synopsis>plot2d2([x],y)
             plot2d2([x],y,&lt;opt_args&gt;)
             plot2d2([logflag],x,y,[style,strf,leg,rect,nax])
-            h = plot2d2(...)
+            hdl = plot2d2(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -86,12 +86,12 @@ plot2d2(x,[sin(x) sin(2*x) sin(3*x)])
 x=[0:0.1:2*%pi]';
 clf();
 h = plot2d(x,[sin(x) sin(2*x) sin(3*x)])
-h.children.polyline_style=2;
+h.polyline_style=2;
  ]]></programlisting>
         <scilab:image>
             x=[0:0.1:2*%pi]';
             h = plot2d(x,[sin(x) sin(2*x) sin(3*x)])
-            h.children.polyline_style=2;
+            h.polyline_style=2;
         </scilab:image>
     </refsection>
     <refsection role="see also">

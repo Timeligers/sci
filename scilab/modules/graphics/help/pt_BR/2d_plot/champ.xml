@@ -156,8 +156,8 @@ title("arfact=1.7", "fontsize",3)
 
 // Field's intensity = arrows color
 xsetech([0 0.5 0.55 0.5])
-champ(x, x, fx, fy, arfact=1.7)
-gce().colored = "on";
+h = champ(x, x, fx, fy, arfact=1.7)
+h.colored = "on";
 title("arfact=1.7, .colored=""on""", "fontsize",3)
 colorbar
 

@@ -129,10 +129,10 @@ xstring(0.1,1.6,alphabet,0,1) // ボックス内にアルファベット
 xstring(0.1,1.4,alphabet,20)  // 角度
 set(gca(),"font_style",1,"font_size",1);              // symbolフォントを使用
 xstring(0.1,0.1,alphabet)
-xstring(0.1,0.3,alphabet)
-gce().font_size = 3;         // フォントの大きさを変更
-xstring(0.1,0.6,"a") //大きなアルファ
-gce().font_size = 24;
+h=xstring(0.1,0.3,alphabet)
+h.font_size = 3;         // フォントの大きさを変更
+h=xstring(0.1,0.6,"a") //大きなアルファ
+h.font_size = 24;
  ]]></programlisting>
         <scilab:image>
             plot2d([0;1],[0;1],0)

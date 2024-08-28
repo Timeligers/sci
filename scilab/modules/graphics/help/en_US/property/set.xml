@@ -191,22 +191,19 @@ gda().auto_clear = "off";
 clf
 // Example with a Plot 2D
 x = [-.2:0.1:2*%pi]';
-e = plot2d(x-.3, [sin(x-1) cos(2*x)], [1 2] );
+p = plot2d(x-.3, [sin(x-1) cos(2*x)], [1 2] );
 a = gca();
-p1 = e.children(1);
-p2 = e.children(2);
 
 // set the named properties to the specified values on the objects
-p2.thickness = 2;
-set(p2, "foreground",13, "polyline_style",2);
+p(1).thickness = 2;
+set(p(1), "foreground",13, "polyline_style",2);
 a.y_location = "middle";
 a.tight_limits = "on";
 set(a, "box","off", "sub_tics",[7 0]);
-set(p1, "mark_mode","on", "mark_style",3);
+set(p(2), "mark_mode","on", "mark_style",3);
 
-e = plot2d(x-2,x.^2/20);
-p3 = e.children;
-set([a p1 p2 p3], "foreground",5);
+p(3) = plot2d(x-2,x.^2/20);
+set([a p], "foreground",5);
          ]]></programlisting>
         </para>
         <para>

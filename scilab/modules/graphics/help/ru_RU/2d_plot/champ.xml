@@ -30,7 +30,7 @@
             champ(x, y, fx, fy, arfact, rect)
             champ(x, y, fx, fy, arfact, rect, strf)
             champ(x, y, fx, fy, &lt;opt_args&gt;)
-            h = champ(...)
+            hdl = champ(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -110,7 +110,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>h</term>
+                <term>hdl</term>
                 <listitem>
                   <para>Этот необязательный вывод содержит дескриптор сущности <literal>Champ</literal>. Для списка
                       свойства, см. <link linkend="champ_properties">champ_properties</link>.
@@ -129,7 +129,7 @@
             поля (норма векторов). Кроме того, все длины нормированы в соответствии с самой длинной стрелкой.
         </para>
         <para>
-            Когда установлено <literal>gce().colored = "on"</literal>,
+            Когда установлено <literal>hdl.colored = "on"</literal>,
             каждая стрелка становится настолько длинной, насколько это возможно в её ячейке, и её
             цвет соответствует локальной интенсивности поля.
         </para>

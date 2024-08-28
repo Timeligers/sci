@@ -23,7 +23,7 @@
         <synopsis>plot2d4([logflag,] x,y,[style,strf,leg,rect,nax])
             plot2d4(y)
             plot2d4(x,y &lt;,opt_args&gt;)
-            h = plot2d4(...)
+            hdl = plot2d4(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -73,7 +73,7 @@ x = [0:0.1:2*%pi]';
 plot2d4(x,[sin(x) sin(2*x) sin(3*x)])
 subplot(2,1,2)
 e = plot2d(x,[sin(x) sin(2*x) sin(3*x)])
-e.children.polyline_style=4;
+e.polyline_style=4;
  ]]></programlisting>
         <scilab:image>
             subplot(2,1,1)
@@ -81,7 +81,7 @@ e.children.polyline_style=4;
             plot2d4(x,[sin(x) sin(2*x) sin(3*x)])
             subplot(2,1,2)
             e = plot2d(x,[sin(x) sin(2*x) sin(3*x)])
-            e.children.polyline_style=4;
+            e.polyline_style=4;
         </scilab:image>
     </refsection>
     <refsection role="see also">

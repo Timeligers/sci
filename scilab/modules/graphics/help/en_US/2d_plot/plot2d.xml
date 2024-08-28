@@ -36,7 +36,7 @@
             plot2d(.., y, style, strf, leg, rect)
             plot2d(.., y, style, strf, leg, rect, nax)
             plot2d(.., y, key1=value1, key2=value2, ..)
-            h = plot2d(...)
+            hdl = plot2d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="arguments">
@@ -288,11 +288,11 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>h</term>
+                <term>hdl</term>
                 <listitem>
                     <para>This optional output is a vector containing the handles of
-                      the created Compound entity with Polyline entities as children. Use <literal>h</literal> to modify properties
-                      of a specific or all Polyline entities after they are created. For a list of
+                      the created <literal>Polyline</literal> entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all entities after they are created. For a list of
                       properties, see <link linkend="polyline_properties">polyline_properties</link>.
                     </para>
                 </listitem>
@@ -504,7 +504,7 @@ a.y_location ="right";
             // axis centered at (0,0)
             clf();
             x = [0:0.1:2*%pi]';
-            poly1 = plot2d(x-4,sin(x),1,leg="sin(x)").children;
+            poly1 = plot2d(x-4,sin(x),1,leg="sin(x)");
             a = gca(); // Handle on axes entity
             a.x_location = "origin";
             a.y_location = "origin";

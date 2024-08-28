@@ -30,7 +30,7 @@
             champ(x, y, fx, fy, arfact, rect)
             champ(x, y, fx, fy, arfact, rect, strf)
             champ(x, y, fx, fy, &lt;opt_args&gt;)
-            h = champ(...)
+            hdl = champ(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -103,7 +103,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>h</term>
+                <term>hdl</term>
                 <listitem>
                     <para>このオプションの出力には、作成された Champ エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
                     プロパティのリストについては、<link linkend="champ_properties">fec_properties</link> を参照してください。
@@ -123,7 +123,7 @@
             In addition, all lengths are normalized according to the longest arrow.
         </para>
         <para>
-            When setting <literal>gce().colored = "on"</literal>,
+            When setting <literal>hdl.colored = "on"</literal>,
             each arrow becomes as long as possible in its cell, and is colored
             according to the local intensity of the field.
         </para>

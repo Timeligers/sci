@@ -270,9 +270,9 @@
 a=get("current_axes");//get the handle of the newly created axes
 a.data_bounds=[-2,-2;2,2];
 
-xrect(-1,1,2,2)
+//カレントのエンティティ(ここでは rectangle エンティティ)のハンドルを取得y
+r=xrect(-1,1,2,2)
 
-r=get("hdl");//カレントのエンティティ(ここでは rectangle エンティティ)のハンドルを取得y
 r.type
 r.parent.type
 r.foreground=13;

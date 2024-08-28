@@ -176,8 +176,7 @@
         <programlisting role="example"><![CDATA[
 a = get("current_axes");  // 新規に作成された軸のハンドルを取得
 a.data_bounds = [-10,-10 ; 10,10];
-champ(-5:5, -5:5, rand(11,11), rand(11,11))
-c = a.children
+c = champ(-5:5, -5:5, rand(11,11), rand(11,11))
 set(c, "colored","on", "thickness",2, "arrow_size",-1);
 c.data       // "champdata"型のtlistを表示
 a.data_bounds = [-5,-5 ; 5,5];
@@ -185,8 +184,7 @@ a.data_bounds = [-5,-5 ; 5,5];
         <scilab:image><![CDATA[
         a=get("current_axes");
         a.data_bounds=[-10,-10;10,10];
-        champ(-5:5,-5:5,rand(11,11),rand(11,11));
-        c=a.children;
+        c=champ(-5:5,-5:5,rand(11,11),rand(11,11));
         c.colored="on";
         c.thickness=2;
         c.arrow_size=-1;

@@ -61,13 +61,13 @@
     <refsection>
         <title>Exemplos</title>
         <programlisting role="example"><![CDATA[
-subplot(211);a1=gca();
-e=plot2d()
-p1=e.children(1);
-p2=copy(p1);p2.data(:,2)=p2.data(:,2)-0.5;
-subplot(212);a2=gca();
-a2.data_bounds=a1.data_bounds;
-copy(p1,a2);
+            subplot(211);a1=gca();
+            e=plot2d();
+            p1=e(1);
+            p2=copy(p1);p2.data(:,2)=p2.data(:,2)-0.5;
+            subplot(212);a2=gca();
+            a2.data_bounds=a1.data_bounds;
+            copy(p1,a2);
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

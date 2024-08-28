@@ -274,7 +274,7 @@ ax3 = newaxes();
 set(ax3, "filled", "off", "foreground", c, "font_color", c);
 e=plot2d(x,y2,style=c);
 ylabel(_("Scale #3"),"color",[1 0 0])
-e.children.thickness = 2;
+e.thickness = 2;
 ax3.axes_visible(1) = "off";
 ax3.y_location = "right";
      ]]></programlisting>
@@ -299,7 +299,7 @@ ax3.y_location = "right";
             ax2 = newaxes();
             set(ax2, "filled", "off", "foreground", c, "font_color", c);
             e=plot2d(x, y3, logflag="nl", style=c)
-            e.children.thickness = 2;
+            e.thickness = 2;
             ax2.axes_visible(1) = "off";
             ax2.y_location = "middle";
 
@@ -309,7 +309,7 @@ ax3.y_location = "right";
             set(ax3, "filled", "off", "foreground", c, "font_color", c);
             e=plot2d(x,y2,style=c);
             ylabel("Scale #3", "color",[1 0 0])
-            e.children.thickness = 2;
+            e.thickness = 2;
             ax3.axes_visible(1) = "off";
             ax3.y_location = "right";
         </scilab:image>

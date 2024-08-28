@@ -76,11 +76,9 @@ twinkle(3)  // twinkles it only three times
 
 clf
 x = linspace(-2*%pi,2*%pi,100)';
-e = plot2d(x,[sin(x),cos(x)]);
-p1 = e.children(1);
-p2 = e.children(2);
-twinkle(p1)     // fazendo piscar o esboço de cos
-twinkle(p2,10)  // fazendo piscar o esboço de sin piscar
+p = plot2d(x,[sin(x),cos(x)]);
+twinkle(p(2))     // fazendo piscar o esboço de cos
+twinkle(p(1),10)  // fazendo piscar o esboço de sin piscar
 twinkle(gca())  // eixos piscando
  ]]></programlisting>
     <para/>

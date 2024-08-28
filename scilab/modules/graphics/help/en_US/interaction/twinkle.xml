@@ -76,8 +76,8 @@ twinkle(3)  // twinkles it only three times
 clf
 x = linspace(-2*%pi,2*%pi,100)';
 p=plot2d(x,[sin(x),cos(x)]);
-twinkle(p.children(1))       // cos plot twinkle
-twinkle(p.children(2),10)    // sin plot twinkle 10 times
+twinkle(p(2))       // cos plot twinkle
+twinkle(p(1),10)    // sin plot twinkle 10 times
 twinkle(gca())    // axes twinkle
  ]]></programlisting>
     <para/>
