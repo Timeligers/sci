@@ -51,10 +51,10 @@
                         The file on the server will have the same name as the local one.
                     </para>
                     <para>
-                        A structure with fields "file" and "name".
-                        The field "file" contains the local file to upload on server.
-                        The field "name" contains a string used to set filename on the server.
-                        When "name" is an empty string, the local filename is used on the server.
+                        A structure with fields "local" and "remote".
+                        The field "local" contains the local file to upload on server.
+                        The field "remote" contains a string used to set the filename on the server.
+                        When "remote" is an empty string, the local filename is used on the server.
                     </para>
                 </listitem>
             </varlistentry>

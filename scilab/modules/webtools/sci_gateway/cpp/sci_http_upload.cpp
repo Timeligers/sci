@@ -76,36 +76,36 @@ types::Function::ReturnValue sci_http_upload(types::typed_list &in, types::optio
         }
 
         types::SingleStruct* pSST = pStruct->get(0);
-        if (pSST->exists(L"file") == false || pSST->exists(L"name") == false)
+        if (pSST->exists(L"local") == false || pSST->exists(L"remote") == false)
         {
-            Scierror(999, _("%s: Wrong value for input argument #%d: Fields \"%s\" and \"%s\" expected.\n"), fname, 2, "file", "name");
+            Scierror(999, _("%s: Wrong value for input argument #%d: Fields \"%s\" and \"%s\" expected.\n"), fname, 2, "local", "remote");
             return types::Function::Error;        
         }
 
         for (int i = 0; i < pStruct->getSize(); i++)
         {
             types::SingleStruct* pSST = pStruct->get(i);
-            types::InternalType* pITFile = pSST->get(L"file");
-            if (pITFile->isString() == false || pITFile->getAs<types::String>()->isScalar() == false)
+            types::InternalType* pITLocal = pSST->get(L"local");
+            if (pITLocal->isString() == false || pITLocal->getAs<types::String>()->isScalar() == false)
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d, element %d, field %s: Scalar string expected.\n"), fname, 2, i+1, "file");
+                Scierror(999, _("%s: Wrong size for input argument #%d, element %d, field %s: Scalar string expected.\n"), fname, 2, i+1, "local");
                 return types::Function::Error;
             }
 
-            types::InternalType* pITName = pSST->get(L"name");
-            if (pITName->isString() == false || pITName->getAs<types::String>()->isScalar() == false)
+            types::InternalType* pITRemote = pSST->get(L"remote");
+            if (pITRemote->isString() == false || pITRemote->getAs<types::String>()->isScalar() == false)
             {
-                Scierror(999, _("%s: Wrong size for input argument #%d, element %d, field %s: Scalar string expected.\n"), fname, 2, i + 1, "name");
+                Scierror(999, _("%s: Wrong size for input argument #%d, element %d, field %s: Scalar string expected.\n"), fname, 2, i + 1, "remote");
                 return types::Function::Error;
             }
 
-            wchar_t* pwcFile = getFullFilenameW(pITFile->getAs<types::String>()->get(i));
-            char* pcFile = wide_string_to_UTF8(pwcFile);
-            char* pcName = wide_string_to_UTF8(pITName->getAs<types::String>()->get(i));
-            files.push_back({pcFile, pcName});
+            wchar_t* pwcFile = getFullFilenameW(pITLocal->getAs<types::String>()->get(i));
+            char* pcLocal = wide_string_to_UTF8(pwcFile);
+            char* pcRemote = wide_string_to_UTF8(pITRemote->getAs<types::String>()->get(i));
+            files.push_back({pcLocal, pcRemote});
             FREE(pwcFile);
-            FREE(pcFile);
-            FREE(pcName);
+            FREE(pcLocal);
+            FREE(pcRemote);
         }
     }
     else
