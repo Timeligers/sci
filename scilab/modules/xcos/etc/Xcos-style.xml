@@ -814,6 +814,9 @@
         <add as="image" value="$SCILAB/modules/xcos/images/blocks/SUPER.svg"/>
     </add>
     <add as="DSUPER" extend="SUPER_f"/>
+    <add as="REFERENCE_FILE" extend="Icon">
+        <add as="image" value="$SCILAB/modules/xcos/images/blocks/REFERENCE_FILE.svg"/>
+    </add>
     <!-- ELECTRICAL -->
     <add as="Resistor" extend="blockWithLabel">
         <add as="image" value="$SCILAB/modules/xcos/images/blocks/Resistor.svg"/>
