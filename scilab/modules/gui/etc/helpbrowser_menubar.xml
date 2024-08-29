@@ -44,14 +44,11 @@ and is replaced by the good key (control for Unix/Windows OS and meta for Mac) -
         <submenu label="See this page online">
         <callback instruction='helpbrowser_menus_cb(&quot;online&quot;)' type="0"/>
         </submenu>
-    </menu>
-
-    <menu label="&amp;Issues">
-        <submenu label="List ALL issues declared for this item (online)">
-            <callback instruction='helpbrowser_menus_cb(&quot;bugs&quot;)' type="0"/>
-        </submenu>
-        <submenu label="List only UNRESOLVED issues declared for this item (online)">
+        <submenu label="List Open issues about this item (+ possible work-around and advices)">
             <callback instruction='helpbrowser_menus_cb(&quot;bugs&quot;, &quot;unresolved&quot;)' type="0"/>
+        </submenu>
+        <submenu label="List Open + Fixed issues about this item">
+            <callback instruction='helpbrowser_menus_cb(&quot;bugs&quot;)' type="0"/>
         </submenu>
     </menu>
 
