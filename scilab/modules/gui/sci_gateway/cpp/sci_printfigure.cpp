@@ -47,7 +47,7 @@ int sci_printfigure(char *fname, void* pvApiCtx)
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 0, 1);
 
-    if (getScilabMode() != SCILAB_NWNI)
+    if ((getScilabMode() & SCILAB_NWNI) == 0)
     {
         if (nbInputArgument(pvApiCtx) == 1)
         {

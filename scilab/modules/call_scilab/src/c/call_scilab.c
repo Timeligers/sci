@@ -34,6 +34,7 @@
 #include "scilabRead.h"
 #include "scilabWrite.hxx"
 #include "storeCommand.h"
+#include "fromjava.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -117,6 +118,7 @@ int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char* ScilabStartup, int S
     }
 
     SetFromCToON();
+    setAPIMode();
 
     if (SCIpath == NULL) /* No SCIpath provided... */
     {
@@ -200,7 +202,7 @@ BOOL TerminateScilab(char* ScilabQuit)
         setCallScilabEngineState(CALL_SCILAB_ENGINE_STOP);
 
         /* restore default mode */
-        setScilabMode(SCILAB_API);
+        setScilabMode(SCILAB_NW);
 
         FREE(pGlobalSEI);
         pGlobalSEI = NULL;

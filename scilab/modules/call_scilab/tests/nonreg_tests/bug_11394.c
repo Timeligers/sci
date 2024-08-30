@@ -42,7 +42,7 @@ int main(void)
         return 1;
     }
 
-    if (getScilabMode() != SCILAB_API && getScilabMode() != SCILAB_NW)
+    if (isAPIMode())
     {
         fprintf(stderr, "BUG 11394 NOT FIXED. (2)\n");
         return 1;

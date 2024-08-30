@@ -204,7 +204,7 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     }
 #endif
 
-    if (scilabMode == SCILAB_STD || scilabMode == SCILAB_NW || scilabMode == SCILAB_API)
+    if (scilabMode == SCILAB_STD || scilabMode == SCILAB_NW)
     {
         CreateScilabHiddenWndThread();
     }
@@ -302,31 +302,31 @@ int StartScilabEngine(ScilabEngineInfo* _pSEI)
     {
         if(bTCLStartupSucceeded == FALSE)
         {
-            std::wcerr << "TCL Initialization failed." << std::endl;
+            std::wcerr << L"TCL Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             // do not exit, this is an acceptable error on some systems
         }
         if(bJVMStartupSucceeded == FALSE)
         {
-            std::wcerr << "JVM Initialization failed." << std::endl;
+            std::wcerr << L"JVM Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             exit(-1);
         }
         if(bGUIStartupSucceeded == FALSE)
         {
-            std::wcerr << "GUI Initialization failed." << std::endl;
+            std::wcerr << L"GUI Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             exit(-1);
         }
         if(bClasspathStartupSucceeded == FALSE)
         {
-            std::wcerr << "Classpath Initialization failed." << std::endl;
+            std::wcerr << L"Classpath Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             exit(-1);
         }
         if(bConsoleStartupSucceeded == FALSE)
         {
-            std::wcerr << "Console Initialization failed." << std::endl;
+            std::wcerr << L"Console Initialization failed." << std::endl;
             std::wcerr << ConfigVariable::getLastErrorMessage() << std::endl;
             exit(-1);
         }
@@ -783,7 +783,7 @@ static int interactiveMain(ScilabEngineInfo* _pSEI)
 
     InitializeHistoryManager();
 
-    if (getScilabMode() != SCILAB_NWNI && getScilabMode() != SCILAB_API)
+    if (getScilabMode() == SCILAB_STD)
     {
 
         char *cwd = NULL;
@@ -948,8 +948,9 @@ static void checkForLinkerErrors(void)
 #define LINKER_ERROR_1 "Scilab startup function detected that the function proposed to the engine is the wrong one. Usually, it comes from a linker problem in your distribution/OS.\n"
 #define LINKER_ERROR_2 "If you do not know what it means, please report a bug on https://gitlab.com/scilab/scilab/-/issues. If you do, you probably know that you should change the link order in SCI/modules/Makefile.am\n"
 
-    if (getScilabMode() != SCILAB_NWNI && getScilabMode() != SCILAB_API)
+    if (getScilabMode() != SCILAB_NWNI && !isAPIMode())
     {
+        /* NW or STD mode*/
         if (isItTheDisabledLib())
         {
             fprintf(stderr, LINKER_ERROR_1);
@@ -1341,8 +1342,9 @@ static void executeDebuggerCommand(std::string _command)
     else if(cmd.compare("h")     == 0 ||
             cmd.compare("help")  == 0)
     {
+        int scilabMode = ConfigVariable::getScilabMode();
         if(cmd.compare("help") == 0 &&
-          (ConfigVariable::getScilabMode() == SCILAB_NW || ConfigVariable::getScilabMode() == SCILAB_STD))
+          (scilabMode == SCILAB_NW || scilabMode == SCILAB_STD))
         {
             StorePrioritaryCommand("help debug");
             vCommand.clear();

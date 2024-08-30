@@ -32,7 +32,7 @@ public final class Console extends GraphicObject {
 
     /**
      * Scilab mode enum
-     * Java Console created only in STD mode
+     * Java Console created only in STD mode, API mode checking is not needed
      */
     public enum ScilabMode { STD, NW };
 

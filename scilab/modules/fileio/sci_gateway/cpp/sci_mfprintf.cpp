@@ -112,7 +112,7 @@ types::Function::ReturnValue sci_mfprintf(types::typed_list &in, int _iRetCount,
     {
         case 0:
 #ifdef _MSC_VER
-            if ((getScilabMode()  == SCILAB_STD) && (forceSTDERRredirect == TRUE))
+            if ((getScilabMode() == SCILAB_STD) && (forceSTDERRredirect == TRUE))
             {
                 //  Console redirect stderr --> CONOUT$
                 freopen("CONOUT$", "wb", stderr);

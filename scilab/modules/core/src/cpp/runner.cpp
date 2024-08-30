@@ -191,7 +191,7 @@ int StaticRunner::launch()
         ConfigVariable::setPromptMode(iOldPromptMode);
     }
 
-    if (getScilabMode() != SCILAB_NWNI && getScilabMode() != SCILAB_API)
+    if (getScilabMode() == SCILAB_STD)
     {
         char *cwd = NULL;
         int err = 0;

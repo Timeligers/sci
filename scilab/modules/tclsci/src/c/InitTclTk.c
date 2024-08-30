@@ -283,7 +283,8 @@ int OpenTCLsci(void)
 /*--------------------------------------------------------------------------*/
 BOOL CloseTCLsci(void)
 {
-    if ( getScilabMode() != SCILAB_NWNI )
+    int scilabMode = getScilabMode();
+    if (scilabMode == SCILAB_STD || scilabMode == SCILAB_NW)
     {
         if (isTkStarted())
         {

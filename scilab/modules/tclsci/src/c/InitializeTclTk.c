@@ -19,7 +19,8 @@
 /*--------------------------------------------------------------------------*/
 BOOL InitializeTclTk(void)
 {
-    if ( getScilabMode() != SCILAB_NWNI )
+    int scilabMode = getScilabMode();
+    if (scilabMode == SCILAB_STD || scilabMode == SCILAB_NW)
     {
         setTkStarted(TRUE);
         OpenTCLsci();

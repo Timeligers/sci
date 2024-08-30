@@ -67,7 +67,7 @@ BOOL LoadClasspath(char *xmlfilename)
             typeOfLoad eLoad = STARTUP;
             const char *currentMode = getScilabModeString();
             /* Xpath Query :
-             * Retrieve all the path which are not disabled in our mode
+             * Retrieve all the path which are not disabled in our mode, API is not managed here
              */
 #define XPATH "//classpaths/path[not(@disableUnderMode='%s')]"
             char * XPath = (char*)MALLOC(sizeof(char) * (strlen(XPATH) + strlen(currentMode) - 2 + 1)); /* -2 = strlen(%s) */

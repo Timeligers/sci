@@ -64,6 +64,7 @@ ScilabJavaEnvironment::~ScilabJavaEnvironment()
 
 int ScilabJavaEnvironment::start()
 {
+    // corner case in javasci: NWNI mode can be set
     if (getScilabMode() == SCILAB_NWNI)
     {
         throw ScilabJavaException(__LINE__, __FILE__, "'Java from Scilab' module is disabled in -nwni mode");

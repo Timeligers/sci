@@ -167,9 +167,6 @@ const char* getScilabModeString(void)
     scilabMode smMode = getScilabMode();
     switch (smMode)
     {
-        case SCILAB_API:
-            return "API";
-            break;
         case SCILAB_STD:
             return "STD";
             break;
@@ -287,5 +284,15 @@ int getPolynomialDisplay()
 int getWebMode()
 {
     return ConfigVariable::getWebMode() ? 1 : 0;
+}
+
+int isAPIMode()
+{
+    return ConfigVariable::isAPIMode() ? 1 : 0;
+}
+
+void setAPIMode()
+{
+    ConfigVariable::setAPIMode();
 }
 

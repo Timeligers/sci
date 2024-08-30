@@ -22,10 +22,12 @@
 
 #define VERBOSE_ERROR 0
 
+/**
+ * Describe the current Scilab features available ; output value of `getScilabMode()`
+ */
 typedef enum
 {
-    SCILAB_API = 1, /* Scilab is launch as an API */
-    SCILAB_STD,     /* The standard Scilab (gui, plot ...) */
+    SCILAB_STD = 2, /* The standard Scilab (gui, plot ...) */
     SCILAB_NW,      /* Scilab in command line with the plots */
     SCILAB_NWNI     /* Scilab in command line without any graphics. What not mandataroy here */
 } scilabMode;
@@ -94,5 +96,8 @@ EXTERN_AST void setPolynomialDisplay(int);
 EXTERN_AST int getPolynomialDisplay();
 
 EXTERN_AST int getWebMode();
+/** Scilab started from call_scilab or javasci */
+EXTERN_AST int isAPIMode();
+EXTERN_AST void setAPIMode();
 
 #endif /* !__CONFIGVARIABLE_INTERFACE_H__ */

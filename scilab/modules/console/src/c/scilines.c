@@ -81,7 +81,8 @@ int scilinesdefault(void)
     }
 
 #else
-    if ( (getScilabMode() != SCILAB_STD) && (getScilabMode() != SCILAB_API) )
+    int scilabMode = getScilabMode();
+    if (((scilabMode = SCILAB_NW) || (scilabMode = SCILAB_NW)) && !isAPIMode())
     {
         /* -NW or -NWNI mode */
         int X = getXConsoleScreenSize();

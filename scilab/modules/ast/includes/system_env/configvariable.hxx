@@ -543,10 +543,13 @@ public :
     static void decreaseRecursion();
 private:
     static bool webMode;
+    static bool m_API_mode;
     static bool m_isatty;
 public:
     static bool getWebMode();
     static void setWebMode(bool);
+    static bool isAPIMode();
+    static void setAPIMode();
     static bool isatty();
     static void setisatty(bool);
 };
