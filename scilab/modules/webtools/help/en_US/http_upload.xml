@@ -47,12 +47,12 @@
                 <term>filename</term>
                 <listitem>
                     <para>
-                        A string or a matrix of string which contains local file(s) to upload on server.
+                        A string or a matrix of string which contains local filename(s) to upload on server.
                         The file on the server will have the same name as the local one.
                     </para>
                     <para>
                         A structure or a structure array with fields "local" and "remote".
-                        The field "local" contains the local file to upload on server.
+                        The field "local" contains the local filename to upload on server.
                         The field "remote" contains a string used to set the filename on the server.
                         When "remote" is an empty string, the local filename is used on the server.
                     </para>
