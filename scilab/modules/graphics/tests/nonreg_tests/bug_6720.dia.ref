@@ -17,9 +17,44 @@
 // instead of checking that
 //  "all given handles have the same parent axes".
 // The script below should now work.
-subplot(211);plot(1:10);h1=gce();
-subplot(212);plot(1:10);h2=gce();
-j1=h1.children;
-j2=h2.children;
-captions(j2,'two');
-captions(j1,'one');
+subplot(211);h1=plot(1:10);
+subplot(212);h2=plot(1:10)
+ h2 = [Polyline] with properties:
+  parent: [Compound]
+  children = []
+  datatips = []
+  datatip_display_mode = "always"
+  display_function = ""
+  display_function_data = []
+  visible = "on"
+  data: [10x2 double]
+  closed = "off"
+  line_mode = "on"
+  fill_mode = "off"
+  line_style = 1
+  thickness = 1
+  arrow_size_factor = 1
+  polyline_style = 1
+  foreground = 2
+  background = -2
+  interp_color_vector = []
+  interp_color_mode = "off"
+  colors = []
+  mark_mode = "off"
+  mark_style = 0
+  mark_size_unit = "point"
+  mark_size = 0
+  mark_foreground = -1
+  mark_background = -2
+  mark_offset = 0
+  mark_stride = 1
+  x_shift = []
+  y_shift = []
+  z_shift = []
+  bar_width = 0
+  clip_state = "clipgrf"
+  clip_box = []
+  user_data = []
+  tag = ""
+captions(h2,'two');
+captions(h1,'one');

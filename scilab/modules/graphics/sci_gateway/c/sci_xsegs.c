@@ -28,6 +28,7 @@
 #include "localization.h"
 #include "Scierror.h"
 #include "BuildObjects.h"
+#include "HandleManagement.h"
 
 #include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
@@ -54,8 +55,11 @@ int sci_xsegs(char *fname, void *pvApiCtx)
     int mx = 0, nx = 0, my = 0, ny = 0, mz = 0, nz = 0, mc = 0, nc = 0;
     const double arsize = 0.0 ; // no arrow here
     int iSubwinUID = 0;
+    long long* outindex = NULL;
+    int* piChildrenUID = 0;
 
     CheckInputArgument(pvApiCtx, 2, 4);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddrlx);
     if (sciErr.iErr)
@@ -239,7 +243,21 @@ int sci_xsegs(char *fname, void *pvApiCtx)
 
     Objsegs (style, colorFlag, mx * nx, (lx), (ly), zptr, arsize);
 
-    AssignOutputVariable(pvApiCtx, 1) = 0;
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

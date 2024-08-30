@@ -10,12 +10,21 @@
 // along with this program.
 
 
-function zlabel(varargin)
-
+function varargout = zlabel(varargin)
     if size(varargin)<1 then
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "zlabel", 1));
     end
 
+    if argn(1) > 1 then
+        msg = gettext("%s: Wrong number of output argument(s): at most %d expected.\n")
+        error(msprintf(msg, "zlabel", 1));
+    end
+
     varargin = list("z_label",varargin(1:$));
-    TitleLabel(varargin(:));
+
+    h = TitleLabel(varargin(:));
+
+    if argn(1) == 1
+        varargout(1) = h
+    end
 endfunction

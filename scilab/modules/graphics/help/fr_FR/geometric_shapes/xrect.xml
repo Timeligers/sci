@@ -8,6 +8,7 @@
         <title>Séquence d'appel</title>
         <synopsis>xrect(x,y,w,h)
             xrect(rect) // rect =[x,y,w,h]
+            hdl = xrect(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -17,6 +18,14 @@
                 <term>x,y,w,h  </term>
                 <listitem>
                     <para>4 valeurs réelles définissant le rectangle.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Rectangle</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="rectangle_properties">rectangle_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>
@@ -35,13 +44,13 @@
         <title>Exemples</title>
         <programlisting role="example"><![CDATA[
 plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
-xrect(-1,1,2,2)
-gce().foreground = color("red");
+e=xrect(-1,1,2,2)
+e.foreground = color("red");
  ]]></programlisting>
         <scilab:image>
             plot2d(0,0,-1,"010"," ",[-2,-2,2,2])
-            xrect(-1,1,2,2)
-            gce().foreground = color("red");
+            e=xrect(-1,1,2,2)
+            e.foreground = color("red");
         </scilab:image>
     </refsection>
     <refsection role="see also">

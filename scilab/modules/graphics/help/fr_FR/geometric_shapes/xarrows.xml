@@ -6,7 +6,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>xarrows(nx, ny [,nz] [,arsize, color])</synopsis>
+        <synopsis>xarrows(nx, ny [,nz] [,arsize, color])
+            h = xarrows(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -31,6 +32,14 @@
                 <listitem>
                     <para>
                         matrice ou scalaire. Si <varname>color</varname> est positif il donne la couleur de ligne pour toutes les flèches. S'il est négatif  la couleur courante est utilisé. S'il est un vecteur, <literal>color(i)</literal> donne la couleur pour la flèche <literal>i</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Segs</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="segs_properties">segs_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

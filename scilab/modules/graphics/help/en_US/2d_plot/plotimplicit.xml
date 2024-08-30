@@ -26,6 +26,7 @@
             plotimplicit(fun, x_grid)
             plotimplicit(fun, x_grid, y_grid)
             plotimplicit(fun, x_grid, y_grid, plotOptions)
+            h = plotimplicit(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -112,6 +113,11 @@
                     <para/>
                 </listitem>
             </varlistentry>
+            <para>This optional output is a vector containing the handles of
+              the created Polyline objects. Use <literal>h</literal> to modify properties
+              of a specific or all Polyline objects after they are created. For a list of
+              properties, see <link linkend="polyline_properties">polyline_properties</link>.
+            </para>
         </variablelist>
     </refsection>
     <refsection>
@@ -136,12 +142,6 @@
                     <literal>plotimplicit(..)</literal> can be called several times for the same
                     axes, to overplot the solutions of several implicit equations (and show their
                     possible intersections).
-                    <para/>
-                </listitem>
-                <listitem>
-                    Before returning, <literal>plotimplicit</literal> bundles all plotted curves
-                    into a graphical compound addressable as <literal>gce().children</literal>.
-                    If no solution exists, <literal>gce()</literal> is set to <literal>gca()</literal>.
                     <para/>
                 </listitem>
             </itemizedlist>
@@ -224,10 +224,10 @@
         </para>
         <programlisting role="example"><![CDATA[
             equation = "3*x^2*exp(x) - x*y^2 +  exp(y)/(y^2 + 1) = 1"
-            plotimplicit(equation, , -10:0.1:10, "r--")
+            h = plotimplicit(equation, , -10:0.1:10, "r--")
 
             // Increase the contours thickness afterwards:
-            gce().children.thickness = 2;
+            h.thickness = 2;
 
             // Setting titles and grids
             title("$3x^2 e^x - x y^2 +  {{e^y}\over{(y^2 + 1)}} - 1 = 0$", "fontsize",4)
@@ -235,10 +235,10 @@
      ]]></programlisting>
         <scilab:image>
             expression = "3*x^2*exp(x) - x*y^2 +  exp(y)/(y^2 + 1) = 1"
-            plotimplicit(expression, , -10:0.1:10, "r--")
+            h = plotimplicit(expression, , -10:0.1:10, "r--")
 
             // Get the contours identifiers, and use them to increase contours thickness:
-            gce().children.thickness = 2;
+            h.thickness = 2;
 
             // Setting titles and grids
             title("$3x^2 e^x - x y^2 +  {{e^y}\over{(y^2 + 1)}} - 1 = 0$", "fontsize",4)
@@ -253,37 +253,33 @@
         </para>
         <programlisting role="example"><![CDATA[
 clf
-plotimplicit("x*sin(x) = y^2*cos(y)", [-2,2])
+h1 = plotimplicit("x*sin(x) = y^2*cos(y)", [-2,2])
 
 t1 = gca().title.text;
-c1 = gce().children(1);
 title("")
 
-plotimplicit("y*sin(y) = x^2*cos(x)", [-2,2], ,"r")
+h2 = plotimplicit("y*sin(y) = x^2*cos(x)", [-2,2], ,"r")
 t2 = gca().title.text;
-c2 = gce().children(1);
 title("$plotimplicit()$")
 
-legend([c1 c2],[t1 t2]);
-gce().font_size = 3;
+hl = legend([h1(1) h2(1)],[t1 t2]);
+hl.font_size = 3;
 xgrid(color("grey"),1,7)
     ]]></programlisting>
         <scilab:image>
-        clf
-        plotimplicit("x*sin(x) = y^2*cos(y)", [-2,2])
+            clf
+            h1 = plotimplicit("x*sin(x) = y^2*cos(y)", [-2,2])
 
-        t1 = gca().title.text;
-        c1 = gce().children(1);
-        title("")
+            t1 = gca().title.text;
+            title("")
 
-        plotimplicit("y*sin(y) = x^2*cos(x)", [-2,2], ,"r")
-        t2 = gca().title.text;
-        c2 = gce().children(1);
-        title("$plotimplicit()$")
+            h2 = plotimplicit("y*sin(y) = x^2*cos(x)", [-2,2], ,"r")
+            t2 = gca().title.text;
+            title("$plotimplicit()$")
 
-        legend([c1 c2],[t1 t2]);
-        gce().font_size = 3;
-        xgrid(color("grey"),1,7)
+            hl = legend([h1(1) h2(1)],[t1 t2]);
+            hl.font_size = 3;
+            xgrid(color("grey"),1,7)
         </scilab:image>
     </refsection>
     <refsection role="see also">

@@ -157,8 +157,8 @@
             x=1:10; y=sin(x)/2;
             bar(x,y,'red')
             x1=1:10;y1=[sin(x);cos(x)]
-            plot(x1,y1)
-            e=gce(); e2=e.children(2); e2.polyline_style=6;
+            e=plot(x1,y1)
+            e(2).polyline_style=6;
             // homogenização da primeira barra (da função bar) e da segunda barra (da modificação).
             subplot(2,3,6)
             xtitle('homogeneização em grupo')
@@ -166,8 +166,8 @@
             x=1:10; y=sin(x)/2;
             bar(x,y,'red')
             x1=1:10;y1=[sin(x);cos(x)]
-            plot(x1,y1)
-            e=gce(); e2=e.children(2); e2.polyline_style=6;
+            e=plot(x1,y1)
+            e(2).polyline_style=6;
             barhomogenize();
             // mudança de estilo e largura
             //barhomogenize('stacked',0.5);
@@ -194,10 +194,8 @@
             bar(x,y,'red')
             x1=1:10;
             y1=[sin(x);cos(x)]
-            plot(x1',y1')
-            e=gce();
-            e2=e.children(2);
-            e2.polyline_style=6;
+            e=plot(x1',y1')
+            e(2).polyline_style=6;
 
             // homogenization of the first bar (from bar function) and second bar (from the modification).
             subplot(1,3,3)
@@ -207,10 +205,8 @@
             bar(x,y,'red')
             x1=1:10;
             y1=[sin(x);cos(x)]
-            plot(x1',y1')
-            e=gce();
-            e2=e.children(2);
-            e2.polyline_style=6;
+            e=plot(x1',y1')
+            e(2).polyline_style=6;
             barhomogenize();
             // change the style and the width
             //barhomogenize('stacked',0.5);

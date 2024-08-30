@@ -13,7 +13,7 @@
 // https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.txt
 // ===================================================================
 
-function plotimplicit(fun, x_grid, y_grid, varargin)
+function varargout = plotimplicit(fun, x_grid, y_grid, varargin)
 
     fname = "plotimplicit"
     [lhs, rhs] = argn(0);
@@ -25,6 +25,12 @@ function plotimplicit(fun, x_grid, y_grid, varargin)
         plotimplicit("rand() = 0.5", 1:10, 1:10);
         return
     end
+
+    if argn(1) > 1 then
+        msg = gettext("%s: Wrong number of output argument(s): at most %d expected.\n")
+        error(msprintf(msg, "plotimplicit", 1));
+    end
+
 
     // CHECKING INPUT ARGUMENTS
     // ------------------------
@@ -249,8 +255,15 @@ function plotimplicit(fun, x_grid, y_grid, varargin)
     //
     if cnt > 0 then
         set("current_entity", a);
+        if argn(1) == 1
+            varargout(1) = a.children;
+        end
     else
         set("current_entity", ax);
+        if argn(1) == 1
+            varargout(1) = [];
+        end
     end
+
     fig.immediate_drawing = v;
 endfunction

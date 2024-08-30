@@ -40,9 +40,8 @@ function demo_bar()
     // Histogramm drawing
 
     drawlater();
-    bar(x,y);
+    histo = bar(x,y);
     title("bar(''grouped'')", "fontsize", 3)
-    histo = gce();
 
 
     // Adjustements
@@ -66,7 +65,7 @@ function demo_bar()
 
     // Legend drawing
 
-    captions(histo.children($:-1:1), ["Year 2005";"Year 2006";"Year 2007"]);
+    captions(histo, ["Year 2005";"Year 2006";"Year 2007"]);
     legs = gce();
     legs.legend_location = "in_upper_left";
 

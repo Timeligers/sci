@@ -6,7 +6,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>xstringb(x,y,str,w,h,[option])</synopsis>
+        <synopsis>xstringb(x,y,str,w,h,[option])
+            hdl = xstringb(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -31,6 +32,14 @@
                 <term>option  </term>
                 <listitem>
                     <para>chaîne de caractères.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Text</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="text_properties">text_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

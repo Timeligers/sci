@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xnumb(x,y,nums,[box,angle])</synopsis>
+        <synopsis>xnumb(x,y,nums,[box,angle])
+            hdl = xnumb(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -42,6 +43,14 @@
                 <listitem>
                     <para>
                         vetor opcional de mesmo tamanho de <literal>x</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Text</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="text_properties">text_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

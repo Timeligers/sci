@@ -36,6 +36,7 @@
             plot2d(.., y, style, strf, leg, rect)
             plot2d(.., y, style, strf, leg, rect, nax)
             plot2d(.., y, key1=value1, key2=value2, ..)
+            hdl = plot2d(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -310,6 +311,16 @@
         </table>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>このオプションの出力は、次のハンドルを含むベクトルです。
+                        ポリライン エンティティを子として持つ作成された <literal>Polyline</literal> エンティティ。 <literal>hdl</literal> を使用してプロパティを変更します
+                        作成後の特定またはすべてのポリライン エンティティの。のリストについては、
+                        プロパティについては、<link linkend="polyline_properties">polyline_properties</link> を参照してください。
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection role="description">
@@ -373,7 +384,6 @@
             プロットをカスタマイズするために引数<literal>&lt;opt_args&gt;</literal> を
             使用することができます.
         </para>
-
         <para>
             デモを参照するにはコマンド <literal>plot2d()</literal> を使用してください.
         </para>
@@ -497,7 +507,7 @@ a.y_location ="right";
         <programlisting role="example"><![CDATA[
 // 軸の中心を (0,0) に
 clf();
-plot2d(x-4,sin(x),1,leg="sin(x)");
+poly1 = plot2d(x-4,sin(x),1,leg="sin(x)");
 a=gca(); // 軸エンティティのハンドル
 a.x_location = "origin";
 a.y_location = "origin";
@@ -506,7 +516,6 @@ isoview
 a = gca();
 a.children // 軸の子の一覧.
 // 2個のポリラインと1個の凡例からなる複合要素がある
-poly1= a.children(1).children(1); //ポリラインのハンドルをpoly1に保存
 poly1.foreground = 4; // スタイルを変更する別の方法...
 poly1.thickness = 3;  // ...曲線の太さを変更.
 poly1.clip_state='off'; // クリッピングの制御
@@ -518,21 +527,19 @@ isoview off
         <scilab:image>
             // axis centered at (0,0)
             clf();
-            x=[0:0.1:2*%pi]';
-            plot2d(x-4,sin(x),1,leg="sin(x)");
-            a=gca(); // Handle on axes entity
+            x = [0:0.1:2*%pi]';
+            poly1 = plot2d(x-4,sin(x),1,leg="sin(x)");
+            a = gca(); // Handle on axes entity
             a.x_location = "origin";
             a.y_location = "origin";
             // Some operations on entities created by plot2d ...
             isoview()
-            a=gca();
-            a.children // list the children of the axes.
-            // There are a compound made of two polylines and a legend
-            poly1= a.children(1).children(1); //store polyline handle into poly1
+            a = gca();
             poly1.foreground = 4; // another way to change the style...
             poly1.thickness = 3;  // ...and the thickness of a curve.
             poly1.clip_state='off'; // clipping control
-            leg = a.children(2); // store legend handle into leg
+            // find the legend
+            leg = findobj(gca(),"type","Legend");
             leg.font_style = 9;
             leg.line_mode = "on";
             isoview("off")

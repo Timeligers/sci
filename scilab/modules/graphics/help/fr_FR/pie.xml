@@ -8,6 +8,7 @@
         <title>Séquence d'appel</title>
         <synopsis>pie(x)
             pie(x[,sp[,txt]])
+            h = pie()
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -29,6 +30,23 @@
                 <term>txt</term>
                 <listitem>
                     <para>une cell ou un vecteur de strings.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle d'un objet graphique de type <literal>Compound</literal> dont les enfants sont
+                      <itemizedlist>
+                        <listitem>
+                        <literal>h.children(1)</literal>: un <literal>Compound</literal> contenant les labels des parts (objets de type Text)
+                        </listitem>
+                        <listitem>
+                        <literal>h.children(2)</literal>: un <literal>Compound</literal> contenant les parts slices (objets de type Polyline)
+                        </listitem>
+                      </itemizedlist>
+                      <literal>h</literal> peut eutre utilisé pour modifier les propriétés des objets après l'appel à la fonction (
+                     voir <link linkend="text_properties">text_properties</link> et <link linkend="polyline_properties">polyline_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

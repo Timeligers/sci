@@ -2,7 +2,8 @@
 // Copyright (C) INRIA
 // Copyright (C) 2010 - DIGITEO - Manuel Juliachs
 // Copyright (C) 2012 - 2016 - Scilab Enterprises
-// Copyright (C) 2010, 2018, 2019 - Samuel GOUGEON
+// Copyright (C) 2010, 2018 - Samuel GOUGEON
+// Copyright (C) 2020 - Stéphane MOTTELET
 //
 // This file is hereby licensed under the terms of the GNU GPL v2.0,
 // pursuant to article 5.3.4 of the CeCILL v.2.1.
@@ -11,16 +12,24 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function polarplot(theta,rho,style,strf,leg,rect)
+function varargout = polarplot(theta,rho,style,strf,leg,rect)
     [lhs,rhs]=argn(0)
+    if lhs > 1
+        msg = gettext("%s: Wrong number of output arguments: At most %d expected.\n")
+        error(msprintf(msg, "polarplor", 1));
+    end
     if rhs<=0 then
         theta=0:.01:2*%pi;
         rho=sin(2*theta).*cos(2*theta)
         s = gca().axes_bounds;
         delete(gca()); xsetech(s) // clears & keeps the current axes area
-        polarplot(theta,rho)
+        e = polarplot(theta,rho)
+        if lhs == 1
+            varargout(1) = e;
+        end
         return
     end
+
     if size(theta,1)==1 then
         theta=theta(:),
     end
@@ -189,7 +198,7 @@ function polarplot(theta,rho,style,strf,leg,rect)
 
     initDrawingMode = gcf().immediate_drawing;
     gcf().immediate_drawing = "off";
-    execstr("plot2d(x,y,"+strcat(opts,",")+")")
+    execstr("curvesEntity = plot2d(x,y,"+strcat(opts,",")+")")
     ax = gca();
     ax.margins = [0.09 0.09 0.12 0.09]
 
@@ -199,7 +208,8 @@ function polarplot(theta,rho,style,strf,leg,rect)
 
     // Default Datatip function for curves
     a = gca();
-    curves = a.children(1).children;
+
+    curves = curvesEntity.children;
     curves.display_function = "polarplot_datatip_display";
     curves.display_function_data = Amin;    // for theta on [0,360] | [-90,90]
 
@@ -235,27 +245,28 @@ function polarplot(theta,rho,style,strf,leg,rect)
     R = [ R  rm ]
 
     // Drawing & labelling the radial frame
+    rFrameEntity = [];
     kM=size(R,"*");
     for k=1:kM
         r=R(k)
-        xarc(-r,r,2*r,2*r,Amin*64,dA*64)
-        e = gce();
-        e.line_style = 8
-        e.foreground = fcolor;
-        if k==kM
-            e.line_style=1;  // solid outer arc
-        else
-            xstring(r*cosd(A)+w*dx, r*sind(A)+h*dy, Rtxt(k))
-            e = gce();
-            e.clip_state = "off";
-            e.text_box_mode = "centered"
-            e.text_box = [0 0]
-            e.font_foreground = txtColor
+        rFrameEntity(k) = xarc(-r,r,2*r,2*r,Amin*64,dA*64)
+        if k <> kM
+            rLabels(k) = xstring(r*cosd(A)+w*dx, r*sind(A)+h*dy, Rtxt(k))
         end
     end
 
+    rLabels.clip_state = "off";
+    rLabels.text_box_mode = "centered"
+    rLabels.text_box = [0 0]
+    rLabels.font_foreground = txtColor
+
+    rFrameEntity.line_style = 8;
+    rFrameEntity(kM).line_style=1;  // solid outer arc
+    rFrameEntity.foreground = fcolor;
+
     // RADIAL FRAME @ SET OF ANGLES:
     // ----------------------------
+    thetaFrameEntity=[];
     if nQuadrants<3, eA=10, else eA=30; end // adaptative angular sampling
     an=linspace(Amin,Amin+dA,round(dA/eA)+1);
     // avoiding 360 == 0
@@ -265,18 +276,28 @@ function polarplot(theta,rho,style,strf,leg,rect)
     w=tmp(3); h=tmp(4);
     d = sqrt(w*w + h*h);
     rL = (rm + d*.4)  // Radius for angular labels
+
+    thetaLabels=[]
     for k = an  // draws and labels angular rays
-        xsegs([0;rm*cosd(k)],[0;rm*sind(k)])
-        e = gce();
-        e.segs_color = fcolor;
-        e.line_style = 7;
-        xstring(rL*cosd(k), rL*sind(k), string(k))
-        e = gce();
-        e.text_box_mode = "centered"
-        e.text_box = [0 0]
-        e.clip_state = "off";
-        e.font_foreground = txtColor
+        thetaFrameEntity = [thetaFrameEntity; xsegs([0;rm*cosd(k)],[0;rm*sind(k)])]
+        thetaLabels = [thetaLabels; xstring(rL*cosd(k), rL*sind(k), string(k))]
     end
+
+    thetaFrameEntity.segs_color = fcolor;
+    thetaFrameEntity.line_style = 7;
+
+    thetaLabels.text_box_mode = "centered"
+    thetaLabels.text_box = [0 0]
+    thetaLabels.clip_state = "off";
+    thetaLabels.font_foreground = txtColor
+
+    finalEntity = glue([glue(thetaLabels), glue(thetaFrameEntity), glue(rLabels), glue(rFrameEntity), curvesEntity]);
+
+    if lhs ==1 then
+        varargout(1) = finalEntity
+    end
+
+    set("current_entity", finalEntity)
 
     ax.data_bounds=[rect(1:2);rect(3:4)]
     ax.tight_limits(1:2) = ["on" "on"]

@@ -10,9 +10,10 @@
     <refsynopsisdiv>
         <title>Syntax</title>
         <synopsis>
-            h = uicontrol(PropertyName,PropertyValue,...)
-            h = uicontrol(parent,PropertyName,PropertyValue,...)
-            h = uicontrol(uich)
+            uicontrol(PropertyName,PropertyValue,...)
+            uicontrol(parent,PropertyName,PropertyValue,...)
+            uicontrol(uich)
+            h = uicontrol(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -34,7 +35,7 @@
             fields.
         </para>
         <para>
-            <literal>h = uicontrol(PropertyName, PropertyValue,...)</literal>
+            <literal>uicontrol(PropertyName, PropertyValue,...)</literal>
             creates an uicontrol and assigns the specified properties and values to
             it. It assigns the default values to any properties you do not specify.
             The default uicontrol style is a "Pushbutton". The default parent is the
@@ -42,19 +43,19 @@
             other properties.
         </para>
         <para>
-            <literal>h = uicontrol(parent, PropertyName, PropertyValue,...) </literal>
+            <literal>uicontrol(parent, PropertyName, PropertyValue,...) </literal>
             creates a uicontrol in the object specified
             by the handle, parent. If you also specify a different value for the
             Parent property, the value of the Parent property takes precedence. parent
             is the handle of a figure.
         </para>
         <para>
-            <literal>h = uicontrol(uich)</literal> gives focus to the uicontrol
+            <literal>uicontrol(uich)</literal> gives focus to the uicontrol
             specified by uich.
         </para>
         <para>
-            All available properties and their description are given in the
-            <link linkend="uicontrol_properties">uicontrol properties</link> help page.
+            <literal>h = uicontrol(...)</literal> yields a handle to the created Uicontrol entity and allows to modify its properties after creation.
+            All available properties and their description are given in the <link linkend="uicontrol_properties">uicontrol properties</link> help page.
         </para>
         <para>
             Uicontrols rendering and properties display can be customized using

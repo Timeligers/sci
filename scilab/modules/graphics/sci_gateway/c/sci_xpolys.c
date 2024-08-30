@@ -61,8 +61,12 @@ int sci_xpolys(char *fname, void *pvApiCtx)
 
     int iVisible = 0;
     int *piVisible = &iVisible;
+    long long* outindex = NULL;
+    int* piChildrenUID = 0;
 
     CheckInputArgument(pvApiCtx, 2, 3);
+    CheckOutputArgument(pvApiCtx, 0, 1);
+
 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddrl1);
     if (sciErr.iErr)
@@ -176,7 +180,30 @@ int sci_xpolys(char *fname, void *pvApiCtx)
 
     setCurrentObject(iCompoundUID);
 
-    AssignOutputVariable(pvApiCtx, 1) = 0;
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        // return vector of handles sorted in natural order
+        sciErr = allocMatrixOfHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, n1, 1, &outindex);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+        // Retrieve all children UID.
+        getGraphicObjectProperty(iCompoundUID, __GO_CHILDREN__, jni_int_vector, (void **) &piChildrenUID);
+
+        for (i = 0 ; i < n1 ; ++i)
+        {
+            outindex[i] = getHandle(piChildrenUID[n1-i-1]);
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

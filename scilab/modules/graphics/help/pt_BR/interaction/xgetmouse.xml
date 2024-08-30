@@ -186,8 +186,7 @@ xtitle(" drawing a rectangle ") //adicionando um título
 show_window(); //pondo a janela no topo
 
 [b,xc,yc]=xclick(); //retornando um ponto
-xrect(xc,yc,0,0) //desenhando a entidade Rectangle
-r=gce();// o manipulador do retângulo
+r=xrect(xc,yc,0,0) //desenhando a entidade Rectangle
 rep=[xc,yc,-1];first=%f;
 
 while rep(3)==-1 do // movimentação do mouse...

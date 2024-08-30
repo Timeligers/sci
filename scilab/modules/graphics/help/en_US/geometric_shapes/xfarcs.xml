@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xfarcs(arcs,[style])</synopsis>
+        <synopsis>
+          xfarcs(arcs,[style])
+          hdl = xfarcs(...)
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -35,6 +38,16 @@
                 <term>style</term>
                 <listitem>
                     <para>row vector of size n giving the colors to use.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output is a vector containing the handles of
+                      the created <literal>Arc</literal> entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all entities after they are created. For a list of
+                      properties, see <link linkend="arc_properties">arc_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

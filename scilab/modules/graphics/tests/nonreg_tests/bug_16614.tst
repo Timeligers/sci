@@ -21,8 +21,8 @@ f1 = scf(1);
 clf
 x1 = 0:0.01:10;
 plot(x1, sin(x1));
-xstring(16,5,"text more stuff");
-gce().text_box_mode = "centered";
+h = xstring(16,5,"text more stuff");
+h.text_box_mode = "centered";
 a1 = gca();
 replot();
 

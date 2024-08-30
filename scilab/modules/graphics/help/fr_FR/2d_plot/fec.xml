@@ -8,7 +8,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>fec(x,y,triangles,func,[strf,leg,rect,nax,zminmax,colminmax])</synopsis>
+        <synopsis>fec(x,y,triangles,func,[strf,leg,rect,nax,zminmax,colminmax])
+            h = fec(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -94,6 +95,14 @@
                 <term>mesh</term>
                 <listitem>
                     <para>un booléen, valeur par défaut %f (doit être %t pour afficher le maillage)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Fec</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="fec_properties">fec_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

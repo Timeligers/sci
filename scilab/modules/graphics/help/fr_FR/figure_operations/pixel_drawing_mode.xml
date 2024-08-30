@@ -167,18 +167,15 @@ for k = 16:-1:1
     title(m,"fontsize",4)
 
     // Affichage de 3 disques rouge, vert et bleu se recouvrant partiellement
-    xfarc(-0.7, 0.8, 1, 1, 0, 360*64)
-    e = gce();
+    e = xfarc(-0.7, 0.8, 1, 1, 0, 360*64)
     e.background = color("red");
     e.fill_mode = "on";
 
-    xfarc(-0.2, 0.5, 1, 1, 0, 360*64)
-    e = gce();
+    e = xfarc(-0.2, 0.5, 1, 1, 0, 360*64)
     e.background = color("blue");
     e.fill_mode = "on";
 
-    xfarc(-0.7,  0.2, 1, 1, 0, 360*64)
-    e = gce();
+    e = xfarc(-0.7,  0.2, 1, 1, 0, 360*64)
     e.background = color("green");
     e.fill_mode = "on";
 

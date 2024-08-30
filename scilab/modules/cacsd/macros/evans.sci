@@ -189,15 +189,14 @@ function evans(n,d,kmax)
         end;
         if max(k)>0 then
             col = color("grey50");
-            xpoly(i1,i2);
-            e = gce();
+            e = xpoly(i1,i2);
             e.foreground = col;
             legs = [legs; _("asymptotic directions")]
             lhandle = [lhandle; e];
             a.clip_state = "clipgrf";
             for i = 1:q
-                xsegs([i1,x1(i)+i1],[i2,y1(i)+i2])
-                gce().segs_color = col;
+                e = xsegs([i1,x1(i)+i1],[i2,y1(i)+i2])
+                e.segs_color = col;
             end
             //      a.clip_state = "off";
         end
@@ -218,15 +217,13 @@ function evans(n,d,kmax)
     cols = cols(modulo(0:n1-1,size(cols,"*"))+1);
 
     //draw the root locus
-    xpolys(real(racines)', imag(racines)',cols)
+    E=xpolys(real(racines)', imag(racines)',cols)
     //set info for datatips
-    E=gce();
 
-    for k=1:size(E.children,"*")
-        E.children(k).display_function = "formatEvansTip";
-        E.children(k).display_function_data = kk;
-    end
-    c = captions(lhandle,legs($:-1:1),"lower_caption")
+    E.display_function = "formatEvansTip";
+    E.display_function_data = kk;
+
+    c = captions(lhandle,legs,"lower_caption")
     c.background = a.background;
 
     a.data_bounds = data_bounds;

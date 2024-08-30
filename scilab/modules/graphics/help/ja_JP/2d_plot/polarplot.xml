@@ -25,6 +25,7 @@
         <title>呼び出し手順</title>
         <synopsis>polarplot(theta,rho,[style,strf,leg,rect])
             polarplot(theta,rho,&lt;opt_args&gt;)
+            h = polarplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">

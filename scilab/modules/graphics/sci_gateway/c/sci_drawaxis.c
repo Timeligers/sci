@@ -62,6 +62,7 @@ int sci_drawaxis(char *fname, void* pvApiCtx)
         { -1, NULL, -1, 0, 0, NULL}
     };
 
+    SciErr sciErr;
     int iSubwinUID = 0;
     int minrhs = -1, maxrhs = 0, minlhs = 0, maxlhs = 1, nopt = 0;
     char dir = 'l', *format = NULL, tics = 'v', **val = NULL;
@@ -334,8 +335,22 @@ int sci_drawaxis(char *fname, void* pvApiCtx)
     {
         freeAllocatedMatrixOfString(opts[8].iRows, opts[8].iCols, val);
     }
-    createScalarHandle(pvApiCtx, iRhs + 1, getHandle(getCurrentObject()));
-    AssignOutputVariable(pvApiCtx, 1) = iRhs + 1;
+
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(getCurrentObject())))
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

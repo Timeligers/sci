@@ -24,6 +24,7 @@
         <synopsis>
             Sfgrayplot(x, y, f, &lt;opt_args&gt;)
             Sfgrayplot(x, y, f [,strf, rect, nax, zminmax, colminmax, mesh, colout])
+            h = Sfgrayplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -80,6 +81,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>このオプションの出力には、作成された Fec エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                    プロパティのリストについては、<link linkend="fec_properties">fec_properties</link> を参照してください。
+                </para>
+            </listitem>
+        </varlistentry>
         </variablelist>
     </refsection>
     <refsection role="description">

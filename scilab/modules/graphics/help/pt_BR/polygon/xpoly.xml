@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xpoly(xv,yv [,dtype [,close]])</synopsis>
+        <synopsis>xpoly(xv,yv [,dtype [,close]])
+            hdl = xpoly(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -45,6 +46,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Polyline</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="polyline_properties">polyline_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -66,16 +75,33 @@ x = sin(2*%pi*(0:4)/5);
 y = cos(2*%pi*(0:4)/5);
 
 plot2d(0,0,-1,"010"," ",[-1,-1,1,1])  // draw an empty bounded axes
-xpoly(x, y)
-set(gce(), "foreground", color("red"), "closed", "on");
+e = xpoly(x, y)
+set(e, "foreground", color("red"), "closed", "on");
     ]]></programlisting>
         <scilab:image>
           x = sin(2*%pi*(0:4)/5);
           y = cos(2*%pi*(0:4)/5);
           plot2d(0,0,-1,"010"," ",[-1,-1,1,1])
-          xpoly(x, y)
-          set(gce(), "foreground", color("red"), "closed", "on");
+          e = xpoly(x, y)
+          set(e, "foreground", color("red"), "closed", "on");
           gcf().axes_size = [300 300];
+        </scilab:image>
+        <programlisting role="example"><![CDATA[
+    // With marks instead of lines
+    plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
+    t=[0:4]*2*%pi/5;
+    x=5+5*cos(t);
+    y=5+5*sin(t);
+    e = xpoly(x,y,"marks");
+    set(e,"mark_style",2);
+    ]]></programlisting>
+        <scilab:image>
+            plot2d(0,0,1,rect=[0,0,12,10], frameflag=3)
+            t=[0:4]*2*%pi/5;
+            x=5+5*cos(t);
+            y=5+5*sin(t);
+            e=xpoly(x,y,"marks");
+            set(e,"mark_style",2);
         </scilab:image>
     </refsection>
     <refsection role="see also">
@@ -89,6 +115,9 @@ set(gce(), "foreground", color("red"), "closed", "on");
             </member>
             <member>
                 <link linkend="xpolys">xpolys</link>
+            </member>
+            <member>
+                <link linkend="polyline_properties">polyline_properties</link>
             </member>
         </simplelist>
     </refsection>

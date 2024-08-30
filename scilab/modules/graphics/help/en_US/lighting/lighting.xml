@@ -250,8 +250,7 @@
             Point light without color_material:
         </para>
         <programlisting role="example"><![CDATA[
-plot3d();
-s=gce();
+s=plot3d();
 s.color_flag=0;
 s.thickness=0;
 s.hiddencolor = -1;
@@ -266,8 +265,7 @@ s.ambient_color = [1, 0.6, 0];
             Directional light:
         </para>
         <programlisting role="example"><![CDATA[
-plot3d();
-s=gce();
+s=plot3d();
 l = light();
 s.color_flag=0;
 s.thickness=0;

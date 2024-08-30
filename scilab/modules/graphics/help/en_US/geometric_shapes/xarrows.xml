@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xarrows(nx, ny [,nz] [,arsize, color])</synopsis>
+        <synopsis>
+          xarrows(nx, ny [,nz] [,arsize, color])
+          h = xarrows(...)
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -52,6 +55,14 @@
                         negative scalar then the current color is
                         used. If it is a vector <literal>color(i)</literal>
                         gives the color to use for arrow <literal>i</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Segs entity. Use <literal>h</literal> to modify its properties.
+                     For a list of properties, see <link linkend="segs_properties">segs_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

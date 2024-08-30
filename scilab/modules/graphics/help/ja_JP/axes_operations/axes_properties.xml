@@ -1166,11 +1166,9 @@ da.foreground = 7;
 x=(0:0.1:2*%pi)';
 plot2d(x,[sin(x),sin(2*x),sin(3*x)],style=[1,2,3],rect=[0,-2,2*%pi,2]);
 sda() // デフォルトの軸モデルに戻す
-
 // LaTeX / MathML 目盛の例:
 plot2d();
 a=gca();
-
 mathml = "<mrow><mfrac><mrow><mi>d</mi>  <mi>y</mi></mrow><mrow>  <mi>d</mi>  <mi>x</mi></mrow></mfrac> <mo>=</mo>" + ...
     "<mfrac><mn>1</mn><msup> <mi>y</mi>  <mn>2</mn></msup> </mfrac> </mrow>";
 // LaTeX 式のみ

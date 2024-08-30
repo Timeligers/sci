@@ -24,6 +24,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>fec(x,y,triangles,func,&lt;opt_args&gt;)
             fec(x,y,triangles,func,[strf,leg,rect,nax,zminmax,colminmax,colout,mesh])
+            fec(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -107,6 +108,14 @@
                 <listitem>
                     <para>escalar booleano, valor padrão %f (deve ser verdadeiro se você
                         também quiser exibir a malha)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Fec</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="fec_properties">fec_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

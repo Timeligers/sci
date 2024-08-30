@@ -22,6 +22,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>grayplot(x,y,z,[strf,rect,nax])
             grayplot(x,y,z,&lt;opt_args&gt;)
+            hdl = grayplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -60,6 +61,14 @@
                 <listitem>
                     <para>
                         ver <literal>plot2d</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Grayplot</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="grayplot_properties">grayplot_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

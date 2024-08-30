@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>Matplot1(a,rect)</synopsis>
+        <synopsis>Matplot1(a,rect)
+            hdl = Matplot1(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -36,6 +37,14 @@
                 <listitem>
                     <para>
                         <literal>[xmin,ymin,xmax,ymax]</literal>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Grayplot</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="grayplot_properties">grayplot_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

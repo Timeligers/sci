@@ -36,7 +36,8 @@
     <refsection>
         <title>Description</title>
         <para>This routine returns the handle of the last created (and still
-            existent) entity.
+            existent) entity. It should be used as little as possible, as all graphic functions
+            accept an optional output argument giving this handle.
         </para>
     </refsection>
     <refsection>

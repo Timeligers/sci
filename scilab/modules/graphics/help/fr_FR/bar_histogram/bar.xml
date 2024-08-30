@@ -15,6 +15,7 @@
             bar(x, y, width, colors, style)
             bar(x, y [,width] [,colors] [,style])
             bar(h, x, y ..)
+            hdl = bar(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -86,6 +87,14 @@
                 <listitem>
                     <para>
                       (option) 'grouped' (par défaut), ou 'stacked'.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Polyline</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="polyline_properties">polyline_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

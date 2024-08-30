@@ -10,7 +10,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function Sfgrayplot(x, y, f, strf, rect, nax, zminmax, colminmax, mesh, colout)
+function varargout = Sfgrayplot(x, y, f, strf, rect, nax, zminmax, colminmax, mesh, colout)
 
     // PURPOSE
     //    Like fgrayplot but the function fec is used to smooth the
@@ -38,6 +38,11 @@ function Sfgrayplot(x, y, f, strf, rect, nax, zminmax, colminmax, mesh, colout)
         return
     elseif rhs < 3 then
         error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"), "Sfgrayplot", 3, 10));
+    end
+
+    if lhs > 1
+        msg = gettext("%s: Wrong number of output arguments: At most %d expected.\n")
+        error(msprintf(msg, "Sfgrayplot", 1));
     end
 
     // some checks
@@ -82,8 +87,13 @@ function Sfgrayplot(x, y, f, strf, rect, nax, zminmax, colminmax, mesh, colout)
 
     // then plot
     if opt_arg_seq == "" then
-        fec(noe_x,noe_y,connect,z);
+        e = fec(noe_x,noe_y,connect,z);
     else
-        execstr("fec(noe_x,noe_y,connect,z"+opt_arg_seq+")");
+        execstr("e = fec(noe_x,noe_y,connect,z"+opt_arg_seq+")");
     end
+
+    if lhs == 1
+        varargout(1) = e;
+    end
+
 endfunction

@@ -76,9 +76,7 @@ function [] = PlotSparse(A, style)
     // display
     drawlater()
     ij = spget(A)
-    plot2d(ij(:,2), ij(:,1),-markId)
-    e = gce();
-    e1 = e.children(1);
+    e1 = plot2d(ij(:,2), ij(:,1),-markId)
     e1.mark_foreground = markColor;
 
     ca=gca();

@@ -23,6 +23,7 @@
         <synopsis>barh(y)
             barh(x,y)
             barh([h],x,y [,width [,color [,style]]])
+            hdl = barh(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -70,6 +71,16 @@
                 <term>style:</term>
                 <listitem>
                     <para>a string, 'grouped' or 'stacked' (default: 'grouped').</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Compound object whose children
+                      are the created Polyline objects. Use <literal>hdl</literal> to modify properties
+                      of a specific or all Polyline objects after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

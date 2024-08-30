@@ -28,6 +28,7 @@
             mesh(...,&lt;ГлобальноеСвойство&gt;)
             mesh(...,&lt;color&gt;,&lt;ГлобальноеСвойство&gt;)
             mesh(&lt;axes_handle&gt;,...)
+            h = mesh(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -73,6 +74,14 @@
                 <listitem>
                     <para>
                         этот необязательный аргумент заставляет график появиться внутри выбранных осей, указанных с помощью <varname>axes_handle</varname>, а не в текущих осях (см. <link linkend="gca">gca</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>Этот необязательный вывод содержит дескриптор сущности <literal>Fac3d</literal>. Для списка
+                      свойства, см. <link linkend="surface_properties">surface_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

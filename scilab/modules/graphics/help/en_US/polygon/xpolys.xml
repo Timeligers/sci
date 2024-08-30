@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xpolys(xpols,ypols,[draw])</synopsis>
+        <synopsis>
+          xpolys(xpols,ypols,[draw])
+          hdl = xpolys(...)
+        </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -35,6 +38,16 @@
                 <term>draw</term>
                 <listitem>
                     <para>vector of size n.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output is a vector containing the handles of
+                      the created <literal>Polyline</literal> entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all entities after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

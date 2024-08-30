@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xnumb(x, y, nums, [box, angle])</synopsis>
+        <synopsis>xnumb(x, y, nums, [box, angle])
+            hdl = xnumb(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -42,6 +43,16 @@
                 <listitem>
                     <para>
                         an optional vector of same size as <varname>x</varname>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output is a vector containing the handles of
+                      the created <literal>Text</literal> entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all entities after they are created. For a list of
+                      properties, see <link linkend="text_properties">text_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

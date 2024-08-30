@@ -134,20 +134,16 @@ function bode(varargin)
     axes.axes_visible = "on";
     axes.clip_state = "clipgrf";
     if size(d, 2) > 1 & size(frq, 2) == 1 then
-        xpolys(frq(:, ones(1, mn)), d, 1:mn);
+        e = xpolys(frq(:, ones(1, mn)), d, 1:mn);
     else
-        xpolys(frq, d, 1:mn);
+        e = xpolys(frq, d, 1:mn);
     end
     // Set datatips info
-    e = gce();
 
-    for i=1:size(e.children, "*")
-        e.children(i).display_function = "formatBodeMagTip"
-    end
+    e.display_function = "formatBodeMagTip"
 
     if discr & fmax <> [] & max(frq) < fmax then
-        xpoly(max(frq)*[1; 1], axes.y_ticks.locations([1 $]));
-        e = gce();
+        e = xpoly(max(frq)*[1; 1], axes.y_ticks.locations([1 $]));
         e.foreground = 5;
     end
     xtitle("", _("Frequency (Hz)"), _("Magnitude (dB)"));
@@ -165,19 +161,15 @@ function bode(varargin)
     axes.axes_visible = "on";
     axes.clip_state = "clipgrf";
     if size(phi, 2) > 1 & size(frq, 2) == 1 then
-        xpolys(frq(:, ones(1, mn)), phi, 1:mn);
+        ephi = xpolys(frq(:, ones(1, mn)), phi, 1:mn);
     else
-        xpolys(frq, phi, 1:mn);
+        ephi = xpolys(frq, phi, 1:mn);
     end
-    ephi = gce();
     // Set datatips info
-    for i=1:size(ephi.children, "*")
-        ephi.children(i).display_function = "formatBodePhaseTip";
-    end
+    ephi.display_function = "formatBodePhaseTip";
 
     if discr & fmax <> [] & max(frq) < fmax then
-        xpoly(max(frq)*[1; 1], axes.y_ticks.locations([1 $]));
-        e = gce();
+        e = xpoly(max(frq)*[1; 1], axes.y_ticks.locations([1 $]));
         e.foreground = 5;
     end
     xtitle("", _("Frequency (Hz)"), _("Phase (degree)"));
@@ -185,7 +177,7 @@ function bode(varargin)
     // Create legend
     // -------------
     if comments <> [] then
-        c = captions(ephi.children, comments, "lower_caption");
+        c = captions(ephi, comments, "lower_caption");
         c.background = get(gcf(), "background");
     end
 

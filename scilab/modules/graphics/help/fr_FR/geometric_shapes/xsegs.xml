@@ -11,6 +11,7 @@
         <synopsis>
             xsegs(xv,yv,[style])
             xsegs(xv,yv,zv,[style])
+            hdl = xsegs(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -36,6 +37,15 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Segs</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="segs_properties">segs_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+
         </variablelist>
     </refsection>
     <refsection>
@@ -100,12 +110,11 @@ alpha=2*%pi*(0:119)/40;
 xv=[sin(alpha)/2;sin(alpha)/3];
 yv=[cos(alpha)/2;cos(alpha)/3];
 zv=[alpha/8;alpha/8];
-xsegs(xv,yv,zv,1:120);
+e=xsegs(xv,yv,zv,1:120);
 // On ajuste les data_bounds
 a.data_bounds = [min(xv) min(yv) min(zv); ...
                  max(xv) max(yv) max(zv)];
 // On peut ajouter une flèche sur chaque segments
-e = gce();
 e.arrow_size = 0.4;
 
  ]]></programlisting>
@@ -118,10 +127,9 @@ e.arrow_size = 0.4;
             xv=[sin(alpha)/2;sin(alpha)/3];
             yv=[cos(alpha)/2;cos(alpha)/3];
             zv=[alpha/8;alpha/8];
-            xsegs(xv,yv,zv,1:120);
+            e=xsegs(xv,yv,zv,1:120);
             a.data_bounds = [min(xv) min(yv) min(zv); ...
             max(xv) max(yv) max(zv)];
-            e = gce();
             e.arrow_size = 0.4;
         </scilab:image>
     </refsection>

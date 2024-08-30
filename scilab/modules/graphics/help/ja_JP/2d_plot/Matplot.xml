@@ -23,6 +23,7 @@
         <synopsis>
             Matplot(a,[strf,rect,nax])
             Matplot(a,&lt;opt_args&gt;)
+            h = Matplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -88,7 +89,15 @@
                                 </para>
                             </listitem>
                         </varlistentry>
-                    </variablelist>
+                        <varlistentry>
+                            <term>h</term>
+                            <listitem>
+                                <para>このオプションの出力には、作成された Matplot エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                                プロパティのリストについては、<link linkend="Matplot_properties">Matplot_properties</link> を参照してください。
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                </variablelist>
                 </listitem>
             </varlistentry>
             <varlistentry>

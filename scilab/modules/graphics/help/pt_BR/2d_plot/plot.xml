@@ -37,6 +37,7 @@
             plot(x1,func1,LineSpec1, x2,y2,LineSpec2,...xN,funcN,LineSpecN, GlobalProperty1, ..GlobalPropertyM)
             plot(logflag,...)
             plot(axes_handle,...)
+            h = plot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -157,6 +158,14 @@
                     <para>este argumento opcional força o esboço a aparecer dentro dos
                         eixos selecionados fornecidos por <literal>axes_handle</literal> ao
                         invés dos eixos correntes (ver <link linkend="gca">gca</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Polyline</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="polyline_properties">polyline_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>
@@ -732,18 +741,17 @@ poly1.clip_state='off' // clipping control
 isoview off
  ]]></programlisting>
         <scilab:image>
-            x = [0:0.1:2*%pi]';
-            plot(x-4,sin(x),x+2,cos(x))
-            a = gca();
-            a.x_location = "origin";
-            a.y_location = "origin";
-            isoview on
-            a.children
-            poly1 = a.children.children(2);
-            poly1.foreground = 4;
-            poly1.thickness = 3;
-            poly1.clip_state='off'
-            isoview off
+                x = [0:0.1:2*%pi]';
+                h = plot(x-4,sin(x),x+2,cos(x))
+                a = gca();
+                a.x_location = "origin";
+                a.y_location = "origin";
+                isoview on
+                poly1 = h(1);
+                poly1.foreground = 4;
+                poly1.thickness = 3;
+                poly1.clip_state='off'
+                isoview off
         </scilab:image>
     </refsection>
     <refsection role="see also">

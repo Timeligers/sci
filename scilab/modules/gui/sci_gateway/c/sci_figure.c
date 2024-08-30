@@ -47,6 +47,7 @@ int sci_figure(char * fname, void* pvApiCtx)
     int iType = 0;
     int iFig = 0;
     int iRhs = nbInputArgument(pvApiCtx);
+    int iLhs = nbOutputArgument(pvApiCtx);
     int iId = 0;
     int iPos = 0;
     int i = 0;
@@ -75,6 +76,14 @@ int sci_figure(char * fname, void* pvApiCtx)
     //figure(x, "...", ...)
 
     // figure()
+
+
+    if (iLhs > 1)
+    {
+        Scierror(999, _("%s: Wrong number of output arguments: At most %d expected.\n"), fname, 1);
+        return 0;
+    }
+
     if (iRhs == 0) // Auto ID
     {
         iId = getValidDefaultFigureId();
@@ -639,8 +648,16 @@ int sci_figure(char * fname, void* pvApiCtx)
     setGraphicObjectProperty(iFig, __GO_RESIZE__, (void*)&bResize, jni_bool, 1);
 
     //return new created fig
-    createScalarHandle(pvApiCtx, iRhs + 1, getHandle(iFig));
-    AssignOutputVariable(pvApiCtx, 1) = iRhs + 1;
+    if (iLhs == 1)
+    {
+        createScalarHandle(pvApiCtx, iRhs + 1, getHandle(iFig));
+        AssignOutputVariable(pvApiCtx, 1) = iRhs + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

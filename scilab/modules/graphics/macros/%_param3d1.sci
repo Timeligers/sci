@@ -25,12 +25,11 @@ function [] = %_param3d1()
     param3d1(X, Y, Z, 150, 85, flag=[2,4])
     
     subplot(1,3,2)
-    param3d1(X, Y, Z, 150, 85, flag=[2,4])
-    gce().children.foreground = color("green");
+    curves = param3d1(X, Y, Z, 150, 85, flag=[2,4])
+    curves.foreground = color("green");
     
     subplot(1,3,3)
-    param3d1(X, Y, Z, 150, 85, flag=[2,4])
-    curves = gce().children;
+    curves = param3d1(X, Y, Z, 150, 85, flag=[2,4])
     curves(1:2:$).foreground = color("orange");
     gca().box = "back_half";
     

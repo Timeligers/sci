@@ -6,7 +6,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>xpolys(xpols,ypols,[draw])</synopsis>
+        <synopsis>xpolys(xpols,ypols,[draw])
+            hdl = xpolys(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -22,6 +23,14 @@
                 <term>draw  </term>
                 <listitem>
                     <para>vecteur de taille n.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé un vecteur d'objets graphiques de type <literal>Polyline</literal> créés par la fonction. Il peut être utilisé pour
+                    modifier leur propriétés (voir <link linkend="polyline_properties">Polyline_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

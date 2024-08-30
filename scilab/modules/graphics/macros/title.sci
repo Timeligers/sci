@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function title(varargin)
+function varargout = title(varargin)
     // TITLE function
     // Add titles on a graphics window
 
@@ -17,6 +17,17 @@ function title(varargin)
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "title", 1));
     end
 
+    if argn(1) > 1 then
+        msg = gettext("%s: Wrong number of output argument(s): at most %d expected.\n")
+        error(msprintf(msg, "title", 1));
+    end
+
     varargin = list("title",varargin(1:$));
-    TitleLabel(varargin(:));
+
+    h = TitleLabel(varargin(:));
+
+    if argn(1) == 1
+        varargout(1) = h
+    end
+
 endfunction

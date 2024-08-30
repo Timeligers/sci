@@ -32,6 +32,12 @@ int sci_light(scilabEnv env, int nin, scilabVar* in, int nopt, scilabOpt opt, in
         return 1;
     }
 
+    if (nout > 1)
+    {
+        Scierror(77, _("%s: Wrong number of ouptut argument(s): at most %d expected.\n"), fname, 1);
+        return 1;
+    }
+
     if (nin + nopt == 0)
     {
         light = ConstructLight(fname, 0, -1, TRUE, NULL, NULL, NULL, NULL, NULL);
@@ -149,13 +155,16 @@ int sci_light(scilabEnv env, int nin, scilabVar* in, int nopt, scilabOpt opt, in
         return 1;
     }
 
-    out[0] = scilab_createHandle(env);
-    if (out[0] == NULL)
+    if (nout == 1)
     {
-        Scierror(999, _("%s: Memory allocation error.\n"), fname);
-        return 0;
-    }
+        out[0] = scilab_createHandle(env);
+        if (out[0] == NULL)
+        {
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 0;
+        }
 
-    scilab_setHandle(env, out[0], getHandle(light));
+        scilab_setHandle(env, out[0], getHandle(light));
+    }
     return 0;
 }

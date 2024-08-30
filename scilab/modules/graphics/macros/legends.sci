@@ -11,7 +11,7 @@
 // along with this program.
 
 
-function legends(leg, style, opt, with_box, font_size )
+function varargout = legends(leg, style, opt, with_box, font_size )
     //
     // PURPOSE
     //    draw legends on a plot
@@ -19,11 +19,14 @@ function legends(leg, style, opt, with_box, font_size )
     //    F. Delebecque + slight modif from B. Pincon
     //  modified again by Eric Dubois and Jean-Baptiste Silvy 18/01/07
 
-    rhs = argn(2)
+    [lhs,rhs]=argn(0)
 
     if rhs < 2 then
         msg = _("%s: Wrong number of input arguments: At least %d expected.\n")
         error(msprintf(msg, "legends", 2));
+    end
+    if lhs > 1 then
+        error(msprintf(gettext("%s: Wrong number of output arguments: At most %d expected.\n"), "legends", 1));
     end
     if type(leg) ~= 10 then,
         msg = _("%s: Wrong type for input argument #%d: String array expected.\n")
@@ -141,8 +144,7 @@ function legends(leg, style, opt, with_box, font_size )
     if with_box then
         xpol = [pos(1), pos(1)+width, pos(1)+width, pos(1)];
         ypol = [pos(2), pos(2), pos(2)-height, pos(2)-height];
-        xfpoly(xpol, ypol,1)
-        R = gce();
+        R = xfpoly(xpol, ypol,1)
         R.foreground = a.foreground;
         R.background = a.background;
     end
@@ -153,24 +155,20 @@ function legends(leg, style, opt, with_box, font_size )
                 select h.type
                 case "Polyline"
                     if h.polyline_style==5 then //patch
-                        xfpoly([x;x+drx;x+drx;x;x],[y-bbx(k,2);y-bbx(k,2);y;y;y-bbx(k,2)]);
-                        r = gce();
-                        r = unglue(r); // one xfpoly returns 2 polylines -> tmp bug to fix later F.Leray
+                        r = xfpoly([x;x+drx;x+drx;x;x],[y-bbx(k,2);y-bbx(k,2);y;y;y-bbx(k,2)]);
                         r.foreground = h.foreground;
                         r.thickness = h.thickness;
                         r.polyline_style = h.polyline_style;
                         r.line_style = h.line_style;
                     else
                         if stripblanks(h.mark_mode)=="off"
-                            xpoly([x;x+drx], [y;y]-bbx(k,2)/2, "lines");
-                            r = gce();
+                            r = xpoly([x;x+drx], [y;y]-bbx(k,2)/2, "lines");
                             r.foreground = h.foreground;
                             r.thickness = h.thickness;
                             r.polyline_style = h.polyline_style;
                             r.line_style = h.line_style;
                         else
-                            xpoly(x+drx/2, y-bbx(k,2)/2);
-                            r = gce();
+                            r = xpoly(x+drx/2, y-bbx(k,2)/2);
                             r.foreground = h.foreground;
                             r.thickness  = h.thickness;
                             r.mark_style = h.mark_style;
@@ -183,16 +181,14 @@ function legends(leg, style, opt, with_box, font_size )
                 end
             else
                 if style(1,k)<= 0 then
-                    xpoly(x+drx/2, y-bbx(k,2)/2)
-                    r = gce(),
+                    r = xpoly(x+drx/2, y-bbx(k,2)/2)
                     r.mark_mode  = "on"
                     r.mark_style = -style(1,k)
                     if size(style,1)==2 then
                         r.mark_foreground = style(2,k);
                     end
                 else
-                    xpoly([x;x+drx], [y;y]-bbx(k,2)/2, "lines")
-                    r = gce()
+                    r = xpoly([x;x+drx], [y;y]-bbx(k,2)/2, "lines")
                     r.foreground = style(1,k)
                     if size(style,1)==2 then
                         r.line_style = style(2,k);
@@ -201,22 +197,25 @@ function legends(leg, style, opt, with_box, font_size )
             end
         end
         R = [R, r']
-        xstring(x + drx*1.2 + bbx(k,1)/2, y-bbx(k,2)/2, leg(k))
+        r = xstring(x + drx*1.2 + bbx(k,1)/2, y-bbx(k,2)/2, leg(k))
 
-        r = gce()
         r.font_size = font_size ;
         r.alignment = "center" ;
         r.text_box_mode = "centered" ; // the string is centered on (x,y)
         R = [R, r]
         y = y - bbx(k,2) ;
     end
-    glue(R)
-    a = gca();
+    e = glue(R)
+    a=gca();
     a.data_bounds = [0,0;0.001,0.001];
 
     set("current_axes",old_ax),
 
     // if immediate_drawing was "on", then the figure will redraw itself.
     f.immediate_drawing = vis;
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 
 endfunction

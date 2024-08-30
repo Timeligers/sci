@@ -21,12 +21,9 @@
 
 // The script below should now work.
 
-subplot(211);plot(1:10);h1=gce();
-subplot(212);plot(1:10);h2=gce();
+subplot(211);h1=plot(1:10);
+subplot(212);h2=plot(1:10)
 
-j1=h1.children;
-j2=h2.children;
-
-captions(j2,'two');
-captions(j1,'one');
+captions(h2,'two');
+captions(h1,'one');
 

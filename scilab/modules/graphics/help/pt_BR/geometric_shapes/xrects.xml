@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xrects(rects,[fill])</synopsis>
+        <synopsis>xrects(rects,[fill])
+            hdl = xrects(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -35,6 +36,16 @@
                 <term>fill</term>
                 <listitem>
                     <para>vetor de tamanho n.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Esta saída opcional é um vetor contendo os identificadores de
+                      os objetos <literal>Rectangle</literal> criados. Use <literal>hdl</literal> para modificar propriedades
+                      de um objeto específico ou de todos os objetos polilinha após serem criados. Para uma lista de
+                      propriedades, consulte <link linkend="rectangle_properties">rectangle_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

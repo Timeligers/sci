@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xfarcs(arcs,[style])</synopsis>
+        <synopsis>xfarcs(arcs,[style])
+            hdl = xfarcs(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -36,6 +37,16 @@
                 <listitem>
                     <para>vetor linha de tamanho n fornecendo as cores a serem
                         utilizadas.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Esta saída opcional é um vetor contendo os identificadores de
+                      os objetos <literal>Arc</literal> criados. Use <literal>hdl</literal> para modificar propriedades
+                      de um objeto específico ou de todos os objetos polilinha após serem criados. Para uma lista de
+                      propriedades, consulte <link linkend="arc_properties">arc_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

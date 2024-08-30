@@ -24,12 +24,11 @@ legend_positions = ["in_upper_right", "in_upper_left", "in_lower_right",..
 "lower_caption", "by_coordinates"];
 
 x = 1:10;
-plot(x,[x;x.^2]);
-curves = gce();
+curves = plot(x,[x;x.^2]);
 
 // check all cases
 for loc = legend_positions,
-    captions(curves.children, ["x","x.^2"], loc);
+    captions(curves, ["x","x.^2"], loc);
     leg = gce();
     assert_checktrue(leg.legend_location == loc);
 end

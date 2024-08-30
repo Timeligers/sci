@@ -71,7 +71,6 @@ a.children(7).background=25;
 a.children(8).background=25;
 xclick();
 drawnow();
-
 //例 2: 軸を2つ / 図を1つ
 clf
 subplot(211)

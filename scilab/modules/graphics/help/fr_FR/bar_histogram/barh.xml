@@ -9,6 +9,7 @@
         <synopsis>barh(y)
             barh(x,y)
             barh([h],x,y [,width [,color [,style]]])
+            hdl = barh(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -58,6 +59,14 @@
                 <listitem>
                     <para>(optionnel), une chaine, 'grouped' or 'stacked' (par défaut:
                         'grouped').
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Polyline</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="polyline_properties">polyline_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

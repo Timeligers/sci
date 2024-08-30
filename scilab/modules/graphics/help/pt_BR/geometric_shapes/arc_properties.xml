@@ -204,9 +204,9 @@
 a=get("current_axes");//obtendo o manipulador dos novos eixos criados
 a.data_bounds=[-2,-2;2,2];
 
-xarc(-1.5,1.5,3,3,0,360*64)
+//obtendo o manipulador da entidade corrente (aqui é a entidade Arc)
+arc=xarc(-1.5,1.5,3,3,0,360*64)
 
-arc=get("hdl"); //obtendo o manipulador da entidade corrente (aqui é a entidade Arc)
 arc.fill_mode="on";
 arc.foreground=5;
 arc.data(:,[3 6])=[2 270*64];

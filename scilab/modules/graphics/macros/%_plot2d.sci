@@ -18,7 +18,15 @@
 // used when calling plot2d without any parameter.
 //
 
-function [] = %_plot2d()
+function varargout = %_plot2d()
     x=(0:0.1:2*%pi)';
-    plot2d(x, [sin(x),sin(2*x),sin(3*x)], style=[-1,-2,3], rect=[0,-2,2*%pi,2], axesflag=1);
+
+    if argn(1) > 1 then
+        error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "plot2d", 1));
+    end
+    hdl = plot2d(x, [sin(x),sin(2*x),sin(3*x)], style=[-1,-2,3], rect=[0,-2,2*%pi,2], axesflag=1);
+    if argn(1) == 1
+        varargout(1) = hdl;
+    end
+
 endfunction

@@ -28,6 +28,7 @@
             colorbar(umin, umax, -1)
             colorbar( , , [fmin fmax])
             colorbar(.., Cformat)
+            h = colorbar(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection role="parameters">
@@ -117,6 +118,13 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>This optional output contains a handle to the created colorbar Axes entity.
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -142,10 +150,6 @@
             from data and used to set the color bar. For a "Matplot" object, the case
             .image_type=="index" is specifically processed.
         </para>
-        <note>
-            Just after calling <literal>colorbar(…)</literal>, <literal>gce()</literal> returns
-            the graphical handle of the color bar.
-        </note>
         <para>
             The possible syntaxes are the following:
         </para>
@@ -211,7 +215,8 @@ ax0.axes_bounds(3)  //  Here is its initial width
 
 // The axes is clear. There is no plotted data.
 // We explicitely create a colorbar from scratch:
-colorbar(-2, 8, [1 100])    // It is inserted on the right
+// colbar1 is the handle of the color bar, to postprocess and customize it.
+colbar1 = colorbar(-2, 8, [1 100])    // It is inserted on the right
 
 // The current (empty) axes is still the same:
 gca() == ax0
@@ -220,8 +225,6 @@ gca() == ax0
 // colorbar on its right side.
 gca().axes_bounds
 
-// gce() returns the handle of the color bar, to postprocess and customize it.
-colbar1 = gce();
 colbar1.type
 ylabel(colbar1, "Temperature [°C]") // Let's add a label
 title("°C")                         // or as title
@@ -233,9 +236,9 @@ sca(ax0); // Reset the focus to ax0 before going on
 plot2d([], [], 0, "011", " ", [0 0 1 1])
 
 // Then add some other color bars, still for the current axes
-colorbar(-2, 5, [1 70])
+cb = colorbar(-2, 5, [1 70])
 // Set the labels in red
-gce().font_color = color("red");
+cb.font_color = color("red");
 
 // The current axes is shrunk. The bar's width is decreased accordingly.
 
@@ -246,10 +249,9 @@ plot2d([], [], 0, "011", " ", [0 0 1 1])
 
 ax1 = gca();
 // top half of the colormap, with another data scale:
-colorbar(0, 1.5, [$/2+1 $])
+colbar3 = colorbar(0, 1.5, [$/2+1 $])
 
 // Color bar post-processing
-colbar3 = gce();
 //      decrease its font size:
 set(colbar3, "fractional_font","on","font_size", 0.5);
 //      vertically extend the bar, to match the axes height:
@@ -266,99 +268,69 @@ colbar3.y_location = "left";
         <para>
             ➞ Customized color bar style:
         </para>
-        <scilab:image>
-            clf reset                           // clears and resets the figure
-            gcf().color_map = jet(100); // sets its color map
+        <scilab:image>clf reset                           // clears and resets the figure
+gcf().color_map = jet(100); // sets its color map
 
-            // Axes on the left
-            // ----------------
-            subplot(1,2,1)                      // Now the default current axes
-            ax0 = gca();                        //  is on the half left
-            ax0.axes_bounds(3)  //  Here is its initial width
+// Axes on the left
+// ----------------
+subplot(1,2,1)                      // Now the default current axes
+ax0 = gca();                        //  is on the half left
+ax0.axes_bounds(3)  //  Here is its initial width
 
-            // The axes is clear. There is no plotted data.
-            // We explicitely create a colorbar from scratch:
-            colorbar(-2, 8, [1 100])    // It is inserted on the right
+// The axes is clear. There is no plotted data.
+// We explicitely create a colorbar from scratch:
+// colbar1 is the handle of the color bar, to postprocess and customize it.
+colbar1 = colorbar(-2, 8, [1 100])    // It is inserted on the right
 
-            // The current (empty) axes is still the same:
-            gca() == ax0
+// The current (empty) axes is still the same:
+gca() == ax0
 
-            // But its width has been shrunk (by -15%) to set the
-            // colorbar on its right side.
-            gca().axes_bounds
+// But its width has been shrunk (by -15%) to set the
+// colorbar on its right side.
+gca().axes_bounds
 
-            // gce() returns the handle of the color bar, to postprocess and customize it.
-            colbar1 = gce();
-            colbar1.type
-            ylabel(colbar1, "Temperature [°C]") // Let's add a label
-            title("°C")                         // or as title
-            colbar1.title.font_size = 3;        // .. with a bigger font
-            // Beware: xlabel(), ylabel() title() moves the focus to the bar.
-            sca(ax0); // Reset the focus to ax0 before going on
+colbar1.type
+ylabel(colbar1, "Temperature [°C]") // Let's add a label
+title("°C")                         // or as title
+colbar1.title.font_size = 3;        // .. with a bigger font
+// Beware: xlabel(), ylabel() title() moves the focus to the bar.
+sca(ax0); // Reset the focus to ax0 before going on
 
-            // Now plot a frame in the empty axes:
-            plot2d([], [], 0, "011", " ", [0 0 1 1])
+// Now plot a frame in the empty axes:
+plot2d([], [], 0, "011", " ", [0 0 1 1])
 
-            // Then add some other color bars, still for the current axes
-            colorbar(-2, 5, [1 70])
-            // Set the labels in red
-            gce().font_color = color("red");
+// Then add some other color bars, still for the current axes
+cb = colorbar(-2, 5, [1 70])
+// Set the labels in red
+cb.font_color = color("red");
 
-            // The current axes is shrunk. The bar's width is decreased accordingly.
+// The current axes is shrunk. The bar's width is decreased accordingly.
 
-            // axes on the right
-            // -----------------
-            subplot(1,2,2)
-            plot2d([], [], 0, "011", " ", [0 0 1 1])
-            ax1 = gca();
-            // top half of the colormap, with another data scale:
-            colorbar(0, 1.5, [$/2+1 $])
+// axes on the right
+// -----------------
+subplot(1,2,2)
+plot2d([], [], 0, "011", " ", [0 0 1 1])
 
-            // Color bar post-processing
-            colbar3 = gce();
-            //      decrease its font size:
-            set(colbar3, "fractional_font","on","font_size", 0.5);
-            //      vertically extend the bar, to match the axes height:
-            colbar3.axes_bounds([2 4]) = ax1.axes_bounds([2 4]);
-            colbar3.margins([3 4]) = ax1.margins([3 4]);
-            //      reverse its graduations top-down:
-            colbar3.axes_reverse(2) = "on";
-            //      put its graduations on the left side:
-            colbar3.y_location = "left";
+ax1 = gca();
+// top half of the colormap, with another data scale:
+colbar3 = colorbar(0, 1.5, [$/2+1 $])
 
-            // Color bars are automatically redrawn and regraduated
-            // when resizing the figure. Try it!
+// Color bar post-processing
+//      decrease its font size:
+set(colbar3, "fractional_font","on","font_size", 0.5);
+//      vertically extend the bar, to match the axes height:
+colbar3.axes_bounds([2 4]) = ax1.axes_bounds([2 4]);
+colbar3.margins([3 4]) = ax1.margins([3 4]);
+//      reverse its graduations top-down:
+colbar3.axes_reverse(2) = "on";
+//      put its graduations on the left side:
+colbar3.y_location = "left";
+
+// Color bars are automatically redrawn and regraduated
+// when resizing the figure. Try it!
 
             gcf().axes_size = [770 440];
         </scilab:image>
-        <screen><![CDATA[
---> ax0.axes_bounds(3)  //  Here is its initial width
- ans  =
-   0.5
-
---> ...
---> // The current (empty) axes is still the same:
---> gca() == ax0
- ans  =
-  T
-
---> ...
---> // But its width has been shrunk (by -15%) ...
---> gca().axes_bounds
- ans  =
-   0.   0.   0.425   1.
-
---> ...
---> // gce() returns the handle of the color bar
---> colbar1 = gce();
---> colbar1.type
- ans  =
- Axes
-
---> colbar1 == gcf().children(1) // Another way to retrieve the handle
- ans  =
-  T
-]]></screen>
         </refsect3>
         <!--===================================================-->
         <refsect3>
@@ -591,8 +563,7 @@ colorbar(,,[1 $/2]);  // graduations on [-0.3, 0]
                 <programlisting role="example"><![CDATA[
 function plotSample()
     t=[-4:0.1:4];
-    plot3d(t,t,sin(t)'*cos(t));
-    e = gce();
+    e = plot3d(t,t,sin(t)'*cos(t));
     e.color_flag = 1;
     e.color_mode = -2;
 endfunction
@@ -616,8 +587,7 @@ gcf().children([2 4]).rotation_angles = [55 45];
             <scilab:image><![CDATA[
 function plotSample()
     t=[-4:0.1:4];
-    plot3d(t,t,sin(t)'*cos(t));
-    e = gce();
+    e = plot3d(t,t,sin(t)'*cos(t));
     e.color_flag = 1;
     e.color_mode = -2;
 endfunction

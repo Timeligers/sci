@@ -24,6 +24,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>plot3d3(X,Y,Z [,vect,theta,alpha,leg,flag,ebox])
             plot3d3(X,Y,Z, &lt;opt_args&gt;)
+            hdl = plot3d3(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -244,6 +245,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Fac3d</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="surface_properties">surfaceproperties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -275,9 +284,8 @@ v = linspace(0,2*%pi,20);
 X = cos(u)'*cos(v);
 Y = cos(u)'*sin(v);
 Z = sin(u)'*ones(v);
-plot3d3(X,Y,Z);
+e=plot3d3(X,Y,Z);
 // apenas no novo modo de gráficos
-e=gce(); // obtendo a entidade corrente
 e.visible='off';
 e.visible='on'; // de volta à visão da malha
  ]]></programlisting>

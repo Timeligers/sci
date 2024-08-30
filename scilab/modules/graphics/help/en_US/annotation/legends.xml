@@ -20,7 +20,9 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>legends(strings,style,&lt;opt_args&gt;)
+        <synopsis>
+          legends(strings,style,&lt;opt_args&gt;)
+          h = legends(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -110,6 +112,14 @@
                             </listitem>
                         </varlistentry>
                     </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Legend entity. Use <literal>hdl</literal> to modify its properties
+                      For a list of properties, see <link linkend="legend_properties">legend_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

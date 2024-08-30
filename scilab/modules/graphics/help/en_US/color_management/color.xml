@@ -75,24 +75,22 @@
     <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[
-x=linspace(-2*%pi,2*%pi,100)';
-// using existing colors
-plot2d(x,[sin(x),cos(x)],style=[color("red"),color("green")]);
-// new colors: there are added to the colormap
-e=gce(); p1=e.children(1); p2=e.children(2);
-p1.foreground=color("purple"); p2.foreground=color("navy blue");
-// using RGV values
-p1.foreground=color(255,128,128);
+            x=linspace(-2*%pi,2*%pi,100)';
+            // using existing colors
+            e=plot2d(x,[sin(x),cos(x)],style=[color("red"),color("green")]);
+            // new colors: there are added to the colormap
+            e(1).foreground=color("purple"); e(2).foreground=color("navy blue");
+            // using RGB values
+            e(1).foreground=color(255,128,128);
  ]]></programlisting>
         <scilab:image>
             x=linspace(-2*%pi,2*%pi,100)';
             // using existing colors
-            plot2d(x,[sin(x),cos(x)],style=[color("red"),color("green")]);
+            e=plot2d(x,[sin(x),cos(x)],style=[color("red"),color("green")]);
             // new colors: there are added to the colormap
-            e=gce(); p1=e.children(1); p2=e.children(2);
-            p1.foreground=color("purple"); p2.foreground=color("navy blue");
-            // using RGV values
-            p1.foreground=color(255,128,128);
+            e(1).foreground=color("purple"); e(2).foreground=color("navy blue");
+            // using RGB values
+            e(1).foreground=color(255,128,128);
         </scilab:image>
     </refsection>
     <refsection role="see also">

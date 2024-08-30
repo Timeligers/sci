@@ -26,6 +26,11 @@
 #include "sciCall.h"
 #include "localization.h"
 #include "Scierror.h"
+
+#include "BuildObjects.h"
+#include "HandleManagement.h"
+#include "graphicObjectProperties.h"
+#include "getGraphicObjectProperty.h"
 #include "sci_malloc.h"
 
 /*--------------------------------------------------------------------------*/
@@ -60,6 +65,12 @@ int sci_plot2d1_G(char * fname, int ptype, void *pvApiCtx)
     int iskip = 0, test  = 0;
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, i = 0, j = 0;
 
+    int iChildrenCount = 0;
+    int *piChildrenCount = &iChildrenCount;
+    int iCompoundUID = 0;
+    long long* outindex = NULL;
+    int* piChildrenUID = 0;
+
     static rhs_opts opts[] =
     {
         { -1, "axesflag", -1, 0, 0, NULL},
@@ -91,7 +102,7 @@ int sci_plot2d1_G(char * fname, int ptype, void *pvApiCtx)
         return 0;
     }
     CheckInputArgument(pvApiCtx, 1, 9); /* to allow plot2dxx(y) */
-
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     iskip = 0;
     if (getOptionals(pvApiCtx, fname, opts) == 0)
@@ -437,7 +448,32 @@ int sci_plot2d1_G(char * fname, int ptype, void *pvApiCtx)
         freeAllocatedSingleString(legend);
     }
 
-    AssignOutputVariable(pvApiCtx, 1) = 0;
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        iCompoundUID = getCurrentObject();
+        getGraphicObjectProperty(iCompoundUID, __GO_CHILDREN_COUNT__, jni_int, (void **) &piChildrenCount);
+        // return vector of handles sorted in natural order
+        sciErr = allocMatrixOfHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, iChildrenCount, 1, &outindex);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 1;
+        }
+        // Retrieve all children UID.
+        getGraphicObjectProperty(iCompoundUID, __GO_CHILDREN__, jni_int_vector, (void **) &piChildrenUID);
+
+        for (i = 0 ; i < iChildrenCount ; ++i)
+        {
+            outindex[i] = getHandle(piChildrenUID[iChildrenCount-i-1]);
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }

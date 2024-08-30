@@ -25,6 +25,7 @@
         <title>Seqüência de Chamamento</title>
         <synopsis>polarplot(theta,rho,[style,strf,leg,rect])
             polarplot(theta,rho,&lt;opt_args&gt;)
+            hdl = polarplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>

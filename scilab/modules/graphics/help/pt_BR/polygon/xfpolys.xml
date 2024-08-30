@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xfpolys(xpols,ypols,[fill])</synopsis>
+        <synopsis>xfpolys(xpols,ypols,[fill])
+            hdl = xfpolys(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -36,6 +37,16 @@
                 <term>fill</term>
                 <listitem>
                     <para>vetor de tamanho n ou tamanho (p,n)</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Esta saída opcional é um vetor contendo os identificadores de
+                      os objetos Polyline criados. Use <literal>hdl</literal> para modificar propriedades
+                      de um objeto específico ou de todos os objetos polilinha após serem criados. Para uma lista de
+                      propriedades, consulte <link linkend="polyline_properties">polyline_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

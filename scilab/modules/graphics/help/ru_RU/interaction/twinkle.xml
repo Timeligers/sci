@@ -73,12 +73,9 @@ twinkle     // мерцает последняя группа кривых, по
 twinkle(3)  // мерцает только три раза
 
 x = linspace(-2*%pi,2*%pi,100)';
-plot2d(x,[sin(x),cos(x)]);
-e = gce();
-p1 = e.children(1);
-p2 = e.children(2);
-twinkle(p1)     // мерцает график косинуса
-twinkle(p2,10)  // график синуса мерцает 10 раз
+p = plot2d(x,[sin(x),cos(x)]);
+twinkle(p(2))     // мерцает график косинуса
+twinkle(p(1))  // график синуса мерцает 10 раз
 twinkle(gca())  // мерцают оси
  ]]></programlisting>
     <para/>

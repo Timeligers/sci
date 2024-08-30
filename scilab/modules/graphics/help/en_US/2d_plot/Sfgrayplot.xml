@@ -25,6 +25,7 @@
         <synopsis>
             Sfgrayplot(x, y, f, &lt;opt_args&gt;)
             Sfgrayplot(x, y, f [,strf, rect, nax, zminmax, colminmax, mesh, colout])
+            h = Sfgrayplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -75,6 +76,14 @@
                 <listitem>
                     <para>
                         see <link linkend="fec">fec</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>This optional output contains a handle to a <literal>Fec</literal> entity. For a list of
+                      properties, see <link linkend="fec_properties">fec_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

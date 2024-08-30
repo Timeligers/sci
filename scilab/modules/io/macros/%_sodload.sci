@@ -954,7 +954,7 @@ function varargout = %_sodload(%__varnameList__)
             if ~ok then
                 break
             end
-            links=[links,e]
+            links=[e,links]
         end
         if ~ok then
             links=[];

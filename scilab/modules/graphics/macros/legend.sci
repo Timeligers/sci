@@ -11,10 +11,15 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function c=legend(varargin)
+function varargout=legend(varargin)
 
     if size(varargin)<1 then
         error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "legend", 1));
+    end
+
+    if argn(1) > 1 then
+        msg = gettext("%s: Wrong number of output argument(s): at most %d expected.\n")
+        error(msprintf(msg, "legend", 1));
     end
 
     options_names=["in_upper_right";"in_upper_left";"in_lower_left";
@@ -118,8 +123,12 @@ function c=legend(varargin)
 
 
     drawlater()
-    c=captions(H,leg)
+    // captions() uses natural order (not inversed children order)
+    c=captions(H($:-1:1),leg)
     if c == [] then
+        if argn(1) == 1
+            varargout(1) = c;
+        end    
         // return immediately (to avoid to return a struct see issue #17275)
         return
     end
@@ -159,6 +168,9 @@ function c=legend(varargin)
         end
     end
     if vis_on then drawnow(); end       // draw if figure status allows it (otherwise standbye)
+    if argn(1) == 1
+        varargout(1) = c;
+    end    
 endfunction
 
 function h=getvalidchildren(A)

@@ -239,8 +239,6 @@ int C2F(fec)(double *x, double *y, double *triangles, double *func, int *Nnode, 
     /* Set fec as current */
     setCurrentObject(iFecUID);
 
-    iParentCompoundUID = createCompound(iSubwinUID, &iFecUID, 1);
-    setCurrentObject(iParentCompoundUID);  /** construct Compound **/
     return 0;
 
 }

@@ -21,6 +21,7 @@
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
         <synopsis>legends(strings,style,&lt;opt_args&gt;)
+            hdl = legends(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -131,6 +132,14 @@
                             </listitem>
                         </varlistentry>
                     </variablelist>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Legend</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="legend_properties">legend_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

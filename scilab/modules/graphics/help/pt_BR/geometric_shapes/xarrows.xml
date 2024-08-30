@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Seqüência de Chamamento</title>
-        <synopsis>xarrows(nx, ny, [arsize, color])</synopsis>
+        <synopsis>xarrows(nx, ny, [arsize, color])
+            h = xarrows(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Parâmetros</title>
@@ -48,6 +49,14 @@
                         negativo, a cor corrente é utilizada. Se for um vetor
                         <literal>color(i)</literal> fornece a cor a ser utilizada no vetor
                         <literal>i</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Segs</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="segs_properties">segs_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

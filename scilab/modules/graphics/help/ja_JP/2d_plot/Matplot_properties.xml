@@ -275,15 +275,14 @@
         <title>例</title>
         <programlisting role="example"><![CDATA[
 nbcolors = size(gcf().color_map, 1);
-Matplot(1:nbcolors)
-e = gce(); // カレントのエンティティを取得
+// カレントのエンティティを取得
+e = Matplot(1:nbcolors)
 e.data = e.data($:-1:1) // 逆順
  ]]></programlisting>
         <scilab:image>
             nbcolors = size(gcf().color_map, 1);
-            Matplot(1:nbcolors)
-            e = gce();
-            e.data = e.data($:-1:1);
+            h = Matplot(1:nbcolors)
+            h.data = h.data($:-1:1);
         </scilab:image>
     </refsection>
     <refsection role="see also">

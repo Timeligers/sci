@@ -22,7 +22,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>Matplot1(a, rect)</synopsis>
+        <synopsis>
+          Matplot1(a, rect)
+          h = Matplot1(...) 
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -40,6 +43,14 @@
                 <listitem>
                     <para>
                         <literal>[xmin, ymin, xmax, ymax]</literal>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>This optional output contains a handle to a <literal>Matplot</literal> entity. For a list of
+                      properties, see <link linkend="Matplot_properties">Matplot_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -99,8 +110,7 @@ ax.box = 'on'; //draw a box
 o = ones(n, n);
 a = 3 * tril(o, -n) + 2*o;
 a = a + a';
-Matplot1(a, [0, 2, 7, 9])
-mp = gce();
+mp = Matplot1(a, [0, 2, 7, 9])
 for k = (-n + 1):n,
   a = 3 * tril(o, k) + 2 * o;
   a = a + a';

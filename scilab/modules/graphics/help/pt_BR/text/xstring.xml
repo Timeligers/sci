@@ -27,6 +27,7 @@
           xstring(x, y, str)
           xstring(x, y, str, angle)
           xstring(x, y, str, angle, box)
+          hdl = xstring(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -56,6 +57,14 @@
                 <term>box</term>
                 <listitem>
                     <para>inteio, o valor padrão é 0</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Text</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="text_properties">text_properties</link>).
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>
@@ -90,10 +99,10 @@ xstring(0.1,1.6,alphabet,0,1) // alfabeto em uma caixa
 xstring(0.1,1.4,alphabet,20)  // ângulo
 set(gca(),"font_style",1,"font_size",1); // usando fontes symbol
 xstring(0.1,0.1,alphabet)
-xstring(0.1,0.3,alphabet)
-gce().font_size = 3;          // mudando tamanho da fonte
-xstring(0.1,0.6,"a") //alfa grande
-gce().font_size = 24;
+h=xstring(0.1,0.3,alphabet)
+h.font_size = 3;          // mudando tamanho da fonte
+h=xstring(0.1,0.6,"a") //alfa grande
+h.font_size = 24;
  ]]></programlisting>
     </refsection>
     <refsection role="see also">

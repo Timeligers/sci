@@ -187,8 +187,8 @@ xtitle(" drawing a rectangle ") //add a title
 show_window(); //put the window on the top
 
 [b,xc,yc]=xclick(); //get a point
-xrect(xc,yc,0,0) //draw a rectangle entity
-r=gce();// the handle of the rectangle
+r = xrect(xc,yc,0,0) //draw a rectangle , r is its handle
+
 rep=[xc,yc,-1];first=%f;
 
 while rep(3)==-1 do // mouse just moving ...

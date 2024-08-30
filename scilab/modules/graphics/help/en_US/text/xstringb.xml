@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xstringb(x,y,str,w,h,[option])</synopsis>
+        <synopsis>
+          xstringb(x,y,str,w,h,[option])
+          hdl = xstringb(...)
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -44,6 +47,16 @@
                 <term>option</term>
                 <listitem>
                     <para>string.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Compound object whose children
+                      are the created Text entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all Text entities after they are created. For a list of
+                      properties, see <link linkend="text_properties">text_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

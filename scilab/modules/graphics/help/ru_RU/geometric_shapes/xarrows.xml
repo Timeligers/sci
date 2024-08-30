@@ -20,7 +20,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Синтаксис</title>
-        <synopsis>xarrows(nx, ny, [arsize, color])</synopsis>
+        <synopsis>xarrows(nx, ny, [arsize, color])
+            h = xarrows(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Аргументы</title>
@@ -56,6 +57,14 @@
                         текущий цвет. Если же это вектор, то
                         <literal>color(i)</literal> даёт цвет
                         для <literal>i</literal>-той стрелки.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                  <para>Этот необязательный вывод содержит дескриптор сущности <literal>Segs</literal>. Для списка
+                      свойства, см. <link linkend="segs_properties">segs_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

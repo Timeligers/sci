@@ -30,6 +30,7 @@
             bar3d(mtx,&lt;opt_args&gt;)
             bar3d(list(mtx,x,y),[theta,alpha,leg,flag,ebox])
             bar3d(list(mtx,x,y),&lt;opt_args&gt;)
+            hdl = bar3d()
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -72,6 +73,14 @@
                 <listitem>
                     <para>
                         see <link linkend="plot3d">plot3d</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output contains a handle to a <literal>Fac3d</literal>. Use <literal>hdl</literal> to modify its properties.
+                     For a list of properties, see <link linkend="fec_properties">fec_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>

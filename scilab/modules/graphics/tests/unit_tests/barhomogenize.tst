@@ -286,3 +286,4 @@ assert_checkequal(p121.mark_background, p321.mark_background);
 assert_checkequal(p121.x_shift, [0,0,0]);
 assert_checkequal(p121.y_shift, [12,21,30]);
 assert_checkalmostequal(p121.bar_width, p111.bar_width);
+

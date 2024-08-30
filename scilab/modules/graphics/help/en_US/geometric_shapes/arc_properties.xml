@@ -206,9 +206,10 @@
 a=get("current_axes");//get the handle of the newly created axes
 a.data_bounds=[-2,-2;2,2];
 
-xarc(-1.5,1.5,3,3,0,360*64)
+//draw and get handle on the arc entity)
+arc=xarc(-1.5,1.5,3,3,0,360*64)
 
-arc=get("hdl"); //get handle on current entity (here the arc entity)
+arc=get("hdl"); 
 arc.fill_mode="on";
 arc.foreground=5;
 arc.data(:,[3 6])=[2 270*64];

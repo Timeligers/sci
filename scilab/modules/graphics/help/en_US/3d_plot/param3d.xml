@@ -31,11 +31,13 @@
         <synopsis>
             param3d(x, y, z)
             param3d(x, y, z, [theta, alpha, leg, flag, ebox])
+            h = param3d(...)
             param3d   // demo
 
             param3d1(X, Y, Z)
             param3d1(X, Y, list(Z, styles))
             param3d1(.., [theta, alpha, leg, flag, ebox])
+            h = param3d1(...)
             param3d1  // demo
         </synopsis>
     </refsynopsisdiv>
@@ -235,6 +237,16 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Polyline entity or a Compound Entity whose children
+                      are the created Polyline objects. Use <literal>h</literal> to modify properties
+                      of a specific or all Polyline objects after they are created. For a list of
+                      properties, see <link linkend="polyline_properties">polyline_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -244,17 +256,17 @@
             <literal>x</literal>, <literal>y</literal> and <literal>z</literal>.
         </para>
         <para>
-            The curve is an object of <literal>polyline</literal> type. When it is used just after
-            <literal>param3d()</literal>, <function>gce</function>() returns the curve's identifier,
-            from which all the curve's properties may be changed: color, line style, thickness,
+            The curve is an object of <literal>polyline</literal> type. When it is given the optional output argument
+            <literal>h</literal> returns the curves entities,
+            from which all the curves properties may be changed: color, line style, thickness,
             mark style and colors, etc.
         </para>
         <para>
-            <literal>param3d1()</literal> is used to plot a set of 3D curves, all having the
-            same number of points. Then, <function>gce</function><literal>().children</literal>
-            returns the vector of identifiers of the whole set of curves.
+            <literal>h = param3d1()</literal> is used to plot a set of 3D curves, all having the
+            same number of points. When it is given, the optional argument <literal>h</literal>
+            returns the Compound of curves entities.
             <note>
-                The graphical identifier of the curve #i is <literal>gce().children($-i+1)</literal>.
+                The handle of curve #i is <literal>h.children($-i+1)</literal>.
             </note>
         </para>
     </refsection>
@@ -266,9 +278,8 @@ t = 0:0.1:5*%pi;
 r = (max(t)-t)/10;
 
 clf
-param3d(r.*sin(t), r.*cos(t), t/10, 30, 72,"X@Y@Z",[4,4])
+curve = param3d(r.*sin(t), r.*cos(t), t/10, 30, 72,"X@Y@Z",[4,4])
 
-curve = gce();
 curve.mark_mode = "on";
 curve.mark_style = 10;
 curve.mark_foreground = color("magenta");
@@ -277,9 +288,8 @@ curve.mark_foreground = color("magenta");
         t =  0:0.1:5*%pi;
         r = (max(t)-t)/10;
         clf
-        param3d(r.*sin(t), r.*cos(t), t/10, 30, 72,"X@Y@Z",[4,4])
+        curve=param3d(r.*sin(t), r.*cos(t), t/10, 30, 72,"X@Y@Z",[4,4])
 
-        curve = gce();
         curve.mark_mode = "on";
         curve.mark_style = 10;
         curve.mark_foreground = color("magenta");
@@ -337,12 +347,11 @@ subplot(1,3,1)
 param3d1(X, Y, Z, 150, 85, flag=[2,4])
 
 subplot(1,3,2)
-param3d1(X, Y, Z, 150, 85, flag=[2,4])
-gce().children.foreground = color("green");
+e=param3d1(X, Y, Z, 150, 85, flag=[2,4])
+e.foreground = color("green");
 
 subplot(1,3,3)
-param3d1(X, Y, Z, 150, 85, flag=[2,4])
-curves = gce().children;
+curves=param3d1(X, Y, Z, 150, 85, flag=[2,4])
 curves(1:2:$).foreground = color("orange");
 gca().box = "back_half";
 
@@ -358,12 +367,11 @@ gcf().children.foreground = color("grey70"); // box & ticks color for the 3 figu
         param3d1(X, Y, Z, 150, 85, flag=[2,4])
 
         subplot(1,3,2)
-        param3d1(X, Y, Z, 150, 85, flag=[2,4])
-        gce().children.foreground = color("green");
+        e=param3d1(X, Y, Z, 150, 85, flag=[2,4])
+        e.foreground = color("green");
 
         subplot(1,3,3)
-        param3d1(X, Y, Z, 150, 85, flag=[2,4])
-        curves = gce().children;
+        curves=param3d1(X, Y, Z, 150, 85, flag=[2,4])
         curves(1:2:$).foreground = color("orange");
         gca().box = "back_half";
 
@@ -403,8 +411,7 @@ X = [Xo(1,:) ; Xo ; Xo($,:)];
 Y = [Yo(1,:) ; Yo ; Yo($,:)];
 Z = [zmin*ones(1,nc) ; Zo ; zmin*ones(1,nc)];
     // Rendering
-param3d1(X, Y, Z, 150, 85, flag=[2,4])
-e = gce();
+e=param3d1(X, Y, Z, 150, 85, flag=[2,4])
 e.children.fill_mode = "on";
 
 // grey box for all axes:
@@ -440,8 +447,7 @@ gcf().children.foreground = color("grey70");
         Y = [Yo(1,:) ; Yo ; Yo($,:)];
         Z = [zmin*ones(1,nc) ; Zo ; zmin*ones(1,nc)];
             // Rendering
-        param3d1(X, Y, Z, 150, 87, flag=[2,4])
-        e = gce();
+        e=param3d1(X, Y, Z, 150, 87, flag=[2,4])
         e.children.fill_mode = "on";
 
         // grey box for all axes:

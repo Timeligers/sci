@@ -28,6 +28,7 @@
             mesh(...,&lt;GlobalProperty&gt;)
             mesh(...,&lt;color&gt;,&lt;GlobalProperty&gt;)
             mesh(&lt;axes_handle&gt;,...)
+            hdl = mesh(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -77,6 +78,14 @@
                     <para>este argumento opcional força o esboço a aparecer dentro dos
                         eixos selecionados por <varname>axes_handle</varname> ao invés dos
                         eixos correntes (ver <link linkend="gca">gca</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Fac3d</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="surface_properties">surface_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

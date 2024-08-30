@@ -9,7 +9,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function surf(varargin)
+function varargout = surf(varargin)
     [lhs,rhs] = argn(0);
 
     // EXAMPLE
@@ -31,7 +31,10 @@ function surf(varargin)
             f.color_map = jet(64);
          end
         s = gca().axes_bounds; delete(gca()); xsetech(s)  // clears the current axes
-        surf(Z,"edgeco","b","marker","d","markersiz",9,"markeredg","red","markerfac","k");
+        h = surf(Z,"edgeco","b","marker","d","markersiz",9,"markeredg","red","markerfac","k");
+        if lhs
+            varargout(1) = h;
+        end
         return
     end
 
@@ -321,7 +324,7 @@ function surf(varargin)
 
     // PLOTTING THE SURFACE
     // ====================
-    err = execstr("plot3d(XX,YY,list(ZZ,CC))","errcatch","n");
+    err = execstr("e = plot3d(XX,YY,list(ZZ,CC))","errcatch","n");
     if err <> 0
         processSurfError(current_figure, cur_draw_mode);
     end
@@ -329,7 +332,6 @@ function surf(varargin)
     a = gca();
     a.cube_scaling = "on";
     a.rotation_angles = [51 -125];
-    e = gce();
     e.hiddencolor = 0; // to avoid painting the hidden facets
     e.color_flag  = 4; // Matlab special flat mode by default (different from mode 2)
     e.cdata_mapping = "scaled"
@@ -406,6 +408,10 @@ function surf(varargin)
     //postponed drawings are done now !
     // smart drawnow
     ResetFigureDDM(current_figure, cur_draw_mode);
+    
+    if lhs
+        varargout(1) = e
+    end
 
 endfunction
 

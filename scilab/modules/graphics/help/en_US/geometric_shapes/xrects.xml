@@ -20,7 +20,10 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Syntax</title>
-        <synopsis>xrects(rects,[fill])</synopsis>
+        <synopsis>
+          xrects(rects,[fill])
+          hdl = xrects(...)
+      </synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Arguments</title>
@@ -35,6 +38,16 @@
                 <term>fill</term>
                 <listitem>
                     <para>vector of size n.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>This optional output is a vector containing the handles of
+                      the created <literal>Rectangle</literal> entities. Use <literal>hdl</literal> to modify properties
+                      of a specific or all entities after they are created. For a list of
+                      properties, see <link linkend="rectangle_properties">rectangle_properties</link>.
+                    </para>
                 </listitem>
             </varlistentry>
         </variablelist>

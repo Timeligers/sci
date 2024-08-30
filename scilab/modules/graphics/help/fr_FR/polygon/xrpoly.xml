@@ -6,7 +6,8 @@
     </refnamediv>
     <refsynopsisdiv>
         <title>Séquence d'appel</title>
-        <synopsis>xrpoly(orig,n,r,[theta])</synopsis>
+        <synopsis>xrpoly(orig,n,r,[theta])
+            h = xrpoly(...)</synopsis>
     </refsynopsisdiv>
     <refsection>
         <title>Paramètres</title>
@@ -36,6 +37,14 @@
                 <term>theta  </term>
                 <listitem>
                     <para>réel, angle en radians (0 par défaut).
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>Argument de sortie dans lequel est renvoyé le handle de l'objet graphique de type <literal>Polyline</literal> créé par la fonction. Il peut être utilisé pour
+                    modifier ses propriétés (voir <link linkend="polyline_properties">polyline_properties</link>).
                     </para>
                 </listitem>
             </varlistentry>

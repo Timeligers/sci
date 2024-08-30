@@ -67,8 +67,7 @@
         <programlisting role="example"><![CDATA[
     x=linspace(-20,20,1000);
     clf()
-    plot(x,sinc(x),x,sinc(x.^2));
-    e=gce();e=e.children;
+    e=plot(x,sinc(x),x,sinc(x.^2));
     d1=datatipCreate(e(1),500);
     d2=datatipCreate(e(2),60);
     datatipSetOrientation(d1,"lower left");
@@ -76,8 +75,7 @@
     ]]></programlisting>
         <scilab:image>
             x=linspace(-20,20,1000);
-            plot(x,sinc(x),x,sinc(x.^2));
-            e=gce();e=e.children;
+            e=plot(x,sinc(x),x,sinc(x.^2));
             d1=datatipCreate(e(1),500);
             d2=datatipCreate(e(2),60);
             datatipSetOrientation(d1,"lower left");

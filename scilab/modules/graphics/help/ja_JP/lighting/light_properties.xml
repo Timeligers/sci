@@ -33,10 +33,9 @@
         <scilab:image>
             plot3d();
             l = light();
-            s = gce();
-            s.diffuse_color = [0 0 0.8];
-            s.ambient_color = [0 0 1];
-            s.use_color_material = "off";
+            l.diffuse_color = [0 0 0.8];
+            l.ambient_color = [0 0 1];
+            l.use_color_material = "off";
         </scilab:image>
     </refsection>
     <refsection>
@@ -150,7 +149,8 @@
         <title>例</title>
         <programlisting role="example"><![CDATA[
         // 点光源
-        plot3d;l=light();s=gce();
+        s=plot3d();
+        l=light();
         for i=0:1000
             sleep(5);
             x = 2*cos(i*%pi/180);
@@ -158,7 +158,6 @@
             z = 2;
             l.position = [x y z];
         end
-
         // 方向性光源に光源を変更
         l.light_type = "directional";
         l.direction = [1 0 1];
@@ -170,7 +169,6 @@
         s.hiddencolor = -1;
         s.specular_color = [0.6 0.6 0.6];
         sleep(5000);
-
         l2 = light(ambient_color=[0 0 0], diffuse_color = [0.8 0.8 1], type="point", position=[0 3 4]);
         sleep(5000);
         delete(l);

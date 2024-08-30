@@ -1,3 +1,4 @@
+
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) INRIA
 // Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -9,7 +10,7 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-function []=errbar(x,y,em,ep)
+function varargout = errbar(x,y,em,ep)
 
     // Rajoute des barres d'erreur sur un graphique 2D
     // x et y decrivent les courbes (voir plot2d)
@@ -32,6 +33,9 @@ function []=errbar(x,y,em,ep)
         errbar(x,y,0.05*ones(x),0.03*ones(x));
         return;
     else
+        if lhs > 1 then
+            error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "errbar", 1));
+        end
         if rhs<4 then
             error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "errbar", 4));
         end
@@ -46,5 +50,9 @@ function []=errbar(x,y,em,ep)
     gce().mark_style=19;
     my_axe  = gca();
     my_axe.clip_state = "clipgrf";
+
+    if lhs == 1
+        varargout(1) = e;
+    end
 
 endfunction

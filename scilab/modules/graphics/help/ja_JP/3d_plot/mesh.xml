@@ -25,6 +25,7 @@
             mesh(...,&lt;GlobalProperty&gt;)
             mesh(...,&lt;color&gt;,&lt;GlobalProperty&gt;)
             mesh(&lt;axes_handle&gt;,...)
+            h = mesh(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -81,6 +82,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>このオプションの出力には、作成された Fac3d エンティティへのハンドルが含まれます。 <literal>h</literal> を使用してプロパティを変更します。
+                    プロパティのリストについては、<link linkend="surface_properties">fec_properties</link> を参照してください。
+                </para>
+            </listitem>
+        </varlistentry>
         </variablelist>
     </refsection>
     <refsection>

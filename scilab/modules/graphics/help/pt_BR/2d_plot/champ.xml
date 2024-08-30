@@ -30,6 +30,7 @@
             champ(x, y, fx, fy, arfact, rect)
             champ(x, y, fx, fy, arfact, rect, strf)
             champ(x, y, fx, fy, &lt;opt_args&gt;)
+            hdl = champ(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -100,6 +101,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>hdl</term>
+                <listitem>
+                    <para>O argumento de classificação na sequência é reenviado para o identificador do objeto gráfico do tipo <literal>Champ</literal> criado pela função. Ele pode ser usado para
+                    modificador de propriedade (veja <link linkend="champ_properties">champ_properties</link>).
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -113,7 +122,7 @@
             In addition, all lengths are normalized according to the longest arrow.
         </para>
         <para>
-            When setting <literal>gce().colored = "on"</literal>,
+            When setting <literal>hdl.colored = "on"</literal>,
             each arrow becomes as long as possible in its cell, and is colored
             according to the local intensity of the field.
         </para>
@@ -147,15 +156,15 @@ title("arfact=1.7", "fontsize",3)
 
 // Field's intensity = arrows color
 xsetech([0 0.5 0.55 0.5])
-champ(x, x, fx, fy, arfact=1.7)
-gce().colored = "on";
+h = champ(x, x, fx, fy, arfact=1.7)
+h.colored = "on";
 title("arfact=1.7, .colored=""on""", "fontsize",3)
 colorbar
 
 // Field's intensity = color, + imposed boundaries
 subplot(2,2,4)
-champ(x, x, fx, fy, rect=[-5,-6,9,7],strf="011")
-gce().colored = "on";
+e=champ(x, x, fx, fy, rect=[-5,-6,9,7],strf="011")
+e.colored = "on";
 title("rect=[-5,-6,9,6], strf=""011"", .colored=""on""", "fontsize",3)
 
 gcf().axes_size = [740 680];
@@ -179,16 +188,16 @@ gcf().axes_size = [740 680];
 
             // Field's intensity = arrows color
             xsetech([0 0.5 0.55 0.5])
-            champ(x, x, fx, fy, arfact=1.7)
-            gce().colored = "on";
+            h = champ(x, x, fx, fy, arfact=1.7)
+            h.colored = "on";
             title("arfact=1.7, .colored=""on""", "fontsize",3)
             L = sqrt(fx.^2 + fy.^2);
             colorbar(min(L), max(L));
 
             // Field's intensity = color, + imposed boundaries
             subplot(2,2,4)
-            champ(x, x, fx, fy, rect=[-5,-6,9,7],strf="011")
-            gce().colored = "on";
+            h = champ(x, x, fx, fy, rect=[-5,-6,9,7],strf="011")
+            h.colored = "on";
             title("rect=[-5,-6,9,6], strf=""011"", .colored=""on""", "fontsize",3)
 
             gcf().axes_size = [740 680];
@@ -204,9 +213,9 @@ xsetech([0 0 0.45 1])
 champ(x, y, fx, fy)
 title(".colored = ""off"" (default)", "fontsize",3)
 xsetech([0.45 0 0.55 1])
-champ(x, y, fx, fy)
+e=champ(x, y, fx, fy)
 title(".colored = ""on""", "fontsize",3)
-gce().colored = "on";
+e.colored = "on";
 
 gcf().color_map = jet(100);
 colorbar
@@ -222,9 +231,9 @@ colorbar
             champ(x, y, fx, fy)
             title(".colored = ""off"" (default)", "fontsize",3)
             xsetech([0.45 0 0.55 1])
-            champ(x, y, fx, fy)
+            h = champ(x, y, fx, fy)
             title(".colored = ""on""", "fontsize",3)
-            gce().colored = "on";
+            h.colored = "on";
 
             gcf().color_map = jet(100);
             L = sqrt(fx.^2 + fy.^2);

@@ -24,6 +24,7 @@
         <title>Syntax</title>
         <synopsis>plot3d2(X,Y,Z [,vect,theta,alpha,leg,flag,ebox])
             plot3d2(X,Y,Z, &lt;opt_args&gt;)
+            h = plot3d2(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -252,6 +253,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to the created Plot3d or Surface entity. Use <literal>h</literal> to modify its properties
+                      For a list of properties, see <link linkend="surface_properties">surface_properties</link>.
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -281,8 +290,7 @@ v = linspace(0,2*%pi,20);
 X = cos(u)'*cos(v);
 Y = cos(u)'*sin(v);
 Z = sin(u)'*ones(v);
-plot3d2(X,Y,Z);
-e=gce();
+e=plot3d2(X,Y,Z);
 e.color_mode=4; // change color
 f_data=e.data;
 TL = tlist(["3d" "x" "y" "z" "color"],f_data.x,f_data.y,f_data.z,10*(f_data.z)+1);
@@ -294,8 +302,7 @@ e.color_flag=2;
             X = cos(u)'*cos(v);
             Y = cos(u)'*sin(v);
             Z = sin(u)'*ones(v);
-            plot3d2(X,Y,Z);
-            e=gce();
+            e=plot3d2(X,Y,Z);
             e.color_mode=4; // change color
             f_data=e.data;
             TL = tlist(["3d" "x" "y" "z" "color"],f_data.x,f_data.y,f_data.z,10*(f_data.z)+1);

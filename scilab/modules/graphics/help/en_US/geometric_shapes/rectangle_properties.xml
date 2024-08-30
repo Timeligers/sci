@@ -261,9 +261,9 @@
 a=get("current_axes");//get the handle of the newly created axes
 a.data_bounds=[-2,-2;2,2];
 
-xrect(-1,1,2,2)
+// draw and get handle on the rectangle entity
+r=xrect(-1,1,2,2)
 
-r=get("hdl");//get handle on current entity (here the rectangle entity)
 r.type
 r.parent.type
 r.foreground=13;

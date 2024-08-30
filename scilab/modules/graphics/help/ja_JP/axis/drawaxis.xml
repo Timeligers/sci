@@ -172,25 +172,20 @@ drawaxis(x=2:7,y=4,dir='u',tics='v')
 drawaxis(x=2:7,dir='u',tics='v')
 // フレームの下部に水平軸
 drawaxis(x=2:7,dir='d',tics='v')
-
 // 範囲で指定した水平軸
 drawaxis(x=[2,7,3],y=4,dir='d',tics='r')
-
 // 垂直軸
 drawaxis(x=4,y=2:7,dir='r',tics='v')
 drawaxis(x=2,y=[2,7,3],dir='l',tics='r')
 drawaxis(y=2:7,dir='r',tics='v')
 drawaxis(y=2:7,dir='l',tics='v')
-
 // 目盛位置に表示する文字列を指定した水平軸
 drawaxis(x=2:7,y=8,dir='u',tics='v',val='A'+string(1:6));
 // vertical axis with strings displayed at tics positions
 drawaxis(x=8,y=2:7,dir='r',tics='v',val='B'+string(1:6));
-
 // 'i' 範囲で指定した水平軸.
 drawaxis(x=[2,5,0,3],y=9,dir='u',tics='i');
 drawaxis(x=9,y=[2,5,0,3],dir='r',tics='i',sub_int=5);
-
 // 再び水平軸
 drawaxis(x=2:7,y=4,dir='u',tics='v',fontsize=10,textcolor=9,ticscolor=7,seg=0,sub_int=20)
  ]]></programlisting>

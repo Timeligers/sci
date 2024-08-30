@@ -27,6 +27,7 @@
         <title>Syntax</title>
         <synopsis>polarplot(theta,rho,[style,strf,leg,rect])
             polarplot(theta,rho,&lt;opt_args&gt;)
+            h = polarplot(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -260,6 +261,13 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>h</term>
+                <listitem>
+                    <para>This optional output contains a handle to a Compound entity which is described below.
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </refsection>
     <refsection>
@@ -270,7 +278,32 @@
             dataspace units. Note that negative rho values cause the corresponding curve points
             to be reflected across the origin.
         </para>
-    </refsection>
+      <para>The optional output <term>h</term>contains a handle to a Compound entity whose children
+                      are:
+                      <itemizedlist>
+                        <listitem>
+                        <literal>h.children(1)</literal>: Compound whose children are the labels of angle values (Text entities)
+                        </listitem>
+                        <listitem>
+                        <literal>h.children(2)</literal>: Compound whose children are the lines of radial frame for each angle value (Segs entities)
+                        </listitem>
+                        <listitem>
+                        <literal>h.children(3)</literal>: Compound whose children are the labels of radius values (Text entities)
+                        </listitem>
+                        <listitem>
+                        <literal>h.children(4)</literal>: Compound whose children are the circles of constant radius for each radius value (Arc entities)
+                        </listitem>
+                        <listitem>
+                        <literal>h.children(5)</literal>: Polyline entity, the main curve.
+                        </listitem>
+                      </itemizedlist>
+                      Use <literal>h</literal> to modify properties
+                      of a specific or all Text, Segs or Arc entites after they are created. For a list of
+                      properties, see <link linkend="text_properties">Polyline_properties</link>, 
+                      <link linkend="segs_properties">segs_properties</link> or 
+                      <link linkend="arc_properties">arc_properties</link>.
+                    </para>
+  </refsection>
     <refsection>
         <title>Example 1</title>
         <programlisting role="example"><![CDATA[

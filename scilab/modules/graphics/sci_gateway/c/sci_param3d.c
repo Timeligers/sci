@@ -27,6 +27,13 @@
 #include "localization.h"
 #include "Scierror.h"
 #include "DefaultCommandArg.h"
+
+#include "BuildObjects.h"
+#include "HandleManagement.h"
+#include "graphicObjectProperties.h"
+#include "getGraphicObjectProperty.h"
+#include "sci_malloc.h"
+
 /*------------------------------------------------------------------------*/
 int sci_param3d(char * fname, void *pvApiCtx)
 {
@@ -40,6 +47,14 @@ int sci_param3d(char * fname, void *pvApiCtx)
     double *alpha = &alpha_def, *theta = &theta_def;
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0;
     int m3n = 0, n3n = 0; /* F.Leray 19.03.04*/
+
+    int iChildrenCount = 0;
+    int *piChildrenCount = &iChildrenCount;
+    int iObjUID = 0;
+    int iObjectType = -1;
+    int *piObjectType = &iObjectType;
+    long long* outindex = NULL;
+    int* piChildrenUID = 0;
 
     static rhs_opts opts[] =
     {
@@ -69,6 +84,7 @@ int sci_param3d(char * fname, void *pvApiCtx)
     }
 
     CheckInputArgument(pvApiCtx, 3, 8);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     if (getOptionals(pvApiCtx, fname, opts) == 0)
     {
@@ -204,7 +220,46 @@ int sci_param3d(char * fname, void *pvApiCtx)
     {
         freeAllocatedSingleString(labels);
     }
-    AssignOutputVariable(pvApiCtx, 1) = 0;
+
+    if (nbOutputArgument(pvApiCtx) == 1)
+    {
+        iObjUID = getCurrentObject();
+        getGraphicObjectProperty(iObjUID, __GO_TYPE__, jni_int, (void **)&piObjectType);
+        if (iObjectType == __GO_COMPOUND__)
+        {
+            getGraphicObjectProperty(iObjUID, __GO_CHILDREN_COUNT__, jni_int, (void **) &piChildrenCount);
+            // return vector of handles sorted in natural order
+            sciErr = allocMatrixOfHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, iChildrenCount, 1, &outindex);
+            if (sciErr.iErr)
+            {
+                printError(&sciErr, 0);
+                Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                return 1;
+            }
+            // Retrieve all children UID.
+            getGraphicObjectProperty(iObjUID, __GO_CHILDREN__, jni_int_vector, (void **) &piChildrenUID);
+
+            for (int i = 0 ; i < iChildrenCount ; ++i)
+            {
+                outindex[i] = getHandle(piChildrenUID[iChildrenCount-i-1]);
+            }
+        }
+        else
+        {
+            if (createScalarHandle(pvApiCtx, nbInputArgument(pvApiCtx) + 1, getHandle(iObjUID)))
+            {
+                printError(&sciErr, 0);
+                Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                return 1;
+            }
+        }
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;            
+    }
+    else
+    {
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+    }
+
     ReturnArguments(pvApiCtx);
     return 0;
 }
