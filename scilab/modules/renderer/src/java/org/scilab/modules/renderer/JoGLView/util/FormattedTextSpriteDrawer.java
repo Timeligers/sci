@@ -42,7 +42,7 @@ public class FormattedTextSpriteDrawer implements TextureDrawer {
         if (text != null && font != null) {
             if (isLatex(text)) {
                 LoadClassPath.loadOnUse("graphics_latex_textrendering");
-                TeXFormula formula = new TeXFormula(text.substring(1, text.length() - 1));
+                TeXFormula formula = new TeXFormula(formatLaTeXString(text));
                 formula.setColor(ColorFactory.createColor(colorMap, font.getColor()));
                 icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, FontManager.scilabSizeToAwtSize(font.getSize()));
                 descent = ((TeXIcon) icon).getIconDepth();
@@ -110,8 +110,29 @@ public class FormattedTextSpriteDrawer implements TextureDrawer {
      * @return true if the given string represent a latex entity.
      */
     public static boolean isLatex(String string) {
-        return (string.length() >= 2) && string.endsWith("$") && string.startsWith("$");
+        long count = string.chars().filter(ch -> ch == '$').count();
+        return (count > 0 && count % 2 == 0);
     }
+
+    /**
+     * Format a mixed LaTeX string
+     * @param string the given string.
+     * @return the formatted string
+     */
+    public String formatLaTeXString(String string) {
+        String fmtString = "";
+        // string is splitted in pure math and text chunks
+        String[] tokenArray = string.split("\\$");
+        boolean math = false;
+        for (String token : tokenArray) {
+            if (token.isEmpty() == false) {
+                fmtString += (math ? token : ("\\text{" + token + "}"));
+            }
+            math = !math;
+        }            
+        return fmtString;
+    }
+
 
     /**
      * Return true if the given string represent a MathML entity.

@@ -167,7 +167,7 @@ public class TextObjectSpriteDrawer implements TextureDrawer {
                     float ascent = 0;
                     if (isLatex(text)) {
                         try {
-                            TeXFormula formula = new TeXFormula(text.substring(1, text.length() - 1));
+                            TeXFormula formula = new TeXFormula(formatLaTeXString(text));
                             formula.setColor(textColor);
                             icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, font.getSize());
                             ascent = ((TeXIcon) icon).getIconHeight() - ((TeXIcon) icon).getIconDepth();
@@ -212,8 +212,28 @@ public class TextObjectSpriteDrawer implements TextureDrawer {
      * @param string the given string.
      * @return true if the given string represent a latex entity.
      */
-    private boolean isLatex(String string) {
-        return (string.length() >= 2) && string.endsWith("$") && string.startsWith("$");
+    public static boolean isLatex(String string) {
+        long count = string.chars().filter(ch -> ch == '$').count();
+        return (count > 0 && count % 2 == 0);
+    }
+
+    /**
+     * Format a mixed LaTeX string
+     * @param string the given string.
+     * @return the formatted string
+     */
+    public String formatLaTeXString(String string) {
+        String fmtString = "";
+        // string is splitted in pure math and text chunks
+        String[] tokenArray = string.split("\\$");
+        boolean math = false;
+        for (String token : tokenArray) {
+            if (token.isEmpty() == false) {
+                fmtString += (math ? token : ("\\text{" + token + "}"));
+            }
+            math = !math;
+        }            
+        return fmtString;
     }
 
     /**

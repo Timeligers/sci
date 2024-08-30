@@ -9,11 +9,15 @@
     <refsection>
         <title>Usage</title>
         <para>Starting from Scilab 5.2, it is possible to write LaTeX or MathML
-            expression.
+            expression. The processing of strings by one of the two engines (instead of the defaut usual text rendering)
+            is triggered by the presence of special characters:
         </para>
-        <para>LaTeX texts must start and end by $ (dollar symbol) while MathML
-            texts must start by &lt; and end by &gt; and being syntactically
-            valid.
+        <para>When the string contains a positive even number of "$" (dollar symbol), then the LaTeX rendering engine
+            is used. This includes the case of a single math formula (a string starting and ending by a dollar), 
+            or the case of a string mixing math formulas (between two dollars) and regular text. In that case the regular text is rendered with
+            upright style and with the same font family as the one used in the math formulas.
+        </para>
+        <para>When the string starts with a "&lt;" and ends with "&gt;" and has a valid syntax then the MathML rendering engine is used.
         </para>
         <para>On the first use (these libraries are loading on the fly only when
             needed), note that the MathML engine is slower to load than LaTeX.
