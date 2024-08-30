@@ -274,8 +274,8 @@ GUI_DISABLE_C_SOURCES = src/nogui/nogui.c
 libscigui_disable_la_SOURCES = $(GUI_DISABLE_C_SOURCES)
 
 
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscigui-disable.la
-
 if GUI
 pkglib_LTLIBRARIES += libscigui.la
 noinst_LTLIBRARIES = libscigui-algo.la

@@ -29,12 +29,12 @@ SCI_BUILDDIR="`pwd`"
 SCI_SRCDIR="$srcdir"
 SCI_SRCDIR_FULL="`cd $SCI_SRCDIR && pwd`"
 
-if test -d "$SCI_SRCDIR_FULL/usr"; then
+if test -d "$SCI_SRCDIR_FULL/usr" -a -d "$SCI_SRCDIR_FULL/lib/thirdparty"; then
     WITH_DEVTOOLS=true
     DEVTOOLS_BINDIR="$SCI_SRCDIR_FULL/usr/bin"
     DEVTOOLS_INCDIR="$SCI_SRCDIR_FULL/usr/include"
     DEVTOOLS_LIBDIR="$SCI_SRCDIR_FULL/usr/lib"
-    export LD_LIBRARY_PATH="$DEVTOOLS_LIBDIR:$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="$SCI_SRCDIR_FULL/lib/thirdparty:$SCI_SRCDIR_FULL/lib/thirdparty/redist:$LD_LIBRARY_PATH"
 else
     WITH_DEVTOOLS=false
     DEVTOOLS_BINDIR=
@@ -582,8 +582,8 @@ AM_CONDITIONAL(IS_SYS_FMEMOPEN, test -n "$SYS_FMEMOPEN")
 #### 64 bits detection
 IS_64_BITS_CPU=false
 case "$host" in
-         x86_64-*-linux-gnu | x86_64-linux-gnu | ia64-*-linux-gnu | alpha-*-linux-gnu | alpha-*-netbsd* | x86_64-*-netbsd* | sparc64-*-netbsd*)
-                IS_64_BITS_CPU=true
+    x86_64-*-linux-gnu | x86_64-linux-gnu | ia64-*-linux-gnu | alpha-*-linux-gnu | alpha-*-netbsd* | x86_64-*-netbsd* | sparc64-*-netbsd*)
+        IS_64_BITS_CPU=true
     ;;
 esac
 
@@ -766,8 +766,11 @@ SCILIBS_CXXFLAGS=''
 SCILIBS_FFLAGS=''
 SCILIBS_LDFLAGS=''
 if $WITH_DEVTOOLS; then
-    # with devtools the needed dependencies are all there, discard private dependencies
-    SCILIBS_LDFLAGS='-Wl,--allow-shlib-undefined'
+    SCILIBS_LDFLAGS="-L$SCI_SRCDIR_FULL/lib/thirdparty -L$SCI_SRCDIR_FULL/lib/thirdparty/redist"
+    # with devtools the needed dependencies are all there, discard others system-wide dependencies
+    SCILIBS_LDFLAGS+="-Wl,--allow-shlib-undefined"
+    # set rpath for in-tree `make check`
+    SCILIBS_LDFLAGS+=" -Wl,-rpath -Wl,$SCI_SRCDIR_FULL/lib/thirdparty:$SCI_SRCDIR_FULL/lib/thirdparty/redist"
 fi
 
 if test $IS_64_BITS_CPU = true -o "$MACOSX" = "1"; then

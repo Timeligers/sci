@@ -37,6 +37,7 @@ JAVASCI_V2_C_SOURCES = \
     src/jni/putLists.c \
     src/c/javasci2_helper.c
 
+# Very specific library, javasci is a user entry point ; shipped as a dedicated library
 pkglib_LTLIBRARIES = libjavasci2.la
 
 

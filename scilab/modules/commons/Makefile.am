@@ -68,10 +68,10 @@ libscicommons_disable_la_CPPFLAGS =  \
     -I$(top_srcdir)/modules/string/includes/ \
     $(AM_CPPFLAGS)
 
-pkglib_LTLIBRARIES = libscicommons-disable.la
 
+noinst_LTLIBRARIES = libscicommons-disable.la
 if GUI
-pkglib_LTLIBRARIES += libscicommons.la 
+pkglib_LTLIBRARIES = libscicommons.la
 endif
 
 

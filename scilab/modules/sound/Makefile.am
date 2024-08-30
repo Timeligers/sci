@@ -25,6 +25,8 @@ libscisound_la_CPPFLAGS= \
     -I$(top_srcdir)/modules/string/includes \
     $(AM_CPPFLAGS)
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscisound.la
 
 

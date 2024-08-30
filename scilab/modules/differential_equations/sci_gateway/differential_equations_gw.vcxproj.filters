@@ -64,9 +64,6 @@
     <ClCompile Include="cpp\sci_daskr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\differential_equations_gw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\sci_arkode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

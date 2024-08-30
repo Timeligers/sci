@@ -124,8 +124,9 @@ build_triplet = @build@
 host_triplet = @host@
 @NEED_JAVA_TRUE@am__append_1 = java
 @GIWS_TRUE@am__append_2 = giws
-@GUI_TRUE@am__append_3 = libscigraphic_objects.la
-@SWIG_TRUE@am__append_4 = swig
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_3 = libscigraphic_objects.la
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am__append_4 = libscigraphic_objects.la
+@SWIG_TRUE@am__append_5 = swig
 subdir = modules/graphic_objects
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -182,7 +183,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libscigraphic_objects_la_etcdir)" \
 	"$(DESTDIR)$(libscigraphic_objects_la_rootdir)"
-LTLIBRARIES = $(pkglib_LTLIBRARIES)
+LTLIBRARIES = $(noinst_LTLIBRARIES) $(pkglib_LTLIBRARIES)
 libscigraphic_objects_disable_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = src/nographic_objects/libscigraphic_objects_disable_la-nographic_objects.lo
@@ -193,6 +194,9 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+@MAINTAINER_MODE_FALSE@am_libscigraphic_objects_disable_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscigraphic_objects_disable_la_rpath =  \
+@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 am__DEPENDENCIES_1 =
 libscigraphic_objects_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
@@ -250,11 +254,9 @@ am_libscigraphic_objects_la_OBJECTS = $(am__objects_2) \
 	$(am__objects_3) $(am__objects_4)
 libscigraphic_objects_la_OBJECTS =  \
 	$(am_libscigraphic_objects_la_OBJECTS)
-libscigraphic_objects_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscigraphic_objects_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
-@GUI_TRUE@am_libscigraphic_objects_la_rpath = -rpath $(pkglibdir)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscigraphic_objects_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscigraphic_objects_la_rpath =  \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	-rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -801,7 +803,7 @@ HELP_CHAPTERDIR = help/
 HELP_CHAPTERFILE = addchapter.sce
 HELP_CHAPTERLANG = en_US fr_FR pt_BR
 BUILT_SOURCES = includes/graphicObjectsProperties.h $(am__append_2) \
-	$(am__append_4)
+	$(am__append_5)
 #This file is also generated, but can not be listed to prevent GCJ call.
 #src/java/org/scilab/modules/graphic_objects/graphicObject/GraphicObjectProperties.java
 GRAPHIC_OBJECTS_JNI_SOURCES = \
@@ -901,8 +903,12 @@ libscigraphic_objects_disable_la_CPPFLAGS = \
 
 GRAPHIC_OBJECTS_DISABLE_C_SOURCES = src/nographic_objects/nographic_objects.c
 libscigraphic_objects_disable_la_SOURCES = $(GRAPHIC_OBJECTS_DISABLE_C_SOURCES)
-pkglib_LTLIBRARIES = libscigraphic_objects-disable.la $(am__append_3)
-libscigraphic_objects_la_LDFLAGS = $(AM_LDFLAGS)
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES =  \
+@MAINTAINER_MODE_TRUE@	libscigraphic_objects-disable.la \
+@MAINTAINER_MODE_TRUE@	$(am__append_3)
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES =  \
+@MAINTAINER_MODE_FALSE@	libscigraphic_objects-disable.la \
+@MAINTAINER_MODE_FALSE@	$(am__append_4)
 libscigraphic_objects_la_SOURCES = $(GRAPHIC_OBJECTS_GEN_SOURCES) $(GRAPHIC_OBJECTS_C_SOURCES) $(GRAPHIC_OBJECTS_JNI_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_CXX_SOURCES) $(GRAPHIC_OBJECTS_CXX_SOURCES)
 
 # For the code check (splint)
@@ -956,6 +962,17 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
+
 install-pkglibLTLIBRARIES: $(pkglib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	@list='$(pkglib_LTLIBRARIES)'; test -n "$(pkglibdir)" || list=; \
@@ -1001,7 +1018,7 @@ src/nographic_objects/libscigraphic_objects_disable_la-nographic_objects.lo:  \
 	src/nographic_objects/$(DEPDIR)/$(am__dirstamp)
 
 libscigraphic_objects-disable.la: $(libscigraphic_objects_disable_la_OBJECTS) $(libscigraphic_objects_disable_la_DEPENDENCIES) $(EXTRA_libscigraphic_objects_disable_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscigraphic_objects_disable_la_OBJECTS) $(libscigraphic_objects_disable_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) $(am_libscigraphic_objects_disable_la_rpath) $(libscigraphic_objects_disable_la_OBJECTS) $(libscigraphic_objects_disable_la_LIBADD) $(LIBS)
 src/jni/$(am__dirstamp):
 	@$(MKDIR_P) src/jni
 	@: > src/jni/$(am__dirstamp)
@@ -1112,7 +1129,7 @@ src/cpp/libscigraphic_objects_la-DllmainGraphic_objects.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscigraphic_objects.la: $(libscigraphic_objects_la_OBJECTS) $(libscigraphic_objects_la_DEPENDENCIES) $(EXTRA_libscigraphic_objects_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscigraphic_objects_la_LINK) $(am_libscigraphic_objects_la_rpath) $(libscigraphic_objects_la_OBJECTS) $(libscigraphic_objects_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscigraphic_objects_la_rpath) $(libscigraphic_objects_la_OBJECTS) $(libscigraphic_objects_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -1759,7 +1776,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
-	clean-pkglibLTLIBRARIES mostlyclean-am
+	clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 		-rm -f src/cpp/$(DEPDIR)/libscigraphic_objects_la-AxesModel.Plo
@@ -1932,14 +1949,15 @@ uninstall-am: uninstall-libscigraphic_objects_la_etcDATA \
 
 .PHONY: CTAGS GTAGS TAGS all all-am all-local am--depfiles check \
 	check-am check-local clean clean-generic clean-libtool \
-	clean-local clean-pkglibLTLIBRARIES cscopelist-am ctags \
-	ctags-am distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-local distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-data-local install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-html-local install-info \
-	install-info-am install-libscigraphic_objects_la_etcDATA \
+	clean-local clean-noinstLTLIBRARIES clean-pkglibLTLIBRARIES \
+	cscopelist-am ctags ctags-am distclean distclean-compile \
+	distclean-generic distclean-libtool distclean-local \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am \
+	install-data-local install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am \
+	install-html-local install-info install-info-am \
+	install-libscigraphic_objects_la_etcDATA \
 	install-libscigraphic_objects_la_rootDATA install-man \
 	install-pdf install-pdf-am install-pkglibLTLIBRARIES \
 	install-ps install-ps-am install-strip installcheck \

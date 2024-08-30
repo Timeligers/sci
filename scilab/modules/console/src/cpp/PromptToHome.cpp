@@ -15,11 +15,10 @@
 
 /*--------------------------------------------------------------------------*/
 #include "PromptToHome.hxx"
-#include "CallScilabBridge.hxx"
+#include "CallConsole.h"
 /*--------------------------------------------------------------------------*/
-using namespace  org_scilab_modules_gui_bridge;
 BOOL PromptToHome(void)
 {
-    CallScilabBridge::toHome(getScilabJavaVM());
+    console_toHome();
     return TRUE;
 }

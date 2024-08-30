@@ -16,11 +16,11 @@
 /*--------------------------------------------------------------------------*/
 #include "ScilabLinesUpdate.hxx"
 /*--------------------------------------------------------------------------*/
-#include "CallScilabBridge.hxx"
-using namespace  org_scilab_modules_gui_bridge;
+#include "CallConsole.h"
+
 BOOL ScilabLinesUpdate(void)
 {
-    CallScilabBridge::scilabLinesUpdate(getScilabJavaVM());
+    console_linesUpdate();
     return TRUE;
 }
 /*--------------------------------------------------------------------------*/

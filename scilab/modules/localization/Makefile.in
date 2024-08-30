@@ -709,8 +709,9 @@ libscilocalization_la_CPPFLAGS = \
 
 pkglib_LTLIBRARIES = libscilocalization.la
 noinst_LTLIBRARIES = libscilocalization-algo.la
-libscilocalization_la_LDFLAGS = $(AM_LDFLAGS) $(am__append_3)
 libscilocalization_la_CFLAGS = $(AM_CFLAGS) $(am__append_5)
+libscilocalization_la_LDFLAGS = $(SCI_LDFLAGS) -version-number \
+	$(SCILAB_LIBRARY_VERSION) $(am__append_3)
 libscilocalization_algo_la_SOURCES = $(LOCALIZATION_C_SOURCES) $(LOCALIZATION_CPP_SOURCES)
 libscilocalization_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscilocalization_algo_la_CPPFLAGS = $(libscilocalization_la_CPPFLAGS)

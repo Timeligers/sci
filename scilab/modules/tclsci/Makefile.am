@@ -47,8 +47,6 @@ GATEWAY_C_SOURCES =
 
 endif
 
-libscitclsci_la_LDFLAGS = $(AM_LDFLAGS)
-
 libscitclsci_la_CPPFLAGS= \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c \
@@ -96,6 +94,8 @@ libscitclsci_algo_la_CPPFLAGS = $(libscitclsci_la_CPPFLAGS)
 TCLSCI_DISABLE_CPP_SOURCES = src/notclsci/notclsci.cpp
 libscitclsci_disable_la_SOURCES = $(TCLSCI_DISABLE_CPP_SOURCES)
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscitclsci-disable.la libscitclsci.la
 noinst_LTLIBRARIES = libscitclsci-algo.la
 

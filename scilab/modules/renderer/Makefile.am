@@ -26,7 +26,6 @@ libscirenderer_la_etcdir = $(mydatadir)/etc
 libscirenderer_la_etc_DATA = etc/renderer.quit etc/renderer.start
 
 
-
 # List of the c files
 RENDERER_CXX_SOURCES = \
 src/cpp/GetJavaProperty.cpp \
@@ -75,9 +74,24 @@ if GIWS
   BUILT_SOURCES+=giws
 endif
 
+
+if MAINTAINER_MODE
+
+if GUI
+pkglib_LTLIBRARIES = libscirenderer.la
+endif
+
+else
+
+if GUI
+noinst_LTLIBRARIES = libscirenderer.la
+endif
+
+endif # MAINTAINER_MODE
+
+
 if GUI
 USEANT=1
-pkglib_LTLIBRARIES = libscirenderer.la
 endif
 
 

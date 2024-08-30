@@ -36,9 +36,6 @@ else
 noinst_LTLIBRARIES = libsciparameters.la
 endif
 
-
-libsciparameters_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
-
 libsciparameters_la_SOURCES = $(PARAMETERS_C_SOURCES)
 
 # For the code check (splint)

@@ -103,7 +103,6 @@ GATEWAY_FORTRAN_SOURCES = \
     sci_gateway/fortran/Ex-bvode.f
 
 GATEWAY_CPP_SOURCES = \
-    sci_gateway/cpp/differential_equations_gw.cpp \
     sci_gateway/cpp/sci_int2d.cpp \
     sci_gateway/cpp/sci_int3d.cpp \
     sci_gateway/cpp/sci_intg.cpp \
@@ -308,10 +307,11 @@ libscisundials_la_LIBADD = $(KLU_LIBS) \
     $(UMFPACK_LIBS) \
     $(OPENMP_LIBS)
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscisundials.la libscidifferential_equations.la
-if MAINTAINER_MODE
 noinst_LTLIBRARIES = libscidifferential_equations-algo.la
-endif
+
 
 if IS_MACOSX
 # enforce -O0 for some files
@@ -341,7 +341,6 @@ libscidifferential_equations_la_include_HEADERS =
 #### Target ######
 modulename=differential_equations
 
-
 #### differential_equations : Conf files ####
 libscidifferential_equations_la_rootdir = $(mydatadir)
 libscidifferential_equations_la_root_DATA =  license.txt
@@ -349,6 +348,11 @@ libscidifferential_equations_la_root_DATA =  license.txt
 #### differential_equations : init scripts ####
 libscidifferential_equations_la_etcdir = $(mydatadir)/etc
 libscidifferential_equations_la_etc_DATA = etc/differential_equations.quit etc/differential_equations.start
+
+#### hdf5 : gateway declaration ####
+libscidifferential_equations_la_gatewaydir = $(mydatadir)/sci_gateway
+libscidifferential_equations_la_gateway_DATA = sci_gateway/differential_equations_gateway.xml
+
 
 #### sundials : include files ####
 # find src/patched_sundials/include  -type f -name '*.h' -or -name '*.hxx' -or -name '*.hpp' | sort |xargs printf '%s \\\n'

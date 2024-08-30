@@ -84,13 +84,14 @@ libscihistory_browser_disable_la_CPPFLAGS = \
 HISTORY_BROWSER_DISABLE_C_SOURCES =  src/nohistory_browser/CommandHistory_Wrap_Fake.c
 libscihistory_browser_disable_la_SOURCES = $(HISTORY_BROWSER_DISABLE_C_SOURCES)
 
-pkglib_LTLIBRARIES = libscihistory_browser-disable.la
 
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscihistory_browser-disable.la
 if GUI
 pkglib_LTLIBRARIES += libscihistory_browser.la
 endif
 
-libscihistory_browser_la_LDFLAGS = $(AM_LDFLAGS)
+
 libscihistory_browser_la_LIBADD = $(X_LIBS) $(X_EXTRA_LIBS)
 
 libscihistory_browser_la_SOURCES = $(HISTORY_BROWSER_C_SOURCES) $(HISTORY_BROWSER_JNI_SOURCES) $(HISTORY_BROWSER_CPP_SOURCES)

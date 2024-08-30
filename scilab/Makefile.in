@@ -135,13 +135,28 @@ host_triplet = @host@
 @USE_STATIC_SYSTEM_LIB_FALSE@am__append_5 = -lstdc++ -lgfortran
 @IS_MACOSX_TRUE@am__append_6 = -framework Cocoa
 @NEED_JAVA_TRUE@am__append_7 = \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/arnoldi/libsciarnoldi.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/ui_data/libsciui_data.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/call_scilab/libscicall_scilab.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/commons/libscicommons.la \
 @NEED_JAVA_TRUE@			$(top_builddir)/modules/console/libsciconsole.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/graphics/libscigraphics.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/gui/libscigui.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/completion/libscicompletion.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/xml/libscixml.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/history_browser/libscihistory_browser.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/graphics/libscigraphics.la \
 @NEED_JAVA_TRUE@			$(top_builddir)/modules/jvm/libscijvm.la \
-@NEED_JAVA_TRUE@			$(top_builddir)/modules/commons/libscicommons.la
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/call_scilab/libscicall_scilab.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/tclsci/libscitclsci.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/arnoldi/libsciarnoldi.la \
+@NEED_JAVA_TRUE@			$(top_builddir)/modules/external_objects/libsciexternal_objects.la
 
 @NEED_JAVA_FALSE@am__append_8 = \
 @NEED_JAVA_FALSE@			$(top_builddir)/modules/console/libsciconsole-minimal.la \
-@NEED_JAVA_FALSE@			$(top_builddir)/modules/jvm/libscijvm-disable.la
+@NEED_JAVA_FALSE@			$(top_builddir)/modules/jvm/libscijvm-disable.la \
+@NEED_JAVA_FALSE@			$(top_builddir)/modules/tclsci/libscitclsci-disable.la \
+@NEED_JAVA_FALSE@			$(top_builddir)/modules/xml/libscixml.la
 
 @MPI_TRUE@am__append_9 = modules/startup/src/c/initMPI.c
 @MPI_TRUE@am__append_10 = $(OPENMPI_CXXFLAGS)
@@ -279,12 +294,11 @@ am__DEPENDENCIES_1 =
 am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
 @NEED_JAVA_TRUE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
 scilab_bin_DEPENDENCIES = $(top_builddir)/modules/libscilab.la \
-	$(top_builddir)/modules/libscilab-cli.la $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2) \
-	$(am__DEPENDENCIES_1) $(am__append_7) $(am__append_8) \
-	$(top_builddir)/modules/libscilab.la $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_3)
+	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) $(am__append_7) \
+	$(am__append_8) $(top_builddir)/modules/libscilab.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_3)
 scilab_bin_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(scilab_bin_LDFLAGS) $(LDFLAGS) -o $@
@@ -905,9 +919,9 @@ AM_LDFLAGS = $(SCI_LDFLAGS)
 @GUI_FALSE@bin_SCRIPTS = bin/scilab-cli $(am__append_1)
 @GUI_TRUE@bin_SCRIPTS = bin/scilab bin/scilab-adv-cli bin/scilab-cli \
 @GUI_TRUE@	bin/scinotes bin/xcos $(am__append_1)
-scilab_bin_LDFLAGS = $(AM_LDFLAGS) $(OPENMPI_LIBS) $(am__append_2) \
-	$(am__append_4) $(am__append_6)
-scilab_cli_bin_LDFLAGS = $(AM_LDFLAGS) $(OPENMPI_LIBS) $(am__append_3) \
+scilab_bin_LDFLAGS = $(OPENMPI_LIBS) $(am__append_2) $(am__append_4) \
+	$(am__append_6)
+scilab_cli_bin_LDFLAGS = $(OPENMPI_LIBS) $(am__append_3) \
 	$(am__append_5)
 scilab_bin_CPPFLAGS = -I$(top_srcdir)/modules/ast/includes/ast/ \
 	-I$(top_srcdir)/modules/ast/includes/exps/ \
@@ -939,19 +953,19 @@ COMMON_LIBS = $(LTLIBINTL)
 scilab_bin_SOURCES = modules/startup/src/cpp/scilab.cpp \
 	$(am__append_9)
 
-# the scilab-bin object file itself uses symbols from at least libscilab-cli.la,
-# libsciconsole-minimal.la and libscijvm-disable.la, so we have to link with these
-# libraries explicitly unless we link with -Wl,--copy-dt-needed-entries
+# the scilab-bin object file itself uses symbols from libscilab libs and others.
+# Link all the needed ones (even the dynamic modules) as dlopen will re-use them
+# on dynamic modules loading if needed.
 
 # BLAS_LIBS & LAPACK_LIBS are explicitly linked at the end. Unlike Scilab 5 in which the binary
 # is in C, Scilab 6 main is in C++. For some reasons (ie, I don't know why), libtool places blas and
 # lapack at the beginning of the order of the link. This caused some issues with the overload of the
 # xerbla function
 scilab_bin_LDADD = $(top_builddir)/modules/libscilab.la \
-	$(top_builddir)/modules/libscilab-cli.la $(OPENMPI_LIBS) \
-	$(XML_LIBS) $(COMMON_LIBS) $(FLIBS) $(am__append_7) \
-	$(am__append_8) $(top_builddir)/modules/libscilab.la \
-	$(BLAS_LIBS) $(LAPACK_LIBS) $(FLIBS) $(am__append_13)
+	$(OPENMPI_LIBS) $(XML_LIBS) $(COMMON_LIBS) $(FLIBS) \
+	$(am__append_7) $(am__append_8) \
+	$(top_builddir)/modules/libscilab.la $(BLAS_LIBS) \
+	$(LAPACK_LIBS) $(FLIBS) $(am__append_13)
 
 # Match scilab -nwni (ie command line without graphics)
 scilab_cli_bin_SOURCES = modules/startup/src/cpp/scilab.cpp \

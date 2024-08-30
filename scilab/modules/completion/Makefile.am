@@ -53,7 +53,7 @@ GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_completion.cpp
 
 # Includes need for the compilation
-libscicompletion_la_CPPFLAGS = \
+libscicompletion_algo_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c/ \
     -I$(srcdir)/src/cpp/ \
@@ -75,26 +75,37 @@ libscicompletion_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/string/includes/ \
     -I$(top_srcdir)/modules/dynamic_link/includes \
     -I$(top_srcdir)/modules/external_objects/includes \
-    $(JAVA_JNI_INCLUDE) \
-    $(XML_FLAGS) \
-    $(AM_CPPFLAGS)
+    $(XML_FLAGS)
 
-# Name of the future library (.la will be replace by .so, .a, etc regarding
-# the system)
-pkglib_LTLIBRARIES = libscicompletion.la
+libscicompletion_disable_la_CPPFLAGS = \
+    $(libscicompletion_algo_la_CPPFLAGS)
+
+libscicompletion_la_CPPFLAGS = \
+    $(libscicompletion_algo_la_CPPFLAGS) \
+    $(JAVA_JNI_INCLUDE)
+
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscicompletion-disable.la
+if GUI
+pkglib_LTLIBRARIES += libscicompletion.la
+endif
 noinst_LTLIBRARIES = libscicompletion-algo.la
 
 
 # All the sources needed by libscicompletion.la
-libscicompletion_algo_la_SOURCES = $(COMPLETION_JNI_SOURCES) $(COMPLETION_C_SOURCES) $(COMPLETION_CPP_SOURCES)
-libscicompletion_la_SOURCES = $(GATEWAY_CPP_SOURCES)
-libscicompletion_algo_la_CPPFLAGS = $(libscicompletion_la_CPPFLAGS)
+libscicompletion_algo_la_SOURCES = $(COMPLETION_C_SOURCES) $(COMPLETION_CPP_SOURCES)
+libscicompletion_disable_la_SOURCES = $(GATEWAY_CPP_SOURCES)
+libscicompletion_la_SOURCES = $(COMPLETION_JNI_SOURCES) $(GATEWAY_CPP_SOURCES)
 
 # For the code check (splint)
 CHECK_SRC= $(COMPLETION_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 INCLUDE_FLAGS = $(libscicompletion_la_CPPFLAGS)
 
 ## Libraries necessary
+libscicompletion_algo_la_LIBADD =
+
+libscicompletion_disable_la_LIBADD = libscicompletion-algo.la
 libscicompletion_la_LIBADD = libscicompletion-algo.la
 
 #### Name of the module and the path ######

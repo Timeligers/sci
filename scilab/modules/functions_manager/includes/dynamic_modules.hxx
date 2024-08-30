@@ -55,12 +55,6 @@ public :
     static int Load();
 };
 
-class FunctionsModule : public GenericModule
-{
-public :
-    static int Load();
-};
-
 class StatisticsModule : public GenericModule
 {
 public :
@@ -130,6 +124,12 @@ public :
 };
 
 class OptimizationModule : public GenericModule
+{
+public :
+    static int Load();
+};
+
+class DifferentialEquationsModule : public GenericModule
 {
 public :
     static int Load();

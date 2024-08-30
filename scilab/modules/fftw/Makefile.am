@@ -25,8 +25,6 @@ if FFTW
 noinst_LTLIBRARIES += libscifftw-algo.la
 endif
 
-libscifftw_la_LDFLAGS = $(AM_LDFLAGS)
-
 #### fftw : Conf files ####
 libscifftw_la_rootdir = $(mydatadir)
 

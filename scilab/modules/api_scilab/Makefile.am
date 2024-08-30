@@ -53,9 +53,6 @@ else
 noinst_LTLIBRARIES = libsciapi_scilab.la
 endif
 
-
-libsciapi_scilab_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
-
 libsciapi_scilab_la_SOURCES = $(API_SCILAB_C_SOURCES) $(API_SCILAB_CXX_SOURCES)
 
 # For the code check (splint)

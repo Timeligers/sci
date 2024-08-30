@@ -131,14 +131,11 @@ libscihdf5_la_CPPFLAGS = \
 libscihdf5_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscihdf5_la_sci_gateway_DATA = sci_gateway/hdf5_gateway.xml
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscihdf5.la
-noinst_LTLIBRARIES =
+noinst_LTLIBRARIES = libscihdf5-algo.la
 
-noinst_LTLIBRARIES += libscihdf5-algo.la
-
-# When Scilab is built with HDF5, we need some libraries for a workaround
-
-libscihdf5_la_LDFLAGS = $(AM_LDFLAGS)
 
 libscihdf5_algo_la_SOURCES = $(HDF5_SOURCES) $(HDF5_CXX_SOURCES)
 libscihdf5_la_SOURCES = $(GATEWAY_CXX_SOURCES)

@@ -711,6 +711,8 @@ Callable::ReturnValue DynamicFunction::Init()
         return Error;
     }
 
+    // std::wcerr << L"loading " << m_wstLibName << L" for " << m_wstEntryPoint << L"\n";
+
     DynLibHandle hLib = getDynModule(m_wstLibName.c_str());
     if (hLib == 0)
     {

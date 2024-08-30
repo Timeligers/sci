@@ -20,6 +20,19 @@
 
 #include "dynlib_functions_gw.h"
 
+class FunctionsModule
+{
+private :
+    FunctionsModule() {};
+    ~FunctionsModule() {};
+public :
+    FUNCTIONS_GW_IMPEXP static int Load();
+    FUNCTIONS_GW_IMPEXP static int Unload()
+    {
+        return 1;
+    }
+};
+
 CPP_GATEWAY_PROTOTYPE_EXPORT(sci_exec, FUNCTIONS_GW_IMPEXP);
 CPP_GATEWAY_PROTOTYPE_EXPORT(sci_execstr, FUNCTIONS_GW_IMPEXP);
 CPP_GATEWAY_PROTOTYPE_EXPORT(sci_funclist, FUNCTIONS_GW_IMPEXP);

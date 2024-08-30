@@ -697,6 +697,8 @@ libscirandlib_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/console/includes/ \
 	$(AM_CPPFLAGS)
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscirandlib.la
 noinst_LTLIBRARIES = libscirandlib-algo.la
 libscirandlib_algo_la_SOURCES = $(RANDLIB_CPP_SOURCES) $(RANDLIB_C_SOURCES) $(RANDLIB_FORTRAN_SOURCES)

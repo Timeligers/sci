@@ -14,7 +14,9 @@
 ##
 ##
 
-pkglib_LTLIBRARIES 	= libsciast.la
+
+noinst_LTLIBRARIES 	= libsciast.la
+
 
 libsciast_la_SOURCES = \
 src/c/operations/doublecomplex.c \

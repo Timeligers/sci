@@ -116,6 +116,8 @@ sci_gateway/fortran/sci_f_tree4.f
 
 #### Multi-libraries handling ######
 
+
+# dynamic module, loaded on demand
 noinst_LTLIBRARIES = libsciscicos-algo.la
 if XCOS
 pkglib_LTLIBRARIES = libsciscicos-cli.la
@@ -124,9 +126,6 @@ pkglib_LTLIBRARIES += libsciscicos.la
 endif
 endif
 
-libsciscicos_algo_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_cli_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_la_LDFLAGS = $(AM_LDFLAGS)
 
 if XCOS
 libsciscicos_algo_la_CPPFLAGS= -I$(srcdir)/includes/ \

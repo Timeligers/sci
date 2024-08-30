@@ -217,8 +217,6 @@ src/fortran/sszer.lo: src/fortran/sszer.f
 	$(LIBTOOL) $(AM_V_lt)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -O0 -c -o src/fortran/sszer.lo src/fortran/sszer.f
 endif
 
-libscicacsd_la_LDFLAGS = $(AM_LDFLAGS)
-
 libscicacsd_algo_la_SOURCES = $(CACSD_FORTRAN_SOURCES) $(SLICOT_FORTRAN_SOURCES) $(CACSD_C_SOURCES)
 libscicacsd_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscicacsd_algo_la_CPPFLAGS = $(libscicacsd_la_CPPFLAGS)
@@ -229,7 +227,8 @@ CHECK_SRC= $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscicacsd_la_CPPFLAGS)
 
 
-libscicacsd_la_LIBADD = libscicacsd-algo.la $(FLIBS)
+libscicacsd_la_LIBADD = libscicacsd-algo.la \
+    $(FLIBS)
 
 #### Target ######
 modulename=cacsd

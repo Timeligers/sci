@@ -587,14 +587,14 @@ libscigraphics_disable_la_CPPFLAGS = \
 
 # endif
 
-pkglib_LTLIBRARIES = libscigraphics-disable.la
 
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscigraphics-disable.la
 if GUI
 USEANT=1
 pkglib_LTLIBRARIES += libscigraphics.la
 noinst_LTLIBRARIES = libscigraphics-algo.la
 endif
-
 
 
 include $(top_srcdir)/Makefile.incl.am

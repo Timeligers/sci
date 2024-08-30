@@ -111,9 +111,10 @@ libscistatistics_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/string/includes/ \
     $(AM_CPPFLAGS)
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscistatistics.la
 noinst_LTLIBRARIES = libscistatistics-algo.la
-
 
 
 libscistatistics_algo_la_SOURCES = $(STATISTICS_C_SOURCES) $(STATISTICS_FORTRAN_SOURCES)

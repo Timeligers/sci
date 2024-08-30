@@ -202,7 +202,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-@GUI_TRUE@am_libsciaction_binding_algo_la_rpath =
 libsciaction_binding_disable_la_LIBADD =
 am_libsciaction_binding_disable_la_OBJECTS = src/noaction_binding/libsciaction_binding_disable_la-noaction_binding.lo
 libsciaction_binding_disable_la_OBJECTS =  \
@@ -696,10 +695,9 @@ libsciaction_binding_la_CPPFLAGS = \
     $(AM_CPPFLAGS)
 
 
-# Name of the future library (.la will be replace by .so, .a, etc regarding
-# the system)
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciaction_binding-disable.la $(am__append_3)
-@GUI_TRUE@noinst_LTLIBRARIES = libsciaction_binding-algo.la
+noinst_LTLIBRARIES = libsciaction_binding-algo.la
 
 # All the sources needed by libsciaction_binding.la
 libsciaction_binding_algo_la_SOURCES = $(ACTION_BINDING_C_SOURCES) $(ACTION_BINDING_CPP_SOURCES) $(CONSOLE_C_JNI_SOURCES)
@@ -910,7 +908,7 @@ src/jni/libsciaction_binding_algo_la-InterpreterManagement_wrap.lo:  \
 	src/jni/$(am__dirstamp) src/jni/$(DEPDIR)/$(am__dirstamp)
 
 libsciaction_binding-algo.la: $(libsciaction_binding_algo_la_OBJECTS) $(libsciaction_binding_algo_la_DEPENDENCIES) $(EXTRA_libsciaction_binding_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciaction_binding_algo_la_rpath) $(libsciaction_binding_algo_la_OBJECTS) $(libsciaction_binding_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK)  $(libsciaction_binding_algo_la_OBJECTS) $(libsciaction_binding_algo_la_LIBADD) $(LIBS)
 src/noaction_binding/$(am__dirstamp):
 	@$(MKDIR_P) src/noaction_binding
 	@: > src/noaction_binding/$(am__dirstamp)

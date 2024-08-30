@@ -61,6 +61,7 @@ libscispecial_functions_la_CPPFLAGS = \
     $(AM_CPPFLAGS)
 
 
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscispecial_functions.la
 noinst_LTLIBRARIES = libscispecial_functions-algo.la
 

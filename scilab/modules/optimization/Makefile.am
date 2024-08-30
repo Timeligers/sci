@@ -134,6 +134,7 @@ libscioptimization_la_CPPFLAGS = \
     $(AM_CPPFLAGS)
 
 
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscioptimization.la
 noinst_LTLIBRARIES = libscioptimization-algo.la
 

@@ -184,9 +184,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libmat_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(libmat_la_LDFLAGS) $(LDFLAGS) -o $@
 @MAINTAINER_MODE_FALSE@am_libmat_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libmat_la_rpath = -rpath $(pkglibdir)
 libmex_la_DEPENDENCIES =
@@ -639,7 +636,6 @@ libmat_la_CPPFLAGS = \
     $(MEXLIB_FLAGS) \
     $(AM_CPPFLAGS)
 
-libmat_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
 libmx_la_SOURCES = $(MEXLIB_CPP_SOURCES)
 libmx_la_LIBADD = $(MEXLIB_DEP)
 libmx_la_CPPFLAGS = \
@@ -837,7 +833,7 @@ src/cpp/libmat_la-sci_gateway.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libmat.la: $(libmat_la_OBJECTS) $(libmat_la_DEPENDENCIES) $(EXTRA_libmat_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libmat_la_LINK) $(am_libmat_la_rpath) $(libmat_la_OBJECTS) $(libmat_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libmat_la_rpath) $(libmat_la_OBJECTS) $(libmat_la_LIBADD) $(LIBS)
 src/cpp/libmex_la-mexlib.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/cpp/libmex_la-sci_gateway.lo: src/cpp/$(am__dirstamp) \

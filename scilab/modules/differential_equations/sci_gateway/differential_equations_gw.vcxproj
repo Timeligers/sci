@@ -234,7 +234,6 @@
     <ClInclude Include="cpp\sci_sundialsode.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cpp\differential_equations_gw.cpp" />
     <ClCompile Include="cpp\sci_arkode.cpp" />
     <ClCompile Include="cpp\sci_bvode.cpp" />
     <ClCompile Include="cpp\sci_cvode.cpp" />

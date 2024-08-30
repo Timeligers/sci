@@ -141,8 +141,9 @@ libscixcos_disable_la_CPPFLAGS = \
 XCOS_DISABLE_C_SOURCES = src/noxcos/noxcos.c
 libscixcos_disable_la_SOURCES = $(XCOS_DISABLE_C_SOURCES)
 
-pkglib_LTLIBRARIES = libscixcos-disable.la
 
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscixcos-disable.la
 if XCOS
 if GUI
 noinst_LTLIBRARIES = libscixcos-algo.la
@@ -162,9 +163,7 @@ INCLUDE_FLAGS = $(libscixcos_la_CPPFLAGS)
 
 
 libscixcos_la_LIBADD = libscixcos-algo.la \
-		$(top_builddir)/modules/scicos/libsciscicos.la \
-		$(top_builddir)/modules/commons/libscicommons.la \
-		$(top_builddir)/modules/jvm/libscijvm.la \
+		$(top_builddir)/modules/scicos/libsciscicos.la
 		$(LIBXML_LIBS)
 
 #### xcos : gateway declaration ####

@@ -203,10 +203,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libsciapi_scilab_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libsciapi_scilab_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @MAINTAINER_MODE_FALSE@am_libsciapi_scilab_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libsciapi_scilab_la_rpath = -rpath \
 @MAINTAINER_MODE_TRUE@	$(pkglibdir)
@@ -663,7 +659,6 @@ libsciapi_scilab_la_CPPFLAGS = \
 
 @MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciapi_scilab.la
 @MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciapi_scilab.la
-libsciapi_scilab_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
 libsciapi_scilab_la_SOURCES = $(API_SCILAB_C_SOURCES) $(API_SCILAB_CXX_SOURCES)
 
 # For the code check (splint)
@@ -919,7 +914,7 @@ src/cpp/libsciapi_scilab_la-api_error.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libsciapi_scilab.la: $(libsciapi_scilab_la_OBJECTS) $(libsciapi_scilab_la_DEPENDENCIES) $(EXTRA_libsciapi_scilab_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciapi_scilab_la_LINK) $(am_libsciapi_scilab_la_rpath) $(libsciapi_scilab_la_OBJECTS) $(libsciapi_scilab_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciapi_scilab_la_rpath) $(libsciapi_scilab_la_OBJECTS) $(libsciapi_scilab_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

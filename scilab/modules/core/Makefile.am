@@ -205,10 +205,6 @@ else
 noinst_LTLIBRARIES = libscicore-algo.la libscicore.la
 endif
 
-
-libscicore_la_LDFLAGS = $(AM_LDFLAGS)
-#-Wl,--version-script,LibScilab_Import.def
-
 # For the code check (splint)
 CHECK_SRC= $(CORE_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscicore_la_CPPFLAGS)

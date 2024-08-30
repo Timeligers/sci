@@ -118,15 +118,17 @@ host_triplet = @host@
 @JAVASCI_TRUE@am__append_5 = javasci
 @MPI_TRUE@am__append_6 = $(top_builddir)/modules/mpi/libscimpi.la
 
-# Force the libscijvm to be linked first. Under Debian, this avoid some reordering issues during the link
-@GUI_TRUE@am__append_7 = $(top_builddir)/modules/jvm/libscijvm.la $(GUI_LIBS)
-@GUI_FALSE@am__append_8 = $(NO_GUI_LIBS)
-
 # This should never be used in production. It forces the explicit link
 # between libscilab and some "on-the-fly" loaded libraries.
 # It has been added to make sure that the full link is correctly done
 # and all symbols resolved.
-@FORCE_LINK_TRUE@am__append_9 = $(ENGINE_LIBS_DYNAMIC_LOAD)
+@FORCE_LINK_TRUE@am__append_7 = $(ENGINE_LIBS_DYNAMIC_LOAD)
+
+# Force the libscijvm to be linked first. Under Debian, this avoid some reordering issues during the link
+@GUI_TRUE@am__append_8 = $(top_builddir)/modules/jvm/libscijvm.la $ $(GUI_LIBS)
+@GUI_FALSE@am__append_9 = $(NO_GUI_LIBS)
+@FORCE_LINK_TRUE@am__append_10 = $(GUI_LIBS_DYNAMIC_LOAD)
+@FORCE_LINK_TRUE@am__append_11 = $(NO_GUI_LIBS_DYNAMIC_LOAD)
 subdir = modules
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
@@ -182,23 +184,16 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(pkglibdir)"
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
-@IS_MACOSX_FALSE@am__DEPENDENCIES_1 = $(top_builddir)/modules/gui/libscigui-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/graphics/libscigraphics-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/graphic_export/libscigraphic_export-disable.la \
+@IS_MACOSX_FALSE@am__DEPENDENCIES_1 = $(top_builddir)/modules/commons/libscicommons-disable.la \
 @IS_MACOSX_FALSE@	$(top_builddir)/modules/console/libsciconsole-minimal.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/action_binding/libsciaction_binding-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/jvm/libscijvm-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/xcos/libscixcos-disable.la \
 @IS_MACOSX_FALSE@	$(top_builddir)/modules/graphic_objects/libscigraphic_objects-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/scinotes/libsciscinotes-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/ui_data/libsciui_data-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/history_browser/libscihistory_browser-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/commons/libscicommons-disable.la \
+@IS_MACOSX_FALSE@	$(top_builddir)/modules/history_manager/libscihistory_manager-disable.la \
 @IS_MACOSX_FALSE@	$(top_builddir)/modules/preferences/libscipreferences-cli.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/tclsci/libscitclsci-disable.la
+@IS_MACOSX_FALSE@	$(top_builddir)/modules/xcos/libscixcos-disable.la
 am__DEPENDENCIES_2 =
-libscilab_cli_la_DEPENDENCIES = $(ENGINE_LIBS) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_2) \
+libscilab_cli_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(CORE_LIBS) \
+	libscilab-engine.la $(MISTAGED_NO_GUI_DYNAMIC_LOAD) \
+	$(am__append_11) $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_2) \
 	$(am__DEPENDENCIES_2)
 am_libscilab_cli_la_OBJECTS =
 libscilab_cli_la_OBJECTS = $(am_libscilab_cli_la_OBJECTS)
@@ -206,14 +201,16 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libscilab_cli_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(AM_CFLAGS) $(CFLAGS) $(libscilab_cli_la_LDFLAGS) $(LDFLAGS) \
-	-o $@
+libscilab_engine_la_DEPENDENCIES = $(ENGINE_LIBS) $(am__append_7) \
+	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_2) \
+	$(am__DEPENDENCIES_2)
+am_libscilab_engine_la_OBJECTS =
+libscilab_engine_la_OBJECTS = $(am_libscilab_engine_la_OBJECTS)
 @GUI_FALSE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
-libscilab_la_DEPENDENCIES = $(am__append_7) $(am__DEPENDENCIES_3) \
-	libscilab-cli.la $(am__append_9) $(am__DEPENDENCIES_2) \
-	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_2)
+libscilab_la_DEPENDENCIES = $(am__append_8) $(am__DEPENDENCIES_3) \
+	$(CORE_LIBS) libscilab-engine.la $(MISTAGED_GUI_DYNAMIC_LOAD) \
+	$(am__append_10) $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_2) \
+	$(am__DEPENDENCIES_2)
 am_libscilab_la_OBJECTS =
 libscilab_la_OBJECTS = $(am_libscilab_la_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -247,8 +244,10 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libscilab_cli_la_SOURCES) $(libscilab_la_SOURCES)
-DIST_SOURCES = $(libscilab_cli_la_SOURCES) $(libscilab_la_SOURCES)
+SOURCES = $(libscilab_cli_la_SOURCES) $(libscilab_engine_la_SOURCES) \
+	$(libscilab_la_SOURCES)
+DIST_SOURCES = $(libscilab_cli_la_SOURCES) \
+	$(libscilab_engine_la_SOURCES) $(libscilab_la_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -673,10 +672,12 @@ SUBDIRS = prebuildjava threads output_stream arnoldi \
 #### Basic files ####
 libscilab_la_rootdir = $(mydatadir)
 
+# libscilab-engine is the main shared library
 # libscilab is the full library with the GUI
 # libscilab-cli is for scilab-cli (without GUI)
-pkglib_LTLIBRARIES = libscilab-cli.la libscilab.la
-libscilab_la_SOURCES = 
+pkglib_LTLIBRARIES = libscilab-cli.la libscilab.la libscilab-engine.la
+
+# Set AM_* SCI detected settings
 AM_CPPFLAGS = $(SCI_CPPFLAGS)
 AM_CFLAGS = $(SCI_CFLAGS)
 AM_CXXFLAGS = $(SCI_CXXFLAGS)
@@ -684,109 +685,140 @@ AM_FFLAGS = $(SCI_FFLAGS)
 
 # Tag shared libraries with the Scilab version
 AM_LDFLAGS = $(SCI_LDFLAGS) -version-number $(SCILAB_LIBRARY_VERSION)
-GUI_LIBS = $(top_builddir)/modules/gui/libscigui.la \
-	$(top_builddir)/modules/renderer/libscirenderer.la \
-	$(top_builddir)/modules/graphics/libscigraphics.la \
-	$(top_builddir)/modules/graphic_export/libscigraphic_export.la \
-	$(top_builddir)/modules/console/libsciconsole.la \
-	$(top_builddir)/modules/action_binding/libsciaction_binding.la \
-	$(top_builddir)/modules/jvm/libscijvm.la \
-	$(top_builddir)/modules/graphic_objects/libscigraphic_objects.la \
-	$(top_builddir)/modules/scinotes/libsciscinotes.la \
-	$(top_builddir)/modules/ui_data/libsciui_data.la \
-	$(top_builddir)/modules/history_browser/libscihistory_browser.la \
+GUI_LIBS = \
 	$(top_builddir)/modules/commons/libscicommons.la \
-	$(top_builddir)/modules/types/libscitypes-java.la \
+	$(top_builddir)/modules/console/libsciconsole.la \
+	$(top_builddir)/modules/graphic_objects/libscigraphic_objects.la \
+	$(top_builddir)/modules/history_manager/libscihistory_manager.la \
 	$(top_builddir)/modules/preferences/libscipreferences.la \
-	$(top_builddir)/modules/external_objects_java/libsciexternal_objects_java.la \
-	$(top_builddir)/modules/helptools/libscihelptools.la \
-	$(top_builddir)/modules/tclsci/libscitclsci.la
+	$(top_builddir)/modules/renderer/libscirenderer.la \
+	$(top_builddir)/modules/types/libscitypes-java.la \
+	$(top_builddir)/modules/tclsci/libscitclsci.la \
+	$(top_builddir)/modules/history_browser/libscihistory_browser.la
 
-@IS_MACOSX_FALSE@NO_GUI_LIBS = $(top_builddir)/modules/gui/libscigui-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/graphics/libscigraphics-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/graphic_export/libscigraphic_export-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/console/libsciconsole-minimal.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/action_binding/libsciaction_binding-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/jvm/libscijvm-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/xcos/libscixcos-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/graphic_objects/libscigraphic_objects-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/scinotes/libsciscinotes-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/ui_data/libsciui_data-disable.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/history_browser/libscihistory_browser-disable.la \
+@IS_MACOSX_FALSE@NO_GUI_LIBS = \
 @IS_MACOSX_FALSE@	$(top_builddir)/modules/commons/libscicommons-disable.la \
+@IS_MACOSX_FALSE@	$(top_builddir)/modules/console/libsciconsole-minimal.la \
+@IS_MACOSX_FALSE@	$(top_builddir)/modules/graphic_objects/libscigraphic_objects-disable.la \
+@IS_MACOSX_FALSE@	$(top_builddir)/modules/history_manager/libscihistory_manager-disable.la \
 @IS_MACOSX_FALSE@	$(top_builddir)/modules/preferences/libscipreferences-cli.la \
-@IS_MACOSX_FALSE@	$(top_builddir)/modules/tclsci/libscitclsci-disable.la
+@IS_MACOSX_FALSE@	$(top_builddir)/modules/xcos/libscixcos-disable.la
 
 @IS_MACOSX_TRUE@NO_GUI_LIBS = 
-ENGINE_LIBS = $(top_builddir)/modules/fileio/libscifileio.la \
-	$(top_builddir)/modules/mexlib/libmex.la \
-	$(top_builddir)/modules/functions/libscifunctions.la \
-	$(top_builddir)/modules/parameters/libsciparameters.la \
+
+# static libs dependent on GUI variant
+CORE_LIBS = \
+	$(top_builddir)/modules/core/libscicore.la
+
+
+# static libs
+ENGINE_LIBS = \
+	$(top_builddir)/modules/api_scilab/libsciapi_scilab.la \
+	$(top_builddir)/modules/ast/libsciast.la \
 	$(top_builddir)/modules/boolean/libsciboolean.la \
 	$(top_builddir)/modules/cacsd/libscicacsd.la \
-	$(top_builddir)/modules/core/libscicore.la \
-	$(top_builddir)/modules/call_scilab/libscicall_scilab.la \
-	$(top_builddir)/modules/api_scilab/libsciapi_scilab.la \
+	$(top_builddir)/modules/coverage/libscicoverage.la \
 	$(top_builddir)/modules/data_structures/libscidata_structures.la \
 	$(top_builddir)/modules/differential_equations/libscidifferential_equations.la \
+	$(top_builddir)/modules/dynamic_link/libscidynamic_link.la \
 	$(top_builddir)/modules/elementary_functions/libscielementary_functions.la \
+	$(top_builddir)/modules/fftw/libscifftw.la \
+	$(top_builddir)/modules/fileio/libscifileio.la \
+	$(top_builddir)/modules/functions_manager/libscifunctions_manager.la \
+	$(top_builddir)/modules/functions/libscifunctions.la \
 	$(top_builddir)/modules/integer/libsciinteger.la \
 	$(top_builddir)/modules/io/libsciio.la \
 	$(top_builddir)/modules/linear_algebra/libscilinear_algebra.la \
-	$(top_builddir)/modules/arnoldi/libsciarnoldi.la \
 	$(top_builddir)/modules/localization/libscilocalization.la \
-	$(top_builddir)/modules/polynomials/libscipolynomials.la \
-	$(top_builddir)/modules/special_functions/libscispecial_functions.la \
-	$(top_builddir)/modules/time/libscitime.la \
-	$(top_builddir)/modules/windows_tools/libsciwindows_tools.la \
-	$(top_builddir)/modules/sparse/libscisparse.la \
-	$(top_builddir)/modules/completion/libscicompletion.la \
-	$(top_builddir)/modules/history_manager/libscihistory_manager.la \
+	$(top_builddir)/modules/mexlib/libmex.la \
 	$(top_builddir)/modules/output_stream/libscioutput_stream.la \
+	$(top_builddir)/modules/parameters/libsciparameters.la \
+	$(top_builddir)/modules/polynomials/libscipolynomials.la \
+	$(top_builddir)/modules/sparse/libscisparse.la \
 	$(top_builddir)/modules/string/libscistring.la \
-	$(top_builddir)/modules/hdf5/libscihdf5.la \
-	$(top_builddir)/modules/fftw/libscifftw.la \
-	$(top_builddir)/modules/statistics/libscistatistics.la \
-	$(top_builddir)/modules/dynamic_link/libscidynamic_link.la \
 	$(top_builddir)/modules/threads/libscithreads.la \
-	$(top_builddir)/modules/ast/libsciast.la \
-	$(top_builddir)/modules/functions_manager/libscifunctions_manager.la \
+	$(top_builddir)/modules/time/libscitime.la \
+	$(top_builddir)/modules/windows_tools/libsciwindows_tools.la
+
+MISTAGED_GUI_DYNAMIC_LOAD = \
+	$(top_builddir)/modules/arnoldi/libsciarnoldi.la \
+	$(top_builddir)/modules/ui_data/libsciui_data.la \
+	$(top_builddir)/modules/graphics/libscigraphics.la \
+	$(top_builddir)/modules/gui/libscigui.la
+
+MISTAGED_NO_GUI_DYNAMIC_LOAD = \
+	$(top_builddir)/modules/arnoldi/libsciarnoldi.la \
+	$(top_builddir)/modules/ui_data/libsciui_data-disable.la \
+	$(top_builddir)/modules/completion/libscicompletion-disable.la \
+	$(top_builddir)/modules/graphics/libscigraphics-disable.la \
+	$(top_builddir)/modules/gui/libscigui-disable.la \
+	$(top_builddir)/modules/jvm/libscijvm-disable.la \
+	$(top_builddir)/modules/history_browser/libscihistory_browser-disable.la \
+	$(top_builddir)/modules/tclsci/libscitclsci-disable.la \
 	$(top_builddir)/modules/xml/libscixml.la \
-	$(top_builddir)/modules/external_objects/libsciexternal_objects.la \
-	$(top_builddir)/modules/slint/libscislint.la \
-	$(top_builddir)/modules/coverage/libscicoverage.la \
-	$(am__append_6)
+	$(top_builddir)/modules/external_objects/libsciexternal_objects.la
+
 
 # These libraries are loaded dynamically from Scilab.
-ENGINE_LIBS_DYNAMIC_LOAD = \
-	$(top_builddir)/modules/optimization/libscioptimization.la \
-	$(top_builddir)/modules/signal_processing/libscisignal_processing.la \
+ENGINE_LIBS_DYNAMIC_LOAD =  \
+	$(top_builddir)/modules/call_scilab/libscicall_scilab.la \
+	$(top_builddir)/modules/external_objects/libsciexternal_objects.la \
+	$(top_builddir)/modules/hdf5/libscihdf5.la \
+	$(top_builddir)/modules/helptools/libscihelptools.la \
 	$(top_builddir)/modules/interpolation/libsciinterpolation.la \
+	$(top_builddir)/modules/matio/libscimatio.la \
+	$(top_builddir)/modules/optimization/libscioptimization.la \
+	$(top_builddir)/modules/parallel/libsciparallel.la \
 	$(top_builddir)/modules/randlib/libscirandlib.la \
-	$(top_builddir)/modules/xcos/libscixcos.la \
 	$(top_builddir)/modules/scicos_blocks/libsciscicos_blocks.la \
 	$(top_builddir)/modules/scicos/libsciscicos.la \
+	$(top_builddir)/modules/signal_processing/libscisignal_processing.la \
+	$(top_builddir)/modules/slint/libscislint.la \
 	$(top_builddir)/modules/sound/libscisound.la \
+	$(top_builddir)/modules/special_functions/libscispecial_functions.la \
 	$(top_builddir)/modules/spreadsheet/libscispreadsheet.la \
+	$(top_builddir)/modules/statistics/libscistatistics.la \
 	$(top_builddir)/modules/umfpack/libsciumfpack.la \
-	$(top_builddir)/modules/matio/libscimatio.la \
-	$(top_builddir)/modules/parallel/libsciparallel.la \
-    $(top_builddir)/modules/webtools/libsciwebtools.la
+	$(top_builddir)/modules/xcos/libscixcos.la \
+	$(top_builddir)/modules/xml/libscixml.la \
+	$(top_builddir)/modules/webtools/libsciwebtools.la \
+	$(am__append_6)
+GUI_LIBS_DYNAMIC_LOAD = \
+	$(top_builddir)/modules/action_binding/libsciaction_binding.la \
+	$(top_builddir)/modules/completion/libscicompletion.la \
+	$(top_builddir)/modules/external_objects_java/libsciexternal_objects_java.la \
+	$(top_builddir)/modules/graphic_export/libscigraphic_export.la \
+	$(top_builddir)/modules/jvm/libscijvm.la \
+	$(top_builddir)/modules/scinotes/libsciscinotes.la
+
+NO_GUI_LIBS_DYNAMIC_LOAD = \
+	$(top_builddir)/modules/action_binding/libsciaction_binding-disable.la \
+	$(top_builddir)/modules/completion/libscicompletion-disable.la \
+	$(top_builddir)/modules/graphic_export/libscigraphic_export-disable.la \
+	$(top_builddir)/modules/graphics/libscigraphics-disable.la \
+	$(top_builddir)/modules/gui/libscigui-disable.la \
+	$(top_builddir)/modules/history_browser/libscihistory_browser-disable.la \
+	$(top_builddir)/modules/jvm/libscijvm-disable.la \
+	$(top_builddir)/modules/ui_data/libsciui_data-disable.la
 
 
-# Core modules
+### libscilab-engine for all shared code ###
+libscilab_engine_la_SOURCES = 
+libscilab_engine_la_LIBADD = $(ENGINE_LIBS) $(OTHER_LIBS) \
+	$(EXTERNAL_LIBS) $(am__append_7) $(FLIBS) $(LAPACK_LIBS) \
+	$(BLAS_LIBS)
 
-# Core modules
-libscilab_la_LIBADD = $(am__append_7) $(am__append_8) libscilab-cli.la \
-	$(OTHER_LIBS) $(EXTERNAL_LIBS) $(am__append_9) $(FLIBS) \
-	$(LAPACK_LIBS) $(BLAS_LIBS)
+### libscilab with jvm dependent code ###
+libscilab_la_SOURCES = 
+libscilab_la_LIBADD = $(am__append_8) $(am__append_9) $(CORE_LIBS) \
+	libscilab-engine.la $(MISTAGED_GUI_DYNAMIC_LOAD) \
+	$(am__append_10) $(FLIBS) $(LAPACK_LIBS) $(BLAS_LIBS)
 
 ################## libscilab-cli  ##################
 libscilab_cli_la_SOURCES = 
-libscilab_cli_la_LDFLAGS = $(AM_LDFLAGS) $(SCI_LDFLAGS)
-
-# Core modules
-libscilab_cli_la_LIBADD = $(ENGINE_LIBS) $(NO_GUI_LIBS) $(OTHER_LIBS) $(EXTERNAL_LIBS) $(FLIBS) $(LAPACK_LIBS) $(BLAS_LIBS)
+libscilab_cli_la_LIBADD = $(NO_GUI_LIBS) $(CORE_LIBS) \
+	libscilab-engine.la $(MISTAGED_NO_GUI_DYNAMIC_LOAD) \
+	$(am__append_11) $(FLIBS) $(LAPACK_LIBS) $(BLAS_LIBS)
 all: all-recursive
 
 .SUFFIXES:
@@ -856,7 +888,10 @@ clean-pkglibLTLIBRARIES:
 	}
 
 libscilab-cli.la: $(libscilab_cli_la_OBJECTS) $(libscilab_cli_la_DEPENDENCIES) $(EXTRA_libscilab_cli_la_DEPENDENCIES) 
-	$(AM_V_CCLD)$(libscilab_cli_la_LINK) -rpath $(pkglibdir) $(libscilab_cli_la_OBJECTS) $(libscilab_cli_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscilab_cli_la_OBJECTS) $(libscilab_cli_la_LIBADD) $(LIBS)
+
+libscilab-engine.la: $(libscilab_engine_la_OBJECTS) $(libscilab_engine_la_DEPENDENCIES) $(EXTRA_libscilab_engine_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscilab_engine_la_OBJECTS) $(libscilab_engine_la_LIBADD) $(LIBS)
 
 libscilab.la: $(libscilab_la_OBJECTS) $(libscilab_la_DEPENDENCIES) $(EXTRA_libscilab_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(LINK) -rpath $(pkglibdir) $(libscilab_la_OBJECTS) $(libscilab_la_LIBADD) $(LIBS)
@@ -1156,8 +1191,6 @@ uninstall-am: uninstall-pkglibLTLIBRARIES
 
 .PRECIOUS: Makefile
 
-
-.NOTPARALLEL: libscilab-cli.la libscilab.la
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

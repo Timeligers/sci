@@ -118,10 +118,9 @@ libscigraphic_export_disable_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/output_stream/includes/ \
 	$(AM_CPPFLAGS)
 
-# Name of the future library (.la will be replace by .so, .a, etc regarding
-# the system)
-pkglib_LTLIBRARIES = libscigraphic_export-disable.la
 
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libscigraphic_export-disable.la
 if GUI
 USEANT=1
 pkglib_LTLIBRARIES += libscigraphic_export.la

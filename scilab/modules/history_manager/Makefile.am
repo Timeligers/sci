@@ -27,10 +27,9 @@ GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_sethistoryfile.cpp \
     sci_gateway/cpp/sci_historymanager.cpp
 
-if GUI
+HISTORY_MANAGER_JNI_SOURCES= src/jni/HistoryManagement_wrap.c
 
-# List of the c files
-HISTORY_MANAGER_C_SOURCES += src/jni/HistoryManagement_wrap.c
+if GUI
 
 USEANT=1
 
@@ -45,12 +44,10 @@ endif
 
 
 # Includes need for the compilation
-libscihistory_manager_la_CPPFLAGS = \
-    $(JAVA_JNI_INCLUDE) \
+libscihistory_manager_algo_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/cpp/ \
     -I$(srcdir)/src/c/ \
-    -I$(srcdir)/src/jni/ \
     -I$(top_srcdir)/modules/ast/includes/ast/ \
     -I$(top_srcdir)/modules/ast/includes/exps/ \
     -I$(top_srcdir)/modules/ast/includes/operations/ \
@@ -65,19 +62,39 @@ libscihistory_manager_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/output_stream/includes/ \
     -I$(top_srcdir)/modules/history_browser/includes/ \
     -I$(top_srcdir)/modules/string/includes/ \
-    -I$(top_srcdir)/modules/dynamic_link/includes \
-    $(AM_CPPFLAGS)
+    -I$(top_srcdir)/modules/dynamic_link/includes
 
-# Name of the future library (.la will be replace by .so, .a, etc regarding
-# the system)
-pkglib_LTLIBRARIES = libscihistory_manager.la
+libscihistory_manager_la_CPPFLAGS = \
+    $(libscihistory_manager_algo_la_CPPFLAGS) \
+    $(JAVA_JNI_INCLUDE) \
+    -I$(srcdir)/src/jni/
+
+libscihistory_manager_disable_la_CPPFLAGS = \
+    $(libscihistory_manager_algo_la_CPPFLAGS)
+
+
+if MAINTAINER_MODE
+
+pkglib_LTLIBRARIES = libscihistory_manager-disable.la
+if GUI
+pkglib_LTLIBRARIES += libscihistory_manager.la
 noinst_LTLIBRARIES = libscihistory_manager-algo.la
+endif
+
+else
+
+noinst_LTLIBRARIES = libscihistory_manager-disable.la
+if GUI
+noinst_LTLIBRARIES += libscihistory_manager-algo.la libscihistory_manager.la
+endif
+
+endif # MAINTAINER_MODE
 
 
 # All the sources needed by libscihistory_manager.la
 libscihistory_manager_algo_la_SOURCES = $(HISTORY_MANAGER_C_SOURCES) $(HISTORY_MANAGER_CPP_SOURCES)
-libscihistory_manager_la_SOURCES = $(GATEWAY_CPP_SOURCES)
-libscihistory_manager_algo_la_CPPFLAGS = $(libscihistory_manager_la_CPPFLAGS)
+libscihistory_manager_la_SOURCES = $(GATEWAY_CPP_SOURCES) $(HISTORY_MANAGER_JNI_SOURCES)
+libscihistory_manager_disable_la_SOURCES = $(GATEWAY_CPP_SOURCES)
 
 # For the code check (splint)
 CHECK_SRC= $(HISTORY_MANAGER_C_SOURCES)
@@ -85,6 +102,7 @@ INCLUDE_FLAGS = $(libscihistory_manager_la_CPPFLAGS)
 
 ## Libraries necessary
 libscihistory_manager_la_LIBADD = libscihistory_manager-algo.la
+libscihistory_manager_disable_la_LIBADD = libscihistory_manager-algo.la
 modulename=history_manager
 
 #### history_manager : Conf files ####

@@ -23,9 +23,9 @@ extern "C" {
 #include "sci_malloc.h"
 #include "GetCharWithoutOutput.hxx"
 /*--------------------------------------------------------------------------*/
-#include "CallScilabBridge.hxx"
-using namespace  org_scilab_modules_gui_bridge;
+#include "CallConsole.h"
+
 int GetCharWithoutOutput(void)
 {
-    return CallScilabBridge::getCharWithoutOutput(getScilabJavaVM());
+    return console_getCharWithoutPrompt();
 }

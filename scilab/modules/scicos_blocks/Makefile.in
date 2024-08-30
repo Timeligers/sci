@@ -546,10 +546,6 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-libsciscicos_blocks_algo_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) \
-	$(libsciscicos_blocks_algo_la_LDFLAGS) $(LDFLAGS) -o $@
 libsciscicos_blocks_cli_la_DEPENDENCIES = $(am__append_3) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__libsciscicos_blocks_cli_la_SOURCES_DIST = src/cpp/HelpersCLI.cpp
@@ -558,10 +554,6 @@ am__objects_6 = src/cpp/libsciscicos_blocks_cli_la-HelpersCLI.lo
 am_libsciscicos_blocks_cli_la_OBJECTS = $(am__objects_7)
 libsciscicos_blocks_cli_la_OBJECTS =  \
 	$(am_libsciscicos_blocks_cli_la_OBJECTS)
-libsciscicos_blocks_cli_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) \
-	$(libsciscicos_blocks_cli_la_LDFLAGS) $(LDFLAGS) -o $@
 libsciscicos_blocks_la_DEPENDENCIES = $(am__append_5) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__libsciscicos_blocks_la_SOURCES_DIST = src/cpp/HelpersJNI.cpp \
@@ -571,10 +563,6 @@ am__objects_8 = src/cpp/libsciscicos_blocks_la-HelpersJNI.lo \
 @GUI_TRUE@@XCOS_TRUE@am__objects_9 = $(am__objects_8)
 am_libsciscicos_blocks_la_OBJECTS = $(am__objects_9)
 libsciscicos_blocks_la_OBJECTS = $(am_libsciscicos_blocks_la_OBJECTS)
-libsciscicos_blocks_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libsciscicos_blocks_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
 @GUI_TRUE@@XCOS_TRUE@am_libsciscicos_blocks_la_rpath = -rpath \
 @GUI_TRUE@@XCOS_TRUE@	$(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -1729,11 +1717,10 @@ SCICOS_BLOCKS_FORTRAN_SOURCES = \
 
 
 #### Multi-libraries handling ######
+
+# dynamic module, loaded on demand
 noinst_LTLIBRARIES = libsciscicos_blocks-algo.la
 pkglib_LTLIBRARIES = libsciscicos_blocks-cli.la $(am__append_1)
-libsciscicos_blocks_algo_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_blocks_la_LDFLAGS = $(AM_LDFLAGS)
-libsciscicos_blocks_cli_la_LDFLAGS = $(AM_LDFLAGS)
 libsciscicos_blocks_algo_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
     -I$(srcdir)/src/c/ \
@@ -2754,12 +2741,12 @@ src/cpp/libsciscicos_blocks_algo_la-scoUtils.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libsciscicos_blocks-algo.la: $(libsciscicos_blocks_algo_la_OBJECTS) $(libsciscicos_blocks_algo_la_DEPENDENCIES) $(EXTRA_libsciscicos_blocks_algo_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciscicos_blocks_algo_la_LINK)  $(libsciscicos_blocks_algo_la_OBJECTS) $(libsciscicos_blocks_algo_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK)  $(libsciscicos_blocks_algo_la_OBJECTS) $(libsciscicos_blocks_algo_la_LIBADD) $(LIBS)
 src/cpp/libsciscicos_blocks_cli_la-HelpersCLI.lo:  \
 	src/cpp/$(am__dirstamp) src/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libsciscicos_blocks-cli.la: $(libsciscicos_blocks_cli_la_OBJECTS) $(libsciscicos_blocks_cli_la_DEPENDENCIES) $(EXTRA_libsciscicos_blocks_cli_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciscicos_blocks_cli_la_LINK) -rpath $(pkglibdir) $(libsciscicos_blocks_cli_la_OBJECTS) $(libsciscicos_blocks_cli_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libsciscicos_blocks_cli_la_OBJECTS) $(libsciscicos_blocks_cli_la_LIBADD) $(LIBS)
 src/cpp/libsciscicos_blocks_la-HelpersJNI.lo: src/cpp/$(am__dirstamp) \
 	src/cpp/$(DEPDIR)/$(am__dirstamp)
 src/jni/$(am__dirstamp):
@@ -2772,7 +2759,7 @@ src/jni/libsciscicos_blocks_la-AfficheBlock.lo:  \
 	src/jni/$(am__dirstamp) src/jni/$(DEPDIR)/$(am__dirstamp)
 
 libsciscicos_blocks.la: $(libsciscicos_blocks_la_OBJECTS) $(libsciscicos_blocks_la_DEPENDENCIES) $(EXTRA_libsciscicos_blocks_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciscicos_blocks_la_LINK) $(am_libsciscicos_blocks_la_rpath) $(libsciscicos_blocks_la_OBJECTS) $(libsciscicos_blocks_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libsciscicos_blocks_la_rpath) $(libsciscicos_blocks_la_OBJECTS) $(libsciscicos_blocks_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

@@ -210,9 +210,7 @@ am__v_lt_0 = --silent
 am__v_lt_1 = 
 am__DEPENDENCIES_1 =
 libsciexternal_objects_java_la_DEPENDENCIES =  \
-	libsciexternal_objects_java-algo.la \
-	$(top_builddir)/modules/commons/libscicommons.la \
-	$(top_builddir)/modules/jvm/libscijvm.la $(am__DEPENDENCIES_1) \
+	libsciexternal_objects_java-algo.la $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 am__objects_3 =  \
 	sci_gateway/cpp/libsciexternal_objects_java_la-sci_jimport.lo \
@@ -245,10 +243,6 @@ am_libsciexternal_objects_java_la_OBJECTS = $(am__objects_3) \
 	$(am__objects_1)
 libsciexternal_objects_java_la_OBJECTS =  \
 	$(am_libsciexternal_objects_java_la_OBJECTS)
-libsciexternal_objects_java_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) \
-	$(libsciexternal_objects_java_la_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -853,17 +847,16 @@ libsciexternal_objects_java_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/commons/src/jni/ \
     $(JAVA_JNI_INCLUDE)
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciexternal_objects_java.la
 noinst_LTLIBRARIES = libsciexternal_objects_java-algo.la
-libsciexternal_objects_java_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
 libsciexternal_objects_java_algo_la_SOURCES = $(EXTERNAL_OBJECTS_JAVA_C_SOURCES) $(EXTERNAL_OBJECTS_JAVA_JNI_SOURCES) $(EXTERNAL_OBJECTS_JAVA_CPP_SOURCES)
 libsciexternal_objects_java_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libsciexternal_objects_java_algo_la_CFLAGS = $(libsciexternal_objects_java_la_CFLAGS)
 libsciexternal_objects_java_algo_la_CPPFLAGS = $(libsciexternal_objects_java_la_CPPFLAGS)
 libsciexternal_objects_java_la_LIBADD = \
     libsciexternal_objects_java-algo.la \
-    $(top_builddir)/modules/commons/libscicommons.la \
-    $(top_builddir)/modules/jvm/libscijvm.la \
     $(X_LIBS) $(X_EXTRA_LIBS)
 
 
@@ -1089,7 +1082,7 @@ sci_gateway/cpp/libsciexternal_objects_java_la-sci_jinvoke_db.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libsciexternal_objects_java.la: $(libsciexternal_objects_java_la_OBJECTS) $(libsciexternal_objects_java_la_DEPENDENCIES) $(EXTRA_libsciexternal_objects_java_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libsciexternal_objects_java_la_LINK) -rpath $(pkglibdir) $(libsciexternal_objects_java_la_OBJECTS) $(libsciexternal_objects_java_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) -rpath $(pkglibdir) $(libsciexternal_objects_java_la_OBJECTS) $(libsciexternal_objects_java_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

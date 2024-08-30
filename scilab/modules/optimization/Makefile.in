@@ -808,6 +808,8 @@ libscioptimization_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/elementary_functions/includes/ \
     $(AM_CPPFLAGS)
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscioptimization.la
 noinst_LTLIBRARIES = libscioptimization-algo.la
 libscioptimization_algo_la_SOURCES = $(OPTIMIZATION_C_SOURCES) $(OPTIMIZATION_CPP_SOURCES) $(OPTIMIZATION_FORTRAN_SOURCES) $(MINPACK_SOURCES)

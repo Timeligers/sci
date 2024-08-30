@@ -151,7 +151,7 @@ libscifileio_algo_la_SOURCES = $(FILEIO_C_SOURCES) $(FILEIO_CPP_SOURCES) $(FILEI
 libscifileio_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 
 libscifileio_algo_la_CPPFLAGS = $(libscifileio_la_CPPFLAGS)
-libscifileio_la_LDFLAGS = $(LIBARCHIVE_LIBS)
+libscifileio_la_LDFLAGS = $(LIBARCHIVE_LIBS) $(CURL_LIBS)
 
 # For the code check (splint)
 CHECK_SRC= $(FILEIO_C_SOURCES) $(FILEIO_CPP_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)

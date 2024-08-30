@@ -2057,6 +2057,8 @@ libscigraphics_disable_la_CPPFLAGS = \
 
 
 # endif
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libscigraphics-disable.la $(am__append_1)
 @GUI_TRUE@USEANT = 1
 @GUI_TRUE@noinst_LTLIBRARIES = libscigraphics-algo.la

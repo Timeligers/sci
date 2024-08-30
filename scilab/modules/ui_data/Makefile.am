@@ -111,14 +111,14 @@ libsciui_data_disable_la_CPPFLAGS = \
 UI_DATA_DISABLE_C_SOURCES = src/noui_data/noui_data.c
 libsciui_data_disable_la_SOURCES = $(UI_DATA_DISABLE_C_SOURCES)
 
-pkglib_LTLIBRARIES = libsciui_data-disable.la
 
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libsciui_data-disable.la
 if GUI
 pkglib_LTLIBRARIES += libsciui_data.la
 noinst_LTLIBRARIES = libsciui_data-algo.la
 endif
 
-libsciui_data_la_LDFLAGS = $(AM_LDFLAGS)
 
 libsciui_data_algo_la_SOURCES = $(UI_DATA_C_SOURCES) $(UI_DATA_JNI_SOURCES) $(UI_DATA_CXX_SOURCES)
 libsciui_data_la_SOURCES = $(GATEWAY_CXX_SOURCES)

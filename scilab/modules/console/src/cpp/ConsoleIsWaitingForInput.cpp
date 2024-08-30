@@ -16,13 +16,13 @@
 /*--------------------------------------------------------------------------*/
 #include "ConsoleIsWaitingForInput.hxx"
 /*--------------------------------------------------------------------------*/
-#include "CallScilabBridge.hxx"
-using namespace org_scilab_modules_gui_bridge;
+#include "CallConsole.h"
+
 BOOL ConsoleIsWaitingForInput(void)
 {
     if (getScilabJavaVM())
     {
-        return booltoBOOL(CallScilabBridge::isWaitingForInput(getScilabJavaVM()));
+        return console_isWaitingForInput();
     }
     return FALSE;
 }

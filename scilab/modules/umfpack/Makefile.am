@@ -13,13 +13,13 @@
 
 modulename=umfpack
 
+
+# dynamic module, loaded on demand
 pkglib_LTLIBRARIES = libsciumfpack.la
 
 if UMFPACK
 noinst_LTLIBRARIES = libsciumfpack-algo.la
 endif
-
-libsciumfpack_la_LDFLAGS = $(AM_LDFLAGS)
 
 #### umfpack : Conf files ####
 libsciumfpack_la_rootdir = $(mydatadir)

@@ -187,9 +187,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)" \
 	"$(DESTDIR)$(libscitypes_la_rootdir)" \
 	"$(DESTDIR)$(libscitypes_la_sci_gatewaydir)"
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
-libscitypes_java_la_DEPENDENCIES =  \
-	$(top_builddir)/modules/commons/libscicommons.la \
-	$(top_builddir)/modules/jvm/libscijvm.la
+libscitypes_java_la_DEPENDENCIES =
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = src/jni/libscitypes_java_la-getScilabVariable_wrap.lo
 am__objects_2 = src/cpp/libscitypes_java_la-ScilabToJava.lo \
@@ -773,10 +771,7 @@ libscitypes_algo_la_CPPFLAGS = \
     $(libscitypes_la_CPPFLAGS) \
     $(AM_CPPFLAGS)
 
-libscitypes_java_la_LIBADD = \
-			$(top_builddir)/modules/commons/libscicommons.la \
-			$(top_builddir)/modules/jvm/libscijvm.la
-
+libscitypes_java_la_LIBADD = 
 libscitypes_java_la_SOURCES = $(TYPES_JAVA_C_SOURCES) $(TYPES_JAVA_CPP_SOURCES)
 
 # For the code check (splint)

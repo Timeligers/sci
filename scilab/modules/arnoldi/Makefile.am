@@ -33,9 +33,6 @@ libsciarnoldi_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/elementary_functions/includes/ \
     $(AM_CPPFLAGS)
 
-pkglib_LTLIBRARIES = libsciarnoldi.la
-
-libsciarnoldi_la_LDFLAGS = $(AM_LDFLAGS)
 libsciarnoldi_la_LIBADD = $(BLAS_LIBS) $(LAPACK_LIBS) $(ARPACK_LIBS)
 
 libsciarnoldi_la_SOURCES = $(ARNOLDI_C_SOURCES) $(GATEWAY_C_SOURCES)
@@ -46,6 +43,10 @@ INCLUDE_FLAGS = $(libsciarnoldi_la_CPPFLAGS)
 
 #### Target ######
 modulename=arnoldi
+
+
+# dynamic module, loaded on demand
+pkglib_LTLIBRARIES = libsciarnoldi.la
 
 
 #### arnoldi : Conf files ####

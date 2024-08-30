@@ -231,10 +231,6 @@ am__libscifftw_la_SOURCES_DIST = src/nofftw/nofftw.cpp \
 @FFTW_TRUE@am_libscifftw_la_OBJECTS = $(am__objects_4) \
 @FFTW_TRUE@	$(am__objects_5)
 libscifftw_la_OBJECTS = $(am_libscifftw_la_OBJECTS)
-libscifftw_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(libscifftw_la_LDFLAGS) $(LDFLAGS) \
-	-o $@
 @MAINTAINER_MODE_FALSE@am_libscifftw_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libscifftw_la_rpath = -rpath $(pkglibdir)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -667,7 +663,6 @@ modulename = fftw
 @MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscifftw.la \
 @MAINTAINER_MODE_FALSE@	$(am__append_1)
 @MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = $(am__append_1)
-libscifftw_la_LDFLAGS = $(AM_LDFLAGS)
 
 #### fftw : Conf files ####
 libscifftw_la_rootdir = $(mydatadir)
@@ -995,7 +990,7 @@ sci_gateway/cpp/libscifftw_la-sci_dct.lo:  \
 	sci_gateway/cpp/$(DEPDIR)/$(am__dirstamp)
 
 libscifftw.la: $(libscifftw_la_OBJECTS) $(libscifftw_la_DEPENDENCIES) $(EXTRA_libscifftw_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libscifftw_la_LINK) $(am_libscifftw_la_rpath) $(libscifftw_la_OBJECTS) $(libscifftw_la_LIBADD) $(LIBS)
+	$(AM_V_CXXLD)$(CXXLINK) $(am_libscifftw_la_rpath) $(libscifftw_la_OBJECTS) $(libscifftw_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
