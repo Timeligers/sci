@@ -358,11 +358,13 @@ make_binary_directory() {
     cp -d /usr/local/lib/libsciquadmath.so* "$LIBTHIRDPARTYDIR/redist/"
     cp -d /usr/local/lib/libscigfortran.so* "$LIBTHIRDPARTYDIR/redist/"
     cp -d /usr/local/lib/libscigcc_s.so* "$LIBTHIRDPARTYDIR/redist/"
+    cp -d /usr/local/lib/libscigomp.so* "$LIBTHIRDPARTYDIR/redist/"
     cp -d /usr/local/lib/libscistdc++.so* "$LIBTHIRDPARTYDIR/redist/"
 
     cp -d /usr/local/lib/libsciquadmath.so* "$INSTALLUSRDIR/lib/"
     cp -d /usr/local/lib/libscigfortran.so* "$INSTALLUSRDIR/lib/"
     cp -d /usr/local/lib/libscigcc_s.so* "$INSTALLUSRDIR/lib/"
+    cp -d /usr/local/lib/libscigomp.so* "$INSTALLUSRDIR/lib/"
     cp -d /usr/local/lib/libscistdc++.so* "$INSTALLUSRDIR/lib/"
 
     # In case these libraries are not found on the system.
