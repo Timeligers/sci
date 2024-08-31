@@ -16,7 +16,13 @@
 #include "context.hxx"
 #include "struct.hxx"
 #include "tlist.hxx"
+#include "overload.hxx"
+#include "string.hxx"
+#include "callable.hxx"
+#include "types_tools.hxx"
 #include "user.hxx"
+#include "graphichandle.hxx"
+
 
 extern "C"
 {
@@ -31,6 +37,7 @@ extern "C"
 #include "freeArrayOfString.h"
 #include "charEncoding.h"
 #include "getfields.h"
+#include "HandleManagement.h"
 }
 
 static int isInitialized = 0;
@@ -94,7 +101,28 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
     switch (pIT->getType())
     {
         case types::InternalType::ScilabHandle:
-            return completionOnHandleGraphicsProperties(pattern, size);
+        {
+            types::typed_list in,out;
+            types::Callable::ReturnValue ret;
+
+            if (getObjectFromHandle((long)pIT->getAs<types::GraphicHandle>()->get(0)) == 0)
+            {
+                return NULL;
+            }
+
+            pIT->IncreaseRef();
+            in.push_back(pIT);
+            ret = Overload::call(L"%h_fieldnames", in, 1, out);
+            pIT->DecreaseRef();
+            if (ret == types::Callable::OK_NoResult || out.size() != 1 || out[0]->isString() == false)
+            {
+                return NULL;    
+            }
+            pFields = out[0]->getAs<types::String>();
+            iSize = pFields->getSize();
+            iXlist = 0;
+            break;            
+        }
         case types::InternalType::ScilabStruct:
         {
             types::Struct* pStr = pIT->getAs<types::Struct>();
@@ -105,24 +133,36 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
             }
 
             iSize = pFields->getSize();
-            pstData = pFields->get();
             break;
         }
         case types::InternalType::ScilabTList:
         case types::InternalType::ScilabMList:
         {
-            types::TList* pL = pIT->getAs<types::TList>();
-            pFields = pL->getFieldNames();
+            types::typed_list in,out;
+            types::Callable::ReturnValue ret;
 
-            // bypass the value, is the (t/m)list type
-            iSize = pFields->getSize() - 1;
-            if (iSize == 0)
+            pIT->IncreaseRef();
+            in.push_back(pIT);
+            ret = Overload::generateNameAndCall(L"fieldnames", in, 1, out, false, false);
+            pIT->DecreaseRef();
+            if (ret == types::Callable::OK_NoResult || out.size() != 1 || out[0]->isString() == false)
             {
-                return NULL;
-            }
+                pFields = pIT->getAs<types::TList>()->getFieldNames();
 
-            pstData = pFields->get();
-            iXlist = 1;
+                //bypass the value, is the (t/m)list type
+                iSize = pFields->getSize() - 1;
+                if (iSize == 0)
+                {
+                    return NULL;
+                }
+                iXlist = 1;                
+            }
+            else
+            {
+                pFields = out[0]->getAs<types::String>();
+                iSize = pFields->getSize();
+                iXlist = 0;
+            }
             break;
         }
         case types::InternalType::ScilabUserType:
@@ -140,20 +180,20 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
             }
 
             iSize = pFields->getSize();
-
-            pstData = pFields->get();
             break;
         }
         default:
             return NULL;
     }
 
+    pstData = pFields->get();
+
     int iLast = 0;
     char** _fields = (char**)MALLOC(sizeof(char*) * (iSize + 1));
     wchar_t* wpattern = to_wide_string(pattern);
     for (int i = iXlist; i < (iSize + iXlist); ++i)
     {
-        if (wcsstr(pstData[i], wpattern) == pstData[i])
+        if (!std::isspace(pstData[i][0]) && wcsstr(pstData[i], wpattern) == pstData[i])
         {
             _fields[iLast++] = wide_string_to_UTF8(pstData[i]);
         }
