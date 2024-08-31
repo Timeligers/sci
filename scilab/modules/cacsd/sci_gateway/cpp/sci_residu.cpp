@@ -34,7 +34,6 @@ types::Function::ReturnValue sci_residu(types::typed_list &in, int _iRetCount, t
 {
     int iRows[3]             = {0, 0, 0};
     int iCols[3]             = {0, 0, 0};
-    int iComplex[3]          = {0, 0, 0};
     int* piRank[3]           = {NULL, NULL, NULL};
     double** pdblInR[3]      = {NULL, NULL, NULL};
     double** pdblInI[3]      = {NULL, NULL, NULL};
@@ -44,8 +43,6 @@ types::Function::ReturnValue sci_residu(types::typed_list &in, int _iRetCount, t
     types::Double* pDblOut   = NULL;
 
     double dblEps   = nc_eps_machine();
-    double dZero    = 0;
-    int iOne        = 1;
     int iSize       = 0;
     int iError      = 0;
 

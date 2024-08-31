@@ -78,7 +78,7 @@ jclass instanceClass; // cache class
 /**
 * Get the environment matching to the current thread.
 */
-virtual JNIEnv * getCurrentEnv();
+JNIEnv * getCurrentEnv();
 
 public:
 // Constructor

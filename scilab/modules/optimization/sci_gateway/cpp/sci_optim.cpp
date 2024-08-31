@@ -79,7 +79,6 @@ types::Function::ReturnValue sci_optim(types::typed_list &in, types::optional_li
     int iSim        = 0; // 1 : c function || 2 : macro
     int iAlgo       = 1; // 1 : qn || 2 : gc || 10 : nd
     int iMem        = 0;
-    int iGetArgs    = 0;
     int iIndSim     = 0;
     int iIndOpt     = 0;
     int iSaveI      = 0;
@@ -88,7 +87,6 @@ types::Function::ReturnValue sci_optim(types::typed_list &in, types::optional_li
     int iMode       = 1;
     int iWorkSize   = 0;
     int iWorkSizeI  = 0;
-    int iNitv       = 0;
     int io          = 0; // not used in scilab 6 and more
     int iPrint        = 0;
     int iZero       = 0;
@@ -745,7 +743,7 @@ types::Function::ReturnValue sci_optim(types::typed_list &in, types::optional_li
             iArret = 1;
         }
 
-        if (iContr == 1 && (iAlgo == 2 || iAlgo == 10) ||
+        if ((iContr == 1 && (iAlgo == 2 || iAlgo == 10)) ||
                 (iContr == 2 && iAlgo == 1 && pdblWork) ||
                 (iArret == 1))
         {

@@ -44,7 +44,6 @@ std::vector<std::wstring> CVODEManager::getAvailableNonLinSolvers()
 
 void CVODEManager::parseMethodAndOrder(types::optional_list &opt)
 {
-    char errorMsg[256];
     int iDefaultMaxOrder = 0;
     std::vector<int> emptyVect = {};
     std::wstring wstrDefaultMethod;

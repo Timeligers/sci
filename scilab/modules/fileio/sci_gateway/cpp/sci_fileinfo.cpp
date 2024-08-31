@@ -53,7 +53,6 @@ types::Function::ReturnValue sci_fileinfo(types::typed_list &in, int _iRetCount,
 
     types::String* pS = in[0]->getAs<types::String>();
     types::InternalType* iT = NULL;
-    types::String* pS1 = NULL;
 
     if (pS->getCols() != 1)
     {

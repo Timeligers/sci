@@ -38,7 +38,6 @@ types::Function::ReturnValue sci_bsplin3val(types::typed_list &in, int _iRetCoun
     types::Double* pDblZ            = NULL;
     types::Double* pDblOrder        = NULL;
     types::Double* pDblCoef         = NULL;
-    types::Double* pDblXyzminmax    = NULL;
 
     // output
     types::Double* pDblDfp = NULL;
@@ -101,7 +100,6 @@ types::Function::ReturnValue sci_bsplin3val(types::typed_list &in, int _iRetCoun
     pDblZ = pTList->getField(L"tz")->getAs<types::Double>();
     pDblOrder = pTList->getField(L"order")->getAs<types::Double>();
     pDblCoef = pTList->getField(L"bcoef")->getAs<types::Double>();
-    pDblXyzminmax = pTList->getField(L"xyzminmax")->getAs<types::Double>();
 
     if (in[4]->isDouble() == false)
     {
@@ -141,8 +139,6 @@ types::Function::ReturnValue sci_bsplin3val(types::typed_list &in, int _iRetCoun
     int sizeOfX = pDblX->getRows() - order[0];
     int sizeOfY = pDblY->getRows() - order[1];
     int sizeOfZ = pDblZ->getRows() - order[2];
-
-    double* minmax = pDblXyzminmax->get();
 
     int workSize = order[1] * order[2] + 3 * std::max(order[0], std::max(order[1], order[2])) + order[2];
     double* work = new double[workSize];

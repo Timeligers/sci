@@ -37,7 +37,7 @@ scilabVar API_PROTO(createString)(scilabEnv env, const wchar_t* val);
 
 scilabStatus API_PROTO(getStringArray)(scilabEnv env, scilabVar var, wchar_t*** strs);
 scilabStatus API_PROTO(getString)(scilabEnv env, scilabVar var, wchar_t** str);
-scilabStatus API_PROTO(setStringArray)(scilabEnv env, scilabVar var, const wchar_t* const* strs);
+scilabStatus API_PROTO(setStringArray)(scilabEnv env, scilabVar var, wchar_t CONST_PTR* CONST_PTR* strs);
 scilabStatus API_PROTO(setString)(scilabEnv env, scilabVar var, const wchar_t* str);
 
 #ifdef __cplusplus

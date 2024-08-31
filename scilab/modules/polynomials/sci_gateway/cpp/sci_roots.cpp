@@ -43,8 +43,6 @@ types::Function::ReturnValue sci_roots(types::typed_list &in, int _iRetCount, ty
 
     double* pdblInReal   = NULL;
     double* pdblInImg    = NULL;
-    double* pdblTempReal = NULL;
-    double* pdblTempImg  = NULL;
 
     int iOne = 1;
     int imOne = -1;

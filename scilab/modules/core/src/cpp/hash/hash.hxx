@@ -20,6 +20,9 @@
 class Hash
 {
 public:
+  inline
+  virtual ~Hash() {};
+
   /// compute hash of a memory block
   virtual std::string operator()(const void* data, size_t numBytes) = 0;
   /// compute hash of a string, excluding final zero

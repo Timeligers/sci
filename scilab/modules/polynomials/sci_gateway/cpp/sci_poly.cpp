@@ -132,7 +132,6 @@ types::Function::ReturnValue sci_poly(types::typed_list &in, int _iRetCount, typ
             bDeleteInput = true;
         }
 
-        int iOne = 1;
         double* pdblInReal = pDblIn->get();
         int piDimsArray[2] = {1, 1};
         int iSize = pDblIn->getSize();
@@ -142,7 +141,6 @@ types::Function::ReturnValue sci_poly(types::typed_list &in, int _iRetCount, typ
         double* pdblCoefReal = pPolyOut->get(0)->get();
         if (pDblIn->isComplex())
         {
-            double dblEps = nc_eps_machine();
             pPolyOut->setComplex(true);
             double* pdblInImg   = pDblIn->getImg();
             double* pdblCoefImg = pPolyOut->get(0)->getImg();

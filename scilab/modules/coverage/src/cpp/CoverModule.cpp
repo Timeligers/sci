@@ -891,7 +891,7 @@ std::wstring CoverModule::encodeFilename(const std::wstring& name)
 void CoverModule::merge(const std::vector<std::wstring>& paths, const std::wstring& out)
 {
     CoverModule cm;
-    for (const auto path : paths)
+    for (const auto& path : paths)
     {
         cm.load(path);
     }

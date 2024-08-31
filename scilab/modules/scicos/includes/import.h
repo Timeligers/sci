@@ -85,7 +85,7 @@ typedef struct
     int *noord;       /*  */
     int *zord;        /*  */
     int *nzord;       /*  */
-    int *funptr;      /* block indexes */
+    voidg* funptr;    /* block function pointers */
     int *funtyp;      /* block types */
     int *ztyp;        /* block types */
     int *cord;        /* block types */
@@ -114,7 +114,7 @@ typedef struct
 
 SCICOS_IMPEXP ScicosImport* getscicosimportptr(void);
 
-SCICOS_IMPEXP int getscicosvarsfromimport(char *what, void **v, int *nv, int *mv);
+SCICOS_IMPEXP int getscicosvarsfromimport(const char *what, void **v, int *nv, int *mv);
 
 SCICOS_IMPEXP void C2F(getouttb)(int *nsize, int *nvec, double *outtc);
 

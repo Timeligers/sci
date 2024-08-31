@@ -33,6 +33,7 @@ class ScilabAbstractEnvironment
 {
 
 public:
+    virtual ~ScilabAbstractEnvironment() {};
 
     virtual OptionsHelper & getOptionsHelper() = 0;
 

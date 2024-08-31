@@ -159,7 +159,6 @@ types::Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, typ
     if (in[0]->isString() && in[0]->getAs<types::String>()->isScalar())
     {
         //1st argument is a path, parse file and execute it
-        int iParsePathLen = 0;
         types::String* pS = in[0]->getAs<types::String>();
 
         pwstFile = expandPathVariableW(pS->get(0));

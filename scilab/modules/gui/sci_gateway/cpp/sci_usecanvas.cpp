@@ -34,7 +34,7 @@ int sci_usecanvas(char *fname, void* pvApiCtx)
 {
     SciErr sciErr;
 
-    int m1 = 0, n1 = 0, l1 = 0;
+    int l1 = 0;
     int status = 0;
     int* piAddr1 = NULL;
 

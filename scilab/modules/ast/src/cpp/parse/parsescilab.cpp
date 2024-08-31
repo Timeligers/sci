@@ -5514,7 +5514,7 @@ bool endsWith(const std::string & str, const std::string & end)
 }
 
 void yyerror(std::string msg) {
-    if (!endsWith(msg, "FLEX_ERROR") && !ParserSingleInstance::isStrictMode()
+    if ((!endsWith(msg, "FLEX_ERROR") && !ParserSingleInstance::isStrictMode())
        || ParserSingleInstance::getExitStatus() == Parser::Succeded)
     {
         wchar_t* pstMsg = to_wide_string(msg.c_str());

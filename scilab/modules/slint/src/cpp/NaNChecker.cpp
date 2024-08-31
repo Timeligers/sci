@@ -64,6 +64,8 @@ void NaNChecker::preCheckNode(const ast::Exp & e, SLintContext & context, SLintR
                     result.report(context, e.getLocation(), *this, _("Use isnan() when comparing values with %nan."));
                     break;
                 }
+                default:
+                    break;
             }
         }
     }

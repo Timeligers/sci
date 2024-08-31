@@ -460,6 +460,8 @@ InternalType* ImplicitList::getInitalType()
                 return new UInt32(iDims, piDms);
             case ScilabUInt64:
                 return new UInt64(iDims, piDms);
+            default:
+                return nullptr;
         }
     }
 
@@ -500,6 +502,8 @@ bool ImplicitList::extractValue(int _iOccur, InternalType* pIT)
             case ScilabDouble:
                 extractValueAsDouble(_iOccur, pIT->getAs<Double>());
                 break;
+            default:
+                return false;
         }
         return true;
     }
@@ -519,8 +523,7 @@ InternalType* ImplicitList::extractFullMatrix()
         }
         else if (getSize() == -1) // return nan
         {
-            unsigned long long raw = 0x7ff8000000000000;
-            double not_a_number = *( double* )&raw;
+            double not_a_number = std::numeric_limits<double>::quiet_NaN();
             pIT = new Double(not_a_number);
         }
         else if (m_eOutType == ScilabDouble)
@@ -714,7 +717,6 @@ InternalType* ImplicitList::extract(typed_list* _pArgs)
         {
             std::vector<int> indexes;
             indexes.reserve(iSeqCount);
-            bool isOutPoly = false;
             double* pDbl = pArg[0]->getAs<Double>()->get();
             for (int i = 0 ; i < iSeqCount ; i++)
             {

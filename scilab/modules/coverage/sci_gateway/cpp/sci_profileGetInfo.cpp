@@ -94,7 +94,6 @@ void populateFunctionTable(types::Struct* functionTable, const std::map<std::wst
 
     // append some information to an existing types::SingleStruct
     int i = 0;
-    auto& fields = functionTable->get(0, 0)->getFields();
     auto& data = functionTable->get(0, 0)->getData();
 
     const auto& found = fileDescription.lower_bound(macro->getFileName());
@@ -209,7 +208,6 @@ void populateFunctionCoverage(types::Struct* functionCoverage, CoverModule* cm, 
 
     // append some information to an existing types::SingleStruct
     int i = 0;
-    auto& fields = functionCoverage->get(0, 0)->getFields();
     auto& data = functionCoverage->get(0, 0)->getData();
 
     int previousSize = data[0]->getAs<types::String>()->getSize();

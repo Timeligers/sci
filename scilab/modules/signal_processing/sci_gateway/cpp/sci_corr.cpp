@@ -53,7 +53,6 @@ types::Function::ReturnValue sci_corr(types::typed_list &in, int _iRetCount, typ
             int iSect       = 0;
             int iOutSize    = 0;
             int iTotalSize  = 0;
-            int iSize       = 0;
             int iMode       = 0;
 
             double* xa = NULL;
@@ -61,10 +60,6 @@ types::Function::ReturnValue sci_corr(types::typed_list &in, int _iRetCount, typ
             double* xr = NULL;
             double* zr = NULL;
             double* zi = NULL;
-
-            char *dx = NULL;
-            char *dy = NULL;
-            bool bOK = false;
 
             //check input parameters
             if (in.size() < 4 || in.size() > 5)

@@ -80,7 +80,10 @@ void NgonGridMatplotDataDecomposer::fillGridVertices(float* buffer, int bufferLe
 {
     double xi = 0.;
     double yj = 0.;
+    
+#if PER_VERTEX_VALUES
     double zij = 0.;
+#endif /* PER_VERTEX_VALUES */
     double yjp1 = 0.;
     double xip1 = 0.;
 
@@ -138,7 +141,6 @@ void NgonGridMatplotDataDecomposer::fillGridVertices(float* buffer, int bufferLe
     for (int j = 0; j < numY - 1; j++)
     {
         double ycoords[4];
-        int yindices[4];
 
         yj = (double) j * y[1] + y[0];
         yjp1 = (double) (j + 1) * y[1] + y[0];
@@ -157,15 +159,9 @@ void NgonGridMatplotDataDecomposer::fillGridVertices(float* buffer, int bufferLe
         ycoords[2] = yjp1;
         ycoords[3] = yjp1;
 
-        yindices[0] = j;
-        yindices[1] = j;
-        yindices[2] = j + 1;
-        yindices[3] = j + 1;
-
         for (int i = 0; i < numX - 1; i++)
         {
             double xcoords[4];
-            int xindices[4];
 
             xi = (double) i * x[1] + x[0];
             xip1 = (double) (i + 1) * x[1] + x[0];
@@ -180,11 +176,6 @@ void NgonGridMatplotDataDecomposer::fillGridVertices(float* buffer, int bufferLe
             xcoords[1] = xip1;
             xcoords[2] = xi;
             xcoords[3] = xip1;
-
-            xindices[0] = i;
-            xindices[1] = i + 1;
-            xindices[2] = i;
-            xindices[3] = i + 1;
 
             for (int k = 0; k < 4; k++)
             {
@@ -224,13 +215,11 @@ void NgonGridMatplotDataDecomposer::fillGridVertices(float* buffer, int bufferLe
 void NgonGridMatplotDataDecomposer::fillColors(int id, float* buffer, int bufferLength, int elementsSize)
 {
     int parent = 0;
-    int* pparent = &parent;
     int parentFigure = 0;
     int* pparentFigure = &parentFigure;
 
     void * data = NULL;
     double* colormap = NULL;
-    double currentZ = 0.;
 
     int numX = 0;
     int* piNumX = &numX;
@@ -395,7 +384,6 @@ int NgonGridMatplotDataDecomposer::fillIndices(int id, int* buffer, int bufferLe
 
 int NgonGridMatplotDataDecomposer::isFacetValid(double* z, double* values, int perNodeValues, int numX, int numY, int i, int j, int logUsed, int currentEdgeValid, int* nextEdgeValid)
 {
-    double zij = 0.;
     int facetValid = 1;
 
     /*zij = getZCoordinate(z, numX, numY, i, j, logUsed);

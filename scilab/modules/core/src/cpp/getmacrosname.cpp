@@ -24,7 +24,7 @@ extern "C" {
 char **getMacrosName(int *sizearray)
 {
     std::list<std::wstring> macrosList;
-    int size = symbol::Context::getInstance()->getMacrosName(macrosList);
+    symbol::Context::getInstance()->getMacrosName(macrosList);
 
     //sort list
     macrosList.sort();

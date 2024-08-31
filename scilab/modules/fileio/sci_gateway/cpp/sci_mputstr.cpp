@@ -38,8 +38,6 @@ types::Function::ReturnValue sci_mputstr(types::typed_list &in, int _iRetCount, 
     types::String* pString  = NULL;
     int iErr                = 1;
 
-    types::Double* pdFileId = NULL;
-
     if (in.size() < 1 || in.size() > 2)
     {
         Scierror(77, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), "mputstr", 1, 2);

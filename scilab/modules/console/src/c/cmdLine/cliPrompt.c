@@ -35,21 +35,22 @@ int printPrompt(int token)
     /* Retrieve the prompt. It can be different if the pause mode is enabled */
     const char * prompt     = GetCurrentPrompt();
     const char * tmpPrompt  = GetTemporaryPrompt();
+    int len = 0;
 
     if (token == WRITE_PROMPT)
     {
         setCharDisplay(DISP_DEFAULT);
-        if (tmpPrompt == '\0')
+        if (*tmpPrompt != '\0')
         {
-            printf("%s", tmpPrompt);
+            len = printf("%s", tmpPrompt);
         }
         else
         {
-            printf("%s", prompt);
+            len = printf("%s", prompt);
         }
         setCharDisplay(DISP_LAST_SET);
         fflush(stdout);
     }
 
-    return strlen(prompt);;
+    return len;
 }

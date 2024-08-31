@@ -337,6 +337,10 @@ static int import_handle_children(hid_t dataset, int parent, int version)
     {
         hid_t c = getDataSetIdFromName(children, std::to_string(i).data());
         int newChild = import_handle(c, parent, version);
+        if (newChild < 0)
+        {
+            return -1;
+        }
     }
 
     closeList6(children);
@@ -1453,6 +1457,10 @@ static int import_handle_plot3d(hid_t dataset, int parent, int version)
     gridSize[3] = yC;
 
     result = setGraphicObjectPropertyAndNoWarn(plot, __GO_DATA_MODEL_GRID_SIZE__, gridSize, jni_int_vector, 4);
+    if (result == FALSE)
+    {
+        return -1;
+    }
 
     setGraphicObjectPropertyAndNoWarn(plot, __GO_DATA_MODEL_X__, dataX, jni_double_vector, xR * xC);
     setGraphicObjectPropertyAndNoWarn(plot, __GO_DATA_MODEL_Y__, dataY, jni_double_vector, yR * yC);
@@ -2057,10 +2065,6 @@ static bool export_handle_generic(hid_t parent, int uid, const HandleProp& props
                 }
                 case jni_int_vector:
                 {
-                    if (name == "border_size")
-                    {
-                        std::cout << "border_size";
-                    }
                     std::vector<int> dims = {row, col};
                     int* vals;
                     getHandleIntVectorProperty(uid, go, &vals);
@@ -3041,7 +3045,6 @@ static bool export_handle_plot3d(hid_t parent, int uid, hid_t xfer_plist_id)
     bool ret = export_handle_surface(parent, uid, xfer_plist_id);
     if (ret)
     {
-        double* colors = NULL;
         double* dataX = NULL;
         double* dataY = NULL;
         double* dataZ = NULL;

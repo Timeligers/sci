@@ -29,16 +29,6 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_sign(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    int iRows   = 0;
-    int iCols   = 0;
-    int iType   = 0;
-    int* piAddr = NULL;
-
-    double *pdblReal    = NULL;
-    double *pdblImg     = NULL;
-    double *pdblRealRet = NULL;
-    double *pdblImgRet  = NULL;
-
     if (in.size() != 1)
     {
         Scierror(77, _("%s: Wrong number of input argument(s): %d expected.\n"), "sign", 1);
@@ -124,6 +114,8 @@ types::Function::ReturnValue sci_sign(types::typed_list &in, int _iRetCount, typ
                 break;
             case types::InternalType::ScilabUInt64 :
                 out.push_back(in[0]->getAs<types::UInt64>()->sign());
+                break;
+            default:
                 break;
         }
     }

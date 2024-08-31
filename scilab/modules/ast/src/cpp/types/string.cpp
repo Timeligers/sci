@@ -166,7 +166,6 @@ bool String::subMatrixToString(std::wostringstream& ostr, int* _piDims, int /*_i
 
     if (isScalar())
     {
-        int iMaxLen = 0;
         _piDims[0]  = 0;
         _piDims[1]  = 0;
 

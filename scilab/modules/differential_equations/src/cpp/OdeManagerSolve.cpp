@@ -19,13 +19,11 @@ void OdeManager::solve()
 {
     solverReturnCode iFlag;
     int iStep = 0;
-    int iNbErrors = 0;
     int iNbSteps = 0;
     int iFirstStep = 0;
     solverTaskCode ODE_MODE;
     double dblTime = 0;
     double dblCurrTime;
-    double dblStep;
     double dblFinalTime;
     bool bTerminalEvent = false;
     char errorMsg[256];
@@ -156,7 +154,7 @@ void OdeManager::solve()
             if (bTerminalEvent == true
                 || iFlag == ODE_TSTOP_RETURN
                 || (m_bHas[INTCB] && intermediateCallback(dblTime, iFlag == ODE_ROOT_RETURN ? 1 : 0, m_N_VectorY, m_N_VectorYp))
-                || ODE_MODE == ODE_NORMAL && dblNextTime == dblFinalTime)
+                || (ODE_MODE == ODE_NORMAL && dblNextTime == dblFinalTime))
             {
                 break;
             }

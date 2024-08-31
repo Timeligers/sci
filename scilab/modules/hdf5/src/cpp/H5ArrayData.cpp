@@ -56,7 +56,6 @@ bool H5ArrayData::isArray() const
 H5Object & H5ArrayData::getData(const unsigned int size, const unsigned int * index) const
 {
     unsigned int pos = 0;
-    hsize_t * _dims = 0;
 
     for (unsigned int i = 0; i < size; i++)
     {

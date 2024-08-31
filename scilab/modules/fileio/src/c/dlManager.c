@@ -70,8 +70,9 @@ static void free_string(inputString *s)
     }
 }
 /* ==================================================================== */
-static size_t writefunc(void *ptr, size_t size, size_t nmemb, inputString *s)
+static size_t writefunc(char *ptr, size_t size, size_t nmemb, void* inputStream)
 {
+    inputString *s = (inputString *) inputStream;
     size_t new_len = s->len + size * nmemb;
 
     s->ptr = (char*)REALLOC(s->ptr, new_len + 1);

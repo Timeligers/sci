@@ -47,12 +47,12 @@ ScilabJavaEnvironment * ScilabJavaEnvironment::instance = 0;
 bool ScilabJavaEnvironment::usable = true;
 
 ScilabJavaEnvironment::ScilabJavaEnvironment() :
-    helper(*new JavaOptionsHelper()),
-    gwOptions(*new ScilabGatewayOptions()),
-    wrapper(*new ScilabJavaEnvironmentWrapper(helper)),
     traceEnabled(false),
     isInit(false),
-    scilabStream(*new ScilabStream()) { }
+    scilabStream(*new ScilabStream()),
+    helper(*new JavaOptionsHelper()),
+    gwOptions(*new ScilabGatewayOptions()),
+    wrapper(*new ScilabJavaEnvironmentWrapper(helper)) { }
 
 ScilabJavaEnvironment::~ScilabJavaEnvironment()
 {

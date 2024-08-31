@@ -238,7 +238,10 @@ char *ParserSingleInstance::getCodeLine(int line, char **codeLine)
     */
     for (i = 1 ; i <= line ; ++i)
     {
-        fgets(*codeLine, 4096, yyin);
+        if(fgets(*codeLine, 4096, yyin) == NULL)
+        {
+            break;
+        }
     }
     return *codeLine;
 }

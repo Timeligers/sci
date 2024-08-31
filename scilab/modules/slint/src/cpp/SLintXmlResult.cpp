@@ -32,7 +32,7 @@ extern "C"
 namespace slint
 {
 
-SLintXmlResult::SLintXmlResult(const std::wstring & _path) : current(nullptr), path(_path)
+SLintXmlResult::SLintXmlResult(const std::wstring & _path) : path(_path), current(nullptr)
 {
     const std::wstring fullpath = SLint::getFullPath(path);
     out = new std::ofstream(scilab::UTF8::toUTF8(fullpath), std::ios::out);

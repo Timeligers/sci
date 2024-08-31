@@ -447,7 +447,6 @@ static bool import_double_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos, int *
 static bool import_string_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     int iRet = 0;
-    int i = 0;
     int iRows = 0;
     int iCols = 0;
     char **pstData = NULL;

@@ -57,8 +57,6 @@ types::Function::ReturnValue sci_grand(types::typed_list &in, int _iRetCount, ty
     int iStrPos = 0;
     int iPos = 0;
     int meth = -1;
-    int iRows = -1;
-    int iCols = -1;
     int iNumIter = -1;
 
 

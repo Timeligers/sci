@@ -275,8 +275,18 @@ types::Function::ReturnValue sci_sum(types::typed_list &in, int _iRetCount, type
                         pDblIn = getAsDouble(in[0]->getAs<types::UInt64>());
                         break;
                     }
+                    default:
+                    {
+                        pDblIn = nullptr;
+                        break;
+                    }
                 }
             }
+            break;
+        }
+        default:
+        {
+            pDblIn = nullptr;
             break;
         }
     }
@@ -369,6 +379,11 @@ types::Function::ReturnValue sci_sum(types::typed_list &in, int _iRetCount, type
                 case types::InternalType::ScilabUInt64:
                 {
                     pIntOut = sum(pIntIn->getAs<types::UInt64>(), iOrientation);
+                    break;
+                }
+                default:
+                {
+                    pIntOut = nullptr;
                     break;
                 }
             }

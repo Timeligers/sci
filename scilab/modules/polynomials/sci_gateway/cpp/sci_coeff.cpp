@@ -37,7 +37,6 @@ types::Function::ReturnValue sci_coeff(types::typed_list &in, int _iRetCount, ty
     double* pdblV = NULL;
     int iVSize    = 1;
     int iOne      = 1;
-    double dZero  = 1;
 
     if (in.size() < 1 || in.size() > 2)
     {

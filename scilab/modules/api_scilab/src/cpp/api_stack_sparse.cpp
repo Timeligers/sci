@@ -49,7 +49,6 @@ SciErr getComplexSparseMatrix(void* _pvCtx, int* _piAddress, int* _piRows, int* 
 SciErr getCommonSparseMatrix(void* _pvCtx, int* _piAddress, int _iComplex, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal, double** _pdblImg)
 {
     SciErr sciErr = sciErrInit();
-    int iPos = 0;
     int iType = 0;
 
     if (_piAddress == NULL)

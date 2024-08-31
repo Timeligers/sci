@@ -40,7 +40,6 @@ types::Function::ReturnValue sci_lsqrsolve(types::typed_list &in, int _iRetCount
     double* pdblDiag = NULL;
 
     int iSizeX      = 0;
-    int iWorkSize   = 0;
     int iInfo       = 0;
     int iM          = 0;
     int iPos        = 0;

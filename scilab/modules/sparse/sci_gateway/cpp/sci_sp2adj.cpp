@@ -27,8 +27,6 @@ extern "C"
 //[xadj,adjncy,anz]= sp2adj(
 types::Function::ReturnValue sci_sp2adj(types::typed_list &in, int nbRes, types::typed_list &out)
 {
-    types::Sparse *pRetVal = NULL;
-
     if (in.size() != 1)
     {
         Scierror(999, _("%s: Wrong number of input argument(s): %d expected.\n"), "sp2adj", 1);

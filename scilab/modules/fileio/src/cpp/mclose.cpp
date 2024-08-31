@@ -99,7 +99,6 @@ int mclose(int _iID)
 
 void C2F(mclose) (int *fd, double *res)
 {
-    int fd1 = -1;
     *res = 0.0;
 
     switch (*fd)

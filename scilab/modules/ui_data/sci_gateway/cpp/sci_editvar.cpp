@@ -110,8 +110,6 @@ int sci_editvar(char * fname, void* pvApiCtx)
 
     SciErr sciErr;
 
-    int m1 = 0, n1 = 0;
-
     int * piAddr = NULL;
     int iType = 0;
     int iCols = 0;
@@ -149,7 +147,6 @@ int sci_editvar(char * fname, void* pvApiCtx)
 
     int * piAddressVarOne = NULL;
     char * pStVarOne = NULL;
-    int lenStVarOne = 0;
 
     int * addr = NULL;
     double * rowsIndex = NULL;

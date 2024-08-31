@@ -17,7 +17,7 @@
 #include "GlobalTclInterp.h"
 #include "setenvtcl.h"
 /*--------------------------------------------------------------------------*/
-int setenvtcl(char *string, char *value)
+int setenvtcl(char const* string, char const* value)
 {
     char MyTclCommand[2048];
 

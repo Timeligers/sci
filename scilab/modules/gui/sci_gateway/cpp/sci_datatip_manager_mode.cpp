@@ -39,7 +39,6 @@ int sci_datatip_manager_mode(char *fname, void* pvApiCtx)
     char* pstData       = NULL;
     int iRows           = 0;
     int iCols           = 0;
-    int stkAdr          = 0;
     int iType           = 0;
     int iLen            = 0;
     int iErr            = 0;

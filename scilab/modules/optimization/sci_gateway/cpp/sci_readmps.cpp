@@ -56,8 +56,7 @@ types::Function::ReturnValue sci_readmps(types::typed_list &in, int _iRetCount, 
     int ierr        = 0;
     int line        = 0;
     char typrow[2];
-
-    wchar_t* wcsFileName = NULL;
+    
     double big = NumericConstants::double_max;
 
     if (in.size() < 2 || in.size() > 3)

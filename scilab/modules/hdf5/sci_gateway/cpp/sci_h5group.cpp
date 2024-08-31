@@ -46,7 +46,6 @@ int sci_h5group(char *fname, int* pvApiCtx)
     char ** strs = 0;
     char * expandedPath = 0;
     std::string _expandedPath;
-    const int nbIn = nbInputArgument(pvApiCtx);
     int row, col;
 
     CheckOutputArgument(pvApiCtx, 0, 1);

@@ -29,7 +29,6 @@ extern "C"
 types::Function::ReturnValue sci_isglobal(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     types::typed_list::iterator inIterator;
-    int iWrongType = 1;
 
     if (in.size() != 1)
     {

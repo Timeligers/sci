@@ -22,7 +22,6 @@ extern "C"
 
 int SetUicontrolString(void* _pvCtx, int iObjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {
-    BOOL status = FALSE;
     int objectStyle = -1;
     int *piObjectStyle = &objectStyle;
     int type = -1;

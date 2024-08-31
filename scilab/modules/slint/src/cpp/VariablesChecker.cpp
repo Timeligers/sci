@@ -46,7 +46,6 @@ void VariablesChecker::preCheckNode(const ast::Exp & e, SLintContext & context, 
             {
                 const ast::SimpleVar & var = static_cast<const ast::SimpleVar &>(e);
 
-                const std::wstring & Name = var.getSymbol().getName();
                 if (context.isAssignedVar(var))
                 {
                     // if we are not in the context on a nested assignment in a function call (foo(a,b=2))

@@ -39,7 +39,6 @@ types::Function::ReturnValue sci_getrelativefilename(types::typed_list &in, int 
 {
     wchar_t* wcsAbsDir  = NULL;
     wchar_t* wcsAbsFile = NULL;
-    wchar_t* wcsResult  = NULL;
 
     types::String* pStrDir  = NULL;
     types::String* pStrFile = NULL;

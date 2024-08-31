@@ -23,3 +23,12 @@ char *uiWaitContextMenu(int iObjUID)
     /* TO DO : create a copy or move sci_uiwait to cpp to do a delete */
     return CallScilabBridge::displayAndWaitContextMenu(getScilabJavaVM(), iObjUID);
 }
+
+void releaseUiWaitContextMenuResult(char* res)
+{
+    if (res == nullptr)
+    {
+        return;
+    }
+    delete[] res;
+}

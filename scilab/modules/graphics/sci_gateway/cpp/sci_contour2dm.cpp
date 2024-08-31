@@ -12,7 +12,7 @@ extern "C"
 int sci_contour2dm(char * fname, void *pvApiCtx)
 {
     SciErr sciErr;
-    int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0, m4 = 0, n4 = 0, m5 = 0, n5 = 0, mn1 = 0;
+    int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0, m4 = 0, n4 = 0, m5 = 0, n5 = 0;
     int iType1 = 0, iType2 = 0, iType3 = 0, iType4 = 0, iType5 = 0;
 
     int* piAddr1 = NULL;

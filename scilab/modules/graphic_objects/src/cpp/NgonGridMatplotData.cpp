@@ -588,7 +588,6 @@ void NgonGridMatplotData::setImageData(void const* data, const int numElements)
         return;
     }
 
-    unsigned int dataSize = 0;
     const int N = ySize - 1;
     const int M = xSize - 1;
     const int NM = N * M;
@@ -606,7 +605,7 @@ void NgonGridMatplotData::setImageData(void const* data, const int numElements)
             scilabData = NULL;
         }
 
-        unsigned int _size;
+        unsigned int _size = 0;
 
         switch (datatype)
         {

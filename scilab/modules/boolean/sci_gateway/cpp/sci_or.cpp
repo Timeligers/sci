@@ -38,7 +38,6 @@ types::Function::ReturnValue sci_or(types::typed_list &in, int _iRetCount, types
 {
     int opt = 0;
     int* pBoolValuesOne = NULL;
-    int* pBoolResult = NULL;
 
     if ((in.size() < 1) || (in.size() > 2))
     {

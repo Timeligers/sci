@@ -41,7 +41,6 @@ types::Function::ReturnValue sci_mput(types::typed_list &in, int _iRetCount, typ
     int iSize = 0;
     int iFile = -1; //default file : last opened file
     double* pData = NULL;
-    int iErr = 0;
 
     if (in.size() < 1 || in.size() > 3)
     {
@@ -169,6 +168,8 @@ types::Function::ReturnValue sci_mput(types::typed_list &in, int _iRetCount, typ
                 err = mputi(iFile, piData, iSize, pstType);
                 break;
             }
+            default:
+                return types::Function::Error;
         }
 
         if (err)

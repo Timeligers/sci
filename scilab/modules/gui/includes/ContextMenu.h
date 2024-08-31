@@ -26,4 +26,6 @@
  */
 char *uiWaitContextMenu(int iObjUID);
 
+void releaseUiWaitContextMenuResult(char*);
+
 #endif /* __CONTEXTMENU_H__ */

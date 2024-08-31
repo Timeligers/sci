@@ -260,7 +260,7 @@ int sci_ClipBoard(char *fname, void* pvApiCtx)
                                 }
                             }
 
-                            TextToSendInClipboard = (char*)MALLOC( (SizeofTextToSendInClipboard) * sizeof(char) );
+                            TextToSendInClipboard = (char*)MALLOC( (SizeofTextToSendInClipboard + 1) * sizeof(char) );
                             if (TextToSendInClipboard == NULL)
                             {
                                 freeAllocatedMatrixOfString(m2, n2, Str);

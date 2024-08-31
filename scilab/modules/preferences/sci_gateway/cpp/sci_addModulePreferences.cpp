@@ -40,7 +40,6 @@ int sci_addModulePreferences(char * fname, void *pvApiCtx)
     char * tbxPrefFile = 0;
     char * expTbxPrefFile = 0;
     char ** array[] = {&tbxName, &tbxPath, &tbxPrefFile};
-    bool error = false;
 
     CheckLhs(0, 1);
     CheckRhs(3, 3);

@@ -114,7 +114,7 @@ scilabStatus API_PROTO(getString)(scilabEnv env, scilabVar var, wchar_t** str)
     return STATUS_OK;
 }
 
-scilabStatus API_PROTO(setStringArray)(scilabEnv env, scilabVar var, const wchar_t* const* strs)
+scilabStatus API_PROTO(setStringArray)(scilabEnv env, scilabVar var, wchar_t const* const* strs)
 {
     types::String* s = (types::String*)var;
 #ifdef __API_SCILAB_SAFE__
@@ -128,7 +128,7 @@ scilabStatus API_PROTO(setStringArray)(scilabEnv env, scilabVar var, const wchar
     return STATUS_OK;
 }
 
-scilabStatus API_PROTO(setString)(scilabEnv env, scilabVar var, wchar_t* str)
+scilabStatus API_PROTO(setString)(scilabEnv env, scilabVar var, wchar_t const* str)
 {
     types::String* s = (types::String*)var;
 #ifdef __API_SCILAB_SAFE__

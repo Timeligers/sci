@@ -233,7 +233,7 @@ private :
 
     void add_OpExp_Oper(const OpExp::Oper oper)
     {
-        int code = 253;
+        int code;
         switch (oper)
         {
             case OpExp::plus :
@@ -326,6 +326,10 @@ private :
 
             case OpExp::unaryPlus:
                 code = (28);
+                break;
+            
+            default: // unknown code
+                code = (253);
                 break;
         }
         add_uint8(code);

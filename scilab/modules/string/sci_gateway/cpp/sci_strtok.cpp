@@ -35,10 +35,7 @@ types::Function::ReturnValue sci_strtok(types::typed_list &in, int _iRetCount, t
 {
     static wchar_t *pwstState  = NULL;
     wchar_t *pwstString = NULL;
-
     wchar_t* pwstSeps           = NULL;
-    int dims                    = 2;
-    int dimsArray[2]            = {1, 1};
 
     if (in.size() < 1 || in.size() > 2)
     {
@@ -81,7 +78,7 @@ types::Function::ReturnValue sci_strtok(types::typed_list &in, int _iRetCount, t
         }
     }
 
-    wchar_t* pwstToken = NULL;
+    wchar_t const* pwstToken = NULL;
     if (pwstString == NULL && pwstState == NULL)
     {
         // set an empty string

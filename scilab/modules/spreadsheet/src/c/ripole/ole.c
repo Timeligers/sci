@@ -173,7 +173,7 @@ int OLE_dir_init(struct OLE_directory_entry *dir)
     dir->stream_size = 0;
 
     return 0;
-};
+}
 
 /*-----------------------------------------------------------------\
 Function Name	: OLE_set_verbose

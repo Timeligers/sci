@@ -554,7 +554,6 @@ int MeshFecDataDecomposer::fillWireIndices(int id, int* buffer, int bufferLength
 
     int v0 = 0;
     int v1 = 0;
-    int v2 = 0;
     int bufferOffset = 0;
 
     getGraphicObjectProperty(id, __GO_DATA_MODEL_NUM_INDICES__, jni_int, (void**) &piNumIndices);

@@ -35,7 +35,6 @@ types::Function::ReturnValue sci_helpbrowser(types::typed_list &in, int _iRetCou
 {
     int iHelpAdrSize    = 0;
     char **helpAdr      = NULL;
-    char **languageAdr  = NULL;
 
     if (_iRetCount > 1)
     {

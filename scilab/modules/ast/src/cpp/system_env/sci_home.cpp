@@ -202,9 +202,7 @@ static char* computeSCIHOME(const char* path)
     int ierr   = 0;
     int buflen = PATH_MAX;
     int iflag  = 0;
-    char USERPATHSCILAB[PATH_MAX];
     char USERHOMESYSTEM[PATH_MAX];
-    char SCIHOMEPATH[PATH_MAX * 2];
     char HOME[] = "HOME";
 
     getenvc(&ierr, HOME, USERHOMESYSTEM, &buflen, &iflag);
@@ -213,35 +211,39 @@ static char* computeSCIHOME(const char* path)
         return NULL;
     }
 
+    std::string userpathscilab;
+    std::string scihome;
+
     /* Set SCIHOME environment variable */
-    sprintf(USERPATHSCILAB, "%s%s%s", USERHOMESYSTEM, DIR_SEPARATOR, BASEDIR);
+    userpathscilab.append(USERHOMESYSTEM).append(DIR_SEPARATOR).append(BASEDIR);
+    
     if (path && path[0] != '\0')
     {
-        sprintf(SCIHOMEPATH, "%s%s%s", USERPATHSCILAB, DIR_SEPARATOR, path);
+        scihome.append(userpathscilab).append(DIR_SEPARATOR).append(path);
     }
     else
     {
         char *scilabVersionString = getScilabVersionAsString();
-        sprintf(SCIHOMEPATH, "%s%s%s", USERPATHSCILAB, DIR_SEPARATOR, scilabVersionString);
+        scihome.append(userpathscilab).append(DIR_SEPARATOR).append(scilabVersionString);
         free(scilabVersionString);
     }
 
     /* creates directory if it does not exist */
-    if (!isdir(SCIHOMEPATH))
+    if (!isdir(scihome.c_str()))
     {
-        if (!isdir(USERPATHSCILAB))
+        if (!isdir(userpathscilab.c_str()))
         {
-            createDirectoryRecursively(USERPATHSCILAB);
+            createDirectoryRecursively(userpathscilab.c_str());
         }
 
-        if (createDirectoryRecursively(SCIHOMEPATH))
+        if (createDirectoryRecursively(scihome.c_str()))
         {
-            return os_strdup(SCIHOMEPATH);
+            return os_strdup(scihome.c_str());
         }
     }
     else
     {
-        return os_strdup(SCIHOMEPATH);
+        return os_strdup(scihome.c_str());
     }
 
     return NULL;

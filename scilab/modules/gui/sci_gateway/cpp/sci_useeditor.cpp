@@ -41,7 +41,6 @@ int sci_useeditor(char *fname, void* pvApiCtx)
     int m1          = 0;
     int n1          = 0;
     int enable      = 0;
-    int iErr        = 0;
 
     SciErr sciErr;
     CheckInputArgument(pvApiCtx, 1, 2);

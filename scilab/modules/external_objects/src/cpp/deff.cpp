@@ -31,10 +31,6 @@ static types::Callable* pCall = nullptr;
 
 int ScilabGateway::deff(char * fname, const int envId, void * pvApiCtx)
 {
-    static int ONE = 1;
-    static int TWO = 2;
-    static int THREE = 3;
-
     SciErr err;
     char ** names[] = {0, 0, 0};
     int ret = 0;

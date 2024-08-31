@@ -53,7 +53,6 @@ types::Function::ReturnValue sci_rtitr(types::typed_list &in, int _iRetCount, ty
     int iSizeNum = 0;
     int iRowsU   = 0;
     int iColsU   = 0;
-    int iOne     = 1;
     int iJob     = 1;
     int iErr     = 0;
 

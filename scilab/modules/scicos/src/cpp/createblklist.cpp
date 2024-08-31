@@ -184,21 +184,14 @@ types::List* createblklist(const scicos_block* const Blocks, const int flag_imp,
 
     int* xptr = nullptr; /* to retrieve xptr by import and zcptr of scicos_blocks */
     double* x = nullptr; /* ptr for x, xd and g for scicos_blocks                 */
-    double* xd = nullptr;
     int* zcptr = nullptr;
     double* g = nullptr;
 
     if (flag_imp >= 0)
     {
         int nv, mv; /* length of data                             */
-        int nblk;   /* to store number of blocks                  */
         //int ng;             /* to store number of zero cross              */
         void* ptr; /* ptr for data comming from import structure */
-
-        /*retrieve nblk by import structure*/
-        char Nblk[] = "nblk";
-        getscicosvarsfromimport(Nblk, &ptr, &nv, &mv);
-        nblk = ((int*)ptr)[0];
 
         /* retrieve ng by import structure */
         char Ng[] = "ng";
@@ -219,7 +212,6 @@ types::List* createblklist(const scicos_block* const Blocks, const int flag_imp,
         char X[] = "x";
         getscicosvarsfromimport(X, &ptr, &nv, &mv);
         x = (double*)ptr;
-        xd = &x[xptr[nblk] - 1];
 
         /*retrieve g by import structure*/
         char G[] = "g";

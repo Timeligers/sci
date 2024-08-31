@@ -116,9 +116,9 @@ public:
         {
             if (ndims == 2)
             {
-                for (int i = 0; i < dims[0]; i++)
+                for (hsize_t i = 0; i < dims[0]; i++)
                 {
-                    for (int j = 0; j < dims[1]; j++)
+                    for (hsize_t j = 0; j < dims[1]; j++)
                     {
                         dest[i + dims[0] * j] = src[j + dims[1] * i];
                     }
@@ -152,7 +152,7 @@ private:
     {
         if (ndims == 1)
         {
-            for (int i = 0; i < *dims; i++)
+            for (hsize_t i = 0; i < *dims; i++)
             {
                 *dest = src[i];
                 dest += *cumprod;
@@ -160,7 +160,7 @@ private:
         }
         else
         {
-            for (int i = 0; i < *dims; i++)
+            for (hsize_t i = 0; i < *dims; i++)
             {
                 reorder(ndims - 1, dims + 1, cumprod + 1, cumdiv + 1, src, dest);
                 dest += *cumprod;

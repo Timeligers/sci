@@ -64,7 +64,7 @@ static int xlfont_no_rhs(char * fname, void* pvApiCtx)
     m1 = 1;
     n1 = nbElements;
 
-    sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m1, n1, (const char * const*)fontsname);
+    sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m1, n1, fontsname);
     if (sciErr.iErr)
     {
 
@@ -114,7 +114,7 @@ static int xlfont_one_rhs(char * fname, void* pvApiCtx)
             m1 = nbElements;
             n1 = 1;
 
-            sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m1, n1, (const char * const*)fontsname);
+            sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m1, n1, fontsname);
             freeArrayOfString(fontsname, nbElements);
             if (sciErr.iErr)
             {

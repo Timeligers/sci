@@ -323,8 +323,6 @@ static bool read_short_data(hid_t dataset, VarInfo6& info)
 
 static bool read_data(hid_t dataset, VarInfo6& info)
 {
-    bool bRet = false;
-
     char* ctype = getScilabTypeFromDataSet6(dataset);
     std::string type(ctype);
     FREE(ctype);
@@ -549,6 +547,11 @@ static bool read_sparse(hid_t dataset, VarInfo6& info)
     int complex = 0;
     std::vector<int> pdims;
     int size = getDimsNode(dataset, &complex, pdims);
+    if (size <= 0)
+    {
+        closeList6(dataset);
+        return false;
+    }
 
     //get non zeros count
     int nnz = 0;
@@ -572,6 +575,11 @@ static bool read_boolean_sparse(hid_t dataset, VarInfo6& info)
     int complex = 0;
     std::vector<int> pdims;
     int size = getDimsNode(dataset, &complex, pdims);
+    if (size <= 0)
+    {
+        closeList6(dataset);
+        return false;
+    }
 
     //get non zeros count
     int nnz = 0;

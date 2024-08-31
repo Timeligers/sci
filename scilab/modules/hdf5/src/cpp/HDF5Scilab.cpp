@@ -605,7 +605,7 @@ void HDF5Scilab::ls(H5Object & obj, const std::string & name, int position, void
 
     if (_name.size() == 0)
     {
-        H5BasicData<char *>::create(pvApiCtx, position, 0, 0, "", 0, 0);
+        H5BasicData<char const*>::create(pvApiCtx, position, 0, 0, "", 0, 0);
     }
     else
     {
@@ -624,7 +624,7 @@ void HDF5Scilab::ls(H5Object & obj, const std::string & name, int position, void
             delete &hobj;
         }
 
-        H5BasicData<char *>::create(pvApiCtx, position, (int)_name.size(), 2, const_cast<char **>(&(strs[0])), 0, 0);
+        H5BasicData<char const*>::create(pvApiCtx, position, (int)_name.size(), 2, &(strs[0]), 0, 0);
     }
 }
 
@@ -648,7 +648,7 @@ void HDF5Scilab::ls(const std::string & path, const std::string & name, int posi
 void HDF5Scilab::ls(H5Object & obj, const std::string & name, const std::string & type, int position, void * pvApiCtx)
 {
     std::vector<std::string> _name;
-    std::vector<const char *> strs;
+    std::vector<char const*> strs;
     std::string lower(type);
     std::transform(type.begin(), type.end(), lower.begin(), tolower);
     std::map<std::string, H5Object::FilterType>::iterator it = filtersName.find(lower);
@@ -668,7 +668,7 @@ void HDF5Scilab::ls(H5Object & obj, const std::string & name, const std::string 
     hobj.ls(_name, ftype);
     if (_name.size() == 0)
     {
-        H5BasicData<char *>::create(pvApiCtx, position, 0, 0, "", 0, 0);
+        H5BasicData<char const*>::create(pvApiCtx, position, 0, 0, "", 0, 0);
     }
     else
     {
@@ -683,7 +683,7 @@ void HDF5Scilab::ls(H5Object & obj, const std::string & name, const std::string 
             delete &hobj;
         }
 
-        H5BasicData<char *>::create(pvApiCtx, position, (int)_name.size(), 1, const_cast<char **>(&(strs[0])), 0, 0);
+        H5BasicData<char const*>::create(pvApiCtx, position, (int)_name.size(), 1, &(strs[0]), 0, 0);
     }
 }
 
@@ -949,14 +949,14 @@ void HDF5Scilab::getScilabData(hid_t * type, unsigned int * ndims, hsize_t ** di
 
     if (flip)
     {
-        for (int i = 0; i < *ndims; i++)
+        for (unsigned int i = 0; i < *ndims; i++)
         {
             (*dims)[i] = _dims[*ndims - 1 - i];
         }
     }
     else
     {
-        for (int i = 0; i < *ndims; i++)
+        for (unsigned int i = 0; i < *ndims; i++)
         {
             (*dims)[i] = _dims[i];
         }

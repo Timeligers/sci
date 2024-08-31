@@ -82,7 +82,6 @@ void HistoryFile::setFilename(std::string _stFilename)
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::setDefaultFilename(void)
 {
-    BOOL bOK = FALSE;
     char* SCIHOME = getSCIHOME();
     std::string stDefaultFilename;
 

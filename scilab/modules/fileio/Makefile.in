@@ -234,7 +234,9 @@ am__v_lt_0 = --silent
 am__v_lt_1 = 
 @MAINTAINER_MODE_FALSE@am_libscifileio_algo_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libscifileio_algo_la_rpath =
-libscifileio_la_DEPENDENCIES = libscifileio-algo.la
+am__DEPENDENCIES_1 =
+libscifileio_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	libscifileio-algo.la
 am__objects_3 = sci_gateway/c/libscifileio_la-sci_fprintfMat.lo \
 	sci_gateway/c/libscifileio_la-sci_fscanfMat.lo \
 	sci_gateway/c/libscifileio_la-sci_chdir.lo \
@@ -933,6 +935,7 @@ libscifileio_la_CPPFLAGS = \
 	$(HDF5_CFLAGS) \
 	$(XML_FLAGS) \
 	$(LIBARCHIVE_CFLAGS) \
+	$(CURL_CFLAGS) \
 	$(AM_CPPFLAGS)
 
 @MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscifileio.la
@@ -948,7 +951,7 @@ CHECK_SRC = $(FILEIO_C_SOURCES) $(FILEIO_CPP_SOURCES) $(GATEWAY_C_SOURCES) $(GAT
 INCLUDE_FLAGS = $(libscifileio_la_CPPFLAGS)
 
 # pb of order $(top_builddir)/modules/console/libsciconsole.la
-libscifileio_la_LIBADD = libscifileio-algo.la
+libscifileio_la_LIBADD = $(CURL_LIBS) libscifileio-algo.la
 
 #### Target ######
 modulename = fileio

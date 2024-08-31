@@ -116,7 +116,7 @@ public:
                 char * cdata = static_cast<char *>(data) + offset;
                 if (sizeof(T) == dataSize)
                 {
-                    for (int i = 0; i < totalSize; i++)
+                    for (hsize_t i = 0; i < totalSize; i++)
                     {
                         dest[i] = *((T *)cdata);
                         cdata += stride;
@@ -125,7 +125,7 @@ public:
                 else
                 {
                     char * _dest = reinterpret_cast<char *>(dest);
-                    for (int i = 0; i < totalSize; i++)
+                    for (hsize_t i = 0; i < totalSize; i++)
                     {
                         memcpy(_dest, cdata, dataSize);
                         cdata += stride;
@@ -236,7 +236,7 @@ public:
 
     static void putStringVectorOnStack(std::vector<std::string> & strs, const int rows, const int cols, const int pos, void * pvApiCtx)
     {
-        if (rows * cols != strs.size())
+        if (rows * cols != (int) strs.size())
         {
             throw H5Exception(__LINE__, __FILE__, _("Wrong dimensions."));
         }
@@ -253,7 +253,7 @@ public:
             {
                 _strs.push_back(strs[i].c_str());
             }
-            create(pvApiCtx, pos, rows, cols, const_cast<char **>(&(_strs[0])), 0, 0);
+            create(pvApiCtx, pos, rows, cols, &(_strs[0]), 0, 0);
         }
     }
 
@@ -270,8 +270,8 @@ public:
     __SCILAB_ALLOCATORS_CREATORS__(unsigned long long, UnsignedInteger64)
 #endif
 
-    __SCILAB_STACK_CREATOR__(char *, String)
-    static void alloc(void * pvApiCtx, const int position, const int rows, const int cols, int * list, const int listPosition, char*** ptr) {}
+    __SCILAB_STACK_CREATOR__(char const*, String)
+    static void alloc(void * pvApiCtx, const int position, const int rows, const int cols, int * list, const int listPosition, char const* ** ptr) {}
 };
 }
 

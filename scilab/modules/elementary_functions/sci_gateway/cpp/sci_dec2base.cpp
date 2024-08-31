@@ -6,8 +6,9 @@
  * For more information, see the COPYING file which you should have received
  * along with this program.
  *
-/*--------------------------------------------------------------------------*/
+ */
 
+/*--------------------------------------------------------------------------*/
 #include <algorithm>
 #include "elem_func_gw.hxx"
 #include "function.hxx"

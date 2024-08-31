@@ -6,8 +6,9 @@
  * For more information, see the COPYING file which you should have received
  * along with this program.
  *
-/*--------------------------------------------------------------------------*/
+ */
 
+/*--------------------------------------------------------------------------*/
 #include <string>
 #include "function.hxx"
 #include "double.hxx"
@@ -85,13 +86,13 @@ types::Function::ReturnValue sci_base2dec(types::typed_list &in, int _iRetCount,
                     throw std::invalid_argument("");
                 }
             }
-            catch (std::out_of_range)
+            catch (const std::out_of_range&)
             {
                 Scierror(999, _("%s: Wrong value for input argument #%d: converted value is out of range.\n"), "base2dec", 1);
                 pOut->killMe();
                 return types::Function::Error;
             }
-            catch (std::invalid_argument)
+            catch (const std::invalid_argument&)
             {
                 Scierror(999, _("%s: Wrong value for input argument #%d: Valid base %d representations expected.\n"), "base2dec", 1, iBaseUsed);
                 pOut->killMe();

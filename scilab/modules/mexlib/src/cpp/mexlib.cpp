@@ -1779,7 +1779,7 @@ int mexIsGlobal(const mxArray *ptr)
 {
     symbol::Context *context = symbol::Context::getInstance();
     std::list<std::pair<std::wstring,int>> lst;
-    int size = context->getGlobalInfoForWho(lst, false);
+    context->getGlobalInfoForWho(lst, false);
 
     for (auto it : lst)
     {

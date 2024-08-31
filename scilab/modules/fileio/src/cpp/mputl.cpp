@@ -28,7 +28,7 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 #define MPUTL_FORMAT "%s\n"
 /*--------------------------------------------------------------------------*/
-mputlError mputl(int _iFileId, wchar_t **pstStrings, int _iSizeStrings, BOOL _CR)
+mputlError mputl(int _iFileId, wchar_t const* const* pstStrings, int _iSizeStrings, BOOL _CR)
 {
     int i = 0;
     types::File* pF = NULL;

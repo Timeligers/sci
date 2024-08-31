@@ -54,7 +54,6 @@ int sci_dct_gen(const char *fname, types::Double* A, types::Double** O, int isn,
     int * incr1 = NULL;
 
     /* local variable */
-    int one = 1;
     int i = 0;
     int errflag = 0;
 

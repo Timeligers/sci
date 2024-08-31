@@ -957,6 +957,9 @@ void getVarAsDims(types::InternalType* t, int& rank, int*& Sel)
             getVarAsDims(t->getAs<types::UInt64>(), rank, Sel);
             break;
         }
+        default:
+            rank = 0;
+            break;
     }
 }
 

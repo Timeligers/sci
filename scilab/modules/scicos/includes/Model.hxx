@@ -87,7 +87,7 @@ public:
     T* getObject(ScicosID uid) const
     {
         return static_cast<T*>(getObject(uid));
-    };
+    }
     size_t size()
     {
         return allObjects.size();

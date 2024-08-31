@@ -48,7 +48,6 @@ int sci_h5ls(char *fname, int* pvApiCtx)
     std::string path;
     std::string name;
     std::string type;
-    bool mustDelete = true;
     const int nbIn = nbInputArgument(pvApiCtx);
 
     CheckOutputArgument(pvApiCtx, 0, 1);

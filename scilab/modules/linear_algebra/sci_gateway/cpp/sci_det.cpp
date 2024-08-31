@@ -31,7 +31,6 @@ extern "C"
 types::Function::ReturnValue sci_det(types::typed_list& in, int _iRetCount, types::typed_list& out)
 {
     types::Double* pDbl = NULL;
-    types::Double* pDblE = NULL;
     types::Double* pDblMantissa = NULL;
     types::Double* pDblExponent = NULL;
     double* pData = NULL;

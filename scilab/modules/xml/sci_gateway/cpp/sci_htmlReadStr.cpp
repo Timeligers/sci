@@ -34,7 +34,6 @@ int sci_htmlReadStr(char *fname, void* pvApiCtx)
     org_modules_xml::XMLDocument * doc;
     SciErr err;
     int *addr = 0;
-    char *encoding = 0;
 
     std::string * code;
     std::string error;

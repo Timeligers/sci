@@ -65,8 +65,6 @@ types::Function::ReturnValue sci_idempotence(types::typed_list& in, int _iRetCou
             continue;
         }
 
-        ast::Exp* tree1 = parser.getTree();
-
         std::wostringstream ostr1;
         //--pretty-print 1
         ast::PrintVisitor print1(ostr1);

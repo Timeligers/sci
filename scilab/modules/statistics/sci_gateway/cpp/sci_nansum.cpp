@@ -55,7 +55,7 @@ types::Function::ReturnValue sci_nansum(types::typed_list& in, int _iRetCount, t
             in2[0] = d;
             return Overload::call(L"sum", in2, _iRetCount, out);
         }
+        default:
+            return Overload::call(L"%_nansum", in, _iRetCount, out);
     }
-
-    return Overload::call(L"%_nansum", in, _iRetCount, out);
 }

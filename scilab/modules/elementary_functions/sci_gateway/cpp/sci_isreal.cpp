@@ -30,7 +30,6 @@ extern "C"
 types::Function::ReturnValue sci_isreal(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     double dEps = 0;
-    bool bIsComplex = false;
 
     if (in.size() < 1 || in.size() > 2)
     {

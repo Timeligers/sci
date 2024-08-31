@@ -420,7 +420,7 @@ static char **splitLine(char *str, char *sep, int *toks, char meta)
     char *sep_idx = NULL;
     int len = 0;
     int curr_str = 0;
-    char last_char = 0xFF;
+    char last_char = -1;
 
     *toks = 0;
 

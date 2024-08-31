@@ -172,6 +172,10 @@ CONVERT_STATUS convertInt(types::InternalType* _pIn, T* _pOut)
             types::String* pS = _pIn->getAs<types::String>();
             return convert_fromString(pS->get(), pS->getSize(), _pOut->get());
         }
+        default:
+        {
+            return NOT_A_NUMBER;
+        }
     }
 
     return OK;
@@ -222,10 +226,12 @@ types::Callable::ReturnValue commonInt(types::typed_list &in, int _iRetCount, ty
             Scierror(999, _("%s: out of range [0 2^64[.\n"), _stName.data());
             return types::Callable::Error;
         }
+        default: // OK
+        {
+            out.push_back(pOut);
+            return types::Function::OK;
+        }
     }
-
-    out.push_back(pOut);
-    return types::Function::OK;
 }
 /*--------------------------------------------------------------------------*/
 types::Callable::ReturnValue sci_integer8(types::typed_list &in, int _iRetCount, types::typed_list &out)

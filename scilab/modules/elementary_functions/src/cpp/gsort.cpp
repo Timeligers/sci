@@ -473,7 +473,6 @@ types::String* gsort(types::String* pIn, types::Double* pDblInd, const std::wstr
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 
@@ -708,7 +707,6 @@ types::Int8* gsort(types::Int8* pIn, types::Double* pDblInd, const std::wstring&
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 
@@ -936,7 +934,6 @@ types::Int16* gsort(types::Int16* pIn, types::Double* pDblInd, const std::wstrin
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 
@@ -1164,7 +1161,6 @@ types::Int32* gsort(types::Int32* pIn, types::Double* pDblInd, const std::wstrin
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 
@@ -1392,7 +1388,6 @@ types::Int64* gsort(types::Int64* pIn, types::Double* pDblInd, const std::wstrin
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 
@@ -1620,7 +1615,6 @@ types::UInt8* gsort(types::UInt8* pIn, types::Double* pDblInd, const std::wstrin
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 
@@ -1848,7 +1842,6 @@ types::UInt16* gsort(types::UInt16* pIn, types::Double* pDblInd, const std::wstr
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 
@@ -2076,7 +2069,6 @@ types::UInt32* gsort(types::UInt32* pIn, types::Double* pDblInd, const std::wstr
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 
@@ -2304,7 +2296,6 @@ types::UInt64* gsort(types::UInt64* pIn, types::Double* pDblInd, const std::wstr
     int iItem       = 0;
     int iPos        = 0;
     int iPosSet     = 0;
-    int iPosGet     = 0;
     int iOffset1    = 1;
     int iOffset2    = 1;
 

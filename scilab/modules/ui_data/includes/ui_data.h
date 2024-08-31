@@ -20,8 +20,19 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/*
+ * See https://c-faq.com/ansi/constmismatch.html and https://isocpp.org/wiki/faq/const-correctness
+ * ISO Sec. 6.1.2.6, Sec. 6.3.16.1, Sec. 6.5.3
+ */
+#ifdef __cplusplus
+#define CONST_PTR const
+#else
+#define CONST_PTR 
+#endif
+
 /*------------------------------------------------------------------------*/
-void putScilabVariable(const char * name, const char* const* lines, int rows, int cols);
+void putScilabVariable(const char * name, char CONST_PTR* CONST_PTR* lines, int rows, int cols);
 char * getUnnamedVariable();
 /*------------------------------------------------------------------------*/
 #ifdef __cplusplus

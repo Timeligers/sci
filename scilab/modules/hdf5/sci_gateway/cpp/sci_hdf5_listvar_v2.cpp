@@ -355,7 +355,10 @@ static bool read_string(hid_t _iDatasetId, int _iItemPos, int *_piAddress, VarIn
 
     pstData = (char **)MALLOC(iSize * sizeof(char *));
     iRet = readStringMatrix(_iDatasetId, pstData);
-
+    if (iRet)
+    {
+        return false;
+    }
 
     for (int i = 0 ; i < _pInfo->piDims[0] * _pInfo->piDims[1] ; i++)
     {
@@ -395,7 +398,11 @@ static bool read_integer(hid_t _iDatasetId, int _iItemPos, int *_piAddress, VarI
     int iComplex = 0;
 
     iSize = getDatasetInfo(_iDatasetId, &iComplex, &_pInfo->iDims, _pInfo->piDims);
-    getDatasetPrecision(_iDatasetId, &iPrec);
+    iRet = getDatasetPrecision(_iDatasetId, &iPrec);
+    if (iRet)
+    {
+        return false;
+    }
 
     _pInfo->iSize = 16 + iSize * (iPrec % 10);
 
@@ -436,7 +443,6 @@ static bool read_boolean_sparse(hid_t _iDatasetId, int _iItemPos, int *_piAddres
     int iRows = 0;
     int iCols = 0;
     int iNbItem = 0;
-    int iComplex = 0;
 
     iRet = getSparseDimension(_iDatasetId, &iRows, &iCols, &iNbItem);
     if (iRet)
@@ -483,6 +489,10 @@ static bool read_poly(hid_t _iDatasetId, int _iItemPos, int *_piAddress, VarInfo
         piNbCoef = (int *)MALLOC(iSize * sizeof(int));
         pdblReal = (double **)MALLOC(iSize * sizeof(double *));
         iRet = readPolyMatrix(_iDatasetId, pstVarName, 2, _pInfo->piDims, piNbCoef, pdblReal);
+    }
+    if (iRet)
+    {
+        return false;
     }
 
     for (int i = 0 ; i < iSize ; i++)
@@ -609,5 +619,5 @@ static void generateInfo(VarInfo* _pInfo, const char* _pstType)
         pstSize[0] = '\0';
     }
 
-    sprintf(_pInfo->pstInfo, "%-*s%-*s%-*s%-*d", 25, _pInfo->varName, 15, _pstType, 16, pstSize, 10, _pInfo->iSize);
+    sprintf(_pInfo->pstInfo, "%-25.25s%-15.15s%-16.16s%-10.10d", _pInfo->varName, _pstType, pstSize, _pInfo->iSize);
 }

@@ -32,7 +32,6 @@ extern "C"
 #include "charEncoding.h"
 }
 /*--------------------------------------------------------------------------*/
-static void wcsplitpath(const wchar_t* path, wchar_t* drv, wchar_t* dir, wchar_t* name, wchar_t* ext);
 static int getFileSize(const std::wstring& _wfilename);
 /*--------------------------------------------------------------------------*/
 std::wstring getUniqueFilename(const std::wstring& _wfilename)

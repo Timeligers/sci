@@ -314,7 +314,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 int *nevts, int *pointi_in, void **outtbptr_in,
                 int *outtbsz_in, int *outtbtyp_in,
                 outtb_el *outtb_elem_in, int *nelem1, int *nlnk1,
-                void** funptr, int *funtyp_in, int *inpptr_in,
+                voidg* funptr, int *funtyp_in, int *inpptr_in,
                 int *outptr_in, int *inplnk_in, int *outlnk_in,
                 double *rpar, int *rpptr, int *ipar, int *ipptr,
                 void **opar, int *oparsz, int *opartyp, int *opptr,
@@ -544,7 +544,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     /* 1 : type and pointer on simulation function */
     for (kf = 0; kf < nblk; ++kf)   /*for each block */
     {
-        void* p = funptr[kf];
+        voidg p = funptr[kf];
         C2F(curblk).kfun = kf + 1;
         Blocks[kf].type = funtyp[kf + 1];
         if (Blocks[kf].type == IFTHEL_BLOCK)
@@ -603,7 +603,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         else
         {
             //linked functions (internal or external)
-            Blocks[kf].funpt = (voidf)p;
+            Blocks[kf].funpt = (voidg) p;
             Blocks[kf].scsptr = NULL;   /* this is done for being able to test if a block
                                         is a scilab block in the debugging phase when
                                         sciblk4 is called */
@@ -6101,14 +6101,14 @@ static void FREE_blocks()
 } /* FREE_blocks */
 /*--------------------------------------------------------------------------*/
 /* Subroutine funnum2 */
-void* funnum2(char * fname)
+voidg funnum2(char * fname)
 {
     int i = 0;
     while (tabsim[i].name != (char *)NULL)
     {
         if (strcmp(fname, tabsim[i].name) == 0)
         {
-            return (void*)tabsim[i].fonc;
+            return (voidg) tabsim[i].fonc;
         }
         i++;
     }

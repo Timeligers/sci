@@ -45,7 +45,6 @@ types::Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, 
     int iErr            = 0;
     bool bErrCatch		= false;
     bool bMute          = false;
-    wchar_t* pstMsg     = NULL;
     ast::Exp* pExp      = NULL;
     wchar_t *pstCommand = NULL;
     bool bSilentError   = ConfigVariable::isSilentError();

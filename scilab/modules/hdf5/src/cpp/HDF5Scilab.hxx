@@ -151,7 +151,6 @@ public:
         hid_t targetspace;
         hid_t targettype;
         hsize_t * newdims = 0;
-        bool mustDelete = false;
         H5T_cdata_t * pcdata = 0;
         bool chunked = false;
 

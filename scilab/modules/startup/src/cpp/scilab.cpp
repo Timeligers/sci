@@ -411,7 +411,6 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLin
 int main(int argc, char *argv[])
 {
 #endif
-    int iRet = 0;
 
 #ifdef ENABLE_MPI
     initScilabMPI();

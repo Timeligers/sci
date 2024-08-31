@@ -62,7 +62,7 @@ SciErr getMatrixOfWideString(void* _pvCtx, int* _piAddress, int* _piRows, int* _
  * @param[in] _pstStrings array of strings ( null terminated )
  * @return if the operation succeeded (0) or not ( !0 )
  */
-SciErr createMatrixOfString(void* _pvCtx, int _iVar, int _iRows, int _iCols, const char* const* _pstStrings);
+SciErr createMatrixOfString(void* _pvCtx, int _iVar, int _iRows, int _iCols, char CONST_PTR* CONST_PTR* _pstStrings);
 
 /**
 * Create wide strings variable data
@@ -72,7 +72,7 @@ SciErr createMatrixOfString(void* _pvCtx, int _iVar, int _iRows, int _iCols, con
 * @param[in] _pwstStrings array of strings ( null terminated )
 * @return if the operation succeeded (0) or not ( !0 )
 */
-SciErr createMatrixOfWideString(void* _pvCtx, int _iVar, int _iRows, int _iCols, const wchar_t* const* _pwstStrings);
+SciErr createMatrixOfWideString(void* _pvCtx, int _iVar, int _iRows, int _iCols, wchar_t CONST_PTR* CONST_PTR* _pwstStrings);
 
 /**
  * Create strings variable data
@@ -82,7 +82,7 @@ SciErr createMatrixOfWideString(void* _pvCtx, int _iVar, int _iRows, int _iCols,
  * @param[in] _pstStrings array of strings ( null terminated )
  * @return if the operation succeeded (0) or not ( !0 )
  */
-SciErr createNamedMatrixOfString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, const char* const* _pstStrings);
+SciErr createNamedMatrixOfString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, char CONST_PTR* CONST_PTR* _pstStrings);
 
 /**
 * Create wide strings variable data
@@ -92,7 +92,7 @@ SciErr createNamedMatrixOfString(void* _pvCtx, const char* _pstName, int _iRows,
 * @param[in] _pwstStrings array of wide strings ( null terminated )
 * @return if the operation succeeded (0) or not ( !0 )
 */
-SciErr createNamedMatrixOfWideString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, const wchar_t* const* _pwstStrings);
+SciErr createNamedMatrixOfWideString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, wchar_t CONST_PTR* CONST_PTR* _pwstStrings);
 
 /**
  * Get strings variable data

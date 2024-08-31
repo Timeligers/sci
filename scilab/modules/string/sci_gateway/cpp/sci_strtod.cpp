@@ -21,6 +21,8 @@
 #include "funcmanager.hxx"
 #include "string_gw.hxx"
 
+#include <limits>
+
 extern "C"
 {
 #include "core_math.h"
@@ -42,8 +44,7 @@ types::Function::ReturnValue sci_strtod(types::typed_list &in, int _iRetCount, t
     wchar_t pwstSymbol[] = L"-+.";
     wchar_t wstDecimalSep = L'.';
 
-    unsigned long long ullNan = 0x7ff8000000000000;
-    double dblNan = *( double* )&ullNan;
+    double dblNan = std::numeric_limits<double>::quiet_NaN();
 
     if (in.size() < 1 || in.size() > 2)
     {

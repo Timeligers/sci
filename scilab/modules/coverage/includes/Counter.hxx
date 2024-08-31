@@ -37,7 +37,7 @@ class Counter
     ast::Exp* e;
 
   public:
-    Counter(types::Macro* _macro, ast::Exp* _e) : counter(0), cumTime(0), macro(_macro), e(_e), isRunning(false) {}
+    Counter(types::Macro* _macro, ast::Exp* _e) : counter(0), cumTime(0), isRunning(false), macro(_macro), e(_e) {}
 
     inline void inc()
     {

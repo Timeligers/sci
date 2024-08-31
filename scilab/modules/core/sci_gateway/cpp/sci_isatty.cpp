@@ -26,7 +26,7 @@ extern "C"
 #include "Scierror.h"
 }
 
-static char* fname = "isatty";
+static char const* fname = "isatty";
 types::Function::ReturnValue sci_isatty(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     if (in.size() != 0)

@@ -27,7 +27,7 @@
  * @param[in] var the name of the variable
  * @param[out] buf the value of the variable
  * @param[out] buflen  the length of the variable
- * @param[in] iflag
+ * @param[in] iflag if not zero, print a descriptive error message on the Scilab console
  */
 IO_IMPEXP void getenvc(int *ierr, const char *var, char *buf, int *buflen, int *iflag);
 

@@ -1200,7 +1200,6 @@ Sparse* Sparse::insert(typed_list* _pArgs, InternalType* _pSource)
     }
 
     int rows = getRows();
-    int cols = getCols();
 
     int nnz = static_cast<int>(nonZeros());
 
@@ -1361,8 +1360,6 @@ Sparse* Sparse::insert(typed_list* _pArgs, InternalType* _pSource)
                 //save old values
                 if (nnz != 0)
                 {
-                    std::complex<double>* val = matrixCplx->valuePtr();
-
                     //save old values
                     for (int k = 0; k < matrixCplx->outerSize(); ++k)
                     {
@@ -1491,8 +1488,6 @@ Sparse* Sparse::insert(typed_list* _pArgs, InternalType* _pSource)
 
                 if (nnz != 0)
                 {
-                    double* val = matrixReal->valuePtr();
-
                     //save old values
                     for (int k = 0; k < matrixReal->outerSize(); ++k)
                     {
@@ -1984,7 +1979,9 @@ GenericType* Sparse::extract(typed_list* _pArgs)
                 }
                 else
                 {
-                    this->transpose((types::InternalType *&)pOut);
+                    types::InternalType* pIT;
+                    this->transpose(pIT);
+                    pOut = static_cast<decltype(pOut)>(pIT);
                     return pOut;
                 }
             }
@@ -1993,7 +1990,6 @@ GenericType* Sparse::extract(typed_list* _pArgs)
             {
                 CplxSparse_t *sp = pOut->matrixCplx;
                 sp->reserve(nonZeros());
-                int k=0;
                 for (size_t i=0; i<getRows(); ++i)
                 {
                     for (Sparse::CplxSparse_t::InnerIterator it(*matrixCplx, i); it; ++it)
@@ -2006,7 +2002,6 @@ GenericType* Sparse::extract(typed_list* _pArgs)
             {
                 RealSparse_t *sp = pOut->matrixReal;
                 sp->reserve(nonZeros());
-                int k=0;
                 for (size_t i=0; i<getRows(); ++i)
                 {
                     for (Sparse::RealSparse_t::InnerIterator it(*matrixReal, i); it; ++it)
@@ -3350,7 +3345,7 @@ void SparseBool::create2(int rows, int cols, Bool SPARSE_CONST& src, Double SPAR
     }
 
     matrixBool = new BoolSparse_t(rows, cols);
-    matrixBool->setFromTriplets(tripletList.begin(), tripletList.end());
+    matrixBool->setFromTriplets(tripletList.begin(), tripletList.end(), [] (const BoolSparse_t::Scalar&,const BoolSparse_t::Scalar &b) { return b; });
 
     m_iRows = static_cast<int>(matrixBool->rows());
     m_iCols = static_cast<int>(matrixBool->cols());

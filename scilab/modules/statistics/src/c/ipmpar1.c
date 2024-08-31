@@ -33,11 +33,11 @@ C2F(largestint)(void)
     {
         if (sizeof(int) == sizeof(long))
         {
-            largest = LARGEST_LONG_INTEGER;
+            largest = (int) LARGEST_LONG_INTEGER;
         }
         else if (sizeof(int) == sizeof(short))
         {
-            largest = LARGEST_SHORT_INTEGER;
+            largest = (int) LARGEST_SHORT_INTEGER;
         }
         memoized = 1;
     }

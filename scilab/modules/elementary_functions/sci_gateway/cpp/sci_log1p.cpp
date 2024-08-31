@@ -34,8 +34,6 @@ clear a;nb = 2500;a = rand(nb, nb);tic();log1p(a);toc
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_log1p(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    int iAlert = 1;
-
     if (in.size() != 1)
     {
         Scierror(77, _("%s: Wrong number of input argument(s): %d expected.\n"), "log1p", 1);

@@ -516,16 +516,19 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
     fi
 
     if test "$enable_debug_CXX" = yes; then
-        DEBUG_CXXFLAGS="-Wall -Wextra -Wno-unused-parameter -O0 -g3"
-        case "$host" in
-        *-linux-gnu )
-            # Only doing that under Linux
-            DEBUG_CXXFLAGS="$DEBUG_CXXFLAGS -fdiagnostics-show-option -Werror=format-security"
-            ;;
-        esac
+        DEBUG_CXXFLAGS="-O0 -g3"
     else
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
+
+    WARNING_CXXFLAGS="-Wall -Wpedantic"
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Wformat -Werror=format-security"
+        ;;
+    esac
+
     COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-stack-protector " # bug 3131
     # add the extra filesystem library if needed
     if test "$($CXX -dumpversion |cut -d\. -f1)" -lt "9" ; then
@@ -539,10 +542,19 @@ g++-* | g++ | ccache*g++ | ccache*g++-* )
         CODECOVERAGE_CXXFLAGS="-fprofile-arcs -ftest-coverage"
     fi
     if test "$enable_debug_CXX" = yes; then
-        DEBUG_CXXFLAGS="-Wall -Wextra -Wno-unused-parameter -O0 -g3"
+        DEBUG_CXXFLAGS="-O0 -g3"
     else
         DEBUG_CXXFLAGS="-DNDEBUG -g1 -O2"
     fi
+    
+    WARNING_CXXFLAGS="-Wall -Wpedantic"
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CXXFLAGS="$WARNING_CXXFLAGS -fdiagnostics-show-option -Wformat -Werror=format-security"
+        ;;
+    esac
+
     COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-stack-protector " # bug 3131
     # allow to compile under macOS < Catalina with c++17 enabled clang
     # or compile under macOS > Catalina with min_macosx_version < 11
@@ -587,7 +599,9 @@ case "$host" in
     ;;
 esac
 
-##########"
+############
+## C
+############
 
 case "$CC" in
 gcc-* | gcc | ccache*gcc | ccache*gcc-* )
@@ -599,7 +613,7 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
     fi
 
     if test "$enable_debug_C" = yes; then
-        DEBUG_CFLAGS="-Wall -Wextra -Wno-unused-parameter -O0 -g3"
+        DEBUG_CFLAGS="-O0 -g3"
         # used to be -O0
         case "$host" in
         *-linux-gnu )
@@ -607,12 +621,19 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
             if test "$enable_debug_linker" = yes; then
                 LDFLAGS="$LDFLAGS -Wl,--warn-common,-x"
             fi
-            DEBUG_CFLAGS="$DEBUG_CFLAGS -fdiagnostics-show-option -Werror=format-security"
             ;;
         esac
     else
         DEBUG_CFLAGS="-DNDEBUG -g1 -O2"
     fi
+    
+    WARNING_CFLAGS="-Wall -Wpedantic "
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CFLAGS="$WARNING_CFLAGS -fdiagnostics-show-option -Wformat -Werror=format-security"
+        ;;
+    esac
 
     COMPILER_CFLAGS="$COMPILER_CFLAGS -fno-stack-protector " # bug 3131
     # Explictly disable the as needed. It was disable by default but Ubuntu
@@ -686,11 +707,20 @@ gcc-* | gcc | ccache*gcc | ccache*gcc-* )
         CODECOVERAGE_CFLAGS="-fprofile-arcs -ftest-coverage"
     fi
     if test "$enable_debug_C" = yes; then
-        DEBUG_CFLAGS="-Wall -Wextra -Wno-unused-parameter -O0 -g3"
+        DEBUG_CFLAGS="-O0 -g3"
         # used to be -O0
     else
         DEBUG_CFLAGS="-DNDEBUG -g1 -O2"
     fi
+    
+    WARNING_CFLAGS="-Wall -Wpedantic"
+    case "$host" in
+    *-linux-gnu )
+        # Only doing that under Linux
+        WARNING_CFLAGS="$WARNING_CFLAGS -fdiagnostics-show-option -Wformat -Werror=format-security"
+        ;;
+    esac
+
     COMPILER_CFLAGS="$COMPILER_CFLAGS -fno-stack-protector " # bug 3131
     # prevent dll optimizations in the final binary
     case "$host_os" in
@@ -1467,7 +1497,7 @@ AC_FUNC_STRTOD
 
 AC_CHECK_HEADERS([limits.h values.h])
 
-AC_CHECK_HEADERS([fcntl.h float.h libintl.h locale.h malloc.h netdb.h netinet/in.h nlist.h sgtty.h stddef.h sys/file.h sys/ioctl.h sys/param.h sys/socket.h sys/time.h sys/timeb.h sys/utsname.h syslog.h term.h termcap.h termio.h termios.h wchar.h wctype.h time.h])
+AC_CHECK_HEADERS([fcntl.h float.h libintl.h locale.h malloc.h netdb.h netinet/in.h nlist.h sgtty.h stddef.h sys/file.h sys/ioctl.h sys/param.h sys/socket.h sys/time.h sys/timeb.h sys/utsname.h syslog.h wchar.h wctype.h time.h])
 
 # check header dirent
 AC_HEADER_DIRENT
@@ -1536,6 +1566,11 @@ if $WITH_DEVTOOLS; then
     LIBS="$saved_LIBS"
     
     ac_cv_lib_ncurses_tgetent=$ac_cv_lib_scincurses_tgetent
+
+    saved_CFLAGS="$CFLAGS"
+    CFLAGS="$CFLAGS $NCURSES_CFLAGS"
+    AC_CHECK_HEADERS([ncurses.h curses.h termcap.h term.h termio.h termios.h])
+    CFLAGS="$saved_CFLAGS"
 else
     NCURSES_CFLAGS=""
     AC_CHECK_LIB([curses],[tgetent],[NCURSES_LIBS="-lcurses"])
@@ -1546,9 +1581,9 @@ else
     if test "x$ac_cv_lib_ncurses_tgetent" = "xno" ; then
         AC_CHECK_LIB([termcap],[tgetent])
     fi
-fi
 
-AC_CHECK_HEADERS([ncurses.h curses.h])
+    AC_CHECK_HEADERS([ncurses.h curses.h termcap.h term.h termio.h termios.h])
+fi
 
 if test "x$ac_cv_lib_curses_tgetent" = "xyes" -o "x$ac_cv_lib_ncurses_tgetent" = "xyes" -o "x$ac_cv_lib_termcap_tgetent" = "xyes" ; then
 AC_DEFINE([HAVE_TERMCAP],[],[Have Term Cap])
@@ -2098,16 +2133,26 @@ AC_CHECK_ADDRESS_SANTIZER()
 AC_CHECK_ANALYZER()
 
 #################
-## stop on warning
+# Warnings can be set as erors:
+#  1. modern compilers enforce a set of options on some platforms ; add them here as a common subset
+#  2. when "--enable-stop-on-warning" flag, stop compilation on all warnings
 #################
-
-# Stop to compile scilab when a warning is found ...
-# This stuff is at the end of the configure.ac because it causes some
-# problem with AC_COMPILE (the -Werror is added to the test)
-#
+# all functions should be declared in defined in C99
+WARNING_CFLAGS="$WARNING_CFLAGS -Werror=implicit"
+# function pointers should match in C99
+WARNING_CFLAGS="$WARNING_CFLAGS -Werror=incompatible-pointer-types"
 if test "$enable_stop_on_warning" = yes; then
-    WARNING_CFLAGS="-Werror=implicit-function-declaration -Werror=declaration-after-statement "
-    WARNING_CXXFLAGS="-Werror=implicit-function-declaration "
+    WARNING_CFLAGS="$WARNING_CFLAGS -Werror"
+
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Werror"
+    # Scilab indexes are int, standard containers are size_t: do not error when comparing them
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Wno-error=sign-compare"
+    # on graphics_object we cast user_data InternalType pointer depending on 32bits, 64bits alignement
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Wno-error=int-to-pointer-cast"
+    # FIXME: sundials contains unused static functions
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Wno-error=unused-function"
+    # FIXME: Eigen/src/Core/AssignEvaluator.h:86:63: error: enum constant in boolean context
+    WARNING_CXXFLAGS="$WARNING_CXXFLAGS -Wno-error=int-in-bool-context"
 fi
 
 # SCI_*FLAGS contains all defaults values detected on configure

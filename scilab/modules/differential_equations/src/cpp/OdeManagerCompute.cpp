@@ -25,9 +25,7 @@ void OdeManager::setupEvents(types::optional_list &opt)
     OdeManager *prevManager = getPreviousManager();
 
     if (getFunctionAPI(EVENTS) == SUNDIALS_DLL)
-    {
-        dynlibFunPtr pFunc = m_pEntryPointFunction[EVENTS];
-        
+    {   
         getIntInPlist(getSolverName().c_str(),opt, L"nbEvents", &m_iNbEvents,
             m_odeIsExtension ? prevManager->m_iNbEvents : -1, {0, INT_MAX});
         if (m_iNbEvents >= 0)
@@ -90,7 +88,6 @@ void OdeManager::callOpening(functionKind what, types::typed_list &in, double t,
 {
     types::Double* pDblY = NULL;
     types::Double* pDblYp = NULL;
-    char errorMsg[256] = "";
 
     in.push_back(new types::Double(t));        
 

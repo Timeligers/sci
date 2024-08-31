@@ -664,7 +664,6 @@ void PolylineDecomposer::fillHorizontalBarsDecompositionVertices(int id, float* 
 void PolylineDecomposer::fillColors(int id, float* buffer, int bufferLength, int elementsSize)
 {
     int parent = 0;
-    int* pparent = &parent;
     int parentFigure = 0;
     int* pparentFigure = &parentFigure;
 
@@ -823,7 +822,6 @@ void PolylineDecomposer::fillColors(int id, float* buffer, int bufferLength, int
 void PolylineDecomposer::fillTextureCoordinates(int id, float* buffer, int bufferLength)
 {
     int parent = 0;
-    int* pparent = &parent;
     int parentFigure = 0;
     int* pparentFigure = &parentFigure;
 
@@ -1253,14 +1251,8 @@ int PolylineDecomposer::fillArrowTriangleIndices(int id, int* buffer, int buffer
     int closed = 0;
     int* piClosed = &closed;
 
-    int currentValid = 0;
-    int nextValid = 0;
-
     int firstArrowVertex = 0;
     int nArrows = 0;
-
-    int offset = 0;
-    int numberValidIndices = 0;
 
     /* At least 2 points needed to form segments */
     if (nPoints < 2)
@@ -1572,13 +1564,6 @@ int PolylineDecomposer::fillSegmentsDecompositionSegmentIndices(int id, int* buf
 int PolylineDecomposer::fillStairDecompositionSegmentIndices(int id, int* buffer, int bufferLength,
         int logMask, double* coordinates, int nPoints, double* xshift, double* yshift, double* zshift, int lineMode, int closed)
 {
-    int currentValid = 0;
-    int middleVertexValid = 0;
-    int nextValid = 0;
-
-    int offset = 0;
-    int numberValidIndices = 0;
-
     /* If less than 2 points, no segments */
     if (nPoints < 2)
     {

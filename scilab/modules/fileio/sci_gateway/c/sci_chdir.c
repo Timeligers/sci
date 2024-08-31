@@ -147,7 +147,7 @@ int sci_chdir(char *fname, void* pvApiCtx)
             wchar_t *currentDir = scigetcwdW(&ierr);
             if ( (ierr == 0) && currentDir)
             {
-                sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, 1, 1, (wchar_t const * const*) &currentDir);
+                sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, 1, 1, &currentDir);
             }
             else
             {

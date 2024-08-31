@@ -17,6 +17,7 @@
 #include <string>
 #include <cstdio>
 #include <cwchar>
+#include <algorithm>
 
 #include "gw_scicos.hxx"
 
@@ -82,14 +83,18 @@ types::Function::ReturnValue sci_coserror(types::typed_list &in, int _iRetCount,
     }
     types::String* inputMsg = in[0]->getAs<types::String>();
 
-    sprintf(coserr.buf, " ");
+    std::string buf(" ");
     // Write the argument message elements into 'coserr.buf', line by line
-    for (int i = 0; i < inputMsg->getSize(); ++i)
+    for (int i = 0; i < inputMsg->getSize() && buf.size() < COSERR_len; ++i)
     {
         char* c_str = wide_string_to_UTF8(inputMsg->get(i));
-        sprintf(coserr.buf, "%s\n%s", coserr.buf, c_str);
+        buf.push_back('\n');
+        buf.append(c_str);
         FREE(c_str);
     }
+    
+    memcpy(coserr.buf, buf.data(), std::min(buf.size(), (size_t) COSERR_len));
+    coserr.buf[COSERR_len-1] = '\0';
     set_block_error(-5);
 
     return types::Function::OK;

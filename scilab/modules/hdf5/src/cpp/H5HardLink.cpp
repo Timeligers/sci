@@ -62,7 +62,7 @@ void H5HardLink::getAccessibleAttribute(const std::string & _name, const int pos
     if (lower == "type")
     {
         const std::string linkType = getLinkType();
-        const char * _type = linkType.c_str();
+        char const* _type = linkType.c_str();
         err = createMatrixOfString(pvApiCtx, pos, 1, 1, &_type);
         if (err.iErr)
         {

@@ -21,7 +21,7 @@
 #include "os_string.h"
 
 
-void putScilabVariable(const char* name, const char* const* lines, int rows, int cols)
+void putScilabVariable(const char* name, char CONST_PTR* CONST_PTR* lines, int rows, int cols)
 {
     SciErr sciErr;
 

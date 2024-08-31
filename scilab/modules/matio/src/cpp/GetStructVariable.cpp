@@ -63,7 +63,6 @@ matvar_t* GetStructMatVar(types::Struct* pStruct, const char *name, int matfile_
     }
 
     types::String* pFieldNames = pStruct->getFieldNames();
-    wchar_t** ppwchFieldNames = pFieldNames->get();
     int isizeFieldNames = pFieldNames->getSize();
 
     /* Total number of entries */

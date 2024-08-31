@@ -75,7 +75,7 @@ protected:
                         const int listPosition = 0,
                         const bool flip = true) const
     {
-        static const char *hypermat[3] = {"hm", "dims", "entries"};
+        static char const* hypermat[3] = {"hm", "dims", "entries"};
 
         int *list = 0;
         SciErr err;
@@ -114,14 +114,14 @@ protected:
 
         if (flip)
         {
-            for (int i = 0; i < (int)ndims; i++)
+            for (hsize_t i = 0; i < ndims; i++)
             {
                 _dims[i] = (int)dims[ndims - 1 - i];
             }
         }
         else
         {
-            for (int i = 0; i < ndims; i++)
+            for (hsize_t i = 0; i < ndims; i++)
             {
                 _dims[i] = (int)dims[i];
             }

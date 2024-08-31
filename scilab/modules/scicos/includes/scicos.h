@@ -90,7 +90,18 @@ typedef void (*ScicosF4) (ARGS_scicos4);
 typedef struct
 {
     char const* name;
-    ScicosF fonc;
+    union
+    {
+        ScicosF     fonc;
+        ScicosFm1   fm1;
+        ScicosF0    f0;
+        ScicosF2    f2;
+        ScicosF2z   f2z;
+        ScicosFi    fi;
+        ScicosFi2   fi2;
+        ScicosFi2z  fi2z;
+        ScicosF4    f4;
+    };
 } OpTab;
 
 /**
@@ -167,7 +178,7 @@ int C2F(scicos) (double *x_in, int *xptr_in, double *z__,
                  int *nevts, int *pointi_in, void **outtbptr_in,
                  int *outtbsz_in, int *outtbtyp_in,
                  outtb_el * outtb_elem_in, int *nelem1, int *nlnk1,
-                 void** funptr, int *funtyp_in, int *inpptr_in,
+                 voidg* funptr, int *funtyp_in, int *inpptr_in,
                  int *outptr_in, int *inplnk_in, int *outlnk_in,
                  double *rpar, int *rpptr, int *ipar, int *ipptr,
                  void **opar, int *oparsz, int *opartyp, int *opptr,
@@ -240,6 +251,6 @@ void Coserror(const char *fmt, ...);
 /**
 *
 */
-void *funnum2(char *fname);
+voidg funnum2(char *fname);
 #endif
 

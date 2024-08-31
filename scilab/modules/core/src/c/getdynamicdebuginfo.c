@@ -323,52 +323,52 @@ char **getDynamicDebugInfo(int *sizeArray, int* pvApiCtx)
     {
         meminfo();
 
-        sprintf(value, "%10Lu", S(kb_main_total));
+        sprintf(value, "%10llu", S(kb_main_total));
         SetDebugMsg(&dynamicDebug[position], "Total memory", value);
         position++;
 
 
-        sprintf(value, "%10Lu", S(kb_main_used));
+        sprintf(value, "%10llu", S(kb_main_used));
         SetDebugMsg(&dynamicDebug[position], "Used memory", value);
         position++;
 
-        sprintf(value, "%10Lu", S(kb_main_free));
+        sprintf(value, "%10llu", S(kb_main_free));
         SetDebugMsg(&dynamicDebug[position], "Free memory", value);
         position++;
 
-        sprintf(value, "%10Lu", S(kb_main_shared));
+        sprintf(value, "%10llu", S(kb_main_shared));
         SetDebugMsg(&dynamicDebug[position], "Shared memory", value);
         position++;
 
-        sprintf(value, "%10Lu", S(kb_main_buffers));
+        sprintf(value, "%10llu", S(kb_main_buffers));
         SetDebugMsg(&dynamicDebug[position], "Buffers memory", value);
         position++;
 
-        sprintf(value, "%10Lu", S(kb_main_cached));
+        sprintf(value, "%10llu", S(kb_main_cached));
         SetDebugMsg(&dynamicDebug[position], "Cached memory", value);
         position++;
 
         buffers_plus_cached = kb_main_buffers + kb_main_cached;
 
 
-        sprintf(value, "%10Lu", S(kb_main_used - buffers_plus_cached));
+        sprintf(value, "%10llu", S(kb_main_used - buffers_plus_cached));
         SetDebugMsg(&dynamicDebug[position], "Used -/+ buffers/cache", value);
         position++;
 
 
-        sprintf(value, "%10Lu", S(kb_main_free + buffers_plus_cached));
+        sprintf(value, "%10llu", S(kb_main_free + buffers_plus_cached));
         SetDebugMsg(&dynamicDebug[position], "Free -/+ buffers/cache", value);
         position++;
 
-        sprintf(value, "%10Lu", S(kb_swap_total));
+        sprintf(value, "%10llu", S(kb_swap_total));
         SetDebugMsg(&dynamicDebug[position], "Total swap", value);
         position++;
 
-        sprintf(value, "%10Lu", S(kb_swap_used));
+        sprintf(value, "%10llu", S(kb_swap_used));
         SetDebugMsg(&dynamicDebug[position], "Used swap", value);
         position++;
 
-        sprintf(value, "%10Lu", S(kb_swap_free));
+        sprintf(value, "%10llu", S(kb_swap_free));
         SetDebugMsg(&dynamicDebug[position], "Free swap", value);
         position++;
 

@@ -238,7 +238,6 @@ void H5DataFactory::getNativeData(const hid_t obj, const hid_t space, hsize_t * 
     H5S_sel_type sel;
     hid_t targetspace;
     herr_t err;
-    hsize_t * blockbuf = 0;
     bool hyperslab = false;
     bool isString = false;
 

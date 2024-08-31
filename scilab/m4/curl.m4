@@ -86,7 +86,7 @@ AC_CHECK_LIB([curl], [curl_easy_setopt],
                [AC_MSG_ERROR([curl : library missing. (Cannot find symbol curl_easy_setopt). Check if curl is installed and if the version is correct])]
                )
 
-AC_CHECK_HEADERS([curl.h])
+AC_CHECK_HEADERS([curl/curl.h], [], [AC_MSG_ERROR([Unable to use curl/curl.h])])
 
 LIBS="$saved_LIBS"
 CFLAGS="$saved_cflags"

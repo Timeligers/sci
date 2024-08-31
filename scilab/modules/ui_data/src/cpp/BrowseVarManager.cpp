@@ -115,8 +115,7 @@ void SetBrowseVarData()
     int *piAllVariableNbCols = new int[iLocalVariablesUsed]();
 
     int nbRows, nbCols;
-    char *sizeStr = NULL;
-
+    
     std::set<string> scilabDefaultVariablesSet = createScilabDefaultVariablesSet();
     int iLevel = ctx->getScopeLevel();
 

@@ -47,8 +47,6 @@ extern "C"
 types::Function::ReturnValue sci_matplot1(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0;
-    int* piAddr1 = NULL;
-    int* piAddr2 = NULL;
     int plottype = -1;
     int *dims = NULL;
 

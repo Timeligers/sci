@@ -75,20 +75,18 @@ types::Function::ReturnValue sci_percent_odeSolution_e(types::typed_list &in, in
 
     double dblOne = 1.0;
     double dblZero = 0.0;
-    double pdblCoeff[13];
     double pdblVect[13];
     double pdblVectDer[13];
     double *pdblYOut;
     double *pdblYOutImg;
-    double *pdblYDOut;
-    double *pdblYDOutImg;
+    double *pdblYDOut = nullptr;
+    double *pdblYDOutImg = nullptr;
     int iNEq;
     int iNRealEq;
     int iNEqOut;
     bool bIsComplex;
 
     int iOne = 1;
-    char errorMsg[256];
     char pcharN[] = "N";
 
     if (in.size() >= 2)
@@ -171,9 +169,6 @@ types::Function::ReturnValue sci_percent_odeSolution_e(types::typed_list &in, in
                         // utility vecrot
                         double *pdblTemp = new double[iNRealEq];
                         
-                        int iDims = pDblYOut->getDims();
-                        int *piDims = pDblYOut->getDimsArray();
-
                         pdblYOut = pDblYOut->get();
                         pdblYOutImg = pDblYOut->getImg();
                         if (_iRetCount == 2) // derivative requested
@@ -259,11 +254,11 @@ types::Function::ReturnValue sci_percent_odeSolution_e(types::typed_list &in, in
                                 if (in.size() == 1)
                                 {
                                     // Compute all components
-                                    if (pdblYDOutImg == NULL)
+                                    if (pdblYDOut != nullptr && pdblYDOutImg == nullptr)
                                     {
                                         C2F(dgemv)(pcharN, &iNEq, &iBasisDimension, &dblOne, pdblBasis, &iBasisRows, pdblVectDer, &iOne, &dblZero, pdblYDOut, &iOne);
                                     }
-                                    else
+                                    else if(pdblYDOut != nullptr && pdblYDOutImg != nullptr)
                                     {
                                         C2F(dgemv)(pcharN, &iNRealEq, &iBasisDimension, &dblOne, pdblBasis, &iBasisRows, pdblVectDer, &iOne, &dblZero, pdblTemp, &iOne);
                                         // the result of the product is a (re,im) interlaced vector, so deinterlace:
@@ -275,7 +270,7 @@ types::Function::ReturnValue sci_percent_odeSolution_e(types::typed_list &in, in
                                 else
                                 {
                                     // Compute only selected components
-                                    if (pdblYDOutImg == NULL)
+                                    if (pdblYDOut != nullptr && pdblYDOutImg == nullptr)
                                     {
                                         for (int j = 0; j < iNEqOut; j++)
                                         {
@@ -283,7 +278,7 @@ types::Function::ReturnValue sci_percent_odeSolution_e(types::typed_list &in, in
                                             pdblYDOut[j] = C2F(ddot)(&iBasisDimension, pdblStartRow, &iBasisRows, pdblVectDer, &iOne);
                                         }
                                     }
-                                    else
+                                    else if (pdblYDOut != nullptr && pdblYDOutImg != nullptr)
                                     {
                                         for (int j = 0; j < iNEqOut; j++)
                                         {

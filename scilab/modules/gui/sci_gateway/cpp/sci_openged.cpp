@@ -39,8 +39,7 @@ int sci_openged(char *fname, void* pvApiCtx)
     int* piData     = NULL;
     int m1          = 0;
     int n1          = 0;
-    int iErr        = 0;
-
+    
     SciErr sciErr;
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 0, 1);

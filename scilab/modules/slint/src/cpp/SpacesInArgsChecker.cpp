@@ -32,7 +32,6 @@ void SpacesInArgsChecker::preCheckNode(const ast::Exp & e, SLintContext & contex
     }
 
     const wchar_t * code = context.getCode();
-    const unsigned int len = context.getCodeLength();
     bool first = true;
     for (const auto arg : args)
     {

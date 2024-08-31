@@ -79,7 +79,7 @@ ScicosImport scicos_imp =
     (int *) NULL,      /* noord      */
     (int *) NULL,      /* zord   **  */
     (int *) NULL,      /* nzord      */
-    (int *) NULL,      /* funptr     */
+    NULL,              /* funptr     */
     (int *) NULL,      /* funtyp **  */
     (int *) NULL,      /* ztyp   **  */
     (int *) NULL,      /* cord   **  */
@@ -129,7 +129,7 @@ void makescicosimport(double *x, int *nx,
                       int *nblk, int *subs, int *nsubs,
                       double *tevts, int *evtspt, int *nevts, int *pointi,
                       int *iord, int *niord, int *oord, int *noord, int *zord, int *nzord,
-                      int *funptr, int *funtyp, int *ztyp,
+                      voidg* funptr, int *funtyp, int *ztyp,
                       int *cord, int *ncord, int *ordclk, int *nordclk, int *clkptr,
                       int *ordptr, int *nordptr, int *critev,  int *iwa, scicos_block *blocks,
                       double *t0, double *tf, double *Atol, double *rtol, double *ttol, double *deltat, double *hmax,
@@ -287,7 +287,7 @@ void C2F(clearscicosimport)()
     scicos_imp.zord = (int *) NULL;
     scicos_imp.nzord = (int *) NULL;
 
-    scicos_imp.funptr = (int *) NULL;
+    scicos_imp.funptr = NULL;
     scicos_imp.funtyp = (int *) NULL;
 
     scicos_imp.ztyp = (int *) NULL;
@@ -320,7 +320,7 @@ void C2F(clearscicosimport)()
  * 08/02/07, Alan : update
  */
 
-int getscicosvarsfromimport(char *what, void **v, int *nv, int *mv)
+int getscicosvarsfromimport(const char *what, void **v, int *nv, int *mv)
 /*char *what;   data structure selection -see import.h for definition-*/
 /*void **v;     Pointer to the beginning of the imported data */
 /*int *nv;      size 1 of the imported data */
@@ -710,7 +710,7 @@ int getscicosvarsfromimport(char *what, void **v, int *nv, int *mv)
         /* */
         *nv = nblk;
         *mv = 1;
-        *v  = (int *) (scicos_imp.funptr);
+        *v  = scicos_imp.funptr;
     }
     else if (strcmp(what, "funtyp") == 0)
     {
@@ -920,42 +920,6 @@ void C2F(getblockbylabel)(int *kfun, char **label, int *n)
             }
         }
     }
-}
-/*--------------------------------------------------------------------------*/
-/*never used, never interfaced */
-int C2F(getsciblockbylabel)(int*kfun, int label[], int *n)
-{
-    int k, i, i0, nblk, n1;
-    int job = 1;
-    char* lab[100];
-    if (scicos_imp.x == (double *)NULL)
-    {
-        return (2); /* undefined import table scicos is not running */
-    }
-    nblk = scicos_imp.nblk[0];
-
-    F2C(cvstr)(n, lab, label, &job, *n);
-
-    *kfun = 0;
-    for (k = 0; k < nblk; k++)
-    {
-        n1 = (int)(scicos_imp.izptr[k] - scicos_imp.izptr[k - 1]);
-        if (n1 == *n)
-        {
-            i0 = scicos_imp.izptr[k - 1] - 1;
-            i = 0;
-            while ((lab[i] == scicos_imp.iz[i0 + i]) & (i < n1))
-            {
-                i++;
-            }
-            if (i == n1)
-            {
-                *kfun = k + 1;
-                return 0;
-            }
-        }
-    }
-    return 0;
 }
 /*--------------------------------------------------------------------------*/
 int getscilabel(int *kfun, char *label, int *n)

@@ -33,7 +33,6 @@ types::Function::ReturnValue sci_kinsol(types::typed_list &in, types::optional_l
 {
     KINSOLManager *manager = NULL;
     char errorMsg[256];
-    int iStart = 0;
 
     manager = new KINSOLManager();
 

@@ -103,9 +103,9 @@ double getIndex(InternalType* val)
         {
             return getIndex(val->getAs<UInt64>());
         }
+        default:
+            return 0;
     }
-
-    return 0;
 }
 
 //get only scalar index
@@ -290,7 +290,7 @@ bool getScalarImplicitIndex(GenericType* _pRef, typed_list* _pArgsIn, std::vecto
         double step = evalute(pIL->getStep(), sizeRef);
         double end = evalute(pIL->getEnd(), sizeRef);
 
-        if (start < 1 && step > 0 || end < 1 && step < 0)
+        if ((start < 1 && step > 0) || (end < 1 && step < 0))
         {
             wchar_t szError[bsiz];
             os_swprintf(szError, bsiz, _W("Invalid index.\n").c_str());
@@ -388,7 +388,7 @@ bool getImplicitIndex(GenericType* _pRef, typed_list* _pArgsIn, std::vector<int>
 
                 std::vector<int> idx(size);
 
-                if (start < 1 && step > 0 || end < 1 && step < 0)
+                if ((start < 1 && step > 0) || (end < 1 && step < 0))
                 {
                     wchar_t szError[bsiz];
                     os_swprintf(szError, bsiz, _W("Invalid index.\n").c_str());
@@ -624,7 +624,7 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
                 double step = getIndex(pIL->getStep());
                 double end = getIndex(pIL->getEnd());
 
-                pCurrentArg = (start < 1 && step > 0 || end < 1 && step < 0) ? NULL : pIL->extractFullMatrix()->getAs<Double>();
+                pCurrentArg = ((start < 1 && step > 0) || (end < 1 && step < 0)) ? NULL : pIL->extractFullMatrix()->getAs<Double>();
             }
 
             pIL->killMe();
@@ -808,6 +808,9 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
                     pCurrentArg = convertIndex(pIT->getAs<UInt64>());
                     break;
                 }
+                default:
+                    pCurrentArg = NULL;
+                    break;
             }
         }
 

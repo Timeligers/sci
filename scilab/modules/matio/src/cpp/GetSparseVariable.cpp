@@ -42,7 +42,6 @@ matvar_t* GetSparseMatVar(types::Sparse* pSparse, const char *name)
 {
     int Dims = pSparse->getDims();
     int* pDims = pSparse->getDimsArray();
-    int isize = pSparse->getSize();
     size_t* psize_t = NULL;
     matvar_t * pMatVarOut = NULL;
 

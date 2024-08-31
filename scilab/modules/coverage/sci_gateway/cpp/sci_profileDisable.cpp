@@ -40,7 +40,6 @@ namespace
 
 void addToProcess(CoverModule* cm, std::vector<types::Macro*>& macros, types::Macro* current)
 {
-    size_t macroLen = macros.size();
     macros.push_back(current);
 
     // clean sub functions (defined in the same file)

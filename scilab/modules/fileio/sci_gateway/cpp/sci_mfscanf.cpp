@@ -41,7 +41,6 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
     int iFile = -1; //default file : last opened file
     int size = (int)in.size();
     int iNiter = 1;
-    int iErr = 0;
     wchar_t* wcsFormat = NULL;
     std::vector<types::InternalType*> IT;
 

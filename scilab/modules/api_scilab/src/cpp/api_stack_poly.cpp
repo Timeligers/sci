@@ -89,9 +89,6 @@ SciErr getCommonMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iComplex, int* 
     SciErr sciErr = sciErrInit();
     int iType = 0;
     int iSize = 0;
-    int *piOffset = NULL;
-    double *pdblReal = NULL;
-    double *pdblImg = NULL;
 
     if (_piAddress == NULL)
     {
@@ -160,17 +157,17 @@ SciErr getCommonMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iComplex, int* 
     return sciErr;
 }
 
-SciErr createMatrixOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal)
+SciErr createMatrixOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal)
 {
     return createCommonMatrixOfPoly(_pvCtx, _iVar, 0, _pstVarName, _iRows, _iCols, _piNbCoef, _pdblReal, NULL);
 }
 
-SciErr createComplexMatrixOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg)
+SciErr createComplexMatrixOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg)
 {
     return createCommonMatrixOfPoly(_pvCtx, _iVar, 1, _pstVarName, _iRows, _iCols, _piNbCoef, _pdblReal, _pdblImg);
 }
 
-SciErr createCommonMatrixOfPoly(void* _pvCtx, int _iVar, int _iComplex, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg)
+SciErr createCommonMatrixOfPoly(void* _pvCtx, int _iVar, int _iComplex, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg)
 {
     SciErr sciErr = sciErrInit();
     if (_pvCtx == NULL)
@@ -229,17 +226,17 @@ SciErr createCommonMatrixOfPoly(void* _pvCtx, int _iVar, int _iComplex, char* _p
     return sciErr;
 }
 
-SciErr createNamedMatrixOfPoly(void* _pvCtx, const char* _pstName, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal)
+SciErr createNamedMatrixOfPoly(void* _pvCtx, const char* _pstName, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal)
 {
     return createCommonNamedMatrixOfPoly(_pvCtx, _pstName, _pstVarName, 0, _iRows, _iCols, _piNbCoef, _pdblReal, NULL);
 }
 
-SciErr createNamedComplexMatrixOfPoly(void* _pvCtx, const char* _pstName, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg)
+SciErr createNamedComplexMatrixOfPoly(void* _pvCtx, const char* _pstName, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg)
 {
     return createCommonNamedMatrixOfPoly(_pvCtx, _pstName, _pstVarName, 1, _iRows, _iCols, _piNbCoef, _pdblReal, _pdblImg);
 }
 
-SciErr createCommonNamedMatrixOfPoly(void* _pvCtx, const char* _pstName, char* _pstVarName, int _iComplex, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg)
+SciErr createCommonNamedMatrixOfPoly(void* _pvCtx, const char* _pstName, char* _pstVarName, int _iComplex, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg)
 {
     SciErr sciErr = sciErrInit();
 
@@ -373,9 +370,6 @@ static int getCommonAllocatedSinglePoly(void* _pvCtx, int* _piAddress, int _iCom
     int iRows	= 0;
     int iCols	= 0;
 
-    double* pdblReal = NULL;
-    double* pdblImg	 = NULL;
-
     if (isScalar(_pvCtx, _piAddress) == 0)
     {
         addErrorMessage(&sciErr, API_ERROR_GET_ALLOC_SINGLE_POLY, _("%s: Wrong type for input argument #%d: A scalar expected.\n"), _iComplex ? "getAllocatedSingleComplexPoly" : "getAllocatedSinglePoly", getRhsFromAddress(_pvCtx, _piAddress));
@@ -467,8 +461,6 @@ int getAllocatedMatrixOfComplexPoly(void* _pvCtx, int* _piAddress, int* _piRows,
 static int getCommonAllocatedMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iComplex, int* _piRows, int* _piCols, int** _piNbCoef, double*** _pdblReal, double*** _pdblImg)
 {
     SciErr sciErr = sciErrInit();
-    double* pdblReal	= NULL;
-    double* pdblImg		= NULL;
 
     sciErr = getCommonMatrixOfPoly(_pvCtx, _piAddress, _iComplex, _piRows, _piCols, NULL, NULL, NULL);
     if (sciErr.iErr)

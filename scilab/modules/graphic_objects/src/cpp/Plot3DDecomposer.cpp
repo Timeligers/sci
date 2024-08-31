@@ -94,7 +94,6 @@ void Plot3DDecomposer::fillColors(int id, float* buffer, int bufferLength, int e
     int parentFigure = 0;
     int* pparentFigure = &parentFigure;
     int parent = 0;
-    int* pparent = &parent;
 
     double* z = NULL;
     double* colormap = NULL;

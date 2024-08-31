@@ -57,7 +57,6 @@ bool is_of_type(const std::string & Str)
 types::Function::ReturnValue sci_read(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     int iID = 0;
-    int iAcces = 0;
     int iRhs = static_cast<int>(in.size());
     char* pstFormat = NULL;
     types::InternalType::ScilabType itTypeOfData = types::InternalType::ScilabDouble;

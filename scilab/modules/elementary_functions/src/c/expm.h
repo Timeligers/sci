@@ -48,9 +48,6 @@ ELEMENTARY_FUNCTIONS_IMPEXP DCOEFF_struct C2F(dcoeff);
 
 #endif
 
-static double spdblExpmC[41] = {0};
-static double sdblExpmN = 0;
-
 /*--------------------------------------------------------------------------*/
 void vSwitchVal(double *_pdblVal, int _iPos1, int _iPos2);
 

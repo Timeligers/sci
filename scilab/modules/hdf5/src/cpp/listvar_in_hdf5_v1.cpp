@@ -306,6 +306,10 @@ static bool read_double_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos, int *_p
     int iComplex = 0;
 
     iRet = getDatasetDims_v1(_iDatasetId, &iRows, &iCols);
+    if (iRet)
+    {
+        return false;
+    }
     iComplex = isComplexData_v1(_iDatasetId);
 
     _pInfo->iDims = 2;
@@ -325,6 +329,10 @@ static bool read_string_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos, int *_p
     char** pstData = NULL;
 
     iRet = getDatasetDims_v1(_iDatasetId, &iRows, &iCols);
+    if (iRet)
+    {
+        return false;
+    }
 
     _pInfo->iDims = 2;
     _pInfo->piDims[0] = iRows;
@@ -333,6 +341,10 @@ static bool read_string_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos, int *_p
     pstData = (char **)MALLOC(iRows * iCols * sizeof(char *));
     memset(pstData, 0x00, iRows * iCols * sizeof(char *));
     iRet = readStringMatrix_v1(_iDatasetId, iRows, iCols, pstData);
+    if (iRet)
+    {
+        return false;
+    }
 
     for (int i = 0 ; i < iRows * iCols ; i++)
     {
@@ -357,6 +369,10 @@ static bool read_boolean_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos, int *_
     int iCols = 0;
 
     iRet = getDatasetDims_v1(_iDatasetId, &iRows, &iCols);
+    if (iRet)
+    {
+        return false;
+    }
 
     _pInfo->iDims = 2;
     _pInfo->piDims[0] = iRows;
@@ -375,7 +391,15 @@ static bool read_integer_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos, int *_
     int iPrec = 0;
 
     iRet = getDatasetDims_v1(_iDatasetId, &iRows, &iCols);
+    if (iRet)
+    {
+        return false;
+    }
     iRet = getDatasetPrecision_v1(_iDatasetId, &iPrec);
+    if (iRet)
+    {
+        return false;
+    }
 
     _pInfo->iDims = 2;
     _pInfo->piDims[0] = iRows;
@@ -417,7 +441,6 @@ static bool read_boolean_sparse_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos,
     int iRows = 0;
     int iCols = 0;
     int iNbItem = 0;
-    int iComplex = 0;
 
     iRet = getSparseDimension_v1(_iDatasetId, &iRows, &iCols, &iNbItem);
     if (iRet)
@@ -572,16 +595,15 @@ static bool read_undefined_v1(int* pvCtx, hid_t _iDatasetId, int _iItemPos, int 
 
 static void generateInfo_v1(VarInfo_v1* _pInfo, const char* _pstType)
 {
-    char pstSize[17];
+    char pstSize[17] = {0};
 
     if (_pInfo->iDims == 2)
     {
-        sprintf(pstSize, "%d by %d", _pInfo->piDims[0], _pInfo->piDims[1]);
+        snprintf(pstSize, sizeof(pstSize), "%d by %d", _pInfo->piDims[0], _pInfo->piDims[1]);
     }
     else
     {
-        sprintf(pstSize, "%d", _pInfo->piDims[0]);
+        snprintf(pstSize, sizeof(pstSize), "%d", _pInfo->piDims[0]);
     }
-    sprintf(_pInfo->pstInfo, "%-*s%-*s%-*s%-*d", 25, _pInfo->varName, 15, _pstType, 16, pstSize, 10, _pInfo->iSize);
+    sprintf(_pInfo->pstInfo, "%-25.25s%-15.15s%-16.16s%-10.10d", _pInfo->varName, _pstType, pstSize, _pInfo->iSize);
 }
-

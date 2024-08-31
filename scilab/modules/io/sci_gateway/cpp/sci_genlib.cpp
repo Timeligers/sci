@@ -84,7 +84,6 @@ types::Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, t
 
     int iNbFile = 0;
     wchar_t *pstParsePath = NULL;
-    int iParsePathLen = 0;
     wchar_t* pstLibName = NULL;
     bool bVerbose = false;
     bool bForce = false;

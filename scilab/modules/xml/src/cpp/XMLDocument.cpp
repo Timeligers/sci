@@ -239,6 +239,10 @@ const std::string XMLDocument::dumpHTML(bool indent) const
     xmlThrDefIndentTreeOutput(1);
     xmlSaveCtxtPtr ctxt = xmlSaveToBuffer(buffer, 0, options);
     ret = xmlSaveDoc(ctxt, document);
+    if (ret < 0)
+    {
+        return "";
+    }
     xmlSaveFlush(ctxt);
     xmlSaveClose(ctxt);
 

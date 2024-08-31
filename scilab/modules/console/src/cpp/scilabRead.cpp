@@ -42,6 +42,8 @@ void C2F(scilabread)(char* strRead, int len)
     scilabRead();
     char* str = ConfigVariable::getConsoleReadStr();
     int size = std::min(static_cast<int>(strlen(str)), len - 1);
+    // bound by a high value to prevent overwrite
+    size = std::min(size, 4096);
     strncpy(strRead, str, size);
     strRead[size] = '\0';
     FREE(str);

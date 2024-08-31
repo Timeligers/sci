@@ -149,15 +149,14 @@ types::InternalType* Libraries::get(const Symbol& _key, int _iLevel)
     }
 
     //does _key is a macro in a lib
-    auto it = libs.rbegin();
     for (auto it = libs.rbegin(), itEnd = libs.rend(); it != itEnd; ++it)
     {
         Library* lib = it->second;
-        if (it->second->empty() == false)
+        if (lib->empty() == false)
         {
-            if (_iLevel == SCOPE_ALL || it->second->top()->m_iLevel == _iLevel)
+            if (_iLevel == SCOPE_ALL || lib->top()->m_iLevel == _iLevel)
             {
-                types::MacroFile* pMF = it->second->get(_key);
+                types::MacroFile* pMF = lib->get(_key);
                 if (pMF)
                 {
                     return (types::InternalType*)pMF;
@@ -191,8 +190,6 @@ bool Libraries::remove(const Symbol& _key, int _iLevel)
 
 int Libraries::getMacrosName(std::list<std::wstring>& lst)
 {
-    MapLibs::iterator it = libs.begin();
-    MapLibs::iterator itEnd = libs.end();
     for (auto it : libs)
     {
         it.second->getMacrosName(lst);

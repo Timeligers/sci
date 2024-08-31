@@ -65,9 +65,9 @@ static SciErr createCommonMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* _pi
 static SciErr createCommonMatrixOfDoubleInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iComplex, int _iRows, int _iCols, const double* _pdblReal, const double* _pdblImg);
 static SciErr readCommonMatrixOfDoubleInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iComplex, int* _piRows, int* _piCols, double* _pdblReal, double* _pdblImg);
 static SciErr getCommonMatrixOfPolyInList(void* _pvCtx, int* _piParent, int _iItemPos, int _iComplex, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
-static SciErr createCommonMatrixOfPolyInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iComplex, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg);
+static SciErr createCommonMatrixOfPolyInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iComplex, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg);
 static SciErr readCommonMatrixOfPolyInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iComplex, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
-static SciErr createCommonMatrixOfStringInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, const char* const* _pstStrings);
+static SciErr createCommonMatrixOfStringInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, char const* const* _pstStrings);
 static SciErr createCommonPointerInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, void* _pvPtr);
 static SciErr readCommonSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iComplex, int* _piRows, int* _piCols, int* _piNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
 static SciErr createCommonBooleanSparseMatrixInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos);
@@ -131,10 +131,6 @@ SciErr getListItemNumber(void* _pvCtx, int* _piAddress, int* _piNbItem)
 
 SciErr getListItemAddress(void* _pvCtx, int* _piAddress, int _iItemNum, int** _piItemAddress)
 {
-    int iItem           = 0;
-    int* piOffset       = NULL;
-    int* piItemAddress  = NULL;
-
     SciErr sciErr = sciErrInit();
 
     sciErr = checkListItemPosition(_pvCtx, _piAddress, _iItemNum, API_ERROR_GET_ITEM_ADDRESS, "getListItemAddress");
@@ -644,7 +640,6 @@ SciErr allocComplexMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* _piParent,
 static SciErr allocCommonMatrixOfDoubleInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iComplex, int _iRows, int _iCols, double** _pdblReal, double** _pdblImg)
 {
     SciErr sciErr   = sciErrInit();
-    int iItem       = 0;
 
     sciErr = checkListItemPosition(_pvCtx, _piParent, _iItemPos, API_ERROR_ALLOC_DOUBLE_IN_LIST, _iComplex ? "allocComplexMatrixOfDoubleInList" : "allocMatrixOfDoubleInList");
     if (sciErr.iErr)
@@ -905,17 +900,17 @@ SciErr getMatrixOfStringInList(void* _pvCtx, int* _piParent, int _iItemPos, int*
     return sciErr;
 }
 
-SciErr createMatrixOfStringInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, const char* const* _pstStrings)
+SciErr createMatrixOfStringInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, char const* const* _pstStrings)
 {
     return createCommonMatrixOfStringInList(_pvCtx, NULL, _piParent, _iItemPos, _iRows, _iCols, _pstStrings);
 }
 
-SciErr createMatrixOfStringInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, const char* const* _pstStrings)
+SciErr createMatrixOfStringInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, char const* const* _pstStrings)
 {
     return createCommonMatrixOfStringInList(_pvCtx, _pstName, _piParent, _iItemPos, _iRows, _iCols, _pstStrings);
 }
 
-SciErr createCommonMatrixOfStringInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, const char* const* _pstStrings)
+SciErr createCommonMatrixOfStringInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iRows, int _iCols, char const* const* _pstStrings)
 {
     SciErr sciErr = sciErrInit();
     const char* funcName = NULL;
@@ -1218,27 +1213,27 @@ SciErr getCommonMatrixOfPolyInList(void* _pvCtx, int* _piParent, int _iItemPos, 
     return sciErr;
 }
 
-SciErr createMatrixOfPolyInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal)
+SciErr createMatrixOfPolyInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal)
 {
     return createCommonMatrixOfPolyInList(_pvCtx, NULL, _piParent, _iItemPos, _pstVarName, 0, _iRows, _iCols, _piNbCoef, _pdblReal, NULL);
 }
 
-SciErr createComplexMatrixOfPolyInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg)
+SciErr createComplexMatrixOfPolyInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg)
 {
     return createCommonMatrixOfPolyInList(_pvCtx, NULL, _piParent, _iItemPos, _pstVarName, 1, _iRows, _iCols, _piNbCoef, _pdblReal, _pdblImg);
 }
 
-SciErr createMatrixOfPolyInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal)
+SciErr createMatrixOfPolyInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal)
 {
     return createCommonMatrixOfPolyInList(_pvCtx, _pstName, _piParent, _iItemPos, _pstVarName, 0, _iRows, _iCols, _piNbCoef, _pdblReal, NULL);
 }
 
-SciErr createComplexMatrixOfPolyInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg)
+SciErr createComplexMatrixOfPolyInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg)
 {
     return createCommonMatrixOfPolyInList(_pvCtx, _pstName, _piParent, _iItemPos, _pstVarName, 1, _iRows, _iCols, _piNbCoef, _pdblReal, _pdblImg);
 }
 
-SciErr createCommonMatrixOfPolyInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iComplex, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg)
+SciErr createCommonMatrixOfPolyInList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, char* _pstVarName, int _iComplex, int _iRows, int _iCols, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg)
 {
     SciErr sciErr        = sciErrInit();
     const char* funcName = NULL;

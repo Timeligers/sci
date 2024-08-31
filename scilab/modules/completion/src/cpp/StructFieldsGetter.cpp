@@ -36,7 +36,6 @@ const char ** StructFieldsGetter::getFieldsName(int * mlist, char ** fieldPath, 
     int rows;
     int cols;
     int rc;
-    int * piLen = 0;
     char ** pstData = 0;
     int nbItem;
     int * fieldsAddr = 0;

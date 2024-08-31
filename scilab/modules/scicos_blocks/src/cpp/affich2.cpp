@@ -47,7 +47,9 @@ SCICOS_BLOCKS_IMPEXP void affich2(scicos_block * block, int flag)
     char pstConv[128];
 
     iRowsIn = GetInPortRows(block, 1);
+    if (iRowsIn <= 0) return;
     iColsIn = GetInPortCols(block, 1);
+    if (iColsIn <= 0) return;
 
     pdblReal = (double *)GetInPortPtrs(block, 1);
 

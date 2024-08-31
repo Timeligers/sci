@@ -28,11 +28,9 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_bezout(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    bool bComplex     = false;
     double* pdblIn[2] = {NULL, NULL};
     int piDegree[2]   = {0, 0};
     double dblErr     = 0;
-    int iOne          = 1;
 
     std::wstring wstrName = L"";
 

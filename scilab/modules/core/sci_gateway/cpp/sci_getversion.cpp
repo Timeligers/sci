@@ -33,10 +33,6 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 #define VERSION_STRING L"string_info"
 /*--------------------------------------------------------------------------*/
-static int getversion_no_rhs(char *fname, void* pvApiCtx);
-static int getversion_one_rhs(char *fname, void* pvApiCtx);
-static int getversion_two_rhs(char *fname, void* pvApiCtx);
-/*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_getversion(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     if (in.size() > 2)

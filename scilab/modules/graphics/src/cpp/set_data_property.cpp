@@ -508,11 +508,6 @@ int set3ddata(void* _pvCtx, int iObjUID, AssignedList * tlist)
     double* inputColors;
     int nbInputColors;
 
-    // number of specified colors
-    int nc = 0;
-
-    int izcol;
-
     /* no copy now we just perform tests on the matrices */
     pvecx = getCurrentDoubleMatrixFromList(_pvCtx, tlist, &m1, &n1);
     pvecy = getCurrentDoubleMatrixFromList(_pvCtx, tlist, &m2, &n2);
@@ -554,17 +549,7 @@ int set3ddata(void* _pvCtx, int iObjUID, AssignedList * tlist)
     if (getAssignedListNbElement(tlist) == 4)
     {
         getCurrentDoubleMatrixFromList(_pvCtx, tlist, &m3n, &n3n);
-        if (m3n * n3n == m3 * n3)
-        {
-            /* the color is a matrix, with same size as Z */
-            izcol = 2;
-        }
-        else if (m3n * n3n == n3 && (m3n == 1 || n3n == 1))
-        {
-            /* a vector with as many colors as facets */
-            izcol = 1;
-        }
-        else
+        if (m3n * n3n != m3 * n3)
         {
             Scierror(999, _("Wrong size for %s element: A %d-by-%d matrix or a vector of size %d expected.\n"), "color", m3, n3, n3);
             return SET_PROPERTY_ERROR;
@@ -574,7 +559,6 @@ int set3ddata(void* _pvCtx, int iObjUID, AssignedList * tlist)
     {
         m3n = 0;
         n3n = 0;
-        izcol = 0;
     }
 
     getGraphicObjectProperty(iObjUID, __GO_TYPE__, jni_int, (void **)&piType);

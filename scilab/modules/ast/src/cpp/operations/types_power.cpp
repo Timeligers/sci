@@ -286,7 +286,6 @@ int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
 {
     bool bComplex1  = _pPoly->isComplex();
     bool bScalar1   = _pPoly->isScalar();
-    double* bImg    = _pDouble->getImg();
     bool bNumericallyComplex1 = _pDouble->isNumericallyComplex();
 
     if (!isDoubleFinite(_pDouble))
@@ -755,8 +754,6 @@ int DotPowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoub
     {
         //A .^ B
         //check dimension compatibilities ( same number of dimension and same size for each dimension
-        int iDims1      = _pDouble1->getDims();
-        int* piDims1    = _pDouble1->getDimsArray();
         int iDims2      = _pDouble2->getDims();
         int* piDims2    = _pDouble2->getDimsArray();
 

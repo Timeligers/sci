@@ -462,7 +462,7 @@ void SinglePoly::toStringInternal(double *_pdblR, double *_pdblI, const std::wst
              addDoubleValue(&ostemp, dblI, &dfI);
              ostemp << L"i";
              
-             if (dblR != 0 & i != 0)
+             if (dblR != 0 && i != 0)
              {
                  ostemp << L")";
              }

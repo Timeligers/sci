@@ -50,7 +50,6 @@ int sci_h5label(char *fname, int* pvApiCtx)
     double * dims = 0;
     unsigned int * _dims = 0;
     unsigned int size;
-    const int nbIn = nbInputArgument(pvApiCtx);
     int row, col;
 
     CheckOutputArgument(pvApiCtx, 0, 1);

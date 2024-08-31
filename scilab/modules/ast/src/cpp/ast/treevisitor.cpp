@@ -633,7 +633,6 @@ void TreeVisitor::visit(const CallExp &e)
         symbol::Context* ctx = symbol::Context::getInstance();
         symbol::Variable* vvar = ((SimpleVar&)var).getStack();
         types::InternalType* pIT = ctx->get(vvar);
-        const std::wstring& name = var.getSymbol().getName();
 
         // Function call
         if (pIT && pIT->isCallable())

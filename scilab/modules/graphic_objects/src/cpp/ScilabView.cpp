@@ -197,8 +197,6 @@ void ScilabView::createObject(int iUID)
 void ScilabView::deleteObject(int iUID)
 {
     //std::cerr << "[ScilabView] -- deleteObject UID=" << iUID << std::endl;
-    int iType = -1;
-    int *piType = &iType;
     int iParentUID = 0;
 
     /* get USEr_DATA property and free it*/
@@ -638,7 +636,6 @@ PathItem* ScilabView::search_children(PathItem* _path, std::string _subPath, boo
         PathItem* child = ScilabView::getItem(*it);
         if (child->tag == _subPath)
         {
-            bool ignored = false;
             //check if this handle is not in ignoredList
             if (std::find(_ignoredList.begin(), _ignoredList.end(), child->uid) == _ignoredList.end())
             {

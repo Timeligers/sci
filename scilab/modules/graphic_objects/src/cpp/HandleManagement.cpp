@@ -31,7 +31,7 @@ int getObjectFromHandle(long handle)
     return ScilabView::getObjectFromHandle(handle);
 }
 
-char* getHandleTypeStr(int _iType)
+char const* getHandleTypeStr(int _iType)
 {
     switch (_iType)
     {

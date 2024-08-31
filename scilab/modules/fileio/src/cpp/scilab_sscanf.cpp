@@ -600,7 +600,6 @@ int scilab_sscanf(wchar_t* _wcsFormat, wchar_t* _wcsData, int _iIterrator, int _
                     if (wcsData != NULL && wcsData[0] != L'\0')
                     {
                         double dSingleData  = 0;
-                        BOOL bSigne         = FALSE;
                         while (wcsData[0] == L' ')
                         {
                             wcsData++;

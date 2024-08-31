@@ -54,7 +54,7 @@ static void delete_target(FILE* fp, char* target)
     }
 }
 /*--------------------------------------------------------------------------*/
-int do_xxscanf (const wchar_t *fname, FILE *fp, const wchar_t *format, int *nargs, wchar_t *strv, int *retval, rec_entry *buf, sfdir *type)
+int do_xxscanf (const wchar_t *fname, FILE *fp, wchar_t *format, int *nargs, wchar_t *strv, int *retval, rec_entry *buf, sfdir *type)
 {
     int nc[MAXSCAN];
     int n_directive_count = 0;

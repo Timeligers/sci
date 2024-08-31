@@ -100,8 +100,7 @@ types::Function::ReturnValue sci_struct_gw(types::typed_list &in, int _piRetCoun
     {
         pOut = new types::Struct(1, 1);
     }
-
-    types::InternalType *pFieldValue = NULL;
+    
     for (itInput = in.begin() ; itInput != in.end() ; itInput += 2)
     {
         //for each field

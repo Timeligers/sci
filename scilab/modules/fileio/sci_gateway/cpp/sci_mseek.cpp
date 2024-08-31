@@ -44,7 +44,6 @@ char *strerror (int errcode);
 types::Function::ReturnValue sci_mseek(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     int iFile           = -1; //default file : last opened file
-    int iRet            = 0;
     long long iWhere    = 0;
     int iFlag           = 0;
     wchar_t* wcsFlag    = NULL;

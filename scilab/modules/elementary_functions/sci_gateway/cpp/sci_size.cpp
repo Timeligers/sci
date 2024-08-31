@@ -110,8 +110,7 @@ types::Function::ReturnValue sci_size(types::typed_list &in, int _iRetCount, typ
             {
                 int iRowsOut = 1;
                 int iColsOut = 0;
-                double* pdblReal = NULL;
-
+                
                 switch (iMode)
                 {
                     case -1 : //lhs == 1

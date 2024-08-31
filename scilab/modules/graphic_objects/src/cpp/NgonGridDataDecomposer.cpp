@@ -443,10 +443,12 @@ int NgonGridDataDecomposer::fillTriangleIndices(int* buffer, int bufferLength, i
 
     int currentFacetValid = 0;
 
-    int ij = 0;
+#if PER_VERTEX_VALUES
     int ip1j = 0;
     int ip1jp1 = 0;
+    int ij = 0;
     int ijp1 = 0;
+#endif /* PER_VERTEX_VALUES */
 
     /* 0 indices if less than 2 points along either dimension */
     if (numX < 2 || numY < 2)
@@ -489,8 +491,10 @@ int NgonGridDataDecomposer::fillTriangleIndices(int* buffer, int bufferLength, i
             currentColumnValid &= DecompositionUtils::isLogValid(x[0]);
         }
 
+#if PER_VERTEX_VALUES
         ij = getPointIndex(numX, numY, 0, j);
         ijp1 = getPointIndex(numX, numY, 0, j + 1);
+#endif /* PER_VERTEX_VALUES */
 
         currentEdgeValid = isFacetEdgeValid(z, values, perNodeValues, numX, numY, 0, j, logMask & 0x4);
 
@@ -503,8 +507,10 @@ int NgonGridDataDecomposer::fillTriangleIndices(int* buffer, int bufferLength, i
                 nextColumnValid &= DecompositionUtils::isLogValid(x[i + 1]);
             }
 
+#if PER_VERTEX_VALUES
             ip1j = getPointIndex(numX, numY, i + 1, j);
             ip1jp1 = getPointIndex(numX, numY, i + 1, j + 1);
+#endif /* PER_VERTEX_VALUES */
 
             currentFacetValid = isFacetValid(z, values, perNodeValues, numX, numY, i, j, logMask & 0x4, currentEdgeValid, &nextEdgeValid);
 
@@ -544,8 +550,10 @@ int NgonGridDataDecomposer::fillTriangleIndices(int* buffer, int bufferLength, i
 
             currentEdgeValid = nextEdgeValid;
 
+#if PER_VERTEX_VALUES
             ij = ip1j;
             ijp1 = ip1jp1;
+#endif /* PER_VERTEX_VALUES */
         }
     }
 

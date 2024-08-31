@@ -141,7 +141,7 @@ int sci_beep(char *fname, void* pvApiCtx)
         output = os_strdup(BEEP_OFF);
     }
 
-    sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m_out, n_out, (const char * const*) &output);
+    sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m_out, n_out, &output);
     if (sciErr.iErr)
     {
         printError(&sciErr, 0);

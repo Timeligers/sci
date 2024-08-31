@@ -57,7 +57,6 @@ void clean(double* pdblReal, double* pdblImg, int iSize, double dEpsA, double dE
     }
     else
     {
-        int iOne = 1;
         double dNorm = 0;
         for (int i = 0 ; i < iSize ; i++)
         {

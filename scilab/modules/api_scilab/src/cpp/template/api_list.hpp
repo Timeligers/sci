@@ -38,7 +38,7 @@ int API_PROTO(isUndefined)(scilabEnv env, scilabVar var, int index)
     }
 #endif
     types::InternalType* item = l->get(index);
-    if (item->isVoid())
+    if (item == NULL || item->isVoid())
     {
         return 1;
     }

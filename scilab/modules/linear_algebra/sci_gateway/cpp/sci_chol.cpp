@@ -31,7 +31,6 @@ extern "C"
 types::Function::ReturnValue sci_chol(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     types::Double* pDbl     = NULL;
-    double* pdOut           = NULL;
     int iCholProductResult  = 0;
     types::Double* result   = NULL;
 

@@ -245,10 +245,10 @@ types::Function::ReturnValue sci_filter(types::typed_list &in, int _iRetCount, t
         type_si = in[3]->getId();
     }
 
-    if (type_b  != types::InternalType::IdDouble && type_b  != types::InternalType::IdScalarDouble ||
-        type_a  != types::InternalType::IdDouble && type_a  != types::InternalType::IdScalarDouble ||
-        type_x  != types::InternalType::IdDouble && type_x  != types::InternalType::IdScalarDouble ||
-        type_si != types::InternalType::IdDouble && type_si != types::InternalType::IdScalarDouble)
+    if ((type_b  != types::InternalType::IdDouble && type_b  != types::InternalType::IdScalarDouble) ||
+        (type_a  != types::InternalType::IdDouble && type_a  != types::InternalType::IdScalarDouble) ||
+        (type_x  != types::InternalType::IdDouble && type_x  != types::InternalType::IdScalarDouble) ||
+        (type_si != types::InternalType::IdDouble && type_si != types::InternalType::IdScalarDouble))
     {
         return Overload::call(L"%_filter", in, _iRetCount, out);
     }

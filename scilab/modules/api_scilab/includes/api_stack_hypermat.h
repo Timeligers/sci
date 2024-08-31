@@ -224,7 +224,7 @@ SciErr getHypermatOfBoolean(void* _pvCtx, int* _piAddress, int **_dims, int *_nd
  * @param[in] _piNbCoef number of polynomial coefficients for each element
  * @param[in] _pdblReal pointer to real coefficients
  */
-SciErr createHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int *_dims, int _ndims, const int* _piNbCoef, const double* const* _pdblReal);
+SciErr createHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int *_dims, int _ndims, const int* _piNbCoef, double CONST_PTR* CONST_PTR* _pdblReal);
 
 /**
  * Create a complex polynomial hypermatrix
@@ -236,7 +236,7 @@ SciErr createHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int *_di
  * @param[in] _pdblReal pointer to real coefficients
  * @param[in] _pdblImg pointer to imaginary coefficients
  */
-SciErr createComplexHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int *_dims, int _ndims, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg);
+SciErr createComplexHypermatOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int *_dims, int _ndims, const int* _piNbCoef, double CONST_PTR* CONST_PTR* _pdblReal, double CONST_PTR* CONST_PTR* _pdblImg);
 
 /**
  * Create a double hypermatrix
@@ -273,7 +273,7 @@ SciErr createHypermatOfBoolean(void* _pvCtx, int _iVar, int *_dims, int _ndims, 
  * @param[in] _ndims the number of dimensions
  * @param[in] _pstStrings pointer to string data
  */
-SciErr createHypermatOfString(void* _pvCtx, int _iVar, int *_dims, int _ndims, const char* const* _pstStrings);
+SciErr createHypermatOfString(void* _pvCtx, int _iVar, int *_dims, int _ndims, char CONST_PTR* CONST_PTR* _pstStrings);
 
 /**
  * Create a int8 hypermatrix

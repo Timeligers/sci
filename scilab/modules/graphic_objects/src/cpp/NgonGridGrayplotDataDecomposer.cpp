@@ -36,7 +36,6 @@ void NgonGridGrayplotDataDecomposer::fillColors(int id, float* buffer, int buffe
     int parentFigure = 0;
     int* pparentFigure = &parentFigure;
     int parent = 0;
-    int* pparent = &parent;
 
     double* z = NULL;
     double* colormap = NULL;

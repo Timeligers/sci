@@ -105,7 +105,6 @@ ArrayOf<T>* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
         }
 
         T* pRealData = pIns->get();
-        T* pImgData = pIns->getImg();
 
         if (isComplex() == false && pIns->isComplex() == false)
         {
@@ -227,7 +226,6 @@ ArrayOf<T>* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
         }
 
         T* pRealData = pIns->get();
-        T* pImgData = pIns->getImg();
 
         bool status = true;
         if (isComplex() == false && pIns->isComplex() == false)
@@ -340,10 +338,6 @@ ArrayOf<T>* ArrayOf<T>::insert(typed_list* _pArgs, InternalType* _pSource)
             {
                 piNewDims[i] = std::max(piMaxDim[i], m_piDims[i]);
             }
-
-            int iSource = (pSource->getDims() - 1);
-            bool bPassed = false;
-            int *piSourceDims = pSource->getDimsArray();
 
             for (int i = m_iDims; i < iNewDims; ++i)
             {
@@ -1127,7 +1121,7 @@ GenericType* ArrayOf<T>::extract(typed_list* _pArgs)
         }
 
         //check bounds
-        if (step > 0 && ((size - 1) * step + start > m_iSize || start < 1) ||
+        if ((step > 0 && (((size - 1) * step + start > m_iSize) || start < 1)) ||
                 (step < 0 && (start > m_iSize || end < 1)))
         {
             return NULL;

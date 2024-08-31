@@ -34,7 +34,7 @@ namespace slint
 namespace CNES
 {
 
-CNESCsvResult::CNESCsvResult(const ToolConfiguration & tc, types::String * conf, const std::wstring & id, const std::wstring & _path) : tct(tc.getToolConfiguration()), current(nullptr), path(_path)
+CNESCsvResult::CNESCsvResult(const ToolConfiguration & tc, types::String * conf, const std::wstring & id, const std::wstring & _path) : tct(tc.getToolConfiguration()), path(_path), current(nullptr)
 {
     std::string projectName;
     std::string projectVersion;

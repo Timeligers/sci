@@ -210,8 +210,7 @@ public :
   
         for (const auto &it : vectARKODEMethods)
         {
-            if ((m_odeIsImEx == false && hasJacobian() == false) 
-                && (it.second.erkID == ARKODE_ERK_NONE || it.second.dirkID == ARKODE_DIRK_NONE)
+            if (((m_odeIsImEx == false && hasJacobian() == false) && (it.second.erkID == ARKODE_ERK_NONE || it.second.dirkID == ARKODE_DIRK_NONE))
                 || (m_odeIsImEx  && it.second.erkID >= ARKODE_MIN_ERK_NUM && it.second.dirkID >= ARKODE_MIN_DIRK_NUM)
                 || (hasJacobian() && it.second.erkID == ARKODE_ERK_NONE && it.second.dirkID >= ARKODE_MIN_DIRK_NUM))
             {

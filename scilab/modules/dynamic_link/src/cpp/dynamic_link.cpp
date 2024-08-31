@@ -154,8 +154,7 @@ int Sci_dlclose(DynLibHandle _hLib)
 int Sci_dlopen(wchar_t* _pwstDynLibPath)
 {
     static DynLibHandle hLib = NULL;
-    int i = 0;
-
+    
 #ifdef _MSC_VER
     {
         hLib = LoadDynLibraryW(_pwstDynLibPath);

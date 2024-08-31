@@ -62,7 +62,6 @@ types::Function::ReturnValue sci_error(types::typed_list &in, int _iRetCount, ty
     {
         types::Double* pDbl = NULL;
         int iPosDouble = 1;
-        int iPosString = 1;
         // RHS = 2 according to previous check.
         if (in[0]->isDouble() == false && in[0]->isString() == false)
         {
@@ -85,7 +84,6 @@ types::Function::ReturnValue sci_error(types::typed_list &in, int _iRetCount, ty
 
         if (in[0]->isDouble())
         {
-            iPosString = 2;
             pDbl = in[0]->getAs<types::Double>();
             pStrError = in[1]->getAs<types::String>();
         }

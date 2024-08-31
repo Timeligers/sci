@@ -300,7 +300,6 @@ private:
     {
         H5O_info_t info;
         herr_t err;
-        H5Object * obj = 0;
 
         if (H5Lexists(H5Object::getParent().getH5Id(), name.c_str(), H5P_DEFAULT) <= 0)
         {

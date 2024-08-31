@@ -72,10 +72,6 @@ void copyComplexVectorToDouble(double *pdblRealState, double *pdblReal, double *
 void copyMatrixToSUNMatrix(types::InternalType *pI, SUNMatrix SUNMat_J, int iDim, bool bComplex)
 {
     char errorMsg[256] = "";
-    char pcharN[] = "N";
-    double dblMinusOne = -1.0;
-    double dblZero = 0.0;
-    int iOne = 1;
     int iRealDim = 2*iDim;
     // Handle copy in SUNMatrix object
     if (pI->isDouble() && SUNMatGetID(SUNMat_J) == SUNMATRIX_DENSE)

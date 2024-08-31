@@ -115,8 +115,7 @@ bool spCompGeneric::setComputeParameters(types::typed_list& in, types::optional_
         }
         // Check if pattern is symmetric
         int iValueIndex = 0;
-        int iNonZerosInRow = 0;
-
+        
         std::vector<int> index;
         index.reserve(m_iNonZeros);
         for (int i = 0; i < m_iNbRows; i++)

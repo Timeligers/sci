@@ -158,7 +158,6 @@ bool TList::invoke(typed_list & in, optional_list & /*opt*/, int _iRetCount, typ
             Polynom* pPoly = arg->getAs<Polynom>();
             SinglePoly* pSinglePoly = pPoly->get(0);
 
-            int iMaxDim = 0;
             double dblParse = -1 * pSinglePoly->get(0);
             int iSize = getSize();
 

@@ -45,14 +45,10 @@ int sci_getlookandfeel(char *fname, void* pvApiCtx)
 
     if (lnf)
     {
-        static int n1 = 0, m1 = 0;
         char *look = lnf->getCurrentLookAndFeel();
 
         if (look)
         {
-            m1 = (int)strlen(look);
-            n1 = 1;
-
             if (createSingleString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, look))
             {
                 if (look)

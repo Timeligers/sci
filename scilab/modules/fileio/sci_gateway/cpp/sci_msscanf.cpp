@@ -36,7 +36,6 @@ types::Function::ReturnValue sci_msscanf(types::typed_list &in, int _iRetCount, 
     int iNiter                  = 1;
     wchar_t* wcsFormat          = NULL;
     types::String* pStrRead     = NULL;
-    int dimsArray[2]            = {1, 1};
     std::vector<types::InternalType*> IT;
 
     int args        = 0;

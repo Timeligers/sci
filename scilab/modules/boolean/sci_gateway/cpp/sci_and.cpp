@@ -36,13 +36,8 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_and(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-
-    int m1 = 0, n1 = 0;
     int opt = 0;
     int *pBoolValuesOne = NULL;
-    int *pBoolResult = NULL;
-
-    int *piAddressVarOne = NULL;
 
     if ((in.size() < 1) || (in.size() > 2))
     {

@@ -19,8 +19,7 @@ extern "C"
 int SetUicontrolSnapToTicks(void* _pvCtx, int iObjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {
     int b = (int)FALSE;
-    BOOL status = FALSE;
-
+    
     b = tryGetBooleanValueFromStack(_pvData, valueType, nbRow, nbCol, "snaptoticks");
     if (b == NOT_A_BOOLEAN_VALUE)
     {

@@ -37,7 +37,6 @@ types::Function::ReturnValue sci_feval(types::typed_list &in, int _iRetCount, ty
 {
     int iPos = 0;
     int nn   = 1;
-    int iErr = 0;
 
     //input
     types::Double* pDblX = NULL;

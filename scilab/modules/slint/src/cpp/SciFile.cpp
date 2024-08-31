@@ -23,7 +23,7 @@ extern "C"
 namespace slint
 {
 
-SciFile::SciFile() : code(nullptr), tree(nullptr), main(nullptr), codeLength(0)
+SciFile::SciFile() : code(nullptr), codeLength(0), tree(nullptr), main(nullptr)
 {
     initLines();
 }

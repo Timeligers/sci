@@ -118,7 +118,6 @@ int returnArguments(void* _pvCtx)
 int checkInputArgument(void* _pvCtx, int _iMin, int _iMax)
 {
     types::GatewayStruct *pStr = (types::GatewayStruct*)_pvCtx;
-    int iRhs            = *getNbInputArgument(_pvCtx);
 
     if (_iMin <= nbInputArgument(_pvCtx) && _iMax >= nbInputArgument(_pvCtx))
     {
@@ -378,8 +377,6 @@ SciErr getVarAddressFromPosition(void *_pvCtx, int _iVar, int **_piAddress)
 static SciErr getinternalVarAddress(void *_pvCtx, int _iVar, int **_piAddress)
 {
     SciErr sciErr = sciErrInit();
-    int iAddr = 0;
-    int iValType = 0;
 
     if (_pvCtx == NULL)
     {
@@ -582,8 +579,6 @@ SciErr getNamedVarType(void *_pvCtx, const char *_pstName, int *_piType)
 int isVarComplex(void *_pvCtx, int *_piAddress)
 {
     SciErr sciErr = sciErrInit();
-    int iType = 0;
-    int iComplex = 0;
 
     if (_piAddress == NULL)
     {

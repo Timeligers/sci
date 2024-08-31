@@ -43,9 +43,7 @@ static int cmpNames(const void *a, const void *b)
 /*--------------------------------------------------------------------------*/
 char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
 {
-    int rc = 0;
     wchar_t **pstData = NULL;
-    char **fields = NULL;
     char *pstVar = NULL;
     wchar_t* pwstVar = NULL;
     int iXlist = 0;

@@ -574,18 +574,14 @@ void ARKODEManager::getInterpVectors(double *pdblNS, int iOrderPlusOne, int iInd
 {
     char errorMsg[256];
     double tau = (dblTUser-dblt0)/h;
-    double tval, a0, a1, tau2, tau3, tau4, tau5;
-    double h2, h3, h4, h5;
+    double tau2, tau3, tau4, tau5;
+    
     /* The code comes from arkInterpEvaluate_Hermite in arkode_interp.c */
     tau2 = tau*tau;
     tau3 = tau*tau2;
     tau4 = tau*tau3;
     tau5 = tau*tau4;
 
-    h2 = h*h;
-    h3 = h*h2;
-    h4 = h*h3;
-    h5 = h*h4;
     if (m_iInterpolationMethod == ARK_INTERP_HERMITE)
     {
         switch (m_iInterpolationDegree) {
@@ -707,7 +703,6 @@ int ARKODEManager::DQJtimes(realtype tt, N_Vector yy, N_Vector yp, N_Vector rr, 
 types::Struct *ARKODEManager::getStats()
 {
     double dblStat[7] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-    long int liNfeEvals,liNfiEvals;
 
     std::wstring fieldNames[16] = {L"nSteps", L"nRhsExplEvals", L"nRhsImplEvals", L"nRhsEvalsFD", L"nJacEvals", L"nEventEvals",
     L"nLinSolve", L"nRejSteps", L"nNonLiniters", L"nNonLinCVFails", L"order",

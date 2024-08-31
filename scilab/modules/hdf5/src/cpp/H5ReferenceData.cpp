@@ -39,7 +39,7 @@ const char ** H5ReferenceData::getReferencesName() const
     char * cdata = static_cast<char *>(data) + offset;
     const char ** names = new const char*[totalSize];
 
-    for (int i = 0; i < totalSize; i++)
+    for (hsize_t i = 0; i < totalSize; i++)
     {
         void * ref = &(((void **)cdata)[i]);
         ssize_t size = H5Rget_name(file, datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref, 0, 0);
@@ -121,7 +121,7 @@ H5Object ** H5ReferenceData::getReferencesObject() const
     char * cdata = static_cast<char *>(data) + offset;
     H5Object ** objs = new H5Object *[totalSize];
 
-    for (int i = 0; i < totalSize; i++)
+    for (hsize_t i = 0; i < totalSize; i++)
     {
         void * ref = &(((void **)cdata)[i]);
         hid_t obj = H5Rdereference(file,
@@ -240,6 +240,10 @@ void H5ReferenceData::printData(std::ostream & os, const unsigned int pos, const
                 const hsize_t N = ndims * npoints;
                 hsize_t * buf = new hsize_t[N];
                 herr_t err =  H5Sget_select_elem_pointlist(space, 0, npoints, buf);
+                if (err < 0)
+                {
+                    os << "H5Sget failed";
+                }
                 for (hssize_t i = 0; i < (hssize_t)N; i += ndims)
                 {
                     os << "(";
@@ -268,6 +272,10 @@ void H5ReferenceData::printData(std::ostream & os, const unsigned int pos, const
                     const hsize_t N = 2 * ndims * nblocks;
                     hsize_t * buf = new hsize_t[N];
                     herr_t err = H5Sget_select_hyper_blocklist(space, 0, nblocks, buf);
+                    if (err < 0)
+                    {
+                        os << "H5Sget failed";
+                    }
                     for (hssize_t i = 0; i < (hssize_t)N; i += 2 * ndims)
                     {
                         os << "(";

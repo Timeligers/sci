@@ -34,7 +34,7 @@ types::Function::ReturnValue sci_print(types::typed_list &in, int _iRetCount, ty
 {
     int fid = 0;
     bool bCloseFile = false;
-    wchar_t* newLine = L"";
+    wchar_t const* newLine = L"";
 
     if (in.size() <= 1)
     {

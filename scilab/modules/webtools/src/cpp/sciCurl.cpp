@@ -143,7 +143,6 @@ types::InternalType* SciCurl::getResult()
 
 types::InternalType* SciCurl::getHeaders()
 {
-    types::InternalType* res = nullptr;
     types::SingleStruct* pSStr = nullptr;
     std::vector<types::Struct*> vectStr;
     for(const auto& p : _recvHeaders)
@@ -535,6 +534,9 @@ size_t SciCurl::debug_callback(CURL* handle, curl_infotype type, char* data, siz
             break;
         case CURLINFO_SSL_DATA_OUT:
             sciprint("%s: SSL data out: %d bytes\n", fname, size);
+            break;
+        case CURLINFO_END:
+            // this is the end of the stream
             break;
     }
 

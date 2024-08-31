@@ -36,13 +36,13 @@ extern "C" {
 
 class NgonGridDataDecomposer
 {
-
 private :
 
     /** NgonGridData decomposer instance */
     static NgonGridDataDecomposer* decomposer;
 
 protected :
+    virtual ~NgonGridDataDecomposer() {};
 
     /**
      * Fills a buffer with vertex data from a grid.

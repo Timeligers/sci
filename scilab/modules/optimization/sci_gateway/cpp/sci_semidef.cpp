@@ -43,7 +43,6 @@ types::Function::ReturnValue sci_semidef(types::typed_list &in, int _iRetCount, 
     double dAbstol  = 0;
     double dReltol  = 0;
     double dTv      = 0;
-    double dIter    = 0;
 
     int iSizeX = 0;
     int iSizeB = 0;

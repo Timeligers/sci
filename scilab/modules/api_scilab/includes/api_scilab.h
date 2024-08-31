@@ -33,6 +33,17 @@
 
 #define __INTERNAL_API_SCILAB__
 
+/*
+ * const-correctness for `char const* const*` is impossible in C, enable only in C++
+ * See https://c-faq.com/ansi/constmismatch.html and https://isocpp.org/wiki/faq/const-correctness
+ * ISO Sec. 6.1.2.6, Sec. 6.3.16.1, Sec. 6.5.3
+ */
+#ifdef __cplusplus
+#define CONST_PTR const
+#else
+#define CONST_PTR 
+#endif
+
 #include "api_stack_common.h"
 #include "api_stack_double.h"
 #include "api_stack_string.h"

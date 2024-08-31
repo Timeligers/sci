@@ -15,12 +15,15 @@
 
 #include "H5DataConverter.hxx"
 
+#include <array>
+#include <string>
+
 namespace org_modules_hdf5
 {
 
 int * H5DataConverter::getHypermatrix(void * pvApiCtx, const int position, const int ndims, const hsize_t * dims)
 {
-    static const char * hypermat[3] = {"hm", "dims", "entries"};
+    static const char* hypermat[3] = {"hm", "dims", "entries"};
 
     int * list = 0;
     SciErr err = createMList(pvApiCtx, position, 3, &list);

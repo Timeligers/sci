@@ -18,7 +18,6 @@
 
 int OdeManager::function_t_Y1_Y2(functionKind what, realtype t, N_Vector N_Vector1, N_Vector N_Vector2, void *pManager)
 {
-    char errorMsg[256];
     OdeManager *manager = static_cast<OdeManager *>(pManager);
     functionAPI fAPI = manager->getFunctionAPI(what);
     double *pdbl = N_VGetArrayPointer(N_Vector2);
@@ -180,7 +179,6 @@ int OdeManager::jacResFunction(realtype t, realtype c, N_Vector N_VectorY, N_Vec
     }
     else if (fAPI == CONSTANT)
     {
-        types::InternalType *pIJY = manager->getConstantFunction(JACY);
         types::InternalType *pIJYYP = manager->getConstantFunction(what);
         // manager->getTempSUNMatrix() is supposed to contain pIJY converted to SUNMatrix
         // below we set SUNMat_J to dR/dy + c*dR/dyp

@@ -49,8 +49,6 @@ extern "C"
 SciErr getMatrixOfString(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int* _piLength, char** _pstStrings)
 {
     SciErr sciErr = sciErrInit();
-    int *piOffset = NULL;
-    int *piData	= NULL;
     int iType = 0;
 
     if (_piAddress == NULL)
@@ -157,7 +155,7 @@ SciErr createMatrixOfString(void* _pvCtx, int _iVar, int _iRows, int _iCols, con
     return sciErr;
 }
 /*--------------------------------------------------------------------------*/
-SciErr createNamedMatrixOfString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, const char* const* _pstStrings)
+SciErr createNamedMatrixOfString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, char const* const* _pstStrings)
 {
     SciErr sciErr = sciErrInit();
 
@@ -235,9 +233,6 @@ SciErr getMatrixOfWideString(void* _pvCtx, int* _piAddress, int* _piRows, int* _
 {
     SciErr sciErr = sciErrInit();
     int iType = 0;
-    char **pstStrings = NULL;
-    int *piLenStrings = NULL;
-    int strSize = 0;
 
     if (_piAddress == NULL)
     {
@@ -297,7 +292,7 @@ SciErr getMatrixOfWideString(void* _pvCtx, int* _piAddress, int* _piRows, int* _
     return sciErr;
 }
 /*--------------------------------------------------------------------------*/
-SciErr createMatrixOfWideString(void* _pvCtx, int _iVar, int _iRows, int _iCols, const wchar_t* const* _pstwStrings)
+SciErr createMatrixOfWideString(void* _pvCtx, int _iVar, int _iRows, int _iCols, wchar_t const* const* _pstwStrings)
 {
     char **pStrings = NULL;
 
@@ -331,10 +326,9 @@ SciErr createMatrixOfWideString(void* _pvCtx, int _iVar, int _iRows, int _iCols,
     return sciErr;
 }
 /*--------------------------------------------------------------------------*/
-SciErr createNamedMatrixOfWideString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, const wchar_t* const* _pwstStrings)
+SciErr createNamedMatrixOfWideString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, wchar_t const* const* _pwstStrings)
 {
     SciErr sciErr = sciErrInit();
-    char **pStrings = NULL;
 
     // check variable name
     if (checkNamedVarFormat(_pvCtx, _pstName) == 0)

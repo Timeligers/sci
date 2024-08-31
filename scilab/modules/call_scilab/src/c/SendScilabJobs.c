@@ -60,7 +60,7 @@ static int ExecuteJob(char* job, char** msg, char** stack, int mode)
     SetLastJob(job);
 
     /* Creation of a temp variable in Scilab which contains the command */
-    sciErr = createNamedMatrixOfString(NULL, "TMP_EXEC_STRING", 1, 1, (char const* const*)&job);
+    sciErr = createNamedMatrixOfString(NULL, "TMP_EXEC_STRING", 1, 1, &job);
     if (sciErr.iErr)
     {
         printError(&sciErr, 0);

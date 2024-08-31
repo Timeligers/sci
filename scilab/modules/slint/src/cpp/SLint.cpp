@@ -193,7 +193,6 @@ bool SLint::hasSuffix(const std::wstring & filename, const std::wstring & suffix
 
 std::wstring SLint::getFullPath(const std::wstring & path)
 {
-    const unsigned SIZE = PATH_MAX * 4;
     wchar_t * expandedPath = expandPathVariableW(const_cast<wchar_t *>(path.c_str()));
     std::wstring _fullpath;
     

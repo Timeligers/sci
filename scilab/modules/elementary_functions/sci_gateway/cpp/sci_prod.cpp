@@ -46,8 +46,6 @@ types::Function::ReturnValue sci_prod(types::typed_list &in, int _iRetCount, typ
     int iOrientation    = 0;
     int iOuttype        = 1; // 1 = native | 2 = double (type of output value)
 
-    int* piDimsArray = NULL;
-
     if (in.size() < 1 || in.size() > 3)
     {
         Scierror(77, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), "prod", 1, 3);

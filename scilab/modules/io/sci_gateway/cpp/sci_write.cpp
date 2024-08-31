@@ -327,7 +327,6 @@ types::Function::ReturnValue sci_write(types::typed_list &in, int _iRetCount, ty
         else
         {
             //direct
-            int iConsoleWidth = ConfigVariable::getConsoleWidth();
             switch (in[1]->getType())
             {
                 case types::InternalType::ScilabString:

@@ -49,8 +49,6 @@ int sci_percent_foo_i_XMLList(char *fname, void* pvApiCtx)
     int *retaddr = 0;
     char *retstr = 0;
     int iBegin = 2;
-    int mrhs = 1;
-    int mlhs = 1;
 
     CheckLhs(0, 1);
     CheckRhs(3, 3);

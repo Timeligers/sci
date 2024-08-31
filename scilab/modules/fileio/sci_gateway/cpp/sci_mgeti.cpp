@@ -139,6 +139,10 @@ types::Function::ReturnValue sci_mgeti(types::typed_list &in, int _iRetCount, ty
                     pGT = pIT;
                     break;
                 }
+                default:
+                    FREE(pType);
+                    Scierror(999, _("%s: Wrong value for input argument #%d: Incorrect conversion code; ""uc"", ""us"", ""ui"" or ""ul"" expected.\n"), "mgeti", 3);
+                    return types::Function::Error;
             }
             break;
         case 'd':

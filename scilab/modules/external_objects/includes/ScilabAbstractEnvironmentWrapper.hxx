@@ -25,6 +25,7 @@ class ScilabAbstractEnvironmentWrapper
 {
 
 public:
+    virtual ~ScilabAbstractEnvironmentWrapper() {};
 
     /**
          * Wrap a double into an external object

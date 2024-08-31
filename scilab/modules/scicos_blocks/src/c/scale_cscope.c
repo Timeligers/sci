@@ -741,7 +741,7 @@ static void setFigureSettings(int iFigureUID, scicos_block * block)
             setGraphicObjectProperty(iFigureUID, __GO_NAME__, label, jni_string, 1);
         }
     }
-};
+}
 
 /*****************************************************************************
  *

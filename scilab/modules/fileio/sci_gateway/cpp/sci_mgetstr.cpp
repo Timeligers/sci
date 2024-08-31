@@ -34,10 +34,7 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_mgetstr(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    int iDims                   = 2;
-    int iDimsArray[2]           = {1, 1};
     int iFile                   = -1; //default file : last opened file
-    types::String* pOutString   = NULL;
     int iSizeToRead             = 0;
     wchar_t* pwstOut            = NULL;
 

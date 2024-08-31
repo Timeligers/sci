@@ -87,13 +87,8 @@ int sci_uigetfile(char *fname, void* pvApiCtx)
     SciErr sciErr;
 
     int nbRow  = 0, nbCol  = 0;
-    int nbRow2 = 0, nbCol2 = 0;
-    int nbRow3 = 0, nbCol3 = 0;
-    int nbRow4 = 0, nbCol4 = 0;
 
     int nbRowOutSelection = 1, nbColOutSelection = 0;
-    int nbRowOutFilterIndex = 1, nbColOutFilterIndex = 1;
-    int nbRowOutPath = 1, nbColOutPath = 1;
 
     char** mask = NULL;
     char** description = NULL;

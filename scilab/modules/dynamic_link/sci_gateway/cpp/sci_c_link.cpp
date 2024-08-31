@@ -35,7 +35,6 @@ bool isLink(wchar_t* _pwstEntryPoint, int* _piLib);
 types::Function::ReturnValue sci_c_link(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     int iLib = -1;
-    char* pstFunctionName = NULL;
 
     if (in.size() < 1 || in.size() > 2)
     {

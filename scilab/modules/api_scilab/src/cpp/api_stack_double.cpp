@@ -59,7 +59,6 @@ SciErr getComplexMatrixOfDouble(void* _pvCtx, int* _piAddress, int* _piRows, int
 
 SciErr getComplexZMatrixOfDouble(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, doublecomplex** _pdblZ)
 {
-    int iSize = 0;
     double *pdblReal = NULL;
 
     SciErr sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, 'z', 0, _piRows, _piCols, &pdblReal, NULL);
@@ -289,7 +288,6 @@ SciErr allocComplexZMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCo
 {
     SciErr sciErr = sciErrInit();
     double *pdblReal	= NULL;
-    double *pdblImg		= NULL;
 
     sciErr = allocCommonMatrixOfDouble(_pvCtx, _iVar, 'z', 1, _iRows, _iCols, &pdblReal, NULL);
     if (sciErr.iErr)

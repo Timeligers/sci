@@ -63,7 +63,7 @@ public:
             return 0;
         }
 
-        if (H5Sget_simple_extent_ndims(space) != size)
+        if (H5Sget_simple_extent_ndims(space) != (int) size)
         {
             throw H5Exception(__LINE__, __FILE__, _("Invalid selection rank."));
         }

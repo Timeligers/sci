@@ -30,7 +30,6 @@ extern "C"
 types::Function::ReturnValue sci_clear(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     symbol::Context* ctx = symbol::Context::getInstance();
-    int iWrongType = 1;
 
     if (in.size() == 0)
     {

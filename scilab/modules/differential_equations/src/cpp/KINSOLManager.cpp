@@ -30,7 +30,9 @@ void KINSOLManager::parseMatrices(types::typed_list &in)
         types::Double *pDbl =  in[1]->getAs<types::Double>();
         if (pDbl->isVector() && pDbl->getRows() == 1)
         {
-            pDbl->transpose((types::InternalType *&)m_pDblY0);
+            types::InternalType* pIT = m_pDblY0;
+            pDbl->transpose(pIT);
+            m_pDblY0 = static_cast<decltype(m_pDblY0)>(pIT);
         }
         else
         {
@@ -514,7 +516,6 @@ void KINSOLManager::intermediateCallback(const char *module, const char *functio
     {
         types::typed_list in;
         types::typed_list out;
-        bool bTerm;
         manager->callOpening(what, in, N_VGetArrayPointer(U));
         in.push_back(new types::String(manager->getState().c_str()));
         in.push_back(manager->getStats());        
@@ -546,7 +547,6 @@ void KINSOLManager::intermediateCallback(const char *module, const char *functio
 
 int KINSOLManager::rhsFunction(N_Vector N_VectorY, N_Vector N_VectorF, void *pManager)
 {
-    char errorMsg[256];
     KINSOLManager *manager = static_cast<KINSOLManager *>(pManager);
     functionKind what = RHS;
     functionAPI fAPI = manager->getFunctionAPI(what);

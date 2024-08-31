@@ -963,14 +963,14 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
     * Set function table for blocks
     *******************************/
     // Define new variable 'lfunpt'
-    std::vector<void*> lfunpt(nblk, nullptr);
+    std::vector<voidg> lfunpt(nblk, nullptr);
     for (int i = 0; i < nblk; ++i) // For each block
     {
         types::InternalType* pIT = il_sim_fun->get(i);
         // Block is defined by a Scilab function
         if (pIT->isCallable())
         {
-            lfunpt[i] = (void*)pIT;
+            lfunpt[i] = (voidg)pIT;
             // Keep 'l_sim_funtyp' negative for Scilab macros
             if (l_sim_funtyp[i] > 0)
             {
@@ -999,7 +999,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
             }
             else
             {
-                void *f = funnum2(c_str); // Search associated function number of function name
+                voidg f = funnum2(c_str); // Search associated function number of function name
                 // Block is defined by a C or Fortran function
                 if (f != nullptr)
                 {
@@ -1018,7 +1018,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
                     if (pEP)
                     {
                         //linked functions
-                        lfunpt[i] = (void*)pEP->functionPtr;
+                        lfunpt[i] = (voidg) pEP->functionPtr;
                     }
                     else
                     {
@@ -1026,7 +1026,7 @@ types::Function::ReturnValue sci_scicosim(types::typed_list &in, int _iRetCount,
                         if (pMacro && pMacro->isCallable())
                         {
                             //macros
-                            lfunpt[i] = (void*)pMacro;
+                            lfunpt[i] = (voidg) pMacro;
                             l_sim_funtyp[i] *= -1;
                         }
                         else

@@ -46,9 +46,7 @@ types::Function::ReturnValue sci_fft(types::typed_list &in, int _iRetCount, type
     int iInc                = 0;
     int iWay                = -1;
     int iSize               = 0;
-    int iOne                = 1;
     int iErr                = 0;
-    double dblZero          = 0;
 
     //workspace
     int iWS                 = 0;

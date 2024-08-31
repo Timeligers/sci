@@ -411,7 +411,7 @@
 
 /* Begin machine constants. */
 
-#ifdef notdef /* __STDC__ */
+#ifdef __STDC__
 /*
  * This code is currently deleted because most ANSI standard C compilers
  * do not provide the standard header files yet.

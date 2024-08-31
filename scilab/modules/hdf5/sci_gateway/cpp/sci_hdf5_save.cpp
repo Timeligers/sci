@@ -243,7 +243,7 @@ types::Function::ReturnValue sci_hdf5_save(types::typed_list &in, int _iRetCount
     CustomXFER xfer;
 
     // export data
-    for (const auto var : vars)
+    for (const auto& var : vars)
     {
         if (isVarExist(iH5File, var.first.data()))
         {
@@ -552,6 +552,12 @@ static hid_t export_struct(hid_t parent, const std::string& name, types::Struct*
             refname += "_" + std::to_string(j);
             //export data in refs group
             hid_t ref = export_data(refs, refname, val, xfer_plist_id);
+            if (ref < 0)
+            {
+                delete fields;
+                FREE(cfield);
+                return -1;
+            }
             //create reference of data
             ret = addItemStruct6(refs, vrefs.data(), j, refname.data());
             if (ret)
@@ -671,7 +677,6 @@ static hid_t export_poly(hid_t parent, const std::string& name, types::Polynom* 
 static hid_t export_sparse(hid_t parent, const std::string& name, types::Sparse* data, hid_t xfer_plist_id)
 {
     int nnz = static_cast<int>(data->nonZeros());
-    int row = data->getRows();
     //create a group with sparse name
     hid_t dset = openList6(parent, name.data(), g_SCILAB_CLASS_SPARSE);
     //store sparse dimensions
@@ -752,7 +757,6 @@ static hid_t export_sparse(hid_t parent, const std::string& name, types::Sparse*
 static hid_t export_boolean_sparse(hid_t parent, const std::string& name, types::SparseBool* data, hid_t xfer_plist_id)
 {
     int nnz = static_cast<int>(data->nbTrue());
-    int row = data->getRows();
     //create a group with sparse name
     hid_t dset = openList6(parent, name.data(), g_SCILAB_CLASS_BSPARSE);
     //store sparse dimensions
@@ -824,6 +828,10 @@ static hid_t export_cell(hid_t parent, const std::string& name, types::Cell* dat
     {
         std::string refname(std::to_string(i));
         hid_t ref = export_data(refs, refname, it[i], xfer_plist_id);
+        if (ref < 0)
+        {
+            return -1;
+        }
     }
 
 

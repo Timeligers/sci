@@ -31,6 +31,7 @@
 #include "Controller.hxx"
 
 #include "scicos.h"
+
 %}
 
 %include <enums.swg>
@@ -260,21 +261,44 @@ namespace std {
   }
 
 /*
+ * Helper typemap to remove dereferencing type-punned pointer will break strict-aliasing rules [-Werror=strict-aliasing]
+ */
+%typemap(in, noblock=1) STRICT_ALIASING ($1_ltype* pArg) {
+  // fix -fstrict-aliasing - typemap(in)
+  pArg = ($1_ltype*) &$input;
+  $1 = *pArg;
+}
+%typemap(out, noblock=1) STRICT_ALIASING ($1_ltype* pArg) {
+  // fix -fstrict-aliasing - typemap(out)
+  pArg = ($1_ltype*) &$result;
+  *pArg = $1;
+}
+
+/*
  * Generate the View interface
  */
 %feature("director", assumeoverride=0) org_scilab_modules_scicos::View;
+%apply STRICT_ALIASING { org_scilab_modules_scicos::View* }
 %include "../scicos/includes/View.hxx";
 
 
 /*
  * Generate a Controller class
  */
-// not applicable methods are ignored thanks to the SWIG 
+// not applicable methods are ignored thanks to the SWIG preprocessor
+%apply STRICT_ALIASING { org_scilab_modules_scicos::Controller* }
 %include "../scicos/includes/Controller.hxx";
 
 /*
- * Template instanciation
+ * Template instanciation and -fstrict-aliasing support
  */
+
+%apply STRICT_ALIASING { std::vector<int>* }
+%apply STRICT_ALIASING { std::vector<bool>* }
+%apply STRICT_ALIASING { std::vector<double>* }
+%apply STRICT_ALIASING { std::vector<std::string>* }
+%apply STRICT_ALIASING { std::vector<ScicosID>* }
+
 %template(VectorOfInt)      std::vector<int>;
 %template(VectorOfBool)     std::vector<bool>;
 %template(VectorOfDouble)   std::vector<double>;

@@ -20,8 +20,7 @@
 types::InternalType* diag(types::Polynom* pIn,  int iStartPos)
 {
     types::Polynom* pPolyOut    = NULL;
-    types::SinglePoly* pSP      = NULL;
-
+    
     int iRows = pIn->getRows();
     int iCols = pIn->getCols();
 
@@ -29,10 +28,6 @@ types::InternalType* diag(types::Polynom* pIn,  int iStartPos)
     int iStartRow   = 0;
     int iStartCol   = 0;
     int iPos        = 0;
-    int iRank       = 0;
-
-    double* pdRData = 0;
-    double* pdIData = 0;
 
     if (iRows != 1 && iCols != 1) // pIn is a matrix
     {

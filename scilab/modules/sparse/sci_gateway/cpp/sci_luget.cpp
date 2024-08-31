@@ -31,17 +31,10 @@ extern "C"
 }
 types::Function::ReturnValue sci_luget(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    double abstol = 0;
-    double reltol = 0.001;
-    int nrank = 0;
     int ierr = 0;
     int n1 = 0;
     int nl = 0;
     int nu = 0;
-    int nonZerosP = 0;
-    int nonZerosL = 0;
-    int nonZerosU = 0;
-    int nonZerosQ = 0;
 
     bool cplx = false;
     const void* pData = NULL;
@@ -53,7 +46,6 @@ types::Function::ReturnValue sci_luget(types::typed_list &in, int _iRetCount, ty
     int* itemsRowP = NULL;
     int* itemsRowL = NULL;
     int* itemsRowU = NULL;
-    int* itemsRow = NULL;
     int* itemsRowQ = NULL;
     int* fmatindex = NULL;
 

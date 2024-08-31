@@ -192,11 +192,9 @@ void getComplexFormat(double _dblR, double _dblI, int *_piTotalWidth, DoubleForm
 
 void addDoubleValue(std::wostringstream * _postr, double _dblVal, DoubleFormat * _pDF)
 {
-    wchar_t pwstFormat[32] = {0};
     wchar_t pwstOutput[32] = {0};     // > @ format max
     wchar_t pwstSign[32] = {0};
-    char    pstBuf[32] = {0};
-
+    
     if (_pDF == NULL)
     {
         return;

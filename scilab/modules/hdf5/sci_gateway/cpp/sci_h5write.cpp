@@ -73,7 +73,6 @@ int sci_h5write(char *fname, int* pvApiCtx)
     hsize_t * _count = 0;
     hsize_t * _block = 0;
     hsize_t ** hptrs[4] = {&_start, &_count, &_stride, &_block};
-    int inc = 0;
     int row, col;
     unsigned int size = 0;
     unsigned int rhsBegin = 0;

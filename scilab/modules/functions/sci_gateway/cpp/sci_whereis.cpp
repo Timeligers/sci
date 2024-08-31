@@ -63,6 +63,8 @@ types::Function::ReturnValue sci_whereis(types::typed_list &in, int _iRetCount, 
                     lst.push_back(pIT->getAs<types::Callable>()->getModule().c_str());
                     // return types::Function::OK;
                     break;
+                default:
+                    break;
             }
         }
 

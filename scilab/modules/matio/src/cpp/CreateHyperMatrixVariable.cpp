@@ -66,8 +66,10 @@ int CreateHyperMatrixVariable(void *pvApiCtx, int iVar, int type, int *iscomplex
             if (iscomplex[0])
             {
                 double* pdblR = NULL;
+                double** ppdblR = &pdblR;
                 double* pdblI = NULL;
-                pDbl = new types::Double(rank[0], dims, &pdblR, &pdblI);
+                double** ppdblI = &pdblI;
+                pDbl = new types::Double(rank[0], dims, ppdblR, ppdblI);
                 mat_complex_split_t* mat5ComplexData = NULL;
                 mat5ComplexData = (mat_complex_split_t*)matVariable->data;
 
@@ -83,7 +85,8 @@ int CreateHyperMatrixVariable(void *pvApiCtx, int iVar, int type, int *iscomplex
             else
             {
                 double* pdblR = NULL;
-                pDbl = new types::Double(rank[0], dims, &pdblR);
+                double** ppdblR = &pdblR;
+                pDbl = new types::Double(rank[0], dims, ppdblR);
                 if (pdblR)
                 {
                     for (int i = 0; i < pDbl->getSize(); ++i)

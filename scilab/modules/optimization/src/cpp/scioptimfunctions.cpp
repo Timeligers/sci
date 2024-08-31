@@ -49,7 +49,7 @@ void fct(int *n, double *x, double *v, int *iflag)
     {
         opFunction->execFsolveFct(n, x, v, iflag);
     }
-    catch (const ast::InternalError)
+    catch (const ast::InternalError&)
     {
         *iflag=-1;
     }
@@ -76,7 +76,7 @@ void jac(int *n, double *x, double *v, double *jac, int *ldjac, int *iflag)
             opFunction->execFsolveJac(n, x, v, jac, ldjac, iflag);
         }        
     }
-    catch (const ast::InternalError)
+    catch (const ast::InternalError&)
     {
         *iflag=-1;
     }        

@@ -29,8 +29,6 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 types::Function::ReturnValue sci_mode(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    types::InternalType *pIT = NULL;
-
     /* Check the number of input argument */
     if (in.size() > 1)
     {

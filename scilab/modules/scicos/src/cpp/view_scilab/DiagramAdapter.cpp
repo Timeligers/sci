@@ -139,7 +139,7 @@ struct objs
         localAdaptor->setAsTList(modelElement, controller);
 
         return localAdaptor;
-    };
+    }
 
     /**
      * Allocate a model element from its mlist() representation

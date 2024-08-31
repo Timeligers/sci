@@ -66,7 +66,6 @@ private:
 
     inline void postCheck(const ast::Exp & e, SLintOptions::range & range)
     {
-        SLintOptions::MapCheckers & checkers = options.getCheckers();
         std::for_each(range.first, range.second, [&](SLintOptions::value_type & checker)
         {
             checker.second->postCheckNode(e, context, result);

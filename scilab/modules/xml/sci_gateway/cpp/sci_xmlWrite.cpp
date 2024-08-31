@@ -43,7 +43,6 @@ int sci_xmlWrite(char *fname, void* pvApiCtx)
     char *path = 0;
     char *expandedPath = 0;
     int indent = 1;
-    int ret = 0;
 
     CheckLhs(0, 1);
     CheckRhs(1, 3);

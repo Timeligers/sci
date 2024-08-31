@@ -613,7 +613,7 @@ SciErr getHypermatOfBoolean(void* _pvCtx, int* _piAddress, int **_dims, int *_nd
     return sciErr;
 }
 
-SciErr createHypermatOfString(void *_pvCtx, int _iVar, int * _dims, int _ndims, const char* const* _pstStrings)
+SciErr createHypermatOfString(void *_pvCtx, int _iVar, int * _dims, int _ndims, char const* const* _pstStrings)
 {
     SciErr sciErr = sciErrInit();
     types::GatewayStruct* pStr = (types::GatewayStruct*)_pvCtx;
@@ -642,7 +642,7 @@ SciErr createHypermatOfString(void *_pvCtx, int _iVar, int * _dims, int _ndims, 
     return sciErr;
 }
 
-SciErr createHypermatOfPoly(void *_pvCtx, int _iVar, char* _pstVarName, int * _dims, int _ndims, const int* _piNbCoef, const double* const* _pdblReal)
+SciErr createHypermatOfPoly(void *_pvCtx, int _iVar, char* _pstVarName, int * _dims, int _ndims, const int* _piNbCoef, double const* const* _pdblReal)
 {
     SciErr sciErr = sciErrInit();
     types::GatewayStruct* pStr = (types::GatewayStruct*)_pvCtx;
@@ -674,7 +674,7 @@ SciErr createHypermatOfPoly(void *_pvCtx, int _iVar, char* _pstVarName, int * _d
     return sciErr;
 }
 
-SciErr createComplexHypermatOfPoly(void *_pvCtx, int _iVar, char* _pstVarName, int * _dims, int _ndims, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg)
+SciErr createComplexHypermatOfPoly(void *_pvCtx, int _iVar, char* _pstVarName, int * _dims, int _ndims, const int* _piNbCoef, double const* const* _pdblReal, double const* const* _pdblImg)
 {
     SciErr sciErr = sciErrInit();
     types::GatewayStruct* pStr = (types::GatewayStruct*)_pvCtx;

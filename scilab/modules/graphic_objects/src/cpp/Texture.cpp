@@ -1487,6 +1487,8 @@ bool Texture::getImage(void const * data, const int numElements, const DataType 
             }
             break;
         }
+        case MATPLOT_NONE:
+            break;
     }
 
     return ret;

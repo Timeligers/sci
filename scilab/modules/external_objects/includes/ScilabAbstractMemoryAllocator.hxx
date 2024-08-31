@@ -47,7 +47,7 @@ public:
 
     ScilabStackAllocator(void * pvCtx, int _position) : position(_position), pvCtx(pvCtx) { }
 
-    ~ScilabStackAllocator() { }
+    virtual ~ScilabStackAllocator() { }
 
 protected:
 
@@ -254,7 +254,7 @@ protected:
 
     inline static void create(void * pvCtx, const int position, const int rows, const int cols, char ** ptr)
     {
-        SciErr err = createMatrixOfString(pvCtx, position, rows, cols, const_cast<const char * const *>(ptr));
+        SciErr err = createMatrixOfString(pvCtx, position, rows, cols, ptr);
         checkError(err);
     }
 

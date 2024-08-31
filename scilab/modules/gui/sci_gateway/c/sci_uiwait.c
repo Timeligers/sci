@@ -85,19 +85,14 @@ int sci_uiwait(char *fname, void* pvApiCtx)
     }
 
     /* Create return variable */
-    nbRow = (int)strlen(result);
-    nbCol = 1;
 
-    if (allocSingleString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, nbRow * nbCol, (const char**) &strAdr))
+    if (createSingleString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, result))
     {
         Scierror(999, _("%s: Memory allocation error.\n"), fname);
         return 1;
     }
-
-    strcpy(strAdr, result);
-
-    // TO DO : delete of "result"
-    // uiWaitContextMenu(iObjUID) can return NULL.
+    
+    releaseUiWaitContextMenuResult(result);
 
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
     ReturnArguments(pvApiCtx);
