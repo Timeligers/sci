@@ -377,11 +377,11 @@ int sci_csvRead(char *fname, void* pvApiCtx)
                     // string conversion, copy the data back to Scilab
                     if (haveRange)
                     {
-                        sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, (iRange[2] - iRange[0] + 1), (iRange[3] - iRange[1] + 1), pstrValues);
+                        sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, (iRange[2] - iRange[0] + 1), (iRange[3] - iRange[1] + 1), (const wchar_t **)(pstrValues));
                     }
                     else
                     {
-                        sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, m1, n1, pstrValues);
+                        sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, m1, n1, (const wchar_t**)(pstrValues));
                     }
                     if (sciErr.iErr)
                     {
@@ -399,7 +399,7 @@ int sci_csvRead(char *fname, void* pvApiCtx)
 
                 if (result->nbComments > 0)
                 {
-                    sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 3, result->nbComments, 1, result->pwstrComments);
+                    sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 3, result->nbComments, 1, (const wchar_t**)(result->pwstrComments));
                     if (sciErr.iErr)
                     {
                         printError(&sciErr, 0);
@@ -415,7 +415,7 @@ int sci_csvRead(char *fname, void* pvApiCtx)
                 if (result->nbHeader > 0)
                 {
 
-                    sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 4, result->nbHeader, 1, result->pwstrHeader);
+                    sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 4, result->nbHeader, 1, (const wchar_t**)(result->pwstrHeader));
                     if (sciErr.iErr)
                     {
                         printError(&sciErr, 0);
@@ -438,7 +438,7 @@ int sci_csvRead(char *fname, void* pvApiCtx)
                 if (*getNbOutputArgument(pvApiCtx) > 1 && result->nbComments == 0 && result->nbHeader == 0)
                 {
                     wchar_t* emptystr = L"";
-                    sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 3, 1, 1, &emptystr);
+                    sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 3, 1, 1, (const wchar_t**)(&emptystr));
                     if (sciErr.iErr)
                     {
                         printError(&sciErr, 0);

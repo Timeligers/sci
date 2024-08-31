@@ -40,7 +40,7 @@ int sci_javaclasspath(char *fname, void* pvApiCtx)
         char **pstClasspath = NULL;
 
         pstClasspath = getClasspath(&iRows);
-        createMatrixOfString(pvApiCtx, Rhs + 1, iRows, iCols, pstClasspath);
+        createMatrixOfString(pvApiCtx, Rhs + 1, iRows, iCols, (const char**)(pstClasspath));
 
         LhsVar(1) = Rhs + 1;
         PutLhsVar();

@@ -29,22 +29,10 @@
 #endif
 
 
-#ifndef  _MSC_VER
-typedef enum
-{
-    FALSE = 0,
-    TRUE = 1
-} BOOL;
-
-#else
-/* Please notice that BOOL is defined in <windef.h> */
-/* BUT windef.h includes all others windows include */
-/* it is better to redefine as */
 typedef int BOOL;
 #define FALSE 0
 #define TRUE 1
 
-#endif
 /* converts BOOL to bool */
 #define BOOLtobool(w)     ((w != FALSE) ? true : false)
 

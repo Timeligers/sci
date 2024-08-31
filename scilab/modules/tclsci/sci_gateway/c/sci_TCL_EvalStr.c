@@ -167,7 +167,7 @@ int sci_TCL_EvalStr(char *fname, void* pvApiCtx)
             }
         }
 
-        sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m1, n1, ReturnArrayString);
+        sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m1, n1, (const char**)(ReturnArrayString));
         if (sciErr.iErr)
         {
             printError(&sciErr, 0);

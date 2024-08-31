@@ -287,11 +287,11 @@ int sci_csvTextScan(char* fname, void* pvApiCtx)
         // string conversion, copy the data back to Scilab
         if (haveRange)
         {
-            sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, (iRange[2] - iRange[0] + 1), (iRange[3] - iRange[1] + 1), pstrValues);
+            sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, (iRange[2] - iRange[0] + 1), (iRange[3] - iRange[1] + 1), (const wchar_t**)(pstrValues));
         }
         else
         {
-            sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, m1, n1, pstrValues);
+            sciErr = createMatrixOfWideString(pvApiCtx, Rhs + 1, m1, n1, (const wchar_t**)(pstrValues));
         }
         if (sciErr.iErr)
         {

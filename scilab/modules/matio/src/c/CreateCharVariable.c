@@ -52,11 +52,11 @@ int CreateCharVariable(void *pvApiCtx, int iVar, matvar_t *matVariable, int * pa
 
         if (parent == NULL)
         {
-            sciErr = createMatrixOfString(pvApiCtx, iVar, nbRow, 1, ppcData);
+            sciErr = createMatrixOfString(pvApiCtx, iVar, nbRow, 1, (const char**)(ppcData));
         }
         else
         {
-            sciErr = createMatrixOfStringInList(pvApiCtx, iVar, parent, item_position, nbRow, 1, ppcData);
+            sciErr = createMatrixOfStringInList(pvApiCtx, iVar, parent, item_position, nbRow, 1, (const char**)(ppcData));
         }
 
         for (i = 0; i < nbRow; i++)

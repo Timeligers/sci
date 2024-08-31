@@ -125,7 +125,7 @@ int sci_TCL_GetVar(char *fname, void* pvApiCtx)
                         ReturnArrayString[j] = TCL_ArrayGetVar(TCLinterpreter, VarName, index_list[j]);
                     }
 
-                    sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, nb_lines, nb_columns, ReturnArrayString);
+                    sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, nb_lines, nb_columns, (const char**)(ReturnArrayString));
                     if (sciErr.iErr)
                     {
                         printError(&sciErr, 0);
@@ -163,7 +163,7 @@ int sci_TCL_GetVar(char *fname, void* pvApiCtx)
             if ( RetStr )
             {
                 char *output = os_strdup(RetStr);
-                sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, 1, 1, &output);
+                sciErr = createMatrixOfString(pvApiCtx, nbInputArgument(pvApiCtx) + 1, 1, 1, (const char**)(&output));
                 if (sciErr.iErr)
                 {
                     printError(&sciErr, 0);

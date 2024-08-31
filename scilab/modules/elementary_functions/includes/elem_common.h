@@ -86,7 +86,7 @@ extern double C2F(zlange) (char *_pstNORM, int *_piM, int *_piN, double *_pdblA,
 extern int C2F(zlacpy) (char *_pstUPLO, int *_piM, int *_piN, double *_pdblA, int *_piLDA, double *_pdblB, int *_piLDB);
 extern void C2F(zgecon) (char *_pstNORM, int *_piN, doublecomplex * _pdblA, int *_piLDA, double *_pdblANORM, double *_pdblRNORM,
                          doublecomplex * _pdblWORK, double *_pdblRWORD, int *_piINFO);
-extern int C2F(ztrcon) (char *_pstNORM, char*uplo, char *diag, int *_piN, doublecomplex *_pdblA, int *_piLDA, double *_pdblRCOND, double *_pdblWORK,
+extern int C2F(ztrcon) (char *_pstNORM, char*uplo, char *diag, int *_piN, doublecomplex *_pdblA, int *_piLDA, double *_pdblRCOND, doublecomplex *_pdblWORK,
                                                  double *_pdblRWORD, int *_piINFO);
 extern int C2F(zgelsy1) (int *_piM, int *_piN, int *_piNRHS, doublecomplex * pdblA, int *_piLDA, doublecomplex * _pdblB, int *_piLDB, int *_piJPVT,
                          double *_pdblRCOND, int *_piRANK, doublecomplex * _pdblWORK, int *_piLWORK, double *_pdblRWORK, int *_piINFO);

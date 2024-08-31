@@ -40,7 +40,7 @@ int sci_javalibrarypath(char *fname, void* pvApiCtx)
         char **pstLibrarypath = NULL;
 
         pstLibrarypath = getLibrarypath(&iRows);
-        createMatrixOfString(pvApiCtx, Rhs + 1, iRows, iCols, pstLibrarypath);
+        createMatrixOfString(pvApiCtx, Rhs + 1, iRows, iCols, (const char**)(pstLibrarypath));
 
         LhsVar(1) = Rhs + 1;
         PutLhsVar();
