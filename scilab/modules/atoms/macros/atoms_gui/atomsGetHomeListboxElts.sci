@@ -1,4 +1,6 @@
 // Scilab ( https://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2009 - DIGITEO - Vincent COUVERT <vincent.couvert@scilab.org>
+// Copyright (C) 2009-2010 - DIGITEO - Pierre MARECHAL <pierre.marechal@scilab.org>
 // Copyright (C) 2013 - Samuel GOUGEON
 //
 // Copyright (C) 2012 - 2016 - Scilab Enterprises
@@ -10,15 +12,40 @@
 // For more information, see the COPYING file which you should have received
 // along with this program.
 
-// =============================================================================
-//
-// items_str = atomsSetInstalledList(installed)
-//
-// items_str must be updated: it contains infos about the autoload status
-//  of each installed module, while this status can be interactively switched
-// =============================================================================
+function elements = atomsGetHomeListboxElts()
+    items_str  = "";
+    items_mat  = "";
+
+    installed  = atomsGetInstalled();
+    tmp = atomsAutoloadList("all")
+    autoloaded = tmp(:,1)
+    if ~isempty(get("atomsFigure")) then
+        allModules = get("atomsFigure", "UserData");
+
+        items_str  = atomsSetInstalledList(installed)
+        items_mat = installed(:,1)
+        if isempty(items_str)
+            items_str = "";
+            items_mat = "";
+        end
+        items_mat = [emptystr(items_mat)+"module" items_mat ]
+
+        elements("items_str") = items_str;
+        elements("items_mat") = items_mat;
+    else
+        elements = [];
+    end
+endfunction
+
+// =================================================================================
 
 function items_str = atomsSetInstalledList(installed)
+	//
+	// items_str = atomsSetInstalledList(installed)
+	//
+	// items_str must be updated: it contains infos about the autoload status
+	//  of each installed module, while this status can be interactively switched
+	// =============================================================================
 
     // Load Atoms Internals lib if it's not already loaded
     if ~exists("atomsinternalslib") then

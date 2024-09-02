@@ -129,8 +129,9 @@ function description_out = atomsDESCRIPTIONread(file_in,additional)
     for i = 1:size(lines_in,"*")
         // updade progress bar only each percentile
         roundedProgress = i / progressStep;
-        if winId <> [] & round(roundedProgress) == roundedProgress
-            atomsUpdateProgressBar(winId, roundedProgress / 100);
+        if getscilabmode() <> "NWNI" & winId <> [] & winId.type == "Waitbar" & ..
+                round(roundedProgress) == roundedProgress
+			waitbar(roundedProgress / 100, winId);
         end
         current_line = lines_in(i);
 
