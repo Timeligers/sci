@@ -410,19 +410,40 @@
                                 <para>
                                     <emphasis>"direct"</emphasis>: <literal>data.color</literal>
                                     values are directly considered as color indices in the
-                                    current gcf().color_map.
+                                    current colormap given by <literal>gcf().color_map</literal>.
                                 </para>
                             </listitem>
                             <listitem>
-                                <para><emphasis>"scaled"</emphasis>: <literal>c=data.color</literal>
-                                    values are linearly mapped on the interval <literal>[1,nC]</literal>,
-                                    with <literal>nC=size(gcf().color_map,1)</literal> is the total
-                                    number of colors in the current colormap. Then,
-                                    <literal>min(c)</literal> represents the color #1, and
-                                    <literal>max(c)</literal> represents the color #nC.
+                                <para><emphasis>"scaled"</emphasis>: <literal>data.color</literal>
+                                    values are mapped to indices in the current colormap depending on the
+                                    <term>cdata_bounds</term> and <term>color_range</term> properties defined below.
                                 </para>
                             </listitem>
                         </itemizedlist>
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>cdata_bounds: </term>
+                <listitem>
+                    <para>
+                        This vector of size 2, <literal>[cmin,cmax]</literal>, gives the <literal>data.color</literal> interval of values mapped to indices 
+                        <literal>1:size(gcf().color_map,1)</literal> of the current
+                        colormap or to an eventual subset defined by the <term>color_range</term> property.
+                        Values of <literal>data.color</literal> outside <literal>[cmin,cmax]</literal> are mapped respectively to the first and the last element of the colormap.
+                        By default, the <literal>cdata_bounds</literal> property is <literal>[0,0]</literal> which means
+                        that <literal>cmin</literal> and <literal>cmax</literal> are automatically set to the minimum and maximum of <literal>data.color</literal> property.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>color_range: </term>
+                <listitem>
+                    <para>
+                        This vector of size 2, <literal>[rmin, rmax]</literal>, where <literal>rmin</literal> and <literal>rmax</literal> stand for
+                        colormap indices, defines a subset of the current colormap for displaying the surface object. If they are both greater than 1, 
+                        then the actual colormap used to display the fac3d entity is <literal>gcf().color_map(rmin:rmax,:)</literal>.
+                        By default, the <literal>color_range</literal> property value is <literal>[0,0]</literal> which means that the whole colormap is used.
                     </para>
                 </listitem>
             </varlistentry>

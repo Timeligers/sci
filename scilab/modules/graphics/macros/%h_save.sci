@@ -394,8 +394,10 @@ function save_graphichandle(h,fd)
         if h.color_flag >=2 then
             clr=h.data.color;sz=size(clr) // data.color
             mput(sz,"il",fd)
-            mput(clr,"il",fd)
+            mput(clr,"id",fd)
             mput(ascii(part(h.cdata_mapping,1)),characterFormat,fd) ; // cdata_mapping
+            mput(h.cdata_bounds,"dl",fd); // cdata_bounds
+            mput(h.color_range,"dl",fd); // color_range
         end
         mput(h.hiddencolor,"il",fd) // hidden_color
         mput(length(h.clip_state),characterFormat,fd); // clip_state
