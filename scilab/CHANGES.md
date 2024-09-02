@@ -105,5 +105,6 @@ Packaging & Supported Operating Systems
 
 API/ABI modification
 --------------------
+* [#16961](https://gitlab.com/scilab/scilab/-/issues/16961): on Windows, `atomsInstall()` was often broken when trying to rename the installation directory.
 
 - __add information about api/abi modification before and keep this line__

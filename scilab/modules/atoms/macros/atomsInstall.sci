@@ -354,12 +354,13 @@ function result = atomsInstall(packages,section)
         end
 
         if getos() == "Windows" then
-            rename_cmd = "rename """+this_package_details("extractedDirectory")+""" """+this_package_version+"""";
+            tmp = this_package_details("extractedDirectory")
+            [stat, err] = movefile(tmp, fileparts(tmp, "path") + this_package_version);
+            stat = 1 - stat
         else
             rename_cmd = "mv """+this_package_details("extractedDirectory")+""" """+this_package_directory+this_package_version+"""";
+            [rep, stat, err] = unix_g(rename_cmd);
         end
-
-        [rep,stat,err]=unix_g(rename_cmd);
 
         if stat <> 0 then
             // Second try after a sleep
@@ -367,18 +368,18 @@ function result = atomsInstall(packages,section)
 
             if getos() == "Windows" then
                 sleep(2000);
-                [rep,stat,err]=unix_g(rename_cmd);
+                [stat, err] = movefile(tmp, fileparts(tmp, "path") + this_package_version);
+                stat = 1 - stat
             end
 
             if stat <> 0 then
                 atomsError("error", ..
-                msprintf(gettext("%s: Error while creating the directory ''%s''.\n"),..
-                "atomsInstall", ..
+                msprintf(gettext("%s: Error ''%s'' while creating the directory ''%s''.\n"),..
+                "atomsInstall", err, ..
                 strsubst(pathconvert(this_package_directory+this_package_version),"\","\\") ));
             end
 
         end
-
 
         // Move the created directory
         // → Only under windows
