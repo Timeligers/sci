@@ -124,7 +124,7 @@ types::Function::ReturnValue sci_http_upload(types::typed_list &in, types::optio
     if (in[2]->getAs<types::String>()->isScalar() == false && 
         in[1]->getAs<types::GenericType>()->getSize() != in[2]->getAs<types::GenericType>()->getSize())
     {
-        Scierror(999, _("%s: Wrong size for input argument #%d: A Scalar or same size as #2 expected.\n"), fname, 3);
+        Scierror(999, _("%s: Wrong size for input argument #%d: A Scalar or same size as #%d expected.\n"), fname, 3, 2);
         return types::Function::Error;
     }
 
