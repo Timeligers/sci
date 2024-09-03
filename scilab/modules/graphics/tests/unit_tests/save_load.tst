@@ -123,7 +123,6 @@ delete(f);
 // reload data
 load(plotExportFile);
 axes = gca();
-
 // check axes properties
 surf1 = axes.children(1);
 if (surf1.clip_box <> [1, 2, 3, 4]) then pause; end
@@ -157,11 +156,13 @@ t=linspace(0,%pi,20);
 a=gca();a.data_bounds=[t(1) -1.8;t($) 1.8];
 
 e = plot2d(t,[cos(t'),cos(2*t'),cos(3*t')],[-5,2 3]);
-e1=e.children(1);e1.thickness=2;e1.polyline_style=4;e1.arrow_size_factor = 1/2;
-e.children(2).line_style=4;
-e3=e.children(3);e3.line_mode='on';e3.mark_background=5;
+
+e(1).thickness=2;e(1).polyline_style=4;e(1).arrow_size_factor = 1/2;
+e(2).line_style=4;
+e(3).line_mode='on';e(3).mark_background=5;
 
 hl=legend(['cos(t)';'cos(2*t)';'cos(3*t)']);
+
 // save the curves
 f = gcf();
 save(plotExportFile, "f");
@@ -169,7 +170,6 @@ save(plotExportFile, "f");
 delete(f);
 // reload data
 load(plotExportFile);
-
 // arc
 clf();
 plot2d(0,0,-1,"031"," ",[-1,-1,1,1])
