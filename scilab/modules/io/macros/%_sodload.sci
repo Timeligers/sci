@@ -365,6 +365,7 @@ function varargout = %_sodload(%__varnameList__)
         if ~isempty(%LEG) then
             // Get handles from paths
             links=getlinksfrompath(h, %LEG.paths)
+            pause
             if ~isempty(links) then
                 L = captions(links, %LEG.text)
                 L.visible         = %LEG.visible
@@ -400,9 +401,7 @@ function varargout = %_sodload(%__varnameList__)
         fields = fieldnames(polylineProperties);
         fields(1) = [];
 
-        xpoly(polylineProperties.data(:,1), polylineProperties.data(:,2))
-
-        h = gce();
+        h = xpoly(polylineProperties.data(:,1), polylineProperties.data(:,2))
 
         if polylineProperties.clip_state=="on" then
             set(h, "clip_box", polylineProperties.clip_box)
@@ -486,9 +485,9 @@ function varargout = %_sodload(%__varnameList__)
 
         if (or(surfaceProperties.color_flag==[2 5]) & ~or(fields=="cdata_mapping")) | ..
             ((surfaceProperties.color_flag>=2) & or(fields=="cdata_mapping")) then
-            plot3d1(surfaceProperties.data.x, surfaceProperties.data.y, list(surfaceProperties.data.z, surfaceProperties.data.color))
+            h = plot3d1(surfaceProperties.data.x, surfaceProperties.data.y, list(surfaceProperties.data.z, surfaceProperties.data.color))
         else
-            plot3d(surfaceProperties.data.x,surfaceProperties.data.y,surfaceProperties.data.z)
+            h = plot3d(surfaceProperties.data.x,surfaceProperties.data.y,surfaceProperties.data.z)
         end
         fields(fields=="data") = [];
 
@@ -508,8 +507,6 @@ function varargout = %_sodload(%__varnameList__)
         // Get mark_mode to be sure to set it after mark_style
         mark_mode = surfaceProperties.mark_mode;
         fields(fields=="mark_mode") = [];
-
-        h=gce();
 
         if or(fields=="cdata_mapping") then // Fac3d specific
             if surfaceProperties.color_flag >= 2 then
@@ -557,8 +554,7 @@ function varargout = %_sodload(%__varnameList__)
         fields = fieldnames(rectangleProperties);
         fields(1) = [];
 
-        xrect(0,1,1,1); // create the rectangle with dummy values
-        h = gce();
+        h = xrect(0,1,1,1); // create the rectangle with dummy values
 
         if rectangleProperties.clip_state == "on" then
             set(h,"clip_box", rectangleProperties.clip_box);
@@ -588,8 +584,7 @@ function varargout = %_sodload(%__varnameList__)
         fields = fieldnames(arcProperties);
         fields(1) = [];
 
-        xarc(0,1,1,1,0,360); // create the arc with dummy values
-        h = gce();
+        h = xarc(0,1,1,1,0,360); // create the arc with dummy values
 
         if arcProperties.clip_state == "on" then
             set(h,"clip_box", arcProperties.clip_box);
@@ -610,10 +605,8 @@ function varargout = %_sodload(%__varnameList__)
         fields = fieldnames(champProperties);
         fields(1) = [];
 
-        champ(champProperties.data.x, champProperties.data.y, champProperties.data.fx, champProperties.data.fy);
+        h = champ(champProperties.data.x, champProperties.data.y, champProperties.data.fx, champProperties.data.fy);
         fields(fields=="data") = [];
-
-        h=gce();
 
         if champProperties.clip_state == "on" then
             set(h,"clip_box", champProperties.clip_box);
@@ -634,9 +627,7 @@ function varargout = %_sodload(%__varnameList__)
         fields = fieldnames(segsProperties);
         fields(1) = [];
 
-        xsegs(segsProperties.data(:,1), segsProperties.data(:,2))
-
-        h=gce()
+        h = xsegs(segsProperties.data(:,1), segsProperties.data(:,2))
 
         if segsProperties.clip_state == "on" then
             set(h,"clip_box", segsProperties.clip_box);
@@ -666,10 +657,8 @@ function varargout = %_sodload(%__varnameList__)
         fields = fieldnames(grayplotProperties);
         fields(1) = [];
 
-        grayplot(grayplotProperties.data.x, grayplotProperties.data.y, grayplotProperties.data.z);
+        h = grayplot(grayplotProperties.data.x, grayplotProperties.data.y, grayplotProperties.data.z);
         fields(fields=="data") = [];
-
-        h = gce();
 
         if grayplotProperties.clip_state=="on" then
             set(h, "clip_box", grayplotProperties.clip_box)
@@ -690,10 +679,8 @@ function varargout = %_sodload(%__varnameList__)
         fields = fieldnames(matplotProperties);
         fields(1) = [];
 
-        Matplot(matplotProperties.data);
+        h = Matplot(matplotProperties.data);
         fields(fields=="data") = [];
-
-        h = gce();
 
         if matplotProperties.clip_state=="on" then
             set(h, "clip_box", matplotProperties.clip_box)
@@ -714,11 +701,9 @@ function varargout = %_sodload(%__varnameList__)
         fields = fieldnames(fecProperties);
         fields(1) = [];
 
-        fec(fecProperties.data(:,1), fecProperties.data(:,2), fecProperties.triangles, fecProperties.data(:,3));
+        h = fec(fecProperties.data(:,1), fecProperties.data(:,2), fecProperties.triangles, fecProperties.data(:,3));
         fields(fields=="data") = [];
         fields(fields=="triangles") = [];
-
-        h = unglue(gce());
 
         if fecProperties.clip_state=="on" then
             set(h, "clip_box", fecProperties.clip_box)
@@ -749,12 +734,10 @@ function varargout = %_sodload(%__varnameList__)
         fields(1) = [];
 
         if textProperties.text_box_mode == "off" then
-            xstring(textProperties.data(1), textProperties.data(2), textProperties.text)
+            h = xstring(textProperties.data(1), textProperties.data(2), textProperties.text)
         else
-            xstringb(textProperties.data(1), textProperties.data(2), textProperties.text, textProperties.text_box(1), textProperties.text_box(2))
+            h = xstringb(textProperties.data(1), textProperties.data(2), textProperties.text, textProperties.text_box(1), textProperties.text_box(2))
         end
-
-        h = gce();
 
         if textProperties.clip_state=="on" then
             set(h, "clip_box", textProperties.clip_box)
@@ -819,11 +802,9 @@ function varargout = %_sodload(%__varnameList__)
         end
         fields(fields=="tics_direction") = [];
 
-        drawaxis(x=axisProperties.xtics_coord,y=axisProperties.ytics_coord,dir=axisdir);
+        h = drawaxis(x=axisProperties.xtics_coord,y=axisProperties.ytics_coord,dir=axisdir);
         fields(fields=="xtics_coord") = [];
         fields(fields=="ytics_coord") = [];
-
-        h=gce()
 
         if axisProperties.clip_state=="on" then
             set(h, "clip_box", axisProperties.clip_box)
