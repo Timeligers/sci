@@ -198,7 +198,8 @@ function varargout = polarplot(theta,rho,style,strf,leg,rect)
 
     initDrawingMode = gcf().immediate_drawing;
     gcf().immediate_drawing = "off";
-    execstr("curvesEntity = plot2d(x,y,"+strcat(opts,",")+")")
+    execstr("plot2d(x,y,"+strcat(opts,",")+")")
+    curvesEntity = gce();
     ax = gca();
     ax.margins = [0.09 0.09 0.12 0.09]
 

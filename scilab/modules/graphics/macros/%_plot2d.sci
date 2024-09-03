@@ -25,6 +25,7 @@ function varargout = %_plot2d()
         error(msprintf(gettext("%s: Wrong number of output argument(s): At most %d expected.\n"), "plot2d", 1));
     end
     hdl = plot2d(x, [sin(x),sin(2*x),sin(3*x)], style=[-1,-2,3], rect=[0,-2,2*%pi,2], axesflag=1);
+    pause
     if argn(1) == 1
         varargout(1) = hdl;
     end
