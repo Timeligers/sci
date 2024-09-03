@@ -24,7 +24,7 @@
         <title>Syntax</title>
         <synopsis>plot3d3(X,Y,Z [,vect,theta,alpha,leg,flag,ebox])
             plot3d3(X,Y,Z, &lt;opt_args&gt;)
-            h = plot3d3(...)
+            [hdl1, hdl2] = plot3d3(...)
         </synopsis>
     </refsynopsisdiv>
     <refsection>
@@ -228,10 +228,11 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term>h</term>
+                <term>hdl1, hdl2</term>
                 <listitem>
-                    <para>This optional output contains a handle to the created Plot3d or Fac3d entity. Use <literal>h</literal> to modify its properties
-                      For a list of properties, see <link linkend="surface_properties">surface_properties</link>.
+                    <para>These optional outputs are vectors of <literal>Polyline</literal> entities containing the two 
+                     sets of  entities for each isoparametric curve. Use them to eventually modify their properties
+                      For a list of properties, see <link linkend="polyline_properties">polyline_properties</link>.
                     </para>
                 </listitem>
             </varlistentry>
@@ -240,39 +241,41 @@
     <refsection>
         <title>Description</title>
         <para>
-            <literal>plot3d3</literal> performs a mesh plot of a surface defined by
-            rectangular facets. (X,Y,Z) are three matrices which describe a surface.
-            The surface is composed of four sided polygons.
-        </para>
-        <para>The X-coordinates of a facet are given by
-            X(i,j), X(i+1,j), X(i+1,j+1) and X(i,j+1). Similarly Y and Z matrices contain Y and Z-coordinates.
+            <literal>plot3d3</literal> performs a mesh plot of a surface defined by facets
+            X(i,j), X(i+1,j), X(i+1,j+1) and X(i,j+1) (similarly Y and Z matrices contain Y and Z-coordinates). However, unlike <literal>mesh</literal> which draws these facets
+            <literal>plot3d3</literal> draws two sets of isoparametric curves defined respectively by <literal>(X(i,:),Y(i,:),Z(i,:))</literal> and
+            by <literal>(X(:,j),Y(:,j),Z(:,j))</literal>.
         </para>
         <para>
             The <literal>vect</literal> vector is used when multiple surfaces are coded
             in the same (X,Y,Z) matrices. <literal>vect(j)</literal> gives the line at which
             the coding of the jth surface begins. See <literal>plot3d2</literal> for a full
-            description. As a mesh plot, the only available property you can edit is
-            the <literal>visible</literal> option (see <link linkend="axes_properties">axes_properties</link>).
+            description.
         </para>
     </refsection>
     <refsection>
-        <title>Examples</title>
+        <title>Examples</title>0
         <programlisting role="example"><![CDATA[
 u = linspace(-%pi/2,%pi/2,40);
 v = linspace(0,2*%pi,20);
 X = cos(u)'*cos(v);
 Y = cos(u)'*sin(v);
 Z = sin(u)'*ones(v);
-e=plot3d3(X,Y,Z);
-e.visible='off';
-e.visible='on'; // back to the mesh view
- ]]></programlisting>
+[h1,h2]=plot3d3(X,Y,Z);
+h1.foreground=color("red")
+h2.foreground=color("blue");
+h1.thickness=2;
+]]></programlisting>
         <scilab:image>u = linspace(-%pi/2,%pi/2,40);
+            u = linspace(-%pi/2,%pi/2,40);
             v = linspace(0,2*%pi,20);
             X = cos(u)'*cos(v);
             Y = cos(u)'*sin(v);
             Z = sin(u)'*ones(v);
-            plot3d3(X,Y,Z);
+            [h1,h2]=plot3d3(X,Y,Z);
+            h1.foreground=color("red")
+            h2.foreground=color("blue");
+            h1.thickness=2;
         </scilab:image>
 
     </refsection>
